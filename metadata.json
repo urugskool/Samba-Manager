@@ -1,0 +1,6 @@
+{
+  "name": "SambaFoot - O Brasfoot das Escolas de Samba",
+  "description": "Simulador e gerenciador de Escolas de Samba estilo Brasfoot com Grupo Especial, Série Ouro, 36 jurados em 9 quesitos, apuração em tempo real e sistema de acesso e rebaixamento.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

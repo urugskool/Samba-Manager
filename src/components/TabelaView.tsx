@@ -1,0 +1,465 @@
+import React, { useState } from 'react';
+import { School, DivisionId, YearHistory } from '../types/carnaval';
+import { QUESITOS, getSchoolConsolidatedStats } from '../data/carnavalData';
+import { Trophy, History, Shield, ArrowUp, ArrowDown, Star, ChevronDown, ChevronUp } from 'lucide-react';
+
+interface TabelaViewProps {
+  currentYear: number;
+  especialSchools: School[];
+  ouroSchools: School[];
+  prataSchools: School[];
+  bronzeSchools: School[];
+  userSchool: School | null;
+  history: YearHistory[];
+}
+
+export const TabelaView: React.FC<TabelaViewProps> = ({
+  currentYear,
+  especialSchools,
+  ouroSchools,
+  prataSchools,
+  bronzeSchools,
+  userSchool,
+  history
+}) => {
+  const [selectedDivision, setSelectedDivision] = useState<DivisionId>('especial');
+  const [activeTab, setActiveTab] = useState<'current' | 'history'>('current');
+  const [expandedSchoolId, setExpandedSchoolId] = useState<string | null>(null);
+
+  const lastHistory = history.length > 0 ? history[0] : null;
+
+  const getSchoolLastCarnavalResult = (school: School) => {
+    if (!lastHistory) {
+      return {
+        tier: school.division === 'especial' ? 1 : school.division === 'ouro' ? 2 : school.division === 'prata' ? 3 : 4,
+        rank: 99,
+        score: 0,
+        badgeText: 'Sem dados do carnaval anterior'
+      };
+    }
+
+    // 1. Check especialStandings
+    const esp = lastHistory.especialStandings?.find(
+      (s) => s.schoolId === school.id || s.schoolName.toLowerCase() === school.name.toLowerCase()
+    );
+    if (esp) {
+      return {
+        tier: 1,
+        rank: esp.rank,
+        score: esp.totalScore,
+        badgeText: esp.rank === 1
+          ? `🏆 Campeã do Grupo Especial ${lastHistory.year} (${esp.totalScore.toFixed(1)} pts)`
+          : esp.rank === 2
+          ? `🥈 Vice-Campeã do Especial ${lastHistory.year} (${esp.totalScore.toFixed(1)} pts)`
+          : esp.rank <= 6
+          ? `${esp.rank}º Lugar - G6 Especial ${lastHistory.year} (${esp.totalScore.toFixed(1)} pts)`
+          : esp.rank === 12
+          ? `⬇️ 12º Lugar Especial ${lastHistory.year} • Rebaixada (${esp.totalScore.toFixed(1)} pts)`
+          : `${esp.rank}º Lugar no Especial ${lastHistory.year} (${esp.totalScore.toFixed(1)} pts)`
+      };
+    }
+
+    // 2. Check ouroStandings
+    const ouro = lastHistory.ouroStandings?.find(
+      (s) => s.schoolId === school.id || s.schoolName.toLowerCase() === school.name.toLowerCase()
+    );
+    if (ouro) {
+      return {
+        tier: 2,
+        rank: ouro.rank,
+        score: ouro.totalScore,
+        badgeText: ouro.rank === 1
+          ? `⬆️ Campeã da Série Ouro ${lastHistory.year} • Acesso (${ouro.totalScore.toFixed(1)} pts)`
+          : ouro.rank === 2
+          ? `🥈 Vice-Campeã da Série Ouro ${lastHistory.year} (${ouro.totalScore.toFixed(1)} pts)`
+          : ouro.rank >= 16
+          ? `⬇️ ${ouro.rank}º Lugar Série Ouro ${lastHistory.year} • Rebaixada (${ouro.totalScore.toFixed(1)} pts)`
+          : `${ouro.rank}º Lugar na Série Ouro ${lastHistory.year} (${ouro.totalScore.toFixed(1)} pts)`
+      };
+    }
+
+    // 3. Check prataStandings
+    const prata = lastHistory.prataStandings?.find(
+      (s) => s.schoolId === school.id || s.schoolName.toLowerCase() === school.name.toLowerCase()
+    );
+    if (prata) {
+      return {
+        tier: 3,
+        rank: prata.rank,
+        score: prata.totalScore,
+        badgeText: prata.rank === 1
+          ? `⬆️ Campeã da Série Prata ${lastHistory.year} • Acesso (${prata.totalScore.toFixed(1)} pts)`
+          : prata.rank === 2
+          ? `🥈 Vice-Campeã da Série Prata ${lastHistory.year} (${prata.totalScore.toFixed(1)} pts)`
+          : prata.rank >= 24
+          ? `⬇️ ${prata.rank}º Lugar Série Prata ${lastHistory.year} • Rebaixada (${prata.totalScore.toFixed(1)} pts)`
+          : `${prata.rank}º Lugar na Série Prata ${lastHistory.year} (${prata.totalScore.toFixed(1)} pts)`
+      };
+    }
+
+    // 4. Check bronzeStandings
+    const bronze = lastHistory.bronzeStandings?.find(
+      (s) => s.schoolId === school.id || s.schoolName.toLowerCase() === school.name.toLowerCase()
+    );
+    if (bronze) {
+      return {
+        tier: 4,
+        rank: bronze.rank,
+        score: bronze.totalScore,
+        badgeText: bronze.rank === 1
+          ? `🏆 Campeã da Série Bronze ${lastHistory.year} • Acesso (${bronze.totalScore.toFixed(1)} pts)`
+          : bronze.rank === 2
+          ? `🥈 Vice-Campeã da Série Bronze ${lastHistory.year} • Acesso (${bronze.totalScore.toFixed(1)} pts)`
+          : bronze.rank > (lastHistory.bronzeStandings ? lastHistory.bronzeStandings.length - 2 : 20)
+          ? `⬇️ ${bronze.rank}º Lugar Série Bronze ${lastHistory.year} • Zona de Rebaixamento (${bronze.totalScore.toFixed(1)} pts)`
+          : `${bronze.rank}º Lugar na Série Bronze ${lastHistory.year} (${bronze.totalScore.toFixed(1)} pts)`
+      };
+    }
+
+    return {
+      tier: school.division === 'especial' ? 1 : school.division === 'ouro' ? 2 : school.division === 'prata' ? 3 : 4,
+      rank: 99,
+      score: 0,
+      badgeText: `Participante do Carnaval ${lastHistory.year}`
+    };
+  };
+
+  const rawSchools =
+    selectedDivision === 'especial'
+      ? especialSchools
+      : selectedDivision === 'ouro'
+      ? ouroSchools
+      : selectedDivision === 'prata'
+      ? prataSchools
+      : bronzeSchools;
+
+  // Sort schools in order according to the result of the last carnival
+  const schools = [...rawSchools].sort((a, b) => {
+    const resA = getSchoolLastCarnavalResult(a);
+    const resB = getSchoolLastCarnavalResult(b);
+
+    if (selectedDivision === 'especial') {
+      if (resA.tier !== resB.tier) return resA.tier - resB.tier;
+      return resA.rank - resB.rank;
+    } else if (selectedDivision === 'ouro') {
+      if (resA.tier !== resB.tier) return resA.tier - resB.tier;
+      return resA.rank - resB.rank;
+    } else if (selectedDivision === 'prata') {
+      if (resA.tier !== resB.tier) return resA.tier - resB.tier;
+      return resA.rank - resB.rank;
+    } else {
+      // Série Bronze
+      if (resA.tier !== resB.tier) return resA.tier - resB.tier;
+      return resA.rank - resB.rank;
+    }
+  });
+
+  return (
+    <div className="space-y-6 pb-16 animate-fadeIn">
+      {/* Header */}
+      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 className="text-2xl font-black text-white flex items-center gap-2">
+            <Trophy className="w-6 h-6 text-amber-400" />
+            <span>Tabela Geral de Agremiações & Histórico</span>
+          </h2>
+          <p className="text-xs text-slate-400">
+            Acompanhe a divisão atual, atributos dos quesitos e o hall de campeãs de anos anteriores.
+          </p>
+        </div>
+
+        {/* View Switcher: Current Table vs Historical Record */}
+        <div className="flex items-center gap-2 bg-slate-950 p-1.5 rounded-xl border border-slate-800">
+          <button
+            onClick={() => setActiveTab('current')}
+            className={`px-4 py-2 rounded-lg text-xs font-bold transition ${
+              activeTab === 'current'
+                ? 'bg-amber-500 text-slate-950 font-black'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            Tabela Atual {currentYear}
+          </button>
+          <button
+            onClick={() => setActiveTab('history')}
+            className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
+              activeTab === 'history'
+                ? 'bg-amber-500 text-slate-950 font-black'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <History className="w-3.5 h-3.5" />
+            <span>Galeria de Campeãs ({history.length})</span>
+          </button>
+        </div>
+      </div>
+
+      {activeTab === 'current' ? (
+        <div className="space-y-4">
+          {/* Division Selector */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                onClick={() => setSelectedDivision('especial')}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
+                  selectedDivision === 'especial'
+                    ? 'bg-amber-500 text-slate-950 font-black'
+                    : 'bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800'
+                }`}
+              >
+                Grupo Especial ({especialSchools.length} Agremiações)
+              </button>
+              <button
+                onClick={() => setSelectedDivision('ouro')}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
+                  selectedDivision === 'ouro'
+                    ? 'bg-blue-500 text-white font-black'
+                    : 'bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800'
+                }`}
+              >
+                Série Ouro ({ouroSchools.length} Agremiações)
+              </button>
+              <button
+                onClick={() => setSelectedDivision('prata')}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
+                  selectedDivision === 'prata'
+                    ? 'bg-slate-300 text-slate-950 font-black'
+                    : 'bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800'
+                }`}
+              >
+                Série Prata ({prataSchools.length} Agremiações)
+              </button>
+              <button
+                onClick={() => setSelectedDivision('bronze')}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
+                  selectedDivision === 'bronze'
+                    ? 'bg-amber-700 text-amber-100 font-black ring-1 ring-amber-500'
+                    : 'bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800'
+                }`}
+              >
+                Série Bronze ({bronzeSchools.length} Agremiações)
+              </button>
+            </div>
+
+            <div className="text-xs text-slate-400 hidden lg:block">
+              {selectedDivision === 'especial'
+                ? 'Regra: Campeã (1º) | Desfile Campeãs (1º ao 6º) | Rebaixamento (12º colocado)'
+                : selectedDivision === 'ouro'
+                ? 'Regra: Acesso (1º colocado sobe ao Especial) | Rebaixamento (2 últimos caem p/ Prata - Ajuste até 14 escolas)'
+                : selectedDivision === 'prata'
+                ? 'Regra: Acesso (Campeã e Vice sobem para Série Ouro) | Rebaixamento (2 últimas caem para Série Bronze)'
+                : 'Regra: Acesso (Campeã e Vice sobem para Série Prata) | Zona de Risco (2 últimas colocadas)'}
+            </div>
+          </div>
+
+          {/* School Roster Cards with Accordion Details */}
+          <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-xl space-y-3">
+            {schools.map((school, index) => {
+              const isUser = school.id === userSchool?.id;
+              const isExpanded = expandedSchoolId === school.id;
+              const stats = getSchoolConsolidatedStats(school);
+
+              const lastCarnavalInfo = getSchoolLastCarnavalResult(school);
+
+              return (
+                <div
+                  key={school.id}
+                  className={`rounded-xl border transition-all ${
+                    isUser
+                      ? 'bg-slate-800/80 border-amber-500/50 shadow-md'
+                      : 'bg-slate-950/60 border-slate-800/80 hover:border-slate-700'
+                  }`}
+                >
+                  <div
+                    onClick={() => setExpandedSchoolId(isExpanded ? null : school.id)}
+                    className="p-4 flex items-center justify-between gap-3 cursor-pointer"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-7 h-7 rounded-lg bg-slate-800 flex items-center justify-center font-mono font-bold text-xs text-slate-300 flex-shrink-0">
+                        {index + 1}
+                      </div>
+
+                      <div
+                        className="w-4 h-4 rounded-full border flex-shrink-0"
+                        style={{
+                          backgroundColor: school.colors.primary,
+                          borderColor: school.colors.border || '#fff'
+                        }}
+                      />
+
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <h4 className="font-bold text-white text-sm truncate">
+                            {school.name}
+                          </h4>
+                          {isUser && (
+                            <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-amber-500 text-slate-950">
+                              Sua Escola
+                            </span>
+                          )}
+                        </div>
+                        <div className="text-[11px] text-slate-400 truncate">
+                          "{school.nickname}" • Bairro: {school.neighborhood}
+                        </div>
+                        <div className="mt-1 flex items-center gap-1.5 flex-wrap">
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-800 text-amber-300 border border-slate-700">
+                            {lastCarnavalInfo.badgeText}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-4 text-xs">
+                      <div className="text-right hidden sm:block">
+                        <div className="text-[10px] text-slate-400 uppercase font-semibold">Títulos & Conquistas</div>
+                        <div className="font-bold text-amber-400">
+                          {stats.totalEspecialTitles} Esp ({stats.totalEspecialVices} vices) • {stats.totalOuroTitles} Ouro ({stats.totalOuroVices} vices)
+                          {stats.totalPrataTitles > 0 ? ` • ${stats.totalPrataTitles} Prata` : ''}
+                        </div>
+                        <div className="text-[10px] text-slate-300 font-semibold mt-0.5">
+                          Total Acumulado: {stats.grandTotalTitles} Título{stats.grandTotalTitles === 1 ? '' : 's'} • {stats.grandTotalConquests} Conquista{stats.grandTotalConquests === 1 ? '' : 's'}
+                        </div>
+                      </div>
+
+                      <div className="text-slate-400">
+                        {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Expanded Quesitos Breakdown */}
+                  {isExpanded && (
+                    <div className="px-4 pb-4 pt-2 border-t border-slate-800/80 space-y-3 text-xs animate-fadeIn">
+                      <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+                        Atributos Técnicos da Escola (Pontuação Base de Desfile)
+                      </div>
+
+                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
+                        {QUESITOS.map((q) => (
+                          <div
+                            key={q.id}
+                            className="p-2.5 rounded-lg bg-slate-900 border border-slate-800"
+                          >
+                            <div className="text-[10px] text-slate-400 truncate">{q.name}</div>
+                            <div className="text-sm font-bold text-amber-400 font-mono">
+                              {school.attributes[q.id]} pts
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="pt-2 flex flex-wrap items-center justify-between text-slate-400 text-xs gap-2">
+                        <div>
+                          Carnavalesco: <strong className="text-white">{school.staff.carnavalesco.name}</strong> • Mestre: <strong className="text-white">{school.staff.mestreBateria.name}</strong>
+                        </div>
+                        <div>
+                          Orçamento Anual: <strong className="text-emerald-400 font-mono">R$ {school.budget.toLocaleString('pt-BR')}</strong>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ) : (
+        /* History Hall of Fame */
+        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
+          <div className="flex items-center gap-2 pb-3 border-b border-slate-800">
+            <Trophy className="w-5 h-5 text-amber-400" />
+            <h3 className="text-lg font-bold text-white">
+              Histórico Temporada a Temporada (Acessos, Rebaixamentos e Campeãs)
+            </h3>
+          </div>
+
+          {history.length === 0 ? (
+            <div className="text-center py-12 text-slate-500 text-xs">
+              Nenhuma temporada concluída ainda! Conclua a primeira apuração do Carnaval {currentYear}
+              para inaugurar o livro de ouro da LIESA!
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {history.map((record) => (
+                <div
+                  key={record.year}
+                  className="p-5 rounded-xl bg-slate-950/70 border border-slate-800 space-y-4"
+                >
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                    <span className="text-base font-black text-amber-400 font-mono">
+                      CARNAVAL {record.year}
+                    </span>
+                    <span className="text-xs text-slate-400">Resultados Oficiais Homologados</span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {/* Especial Summary */}
+                    <div className="p-3.5 rounded-lg bg-slate-900/60 border border-slate-800 text-xs space-y-2">
+                      <div className="font-bold text-amber-300 uppercase tracking-wider flex items-center gap-1.5">
+                        <Trophy className="w-4 h-4 text-amber-400" />
+                        <span>Grupo Especial {record.year}</span>
+                      </div>
+                      <div>
+                        Campeã: <strong className="text-white text-sm">{record.especialChampion}</strong>
+                      </div>
+                      <div className="text-rose-400">
+                        Rebaixada p/ Série Ouro: <strong>{record.especialRelegated.join(', ') || 'Nenhuma'}</strong>
+                      </div>
+                    </div>
+
+                    {/* Série Ouro Summary */}
+                    <div className="p-3.5 rounded-lg bg-slate-900/60 border border-slate-800 text-xs space-y-2">
+                      <div className="font-bold text-blue-300 uppercase tracking-wider flex items-center gap-1.5">
+                        <Star className="w-4 h-4 text-blue-400" />
+                        <span>Série Ouro {record.year}</span>
+                      </div>
+                      <div>
+                        Campeã & Acesso: <strong className="text-emerald-400 text-sm">{record.ouroChampion}</strong>
+                      </div>
+                      <div className="text-rose-400">
+                        Rebaixadas p/ Série Prata: <strong>{record.ouroRelegated.join(', ') || 'Nenhuma'}</strong>
+                      </div>
+                    </div>
+
+                    {/* Série Prata Summary */}
+                    <div className="p-3.5 rounded-lg bg-slate-900/60 border border-slate-800 text-xs space-y-2">
+                      <div className="font-bold text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
+                        <Trophy className="w-4 h-4 text-slate-400" />
+                        <span>Série Prata {record.year}</span>
+                      </div>
+                      <div>
+                        Campeã da Prata: <strong className="text-white text-sm">{record.prataChampion || 'Desconhecida'}</strong>
+                      </div>
+                      <div className="text-emerald-400">
+                        Promovidas p/ Série Ouro: <strong>{record.prataPromoted?.join(', ') || record.prataChampion || 'Nenhuma'}</strong>
+                      </div>
+                      {record.prataRelegated && record.prataRelegated.length > 0 && (
+                        <div className="text-rose-400">
+                          Rebaixadas p/ Bronze: <strong>{record.prataRelegated.join(', ')}</strong>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Série Bronze Summary */}
+                    <div className="p-3.5 rounded-lg bg-slate-900/60 border border-slate-800 text-xs space-y-2">
+                      <div className="font-bold text-amber-500 uppercase tracking-wider flex items-center gap-1.5">
+                        <Trophy className="w-4 h-4 text-amber-600" />
+                        <span>Série Bronze {record.year}</span>
+                      </div>
+                      <div>
+                        Campeã da Bronze: <strong className="text-amber-300 text-sm">{record.bronzeChampion || 'Desconhecida'}</strong>
+                      </div>
+                      <div className="text-emerald-400">
+                        Promovidas p/ Prata: <strong>{record.bronzePromoted?.join(', ') || record.bronzeChampion || 'Nenhuma'}</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
