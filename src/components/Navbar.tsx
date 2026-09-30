@@ -47,7 +47,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   hasSeasonResults,
   allParadesCompleted = false,
   completedParadesCount = 0,
-  totalSchoolsCount = 75,
+  totalSchoolsCount = 80,
   onOpenStartScreen
 }) => {
   const [showResetConfirm, setShowResetConfirm] = useState<boolean>(false);
@@ -62,12 +62,12 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'financas', label: 'Finanças', badge: null },
     {
       id: 'desfile',
-      label: 'Desfile Sapucaí',
+      label: 'Desfiles',
       badge: allParadesCompleted ? 'Concluído' : completedParadesCount > 0 ? `${completedParadesCount}/${totalSchoolsCount}` : 'Ao Vivo'
     },
     {
       id: 'apuracao',
-      label: 'Apuração 36 Jurados',
+      label: 'Apuração',
       badge: allParadesCompleted ? 'Liberado' : 'Aguardando Desfiles'
     }
   ];
@@ -91,7 +91,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </span>
             </div>
             <p className="text-[10px] text-slate-400 hidden sm:block">
-              O Gerenciador do Carnaval Carioca • 9 Quesitos • 36 Jurados
+              O Gerenciador do Carnaval Carioca • 9 Quesitos • Menor Nota Descartada
             </p>
           </div>
         </div>
@@ -227,7 +227,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 Todo o progresso das temporadas será apagado e você retornará ao início com um novo save limpo.
               </p>
               <p className="text-amber-300">
-                O jogo voltará para o <strong>Carnaval 2027</strong> com todas as <strong>{totalSchoolsCount} agremiações</strong> configuradas em suas 4 divisões originais (Especial, Ouro, Prata e Bronze).
+                O jogo voltará para o <strong>Carnaval 2027</strong> com todas as <strong>{totalSchoolsCount} agremiações</strong> configuradas em suas 5 divisões originais (Especial, Ouro, Prata, Bronze e Avaliação).
               </p>
             </div>
 

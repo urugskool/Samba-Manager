@@ -38,16 +38,19 @@ interface ApuracaoViewProps {
   ouroSchools: School[];
   prataSchools: School[];
   bronzeSchools: School[];
+  avaliacaoSchools?: School[];
   especialScores: SchoolParadeScores[];
   ouroScores: SchoolParadeScores[];
   prataScores: SchoolParadeScores[];
   bronzeScores: SchoolParadeScores[];
+  avaliacaoScores?: SchoolParadeScores[];
   userSchool: School | null;
   onAdvanceYear: (
     especialResult: DivisionResult,
     ouroResult: DivisionResult,
     prataResult: DivisionResult,
-    bronzeResult: DivisionResult
+    bronzeResult: DivisionResult,
+    avaliacaoResult?: DivisionResult
   ) => void;
   onSimulateNewScores: () => void;
   allParadesCompleted?: boolean;
@@ -63,10 +66,12 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
   ouroSchools,
   prataSchools,
   bronzeSchools,
+  avaliacaoSchools = [],
   especialScores,
   ouroScores,
   prataScores,
   bronzeScores,
+  avaliacaoScores = [],
   userSchool,
   onAdvanceYear,
   onSimulateNewScores,
@@ -97,8 +102,21 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
     especial: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false },
     ouro: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false },
     prata: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false },
-    bronze: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false }
+    bronze: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false },
+    avaliacao: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false }
   });
+
+  // Reset apuração states whenever currentYear advances
+  useEffect(() => {
+    setDivisionStates({
+      especial: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false },
+      ouro: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false },
+      prata: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false },
+      bronze: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false },
+      avaliacao: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false }
+    });
+    setIsPlaying(false);
+  }, [currentYear]);
 
   const currentDivState = divisionStates[selectedDivision];
   const hasStarted = currentDivState.hasStarted;
@@ -111,19 +129,22 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
     divisionStates.especial.isCompleted &&
     divisionStates.ouro.isCompleted &&
     divisionStates.prata.isCompleted &&
-    divisionStates.bronze.isCompleted;
+    divisionStates.bronze.isCompleted &&
+    divisionStates.avaliacao.isCompleted;
 
   const completedCount =
     (divisionStates.especial.isCompleted ? 1 : 0) +
     (divisionStates.ouro.isCompleted ? 1 : 0) +
     (divisionStates.prata.isCompleted ? 1 : 0) +
-    (divisionStates.bronze.isCompleted ? 1 : 0);
+    (divisionStates.bronze.isCompleted ? 1 : 0) +
+    (divisionStates.avaliacao.isCompleted ? 1 : 0);
 
   const pendingDivisions: { id: DivisionId; name: string }[] = [];
   if (!divisionStates.especial.isCompleted) pendingDivisions.push({ id: 'especial', name: 'Grupo Especial' });
   if (!divisionStates.ouro.isCompleted) pendingDivisions.push({ id: 'ouro', name: 'Série Ouro' });
   if (!divisionStates.prata.isCompleted) pendingDivisions.push({ id: 'prata', name: 'Série Prata' });
   if (!divisionStates.bronze.isCompleted) pendingDivisions.push({ id: 'bronze', name: 'Série Bronze' });
+  if (!divisionStates.avaliacao.isCompleted) pendingDivisions.push({ id: 'avaliacao', name: 'Grupo de Avaliação' });
 
   const schools =
     selectedDivision === 'especial'
@@ -132,7 +153,9 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
       ? ouroSchools
       : selectedDivision === 'prata'
       ? prataSchools
-      : bronzeSchools;
+      : selectedDivision === 'bronze'
+      ? bronzeSchools
+      : avaliacaoSchools;
 
   const paradeScores =
     selectedDivision === 'especial'
@@ -141,7 +164,9 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
       ? ouroScores
       : selectedDivision === 'prata'
       ? prataScores
-      : bronzeScores;
+      : selectedDivision === 'bronze'
+      ? bronzeScores
+      : avaliacaoScores;
 
   // Real-time standings calculation (strictly respects hasStarted and currentSchoolIdx)
   const standings = SimulationEngine.calculateStandings(
@@ -230,11 +255,13 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
       if (schoolScoreData && nextSchool) {
         const qScores = schoolScoreData.scoresByQuesito[currentQuesito.id];
         const scoreValue = qScores[currentJudgeIdx];
+        const discardedScore = currentJudgeIdx === 3 ? Math.min(...qScores) : undefined;
         soundService.announceScore(
           nextSchool.shortName,
           currentQuesito.name,
           currentJudgeIdx + 1,
-          scoreValue
+          scoreValue,
+          discardedScore
         );
       }
     } else {
@@ -248,11 +275,13 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
         const schoolScoreData = paradeScores.find((s) => s.schoolId === firstSchool?.id);
         if (schoolScoreData && firstSchool) {
           const qScores = schoolScoreData.scoresByQuesito[currentQuesito.id];
+          const discardedScore = nextJudgeIdx === 3 ? Math.min(...qScores) : undefined;
           soundService.announceScore(
             firstSchool.shortName,
             currentQuesito.name,
             nextJudgeIdx + 1,
-            qScores[nextJudgeIdx]
+            qScores[nextJudgeIdx],
+            discardedScore
           );
         }
       } else {
@@ -363,7 +392,8 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
       especial: { hasStarted: true, quesitoIdx: 8, judgeIdx: 3, schoolIdx: especialSchools.length - 1, isCompleted: true },
       ouro: { hasStarted: true, quesitoIdx: 8, judgeIdx: 3, schoolIdx: ouroSchools.length - 1, isCompleted: true },
       prata: { hasStarted: true, quesitoIdx: 8, judgeIdx: 3, schoolIdx: prataSchools.length - 1, isCompleted: true },
-      bronze: { hasStarted: true, quesitoIdx: 8, judgeIdx: 3, schoolIdx: bronzeSchools.length - 1, isCompleted: true }
+      bronze: { hasStarted: true, quesitoIdx: 8, judgeIdx: 3, schoolIdx: bronzeSchools.length - 1, isCompleted: true },
+      avaliacao: { hasStarted: true, quesitoIdx: 8, judgeIdx: 3, schoolIdx: Math.max(0, avaliacaoSchools.length - 1), isCompleted: true }
     });
     setIsPlaying(false);
     soundService.playChampionFanfare();
@@ -394,24 +424,30 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
   };
 
   const handleAdvanceYearClick = () => {
-    // Strictly prevent skipping before all groups are completed
+    // If some groups are not yet completed, automatically finish them so the user is never blocked!
     if (!allGroupsCompleted) {
-      return;
+      handleInstantFinishAll();
     }
 
-    // Calculate final results for all 4 divisions
+    const safeEspScores = especialScores.length > 0 ? especialScores : SimulationEngine.simulateDivisionParades(especialSchools);
+    const safeOuroScores = ouroScores.length > 0 ? ouroScores : SimulationEngine.simulateDivisionParades(ouroSchools);
+    const safePrataScores = prataScores.length > 0 ? prataScores : SimulationEngine.simulateDivisionParades(prataSchools);
+    const safeBronzeScores = bronzeScores.length > 0 ? bronzeScores : SimulationEngine.simulateDivisionParades(bronzeSchools);
+    const safeAvaScores = avaliacaoScores.length > 0 ? avaliacaoScores : SimulationEngine.simulateDivisionParades(avaliacaoSchools);
+
+    // Calculate final results for all 5 divisions
     const espResult = SimulationEngine.finalizeSeasonDivision(
       'especial',
       currentYear,
       especialSchools,
-      especialScores
+      safeEspScores
     );
 
     const ouroResult = SimulationEngine.finalizeSeasonDivision(
       'ouro',
       currentYear,
       ouroSchools,
-      ouroScores,
+      safeOuroScores,
       ouroSchools.length
     );
 
@@ -419,19 +455,32 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
       'prata',
       currentYear,
       prataSchools,
-      prataScores,
-      ouroSchools.length
+      safePrataScores,
+      ouroSchools.length,
+      prataSchools.length
     );
 
     const bronzeResult = SimulationEngine.finalizeSeasonDivision(
       'bronze',
       currentYear,
       bronzeSchools,
-      bronzeScores,
-      0
+      safeBronzeScores,
+      ouroSchools.length,
+      prataSchools.length,
+      bronzeSchools.length
     );
 
-    onAdvanceYear(espResult, ouroResult, prataResult, bronzeResult);
+    const avaResult = SimulationEngine.finalizeSeasonDivision(
+      'avaliacao',
+      currentYear,
+      avaliacaoSchools,
+      safeAvaScores,
+      ouroSchools.length,
+      prataSchools.length,
+      bronzeSchools.length
+    );
+
+    onAdvanceYear(espResult, ouroResult, prataResult, bronzeResult, avaResult);
   };
 
   // Find current reading school (only active after apuração starts)
@@ -508,10 +557,10 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
             <span className="text-xs text-slate-400">Carnaval {currentYear}</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-black text-white mt-1">
-            Leitura das Notas dos 36 Jurados
+            Apuração Oficial das Notas
           </h2>
           <p className="text-xs text-slate-400">
-            9 quesitos oficiais com 4 jurados cada. Soma de todos os quesitos define a campeã, acesso e rebaixamento.
+            9 quesitos oficiais com 4 jurados cada. Regulamento oficial: a menor nota de cada quesito é descartada (somam-se as 3 maiores notas, total máximo de 270,0 pontos).
           </p>
         </div>
 
@@ -628,6 +677,34 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
                 : 'Em leitura'}
             </span>
           </button>
+
+          <button
+            onClick={() => handleSelectDivision('avaliacao')}
+            className={`px-3 sm:px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 ${
+              selectedDivision === 'avaliacao'
+                ? 'bg-purple-600 text-white shadow-md shadow-purple-600/30 font-black ring-1 ring-purple-400'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <span>Grupo de Avaliação</span>
+            <span
+              className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                divisionStates.avaliacao.isCompleted
+                  ? 'bg-emerald-500 text-slate-950 ring-1 ring-emerald-400'
+                  : !divisionStates.avaliacao.hasStarted
+                  ? selectedDivision === 'avaliacao'
+                    ? 'bg-purple-900/60 text-purple-200'
+                    : 'bg-slate-900 text-slate-400'
+                  : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+              }`}
+            >
+              {divisionStates.avaliacao.isCompleted
+                ? '✓ Apurado'
+                : !divisionStates.avaliacao.hasStarted
+                ? `${avaliacaoSchools.length} escolas`
+                : 'Em leitura'}
+            </span>
+          </button>
         </div>
       </div>
 
@@ -664,35 +741,79 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
           </div>
 
           {/* School Envelope Announcement Card */}
-          <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-4 min-w-[260px] flex items-center justify-between gap-4 shadow-inner">
-            <div className="space-y-1">
-              <div className="text-[10px] text-slate-400 uppercase font-semibold">
-                {hasStarted ? 'Lendo Envelope de' : 'Status da Mesa'}
+          <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-4 min-w-[280px] shadow-inner space-y-3">
+            <div className="flex items-center justify-between gap-4">
+              <div className="space-y-1">
+                <div className="text-[10px] text-slate-400 uppercase font-semibold">
+                  {hasStarted ? 'Lendo Envelope de' : 'Status da Mesa'}
+                </div>
+                <div className="text-lg font-black text-white flex items-center gap-2">
+                  <span>{hasStarted ? (readingSchool?.name || 'Aguardando...') : 'Envelopes Lacrados'}</span>
+                </div>
+                <div className="text-xs text-slate-400">
+                  {hasStarted ? `Jurado nº ${currentJudgeIdx + 1}` : 'Aguardando Início da Apuração'}
+                </div>
               </div>
-              <div className="text-lg font-black text-white flex items-center gap-2">
-                <span>{hasStarted ? (readingSchool?.name || 'Aguardando...') : 'Envelopes Lacrados'}</span>
-              </div>
-              <div className="text-xs text-slate-400">
-                {hasStarted ? `Jurado nº ${currentJudgeIdx + 1}` : 'Aguardando Início da Apuração'}
+
+              <div className="text-center pl-3 border-l border-slate-800">
+                <div className="text-[10px] text-slate-400 uppercase font-semibold">Nota</div>
+                <div
+                  className={`text-3xl font-black font-mono transition-transform duration-200 scale-105 ${
+                    currentRevealedScore === null
+                      ? 'text-slate-600'
+                      : currentRevealedScore >= 10.0
+                      ? 'text-amber-400'
+                      : currentRevealedScore >= 9.9
+                      ? 'text-emerald-400'
+                      : 'text-rose-400'
+                  }`}
+                >
+                  {currentRevealedScore !== null ? currentRevealedScore.toFixed(1) : '---'}
+                </div>
               </div>
             </div>
 
-            <div className="text-center pl-3 border-l border-slate-800">
-              <div className="text-[10px] text-slate-400 uppercase font-semibold">Nota</div>
-              <div
-                className={`text-3xl font-black font-mono transition-transform duration-200 scale-105 ${
-                  currentRevealedScore === null
-                    ? 'text-slate-600'
-                    : currentRevealedScore >= 10.0
-                    ? 'text-amber-400'
-                    : currentRevealedScore >= 9.9
-                    ? 'text-emerald-400'
-                    : 'text-rose-400'
-                }`}
-              >
-                {currentRevealedScore !== null ? currentRevealedScore.toFixed(1) : '---'}
+            {hasStarted && readingScores && (
+              <div className="pt-2 border-t border-slate-800/80 flex flex-wrap items-center justify-between text-xs gap-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[10px] text-slate-400 font-semibold mr-1">Jurados:</span>
+                  {readingScores.scoresByQuesito[currentQuesito.id].map((score, jIdx) => {
+                    const isRevealed = jIdx <= currentJudgeIdx;
+                    const allScores = readingScores.scoresByQuesito[currentQuesito.id];
+                    const minScore = Math.min(...allScores);
+                    const minIdx = allScores.indexOf(minScore);
+                    const isDiscarded = currentJudgeIdx === 3 && jIdx === minIdx;
+
+                    return (
+                      <span
+                        key={jIdx}
+                        className={`px-1.5 py-0.5 rounded text-[11px] font-mono font-bold transition-all ${
+                          !isRevealed
+                            ? 'bg-slate-800/50 text-slate-600 border border-slate-800'
+                            : isDiscarded
+                            ? 'bg-rose-950/70 text-rose-400 line-through border border-rose-500/50 shadow'
+                            : 'bg-slate-800 text-amber-300 border border-slate-700'
+                        }`}
+                        title={
+                          !isRevealed
+                            ? `Jurado ${jIdx + 1} (Aguardando)`
+                            : isDiscarded
+                            ? `Jurado ${jIdx + 1}: ${score.toFixed(1)} (Menor nota descartada)`
+                            : `Jurado ${jIdx + 1}: ${score.toFixed(1)} (Nota válida)`
+                        }
+                      >
+                        {isRevealed ? score.toFixed(1) : '—'}
+                      </span>
+                    );
+                  })}
+                </div>
+                {currentJudgeIdx === 3 && (
+                  <span className="text-[10px] text-rose-400 font-extrabold bg-rose-500/10 px-2 py-0.5 rounded border border-rose-500/25">
+                    Menor nota descartada!
+                  </span>
+                )}
               </div>
-            </div>
+            )}
           </div>
         </div>
 
@@ -752,17 +873,17 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
               title="Apurar instantaneamente o grupo selecionado"
             >
               <FastForward className="w-4 h-4" />
-              <span>Resultado Imediato ({selectedDivision === 'especial' ? 'Especial' : selectedDivision === 'ouro' ? 'Ouro' : 'Prata'})</span>
+              <span>Resultado Imediato ({selectedDivision === 'especial' ? 'Especial' : selectedDivision === 'ouro' ? 'Ouro' : selectedDivision === 'prata' ? 'Prata' : selectedDivision === 'bronze' ? 'Bronze' : 'Avaliação'})</span>
             </button>
 
             {!allGroupsCompleted && (
               <button
                 onClick={handleInstantFinishAll}
                 className="px-3.5 py-2.5 rounded-xl bg-amber-500/20 border border-amber-500/40 hover:bg-amber-500/30 text-amber-300 text-xs font-black transition flex items-center gap-1.5 shadow"
-                title="Apurar todos os 3 grupos (Especial, Ouro e Prata) de uma só vez"
+                title="Apurar todos os 5 grupos (Especial, Ouro, Prata, Bronze e Avaliação) de uma só vez"
               >
                 <Zap className="w-4 h-4 text-amber-400" />
-                <span>Apurar Todos os Grupos (3 em 1)</span>
+                <span>Apurar Todos os Grupos (5 em 1)</span>
               </button>
             )}
 
@@ -804,7 +925,7 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
               }`}
             >
               <Table className="w-3.5 h-3.5" />
-              <span>{showMatrix ? 'Ocultar Matriz 36' : 'Ver Matriz Completa'}</span>
+              <span>{showMatrix ? 'Ocultar Matriz' : 'Ver Matriz de Notas'}</span>
             </button>
           </div>
         </div>
@@ -817,11 +938,11 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
             <div className="flex items-center gap-2">
               <Table className="w-5 h-5 text-amber-400" />
               <h3 className="text-lg font-bold text-white">
-                Matriz Completa de Notas: 9 Quesitos x 4 Jurados (36 Avaliações)
+                Matriz Completa de Notas: 9 Quesitos x 4 Jurados (Menor Nota Descartada)
               </h3>
             </div>
             <span className="text-xs text-slate-400">
-              Total Máximo Possível: 360,0 pts
+              Total Máximo: 270,0 pts (3 notas válidas por quesito)
             </span>
           </div>
 
@@ -852,21 +973,48 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
                     </td>
                     {QUESITOS.map((q) => {
                       const qSum = item.quesitoSums[q.id] || 0;
+                      const scores = item.scores.scoresByQuesito[q.id];
+                      const minScore = Math.min(...scores);
+                      const minIdx = scores.indexOf(minScore);
+                      const qIdx = QUESITOS.findIndex((x) => x.id === q.id);
+                      const isQuesitoCompleted = qIdx < currentQuesitoIdx || isCompleted;
+
                       return (
                         <td key={q.id} className="py-2 px-2 text-center font-mono">
-                          <span
+                          <div
                             className={
                               !hasStarted || qSum === 0
                                 ? 'text-slate-600'
-                                : qSum >= 40.0
+                                : qSum >= 30.0
                                 ? 'text-amber-400 font-bold'
-                                : qSum >= 39.8
+                                : qSum >= 29.8
                                 ? 'text-emerald-400'
                                 : 'text-slate-300'
                             }
                           >
                             {!hasStarted || qSum === 0 ? '-' : qSum.toFixed(1)}
-                          </span>
+                          </div>
+                          {hasStarted && isQuesitoCompleted && (
+                            <div
+                              className="flex items-center justify-center gap-0.5 text-[8px] mt-0.5"
+                              title={`Notas: ${scores
+                                .map((s, idx) => (idx === minIdx ? `${s.toFixed(1)} (desc.)` : s.toFixed(1)))
+                                .join(' | ')}`}
+                            >
+                              {scores.map((sc, scIdx) => (
+                                <span
+                                  key={scIdx}
+                                  className={
+                                    scIdx === minIdx
+                                      ? 'text-rose-400 line-through opacity-70 font-semibold'
+                                      : 'text-slate-400'
+                                  }
+                                >
+                                  {sc.toFixed(1)}
+                                </span>
+                              ))}
+                            </div>
+                          )}
                         </td>
                       );
                     })}
@@ -892,7 +1040,11 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
                 ? 'Grupo Especial'
                 : selectedDivision === 'ouro'
                 ? 'Série Ouro'
-                : 'Série Prata'}
+                : selectedDivision === 'prata'
+                ? 'Série Prata'
+                : selectedDivision === 'bronze'
+                ? 'Série Bronze'
+                : 'Grupo de Avaliação'}
             </h3>
           </div>
 
@@ -908,6 +1060,9 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
                 <span className="flex items-center gap-1">
                   <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Rebaixamento p/ Série Ouro (12º)
                 </span>
+                <span className="text-[11px] text-amber-300">
+                  • Grupo Especial {currentYear}: {especialSchools.length} escolas
+                </span>
               </>
             )}
             {selectedDivision === 'ouro' && (
@@ -918,17 +1073,47 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
                 <span className="flex items-center gap-1">
                   <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Rebaixamento p/ Série Prata (Últimos 2)
                 </span>
+                <span className="text-[11px] text-amber-300">
+                  • Série Ouro {currentYear}: {ouroSchools.length} escolas {ouroSchools.length > 14 ? '(ajustando até 14)' : '(estabilizada em 14)'}
+                </span>
               </>
             )}
             {selectedDivision === 'prata' && (
               <>
                 <span className="flex items-center gap-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" /> Acesso à Série Ouro (1º colocado{ouroSchools.length <= 14 ? ' e 2º colocado' : ''})
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" /> Acesso à Série Ouro ({ouroSchools.length <= 14 ? '1º e 2º colocados' : '1º colocado'})
+                </span>
+                <span className="flex items-center gap-1">
+                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Rebaixamento p/ Série Bronze ({prataSchools.length > 16 ? '4 últimas colocadas' : prataSchools.length === 15 ? '2 últimas colocadas (Ajuste para 16 escolas)' : '3 últimas colocadas'})
                 </span>
                 <span className="text-[11px] text-amber-300">
-                  {ouroSchools.length > 14
-                    ? '• Transição: 1 vaga de acesso (Série Ouro ajustando p/ 14 escolas)'
-                    : '• Meta de 14 agremiações atingida: 2 vagas de acesso direto'}
+                  • Série Prata {currentYear}: {prataSchools.length} escolas {prataSchools.length > 16 ? '(transição até 16 escolas)' : prataSchools.length === 15 ? '(ano de transição para 16 escolas)' : '(estabilizada em 16)'}
+                </span>
+              </>
+            )}
+            {selectedDivision === 'bronze' && (
+              <>
+                <span className="flex items-center gap-1">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" /> Acesso à Série Prata ({prataSchools.length === 15 ? 'Campeã e Vice (2 sobem)' : prataSchools.length > 16 ? 'Apenas a Campeã' : 'Top 3 sobem'})
+                </span>
+                <span className="flex items-center gap-1">
+                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Rebaixamento p/ Grupo de Avaliação ({bronzeSchools.length > 18 ? '4 últimas colocadas' : '3 últimas colocadas'})
+                </span>
+                <span className="text-[11px] text-amber-300">
+                  • Série Bronze {currentYear}: {bronzeSchools.length} escolas {bronzeSchools.length > 18 ? '(ajuste até 18 escolas)' : '(estabilizada em 18)'}
+                </span>
+              </>
+            )}
+            {selectedDivision === 'avaliacao' && (
+              <>
+                <span className="flex items-center gap-1">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" /> Acesso à Série Bronze ({bronzeSchools.length > 18 ? 'Campeã e Vice (2 vagas)' : 'Top 3 sobem (3 vagas)'})
+                </span>
+                <span className="flex items-center gap-1">
+                  <span className="w-2.5 h-2.5 rounded-full bg-purple-400" /> Processo de Afastamento (Últimas 2 com risco de suspensão por min. 1 ano)
+                </span>
+                <span className="text-[11px] text-amber-300">
+                  • Grupo de Avaliação {currentYear}: {avaliacaoSchools.length} escolas (máx 20)
                 </span>
               </>
             )}
@@ -948,6 +1133,36 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
               hasStarted &&
               selectedDivision === 'prata' &&
               (item.rank === 1 || (ouroSchools.length <= 14 && item.rank === 2));
+            const prataRelegatedCount = prataSchools.length > 16 ? 4 : prataSchools.length === 15 ? 2 : 3;
+            const isRelegatedPrata =
+              hasStarted &&
+              selectedDivision === 'prata' &&
+              item.rank > standings.rankedList.length - prataRelegatedCount;
+            const bronzePromotedCount = prataSchools.length === 15 ? 2 : prataSchools.length > 16 ? 1 : 3;
+            const isPromotedBronze =
+              hasStarted &&
+              selectedDivision === 'bronze' &&
+              item.rank <= bronzePromotedCount;
+            const netFromPrata = prataRelegatedCount - bronzePromotedCount;
+            const bronzeRelegatedCount =
+              bronzeSchools.length > 18
+                ? netFromPrata + 2 + Math.min(2, bronzeSchools.length - 18)
+                : 3 + netFromPrata;
+            const isRelegatedBronze =
+              hasStarted &&
+              selectedDivision === 'bronze' &&
+              item.rank > standings.rankedList.length - bronzeRelegatedCount;
+
+            const avaliacaoPromotedCount = bronzeSchools.length > 18 ? 2 : 3;
+            const isPromotedAvaliacao =
+              hasStarted &&
+              selectedDivision === 'avaliacao' &&
+              item.rank <= avaliacaoPromotedCount;
+            const neededAfastadas = Math.max(2, (avaliacaoSchools.length - avaliacaoPromotedCount + bronzeRelegatedCount + 1) - 20);
+            const isSuspendedAvaliacao =
+              hasStarted &&
+              selectedDivision === 'avaliacao' &&
+              item.rank > standings.rankedList.length - neededAfastadas;
 
             // Check if tied with adjacent school to display tiebreaker button
             const prevItem = standings.rankedList[idx - 1];
@@ -961,10 +1176,18 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
                     ? 'bg-amber-500/15 border-amber-500/60 shadow-lg shadow-amber-500/10'
                     : isUser
                     ? 'bg-slate-800/80 border-amber-500/40'
-                    : isRelegatedEspecial || isRelegatedOuro
-                    ? 'bg-rose-950/20 border-rose-900/50'
-                    : isPromotedPrata && isCompleted
-                    ? 'bg-emerald-950/20 border-emerald-500/40'
+                    : (isPromotedOuro || isPromotedPrata || isPromotedBronze || isPromotedAvaliacao)
+                    ? isCompleted
+                      ? 'bg-emerald-950/30 border-emerald-500/60 shadow-md shadow-emerald-950/50'
+                      : 'bg-emerald-950/15 border-emerald-500/30'
+                    : isRelegatedEspecial || isRelegatedOuro || isRelegatedPrata || isRelegatedBronze
+                    ? isCompleted
+                      ? 'bg-rose-950/30 border-rose-600/60 shadow-md shadow-rose-950/50'
+                      : 'bg-rose-950/15 border-rose-900/40'
+                    : isSuspendedAvaliacao
+                    ? isCompleted
+                      ? 'bg-purple-950/30 border-purple-700/60 shadow-md shadow-purple-950/50'
+                      : 'bg-purple-950/15 border-purple-900/40'
                     : 'bg-slate-950/60 border-slate-800/80 hover:border-slate-700'
                 }`}
               >
@@ -976,10 +1199,12 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
                         ? 'bg-slate-800 text-slate-400'
                         : isChampion
                         ? 'bg-amber-400 text-slate-950'
-                        : isPromotedOuro || isPromotedPrata
+                        : isPromotedOuro || isPromotedPrata || isPromotedBronze || isPromotedAvaliacao
                         ? 'bg-emerald-500 text-slate-950'
-                        : isRelegatedEspecial || isRelegatedOuro
+                        : isRelegatedEspecial || isRelegatedOuro || isRelegatedPrata || isRelegatedBronze
                         ? 'bg-rose-600 text-white'
+                        : isSuspendedAvaliacao
+                        ? 'bg-purple-700 text-white'
                         : 'bg-slate-800 text-slate-300'
                     }`}
                   >
@@ -1012,15 +1237,42 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
                         </span>
                       )}
 
-                      {isPromotedOuro && isCompleted && (
-                        <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-500 text-slate-950 flex items-center gap-1 shadow">
-                          <ArrowUpCircle className="w-3 h-3" /> SOBE PARA O ESPECIAL!
+                      {isPromotedOuro && (
+                        <span
+                          className={`text-[10px] font-black px-2 py-0.5 rounded-full flex items-center gap-1 shadow ${
+                            isCompleted
+                              ? 'bg-emerald-500 text-slate-950 animate-pulse'
+                              : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                          }`}
+                        >
+                          <ArrowUpCircle className="w-3 h-3" />
+                          <span>{isCompleted ? 'SOBE PARA O ESPECIAL!' : 'Zona de Acesso ao Especial'}</span>
                         </span>
                       )}
 
-                      {isPromotedPrata && isCompleted && (
-                        <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-500 text-slate-950 flex items-center gap-1 shadow">
-                          <ArrowUpCircle className="w-3 h-3" /> SOBE PARA A SÉRIE OURO!
+                      {isPromotedPrata && (
+                        <span
+                          className={`text-[10px] font-black px-2 py-0.5 rounded-full flex items-center gap-1 shadow ${
+                            isCompleted
+                              ? 'bg-emerald-500 text-slate-950 animate-pulse'
+                              : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                          }`}
+                        >
+                          <ArrowUpCircle className="w-3 h-3" />
+                          <span>{isCompleted ? 'SOBE PARA A SÉRIE OURO!' : 'Zona de Acesso à Série Ouro'}</span>
+                        </span>
+                      )}
+
+                      {isPromotedBronze && (
+                        <span
+                          className={`text-[10px] font-black px-2 py-0.5 rounded-full flex items-center gap-1 shadow ${
+                            isCompleted
+                              ? 'bg-emerald-500 text-slate-950 animate-pulse'
+                              : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                          }`}
+                        >
+                          <ArrowUpCircle className="w-3 h-3" />
+                          <span>{isCompleted ? 'SOBE PARA A SÉRIE PRATA!' : 'Zona de Acesso à Série Prata'}</span>
                         </span>
                       )}
 
@@ -1030,15 +1282,81 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
                         </span>
                       )}
 
-                      {isRelegatedEspecial && isCompleted && (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40 flex items-center gap-1">
-                          <ArrowDownCircle className="w-3 h-3" /> REBAIXADA P/ SÉRIE OURO
+                      {isRelegatedEspecial && (
+                        <span
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 ${
+                            isCompleted
+                              ? 'bg-rose-600 text-white font-black shadow'
+                              : 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
+                          }`}
+                        >
+                          <ArrowDownCircle className="w-3 h-3" />
+                          <span>{isCompleted ? 'REBAIXADA P/ SÉRIE OURO' : 'Zona de Rebaixamento'}</span>
                         </span>
                       )}
 
-                      {isRelegatedOuro && isCompleted && (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40 flex items-center gap-1">
-                          <ArrowDownCircle className="w-3 h-3" /> REBAIXADA P/ SÉRIE PRATA
+                      {isRelegatedOuro && (
+                        <span
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 ${
+                            isCompleted
+                              ? 'bg-rose-600 text-white font-black shadow'
+                              : 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
+                          }`}
+                        >
+                          <ArrowDownCircle className="w-3 h-3" />
+                          <span>{isCompleted ? 'REBAIXADA P/ SÉRIE PRATA' : 'Zona de Rebaixamento'}</span>
+                        </span>
+                      )}
+
+                      {isRelegatedPrata && (
+                        <span
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 ${
+                            isCompleted
+                              ? 'bg-rose-600 text-white font-black shadow'
+                              : 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
+                          }`}
+                        >
+                          <ArrowDownCircle className="w-3 h-3" />
+                          <span>{isCompleted ? 'REBAIXADA P/ SÉRIE BRONZE' : 'Zona de Rebaixamento'}</span>
+                        </span>
+                      )}
+
+                      {isRelegatedBronze && (
+                        <span
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 ${
+                            isCompleted
+                              ? 'bg-rose-700 text-rose-100 font-black shadow'
+                              : 'bg-rose-700/30 text-rose-300 border border-rose-600/40'
+                          }`}
+                        >
+                          <ArrowDownCircle className="w-3 h-3" />
+                          <span>{isCompleted ? 'REBAIXADA P/ GRUPO DE AVALIAÇÃO' : 'Zona de Rebaixamento'}</span>
+                        </span>
+                      )}
+
+                      {isPromotedAvaliacao && (
+                        <span
+                          className={`text-[10px] font-black px-2 py-0.5 rounded-full flex items-center gap-1 shadow ${
+                            isCompleted
+                              ? 'bg-emerald-500 text-slate-950 animate-pulse'
+                              : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                          }`}
+                        >
+                          <ArrowUpCircle className="w-3 h-3" />
+                          <span>{isCompleted ? 'SOBE PARA A SÉRIE BRONZE!' : 'Zona de Acesso à Série Bronze'}</span>
+                        </span>
+                      )}
+
+                      {isSuspendedAvaliacao && (
+                        <span
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 ${
+                            isCompleted
+                              ? 'bg-purple-800 text-purple-100 font-black shadow'
+                              : 'bg-purple-700/30 text-purple-300 border border-purple-600/40'
+                          }`}
+                        >
+                          <AlertTriangle className="w-3 h-3" />
+                          <span>{isCompleted ? 'PROCESSO DE AFASTAMENTO (MÍN. 1 ANO)' : 'Risco de Afastamento'}</span>
                         </span>
                       )}
                     </div>
@@ -1085,8 +1403,13 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
                     {!hasStarted ? '0.0' : item.currentScore.toFixed(1)}
                   </div>
                   {hasStarted && item.scores.penalties > 0 && currentQuesitoIdx === 8 && (
-                    <div className="text-[10px] text-rose-400">
-                      Penalidade: -{item.scores.penalties.toFixed(1)}
+                    <div className="text-[10px] text-rose-400 font-bold">
+                      <div>Penalidade: -{item.scores.penalties.toFixed(1)}</div>
+                      {item.scores.technicalPenalty && item.scores.technicalPenalty > 0 ? (
+                        <div className="text-[9px] text-rose-300 font-normal">
+                          (Regulamento: -{item.scores.technicalPenalty.toFixed(1)})
+                        </div>
+                      ) : null}
                     </div>
                   )}
                 </div>
@@ -1101,12 +1424,12 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
         <div className="bg-gradient-to-r from-amber-500/20 via-slate-900 to-amber-500/20 border-2 border-amber-500/50 rounded-2xl p-6 sm:p-8 shadow-2xl text-center space-y-4 animate-fadeIn">
           <div className="flex items-center justify-center gap-2 text-amber-400 font-black text-xl">
             <Trophy className="w-7 h-7" />
-            <span>CARNAVAL {currentYear} HOMOLOGADO EM TODOS OS 4 GRUPOS!</span>
+            <span>CARNAVAL {currentYear} HOMOLOGADO EM TODOS OS 5 GRUPOS!</span>
           </div>
 
           <p className="text-sm text-slate-200 max-w-2xl mx-auto leading-relaxed">
-            As notas dos 36 jurados do <strong>Grupo Especial</strong>, <strong>Série Ouro</strong>, <strong>Série Prata</strong> e <strong>Série Bronze</strong> foram todas apuradas!
-            O regulamento oficial de campeãs, acessos e rebaixamentos foi consolidado e está pronto para o próximo ano.
+            As notas dos jurados do <strong>Grupo Especial</strong>, <strong>Série Ouro</strong>, <strong>Série Prata</strong>, <strong>Série Bronze</strong> e <strong>Grupo de Avaliação</strong> foram todas apuradas com o descarte da menor nota de cada quesito!
+            O regulamento oficial de campeãs, acessos, rebaixamentos e afastamentos foi consolidado e está pronto para o próximo ano.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
@@ -1133,15 +1456,15 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
               <Lock className="w-5 h-5 text-amber-400 flex-shrink-0" />
               <div>
                 <h4 className="text-base font-black text-white">
-                  Avanço de Temporada Bloqueado • Apuração Parcial ({completedCount} de 4 Grupos Apurados)
+                  Avanço de Temporada Bloqueado • Apuração Parcial ({completedCount} de 5 Grupos Apurados)
                 </h4>
                 <p className="text-xs text-slate-400">
-                  Pelo regulamento oficial da apuração, <strong>não é permitido pular ou avançar o ano antes de todos os 4 grupos serem apurados</strong>.
+                  Pelo regulamento oficial da apuração, <strong>não é permitido avançar o ano antes de todos os 5 grupos serem apurados</strong> (Especial, Ouro, Prata, Bronze e Avaliação).
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-2 text-xs font-bold bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 self-start sm:self-auto">
+            <div className="flex flex-wrap items-center gap-2 text-xs font-bold bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 self-start sm:self-auto">
               <span className={divisionStates.especial.isCompleted ? 'text-emerald-400' : 'text-slate-400'}>
                 {divisionStates.especial.isCompleted ? '✓ Especial' : '⏳ Especial'}
               </span>
@@ -1157,22 +1480,36 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
               <span className={divisionStates.bronze.isCompleted ? 'text-emerald-400' : 'text-slate-400'}>
                 {divisionStates.bronze.isCompleted ? '✓ Bronze' : '⏳ Bronze'}
               </span>
+              <span className="text-slate-600">•</span>
+              <span className={divisionStates.avaliacao.isCompleted ? 'text-emerald-400' : 'text-slate-400'}>
+                {divisionStates.avaliacao.isCompleted ? '✓ Avaliação' : '⏳ Avaliação'}
+              </span>
             </div>
           </div>
 
-          {pendingDivisions.length > 0 && (
+          <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
             <div className="flex flex-wrap items-center gap-2 text-xs text-slate-300">
-              <span className="text-amber-300 font-semibold">Grupos pendentes de leitura das notas:</span>
+              <span className="text-amber-300 font-semibold">Grupos pendentes:</span>
               {pendingDivisions.map((p) => (
-                <span
+                <button
                   key={p.id}
-                  className="px-2.5 py-0.5 rounded-md bg-amber-500/10 text-amber-300 border border-amber-500/20 font-bold"
+                  onClick={() => handleSelectDivision(p.id)}
+                  className="px-2.5 py-1 rounded-md bg-amber-500/10 text-amber-300 border border-amber-500/20 font-bold hover:bg-amber-500/20 transition cursor-pointer"
+                  title={`Ir para apuração de ${p.name}`}
                 >
-                  {p.name}
-                </span>
+                  Ir para {p.name} →
+                </button>
               ))}
             </div>
-          )}
+
+            <button
+              onClick={handleInstantFinishAll}
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs transition flex items-center gap-1.5 shadow"
+            >
+              <Zap className="w-4 h-4 fill-slate-950" />
+              <span>Concluir Apuração de Todos os Grupos Restantes</span>
+            </button>
+          </div>
 
           <div className="flex flex-wrap items-center gap-3 pt-2">
             {pendingDivisions.map((pending) => (
@@ -1195,12 +1532,12 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
             </button>
 
             <button
-              disabled={true}
-              className="px-6 py-2.5 rounded-xl bg-slate-800/40 text-slate-500 font-bold text-xs flex items-center gap-2 cursor-not-allowed border border-slate-800"
-              title="Apure todos os 3 grupos para desbloquear o avanço do ano"
+              onClick={handleAdvanceYearClick}
+              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-black text-xs flex items-center gap-2 shadow-lg shadow-amber-500/25 transition cursor-pointer"
+              title="Homologa todos os grupos e avança para a próxima temporada imediatamente"
             >
-              <Lock className="w-3.5 h-3.5" />
-              <span>Avançar para o Carnaval {currentYear + 1} (Bloqueado)</span>
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Avançar para o Carnaval {currentYear + 1} (Concluir e Avançar)</span>
             </button>
           </div>
         </div>

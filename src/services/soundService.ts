@@ -186,8 +186,8 @@ class SoundService {
     }
   }
 
-  // Announce score dramatically
-  public announceScore(schoolName: string, quesitoName: string, judgeNum: number, score: number) {
+  // Announce score dramatically (with optional lowest note discard announcement)
+  public announceScore(schoolName: string, quesitoName: string, judgeNum: number, score: number, discardedScore?: number) {
     this.playScoreRevealTone(score);
 
     if (!this.voiceEnabled) return;
@@ -199,7 +199,12 @@ class SoundService {
       scoreFormatted = score.toFixed(1).replace('.', ' vírgula ');
     }
 
-    const phrase = `${schoolName}. ${quesitoName}, jurado ${judgeNum}. Nota... ${scoreFormatted}!`;
+    let phrase = `${schoolName}. ${quesitoName}, jurado ${judgeNum}. Nota... ${scoreFormatted}!`;
+    if (discardedScore !== undefined) {
+      const discFormatted = discardedScore === 10 ? 'Dez' : discardedScore.toFixed(1).replace('.', ' vírgula ');
+      phrase += ` Menor nota descartada: ${discFormatted}.`;
+    }
+
     this.speakAnnouncement(phrase, 1.25);
   }
 }

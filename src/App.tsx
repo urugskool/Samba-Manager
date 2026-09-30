@@ -13,6 +13,7 @@ import {
   NewsItem
 } from './types/carnaval';
 import { INITIAL_SCHOOLS, INITIAL_HISTORY, RESULTS_2026, HISTORICAL_CARNAVAL_RECORDS, getSchoolConsolidatedStats } from './data/carnavalData';
+import { simulateParadeDuration } from './config/paradeConfig';
 import { SimulationEngine } from './services/simulationEngine';
 import { soundService } from './services/soundService';
 
@@ -31,7 +32,39 @@ import { StartScreenView } from './components/StartScreenView';
 
 import { Sparkles, Trophy, CheckCircle, AlertTriangle, Info } from 'lucide-react';
 
-const STORAGE_KEY = 'sambamanager_save_v7';
+const STORAGE_KEY = 'sambamanager_save_v10';
+
+// The 16 active schools in Grupo de Avaliação
+const ACTIVE_AVALIACAO_IDS = new Set([
+  'academicos_do_peixe',
+  'concentra_imperial',
+  'flor_da_mina',
+  'gato_de_bonsucesso',
+  'guardioes_da_capadocia',
+  'imperio_da_penha',
+  'imperio_da_resistencia',
+  'imperio_ricardense',
+  'independente_de_jacarepagua',
+  'mocidade_de_inhauma',
+  'mocidade_cidade_de_deus',
+  'raca_rubro_negra',
+  'renascer_de_nova_iguacu',
+  'unidos_da_barra_da_tijuca',
+  'unidos_da_vila_kennedy',
+  'unidos_de_manguinhos'
+]);
+
+// Initial 8 inactive / afastadas schools
+const INITIAL_INACTIVE_SCHOOL_IDS = new Set([
+  'tpm_madureira',
+  'amarelinho',
+  'uniao_vaz_lobo',
+  'imperio_petropolis',
+  'sao_cristovao',
+  'manguariba',
+  'unidos_anil',
+  'canarios_laranjeiras'
+]);
 
 function sanitizeSchoolsData(loadedSchools: School[]): School[] {
   const loadedIds = new Set(loadedSchools.map((s) => s.id));
@@ -50,11 +83,42 @@ function sanitizeSchoolsData(loadedSchools: School[]): School[] {
       championshipsPrata: 0,
       runnerUpsPrata: 0,
       championshipsBronze: 0,
-      runnerUpsBronze: 0
+      runnerUpsBronze: 0,
+      championshipsAvaliacao: 0,
+      runnerUpsAvaliacao: 0
     };
+
+    const initialSchool = INITIAL_SCHOOLS.find((init) => init.id === s.id);
+
+    // Determine inactive state cleanly:
+    // Respect explicit inactive flag if defined in saved school; otherwise use initial baseline.
+    let isInactive = false;
+    if (s.isInactive !== undefined || (s as any).inactive !== undefined) {
+      isInactive = Boolean(s.isInactive || (s as any).inactive);
+    } else if (INITIAL_INACTIVE_SCHOOL_IDS.has(s.id)) {
+      isInactive = true;
+    } else {
+      isInactive = Boolean(initialSchool?.isInactive || initialSchool?.inactive);
+    }
 
     const updatedSchool: School = {
       ...s,
+      ...(initialSchool
+        ? {
+            name: initialSchool.name,
+            shortName: initialSchool.shortName,
+            abbreviation: initialSchool.abbreviation,
+            nickname: initialSchool.nickname,
+            colors: initialSchool.colors,
+            colorsDescription: initialSchool.colorsDescription,
+            foundationYear: initialSchool.foundationYear,
+            foundationDate: initialSchool.foundationDate,
+            symbol: initialSchool.symbol,
+            neighborhood: initialSchool.neighborhood
+          }
+        : {}),
+      isInactive,
+      inactive: isInactive,
       honors: {
         ...s.honors,
         historicalEspecialTitles: historicalBaseline.championshipsEspecial,
@@ -69,6 +133,9 @@ function sanitizeSchoolsData(loadedSchools: School[]): School[] {
         historicalBronzeTitles: historicalBaseline.championshipsBronze || 0,
         historicalBronzeYears: historicalBaseline.bronzeYears || [],
         historicalBronzeRunnerUps: historicalBaseline.runnerUpsBronze || 0,
+        historicalAvaliacaoTitles: historicalBaseline.championshipsAvaliacao || 0,
+        historicalAvaliacaoYears: historicalBaseline.avaliacaoYears || [],
+        historicalAvaliacaoRunnerUps: historicalBaseline.runnerUpsAvaliacao || 0,
         inGameAchievements: existingAchievements
       }
     };
@@ -83,7 +150,9 @@ function sanitizeSchoolsData(loadedSchools: School[]): School[] {
       championshipsPrata: cons.totalPrataTitles,
       runnerUpsPrata: cons.totalPrataVices,
       championshipsBronze: cons.totalBronzeTitles,
-      runnerUpsBronze: cons.totalBronzeVices
+      runnerUpsBronze: cons.totalBronzeVices,
+      championshipsAvaliacao: cons.totalAvaliacaoTitles,
+      runnerUpsAvaliacao: cons.totalAvaliacaoVices
     };
   });
 }
@@ -99,7 +168,10 @@ function sanitizeHistoryData(loadedHistory: YearHistory[]): YearHistory[] {
 export default function App() {
   const [schools, setSchools] = useState<School[]>(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('sambamanager_save_v4') || localStorage.getItem('sambamanager_save_v3');
+      const saved =
+        localStorage.getItem(STORAGE_KEY) ||
+        localStorage.getItem('sambamanager_save_v8') ||
+        localStorage.getItem('sambamanager_save_v7');
       if (saved) {
         try {
           const parsed = JSON.parse(saved);
@@ -109,7 +181,7 @@ export default function App() {
         } catch {}
       }
     }
-    return INITIAL_SCHOOLS;
+    return sanitizeSchoolsData(INITIAL_SCHOOLS);
   });
 
   const [currentYear, setCurrentYear] = useState<number>(() => {
@@ -192,6 +264,7 @@ export default function App() {
   const [ouroScores, setOuroScores] = useState<SchoolParadeScores[]>([]);
   const [prataScores, setPrataScores] = useState<SchoolParadeScores[]>([]);
   const [bronzeScores, setBronzeScores] = useState<SchoolParadeScores[]>([]);
+  const [avaliacaoScores, setAvaliacaoScores] = useState<SchoolParadeScores[]>([]);
   const [hasParadeResults, setHasParadeResults] = useState<boolean>(false);
   const [completedParadeSchoolIds, setCompletedParadeSchoolIds] = useState<string[]>(() => {
     if (typeof window !== 'undefined') {
@@ -220,15 +293,15 @@ export default function App() {
       id: 'news_1',
       year: 2027,
       title: 'Abertura Oficial do Samba Manager • Carnaval 2027!',
-      body: 'Os barracões do Especial, os terreiros da Série Ouro e a vibração das 24 escolas da Série Prata dão a largada para o Carnaval 2027!',
+      body: 'Os barracões do Especial, os terreiros da Série Ouro, a vibrante Série Prata, a disputadíssima Série Bronze e o Grupo de Avaliação dão a largada para o Carnaval 2027!',
       type: 'info',
       date: 'Hoje'
     },
     {
       id: 'news_2',
       year: 2027,
-      title: 'Sala de Glórias Inaugurada com Palmarés Histórico',
-      body: 'Consulte os títulos históricos e vices das três divisões. Todas as novas honras conquistadas a partir de 2027 serão eternizadas no avanço do jogo!',
+      title: 'Pirâmide do Carnaval com 5 Divisões e Grupo de Avaliação',
+      body: 'Consulte os títulos históricos e a dinâmica de acessos, rebaixamentos e o processo de afastamento no Grupo de Avaliação. Todas as novas honras serão eternizadas!',
       type: 'info',
       date: 'Ontem'
     }
@@ -250,21 +323,27 @@ export default function App() {
     }
   }, [currentYear, schools]);
 
+  const isSchoolActive = useCallback((s: School) => !s.isInactive && !s.inactive, []);
+  const isSchoolInactive = useCallback((s: School) => Boolean(s.isInactive || s.inactive), []);
+
   const generateScores = () => {
-    const espSchools = schools.filter((s) => s.division === 'especial');
-    const ourSchools = schools.filter((s) => s.division === 'ouro');
-    const praSchools = schools.filter((s) => s.division === 'prata');
-    const broSchools = schools.filter((s) => s.division === 'bronze');
+    const espSchools = schools.filter((s) => s.division === 'especial' && isSchoolActive(s));
+    const ourSchools = schools.filter((s) => s.division === 'ouro' && isSchoolActive(s));
+    const praSchools = schools.filter((s) => s.division === 'prata' && isSchoolActive(s));
+    const broSchools = schools.filter((s) => s.division === 'bronze' && isSchoolActive(s));
+    const avaSchools = schools.filter((s) => s.division === 'avaliacao' && isSchoolActive(s));
 
     const espScores = SimulationEngine.simulateDivisionParades(espSchools);
     const ourScores = SimulationEngine.simulateDivisionParades(ourSchools);
     const praScores = SimulationEngine.simulateDivisionParades(praSchools);
     const broScores = SimulationEngine.simulateDivisionParades(broSchools);
+    const avaScores = SimulationEngine.simulateDivisionParades(avaSchools);
 
     setEspecialScores(espScores);
     setOuroScores(ourScores);
     setPrataScores(praScores);
     setBronzeScores(broScores);
+    setAvaliacaoScores(avaScores);
     setHasParadeResults(true);
   };
 
@@ -296,47 +375,135 @@ export default function App() {
     showToast('Desfile oficial concluído! As notas dos 36 jurados foram seladas!', 'success');
   }, [showToast]);
 
-  const handleCompleteParade = useCallback((schoolId: string) => {
-    setCompletedParadeSchoolIds((prev) => {
-      if (prev.includes(schoolId)) return prev;
-      return [...prev, schoolId];
-    });
-    const school = schools.find((s) => s.id === schoolId);
-    showToast(`Desfile da ${school ? school.name : 'agremiação'} concluído na passarela! As notas dos 36 jurados foram lacradas.`, 'success');
-  }, [schools, showToast]);
+  const handleRecordParadeTime = useCallback(
+    (
+      schoolId: string,
+      duration: number,
+      penalty: number,
+      status: 'regular' | 'estouro' | 'abaixo',
+      diffMinutes: number
+    ) => {
+      const updateScores = (prev: SchoolParadeScores[]) =>
+        prev.map((s) => {
+          if (s.schoolId === schoolId) {
+            const techPenalty = s.technicalPenalty ?? 0;
+            const totalPenalty = Math.round((penalty + techPenalty) * 10) / 10;
+            const finalScore = Math.max(0, Math.round((s.totalScore - totalPenalty) * 10) / 10);
+            return {
+              ...s,
+              paradeTimeMinutes: duration,
+              penalties: totalPenalty,
+              timePenalty: penalty,
+              timeStatus: status,
+              timeDifferenceMinutes: diffMinutes,
+              finalScore
+            };
+          }
+          return s;
+        });
 
-  const handleCompleteParadesForDivision = useCallback((division: DivisionId) => {
-    const divSchoolIds = schools.filter((s) => s.division === division).map((s) => s.id);
-    setCompletedParadeSchoolIds((prev) => {
-      const set = new Set([...prev, ...divSchoolIds]);
-      return Array.from(set);
-    });
-    const divName =
-      division === 'especial'
-        ? 'Grupo Especial'
-        : division === 'ouro'
-        ? 'Série Ouro'
-        : division === 'prata'
-        ? 'Série Prata'
-        : 'Série Bronze';
-    showToast(`Todos os desfiles da ${divName} foram realizados e avaliados pelos jurados!`, 'success');
-  }, [schools, showToast]);
+      setEspecialScores((prev) => updateScores(prev));
+      setOuroScores((prev) => updateScores(prev));
+      setPrataScores((prev) => updateScores(prev));
+      setBronzeScores((prev) => updateScores(prev));
+      setAvaliacaoScores((prev) => updateScores(prev));
+    },
+    []
+  );
+
+  const handleCompleteParade = useCallback(
+    (
+      schoolId: string,
+      simulatedData?: {
+        duration: number;
+        penalty: number;
+        status: 'regular' | 'estouro' | 'abaixo';
+        diffMinutes: number;
+      }
+    ) => {
+      setCompletedParadeSchoolIds((prev) => (prev.includes(schoolId) ? prev : [...prev, schoolId]));
+      if (simulatedData) {
+        handleRecordParadeTime(
+          schoolId,
+          simulatedData.duration,
+          simulatedData.penalty,
+          simulatedData.status,
+          simulatedData.diffMinutes
+        );
+      }
+      const school = schools.find((s) => s.id === schoolId);
+      showToast(
+        `Desfile da ${school ? school.name : 'agremiação'} concluído na passarela! As notas dos 36 jurados foram lacradas.`,
+        'success'
+      );
+    },
+    [schools, showToast, handleRecordParadeTime]
+  );
+
+  const handleCompleteParadesForDivision = useCallback(
+    (division: DivisionId) => {
+      const divSchools = schools.filter((s) => s.division === division && isSchoolActive(s));
+      const divSchoolIds = divSchools.map((s) => s.id);
+
+      divSchools.forEach((sch) => {
+        const timeResult = simulateParadeDuration(sch);
+        handleRecordParadeTime(
+          sch.id,
+          timeResult.duration,
+          timeResult.penalty,
+          timeResult.timeStatus,
+          timeResult.diffMinutes
+        );
+      });
+
+      setCompletedParadeSchoolIds((prev) => {
+        const set = new Set([...prev, ...divSchoolIds]);
+        return Array.from(set);
+      });
+      const divName =
+        division === 'especial'
+          ? 'Grupo Especial'
+          : division === 'ouro'
+          ? 'Série Ouro'
+          : division === 'prata'
+          ? 'Série Prata'
+          : division === 'bronze'
+          ? 'Série Bronze'
+          : 'Grupo de Avaliação';
+      showToast(`Todos os desfiles da ${divName} foram realizados e avaliados pelos jurados!`, 'success');
+    },
+    [schools, showToast, isSchoolActive, handleRecordParadeTime]
+  );
+
+  const activeSchools = schools.filter(isSchoolActive);
+  const especialSchools = schools.filter((s) => s.division === 'especial' && isSchoolActive(s));
+  const ouroSchools = schools.filter((s) => s.division === 'ouro' && isSchoolActive(s));
+  const prataSchools = schools.filter((s) => s.division === 'prata' && isSchoolActive(s));
+  const bronzeSchools = schools.filter((s) => s.division === 'bronze' && isSchoolActive(s));
+  const avaliacaoSchools = schools.filter((s) => s.division === 'avaliacao' && isSchoolActive(s));
+  const inactiveSchools = schools.filter(isSchoolInactive);
+
+  const totalSchoolsCount = activeSchools.length;
+  const isAllParadesCompleted = totalSchoolsCount > 0 && completedParadeSchoolIds.length >= totalSchoolsCount;
 
   const handleCompleteAllParades = useCallback(() => {
-    const allIds = schools.map((s) => s.id);
+    activeSchools.forEach((sch) => {
+      const timeResult = simulateParadeDuration(sch);
+      handleRecordParadeTime(
+        sch.id,
+        timeResult.duration,
+        timeResult.penalty,
+        timeResult.timeStatus,
+        timeResult.diffMinutes
+      );
+    });
+    const allIds = activeSchools.map((s) => s.id);
     setCompletedParadeSchoolIds(allIds);
     showToast('Todos os desfiles do Carnaval foram realizados! A apuração oficial das notas está liberada!', 'success');
-  }, [schools, showToast]);
+  }, [activeSchools, showToast, handleRecordParadeTime]);
 
   // Find user school & division lists
   const userSchool = schools.find((s) => s.id === userSchoolId) || null;
-  const especialSchools = schools.filter((s) => s.division === 'especial');
-  const ouroSchools = schools.filter((s) => s.division === 'ouro');
-  const prataSchools = schools.filter((s) => s.division === 'prata');
-  const bronzeSchools = schools.filter((s) => s.division === 'bronze');
-
-  const totalSchoolsCount = schools.length;
-  const isAllParadesCompleted = totalSchoolsCount > 0 && completedParadeSchoolIds.length >= totalSchoolsCount;
 
   // Update a single school
   const handleUpdateSchool = (updatedSchool: School) => {
@@ -369,10 +536,13 @@ export default function App() {
   const handleRestartNewSave = (schoolId: string | null = null, name: string = 'Diretor Presidente') => {
     if (typeof window !== 'undefined') {
       localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem('sambamanager_save_v9');
+      localStorage.removeItem('sambamanager_save_v8');
+      localStorage.removeItem('sambamanager_save_v7');
       localStorage.removeItem('sambamanager_save_v4');
       localStorage.removeItem('sambamanager_save_v3');
     }
-    setSchools(INITIAL_SCHOOLS);
+    setSchools(sanitizeSchoolsData(INITIAL_SCHOOLS));
     setCurrentYear(2027);
     setUserSchoolId(schoolId);
     setIsSpectatorMode(!schoolId);
@@ -384,11 +554,12 @@ export default function App() {
     setOuroScores([]);
     setPrataScores([]);
     setBronzeScores([]);
+    setAvaliacaoScores([]);
     setIsNewGameModalOpen(false);
     setIsGameStarted(schoolId !== null);
     setActiveTab('dashboard');
 
-    showToast('Novo save criado! O Carnaval 2027 foi reiniciado no estado original de todas as 4 divisões.', 'success');
+    showToast('Novo save criado! O Carnaval 2027 foi reiniciado no estado original de todas as 5 divisões.', 'success');
   };
 
   // Reset Game / Return to Start Screen
@@ -401,40 +572,52 @@ export default function App() {
     espResult: DivisionResult,
     ouroResult: DivisionResult,
     prataResult: DivisionResult,
-    bronzeResult: DivisionResult
+    bronzeResult: DivisionResult,
+    avaResult?: DivisionResult
   ) => {
-    const nextSeasonData = SimulationEngine.advanceToNextYear(
-      schools,
-      espResult,
-      ouroResult,
-      prataResult,
-      bronzeResult,
-      currentYear,
-      history
-    );
+    try {
+      const nextSeasonData = SimulationEngine.advanceToNextYear(
+        schools,
+        espResult,
+        ouroResult,
+        prataResult,
+        bronzeResult,
+        currentYear,
+        history,
+        avaResult
+      );
 
-    setSchools(nextSeasonData.nextSchools);
-    setCurrentYear(nextSeasonData.nextYear);
-    setHistory(nextSeasonData.newHistory);
-    setHasParadeResults(false);
-    setCompletedParadeSchoolIds([]);
+      setSchools(nextSeasonData.nextSchools);
+      setCurrentYear(nextSeasonData.nextYear);
+      setHistory(nextSeasonData.newHistory);
+      setHasParadeResults(false);
+      setCompletedParadeSchoolIds([]);
+      setEspecialScores([]);
+      setOuroScores([]);
+      setPrataScores([]);
+      setBronzeScores([]);
+      setAvaliacaoScores([]);
 
-    // Add News
-    const newsHeadline: NewsItem = {
-      id: `news_${nextSeasonData.nextYear}`,
-      year: nextSeasonData.nextYear,
-      title: `Temporada do Carnaval ${nextSeasonData.nextYear} Iniciada!`,
-      body: `${nextSeasonData.summary.especialChampionName} defende o título do Especial! ${nextSeasonData.summary.ouroChampionName} subiu para a elite. Na Série Prata, ${nextSeasonData.summary.prataChampionName} sagrou-se campeã! Na Série Bronze, ${nextSeasonData.summary.bronzeChampionName} conquistou o título e a vaga na Série Prata!`,
-      type: 'success',
-      date: 'Agora'
-    };
-    setNews((prev) => [newsHeadline, ...prev]);
+      // Add News
+      const newsHeadline: NewsItem = {
+        id: `news_${nextSeasonData.nextYear}`,
+        year: nextSeasonData.nextYear,
+        title: `Temporada do Carnaval ${nextSeasonData.nextYear} Iniciada!`,
+        body: `${nextSeasonData.summary.especialChampionName} defende o título do Especial! ${nextSeasonData.summary.ouroChampionName} subiu para a elite. Na Série Prata, ${nextSeasonData.summary.prataChampionName} sagrou-se campeã! Na Série Bronze, ${nextSeasonData.summary.bronzeChampionName} subiu de divisão. No Grupo de Avaliação, ${nextSeasonData.summary.avaliacaoChampionName || 'a campeã'} garantiu o acesso!`,
+        type: 'success',
+        date: 'Agora'
+      };
+      setNews((prev) => [newsHeadline, ...prev]);
 
-    setActiveTab('dashboard');
-    showToast(
-      `Carnaval ${nextSeasonData.nextYear} iniciado! Agremiações rebaixadas e promovidas foram transferidas de divisão!`,
-      'success'
-    );
+      setActiveTab('dashboard');
+      showToast(
+        `Carnaval ${nextSeasonData.nextYear} iniciado! Agremiações rebaixadas e promovidas foram transferidas de divisão!`,
+        'success'
+      );
+    } catch (err) {
+      console.error('Falha ao avançar temporada:', err);
+      showToast('Ocorreu um erro ao avançar para a próxima temporada. Tente novamente.', 'alert');
+    }
   };
 
   // START SCREEN: Displayed first to choose which school to command or spectator mode
@@ -447,6 +630,7 @@ export default function App() {
           ouroSchools={ouroSchools}
           prataSchools={prataSchools}
           bronzeSchools={bronzeSchools}
+          avaliacaoSchools={avaliacaoSchools}
           allSchools={schools}
           onStartGame={handleStartGame}
           onResetSave={() => handleRestartNewSave(null, managerName)}
@@ -524,11 +708,11 @@ export default function App() {
                 MODO OBSERVADOR / PRESIDENTE DA LIGA
               </span>
               <h1 className="text-3xl font-black text-white">
-                Carnaval Carioca {currentYear} • Grupo Especial, Série Ouro, Série Prata & Série Bronze
+                Carnaval Carioca {currentYear} • Especial, Ouro, Prata, Bronze & Grupo de Avaliação
               </h1>
               <p className="text-sm text-slate-300 max-w-xl mx-auto">
                 Você está acompanhando a temporada das {schools.length} agremiações como Presidente da LIGA.
-                Assista e simule os desfiles de todos os 4 grupos na Passarela do Samba e realize a apuração completa das notas dos 36 jurados!
+                Assista e simule os desfiles de todos os 5 grupos na Passarela do Samba e realize a apuração completa das notas dos 36 jurados!
               </p>
 
               {/* Parades Progress status in Spectator Dashboard */}
@@ -549,7 +733,7 @@ export default function App() {
                   }`}
                 >
                   <Sparkles className="w-4 h-4" />
-                  <span>Assistir & Simular Desfiles na Sapucaí</span>
+                  <span>Assistir & Simular Desfiles</span>
                 </button>
                 <button
                   onClick={() => setActiveTab('apuracao')}
@@ -625,17 +809,20 @@ export default function App() {
           <DesfileSimulator
             currentYear={currentYear}
             userSchool={userSchool}
-            schools={schools}
+            schools={activeSchools}
             especialSchools={especialSchools}
             ouroSchools={ouroSchools}
             prataSchools={prataSchools}
             bronzeSchools={bronzeSchools}
+            avaliacaoSchools={avaliacaoSchools}
             especialScores={especialScores}
             ouroScores={ouroScores}
             prataScores={prataScores}
             bronzeScores={bronzeScores}
+            avaliacaoScores={avaliacaoScores}
             completedSchoolIds={completedParadeSchoolIds}
             onCompleteParade={handleCompleteParade}
+            onRecordParadeTime={handleRecordParadeTime}
             onCompleteParadesForDivision={handleCompleteParadesForDivision}
             onCompleteAllParades={handleCompleteAllParades}
             onNavigateToApuracao={() => setActiveTab('apuracao')}
@@ -649,10 +836,12 @@ export default function App() {
             ouroSchools={ouroSchools}
             prataSchools={prataSchools}
             bronzeSchools={bronzeSchools}
+            avaliacaoSchools={avaliacaoSchools}
             especialScores={especialScores}
             ouroScores={ouroScores}
             prataScores={prataScores}
             bronzeScores={bronzeScores}
+            avaliacaoScores={avaliacaoScores}
             userSchool={userSchool}
             onAdvanceYear={handleAdvanceYear}
             onSimulateNewScores={generateScores}
@@ -671,6 +860,8 @@ export default function App() {
             ouroSchools={ouroSchools}
             prataSchools={prataSchools}
             bronzeSchools={bronzeSchools}
+            avaliacaoSchools={avaliacaoSchools}
+            inactiveSchools={inactiveSchools}
             userSchool={userSchool}
             history={history}
           />
@@ -706,6 +897,7 @@ export default function App() {
         ouroSchools={ouroSchools}
         prataSchools={prataSchools}
         bronzeSchools={bronzeSchools}
+        avaliacaoSchools={avaliacaoSchools}
         onStartGame={handleStartNewGame}
         onClose={() => setIsNewGameModalOpen(false)}
       />

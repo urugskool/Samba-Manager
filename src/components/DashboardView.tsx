@@ -61,14 +61,22 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                     ? 'bg-amber-400 text-slate-950 ring-2 ring-amber-300'
                     : school.division === 'ouro'
                     ? 'bg-blue-500 text-white ring-2 ring-blue-400'
-                    : 'bg-slate-300 text-slate-950 ring-2 ring-slate-200'
+                    : school.division === 'prata'
+                    ? 'bg-slate-300 text-slate-950 ring-2 ring-slate-200'
+                    : school.division === 'bronze'
+                    ? 'bg-amber-700 text-amber-100 ring-2 ring-amber-500'
+                    : 'bg-emerald-600 text-white ring-2 ring-emerald-400'
                 }`}
               >
                 {school.division === 'especial'
                   ? '🌟 Grupo Especial'
                   : school.division === 'ouro'
                   ? '✨ Série Ouro'
-                  : '🥈 Série Prata'}
+                  : school.division === 'prata'
+                  ? '🥈 Série Prata'
+                  : school.division === 'bronze'
+                  ? '🥉 Série Bronze'
+                  : '🟢 Grupo de Avaliação'}
               </span>
               <span className="text-xs text-slate-300 bg-slate-900/60 px-2.5 py-0.5 rounded-full border border-slate-700">
                 Fundada em {school.foundationYear} • {school.neighborhood}
@@ -104,6 +112,14 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   </span>
                 </div>
               )}
+              {stats.totalBronzeTitles > 0 && (
+                <div className="flex items-center gap-2 bg-black/40 px-3 py-1.5 rounded-lg border border-white/10">
+                  <Award className="w-4 h-4 text-amber-500 flex-shrink-0" />
+                  <span>
+                    <strong>{stats.totalBronzeTitles}</strong> Título{stats.totalBronzeTitles === 1 ? '' : 's'} ({stats.totalBronzeVices} Vices) Bronze
+                  </span>
+                </div>
+              )}
               <div className="flex items-center gap-1.5 bg-amber-500/15 px-3 py-1.5 rounded-lg border border-amber-500/30 text-amber-300 font-bold">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Total: {stats.grandTotalTitles} Título{stats.grandTotalTitles === 1 ? '' : 's'} • {stats.grandTotalConquests} Conquistas</span>
@@ -132,7 +148,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               <span>
                 {!allParadesCompleted
                   ? `ASSISTIR & SIMULAR DESFILES (${completedParadesCount}/${totalParadesCount})`
-                  : 'VER DESFILES DA SAPUCAÍ (CONCLUÍDOS)'}
+                  : 'VER DESFILES (CONCLUÍDOS)'}
               </span>
               <ArrowRight className="w-4 h-4" />
             </button>

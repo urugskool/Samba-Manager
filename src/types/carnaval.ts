@@ -1,4 +1,4 @@
-export type DivisionId = 'especial' | 'ouro' | 'prata' | 'bronze';
+export type DivisionId = 'especial' | 'ouro' | 'prata' | 'bronze' | 'avaliacao';
 
 export type QuesitoId =
   | 'bateria'
@@ -65,11 +65,16 @@ export interface InGameAchievement {
     | 'vice_prata'
     | 'champion_bronze'
     | 'vice_bronze'
+    | 'champion_avaliacao'
+    | 'vice_avaliacao'
     | 'promoted_ouro'
+    | 'promoted_prata'
     | 'promoted_bronze'
+    | 'promoted_avaliacao'
     | 'g6'
     | 'regular'
-    | 'relegated';
+    | 'relegated'
+    | 'suspended';
   totalScore: number;
   dateAdded?: string;
 }
@@ -89,6 +94,8 @@ export interface ConsolidatedSchoolStats {
   ancientPrataVices: number;
   ancientBronzeTitles: number;
   ancientBronzeVices: number;
+  ancientAvaliacaoTitles: number;
+  ancientAvaliacaoVices: number;
   inGameEspecialTitles: number;
   inGameEspecialVices: number;
   inGameOuroTitles: number;
@@ -97,6 +104,8 @@ export interface ConsolidatedSchoolStats {
   inGamePrataVices: number;
   inGameBronzeTitles: number;
   inGameBronzeVices: number;
+  inGameAvaliacaoTitles: number;
+  inGameAvaliacaoVices: number;
   totalEspecialTitles: number;
   totalEspecialVices: number;
   totalOuroTitles: number;
@@ -105,6 +114,8 @@ export interface ConsolidatedSchoolStats {
   totalPrataVices: number;
   totalBronzeTitles: number;
   totalBronzeVices: number;
+  totalAvaliacaoTitles: number;
+  totalAvaliacaoVices: number;
   grandTotalTitles: number;
   grandTotalVices: number;
   grandTotalConquests: number;
@@ -112,6 +123,7 @@ export interface ConsolidatedSchoolStats {
   allOuroYears: TitleYearEntry[];
   allPrataYears: TitleYearEntry[];
   allBronzeYears: TitleYearEntry[];
+  allAvaliacaoYears: TitleYearEntry[];
   achievements: InGameAchievement[];
 }
 
@@ -128,15 +140,44 @@ export interface SchoolHonors {
   historicalBronzeTitles?: number;
   historicalBronzeYears?: number[];
   historicalBronzeRunnerUps?: number;
+  historicalAvaliacaoTitles?: number;
+  historicalAvaliacaoYears?: number[];
+  historicalAvaliacaoRunnerUps?: number;
   inGameAchievements: InGameAchievement[];
+}
+
+export interface TechnicalInfraction {
+  id: string;
+  ruleName: string;
+  description: string;
+  pointsDeducted: number;
+  category: 'composicao' | 'alegorias' | 'comissao' | 'bateria' | 'baianas' | 'alas' | 'disciplinar';
+  fineAmount?: number;
+}
+
+export interface SchoolParadeComposition {
+  componentes: number;
+  ritmistas: number;
+  baianas: number;
+  comissaoDeFrente: number;
+  alegorias: number;
+  tripes?: number;
+  componentesPorTripe?: number;
+  componentesPorAla?: number;
+  cumpreFolhaObrigatoriedades?: boolean;
+  respeitaIdentidadeVisual?: boolean;
+  respeitaVestimentaEMerchandising?: boolean;
+  semAnimaisOuGenitalia?: boolean;
 }
 
 export interface School {
   id: string;
   name: string;
   shortName: string;
+  abbreviation?: string;
   nickname: string;
   foundationYear: number;
+  foundationDate?: string;
   neighborhood: string;
   colors: {
     primary: string;
@@ -145,6 +186,7 @@ export interface School {
     text: string;
     border: string;
   };
+  colorsDescription?: string;
   symbol: string;
   division: DivisionId;
   budget: number;
@@ -153,10 +195,18 @@ export interface School {
   championshipsOuro: number;
   championshipsPrata?: number;
   championshipsBronze?: number;
+  championshipsAvaliacao?: number;
   runnerUpsEspecial: number;
   runnerUpsOuro: number;
   runnerUpsPrata?: number;
   runnerUpsBronze?: number;
+  runnerUpsAvaliacao?: number;
+  isInactive?: boolean;
+  inactive?: boolean;
+  inactiveYearsCount?: number;
+  inactiveSince?: number | string;
+  inactiveReason?: string;
+  suspensionReason?: string;
   honors: SchoolHonors;
   attributes: SchoolAttributes;
   staff: {
@@ -171,6 +221,7 @@ export interface School {
   rehearsalLevel: number; // 0 - 100
   barracaoProgress: number; // 0 - 100
   technicalParadeDone: boolean;
+  paradeComposition?: SchoolParadeComposition;
 }
 
 export type JuradoScores = [number, number, number, number]; // 4 jurados
@@ -179,11 +230,18 @@ export interface SchoolParadeScores {
   schoolId: string;
   scoresByQuesito: Record<QuesitoId, JuradoScores>;
   totalScore: number;
-  penalties: number; // e.g. for time violation, missing components (usually 0.0)
+  penalties: number; // total penalties (time + technical)
   finalScore: number;
   rank?: number;
   tiebreakerDetail?: string;
   sorteioRandomValue?: number;
+  paradeTimeMinutes?: number;
+  timePenalty?: number;
+  timeStatus?: 'regular' | 'estouro' | 'abaixo';
+  timeDifferenceMinutes?: number;
+  technicalPenalty?: number;
+  infractions?: TechnicalInfraction[];
+  paradeComposition?: SchoolParadeComposition;
 }
 
 export interface DivisionResult {
@@ -212,10 +270,18 @@ export interface YearHistory {
   bronzeChampion?: string;
   bronzePromoted?: string[];
   bronzeRelegated?: string[];
+  avaliacaoChampion?: string;
+  avaliacaoPromoted?: string[];
+  avaliacaoRelegated?: string[];
+  avaliacaoSuspended?: string[];
   especialStandings: { rank: number; schoolName: string; schoolId?: string; totalScore: number }[];
   ouroStandings: { rank: number; schoolName: string; schoolId?: string; totalScore: number }[];
   prataStandings?: { rank: number; schoolName: string; schoolId?: string; totalScore: number }[];
   bronzeStandings?: { rank: number; schoolName: string; schoolId?: string; totalScore: number }[];
+  avaliacaoStandings?: { rank: number; schoolName: string; schoolId?: string; totalScore: number }[];
+  reactivatedSchools?: string[];
+  newSchoolsCreated?: string[];
+  newSchools?: string[];
 }
 
 export interface NewsItem {

@@ -1,4 +1,5 @@
 import { QuesitoConfig, School, Enredo, StaffMember, InGameAchievement, YearHistory, ConsolidatedSchoolStats, TitleYearEntry } from '../types/carnaval';
+import { AVALIACAO_SCHOOLS_INITIAL, INACTIVE_SCHOOLS_INITIAL, generateRandomCarnavalSchool } from './avaliacaoData';
 
 export const QUESITOS: QuesitoConfig[] = [
   {
@@ -177,6 +178,9 @@ export interface SchoolHistoryRecord {
   championshipsBronze?: number;
   runnerUpsBronze?: number;
   bronzeYears?: number[];
+  championshipsAvaliacao?: number;
+  runnerUpsAvaliacao?: number;
+  avaliacaoYears?: number[];
 }
 
 export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = {
@@ -762,6 +766,106 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     runnerUpsPrata: 0,
     championshipsBronze: 0,
     runnerUpsBronze: 0
+  },
+  tpm_madureira: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    championshipsPrata: 0,
+    runnerUpsPrata: 0,
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    championshipsAvaliacao: 0,
+    runnerUpsAvaliacao: 0
+  },
+  amarelinho: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    championshipsPrata: 0,
+    runnerUpsPrata: 0,
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    championshipsAvaliacao: 0,
+    runnerUpsAvaliacao: 0
+  },
+  uniao_vaz_lobo: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    championshipsPrata: 1,
+    prataYears: [1961],
+    runnerUpsPrata: 0,
+    championshipsBronze: 1,
+    bronzeYears: [1980],
+    runnerUpsBronze: 0,
+    championshipsAvaliacao: 0,
+    runnerUpsAvaliacao: 0
+  },
+  imperio_petropolis: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    championshipsPrata: 0,
+    runnerUpsPrata: 0,
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    championshipsAvaliacao: 0,
+    runnerUpsAvaliacao: 0
+  },
+  sao_cristovao: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    championshipsPrata: 0,
+    runnerUpsPrata: 0,
+    championshipsBronze: 1,
+    bronzeYears: [1975],
+    runnerUpsBronze: 0,
+    championshipsAvaliacao: 0,
+    runnerUpsAvaliacao: 0
+  },
+  manguariba: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    championshipsPrata: 0,
+    runnerUpsPrata: 0,
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    championshipsAvaliacao: 0,
+    runnerUpsAvaliacao: 0
+  },
+  unidos_anil: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    championshipsPrata: 0,
+    runnerUpsPrata: 0,
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    championshipsAvaliacao: 0,
+    runnerUpsAvaliacao: 0
+  },
+  canarios_laranjeiras: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    championshipsPrata: 0,
+    runnerUpsPrata: 0,
+    championshipsBronze: 1,
+    bronzeYears: [1968],
+    runnerUpsBronze: 0,
+    championshipsAvaliacao: 0,
+    runnerUpsAvaliacao: 0
   }
 };
 
@@ -3144,19 +3248,19 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
 ];
 
 export const RESULTS_2026: Record<string, InGameAchievement> = {
-  // Grupo Especial 2026
-  viradouro: { year: 2026, division: 'especial', placement: 1, titleName: 'Campeã do Grupo Especial 2026', badgeType: 'champion_especial', totalScore: 360.0 },
-  imperatriz: { year: 2026, division: 'especial', placement: 2, titleName: 'Vice-Campeã do Grupo Especial 2026', badgeType: 'vice_especial', totalScore: 359.8 },
-  grande_rio: { year: 2026, division: 'especial', placement: 3, titleName: '3º Lugar - Desfile das Campeãs (G6) 2026', badgeType: 'g6', totalScore: 359.7 },
-  salgueiro: { year: 2026, division: 'especial', placement: 4, titleName: '4º Lugar - Desfile das Campeãs (G6) 2026', badgeType: 'g6', totalScore: 359.5 },
-  portela: { year: 2026, division: 'especial', placement: 5, titleName: '5º Lugar - Desfile das Campeãs (G6) 2026', badgeType: 'g6', totalScore: 359.4 },
-  mangueira: { year: 2026, division: 'especial', placement: 6, titleName: '6º Lugar - Desfile das Campeãs (G6) 2026', badgeType: 'g6', totalScore: 359.2 },
-  beija_flor: { year: 2026, division: 'especial', placement: 7, titleName: '7º Lugar no Grupo Especial 2026', badgeType: 'regular', totalScore: 359.0 },
-  vila_isabel: { year: 2026, division: 'especial', placement: 8, titleName: '8º Lugar no Grupo Especial 2026', badgeType: 'regular', totalScore: 358.9 },
-  tijuca: { year: 2026, division: 'especial', placement: 9, titleName: '9º Lugar no Grupo Especial 2026', badgeType: 'regular', totalScore: 358.7 },
-  tuiuti: { year: 2026, division: 'especial', placement: 10, titleName: '10º Lugar no Grupo Especial 2026', badgeType: 'regular', totalScore: 358.5 },
-  mocidade: { year: 2026, division: 'especial', placement: 11, titleName: '11º Lugar no Grupo Especial 2026', badgeType: 'regular', totalScore: 358.3 },
-  porto_da_pedra: { year: 2026, division: 'especial', placement: 12, titleName: '12º Lugar - Rebaixada para a Série Ouro (2026)', badgeType: 'relegated', totalScore: 357.6 },
+  // Grupo Especial 2026 (escala de 270.0 com menor nota descartada)
+  viradouro: { year: 2026, division: 'especial', placement: 1, titleName: 'Campeã do Grupo Especial 2026', badgeType: 'champion_especial', totalScore: 270.0 },
+  imperatriz: { year: 2026, division: 'especial', placement: 2, titleName: 'Vice-Campeã do Grupo Especial 2026', badgeType: 'vice_especial', totalScore: 269.8 },
+  grande_rio: { year: 2026, division: 'especial', placement: 3, titleName: '3º Lugar - Desfile das Campeãs (G6) 2026', badgeType: 'g6', totalScore: 269.7 },
+  salgueiro: { year: 2026, division: 'especial', placement: 4, titleName: '4º Lugar - Desfile das Campeãs (G6) 2026', badgeType: 'g6', totalScore: 269.5 },
+  portela: { year: 2026, division: 'especial', placement: 5, titleName: '5º Lugar - Desfile das Campeãs (G6) 2026', badgeType: 'g6', totalScore: 269.4 },
+  mangueira: { year: 2026, division: 'especial', placement: 6, titleName: '6º Lugar - Desfile das Campeãs (G6) 2026', badgeType: 'g6', totalScore: 269.2 },
+  beija_flor: { year: 2026, division: 'especial', placement: 7, titleName: '7º Lugar no Grupo Especial 2026', badgeType: 'regular', totalScore: 269.0 },
+  vila_isabel: { year: 2026, division: 'especial', placement: 8, titleName: '8º Lugar no Grupo Especial 2026', badgeType: 'regular', totalScore: 268.9 },
+  tijuca: { year: 2026, division: 'especial', placement: 9, titleName: '9º Lugar no Grupo Especial 2026', badgeType: 'regular', totalScore: 268.7 },
+  tuiuti: { year: 2026, division: 'especial', placement: 10, titleName: '10º Lugar no Grupo Especial 2026', badgeType: 'regular', totalScore: 268.5 },
+  mocidade: { year: 2026, division: 'especial', placement: 11, titleName: '11º Lugar no Grupo Especial 2026', badgeType: 'regular', totalScore: 268.3 },
+  porto_da_pedra: { year: 2026, division: 'especial', placement: 12, titleName: '12º Lugar - Rebaixada para a Série Ouro (2026)', badgeType: 'relegated', totalScore: 267.6 },
 
   // Série Ouro 2026
   marica: { year: 2026, division: 'ouro', placement: 1, titleName: 'Campeã da Série Ouro & Acesso ao Especial 2026', badgeType: 'champion_ouro', totalScore: 269.9 },
@@ -3195,6 +3299,8 @@ export function getSchoolConsolidatedStats(school: School): ConsolidatedSchoolSt
   const inGamePrataVices = inGameAchievements.filter((a) => a.badgeType === 'vice_prata');
   const inGameBronzeTitles = inGameAchievements.filter((a) => a.badgeType === 'champion_bronze');
   const inGameBronzeVices = inGameAchievements.filter((a) => a.badgeType === 'vice_bronze');
+  const inGameAvaliacaoTitles = inGameAchievements.filter((a) => a.badgeType === 'champion_avaliacao');
+  const inGameAvaliacaoVices = inGameAchievements.filter((a) => a.badgeType === 'vice_avaliacao');
 
   const ancientEspecialTitles = school.honors?.historicalEspecialTitles ?? 0;
   const ancientEspecialVices = school.honors?.historicalEspecialRunnerUps ?? 0;
@@ -3204,6 +3310,8 @@ export function getSchoolConsolidatedStats(school: School): ConsolidatedSchoolSt
   const ancientPrataVices = school.honors?.historicalPrataRunnerUps ?? 0;
   const ancientBronzeTitles = school.honors?.historicalBronzeTitles ?? 0;
   const ancientBronzeVices = school.honors?.historicalBronzeRunnerUps ?? 0;
+  const ancientAvaliacaoTitles = school.honors?.historicalAvaliacaoTitles ?? 0;
+  const ancientAvaliacaoVices = school.honors?.historicalAvaliacaoRunnerUps ?? 0;
 
   const totalEspecialTitles = ancientEspecialTitles + inGameEspecialTitles.length;
   const totalEspecialVices = ancientEspecialVices + inGameEspecialVices.length;
@@ -3213,9 +3321,11 @@ export function getSchoolConsolidatedStats(school: School): ConsolidatedSchoolSt
   const totalPrataVices = ancientPrataVices + inGamePrataVices.length;
   const totalBronzeTitles = ancientBronzeTitles + inGameBronzeTitles.length;
   const totalBronzeVices = ancientBronzeVices + inGameBronzeVices.length;
+  const totalAvaliacaoTitles = ancientAvaliacaoTitles + inGameAvaliacaoTitles.length;
+  const totalAvaliacaoVices = ancientAvaliacaoVices + inGameAvaliacaoVices.length;
 
-  const grandTotalTitles = totalEspecialTitles + totalOuroTitles + totalPrataTitles + totalBronzeTitles;
-  const grandTotalVices = totalEspecialVices + totalOuroVices + totalPrataVices + totalBronzeVices;
+  const grandTotalTitles = totalEspecialTitles + totalOuroTitles + totalPrataTitles + totalBronzeTitles + totalAvaliacaoTitles;
+  const grandTotalVices = totalEspecialVices + totalOuroVices + totalPrataVices + totalBronzeVices + totalAvaliacaoVices;
   const grandTotalConquests = grandTotalTitles + grandTotalVices;
 
   // Build sorted list of Especial title years
@@ -3294,6 +3404,25 @@ export function getSchoolConsolidatedStats(school: School): ConsolidatedSchoolSt
     .map(([year, info]) => ({ year, isHistorical: info.isHistorical, source: info.source }))
     .sort((a, b) => a.year - b.year);
 
+  // Build sorted list of Grupo de Avaliação title years
+  const avaliacaoYearsMap = new Map<number, { isHistorical: boolean; source: string }>();
+  (school.honors?.historicalAvaliacaoYears || []).forEach((yr) => {
+    avaliacaoYearsMap.set(yr, {
+      isHistorical: true,
+      source: yr <= 2026 ? `Histórico (${yr})` : 'Histórico'
+    });
+  });
+  inGameAvaliacaoTitles.forEach((ach) => {
+    avaliacaoYearsMap.set(ach.year, {
+      isHistorical: false,
+      source: `No Jogo (${ach.year})`
+    });
+  });
+
+  const allAvaliacaoYears: TitleYearEntry[] = Array.from(avaliacaoYearsMap.entries())
+    .map(([year, info]) => ({ year, isHistorical: info.isHistorical, source: info.source }))
+    .sort((a, b) => a.year - b.year);
+
   return {
     ancientEspecialTitles,
     ancientEspecialVices,
@@ -3303,6 +3432,8 @@ export function getSchoolConsolidatedStats(school: School): ConsolidatedSchoolSt
     ancientPrataVices,
     ancientBronzeTitles,
     ancientBronzeVices,
+    ancientAvaliacaoTitles,
+    ancientAvaliacaoVices,
     inGameEspecialTitles: inGameEspecialTitles.length,
     inGameEspecialVices: inGameEspecialVices.length,
     inGameOuroTitles: inGameOuroTitles.length,
@@ -3311,6 +3442,8 @@ export function getSchoolConsolidatedStats(school: School): ConsolidatedSchoolSt
     inGamePrataVices: inGamePrataVices.length,
     inGameBronzeTitles: inGameBronzeTitles.length,
     inGameBronzeVices: inGameBronzeVices.length,
+    inGameAvaliacaoTitles: inGameAvaliacaoTitles.length,
+    inGameAvaliacaoVices: inGameAvaliacaoVices.length,
     totalEspecialTitles,
     totalEspecialVices,
     totalOuroTitles,
@@ -3319,6 +3452,8 @@ export function getSchoolConsolidatedStats(school: School): ConsolidatedSchoolSt
     totalPrataVices,
     totalBronzeTitles,
     totalBronzeVices,
+    totalAvaliacaoTitles,
+    totalAvaliacaoVices,
     grandTotalTitles,
     grandTotalVices,
     grandTotalConquests,
@@ -3326,59 +3461,108 @@ export function getSchoolConsolidatedStats(school: School): ConsolidatedSchoolSt
     allOuroYears,
     allPrataYears,
     allBronzeYears,
+    allAvaliacaoYears,
     achievements: inGameAchievements
   };
 }
 
-export const INITIAL_SCHOOLS: School[] = RAW_INITIAL_SCHOOLS.map((school) => {
-  const stats = HISTORICAL_CARNAVAL_RECORDS[school.id] || {
-    championshipsEspecial: 0,
-    runnerUpsEspecial: 0,
-    championshipsOuro: 0,
-    runnerUpsOuro: 0
-  };
+export const INITIAL_SCHOOLS: School[] = [
+  ...RAW_INITIAL_SCHOOLS.map((school) => {
+    const stats = HISTORICAL_CARNAVAL_RECORDS[school.id] || {
+      championshipsEspecial: 0,
+      runnerUpsEspecial: 0,
+      championshipsOuro: 0,
+      runnerUpsOuro: 0
+    };
 
-  const tempSchool: School = {
-    ...school,
-    championshipsEspecial: stats.championshipsEspecial,
-    runnerUpsEspecial: stats.runnerUpsEspecial,
-    championshipsOuro: stats.championshipsOuro,
-    runnerUpsOuro: stats.runnerUpsOuro,
-    championshipsPrata: school.championshipsPrata || stats.championshipsPrata || 0,
-    runnerUpsPrata: stats.runnerUpsPrata || 0,
-    championshipsBronze: school.championshipsBronze || stats.championshipsBronze || 0,
-    runnerUpsBronze: stats.runnerUpsBronze || 0,
-    honors: {
-      historicalEspecialTitles: stats.championshipsEspecial,
-      historicalEspecialYears: stats.especialYears || [],
-      historicalEspecialRunnerUps: stats.runnerUpsEspecial,
-      historicalOuroTitles: stats.championshipsOuro,
-      historicalOuroYears: stats.ouroYears || [],
-      historicalOuroRunnerUps: stats.runnerUpsOuro,
-      historicalPrataTitles: school.championshipsPrata || stats.championshipsPrata || 0,
-      historicalPrataYears: stats.prataYears || [],
-      historicalPrataRunnerUps: stats.runnerUpsPrata || 0,
-      historicalBronzeTitles: school.championshipsBronze || stats.championshipsBronze || 0,
-      historicalBronzeYears: stats.bronzeYears || [],
-      historicalBronzeRunnerUps: stats.runnerUpsBronze || 0,
-      inGameAchievements: []
-    }
-  };
+    const tempSchool: School = {
+      ...school,
+      championshipsEspecial: stats.championshipsEspecial,
+      runnerUpsEspecial: stats.runnerUpsEspecial,
+      championshipsOuro: stats.championshipsOuro,
+      runnerUpsOuro: stats.runnerUpsOuro,
+      championshipsPrata: school.championshipsPrata || stats.championshipsPrata || 0,
+      runnerUpsPrata: stats.runnerUpsPrata || 0,
+      championshipsBronze: school.championshipsBronze || stats.championshipsBronze || 0,
+      runnerUpsBronze: stats.runnerUpsBronze || 0,
+      championshipsAvaliacao: school.championshipsAvaliacao || 0,
+      runnerUpsAvaliacao: 0,
+      isInactive: false,
+      inactive: false,
+      inactiveYearsCount: 0,
+      honors: {
+        historicalEspecialTitles: stats.championshipsEspecial,
+        historicalEspecialYears: stats.especialYears || [],
+        historicalEspecialRunnerUps: stats.runnerUpsEspecial,
+        historicalOuroTitles: stats.championshipsOuro,
+        historicalOuroYears: stats.ouroYears || [],
+        historicalOuroRunnerUps: stats.runnerUpsOuro,
+        historicalPrataTitles: school.championshipsPrata || stats.championshipsPrata || 0,
+        historicalPrataYears: stats.prataYears || [],
+        historicalPrataRunnerUps: stats.runnerUpsPrata || 0,
+        historicalBronzeTitles: school.championshipsBronze || stats.championshipsBronze || 0,
+        historicalBronzeYears: stats.bronzeYears || [],
+        historicalBronzeRunnerUps: stats.runnerUpsBronze || 0,
+        historicalAvaliacaoTitles: 0,
+        historicalAvaliacaoYears: [],
+        historicalAvaliacaoRunnerUps: 0,
+        inGameAchievements: []
+      }
+    };
 
-  const consolidated = getSchoolConsolidatedStats(tempSchool);
+    const consolidated = getSchoolConsolidatedStats(tempSchool);
 
-  return {
-    ...tempSchool,
-    championshipsEspecial: consolidated.totalEspecialTitles,
-    runnerUpsEspecial: consolidated.totalEspecialVices,
-    championshipsOuro: consolidated.totalOuroTitles,
-    runnerUpsOuro: consolidated.totalOuroVices,
-    championshipsPrata: consolidated.totalPrataTitles,
-    runnerUpsPrata: consolidated.totalPrataVices,
-    championshipsBronze: consolidated.totalBronzeTitles,
-    runnerUpsBronze: consolidated.totalBronzeVices
-  };
-});
+    return {
+      ...tempSchool,
+      championshipsEspecial: consolidated.totalEspecialTitles,
+      runnerUpsEspecial: consolidated.totalEspecialVices,
+      championshipsOuro: consolidated.totalOuroTitles,
+      runnerUpsOuro: consolidated.totalOuroVices,
+      championshipsPrata: consolidated.totalPrataTitles,
+      runnerUpsPrata: consolidated.totalPrataVices,
+      championshipsBronze: consolidated.totalBronzeTitles,
+      runnerUpsBronze: consolidated.totalBronzeVices,
+      championshipsAvaliacao: consolidated.totalAvaliacaoTitles,
+      runnerUpsAvaliacao: consolidated.totalAvaliacaoVices
+    };
+  }),
+  ...AVALIACAO_SCHOOLS_INITIAL.map((school) => {
+    const consolidated = getSchoolConsolidatedStats(school);
+    return {
+      ...school,
+      isInactive: false,
+      inactive: false,
+      championshipsEspecial: consolidated.totalEspecialTitles,
+      runnerUpsEspecial: consolidated.totalEspecialVices,
+      championshipsOuro: consolidated.totalOuroTitles,
+      runnerUpsOuro: consolidated.totalOuroVices,
+      championshipsPrata: consolidated.totalPrataTitles,
+      runnerUpsPrata: consolidated.totalPrataVices,
+      championshipsBronze: consolidated.totalBronzeTitles,
+      runnerUpsBronze: consolidated.totalBronzeVices,
+      championshipsAvaliacao: consolidated.totalAvaliacaoTitles,
+      runnerUpsAvaliacao: consolidated.totalAvaliacaoVices
+    };
+  }),
+  ...INACTIVE_SCHOOLS_INITIAL.map((school) => {
+    const consolidated = getSchoolConsolidatedStats(school);
+    return {
+      ...school,
+      isInactive: true,
+      inactive: true,
+      championshipsEspecial: consolidated.totalEspecialTitles,
+      runnerUpsEspecial: consolidated.totalEspecialVices,
+      championshipsOuro: consolidated.totalOuroTitles,
+      runnerUpsOuro: consolidated.totalOuroVices,
+      championshipsPrata: consolidated.totalPrataTitles,
+      runnerUpsPrata: consolidated.totalPrataVices,
+      championshipsBronze: consolidated.totalBronzeTitles,
+      runnerUpsBronze: consolidated.totalBronzeVices,
+      championshipsAvaliacao: consolidated.totalAvaliacaoTitles,
+      runnerUpsAvaliacao: consolidated.totalAvaliacaoVices
+    };
+  })
+];
 
 export const INITIAL_HISTORY: YearHistory[] = [
   {
@@ -3393,19 +3577,22 @@ export const INITIAL_HISTORY: YearHistory[] = [
     bronzeChampion: 'Leão da Zona Oeste',
     bronzePromoted: ['Leão da Zona Oeste', 'Arrastão de Cascadura'],
     bronzeRelegated: ['Siri de Ramos', 'Novo Império'],
+    avaliacaoChampion: 'Unidos da Vila Kennedy',
+    avaliacaoPromoted: ['Unidos da Vila Kennedy', 'Concentra Imperial'],
+    avaliacaoRelegated: ['Império da Penha', 'Gato de Bonsucesso'],
     especialStandings: [
-      { rank: 1, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro', totalScore: 360.0 },
-      { rank: 2, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', totalScore: 359.8 },
-      { rank: 3, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio', totalScore: 359.7 },
-      { rank: 4, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', totalScore: 359.5 },
-      { rank: 5, schoolId: 'portela', schoolName: 'Portela', totalScore: 359.4 },
-      { rank: 6, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', totalScore: 359.2 },
-      { rank: 7, schoolId: 'beija_flor', schoolName: 'Beija-Flor de Nilópolis', totalScore: 359.0 },
-      { rank: 8, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', totalScore: 358.9 },
-      { rank: 9, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', totalScore: 358.7 },
-      { rank: 10, schoolId: 'tuiuti', schoolName: 'Paraíso do Tuiuti', totalScore: 358.5 },
-      { rank: 11, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', totalScore: 358.3 },
-      { rank: 12, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra', totalScore: 357.6 }
+      { rank: 1, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro', totalScore: 270.0 },
+      { rank: 2, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', totalScore: 269.8 },
+      { rank: 3, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio', totalScore: 269.7 },
+      { rank: 4, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', totalScore: 269.5 },
+      { rank: 5, schoolId: 'portela', schoolName: 'Portela', totalScore: 269.4 },
+      { rank: 6, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', totalScore: 269.2 },
+      { rank: 7, schoolId: 'beija_flor', schoolName: 'Beija-Flor de Nilópolis', totalScore: 269.0 },
+      { rank: 8, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', totalScore: 268.9 },
+      { rank: 9, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', totalScore: 268.7 },
+      { rank: 10, schoolId: 'tuiuti', schoolName: 'Paraíso do Tuiuti', totalScore: 268.5 },
+      { rank: 11, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', totalScore: 268.3 },
+      { rank: 12, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra', totalScore: 267.6 }
     ],
     ouroStandings: [
       { rank: 1, schoolId: 'marica', schoolName: 'União de Maricá', totalScore: 269.9 },
@@ -3476,6 +3663,26 @@ export const INITIAL_HISTORY: YearHistory[] = [
       { rank: 20, schoolId: 'academicos_do_recreio', schoolName: 'Acadêmicos do Recreio', totalScore: 266.8 },
       { rank: 21, schoolId: 'siri_de_ramos', schoolName: 'Siri de Ramos', totalScore: 266.5 },
       { rank: 22, schoolId: 'novo_imperio', schoolName: 'Novo Império', totalScore: 266.3 }
+    ],
+    avaliacaoStandings: [
+      { rank: 1, schoolId: 'unidos_da_vila_kennedy', schoolName: 'Unidos da Vila Kennedy', totalScore: 268.9 },
+      { rank: 2, schoolId: 'concentra_imperial', schoolName: 'Concentra Imperial', totalScore: 268.8 },
+      { rank: 3, schoolId: 'flor_da_mina', schoolName: 'Flor da Mina do Andaraí', totalScore: 268.6 },
+      { rank: 4, schoolId: 'unidos_de_manguinhos', schoolName: 'Unidos de Manguinhos', totalScore: 268.4 },
+      { rank: 5, schoolId: 'unidos_da_barra_da_tijuca', schoolName: 'Unidos da Barra da Tijuca', totalScore: 268.3 },
+      { rank: 6, schoolId: 'raca_rubro_negra', schoolName: 'Raça Rubro-Negra', totalScore: 268.1 },
+      { rank: 7, schoolId: 'mocidade_cidade_de_deus', schoolName: 'Mocidade Unida da Cidade de Deus', totalScore: 268.0 },
+      { rank: 8, schoolId: 'guardioes_da_capadocia', schoolName: 'Guardiões da Capadócia', totalScore: 267.8 },
+      { rank: 9, schoolId: 'imperio_ricardense', schoolName: 'Império Ricardense', totalScore: 267.7 },
+      { rank: 10, schoolId: 'renascer_de_nova_iguacu', schoolName: 'Renascer de Nova Iguaçu', totalScore: 267.5 },
+      { rank: 11, schoolId: 'imperio_da_resistencia', schoolName: 'Império da Resistência', totalScore: 267.4 },
+      { rank: 12, schoolId: 'academicos_do_peixe', schoolName: 'Acadêmicos do Peixe', totalScore: 267.2 },
+      { rank: 13, schoolId: 'independente_de_jacarepagua', schoolName: 'Independente de Jacarepaguá', totalScore: 267.0 },
+      { rank: 14, schoolId: 'mocidade_de_inhauma', schoolName: 'Mocidade Independente de Inhaúma', totalScore: 266.8 },
+      { rank: 15, schoolId: 'imperio_da_penha', schoolName: 'Império da Penha', totalScore: 266.5 },
+      { rank: 16, schoolId: 'gato_de_bonsucesso', schoolName: 'Gato de Bonsucesso', totalScore: 266.2 }
     ]
   }
 ];
+
+export { AVALIACAO_SCHOOLS_INITIAL, INACTIVE_SCHOOLS_INITIAL, generateRandomCarnavalSchool };

@@ -27,9 +27,11 @@ export const TiebreakerModal: React.FC<TiebreakerModalProps> = ({
 }) => {
   if (!isOpen) return null;
 
-  // Compute sums per quesito
-  const sumQuesito = (scores: [number, number, number, number]) =>
-    Math.round((scores[0] + scores[1] + scores[2] + scores[3]) * 10) / 10;
+  // Compute valid sum per quesito (discarding the lowest note)
+  const sumQuesito = (scores: [number, number, number, number]) => {
+    const minVal = Math.min(...scores);
+    return Math.round((scores[0] + scores[1] + scores[2] + scores[3] - minVal) * 10) / 10;
+  };
 
   // Determine which quesito broke the tie
   let decisiveQuesitoId: QuesitoId | null = null;
@@ -59,7 +61,7 @@ export const TiebreakerModal: React.FC<TiebreakerModalProps> = ({
                 Critério Oficial de Desempate
               </h3>
               <p className="text-xs text-slate-400">
-                Regulamento Oficial: Soma no último quesito retroativamente e sorteio
+                Regulamento Oficial: Soma no último quesito retroativamente (menor nota descartada) e sorteio
               </p>
             </div>
           </div>

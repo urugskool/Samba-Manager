@@ -27,6 +27,7 @@ interface StartScreenViewProps {
   ouroSchools: School[];
   prataSchools: School[];
   bronzeSchools: School[];
+  avaliacaoSchools?: School[];
   allSchools: School[];
   onStartGame: (selectedSchoolId: string | null, managerName: string) => void;
   onResetSave?: () => void;
@@ -40,6 +41,7 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
   ouroSchools,
   prataSchools,
   bronzeSchools,
+  avaliacaoSchools = [],
   allSchools,
   onStartGame,
   onResetSave,
@@ -65,9 +67,12 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
       ? ouroSchools
       : selectedDivision === 'prata'
       ? prataSchools
-      : bronzeSchools;
+      : selectedDivision === 'bronze'
+      ? bronzeSchools
+      : avaliacaoSchools;
 
-  const totalSchoolsCount = especialSchools.length + ouroSchools.length + prataSchools.length + bronzeSchools.length;
+  const totalSchoolsCount =
+    especialSchools.length + ouroSchools.length + prataSchools.length + bronzeSchools.length + avaliacaoSchools.length;
 
   // Filtered schools by search
   const filteredSchools = activeDivisionSchools.filter((s) => {
@@ -124,7 +129,7 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                 Temporada Oficial do Carnaval {currentYear}
               </span>
               <span className="text-xs text-slate-400">·</span>
-              <span className="text-xs text-slate-300 font-mono">{totalSchoolsCount} Agremiações · 4 Divisões</span>
+              <span className="text-xs text-slate-300 font-mono">{totalSchoolsCount} Agremiações · 5 Divisões</span>
               {onResetSave && (
                 <button
                   onClick={() => setShowResetModal(true)}
@@ -142,7 +147,7 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
             </h1>
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
               O simulador definitivo do Carnaval Carioca estilo manager. Escolha uma agremiação para comandar
-              no <strong>Grupo Especial</strong>, na <strong>Série Ouro</strong>, na <strong>Série Prata</strong> ou na <strong>Série Bronze</strong>,
+              no <strong>Grupo Especial</strong>, na <strong>Série Ouro</strong>, na <strong>Série Prata</strong>, na <strong>Série Bronze</strong> ou no <strong>Grupo de Avaliação</strong>,
               ou assuma a <strong>Presidência da LIGA</strong> no Modo Observador para acompanhar os desfiles e comandar a apuração oficial!
             </p>
           </div>
@@ -210,7 +215,7 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                   )}
                 </div>
                 <p className="text-xs text-slate-300 leading-snug">
-                  Atue como Presidente da LIGA: assista e simule os desfiles das 3 divisões e comande a leitura das notas na Apoteose.
+                  Atue como Presidente da LIGA: assista e simule os desfiles das 5 divisões e comande a leitura das notas na Apoteose.
                 </p>
               </div>
             </button>
@@ -249,7 +254,7 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                     2. Escolha a Agremiação que Deseja Comandar
                   </h2>
                   <p className="text-xs text-slate-400">
-                    Selecione entre as 12 escolas da elite (Especial), 16 da Série Ouro, 25 da Série Prata ou 16 da Série Bronze.
+                    Selecione entre as {especialSchools.length} escolas do Especial, {ouroSchools.length} da Série Ouro, {prataSchools.length} da Série Prata ou {bronzeSchools.length} da Série Bronze (Carnaval {currentYear}).
                   </p>
                 </div>
 
@@ -322,6 +327,23 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                       {bronzeSchools.length}
                     </span>
                   </button>
+
+                  <button
+                    onClick={() => {
+                      setSelectedDivision('avaliacao');
+                      setSelectedSchoolId(avaliacaoSchools[0]?.id || '');
+                    }}
+                    className={`px-3.5 py-2 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-2 ${
+                      selectedDivision === 'avaliacao'
+                        ? 'bg-purple-600 text-white font-black shadow ring-1 ring-purple-400'
+                        : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    <span>Grupo de Avaliação</span>
+                    <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-slate-950/20 font-mono">
+                      {avaliacaoSchools.length}
+                    </span>
+                  </button>
                 </div>
               </div>
 
@@ -339,7 +361,9 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                       ? 'Série Ouro'
                       : selectedDivision === 'prata'
                       ? 'Série Prata'
-                      : 'Série Bronze'
+                      : selectedDivision === 'bronze'
+                      ? 'Série Bronze'
+                      : 'Grupo de Avaliação'
                   } por nome ou bairro...`}
                   className="w-full bg-slate-900 border border-slate-800 focus:border-amber-400 pl-10 pr-4 py-2.5 rounded-xl text-xs text-white placeholder-slate-500 outline-none transition"
                 />
@@ -372,7 +396,7 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                             borderColor: school.colors.border || '#fff'
                           }}
                         >
-                          {school.shortName.charAt(0)}
+                          {school.name.charAt(0)}
                         </div>
 
                         <div className="min-w-0 flex-1 space-y-0.5">
@@ -514,7 +538,7 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                         className="w-full py-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-black text-sm tracking-wide transition shadow-xl shadow-amber-500/25 flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5"
                       >
                         <Sparkles className="w-4 h-4 text-slate-950" />
-                        <span>COMANDAR {currentSchool.shortName.toUpperCase()} NO CARNAVAL {currentYear}</span>
+                        <span>COMANDAR {currentSchool.name.toUpperCase()} NO CARNAVAL {currentYear}</span>
                         <ArrowRight className="w-4 h-4 text-slate-950" />
                       </button>
                     </>
@@ -540,14 +564,14 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                 </h2>
                 <p className="text-sm text-slate-300 max-w-xl mx-auto leading-relaxed">
                   No Modo Observador, você tem a visão panorâmica de todo o espetáculo. Você não precisa
-                  administrar um único barracão: acompanha o desempenho das <strong>{totalSchoolsCount} agremiações</strong> nas 4 divisões,
+                  administrar um único barracão: acompanha o desempenho das <strong>{totalSchoolsCount} agremiações</strong> nas 5 divisões,
                   assiste ou simula todos os desfiles da <strong>Marquês de Sapucaí</strong> e da <strong>Intendente Magalhães</strong>,
                   e comanda a <strong>Apuração Oficial dos 36 jurados</strong> na Praça da Apoteose!
                 </p>
               </div>
 
-              {/* 4 Divisions Summary Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-left pt-2">
+              {/* 5 Divisions Summary Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-left pt-2">
                 <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
                   <div className="text-xs font-bold text-amber-400">Grupo Especial</div>
                   <div className="text-[11px] text-slate-400">{especialSchools.length} agremiações na elite. Desfiles no Domingo e Segunda na Sapucaí.</div>
@@ -560,12 +584,17 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
 
                 <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
                   <div className="text-xs font-bold text-slate-300">Série Prata</div>
-                  <div className="text-[11px] text-slate-400">{prataSchools.length} agremiações na Intendente. Campeã e vice sobem para a Série Ouro.</div>
+                  <div className="text-[11px] text-slate-400">{prataSchools.length} agremiações na Intendente. {ouroSchools.length <= 14 ? 'Campeã e Vice sobem para a Série Ouro' : 'Campeã sobe para a Série Ouro'}.</div>
                 </div>
 
                 <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
                   <div className="text-xs font-bold text-amber-600">Série Bronze</div>
-                  <div className="text-[11px] text-slate-400">{bronzeSchools.length} agremiações na Intendente. Campeã e vice garantem acesso à Prata!</div>
+                  <div className="text-[11px] text-slate-400">{bronzeSchools.length} agremiações na Intendente. {prataSchools.length > 16 ? 'Campeã garante acesso à Série Prata!' : prataSchools.length === 15 ? 'Campeã, vice e 3ª colocadas garantem acesso à Prata!' : 'Top 3 sobem para a Série Prata!'}</div>
+                </div>
+
+                <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+                  <div className="text-xs font-bold text-purple-400">Grupo de Avaliação</div>
+                  <div className="text-[11px] text-slate-400">{avaliacaoSchools.length} agremiações na Intendente. Campeã e vice garantem acesso à Série Bronze!</div>
                 </div>
               </div>
 
@@ -616,7 +645,7 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                 Todo o progresso das temporadas anteriores será apagado do navegador.
               </p>
               <p className="text-amber-300">
-                O jogo será reiniciado no <strong>Carnaval 2027</strong> com todas as <strong>{totalSchoolsCount} agremiações</strong> distribuídas em suas 4 divisões originais (Especial, Ouro, Prata e Bronze) e seus orçamentos e elencos restaurados.
+                O jogo será reiniciado no <strong>Carnaval 2027</strong> com todas as <strong>{totalSchoolsCount} agremiações</strong> distribuídas em suas 5 divisões originais (Especial, Ouro, Prata, Bronze e Avaliação) e seus orçamentos e elencos restaurados.
               </p>
             </div>
 

@@ -1,8 +1,31 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { School, DivisionId, SchoolParadeScores } from '../types/carnaval';
-import { Play, Pause, FastForward, CheckCircle, Sparkles, Volume2, ArrowRight, Trophy, Zap, ChevronRight, CheckCircle2, RotateCcw, Eye, Clock, Star } from 'lucide-react';
+import {
+  Play,
+  Pause,
+  FastForward,
+  CheckCircle,
+  Sparkles,
+  Volume2,
+  ArrowRight,
+  Trophy,
+  Zap,
+  ChevronRight,
+  CheckCircle2,
+  RotateCcw,
+  Eye,
+  Clock,
+  Star,
+  AlertTriangle,
+  Scale,
+  BookOpen,
+  ShieldCheck
+} from 'lucide-react';
 import { soundService } from '../services/soundService';
 import { generateParadeReport, ParadeReport } from '../utils/paradeReports';
+import { PARADE_CONFIG, VENUES, getParadeDuration, simulateParadeDuration, getSectorIndex } from '../config/paradeConfig';
+import { DIVISION_REGULATIONS } from '../config/obrigatoriedadesConfig';
+import { RegulamentoObrigatoriedadesModal } from './RegulamentoObrigatoriedadesModal';
 
 interface DesfileSimulatorProps {
   currentYear: number;
@@ -12,12 +35,29 @@ interface DesfileSimulatorProps {
   ouroSchools: School[];
   prataSchools: School[];
   bronzeSchools: School[];
+  avaliacaoSchools?: School[];
   especialScores: SchoolParadeScores[];
   ouroScores: SchoolParadeScores[];
   prataScores: SchoolParadeScores[];
   bronzeScores: SchoolParadeScores[];
+  avaliacaoScores?: SchoolParadeScores[];
   completedSchoolIds: string[];
-  onCompleteParade: (schoolId: string) => void;
+  onCompleteParade: (
+    schoolId: string,
+    simulatedData?: {
+      duration: number;
+      penalty: number;
+      status: 'regular' | 'estouro' | 'abaixo';
+      diffMinutes: number;
+    }
+  ) => void;
+  onRecordParadeTime?: (
+    schoolId: string,
+    duration: number,
+    penalty: number,
+    status: 'regular' | 'estouro' | 'abaixo',
+    diffMinutes: number
+  ) => void;
   onCompleteParadesForDivision: (division: DivisionId) => void;
   onCompleteAllParades: () => void;
   onNavigateToApuracao: () => void;
@@ -38,10 +78,12 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
   ouroSchools,
   prataSchools,
   bronzeSchools,
+  avaliacaoSchools = [],
   especialScores,
   ouroScores,
   prataScores,
   bronzeScores,
+  avaliacaoScores = [],
   completedSchoolIds,
   onCompleteParade,
   onCompleteParadesForDivision,
@@ -52,6 +94,16 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
   const [selectedGroup, setSelectedGroup] = useState<DivisionId>('especial');
   const [activeParadeSchool, setActiveParadeSchool] = useState<School | null>(null);
   const [viewingReportSchoolId, setViewingReportSchoolId] = useState<string | null>(null);
+  const [showRegulamentoModal, setShowRegulamentoModal] = useState<boolean>(false);
+  const [regulamentoModalDiv, setRegulamentoModalDiv] = useState<DivisionId>('especial');
+
+  // Dynamic live parade simulation state
+  const [activeParadeSim, setActiveParadeSim] = useState<{
+    targetDuration: number;
+    timeStatus: 'regular' | 'estouro' | 'abaixo';
+    penalty: number;
+    diffMinutes: number;
+  } | null>(null);
 
   // Live runway simulator states
   const [minute, setMinute] = useState<number>(0);
@@ -60,6 +112,15 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
   const [events, setEvents] = useState<ParadeEvent[]>([]);
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Valores derivados da escola em desfile (config, local e duração dinâmica por grupo)
+  const activeConfig = activeParadeSchool ? PARADE_CONFIG[activeParadeSchool.division] : null;
+  const activeVenue = activeConfig ? VENUES[activeConfig.venue] : null;
+  const paradeDuration = activeParadeSim
+    ? activeParadeSim.targetDuration
+    : activeParadeSchool
+    ? getParadeDuration(activeParadeSchool, currentYear)
+    : 0;
 
   // Completed counts
   const totalSchools = schools.length;
@@ -70,60 +131,65 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
   const ouroCompletedCount = ouroSchools.filter((s) => completedSchoolIds.includes(s.id)).length;
   const prataCompletedCount = prataSchools.filter((s) => completedSchoolIds.includes(s.id)).length;
   const bronzeCompletedCount = bronzeSchools.filter((s) => completedSchoolIds.includes(s.id)).length;
+  const avaliacaoCompletedCount = avaliacaoSchools.filter((s) => completedSchoolIds.includes(s.id)).length;
 
   const getScoreDataForSchool = (schoolId: string): SchoolParadeScores | undefined => {
     return (
       especialScores.find((s) => s.schoolId === schoolId) ||
       ouroScores.find((s) => s.schoolId === schoolId) ||
       prataScores.find((s) => s.schoolId === schoolId) ||
-      bronzeScores.find((s) => s.schoolId === schoolId)
+      bronzeScores.find((s) => s.schoolId === schoolId) ||
+      avaliacaoScores.find((s) => s.schoolId === schoolId)
     );
   };
 
-  // Generate dynamic parade script for a school
-  const getParadeScript = (sch: School): ParadeEvent[] => {
+  // Generate dynamic parade script for a school (proporcional à duração do grupo)
+  const getParadeScript = (sch: School, duration: number): ParadeEvent[] => {
+    const venue = VENUES[PARADE_CONFIG[sch.division].venue];
+    const at = (f: number) => Math.max(1, Math.round(duration * f));
     const enredoTitle = sch.currentEnredo?.title || 'o Enredo Oficial da Temporada';
+
     return [
       {
-        minute: 2,
-        sector: 'Setor 1 (Armação & Entrada)',
-        description: `A ${sch.name} entra na passarela do samba! O intérprete ${sch.staff.interprete.name} solta o grito de guerra clássico e a galera responde nas arquibancadas!`,
+        minute: at(0.03),
+        sector: venue.eventSectors[0],
+        description: `A ${sch.name} entra em ${venue.name}! O intérprete ${sch.staff.interprete.name} solta o grito de guerra clássico e a galera responde nas arquibancadas!`,
         type: 'highlight'
       },
       {
-        minute: 12,
-        sector: 'Cabine 1 (Setores 2 e 3)',
+        minute: at(0.17),
+        sector: venue.eventSectors[1],
         description: `Apresentação impactante da Comissão de Frente concebida por ${sch.staff.coreografo.name}. Efeito cênico impecável aplaudido de pé pelos primeiros jurados!`,
         type: 'comissao'
       },
       {
-        minute: 24,
-        sector: 'Setores 5 e 6 (Balcões Centrais)',
+        minute: at(0.34),
+        sector: venue.eventSectors[2],
         description: `O monumental Carro Abre-Alas passa com as cores ${sch.colors.primary} e ${sch.colors.secondary}. O carnavalesco ${sch.staff.carnavalesco.name} apostou em iluminação deslumbrante!`,
         type: 'alegoria'
       },
       {
-        minute: 36,
-        sector: 'Cabine 2 (Setor 7)',
+        minute: at(0.51),
+        sector: venue.eventSectors[3],
         description: `O 1º Casal de Mestre-Sala e Porta-Bandeira ${sch.staff.mestreSalaPortaBandeira.name} reverencia a cabine com giros perfeitos, desfraldando o pavilhão sagrado com maestria.`,
         type: 'casal'
       },
       {
-        minute: 48,
-        sector: 'Segundo Recuo de Bateria (Setor 9)',
-        description: `Momento épico! O ${sch.staff.mestreBateria.name} comanda uma paradinha antológica na entrada do recuo. Os tamborins e caixas sustentam a melodia de '${enredoTitle}'!`,
+        minute: at(0.69),
+        sector: venue.eventSectors[4],
+        description: `Momento épico! O ${sch.staff.mestreBateria.name} comanda uma paradinha antológica no recuo. Os tamborins e caixas sustentam a melodia de '${enredoTitle}'!`,
         type: 'bateria'
       },
       {
-        minute: 60,
-        sector: 'Cabines 3 e 4 (Setor 10)',
+        minute: at(0.86),
+        sector: venue.eventSectors[5],
         description: `Harmonia e evolução impecáveis na reta final. As alas da comunidade sustentam o canto sem correr, garantindo o ritmo contagiante na passagem pelos últimos jurados.`,
         type: 'highlight'
       },
       {
-        minute: 68,
-        sector: 'Praça da Apoteose (Dispersão)',
-        description: `A última alegoria cruza a linha final aos 68 minutos de desfile! Portões fechados com rigor e aplausos efusivos na Apoteose!`,
+        minute: duration,
+        sector: venue.eventSectors[6],
+        description: `A última alegoria cruza a linha final aos ${duration} minutos de desfile! Portões fechados com rigor e aplausos efusivos ${venue.endPhrase}!`,
         type: 'finish'
       }
     ];
@@ -131,7 +197,14 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
 
   // Start watching a school's live runway parade
   const handleLaunchLiveParade = (school: School) => {
+    const timeSim = simulateParadeDuration(school);
     setActiveParadeSchool(school);
+    setActiveParadeSim({
+      targetDuration: timeSim.duration,
+      timeStatus: timeSim.timeStatus,
+      penalty: timeSim.penalty,
+      diffMinutes: timeSim.diffMinutes
+    });
     setMinute(0);
     setEvents([]);
     setIsFinished(false);
@@ -148,26 +221,23 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
     }
 
     intervalRef.current = setInterval(() => {
-      setMinute((prev) => {
-        if (prev >= 70) return 70;
-        return prev + 1;
-      });
+      setMinute((prev) => (prev >= paradeDuration ? paradeDuration : prev + 1));
     }, 450 / speed);
 
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [isPlaying, isFinished, activeParadeSchool, speed]);
+  }, [isPlaying, isFinished, activeParadeSchool, speed, paradeDuration]);
 
   // Handle milestones and completion when minute advances
   useEffect(() => {
-    if (!activeParadeSchool || minute === 0) return;
+    if (!activeParadeSchool || minute === 0 || paradeDuration === 0) return;
 
     if (minute % 4 === 0) {
       soundService.playSurdoBeat();
     }
 
-    const script = getParadeScript(activeParadeSchool);
+    const script = getParadeScript(activeParadeSchool, paradeDuration);
     const matchEvent = script.find((e) => e.minute === minute);
     if (matchEvent) {
       setEvents((cur) => {
@@ -177,23 +247,42 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
       soundService.playScoreRevealTone(10.0);
     }
 
-    if (minute >= 70 && !isFinished) {
+    if (minute >= paradeDuration && !isFinished) {
       setIsFinished(true);
       setIsPlaying(false);
       soundService.playChampionFanfare();
-      onCompleteParade(activeParadeSchool.id);
+      onCompleteParade(
+        activeParadeSchool.id,
+        activeParadeSim
+          ? {
+              duration: activeParadeSim.targetDuration,
+              penalty: activeParadeSim.penalty,
+              status: activeParadeSim.timeStatus,
+              diffMinutes: activeParadeSim.diffMinutes
+            }
+          : undefined
+      );
     }
-  }, [minute, isFinished, activeParadeSchool, onCompleteParade]);
+  }, [minute, isFinished, activeParadeSchool, paradeDuration, activeParadeSim, onCompleteParade]);
 
   const handleSkipToEnd = () => {
     if (!activeParadeSchool) return;
-    setMinute(70);
-    const script = getParadeScript(activeParadeSchool);
-    setEvents([...script].reverse());
+    setMinute(paradeDuration);
+    setEvents([...getParadeScript(activeParadeSchool, paradeDuration)].reverse());
     setIsFinished(true);
     setIsPlaying(false);
     soundService.playChampionFanfare();
-    onCompleteParade(activeParadeSchool.id);
+    onCompleteParade(
+      activeParadeSchool.id,
+      activeParadeSim
+        ? {
+            duration: activeParadeSim.targetDuration,
+            penalty: activeParadeSim.penalty,
+            status: activeParadeSim.timeStatus,
+            diffMinutes: activeParadeSim.diffMinutes
+          }
+        : undefined
+    );
   };
 
   // Find next pending school to watch
@@ -206,23 +295,20 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
 
   // Simulate an individual school parade instantly
   const handleSimulateSingleSchool = (sch: School) => {
-    onCompleteParade(sch.id);
+    const timeSim = simulateParadeDuration(sch);
+    onCompleteParade(sch.id, {
+      duration: timeSim.duration,
+      penalty: timeSim.penalty,
+      status: timeSim.timeStatus,
+      diffMinutes: timeSim.diffMinutes
+    });
     setViewingReportSchoolId(sch.id);
     soundService.playGavel();
   };
 
-  const currentSector =
-    minute < 10
-      ? 'Setor 1 / Armação'
-      : minute < 25
-      ? 'Cabine de Jurados 1 (Setores 2/3)'
-      : minute < 40
-      ? 'Setores 5 e 6 / Balcões'
-      : minute < 55
-      ? 'Cabine 2 & Recuo de Bateria (Setores 9/11)'
-      : minute < 67
-      ? 'Cabines 3 e 4 (Setor 10)'
-      : 'Praça da Apoteose / Dispersão';
+  const currentSector = activeVenue
+    ? activeVenue.sectors[getSectorIndex(minute, paradeDuration)]
+    : '';
 
   const displayedGroupSchools =
     selectedGroup === 'especial'
@@ -231,7 +317,9 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
       ? ouroSchools
       : selectedGroup === 'prata'
       ? prataSchools
-      : bronzeSchools;
+      : selectedGroup === 'bronze'
+      ? bronzeSchools
+      : avaliacaoSchools;
 
   return (
     <div className="space-y-6 pb-16 animate-fadeIn">
@@ -241,7 +329,7 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
           <div>
             <div className="flex items-center gap-2">
               <span className="text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                🔴 PASSALERA DO SAMBA • CARNAVAL {currentYear}
+                🔴 PASSARELA DO SAMBA • CARNAVAL {currentYear}
               </span>
               <span className="text-xs text-slate-400">
                 Marquês de Sapucaí & Intendente Magalhães
@@ -251,7 +339,7 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
               Desfiles Oficiais das Agremiações
             </h2>
             <p className="text-xs text-slate-400 max-w-2xl mt-0.5">
-              Assista e simule os desfiles de todos os 4 grupos (Especial, Ouro, Prata e Bronze) para acompanhar como cada escola se saiu. A apuração só é liberada após a conclusão dos desfiles!
+              Assista e simule os desfiles de todos os 5 grupos (Especial, Ouro, Prata, Bronze e Avaliação) para acompanhar como cada escola se saiu. A apuração só é liberada após a conclusão dos desfiles!
             </p>
           </div>
 
@@ -269,7 +357,7 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
                 style={{ width: `${(totalCompleted / Math.max(1, totalSchools)) * 100}%` }}
               />
             </div>
-            <div className="flex items-center justify-between text-[10px] text-slate-400 font-mono">
+            <div className="flex items-center justify-between text-[10px] text-slate-400 font-mono gap-1 flex-wrap">
               <span className={especialCompletedCount === especialSchools.length ? 'text-emerald-400 font-bold' : ''}>
                 Esp: {especialCompletedCount}/{especialSchools.length}
               </span>
@@ -278,6 +366,12 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
               </span>
               <span className={prataCompletedCount === prataSchools.length ? 'text-emerald-400 font-bold' : ''}>
                 Prata: {prataCompletedCount}/{prataSchools.length}
+              </span>
+              <span className={bronzeCompletedCount === bronzeSchools.length ? 'text-emerald-400 font-bold' : ''}>
+                Bronze: {bronzeCompletedCount}/{bronzeSchools.length}
+              </span>
+              <span className={avaliacaoCompletedCount === avaliacaoSchools.length ? 'text-emerald-400 font-bold' : ''}>
+                Avaliação: {avaliacaoCompletedCount}/{avaliacaoSchools.length}
               </span>
             </div>
           </div>
@@ -302,7 +396,7 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
                 className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-xs transition border border-slate-700 flex items-center gap-1.5 cursor-pointer"
               >
                 <Zap className="w-4 h-4 text-amber-400" />
-                <span>Simular Todos da {selectedGroup === 'especial' ? 'Série Especial' : selectedGroup === 'ouro' ? 'Série Ouro' : 'Série Prata'}</span>
+                <span>Simular Todos da {PARADE_CONFIG[selectedGroup].label}</span>
               </button>
             )}
 
@@ -312,14 +406,14 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
                 className="px-4 py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-black text-xs transition flex items-center gap-1.5 shadow cursor-pointer"
               >
                 <Sparkles className="w-4 h-4 text-amber-400" />
-                <span>Simular Todos os Desfiles dos 3 Grupos (Completo)</span>
+                <span>Simular Todos os Desfiles dos 5 Grupos (Completo)</span>
               </button>
             )}
 
             {isAllCarnavalCompleted && (
               <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
                 <CheckCircle2 className="w-4 h-4" />
-                <span>Todos os 53 Desfiles Concluídos com Sucesso!</span>
+                <span>Todos os {totalSchools} Desfiles Concluídos com Sucesso!</span>
               </div>
             )}
           </div>
@@ -348,8 +442,8 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
             <span>TODOS OS DESFILES DO CARNAVAL {currentYear} CONCLUÍDOS!</span>
           </div>
           <p className="text-sm text-slate-200 max-w-2xl mx-auto leading-relaxed">
-            As agremiações do <strong>Grupo Especial</strong>, da <strong>Série Ouro</strong> e da <strong>Série Prata</strong> cruzaram a Marquês de Sapucaí e a Estrada Intendente Magalhães!
-            Os 36 jurados lacraram os envelopes. Siga agora para a <strong>Apuração Oficial na Praça da Apoteose</strong> para revelar as notas e consagrar as campeãs!
+            As agremiações do <strong>Grupo Especial</strong>, da <strong>Série Ouro</strong>, da <strong>Série Prata</strong>, da <strong>Série Bronze</strong> e do <strong>Grupo de Avaliação</strong> cruzaram a Marquês de Sapucaí (Especial e Ouro) e a Estrada Intendente Magalhães (Prata, Bronze e Avaliação)!
+            Os envelopes foram lacrados com o regulamento do descarte da menor nota de cada quesito. Siga agora para a <strong>Apuração Oficial na Praça da Apoteose</strong> para revelar as notas e consagrar as campeãs!
           </p>
           <div className="pt-2">
             <button
@@ -379,14 +473,10 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
               <div>
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-black uppercase px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950">
-                    🔴 AO VIVO NA MARQUÊS DE SAPUCAÍ • CARNAVAL {currentYear}
+                    🔴 {activeVenue?.liveLabel} • CARNAVAL {currentYear}
                   </span>
                   <span className="text-xs text-white/80 font-semibold">
-                    {activeParadeSchool.division === 'especial'
-                      ? 'Grupo Especial'
-                      : activeParadeSchool.division === 'ouro'
-                      ? 'Série Ouro'
-                      : 'Série Prata (Superliga)'}
+                    {activeConfig?.label}
                   </span>
                 </div>
                 <h2 className="text-3xl font-black text-white mt-1">
@@ -406,16 +496,37 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
 
               <div className="flex items-center gap-4 bg-black/60 px-5 py-3 rounded-2xl border border-white/10 self-start md:self-auto">
                 <div className="text-right">
-                  <div className="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">
-                    Cronômetro Oficial
+                  <div className="text-[10px] text-slate-400 uppercase tracking-widest font-semibold flex items-center justify-end gap-1.5">
+                    <span>Cronômetro Oficial</span>
+                    {activeConfig && minute > activeConfig.maxMinutes && (
+                      <span className="w-2 h-2 rounded-full bg-rose-500 animate-ping" />
+                    )}
                   </div>
                   <div
                     className={`text-3xl font-black font-mono ${
-                      minute > 65 ? 'text-amber-400' : 'text-emerald-400'
+                      activeConfig && minute > activeConfig.maxMinutes
+                        ? 'text-rose-400 animate-pulse'
+                        : activeConfig && minute >= activeConfig.minMinutes
+                        ? 'text-emerald-400'
+                        : 'text-amber-400'
                     }`}
                   >
-                    {minute.toString().padStart(2, '0')}:00{' '}
-                    <span className="text-xs text-slate-400 font-normal">/ 70 min</span>
+                    {minute.toString().padStart(2, '0')}:00
+                  </div>
+                  <div className="text-[10px] font-medium mt-0.5">
+                    {activeConfig && minute > activeConfig.maxMinutes ? (
+                      <span className="text-rose-400 font-bold">
+                        ⚠️ Estouro: +{minute - activeConfig.maxMinutes} min (-{((minute - activeConfig.maxMinutes) * 0.1).toFixed(1)} pts)
+                      </span>
+                    ) : activeConfig && minute >= activeConfig.minMinutes ? (
+                      <span className="text-emerald-400 font-semibold">
+                        ✓ Faixa Regulamentar ({activeConfig.minMinutes}–{activeConfig.maxMinutes} min)
+                      </span>
+                    ) : (
+                      <span className="text-slate-400">
+                        Limite: {activeConfig?.minMinutes}–{activeConfig?.maxMinutes} min (-0,1 pts/min fora)
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -426,7 +537,7 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
           <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                Posição da Agremiação na Pista da Sapucaí:
+                Posição da Agremiação na Pista — {activeVenue?.name}:
               </span>
               <span className="text-xs font-bold text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">
                 📍 {currentSector}
@@ -438,18 +549,15 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
               <div className="h-4 bg-slate-950 rounded-full border border-slate-800 relative overflow-hidden">
                 <div
                   className="h-full bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-300 rounded-full transition-all duration-300"
-                  style={{ width: `${(minute / 70) * 100}%` }}
+                  style={{ width: `${(minute / Math.max(1, paradeDuration)) * 100}%` }}
                 />
               </div>
 
               {/* Sector Checkpoints */}
               <div className="flex justify-between text-[10px] text-slate-500 mt-2 font-mono">
-                <span>Setor 1</span>
-                <span>Cabine 1</span>
-                <span>Balcões</span>
-                <span>Recuo Bateria</span>
-                <span>Cabine 3/4</span>
-                <span>Apoteose</span>
+                {activeVenue?.checkpoints.map((c) => (
+                  <span key={c}>{c}</span>
+                ))}
               </div>
             </div>
 
@@ -529,7 +637,7 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
 
             {events.length === 0 ? (
               <div className="text-center py-8 text-slate-500 text-xs">
-                Pressione "Dar a Partida no Desfile" para que a agremiação inicie a apresentação na Marquês de Sapucaí!
+                Pressione "Dar a Partida no Desfile" para que a agremiação inicie a apresentação em {activeVenue?.name}!
               </div>
             ) : (
               <div className="space-y-3 max-h-72 overflow-y-auto pr-1">
@@ -559,11 +667,55 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
               <div className="mt-4 p-5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-3 animate-fadeIn">
                 <div className="flex items-center justify-center gap-2 text-emerald-400 font-bold text-base">
                   <CheckCircle className="w-5 h-5" />
-                  <span>Desfile da {activeParadeSchool.name} Concluído com Sucesso!</span>
+                  <span>Desfile da {activeParadeSchool.name} Concluído na Passarela!</span>
                 </div>
                 <p className="text-xs text-slate-300 max-w-lg mx-auto">
-                  Os 36 jurados (4 por quesito) já entregaram as notas em envelopes lacrados para a apuração oficial.
+                  Tempo total de desfile: <strong>{paradeDuration} minutos</strong> (Regulamentar: {activeConfig?.minMinutes} a {activeConfig?.maxMinutes} min).
                 </p>
+                {(() => {
+                  const scoreData = getScoreDataForSchool(activeParadeSchool.id);
+                  const timePen = activeParadeSim?.penalty ?? scoreData?.timePenalty ?? 0;
+                  const techPen = scoreData?.technicalPenalty ?? 0;
+                  const totalPen = Math.round((timePen + techPen) * 10) / 10;
+                  const infractions = scoreData?.infractions ?? [];
+
+                  if (totalPen > 0) {
+                    return (
+                      <div className="space-y-2 inline-block text-left max-w-xl mx-auto w-full">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-3.5 py-2 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/40 text-xs font-bold">
+                          <span>
+                            ⚠️ Penalidade Total: -{totalPen.toFixed(1)} ponto(s)
+                          </span>
+                          <span className="text-[10px] font-mono text-rose-200">
+                            Tempo: -{timePen.toFixed(1)} | Obrigatoriedades: -{techPen.toFixed(1)}
+                          </span>
+                        </div>
+
+                        {infractions.length > 0 && (
+                          <div className="p-2.5 rounded-lg bg-rose-950/40 border border-rose-800/40 space-y-1 text-[11px] text-rose-200">
+                            <div className="font-bold text-rose-300 flex items-center gap-1.5">
+                              <AlertTriangle className="w-3.5 h-3.5" />
+                              <span>Infrações Detectadas na Vistoria Técnica:</span>
+                            </div>
+                            {infractions.map((inf) => (
+                              <div key={inf.id} className="flex items-center justify-between pl-2">
+                                <span>• <strong>{inf.ruleName}:</strong> {inf.description}</span>
+                                <span className="font-mono font-bold text-rose-300 whitespace-nowrap ml-2">-{inf.pointsDeducted.toFixed(1)} pt</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                      <span>✓ Desfile concluído no tempo regulamentar e com 100% das obrigatoriedades técnicas cumpridas! Sem penalidades.</span>
+                    </div>
+                  );
+                })()}
 
                 {/* Performance report summary */}
                 {(() => {
@@ -680,7 +832,7 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
                   : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
               }`}
             >
-              <span>Série Bronze (Superliga)</span>
+              <span>Série Bronze</span>
               <span
                 className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold ${
                   bronzeCompletedCount === bronzeSchools.length
@@ -693,16 +845,58 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
                 {bronzeCompletedCount} / {bronzeSchools.length}
               </span>
             </button>
+
+            <button
+              onClick={() => setSelectedGroup('avaliacao')}
+              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
+                selectedGroup === 'avaliacao'
+                  ? 'bg-purple-600 text-white font-black shadow-md shadow-purple-600/30 ring-1 ring-purple-400'
+                  : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
+              }`}
+            >
+              <span>Grupo de Avaliação</span>
+              <span
+                className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold ${
+                  avaliacaoCompletedCount === avaliacaoSchools.length
+                    ? 'bg-emerald-500 text-slate-950'
+                    : selectedGroup === 'avaliacao'
+                    ? 'bg-purple-900 text-purple-200'
+                    : 'bg-slate-800 text-slate-400'
+                }`}
+              >
+                {avaliacaoCompletedCount} / {avaliacaoSchools.length}
+              </span>
+            </button>
+          </div>
+
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-300">
+            <div className="flex items-center gap-2.5">
+              <Scale className="w-4 h-4 text-amber-400 flex-shrink-0" />
+              <div>
+                <span className="font-bold text-white">{DIVISION_REGULATIONS[selectedGroup].governingBody}:</span>{' '}
+                <span className="text-slate-300">{DIVISION_REGULATIONS[selectedGroup].rules.componentes.description}</span>{' '}
+                <span className="text-amber-400 font-semibold">
+                  (Penalidade: {selectedGroup === 'bronze' ? 'de 0,4 a 2,3 pts' : '-0,5 pt por item'})
+                </span>
+              </div>
+            </div>
+
+            <button
+              onClick={() => {
+                setRegulamentoModalDiv(selectedGroup);
+                setShowRegulamentoModal(true);
+              }}
+              className="px-3 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold text-[11px] flex items-center gap-1.5 whitespace-nowrap cursor-pointer transition self-end sm:self-auto"
+            >
+              <BookOpen className="w-3.5 h-3.5" />
+              <span>Regulamento & Obrigatoriedades</span>
+            </button>
           </div>
 
           <div className="text-xs text-slate-400">
-            {selectedGroup === 'especial'
-              ? 'Sambódromo Marquês de Sapucaí • Domingo e Segunda de Carnaval'
-              : selectedGroup === 'ouro'
-              ? 'Sambódromo Marquês de Sapucaí • Sexta e Sábado de Carnaval'
-              : selectedGroup === 'prata'
-              ? 'Estrada Intendente Magalhães • Terça-Feira de Carnaval'
-              : 'Estrada Intendente Magalhães • Quarta-Feira / Desfile da Superliga Bronze'}
+            {PARADE_CONFIG[selectedGroup].schedule}
+            {' • '}
+            {PARADE_CONFIG[selectedGroup].minMinutes}–{PARADE_CONFIG[selectedGroup].maxMinutes} min
           </div>
         </div>
 
@@ -805,9 +999,35 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
                           <span>{report.verdictTitle}</span>
                         </span>
                         <span className="text-[10px] font-mono text-emerald-400 font-bold">
-                          {report.timeMinutes} min
+                          {scoreData?.paradeTimeMinutes || getParadeDuration(sch, currentYear)} min
                         </span>
                       </div>
+                      {scoreData?.penalties && scoreData.penalties > 0 ? (
+                        <div className="text-[10px] font-bold text-rose-300 bg-rose-950/60 px-2 py-1 rounded border border-rose-700/60 space-y-1">
+                          <div className="flex items-center justify-between">
+                            <span>
+                              ⚠️ {scoreData.timePenalty && scoreData.timePenalty > 0
+                                ? (scoreData.timeStatus === 'estouro' ? `Estouro (+${scoreData.timeDifferenceMinutes}m)` : `Abaixo (-${scoreData.timeDifferenceMinutes}m)`)
+                                : 'Infração de Regulamento'}
+                            </span>
+                            <span className="font-mono text-rose-200">Total: -{scoreData.penalties.toFixed(1)} pts</span>
+                          </div>
+                          {scoreData.technicalPenalty && scoreData.technicalPenalty > 0 ? (
+                            <div className="text-[9px] font-medium text-rose-300/90">
+                              Obrigatoriedades: -{scoreData.technicalPenalty.toFixed(1)} pts
+                              {scoreData.infractions && scoreData.infractions.length > 0 && ` (${scoreData.infractions.map(i => i.ruleName).join(', ')})`}
+                            </div>
+                          ) : null}
+                        </div>
+                      ) : (
+                        <div className="text-[10px] font-medium text-emerald-400/90 flex items-center justify-between bg-emerald-950/30 px-2 py-0.5 rounded border border-emerald-800/30">
+                          <span className="flex items-center gap-1">
+                            <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+                            <span>Tempo & Obrigatoriedades cumpridos</span>
+                          </span>
+                          <span className="font-mono font-bold">0.0 penalidade</span>
+                        </div>
+                      )}
                       <p className="text-[11px] text-slate-300 leading-snug">
                         {report.criticaSummary}
                       </p>
@@ -821,6 +1041,9 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
                           <div><strong>🎤 Canto:</strong> {report.highlights.harmonia}</div>
                           <div><strong>🏰 Alegorias:</strong> {report.highlights.alegorias}</div>
                           <div><strong>⏱️ Evolução:</strong> {report.highlights.evolucao}</div>
+                          {report.highlights.obrigatoriedades && (
+                            <div><strong>📋 Vistoria de Pista:</strong> {report.highlights.obrigatoriedades}</div>
+                          )}
                         </div>
                       )}
 
@@ -871,6 +1094,13 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
           })}
         </div>
       </div>
+
+      {showRegulamentoModal && (
+        <RegulamentoObrigatoriedadesModal
+          initialDivision={regulamentoModalDiv}
+          onClose={() => setShowRegulamentoModal(false)}
+        />
+      )}
     </div>
   );
 };

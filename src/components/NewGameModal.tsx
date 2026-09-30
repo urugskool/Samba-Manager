@@ -10,6 +10,7 @@ interface NewGameModalProps {
   ouroSchools: School[];
   prataSchools: School[];
   bronzeSchools: School[];
+  avaliacaoSchools?: School[];
   onStartGame: (selectedSchoolId: string | null, managerName: string) => void;
   onClose?: () => void;
 }
@@ -20,6 +21,7 @@ export const NewGameModal: React.FC<NewGameModalProps> = ({
   ouroSchools,
   prataSchools,
   bronzeSchools,
+  avaliacaoSchools = [],
   onStartGame,
   onClose
 }) => {
@@ -37,7 +39,9 @@ export const NewGameModal: React.FC<NewGameModalProps> = ({
       ? ouroSchools
       : selectedDivision === 'prata'
       ? prataSchools
-      : bronzeSchools;
+      : selectedDivision === 'bronze'
+      ? bronzeSchools
+      : avaliacaoSchools;
   const currentSelectedSchool = activeSchoolList.find(s => s.id === selectedSchoolId) || activeSchoolList[0];
 
   const handleConfirm = () => {
@@ -66,7 +70,7 @@ export const NewGameModal: React.FC<NewGameModalProps> = ({
             Samba Manager • O Simulador das Escolas de Samba
           </h2>
           <p className="text-xs text-slate-400">
-            Assuma o comando de uma agremiação no Grupo Especial, Série Ouro, Série Prata ou Série Bronze a partir do Carnaval 2027.
+            Assuma o comando de uma agremiação no Grupo Especial, Série Ouro, Série Prata, Série Bronze ou Grupo de Avaliação a partir do Carnaval 2027.
           </p>
         </div>
 
@@ -171,6 +175,19 @@ export const NewGameModal: React.FC<NewGameModalProps> = ({
                   >
                     Série Bronze ({bronzeSchools.length})
                   </button>
+                  <button
+                    onClick={() => {
+                      setSelectedDivision('avaliacao');
+                      setSelectedSchoolId(avaliacaoSchools[0]?.id || '');
+                    }}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+                      selectedDivision === 'avaliacao'
+                        ? 'bg-purple-600 text-white ring-1 ring-purple-400'
+                        : 'bg-slate-800 text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    Avaliação ({avaliacaoSchools.length})
+                  </button>
                 </div>
               </div>
 
@@ -197,7 +214,7 @@ export const NewGameModal: React.FC<NewGameModalProps> = ({
                       />
                       <div className="min-w-0">
                         <div className="text-xs font-bold text-white truncate">
-                          {school.shortName || school.name}
+                          {school.name}
                         </div>
                         <div className="text-[10px] text-slate-400 truncate">
                           {school.neighborhood}
@@ -225,7 +242,7 @@ export const NewGameModal: React.FC<NewGameModalProps> = ({
                     <div className="flex items-center gap-1.5 text-[11px] text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/20">
                       <Trophy className="w-3.5 h-3.5 flex-shrink-0" />
                       <span>
-                        Palmarés: <strong>{stats.totalEspecialTitles}</strong> Esp ({stats.totalEspecialVices} vices) • <strong>{stats.totalOuroTitles}</strong> Ouro ({stats.totalOuroVices} vices){stats.totalPrataTitles > 0 ? ` • ${stats.totalPrataTitles} Prata` : ''} — <em>(🏛️ {stats.ancientEspecialTitles + stats.ancientOuroTitles + stats.ancientPrataTitles} Históricos + 🌟 {stats.inGameEspecialTitles + stats.inGameOuroTitles + stats.inGamePrataTitles} no Jogo/2027 em diante)</em>
+                        Palmarés: <strong>{stats.totalEspecialTitles}</strong> Esp ({stats.totalEspecialVices} vices) • <strong>{stats.totalOuroTitles}</strong> Ouro ({stats.totalOuroVices} vices){stats.totalPrataTitles > 0 ? ` • ${stats.totalPrataTitles} Prata` : ''}{stats.totalBronzeTitles > 0 ? ` • ${stats.totalBronzeTitles} Bronze` : ''} — <em>(🏛️ {stats.ancientEspecialTitles + stats.ancientOuroTitles + stats.ancientPrataTitles + stats.ancientBronzeTitles} Históricos + 🌟 {stats.inGameEspecialTitles + stats.inGameOuroTitles + stats.inGamePrataTitles + stats.inGameBronzeTitles} no Jogo/2027 em diante)</em>
                       </span>
                     </div>
 

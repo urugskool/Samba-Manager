@@ -9,6 +9,8 @@ interface TabelaViewProps {
   ouroSchools: School[];
   prataSchools: School[];
   bronzeSchools: School[];
+  avaliacaoSchools?: School[];
+  inactiveSchools?: School[];
   userSchool: School | null;
   history: YearHistory[];
 }
@@ -19,22 +21,58 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
   ouroSchools,
   prataSchools,
   bronzeSchools,
+  avaliacaoSchools = [],
+  inactiveSchools = [],
   userSchool,
   history
 }) => {
-  const [selectedDivision, setSelectedDivision] = useState<DivisionId>('especial');
+  const [selectedDivision, setSelectedDivision] = useState<DivisionId | 'inativas'>('especial');
   const [activeTab, setActiveTab] = useState<'current' | 'history'>('current');
   const [expandedSchoolId, setExpandedSchoolId] = useState<string | null>(null);
 
   const lastHistory = history.length > 0 ? history[0] : null;
 
   const getSchoolLastCarnavalResult = (school: School) => {
+    const isInactive = Boolean(school.isInactive || school.inactive);
+
     if (!lastHistory) {
       return {
-        tier: school.division === 'especial' ? 1 : school.division === 'ouro' ? 2 : school.division === 'prata' ? 3 : 4,
+        tier: school.division === 'especial' ? 1 : school.division === 'ouro' ? 2 : school.division === 'prata' ? 3 : school.division === 'bronze' ? 4 : 5,
         rank: 99,
         score: 0,
-        badgeText: 'Sem dados do carnaval anterior'
+        badgeText: isInactive ? `Afastada das disputas (${school.inactiveReason || 'Sem desfile oficial'})` : 'Sem dados do carnaval anterior'
+      };
+    }
+
+    if (isInactive) {
+      const wasSuspendedLastYear = lastHistory.avaliacaoSuspended?.includes(school.name);
+      return {
+        tier: 6,
+        rank: 99,
+        score: 0,
+        badgeText: wasSuspendedLastYear
+          ? `⚠️ Afastada do Carnaval em ${lastHistory.year} (Mínimo 1 ano fora)`
+          : `💤 Fora de atividade desde ${school.inactiveSince || 'anos anteriores'} (${school.inactiveReason || 'Aguardando reativação'})`
+      };
+    }
+
+    // Check if was reactivated this season
+    if (lastHistory.reactivatedSchools?.includes(school.name)) {
+      return {
+        tier: 5,
+        rank: 1,
+        score: 0,
+        badgeText: `🔄 Agremiação Reativada para o Grupo de Avaliação ${currentYear}!`
+      };
+    }
+
+    // Check if is newly founded school
+    if (lastHistory.newSchools?.includes(school.name)) {
+      return {
+        tier: 5,
+        rank: 1,
+        score: 0,
+        badgeText: `✨ Nova Escola Fundada para o Grupo de Avaliação ${currentYear}!`
       };
     }
 
@@ -83,15 +121,22 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
       (s) => s.schoolId === school.id || s.schoolName.toLowerCase() === school.name.toLowerCase()
     );
     if (prata) {
+      const prataTotalInSeason = lastHistory.prataStandings?.length || 24;
+      const prataRelegatedCount = lastHistory.prataRelegated?.length || (prataTotalInSeason > 16 ? 4 : 3);
+      const isPrataRelegated = prata.rank > prataTotalInSeason - prataRelegatedCount;
+      const isPrataPromoted = lastHistory.prataPromoted?.includes(prata.schoolName) || prata.rank === 1;
+
       return {
         tier: 3,
         rank: prata.rank,
         score: prata.totalScore,
         badgeText: prata.rank === 1
           ? `⬆️ Campeã da Série Prata ${lastHistory.year} • Acesso (${prata.totalScore.toFixed(1)} pts)`
+          : isPrataPromoted
+          ? `⬆️ Vice-Campeã da Série Prata ${lastHistory.year} • Acesso (${prata.totalScore.toFixed(1)} pts)`
           : prata.rank === 2
           ? `🥈 Vice-Campeã da Série Prata ${lastHistory.year} (${prata.totalScore.toFixed(1)} pts)`
-          : prata.rank >= 24
+          : isPrataRelegated
           ? `⬇️ ${prata.rank}º Lugar Série Prata ${lastHistory.year} • Rebaixada (${prata.totalScore.toFixed(1)} pts)`
           : `${prata.rank}º Lugar na Série Prata ${lastHistory.year} (${prata.totalScore.toFixed(1)} pts)`
       };
@@ -102,22 +147,53 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
       (s) => s.schoolId === school.id || s.schoolName.toLowerCase() === school.name.toLowerCase()
     );
     if (bronze) {
+      const isBronzePromoted = lastHistory.bronzePromoted?.includes(bronze.schoolName) || bronze.rank <= (lastHistory.bronzePromoted?.length || 1);
+      const bronzeTotalInSeason = lastHistory.bronzeStandings?.length || 24;
+      const bronzeRelegatedCount = lastHistory.bronzeRelegated?.length || (bronzeTotalInSeason > 18 ? 4 : 3);
+      const isBronzeRelegated = lastHistory.bronzeRelegated?.includes(bronze.schoolName) || bronze.rank > bronzeTotalInSeason - bronzeRelegatedCount;
+
       return {
         tier: 4,
         rank: bronze.rank,
         score: bronze.totalScore,
         badgeText: bronze.rank === 1
           ? `🏆 Campeã da Série Bronze ${lastHistory.year} • Acesso (${bronze.totalScore.toFixed(1)} pts)`
+          : isBronzePromoted
+          ? `⬆️ ${bronze.rank}º Lugar Série Bronze ${lastHistory.year} • Acesso (${bronze.totalScore.toFixed(1)} pts)`
           : bronze.rank === 2
-          ? `🥈 Vice-Campeã da Série Bronze ${lastHistory.year} • Acesso (${bronze.totalScore.toFixed(1)} pts)`
-          : bronze.rank > (lastHistory.bronzeStandings ? lastHistory.bronzeStandings.length - 2 : 20)
-          ? `⬇️ ${bronze.rank}º Lugar Série Bronze ${lastHistory.year} • Zona de Rebaixamento (${bronze.totalScore.toFixed(1)} pts)`
+          ? `🥈 Vice-Campeã da Série Bronze ${lastHistory.year} (${bronze.totalScore.toFixed(1)} pts)`
+          : isBronzeRelegated
+          ? `⬇️ ${bronze.rank}º Lugar Série Bronze ${lastHistory.year} • Rebaixada p/ Avaliação (${bronze.totalScore.toFixed(1)} pts)`
           : `${bronze.rank}º Lugar na Série Bronze ${lastHistory.year} (${bronze.totalScore.toFixed(1)} pts)`
       };
     }
 
+    // 5. Check avaliacaoStandings
+    const ava = lastHistory.avaliacaoStandings?.find(
+      (s) => s.schoolId === school.id || s.schoolName.toLowerCase() === school.name.toLowerCase()
+    );
+    if (ava) {
+      const isAvaPromoted = lastHistory.avaliacaoPromoted?.includes(ava.schoolName) || ava.rank <= (lastHistory.avaliacaoPromoted?.length || 2);
+      const isAvaSuspended = lastHistory.avaliacaoSuspended?.includes(ava.schoolName);
+
+      return {
+        tier: 5,
+        rank: ava.rank,
+        score: ava.totalScore,
+        badgeText: ava.rank === 1
+          ? `🏆 Campeã do Grupo de Avaliação ${lastHistory.year} • Acesso (${ava.totalScore.toFixed(1)} pts)`
+          : isAvaPromoted
+          ? `⬆️ ${ava.rank}º Lugar Avaliação ${lastHistory.year} • Acesso à Série Bronze (${ava.totalScore.toFixed(1)} pts)`
+          : ava.rank === 2
+          ? `🥈 Vice-Campeã de Avaliação ${lastHistory.year} (${ava.totalScore.toFixed(1)} pts)`
+          : isAvaSuspended
+          ? `⚠️ ${ava.rank}º Lugar Avaliação ${lastHistory.year} • Afastada do Carnaval (${ava.totalScore.toFixed(1)} pts)`
+          : `${ava.rank}º Lugar no Grupo de Avaliação ${lastHistory.year} (${ava.totalScore.toFixed(1)} pts)`
+      };
+    }
+
     return {
-      tier: school.division === 'especial' ? 1 : school.division === 'ouro' ? 2 : school.division === 'prata' ? 3 : 4,
+      tier: school.division === 'especial' ? 1 : school.division === 'ouro' ? 2 : school.division === 'prata' ? 3 : school.division === 'bronze' ? 4 : 5,
       rank: 99,
       score: 0,
       badgeText: `Participante do Carnaval ${lastHistory.year}`
@@ -131,7 +207,11 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
       ? ouroSchools
       : selectedDivision === 'prata'
       ? prataSchools
-      : bronzeSchools;
+      : selectedDivision === 'bronze'
+      ? bronzeSchools
+      : selectedDivision === 'avaliacao'
+      ? avaliacaoSchools
+      : inactiveSchools;
 
   // Sort schools in order according to the result of the last carnival
   const schools = [...rawSchools].sort((a, b) => {
@@ -239,16 +319,40 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
               >
                 Série Bronze ({bronzeSchools.length} Agremiações)
               </button>
+              <button
+                onClick={() => setSelectedDivision('avaliacao')}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
+                  selectedDivision === 'avaliacao'
+                    ? 'bg-purple-600 text-white font-black ring-1 ring-purple-400'
+                    : 'bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800'
+                }`}
+              >
+                Grupo de Avaliação ({avaliacaoSchools.length} Agremiações)
+              </button>
+              <button
+                onClick={() => setSelectedDivision('inativas')}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
+                  selectedDivision === 'inativas'
+                    ? 'bg-slate-700 text-white font-black ring-1 ring-slate-500'
+                    : 'bg-slate-900/60 border border-slate-800 text-slate-400 hover:bg-slate-800 hover:text-slate-300'
+                }`}
+              >
+                Inativas / Afastadas ({inactiveSchools.length})
+              </button>
             </div>
 
             <div className="text-xs text-slate-400 hidden lg:block">
               {selectedDivision === 'especial'
                 ? 'Regra: Campeã (1º) | Desfile Campeãs (1º ao 6º) | Rebaixamento (12º colocado)'
                 : selectedDivision === 'ouro'
-                ? 'Regra: Acesso (1º colocado sobe ao Especial) | Rebaixamento (2 últimos caem p/ Prata - Ajuste até 14 escolas)'
+                ? `Regra: Acesso (1º sobe ao Especial) | Rebaixamento (2 últimos caem p/ Prata - ${ouroSchools.length > 14 ? 'Ajuste até 14 escolas' : 'Estabilizado em 14'})`
                 : selectedDivision === 'prata'
-                ? 'Regra: Acesso (Campeã e Vice sobem para Série Ouro) | Rebaixamento (2 últimas caem para Série Bronze)'
-                : 'Regra: Acesso (Campeã e Vice sobem para Série Prata) | Zona de Risco (2 últimas colocadas)'}
+                ? `Regra: Acesso (${ouroSchools.length <= 14 ? 'Campeã e Vice sobem p/ Ouro' : 'Campeã sobe p/ Ouro'}) | Rebaixamento (${prataSchools.length > 16 ? '4 últimas caem p/ Bronze - Transição até 16 escolas' : prataSchools.length === 15 ? '2 últimas caem p/ Bronze - Ajuste para 16 escolas' : '3 últimas caem p/ Bronze - Estabilizada'})`
+                : selectedDivision === 'bronze'
+                ? `Regra: Acesso (${prataSchools.length === 15 ? 'Campeã e Vice sobem p/ Série Prata (Ajuste para 16 escolas)' : prataSchools.length > 16 ? 'Apenas a Campeã sobe p/ Prata' : 'Top 3 sobem p/ Série Prata - Estabilizada'}) | Rebaixamento (${bronzeSchools.length > 18 ? 'Rebaixamento para o Grupo de Avaliação ajustado até a Série Bronze atingir 18 escolas' : '3 últimas caem p/ Grupo de Avaliação - Estabilizada'})`
+                : selectedDivision === 'avaliacao'
+                ? `Regra: Disputado por até 20 agremiações ativas | Acesso (${bronzeSchools.length > 18 ? 'Subem apenas 2 escolas do Grupo de Avaliação p/ Série Bronze até o Bronze atingir 18 escolas' : 'Top 3 sobem p/ Série Bronze e 3 caem do Bronze - Estabilizada'}) | Processo de Afastamento: Últimas colocadas são afastadas (mín. 1 ano fora) | Pelo menos 1 retorno/estreia anual.`
+                : 'Agremiações fora de atividade, suspensas ou extintas com histórico no carnaval carioca que podem retornar via Grupo de Avaliação ou ser substituídas por novas agremiações fundadas no jogo.'}
             </div>
           </div>
 
@@ -298,14 +402,6 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                             </span>
                           )}
                         </div>
-                        <div className="text-[11px] text-slate-400 truncate">
-                          "{school.nickname}" • Bairro: {school.neighborhood}
-                        </div>
-                        <div className="mt-1 flex items-center gap-1.5 flex-wrap">
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-800 text-amber-300 border border-slate-700">
-                            {lastCarnavalInfo.badgeText}
-                          </span>
-                        </div>
                       </div>
                     </div>
 
@@ -315,6 +411,7 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                         <div className="font-bold text-amber-400">
                           {stats.totalEspecialTitles} Esp ({stats.totalEspecialVices} vices) • {stats.totalOuroTitles} Ouro ({stats.totalOuroVices} vices)
                           {stats.totalPrataTitles > 0 ? ` • ${stats.totalPrataTitles} Prata` : ''}
+                          {stats.totalBronzeTitles > 0 ? ` • ${stats.totalBronzeTitles} Bronze` : ''}
                         </div>
                         <div className="text-[10px] text-slate-300 font-semibold mt-0.5">
                           Total Acumulado: {stats.grandTotalTitles} Título{stats.grandTotalTitles === 1 ? '' : 's'} • {stats.grandTotalConquests} Conquista{stats.grandTotalConquests === 1 ? '' : 's'}
@@ -327,9 +424,42 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                     </div>
                   </div>
 
-                  {/* Expanded Quesitos Breakdown */}
+                  {/* Expanded Details Breakdown */}
                   {isExpanded && (
                     <div className="px-4 pb-4 pt-2 border-t border-slate-800/80 space-y-3 text-xs animate-fadeIn">
+                      {/* Informações Oficiais Cadastradas */}
+                      <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-xs space-y-2">
+                        <div className="text-[11px] font-bold text-amber-300 uppercase tracking-wider">
+                          Informações Cadastrais Oficiais
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 text-slate-300">
+                          <div>
+                            <span className="text-slate-500 text-[10px] block uppercase">Nome Chamado</span>
+                            <span className="font-semibold text-white">{school.shortName}</span>
+                          </div>
+                          <div>
+                            <span className="text-slate-500 text-[10px] block uppercase">Abreviação / Sigla</span>
+                            <span className="font-mono font-bold text-amber-300">{school.abbreviation || '—'}</span>
+                          </div>
+                          <div>
+                            <span className="text-slate-500 text-[10px] block uppercase">Fundação</span>
+                            <span className="font-semibold text-white">{school.foundationDate || school.foundationYear}</span>
+                          </div>
+                          <div>
+                            <span className="text-slate-500 text-[10px] block uppercase">Bairro / Sede</span>
+                            <span className="font-semibold text-white">{school.neighborhood}</span>
+                          </div>
+                          <div className="sm:col-span-2">
+                            <span className="text-slate-500 text-[10px] block uppercase">Cores Oficiais</span>
+                            <span className="font-semibold text-white">{school.colorsDescription || 'Tradicionais'}</span>
+                          </div>
+                          <div className="sm:col-span-2">
+                            <span className="text-slate-500 text-[10px] block uppercase">Símbolo Oficial</span>
+                            <span className="font-semibold text-white">{school.symbol}</span>
+                          </div>
+                        </div>
+                      </div>
+
                       <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
                         Atributos Técnicos da Escola (Pontuação Base de Desfile)
                       </div>
@@ -348,9 +478,44 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                         ))}
                       </div>
 
+                      {/* Profissionais / Corpo Técnico */}
+                      {school.staff && (
+                        <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1.5">
+                          <div className="text-[10px] font-bold text-slate-400 uppercase">
+                            Corpo Técnico & Profissionais Oficiais
+                          </div>
+                          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 text-[11px]">
+                            <div>
+                              <span className="text-slate-500 text-[10px] block">Carnavalesco</span>
+                              <strong className="text-white truncate block">{school.staff.carnavalesco?.name || 'A definir'}</strong>
+                            </div>
+                            <div>
+                              <span className="text-slate-500 text-[10px] block">Mestre Bateria</span>
+                              <strong className="text-white truncate block">{school.staff.mestreBateria?.name || 'A definir'}</strong>
+                            </div>
+                            <div>
+                              <span className="text-slate-500 text-[10px] block">Harmonia</span>
+                              <strong className="text-white truncate block">{school.staff.harmonia?.name || 'A definir'}</strong>
+                            </div>
+                            <div>
+                              <span className="text-slate-500 text-[10px] block">1º Casal MS/PB</span>
+                              <strong className="text-white truncate block">{school.staff.mestreSalaPortaBandeira?.name || 'A definir'}</strong>
+                            </div>
+                            <div>
+                              <span className="text-slate-500 text-[10px] block">Intérprete</span>
+                              <strong className="text-white truncate block">{school.staff.interprete?.name || 'A definir'}</strong>
+                            </div>
+                            <div>
+                              <span className="text-slate-500 text-[10px] block">Comissão Frente</span>
+                              <strong className="text-white truncate block">{school.staff.coreografo?.name || 'A definir'}</strong>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
                       <div className="pt-2 flex flex-wrap items-center justify-between text-slate-400 text-xs gap-2">
                         <div>
-                          Carnavalesco: <strong className="text-white">{school.staff.carnavalesco.name}</strong> • Mestre: <strong className="text-white">{school.staff.mestreBateria.name}</strong>
+                          Lema: <strong className="text-amber-200">"{school.nickname}"</strong>
                         </div>
                         <div>
                           Orçamento Anual: <strong className="text-emerald-400 font-mono">R$ {school.budget.toLocaleString('pt-BR')}</strong>
@@ -392,7 +557,7 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                     <span className="text-xs text-slate-400">Resultados Oficiais Homologados</span>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3">
                     {/* Especial Summary */}
                     <div className="p-3.5 rounded-lg bg-slate-900/60 border border-slate-800 text-xs space-y-2">
                       <div className="font-bold text-amber-300 uppercase tracking-wider flex items-center gap-1.5">
@@ -452,6 +617,40 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                       <div className="text-emerald-400">
                         Promovidas p/ Prata: <strong>{record.bronzePromoted?.join(', ') || record.bronzeChampion || 'Nenhuma'}</strong>
                       </div>
+                      {record.bronzeRelegated && record.bronzeRelegated.length > 0 && (
+                        <div className="text-rose-400">
+                          Rebaixadas p/ Avaliação: <strong>{record.bronzeRelegated.join(', ')}</strong>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Grupo de Avaliação Summary */}
+                    <div className="p-3.5 rounded-lg bg-slate-900/60 border border-slate-800 text-xs space-y-2">
+                      <div className="font-bold text-purple-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <Trophy className="w-4 h-4 text-purple-500" />
+                        <span>Grupo Avaliação {record.year}</span>
+                      </div>
+                      <div>
+                        Campeã da Avaliação: <strong className="text-purple-300 text-sm">{record.avaliacaoChampion || 'Desconhecida'}</strong>
+                      </div>
+                      <div className="text-emerald-400">
+                        Promovidas p/ Bronze: <strong>{record.avaliacaoPromoted?.join(', ') || record.avaliacaoChampion || 'Nenhuma'}</strong>
+                      </div>
+                      {record.avaliacaoSuspended && record.avaliacaoSuspended.length > 0 && (
+                        <div className="text-purple-300">
+                          Afastadas (Mín. 1 ano fora): <strong>{record.avaliacaoSuspended.join(', ')}</strong>
+                        </div>
+                      )}
+                      {(record.reactivatedSchools && record.reactivatedSchools.length > 0) && (
+                        <div className="text-cyan-300 text-[11px]">
+                          Reativadas: <strong>{record.reactivatedSchools.join(', ')}</strong>
+                        </div>
+                      )}
+                      {(record.newSchools && record.newSchools.length > 0) && (
+                        <div className="text-amber-300 text-[11px]">
+                          Novas Fundações: <strong>{record.newSchools.join(', ')}</strong>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
