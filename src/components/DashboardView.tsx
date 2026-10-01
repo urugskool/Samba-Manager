@@ -15,7 +15,8 @@ import {
   Compass,
   ArrowRight,
   TrendingUp,
-  AlertCircle
+  AlertCircle,
+  Crown
 } from 'lucide-react';
 
 interface DashboardViewProps {
@@ -29,6 +30,7 @@ interface DashboardViewProps {
   completedParadesCount?: number;
   totalParadesCount?: number;
   onSimulateAllParades?: () => void;
+  allApuracoesCompleted?: boolean;
 }
 
 export const DashboardView: React.FC<DashboardViewProps> = ({
@@ -41,7 +43,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   allParadesCompleted = false,
   completedParadesCount = 0,
   totalParadesCount = 53,
-  onSimulateAllParades
+  onSimulateAllParades,
+  allApuracoesCompleted = false
 }) => {
   const stats = getSchoolConsolidatedStats(school);
 
@@ -181,6 +184,16 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   : 'Apuração (Aguarda Desfiles)'}
               </span>
             </button>
+
+            {allApuracoesCompleted && (
+              <button
+                onClick={() => onNavigateTab('campeas')}
+                className="px-4 sm:px-6 py-3 sm:py-3.5 rounded-xl font-black text-xs sm:text-sm transition shadow-lg flex items-center justify-center gap-2 cursor-pointer bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 shadow-amber-500/25 ring-2 ring-amber-400/40"
+              >
+                <Crown className="w-4 h-4 shrink-0 text-slate-950" />
+                <span className="truncate">Desfile das Campeãs (G6)</span>
+              </button>
+            )}
           </div>
         </div>
       </div>

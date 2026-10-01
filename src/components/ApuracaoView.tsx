@@ -4,7 +4,8 @@ import {
   DivisionId,
   SchoolParadeScores,
   QuesitoId,
-  DivisionResult
+  DivisionResult,
+  DivisionStatesMap
 } from '../types/carnaval';
 import { QUESITOS } from '../data/carnavalData';
 import { SimulationEngine, TIEBREAKER_QUESITO_ORDER } from '../services/simulationEngine';
@@ -60,6 +61,11 @@ interface ApuracaoViewProps {
   totalParadeCount?: number;
   onNavigateToDesfile?: () => void;
   onSimulateAllParades?: () => void;
+  onNavigateToCampeas?: () => void;
+  divisionStates?: DivisionStatesMap;
+  onUpdateDivisionStates?: (
+    updater: DivisionStatesMap | ((prev: DivisionStatesMap) => DivisionStatesMap)
+  ) => void;
 }
 
 export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
@@ -81,7 +87,10 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
   completedParadeCount = 0,
   totalParadeCount = 75,
   onNavigateToDesfile,
-  onSimulateAllParades
+  onSimulateAllParades,
+  onNavigateToCampeas,
+  divisionStates: propDivisionStates,
+  onUpdateDivisionStates
 }) => {
   const [selectedDivision, setSelectedDivision] = useState<DivisionId>('especial');
   const currentLeague = LEAGUES[PARADE_CONFIG[selectedDivision]?.leagueId || 'liesa'];
@@ -98,10 +107,8 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
     totalB?: number;
   }>({ isOpen: false });
 
-  // Separate playback & completion state per division
-  const [divisionStates, setDivisionStates] = useState<
-    Record<DivisionId, { hasStarted: boolean; quesitoIdx: number; judgeIdx: number; schoolIdx: number; isCompleted: boolean }>
-  >({
+  // Separate playback & completion state per division (fallback to local if not provided)
+  const [localDivisionStates, setLocalDivisionStates] = useState<DivisionStatesMap>({
     especial: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false },
     ouro: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false },
     prata: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false },
@@ -109,15 +116,11 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
     avaliacao: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false }
   });
 
-  // Reset apuração states whenever currentYear advances
+  const divisionStates = propDivisionStates || localDivisionStates;
+  const setDivisionStates = onUpdateDivisionStates || setLocalDivisionStates;
+
+  // Stop playback whenever currentYear advances
   useEffect(() => {
-    setDivisionStates({
-      especial: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false },
-      ouro: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false },
-      prata: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false },
-      bronze: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false },
-      avaliacao: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false }
-    });
     setIsPlaying(false);
   }, [currentYear]);
 
@@ -424,66 +427,6 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
   const handleSelectDivision = (div: DivisionId) => {
     setIsPlaying(false);
     setSelectedDivision(div);
-  };
-
-  const handleAdvanceYearClick = () => {
-    // If some groups are not yet completed, automatically finish them so the user is never blocked!
-    if (!allGroupsCompleted) {
-      handleInstantFinishAll();
-    }
-
-    const safeEspScores = especialScores.length > 0 ? especialScores : SimulationEngine.simulateDivisionParades(especialSchools);
-    const safeOuroScores = ouroScores.length > 0 ? ouroScores : SimulationEngine.simulateDivisionParades(ouroSchools);
-    const safePrataScores = prataScores.length > 0 ? prataScores : SimulationEngine.simulateDivisionParades(prataSchools);
-    const safeBronzeScores = bronzeScores.length > 0 ? bronzeScores : SimulationEngine.simulateDivisionParades(bronzeSchools);
-    const safeAvaScores = avaliacaoScores.length > 0 ? avaliacaoScores : SimulationEngine.simulateDivisionParades(avaliacaoSchools);
-
-    // Calculate final results for all 5 divisions
-    const espResult = SimulationEngine.finalizeSeasonDivision(
-      'especial',
-      currentYear,
-      especialSchools,
-      safeEspScores
-    );
-
-    const ouroResult = SimulationEngine.finalizeSeasonDivision(
-      'ouro',
-      currentYear,
-      ouroSchools,
-      safeOuroScores,
-      ouroSchools.length
-    );
-
-    const prataResult = SimulationEngine.finalizeSeasonDivision(
-      'prata',
-      currentYear,
-      prataSchools,
-      safePrataScores,
-      ouroSchools.length,
-      prataSchools.length
-    );
-
-    const bronzeResult = SimulationEngine.finalizeSeasonDivision(
-      'bronze',
-      currentYear,
-      bronzeSchools,
-      safeBronzeScores,
-      ouroSchools.length,
-      prataSchools.length,
-      bronzeSchools.length
-    );
-
-    const avaResult = SimulationEngine.finalizeSeasonDivision(
-      'avaliacao',
-      currentYear,
-      avaliacaoSchools,
-      safeAvaScores,
-      ouroSchools.length,
-      prataSchools.length,
-      bronzeSchools.length
-    );
-
-    onAdvanceYear(espResult, ouroResult, prataResult, bronzeResult, avaResult);
   };
 
   // Find current reading school (only active after apuração starts)
@@ -1454,17 +1397,19 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
               <span>Resultados Homologados pela LIESA, LIGA RJ e Superliga • Apuração Definitiva</span>
             </div>
             <p className="text-xs text-slate-400 max-w-xl mx-auto">
-              Todas as 5 divisões tiveram suas notas oficiais lidas e proclamadas. Conforme o regulamento, as notas são irrevogáveis e não podem ser refeitas. O jogo agora segue em frente para a próxima temporada!
+              Todas as 5 divisões tiveram suas notas oficiais lidas e proclamadas. Conforme o regulamento oficial da LIESA, o ciclo de desfiles se encerra com a celebração máxima no Sábado das Campeãs com o retorno do G6!
             </p>
 
-            <div className="flex items-center justify-center">
-              <button
-                onClick={handleAdvanceYearClick}
-                className="px-8 py-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-black text-base shadow-xl shadow-amber-500/30 transition transform hover:-translate-y-0.5 flex items-center gap-3 cursor-pointer"
-              >
-                <Sparkles className="w-5 h-5 text-slate-950" />
-                <span>AVANÇAR PARA O CARNAVAL {currentYear + 1} • SEGUIR EM FRENTE</span>
-              </button>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              {onNavigateToCampeas && (
+                <button
+                  onClick={onNavigateToCampeas}
+                  className="px-8 py-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-black text-base shadow-xl shadow-amber-500/30 transition transform hover:-translate-y-0.5 flex items-center gap-3 cursor-pointer"
+                >
+                  <Trophy className="w-5 h-5 text-slate-950" />
+                  <span>IR PARA O DESFILE DAS CAMPEÃS (SÁBADO DAS CAMPEÃS) →</span>
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -1475,10 +1420,10 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
               <Lock className="w-5 h-5 text-amber-400 flex-shrink-0" />
               <div>
                 <h4 className="text-base font-black text-white">
-                  Avanço de Temporada Bloqueado • Apuração Parcial ({completedCount} de 5 Grupos Apurados)
+                  Desfile das Campeãs Bloqueado • Apuração Parcial ({completedCount} de 5 Grupos Apurados)
                 </h4>
                 <p className="text-xs text-slate-400">
-                  Pelo regulamento oficial da apuração, <strong>não é permitido avançar o ano antes de todos os 5 grupos serem apurados</strong> (Especial, Ouro, Prata, Bronze e Avaliação).
+                  Pelo regulamento oficial da apuração, <strong>o Desfile das Campeãs e o avanço para o próximo ano só serão liberados após todos os 5 grupos serem homologados</strong> (Especial, Ouro, Prata, Bronze e Avaliação). O encerramento definitivo da temporada ocorrerá exclusivamente no Sábado das Campeãs.
                 </p>
               </div>
             </div>
@@ -1544,19 +1489,10 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
 
             <button
               onClick={handleInstantFinishAll}
-              className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs flex items-center gap-2 transition shadow-lg shadow-amber-500/20"
+              className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs flex items-center gap-2 transition shadow-lg shadow-amber-500/20 cursor-pointer"
             >
               <Zap className="w-4 h-4 fill-slate-950" />
               <span>Apurar Todos os Grupos Restantes Agora</span>
-            </button>
-
-            <button
-              onClick={handleAdvanceYearClick}
-              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-black text-xs flex items-center gap-2 shadow-lg shadow-amber-500/25 transition cursor-pointer"
-              title="Homologa todos os grupos e avança para a próxima temporada imediatamente"
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Avançar para o Carnaval {currentYear + 1} (Concluir e Avançar)</span>
             </button>
           </div>
         </div>

@@ -10,7 +10,9 @@ import {
   SchoolParadeScores,
   DivisionResult,
   YearHistory,
-  NewsItem
+  NewsItem,
+  DivisionStatesMap,
+  CampeasParadeResult
 } from './types/carnaval';
 import { INITIAL_SCHOOLS, INITIAL_HISTORY, RESULTS_2026, HISTORICAL_CARNAVAL_RECORDS, getSchoolConsolidatedStats } from './data/carnavalData';
 import { simulateParadeDuration } from './config/paradeConfig';
@@ -30,6 +32,8 @@ import { TabelaView } from './components/TabelaView';
 import { GloriasView } from './components/GloriasView';
 import { NewGameModal } from './components/NewGameModal';
 import { StartScreenView } from './components/StartScreenView';
+import { DesfileCampeãsView } from './components/DesfileCampeãsView';
+import { EnredoService } from './services/enredoService';
 
 import { Sparkles, Trophy, CheckCircle, AlertTriangle, Info } from 'lucide-react';
 
@@ -260,13 +264,105 @@ export default function App() {
   const [sfxEnabled, setSfxEnabled] = useState<boolean>(true);
   const [isNewGameModalOpen, setIsNewGameModalOpen] = useState<boolean>(false);
 
-  // Parade Scores
-  const [especialScores, setEspecialScores] = useState<SchoolParadeScores[]>([]);
-  const [ouroScores, setOuroScores] = useState<SchoolParadeScores[]>([]);
-  const [prataScores, setPrataScores] = useState<SchoolParadeScores[]>([]);
-  const [bronzeScores, setBronzeScores] = useState<SchoolParadeScores[]>([]);
-  const [avaliacaoScores, setAvaliacaoScores] = useState<SchoolParadeScores[]>([]);
-  const [hasParadeResults, setHasParadeResults] = useState<boolean>(false);
+  // Parade Scores & Apuração persistent states
+  const DEFAULT_DIVISION_STATES: DivisionStatesMap = {
+    especial: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false },
+    ouro: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false },
+    prata: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false },
+    bronze: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false },
+    avaliacao: { hasStarted: false, quesitoIdx: 0, judgeIdx: 0, schoolIdx: 0, isCompleted: false }
+  };
+
+  const [especialScores, setEspecialScores] = useState<SchoolParadeScores[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed.especialScores) && parsed.especialScores.length > 0) {
+            return parsed.especialScores;
+          }
+        } catch {}
+      }
+    }
+    return [];
+  });
+
+  const [ouroScores, setOuroScores] = useState<SchoolParadeScores[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed.ouroScores) && parsed.ouroScores.length > 0) {
+            return parsed.ouroScores;
+          }
+        } catch {}
+      }
+    }
+    return [];
+  });
+
+  const [prataScores, setPrataScores] = useState<SchoolParadeScores[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed.prataScores) && parsed.prataScores.length > 0) {
+            return parsed.prataScores;
+          }
+        } catch {}
+      }
+    }
+    return [];
+  });
+
+  const [bronzeScores, setBronzeScores] = useState<SchoolParadeScores[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed.bronzeScores) && parsed.bronzeScores.length > 0) {
+            return parsed.bronzeScores;
+          }
+        } catch {}
+      }
+    }
+    return [];
+  });
+
+  const [avaliacaoScores, setAvaliacaoScores] = useState<SchoolParadeScores[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed.avaliacaoScores) && parsed.avaliacaoScores.length > 0) {
+            return parsed.avaliacaoScores;
+          }
+        } catch {}
+      }
+    }
+    return [];
+  });
+
+  const [hasParadeResults, setHasParadeResults] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (typeof parsed.hasParadeResults === 'boolean') {
+            return parsed.hasParadeResults;
+          }
+        } catch {}
+      }
+    }
+    return false;
+  });
+
   const [completedParadeSchoolIds, setCompletedParadeSchoolIds] = useState<string[]>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -280,6 +376,36 @@ export default function App() {
       }
     }
     return [];
+  });
+
+  const [divisionStates, setDivisionStates] = useState<DivisionStatesMap>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (parsed.divisionStates && typeof parsed.divisionStates === 'object') {
+            return parsed.divisionStates;
+          }
+        } catch {}
+      }
+    }
+    return DEFAULT_DIVISION_STATES;
+  });
+
+  const [campeasParadeResults, setCampeasParadeResults] = useState<Record<string, CampeasParadeResult>>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (parsed.campeasParadeResults && typeof parsed.campeasParadeResults === 'object') {
+            return parsed.campeasParadeResults;
+          }
+        } catch {}
+      }
+    }
+    return {};
   });
 
   // Notifications Toast
@@ -317,17 +443,10 @@ export default function App() {
     soundService.setSoundEffectsEnabled(sfxEnabled);
   }, [sfxEnabled]);
 
-  // Pre-generate parade scores if none exist for current year
-  useEffect(() => {
-    if (!hasParadeResults) {
-      generateScores();
-    }
-  }, [currentYear, schools]);
-
   const isSchoolActive = useCallback((s: School) => !s.isInactive && !s.inactive, []);
   const isSchoolInactive = useCallback((s: School) => Boolean(s.isInactive || s.inactive), []);
 
-  const generateScores = () => {
+  const generateScores = useCallback(() => {
     const espSchools = schools.filter((s) => s.division === 'especial' && isSchoolActive(s));
     const ourSchools = schools.filter((s) => s.division === 'ouro' && isSchoolActive(s));
     const praSchools = schools.filter((s) => s.division === 'prata' && isSchoolActive(s));
@@ -346,7 +465,14 @@ export default function App() {
     setBronzeScores(broScores);
     setAvaliacaoScores(avaScores);
     setHasParadeResults(true);
-  };
+  }, [schools, isSchoolActive]);
+
+  // Pre-generate parade scores if none exist for current year
+  useEffect(() => {
+    if (!hasParadeResults && schools.length > 0) {
+      generateScores();
+    }
+  }, [hasParadeResults, schools.length, generateScores]);
 
   // Save game state to localStorage
   useEffect(() => {
@@ -358,11 +484,35 @@ export default function App() {
         isSpectatorMode,
         managerName,
         history,
-        completedParadeSchoolIds
+        completedParadeSchoolIds,
+        especialScores,
+        ouroScores,
+        prataScores,
+        bronzeScores,
+        avaliacaoScores,
+        hasParadeResults,
+        divisionStates,
+        campeasParadeResults
       };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
     }
-  }, [schools, currentYear, userSchoolId, isSpectatorMode, managerName, history, completedParadeSchoolIds]);
+  }, [
+    schools,
+    currentYear,
+    userSchoolId,
+    isSpectatorMode,
+    managerName,
+    history,
+    completedParadeSchoolIds,
+    especialScores,
+    ouroScores,
+    prataScores,
+    bronzeScores,
+    avaliacaoScores,
+    hasParadeResults,
+    divisionStates,
+    campeasParadeResults
+  ]);
 
   // Show Toast
   const showToast = useCallback((text: string, type: 'info' | 'success' | 'warning' | 'alert' = 'info') => {
@@ -487,6 +637,13 @@ export default function App() {
 
   const totalSchoolsCount = activeSchools.length;
   const isAllParadesCompleted = totalSchoolsCount > 0 && completedParadeSchoolIds.length >= totalSchoolsCount;
+  const isAllApuracoesCompleted = Boolean(
+    divisionStates.especial.isCompleted &&
+    divisionStates.ouro.isCompleted &&
+    divisionStates.prata.isCompleted &&
+    divisionStates.bronze.isCompleted &&
+    divisionStates.avaliacao.isCompleted
+  );
 
   const handleCompleteAllParades = useCallback(() => {
     const pendingSchools = activeSchools.filter((sch) => !completedParadeSchoolIds.includes(sch.id));
@@ -558,6 +715,8 @@ export default function App() {
     setPrataScores([]);
     setBronzeScores([]);
     setAvaliacaoScores([]);
+    setDivisionStates(DEFAULT_DIVISION_STATES);
+    setCampeasParadeResults({});
     setIsNewGameModalOpen(false);
     setIsGameStarted(schoolId !== null);
     setActiveTab('dashboard');
@@ -569,6 +728,16 @@ export default function App() {
   const handleResetGamePrompt = () => {
     setIsGameStarted(false);
   };
+
+  // Fine for overtime in Campeãs
+  const handleApplyFineToUserSchool = useCallback((amount: number) => {
+    if (userSchoolId && amount > 0) {
+      setSchools((prev) =>
+        prev.map((s) => (s.id === userSchoolId ? { ...s, budget: Math.max(0, s.budget - amount) } : s))
+      );
+      showToast(`Multa estatutária de R$ ${amount.toLocaleString('pt-BR')} debitada da tesouraria por estouro de tempo no Sábado das Campeãs!`, 'alert');
+    }
+  }, [userSchoolId, showToast]);
 
   // Advance Season to Next Year
   const handleAdvanceYear = (
@@ -600,6 +769,8 @@ export default function App() {
       setPrataScores([]);
       setBronzeScores([]);
       setAvaliacaoScores([]);
+      setDivisionStates(DEFAULT_DIVISION_STATES);
+      setCampeasParadeResults({});
 
       // Add News
       const newsHeadline: NewsItem = {
@@ -622,6 +793,64 @@ export default function App() {
       showToast('Ocorreu um erro ao avançar para a próxima temporada. Tente novamente.', 'alert');
     }
   };
+
+  const handleFinalizeSeasonFromCampeas = useCallback(() => {
+    const espResult = SimulationEngine.finalizeSeasonDivision(
+      'especial',
+      currentYear,
+      especialSchools,
+      especialScores
+    );
+    const ouroResult = SimulationEngine.finalizeSeasonDivision(
+      'ouro',
+      currentYear,
+      ouroSchools,
+      ouroScores,
+      especialSchools.length
+    );
+    const prataResult = SimulationEngine.finalizeSeasonDivision(
+      'prata',
+      currentYear,
+      prataSchools,
+      prataScores,
+      ouroSchools.length,
+      prataSchools.length
+    );
+    const bronzeResult = SimulationEngine.finalizeSeasonDivision(
+      'bronze',
+      currentYear,
+      bronzeSchools,
+      bronzeScores,
+      ouroSchools.length,
+      prataSchools.length,
+      bronzeSchools.length
+    );
+    const avaResult = SimulationEngine.finalizeSeasonDivision(
+      'avaliacao',
+      currentYear,
+      avaliacaoSchools,
+      avaliacaoScores,
+      ouroSchools.length,
+      prataSchools.length,
+      bronzeSchools.length
+    );
+
+    handleAdvanceYear(espResult, ouroResult, prataResult, bronzeResult, avaResult);
+  }, [
+    currentYear,
+    especialSchools,
+    especialScores,
+    ouroSchools,
+    ouroScores,
+    prataSchools,
+    prataScores,
+    bronzeSchools,
+    bronzeScores,
+    avaliacaoSchools,
+    avaliacaoScores,
+    schools,
+    history
+  ]);
 
   // START SCREEN: Displayed first to choose which school to command or spectator mode
   if (!isGameStarted) {
@@ -685,6 +914,7 @@ export default function App() {
         allParadesCompleted={isAllParadesCompleted}
         completedParadesCount={completedParadeSchoolIds.length}
         totalSchoolsCount={totalSchoolsCount}
+        isCampeasAvailable={isAllApuracoesCompleted}
       />
 
       {/* Main Workspace */}
@@ -701,6 +931,7 @@ export default function App() {
             completedParadesCount={completedParadeSchoolIds.length}
             totalParadesCount={totalSchoolsCount}
             onSimulateAllParades={handleCompleteAllParades}
+            allApuracoesCompleted={isAllApuracoesCompleted}
           />
         )}
 
@@ -749,6 +980,15 @@ export default function App() {
                   <Trophy className="w-4 h-4" />
                   <span>{isAllParadesCompleted ? 'Abrir Apuração Oficial (Liberada)' : 'Apuração (Aguardando Desfiles)'}</span>
                 </button>
+                {isAllApuracoesCompleted && (
+                  <button
+                    onClick={() => setActiveTab('campeas')}
+                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-black text-xs shadow-lg shadow-amber-500/20 transition flex items-center gap-2 cursor-pointer"
+                  >
+                    <Trophy className="w-4 h-4 fill-slate-950" />
+                    <span>Desfile das Campeãs (G6)</span>
+                  </button>
+                )}
                 <button
                   onClick={() => setActiveTab('glorias')}
                   className="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-xs flex items-center gap-1.5 cursor-pointer"
@@ -853,6 +1093,25 @@ export default function App() {
             totalParadeCount={totalSchoolsCount}
             onNavigateToDesfile={() => setActiveTab('desfile')}
             onSimulateAllParades={handleCompleteAllParades}
+            onNavigateToCampeas={() => setActiveTab('campeas')}
+            divisionStates={divisionStates}
+            onUpdateDivisionStates={setDivisionStates}
+          />
+        )}
+
+        {activeTab === 'campeas' && (
+          <DesfileCampeãsView
+            currentYear={currentYear}
+            especialSchools={especialSchools}
+            especialScores={especialScores}
+            userSchool={userSchool}
+            onAdvanceYear={handleFinalizeSeasonFromCampeas}
+            onApplyFineToUserSchool={handleApplyFineToUserSchool}
+            onShowMessage={showToast}
+            paradeResults={campeasParadeResults}
+            onUpdateParadeResults={setCampeasParadeResults}
+            allApuracoesCompleted={isAllApuracoesCompleted}
+            onNavigateToApuracao={() => setActiveTab('apuracao')}
           />
         )}
 

@@ -11,6 +11,7 @@ import { QUESITOS, getSchoolConsolidatedStats, generateRandomCarnavalSchool } fr
 import { PARADE_CONFIG } from '../config/paradeConfig';
 import { evaluateSchoolParadeObrigatoriedades } from '../config/obrigatoriedadesConfig';
 import { cleanSchoolName } from '../utils/schoolNameUtils';
+import { EnredoService } from './enredoService';
 
 // Reverse order of quesitos for tiebreaking as required by user prompt:
 // "Em caso de empate o desempate ocorrerá pela soma maior no último quesito e assim sucessivamente"
@@ -1177,6 +1178,7 @@ export class SimulationEngine {
         rehearsalLevel: 70,
         barracaoProgress: 70,
         technicalParadeDone: false,
+        currentEnredo: EnredoService.generateDiverseEnredoForSchool(s, currentYear + 1),
         attributes: {
           bateria: evolveAttr(s.attributes.bateria),
           comissaoDeFrente: evolveAttr(s.attributes.comissaoDeFrente),

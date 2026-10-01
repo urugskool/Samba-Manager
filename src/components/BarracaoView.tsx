@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { School, Enredo, SchoolParadeComposition } from '../types/carnaval';
 import { SAMPLE_ENREDOS } from '../data/carnavalData';
+import { EnredoService } from '../services/enredoService';
 import { cleanSchoolName } from '../utils/schoolNameUtils';
 import {
   Hammer,
@@ -17,7 +18,12 @@ import {
   BookOpen,
   Plus,
   Minus,
-  CheckCircle2
+  CheckCircle2,
+  RefreshCw,
+  DollarSign,
+  Building2,
+  TrendingUp,
+  Award
 } from 'lucide-react';
 import {
   DIVISION_REGULATIONS,
@@ -38,6 +44,16 @@ export const BarracaoView: React.FC<BarracaoViewProps> = ({
   onShowMessage
 }) => {
   const [showRegulamentoModal, setShowRegulamentoModal] = useState<boolean>(false);
+  const [enredoFilter, setEnredoFilter] = useState<'all' | 'patrocinado' | 'autoral'>('all');
+  const [enredoProposals, setEnredoProposals] = useState<Enredo[]>(() => {
+    return EnredoService.generateSchoolEnredoProposals(school, 2027);
+  });
+
+  const handleRefreshProposals = () => {
+    const fresh = EnredoService.generateSchoolEnredoProposals(school, 2027);
+    setEnredoProposals(fresh);
+    onShowMessage('A diretoria e o carnavalesco apresentaram novas propostas temáticas e comerciais!', 'info');
+  };
 
   const composition: SchoolParadeComposition =
     school.paradeComposition || generateDefaultParadeComposition(school);
@@ -145,8 +161,28 @@ export const BarracaoView: React.FC<BarracaoViewProps> = ({
     onShowMessage('Ficha técnica ajustada em total conformidade com o regulamento oficial!', 'success');
   };
   const handleSelectEnredo = (enredo: Enredo) => {
+    if (enredo.isSponsored) {
+      const sponsorContribution = enredo.sponsorValue || 0;
+      const updated: School = {
+        ...school,
+        budget: school.budget + sponsorContribution,
+        currentEnredo: enredo,
+        attributes: {
+          ...school.attributes,
+          enredo: Math.min(99, school.attributes.enredo + Math.floor(enredo.qualityBoost / 2))
+        }
+      };
+
+      onUpdateSchool(updated);
+      onShowMessage(
+        `Contrato de patrocínio oficializado com ${enredo.sponsorName || 'patrocinador'}! Aporte de R$ ${sponsorContribution.toLocaleString('pt-BR')} creditado no caixa da agremiação! Enredo: "${enredo.title}".`,
+        'success'
+      );
+      return;
+    }
+
     if (school.budget < enredo.cost) {
-      onShowMessage('Orçamento insuficiente para bancar os direitos e pesquisa deste enredo!', 'warning');
+      onShowMessage('Orçamento insuficiente para bancar os direitos e pesquisa deste enredo autoral!', 'warning');
       return;
     }
 
@@ -161,7 +197,7 @@ export const BarracaoView: React.FC<BarracaoViewProps> = ({
     };
 
     onUpdateSchool(updated);
-    onShowMessage(`Novo enredo definido: "${enredo.title}"! O barracão iniciou os trabalhos!`, 'success');
+    onShowMessage(`Novo enredo autoral definido: "${enredo.title}"! O barracão iniciou os trabalhos de pesquisa!`, 'success');
   };
 
   const handleInvestBarracao = (type: 'alegorias' | 'fantasias', cost: number, boost: number) => {
@@ -221,69 +257,216 @@ export const BarracaoView: React.FC<BarracaoViewProps> = ({
       </div>
 
       {/* Enredo Selection Section */}
-      <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-        <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+      <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
           <div className="flex items-center gap-2">
             <Palette className="w-5 h-5 text-amber-400" />
-            <h3 className="text-lg font-bold text-white">Escolha do Enredo do Carnaval</h3>
+            <div>
+              <h3 className="text-lg font-bold text-white">Escolha do Enredo do Carnaval</h3>
+              <p className="text-xs text-slate-400">
+                Responsável: <strong className="text-white">{school.staff.carnavalesco.name}</strong> (Nota {school.staff.carnavalesco.rating} • {school.staff.carnavalesco.reputation})
+              </p>
+            </div>
           </div>
-          <span className="text-xs text-slate-400">
-            Responsável: <strong>{school.staff.carnavalesco.name}</strong> (Nota {school.staff.carnavalesco.rating})
-          </span>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleRefreshProposals}
+              className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-xs flex items-center gap-1.5 transition border border-slate-700 cursor-pointer"
+              title="Solicitar novos temas e contatar novos patrocinadores"
+            >
+              <RefreshCw className="w-3.5 h-3.5" />
+              <span>Novas Propostas</span>
+            </button>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {SAMPLE_ENREDOS.map((enr) => {
-            const isSelected = school.currentEnredo?.id === enr.id;
-
-            return (
-              <div
-                key={enr.id}
-                className={`p-4 rounded-xl border flex flex-col justify-between transition ${
-                  isSelected
-                    ? 'bg-amber-500/10 border-amber-500 shadow-md shadow-amber-500/10'
-                    : 'bg-slate-950/60 border-slate-800 hover:border-slate-700'
-                }`}
-              >
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-800 text-amber-300">
-                      {enr.themeType}
-                    </span>
-                    {isSelected && (
-                      <span className="flex items-center gap-1 text-[11px] font-bold text-amber-400">
-                        <CheckCircle className="w-3.5 h-3.5" /> Enredo Atual
-                      </span>
-                    )}
-                  </div>
-                  <h4 className="font-bold text-sm text-white leading-snug">
-                    "{enr.title}"
-                  </h4>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    {enr.synopsis}
-                  </p>
-                </div>
-
-                <div className="pt-4 border-t border-slate-800/80 mt-3 flex items-center justify-between text-xs">
-                  <div>
-                    <div className="text-[10px] text-slate-500">Custo de Pesquisa</div>
-                    <div className="font-bold text-white">R$ {enr.cost.toLocaleString('pt-BR')}</div>
-                  </div>
-                  <button
-                    disabled={isSelected}
-                    onClick={() => handleSelectEnredo(enr)}
-                    className={`px-3 py-1.5 rounded-lg font-bold text-xs transition ${
-                      isSelected
-                        ? 'bg-amber-500/20 text-amber-300 cursor-default'
-                        : 'bg-amber-500 hover:bg-amber-400 text-slate-950'
-                    }`}
-                  >
-                    {isSelected ? 'Em Produção' : 'Definir Enredo'}
-                  </button>
-                </div>
+        {/* Current Enredo Spotlight banner */}
+        {school.currentEnredo && (
+          <div className="p-4 rounded-xl bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border border-amber-500/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                  {school.currentEnredo.themeType}
+                </span>
+                {school.currentEnredo.isSponsored && (
+                  <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center gap-1">
+                    <DollarSign className="w-3 h-3" /> Patrocinado por {school.currentEnredo.sponsorName}
+                  </span>
+                )}
+                <span className="text-[11px] font-bold text-amber-400 flex items-center gap-1">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" /> Enredo em Produção
+                </span>
               </div>
-            );
-          })}
+              <h4 className="font-black text-white text-base sm:text-lg">
+                "{school.currentEnredo.title}"
+              </h4>
+              <p className="text-xs text-slate-300 leading-relaxed max-w-3xl">
+                {school.currentEnredo.synopsis}
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Filter bar */}
+        <div className="flex items-center gap-2 flex-wrap text-xs">
+          <span className="text-slate-400 font-semibold">Filtrar Propostas:</span>
+          <button
+            onClick={() => setEnredoFilter('all')}
+            className={`px-3 py-1 rounded-lg font-bold transition ${
+              enredoFilter === 'all'
+                ? 'bg-amber-500 text-slate-950 shadow'
+                : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+            }`}
+          >
+            Todas as Propostas ({enredoProposals.length})
+          </button>
+          <button
+            onClick={() => setEnredoFilter('patrocinado')}
+            className={`px-3 py-1 rounded-lg font-bold transition flex items-center gap-1 ${
+              enredoFilter === 'patrocinado'
+                ? 'bg-emerald-500 text-slate-950 shadow'
+                : 'bg-emerald-950/40 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-900/50'
+            }`}
+          >
+            <DollarSign className="w-3 h-3" />
+            <span>Enredos Patrocinados ({enredoProposals.filter((p) => p.isSponsored).length})</span>
+          </button>
+          <button
+            onClick={() => setEnredoFilter('autoral')}
+            className={`px-3 py-1 rounded-lg font-bold transition ${
+              enredoFilter === 'autoral'
+                ? 'bg-amber-500 text-slate-950 shadow'
+                : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+            }`}
+          >
+            Temas Autorais & Culturais ({enredoProposals.filter((p) => !p.isSponsored).length})
+          </button>
+        </div>
+
+        {/* Proposals Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {enredoProposals
+            .filter((enr) => {
+              if (enredoFilter === 'patrocinado') return enr.isSponsored;
+              if (enredoFilter === 'autoral') return !enr.isSponsored;
+              return true;
+            })
+            .map((enr) => {
+              const isSelected = school.currentEnredo?.title === enr.title;
+
+              return (
+                <div
+                  key={enr.id}
+                  className={`p-4 rounded-xl border flex flex-col justify-between transition ${
+                    isSelected
+                      ? 'bg-amber-500/10 border-amber-500 shadow-md shadow-amber-500/10'
+                      : enr.isSponsored
+                      ? 'bg-emerald-950/20 border-emerald-500/40 hover:border-emerald-400'
+                      : 'bg-slate-950/60 border-slate-800 hover:border-slate-700'
+                  }`}
+                >
+                  <div className="space-y-2.5">
+                    <div className="flex items-center justify-between gap-1 flex-wrap">
+                      <span
+                        className={`text-[10px] font-bold px-2 py-0.5 rounded ${
+                          enr.isSponsored
+                            ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-black'
+                            : 'bg-slate-800 text-amber-300 border border-slate-700'
+                        }`}
+                      >
+                        {enr.themeType}
+                      </span>
+                      {isSelected ? (
+                        <span className="flex items-center gap-1 text-[11px] font-bold text-amber-400">
+                          <CheckCircle className="w-3.5 h-3.5" /> Escolhido
+                        </span>
+                      ) : enr.isSponsored ? (
+                        <span className="text-[10px] font-black px-2 py-0.5 rounded bg-emerald-500 text-slate-950 animate-pulse">
+                          PATROCÍNIO R$
+                        </span>
+                      ) : null}
+                    </div>
+
+                    <h4 className="font-bold text-sm text-white leading-snug">
+                      "{enr.title}"
+                    </h4>
+
+                    {enr.isSponsored && enr.sponsorName && (
+                      <div className="p-2 rounded-lg bg-emerald-950/40 border border-emerald-500/30 text-[11px] text-emerald-200 space-y-1">
+                        <div className="font-bold flex items-center gap-1 text-emerald-300">
+                          <Building2 className="w-3.5 h-3.5 shrink-0" />
+                          <span className="truncate">{enr.sponsorName}</span>
+                        </div>
+                        <div className="text-[10px] text-emerald-400/90 font-mono font-bold">
+                          Aporte Financeiro Imediato: + R$ {enr.sponsorValue?.toLocaleString('pt-BR')}
+                        </div>
+                      </div>
+                    )}
+
+                    <p className="text-xs text-slate-400 leading-relaxed">
+                      {enr.synopsis}
+                    </p>
+
+                    {enr.commercialTradeoff && (
+                      <p className="text-[10px] text-amber-300/80 bg-slate-900 p-2 rounded border border-amber-500/20">
+                        ⚖️ {enr.commercialTradeoff}
+                      </p>
+                    )}
+
+                    {/* Affinities */}
+                    <div className="grid grid-cols-2 gap-2 pt-1 text-[10px] text-slate-400">
+                      <div className="bg-slate-900/90 px-2 py-1 rounded border border-slate-800">
+                        <span>Afinidade Carnavalesco:</span>
+                        <div className="font-bold text-amber-400 font-mono">
+                          {enr.carnavalescoAffinity || 80}%
+                        </div>
+                      </div>
+                      <div className="bg-slate-900/90 px-2 py-1 rounded border border-slate-800">
+                        <span>Afinidade Tradição:</span>
+                        <div className="font-bold text-emerald-400 font-mono">
+                          {enr.historicalAffinity || 85}%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-3 border-t border-slate-800/80 mt-3 flex items-center justify-between text-xs">
+                    <div>
+                      <div className="text-[10px] text-slate-500">
+                        {enr.isSponsored ? 'Impacto na Tesouraria' : 'Custo de Pesquisa'}
+                      </div>
+                      <div
+                        className={`font-mono font-bold ${
+                          enr.isSponsored ? 'text-emerald-400' : 'text-white'
+                        }`}
+                      >
+                        {enr.isSponsored
+                          ? `+ R$ ${enr.sponsorValue?.toLocaleString('pt-BR')}`
+                          : `R$ ${enr.cost.toLocaleString('pt-BR')}`}
+                      </div>
+                    </div>
+                    <button
+                      disabled={isSelected}
+                      onClick={() => handleSelectEnredo(enr)}
+                      className={`px-3 py-1.5 rounded-lg font-bold text-xs transition cursor-pointer ${
+                        isSelected
+                          ? 'bg-amber-500/20 text-amber-300 cursor-default'
+                          : enr.isSponsored
+                          ? 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black shadow-md shadow-emerald-500/20'
+                          : 'bg-amber-500 hover:bg-amber-400 text-slate-950 font-black'
+                      }`}
+                    >
+                      {isSelected
+                        ? 'Em Produção'
+                        : enr.isSponsored
+                        ? 'Assinar Patrocínio & Definir'
+                        : 'Definir Enredo'}
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
         </div>
       </div>
 

@@ -20,7 +20,8 @@ import {
   Users,
   Wallet,
   Music,
-  Award
+  Award,
+  Crown
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -40,6 +41,7 @@ interface NavbarProps {
   completedParadesCount?: number;
   totalSchoolsCount?: number;
   onOpenStartScreen?: () => void;
+  isCampeasAvailable?: boolean;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -58,7 +60,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   allParadesCompleted = false,
   completedParadesCount = 0,
   totalSchoolsCount = 80,
-  onOpenStartScreen
+  onOpenStartScreen,
+  isCampeasAvailable = false
 }) => {
   const [showResetConfirm, setShowResetConfirm] = useState<boolean>(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
@@ -82,6 +85,12 @@ export const Navbar: React.FC<NavbarProps> = ({
       label: 'Apuração',
       icon: Award,
       badge: allParadesCompleted ? 'Liberado' : 'Aguardando Desfiles'
+    },
+    {
+      id: 'campeas',
+      label: 'Campeãs',
+      icon: Crown,
+      badge: isCampeasAvailable ? 'Sábado G6' : null
     }
   ];
 

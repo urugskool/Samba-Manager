@@ -30,14 +30,57 @@ export interface StaffMember {
   reputation: string;
 }
 
+export type EnredoThemeType =
+  | 'Afro-brasileiro'
+  | 'Histórico'
+  | 'Homenagem'
+  | 'Crítica Social'
+  | 'Folclore & Lendas'
+  | 'Cultural'
+  | 'Patrocinado'
+  | 'Ambiental & Natureza'
+  | 'Mitológico'
+  | 'Literário & Artes';
+
 export interface Enredo {
   id: string;
   title: string;
-  themeType: 'Afro-brasileiro' | 'Histórico' | 'Homenagem' | 'Crítica Social' | 'Folclore & Lendas' | 'Cultural';
+  themeType: EnredoThemeType;
   synopsis: string;
   qualityBoost: number; // 0 - 15
   cost: number;
+  isSponsored?: boolean;
+  sponsorName?: string;
+  sponsorValue?: number; // Valor R$ aportado pelo patrocinador diretamente à escola
+  carnavalescoAffinity?: number; // 0 - 100% afinidade com o estilo do carnavalesco
+  historicalAffinity?: number; // 0 - 100% afinidade com a tradição da escola
+  commercialTradeoff?: string; // Observações críticas / contrapartidas
+  proponent?: string; // Quem propôs o enredo (ex: 'Carnavalesco', 'Conselho Deliberativo', 'Patrocinador')
 }
+
+export interface CampeasParadeResult {
+  schoolId: string;
+  rankInCarnaval: number; // 1 a 6
+  rankLabel: string; // Ex: '1º Lugar (Campeã)', 'Vice-Campeã', '6º Lugar'
+  paradeOrder: number; // 1 a 6 (6ª colocada desfila primeiro, 1ª desfila por último)
+  durationMinutes: number;
+  timeStatus: 'regular' | 'estouro' | 'abaixo';
+  diffMinutes: number;
+  fineAmount: number; // R$ 100.000 por minuto excedido (estouro de tempo)
+  completed: boolean;
+  celebrationNote?: string;
+}
+
+export type DivisionStatesMap = Record<
+  DivisionId,
+  {
+    hasStarted: boolean;
+    quesitoIdx: number;
+    judgeIdx: number;
+    schoolIdx: number;
+    isCompleted: boolean;
+  }
+>;
 
 export interface SchoolAttributes {
   bateria: number; // 60 - 99
