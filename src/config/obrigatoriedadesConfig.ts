@@ -52,7 +52,7 @@ export const DIVISION_REGULATIONS: Record<DivisionId, DivisionRegulation> = {
   especial: {
     division: 'especial',
     divisionLabel: 'Grupo Especial',
-    governingBody: 'LIESA (Liga Independente das Escolas de Samba)',
+    governingBody: 'LIESA (Liga Independente das Escolas de Samba do Rio de Janeiro)',
     venue: 'Sambódromo Marquês de Sapucaí',
     penaltyPerItem: 0.5,
     rules: {
@@ -100,7 +100,7 @@ export const DIVISION_REGULATIONS: Record<DivisionId, DivisionRegulation> = {
   ouro: {
     division: 'ouro',
     divisionLabel: 'Série Ouro',
-    governingBody: 'Liga-RJ',
+    governingBody: 'LIGA RJ (Liga Independente do Grupo A do Rio de Janeiro)',
     venue: 'Sambódromo Marquês de Sapucaí',
     penaltyPerItem: 0.5,
     rules: {
@@ -129,7 +129,7 @@ export const DIVISION_REGULATIONS: Record<DivisionId, DivisionRegulation> = {
   prata: {
     division: 'prata',
     divisionLabel: 'Série Prata',
-    governingBody: 'Superliga Carnavalesca do Brasil',
+    governingBody: 'Superliga (Superliga Carnavalesca do Brasil)',
     venue: 'Estrada Intendente Magalhães',
     penaltyPerItem: 0.5,
     rules: {
@@ -171,7 +171,7 @@ export const DIVISION_REGULATIONS: Record<DivisionId, DivisionRegulation> = {
   bronze: {
     division: 'bronze',
     divisionLabel: 'Série Bronze',
-    governingBody: 'Superliga Carnavalesca do Brasil',
+    governingBody: 'Superliga (Superliga Carnavalesca do Brasil)',
     venue: 'Estrada Intendente Magalhães',
     penaltyPerItem: 0.5,
     rules: {
@@ -199,7 +199,7 @@ export const DIVISION_REGULATIONS: Record<DivisionId, DivisionRegulation> = {
   avaliacao: {
     division: 'avaliacao',
     divisionLabel: 'Grupo de Avaliação',
-    governingBody: 'Superliga Carnavalesca do Brasil',
+    governingBody: 'Superliga (Superliga Carnavalesca do Brasil)',
     venue: 'Estrada Intendente Magalhães',
     penaltyPerItem: 0.5,
     rules: {

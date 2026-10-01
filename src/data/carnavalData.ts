@@ -2587,7 +2587,7 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
   // ==========================================
   {
     id: 'arame_de_ricardo',
-    name: 'G.R.E.S. Arame de Ricardo',
+    name: 'Arame de Ricardo',
     shortName: 'Arame de Ricardo',
     nickname: 'O Arame de Ricardo de Albuquerque',
     foundationYear: 1995,
@@ -2617,7 +2617,7 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
   },
   {
     id: 'chatuba',
-    name: 'G.R.E.S. Chatuba de Mesquita',
+    name: 'Chatuba de Mesquita',
     shortName: 'Chatuba de Mesquita',
     nickname: 'A Alviverde da Baixada',
     foundationYear: 1995,
@@ -2647,7 +2647,7 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
   },
   {
     id: 'uniao_cruzmaltina',
-    name: 'G.R.E.S. União Cruzmaltina',
+    name: 'União Cruzmaltina',
     shortName: 'União Cruzmaltina',
     nickname: 'O Trem Bala da Folia',
     foundationYear: 2019,
@@ -2677,7 +2677,7 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
   },
   {
     id: 'villa_rica',
-    name: 'G.R.E.S. Unidos da Villa Rica',
+    name: 'Unidos da Villa Rica',
     shortName: 'Villa Rica',
     nickname: 'A Nobreza de Copacabana',
     foundationYear: 1966,
@@ -2707,7 +2707,7 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
   },
   {
     id: 'vicente_de_carvalho',
-    name: 'G.R.E.S. Mocidade de Vicente de Carvalho',
+    name: 'Mocidade de Vicente de Carvalho',
     shortName: 'Vicente de Carvalho',
     nickname: 'A Verde e Branco do Subúrbio',
     foundationYear: 1947,
@@ -2737,7 +2737,7 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
   },
   {
     id: 'imperio_nova_iguacu',
-    name: 'G.R.E.S. Império de Nova Iguaçu',
+    name: 'Império de Nova Iguaçu',
     shortName: 'Império de Nova Iguaçu',
     nickname: 'A Laranja da Baixada',
     foundationYear: 2020,
@@ -2767,7 +2767,7 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
   },
   {
     id: 'cabucu',
-    name: 'G.R.E.S. Unidos do Cabuçu',
+    name: 'Unidos do Cabuçu',
     shortName: 'Unidos do Cabuçu',
     nickname: 'A Tradicional Águia do Engenho Novo',
     foundationYear: 1945,
@@ -2797,7 +2797,7 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
   },
   {
     id: 'novo_imperio',
-    name: 'G.R.E.S. Novo Império',
+    name: 'Novo Império',
     shortName: 'Novo Império',
     nickname: 'O Novo Império Carioca',
     foundationYear: 2020,
@@ -2827,7 +2827,7 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
   },
   {
     id: 'praca_da_bandeira',
-    name: 'G.R.E.S. Independente da Praça da Bandeira',
+    name: 'Independente da Praça da Bandeira',
     shortName: 'Praça da Bandeira',
     nickname: 'A Tricolor da Praça',
     foundationYear: 2002,
@@ -2857,7 +2857,7 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
   },
   {
     id: 'casa_de_malandro',
-    name: 'G.R.E.S. Casa de Malandro',
+    name: 'Casa de Malandro',
     shortName: 'Casa de Malandro',
     nickname: 'A Malandragem Sagrada da Lapa',
     foundationYear: 2022,
@@ -2887,7 +2887,7 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
   },
   {
     id: 'coroado_jacarepagua',
-    name: 'G.R.E.S. Coroado de Jacarepaguá',
+    name: 'Coroado de Jacarepaguá',
     shortName: 'Coroado de Jacarepaguá',
     nickname: 'O Cacique de Jacarepaguá',
     foundationYear: 1969,
@@ -2917,7 +2917,7 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
   },
   {
     id: 'imperadores_rubro_negros',
-    name: 'G.R.E.S. Imperadores Rubro-Negros',
+    name: 'Imperadores Rubro-Negros',
     shortName: 'Imperadores R.N.',
     nickname: 'O Urubu Rei da Folia',
     foundationYear: 2018,
@@ -2947,7 +2947,7 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
   },
   {
     id: 'academicos_do_dende',
-    name: 'G.R.E.S. Acadêmicos do Dendê',
+    name: 'Acadêmicos do Dendê',
     shortName: 'Acad. do Dendê',
     nickname: 'A Estrela Azul do Morro do Dendê',
     foundationYear: 1965,
@@ -2977,7 +2977,7 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
   },
   {
     id: 'siri_de_ramos',
-    name: 'G.R.E.S. Siri de Ramos',
+    name: 'Siri de Ramos',
     shortName: 'Siri de Ramos',
     nickname: 'O Crustáceo Sambista da Leopoldina',
     foundationYear: 2019,
@@ -3007,7 +3007,7 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
   },
   {
     id: 'vizinha_faladeira',
-    name: 'G.R.E.S. Vizinha Faladeira',
+    name: 'Vizinha Faladeira',
     shortName: 'Vizinha Faladeira',
     nickname: 'A Pioneira da Saúde e Santo Cristo',
     foundationYear: 1932,
@@ -3037,7 +3037,7 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
   },
   {
     id: 'academicos_do_recreio',
-    name: 'G.R.E.S. Acadêmicos do Recreio',
+    name: 'Acadêmicos do Recreio',
     shortName: 'Acad. do Recreio',
     nickname: 'A Princesa do Pontal',
     foundationYear: 2020,
@@ -3067,7 +3067,7 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
   },
   {
     id: 'leao_de_nova_iguacu',
-    name: 'G.R.E.S. Leão de Nova Iguaçu',
+    name: 'Leão de Nova Iguaçu',
     shortName: 'Leão de Nova Iguaçu',
     nickname: 'O Rugido Vermelho da Baixada',
     foundationYear: 1980,
@@ -3097,7 +3097,7 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
   },
   {
     id: 'alegria_de_copacabana',
-    name: 'G.R.E.S. Alegria de Copacabana',
+    name: 'Alegria de Copacabana',
     shortName: 'Alegria de Copacabana',
     nickname: 'A Joia Vermelha de Copacabana',
     foundationYear: 2019,
@@ -3127,7 +3127,7 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
   },
   {
     id: 'uniao_de_jacarepagua',
-    name: 'G.R.E.S. União de Jacarepaguá',
+    name: 'União de Jacarepaguá',
     shortName: 'União de Jacarepaguá',
     nickname: 'A Tradicional Verde e Branco de Campinho',
     foundationYear: 1956,
@@ -3157,7 +3157,7 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
   },
   {
     id: 'caprichosos_de_pilares',
-    name: 'G.R.E.S. Caprichosos de Pilares',
+    name: 'Caprichosos de Pilares',
     shortName: 'Caprichosos de Pilares',
     nickname: 'A Cobra Coral de Pilares',
     foundationYear: 1949,
@@ -3187,7 +3187,7 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
   },
   {
     id: 'dificil_e_o_nome',
-    name: 'G.R.E.S. Difícil é o Nome',
+    name: 'Difícil é o Nome',
     shortName: 'Difícil é o Nome',
     nickname: 'A Guerreira Vermelha de Pilares',
     foundationYear: 1973,
@@ -3217,7 +3217,7 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
   },
   {
     id: 'academicos_de_madureira',
-    name: 'G.R.E.S. Acadêmicos de Madureira',
+    name: 'Acadêmicos de Madureira',
     shortName: 'Acad. de Madureira',
     nickname: 'O Berço Suburbano do Viaduto',
     foundationYear: 2013,

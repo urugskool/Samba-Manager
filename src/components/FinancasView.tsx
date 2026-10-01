@@ -2,6 +2,7 @@ import React from 'react';
 import { School } from '../types/carnaval';
 import { Landmark, TrendingUp, DollarSign, Utensils, Award, Users, ShieldAlert } from 'lucide-react';
 import { soundService } from '../services/soundService';
+import { cleanSchoolName } from '../utils/schoolNameUtils';
 
 interface FinancasViewProps {
   school: School;
@@ -29,7 +30,7 @@ export const FinancasView: React.FC<FinancasViewProps> = ({
 
     onUpdateSchool(updated);
     onShowMessage(
-      `Feijoada da ${school.name} foi um estouro de público! R$ ${profit.toLocaleString('pt-BR')} arrecadados e moral nas alturas!`,
+      `Feijoada da ${cleanSchoolName(school)} foi um estouro de público! R$ ${profit.toLocaleString('pt-BR')} arrecadados e moral nas alturas!`,
       'success'
     );
   };

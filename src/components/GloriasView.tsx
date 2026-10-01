@@ -2,6 +2,12 @@ import React, { useState, useMemo, useRef } from 'react';
 import { School, DivisionId, YearHistory } from '../types/carnaval';
 import { getSchoolConsolidatedStats, INITIAL_HISTORY } from '../data/carnavalData';
 import {
+  cleanSchoolName,
+  getSchoolCorporateName,
+  getSchoolDenomination,
+  getSchoolDenominationExtenso
+} from '../utils/schoolNameUtils';
+import {
   Trophy,
   Award,
   Medal,
@@ -312,7 +318,7 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
             className="px-4 py-2.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold rounded-xl text-xs transition flex items-center gap-2 self-start md:self-auto shadow-md cursor-pointer"
           >
             <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-            <span>Minha Escola ({userSchool.shortName || userSchool.name})</span>
+            <span>Minha Escola ({userSchool.shortName || cleanSchoolName(userSchool)})</span>
           </button>
         )}
       </div>
@@ -451,7 +457,7 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
                 />
 
                 <span className="truncate max-w-[150px] sm:max-w-[200px] font-semibold text-white">
-                  {sch.name}
+                  {cleanSchoolName(sch)}
                 </span>
 
                 <span className={`text-[9px] font-bold px-1.5 py-0.2 rounded uppercase border ${divInfo.badgeClass}`}>
@@ -509,14 +515,21 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
                     Sua Agremiação
                   </span>
                 )}
+
+                <span className="text-[11px] font-black uppercase px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 shadow-sm">
+                  {getSchoolDenomination(selectedSchool)}
+                </span>
               </div>
 
               <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
-                {selectedSchool.name}
+                {cleanSchoolName(selectedSchool)}
               </h2>
 
               <p className="text-sm text-amber-200/90 italic font-semibold">
                 "{selectedSchool.nickname}" • Pavilhão: {selectedSchool.symbol}
+              </p>
+              <p className="text-xs text-slate-300 font-medium">
+                Razão Social: <span className="text-white font-semibold">{getSchoolCorporateName(selectedSchool)}</span>
               </p>
             </div>
 
@@ -972,11 +985,21 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1">
-              <span className="text-[10px] text-slate-400 uppercase font-semibold block">
-                Nome Oficial Completo
+            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1 sm:col-span-2">
+              <span className="text-[10px] text-amber-400 uppercase font-semibold block">
+                Razão Social / Denominação Estatutária
               </span>
-              <span className="font-bold text-white text-sm block">{selectedSchool.name}</span>
+              <span className="font-bold text-white text-sm block">{getSchoolCorporateName(selectedSchool)}</span>
+              <span className="text-[10px] text-slate-400 block font-medium">
+                {getSchoolDenominationExtenso(selectedSchool)} ({getSchoolDenomination(selectedSchool)})
+              </span>
+            </div>
+
+            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1 sm:col-span-2">
+              <span className="text-[10px] text-slate-400 uppercase font-semibold block">
+                Nome Oficial da Agremiação
+              </span>
+              <span className="font-bold text-white text-sm block">{cleanSchoolName(selectedSchool)}</span>
             </div>
 
             <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1">
@@ -1192,7 +1215,7 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
                         }}
                       />
                       <div className="flex items-center gap-1.5 min-w-0">
-                        <span className="font-semibold text-xs sm:text-sm truncate">{sch.name}</span>
+                        <span className="font-semibold text-xs sm:text-sm truncate">{cleanSchoolName(sch)}</span>
                         {sch.id === userSchool?.id && (
                           <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 uppercase font-black">
                             Sua

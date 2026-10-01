@@ -3,7 +3,7 @@ import { School, StaffMember } from '../types/carnaval';
 export const AVALIACAO_SCHOOLS_INITIAL: School[] = [
   {
     id: 'academicos_do_peixe',
-    name: 'G.R.E.S. Acadêmicos do Peixe',
+    name: 'Acadêmicos do Peixe',
     shortName: 'Acad. do Peixe',
     nickname: 'O Cardume da Zona Norte',
     foundationYear: 2021,
@@ -61,7 +61,7 @@ export const AVALIACAO_SCHOOLS_INITIAL: School[] = [
   },
   {
     id: 'concentra_imperial',
-    name: 'G.R.E.S. Concentra Imperial',
+    name: 'Concentra Imperial',
     shortName: 'Concentra Imperial',
     nickname: 'A Nobreza de Realengo',
     foundationYear: 2018,
@@ -119,7 +119,7 @@ export const AVALIACAO_SCHOOLS_INITIAL: School[] = [
   },
   {
     id: 'flor_da_mina',
-    name: 'G.R.E.S. Flor da Mina do Andaraí',
+    name: 'Flor da Mina do Andaraí',
     shortName: 'Flor da Mina',
     nickname: 'A Flor do Andaraí',
     foundationYear: 1980,
@@ -177,7 +177,7 @@ export const AVALIACAO_SCHOOLS_INITIAL: School[] = [
   },
   {
     id: 'gato_de_bonsucesso',
-    name: 'G.R.E.S. Gato de Bonsucesso',
+    name: 'Gato de Bonsucesso',
     shortName: 'Gato de Bonsucesso',
     nickname: 'O Felino da Leopoldina',
     foundationYear: 1999,
@@ -235,7 +235,7 @@ export const AVALIACAO_SCHOOLS_INITIAL: School[] = [
   },
   {
     id: 'guardioes_da_capadocia',
-    name: 'G.R.E.S. Guardiões da Capadócia',
+    name: 'Guardiões da Capadócia',
     shortName: 'Guardiões da Capadócia',
     nickname: 'A Falange de Jorge',
     foundationYear: 2020,
@@ -293,7 +293,7 @@ export const AVALIACAO_SCHOOLS_INITIAL: School[] = [
   },
   {
     id: 'imperio_da_penha',
-    name: 'G.R.E.S. Império da Penha',
+    name: 'Império da Penha',
     shortName: 'Império da Penha',
     nickname: 'O Império da Colina Sagrada',
     foundationYear: 2019,
@@ -351,7 +351,7 @@ export const AVALIACAO_SCHOOLS_INITIAL: School[] = [
   },
   {
     id: 'imperio_da_resistencia',
-    name: 'G.R.E.S. Império da Resistência',
+    name: 'Império da Resistência',
     shortName: 'Império da Resistência',
     nickname: 'A Força de Vila Aliança',
     foundationYear: 2021,
@@ -409,7 +409,7 @@ export const AVALIACAO_SCHOOLS_INITIAL: School[] = [
   },
   {
     id: 'imperio_ricardense',
-    name: 'G.R.E.S. Império Ricardense',
+    name: 'Império Ricardense',
     shortName: 'Império Ricardense',
     nickname: 'O Orgulho de Ricardo',
     foundationYear: 2015,
@@ -467,7 +467,7 @@ export const AVALIACAO_SCHOOLS_INITIAL: School[] = [
   },
   {
     id: 'independente_de_jacarepagua',
-    name: 'G.R.E.S. Independente de Jacarepaguá',
+    name: 'Independente de Jacarepaguá',
     shortName: 'Indep. de Jacarepaguá',
     nickname: 'O Jacaré Guerreiro',
     foundationYear: 2016,
@@ -525,7 +525,7 @@ export const AVALIACAO_SCHOOLS_INITIAL: School[] = [
   },
   {
     id: 'mocidade_de_inhauma',
-    name: 'G.R.E.S. Mocidade Independente de Inhaúma',
+    name: 'Mocidade Independente de Inhaúma',
     shortName: 'Mocidade de Inhaúma',
     nickname: 'A Bateria de Inhaúma',
     foundationYear: 1993,
@@ -583,7 +583,7 @@ export const AVALIACAO_SCHOOLS_INITIAL: School[] = [
   },
   {
     id: 'mocidade_cidade_de_deus',
-    name: 'G.R.E.S. Mocidade Unida da Cidade de Deus',
+    name: 'Mocidade Unida da Cidade de Deus',
     shortName: 'Mocidade Cidade de Deus',
     nickname: 'A Voz da CDD',
     foundationYear: 2015,
@@ -641,7 +641,7 @@ export const AVALIACAO_SCHOOLS_INITIAL: School[] = [
   },
   {
     id: 'raca_rubro_negra',
-    name: 'G.R.E.S. Raça Rubro-Negra',
+    name: 'Raça Rubro-Negra',
     shortName: 'Raça Rubro-Negra',
     nickname: 'A Maior do Mundo no Samba',
     foundationYear: 2019,
@@ -699,7 +699,7 @@ export const AVALIACAO_SCHOOLS_INITIAL: School[] = [
   },
   {
     id: 'renascer_de_nova_iguacu',
-    name: 'G.R.E.S. Renascer de Nova Iguaçu',
+    name: 'Renascer de Nova Iguaçu',
     shortName: 'Renascer de Nova Iguaçu',
     nickname: 'A Fênix da Baixada',
     foundationYear: 2019,
@@ -757,7 +757,7 @@ export const AVALIACAO_SCHOOLS_INITIAL: School[] = [
   },
   {
     id: 'unidos_da_barra_da_tijuca',
-    name: 'G.R.E.S. Unidos da Barra da Tijuca',
+    name: 'Unidos da Barra da Tijuca',
     shortName: 'Unidos da Barra',
     nickname: 'A Onda Litorânea',
     foundationYear: 2018,
@@ -815,7 +815,7 @@ export const AVALIACAO_SCHOOLS_INITIAL: School[] = [
   },
   {
     id: 'unidos_da_vila_kennedy',
-    name: 'G.R.E.S. Unidos da Vila Kennedy',
+    name: 'Unidos da Vila Kennedy',
     shortName: 'Unidos da Vila Kennedy',
     nickname: 'A Estátua da Liberdade do Samba',
     foundationYear: 1968,
@@ -873,7 +873,7 @@ export const AVALIACAO_SCHOOLS_INITIAL: School[] = [
   },
   {
     id: 'unidos_de_manguinhos',
-    name: 'G.R.E.S. Unidos de Manguinhos',
+    name: 'Unidos de Manguinhos',
     shortName: 'Unidos de Manguinhos',
     nickname: 'A Ciência do Samba',
     foundationYear: 1964,
@@ -934,7 +934,7 @@ export const AVALIACAO_SCHOOLS_INITIAL: School[] = [
 export const INACTIVE_SCHOOLS_INITIAL: School[] = [
   {
     id: 'tpm_madureira',
-    name: 'GRES Turma da Paz de Madureira',
+    name: 'Turma da Paz de Madureira',
     shortName: 'Turma da Paz de Madureira',
     abbreviation: 'TPM',
     nickname: 'A Turma da Paz',
@@ -989,7 +989,7 @@ export const INACTIVE_SCHOOLS_INITIAL: School[] = [
   },
   {
     id: 'amarelinho',
-    name: 'GRES Corações Unidos do Amarelinho',
+    name: 'Corações Unidos do Amarelinho',
     shortName: 'Corações Unidos do Amarelinho',
     abbreviation: 'Amarelinho',
     nickname: 'O Amarelinho de Irajá',
@@ -1044,7 +1044,7 @@ export const INACTIVE_SCHOOLS_INITIAL: School[] = [
   },
   {
     id: 'uniao_vaz_lobo',
-    name: 'GRES União de Vaz Lobo',
+    name: 'União de Vaz Lobo',
     shortName: 'União de Vaz Lobo',
     abbreviation: 'Vaz Lobo',
     nickname: 'A Majestade de Vaz Lobo',
@@ -1101,7 +1101,7 @@ export const INACTIVE_SCHOOLS_INITIAL: School[] = [
   },
   {
     id: 'imperio_petropolis',
-    name: 'GRES Império de Petrópolis',
+    name: 'Império de Petrópolis',
     shortName: 'Império de Petrópolis',
     abbreviation: 'IP',
     nickname: 'A Coroa Imperial da Serra',
@@ -1156,7 +1156,7 @@ export const INACTIVE_SCHOOLS_INITIAL: School[] = [
   },
   {
     id: 'sao_cristovao',
-    name: 'GRES Unidos de São Cristóvão',
+    name: 'Unidos de São Cristóvão',
     shortName: 'Unidos de São Cristóvão',
     abbreviation: 'São Cristóvão',
     nickname: 'A Imperial de São Cristóvão',
@@ -1267,7 +1267,7 @@ export const INACTIVE_SCHOOLS_INITIAL: School[] = [
   },
   {
     id: 'unidos_anil',
-    name: 'GRES Unidos do Anil',
+    name: 'Unidos do Anil',
     shortName: 'Unidos do Anil',
     abbreviation: 'Anil',
     nickname: 'O Azul e Branco de Jacarepaguá',
@@ -1322,7 +1322,9 @@ export const INACTIVE_SCHOOLS_INITIAL: School[] = [
   },
   {
     id: 'canarios_laranjeiras',
-    name: 'Clube Carnavalesco Escola de Samba Canários das Laranjeiras',
+    name: 'Canários das Laranjeiras',
+    denomination: 'C.C.E.S.',
+    corporateName: 'Clube Carnavalesco Escola de Samba Canários das Laranjeiras',
     shortName: 'Canários das Laranjeiras',
     abbreviation: 'Canários',
     nickname: 'O Pássaro de Ouro da Zona Sul',
@@ -1380,17 +1382,17 @@ export const INACTIVE_SCHOOLS_INITIAL: School[] = [
 
 // Realistic random school name generators
 const PREFIXES = [
-  'G.R.E.S. Unidos de',
-  'G.R.E.S. Estrela de',
-  'G.R.E.S. Guerreiros de',
-  'G.R.E.S. Mocidade de',
-  'G.R.E.S. Acadêmicos de',
-  'G.R.E.S. Império de',
-  'G.R.E.S. Flor de',
-  'G.R.E.S. Independentes de',
-  'G.R.E.S. Renascer de',
-  'G.R.E.S. União de',
-  'G.R.E.S. Alegria de'
+  'Unidos de',
+  'Estrela de',
+  'Guerreiros de',
+  'Mocidade de',
+  'Acadêmicos de',
+  'Império de',
+  'Flor de',
+  'Independentes de',
+  'Renascer de',
+  'União de',
+  'Alegria de'
 ];
 
 const LOCALES = [
@@ -1436,7 +1438,7 @@ export function generateRandomCarnavalSchool(year: number, existingIds: string[]
   const prefix = PREFIXES[Math.floor(Math.random() * PREFIXES.length)];
   const locale = LOCALES[Math.floor(Math.random() * LOCALES.length)];
   const fullName = `${prefix} ${locale.name}`;
-  const shortName = `${prefix.replace('G.R.E.S. ', '')} ${locale.name}`;
+  const shortName = `${prefix} ${locale.name}`;
   const baseId = `nova_escola_${locale.name.toLowerCase().replace(/[^a-z0-9]/g, '_')}_${year}`;
   const id = existingIds.includes(baseId) ? `${baseId}_${Math.floor(Math.random() * 1000)}` : baseId;
 

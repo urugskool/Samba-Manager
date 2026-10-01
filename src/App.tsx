@@ -16,6 +16,7 @@ import { INITIAL_SCHOOLS, INITIAL_HISTORY, RESULTS_2026, HISTORICAL_CARNAVAL_REC
 import { simulateParadeDuration } from './config/paradeConfig';
 import { SimulationEngine } from './services/simulationEngine';
 import { soundService } from './services/soundService';
+import { cleanSchoolName } from './utils/schoolNameUtils';
 
 import { Navbar } from './components/Navbar';
 import { DashboardView } from './components/DashboardView';
@@ -433,7 +434,7 @@ export default function App() {
       }
       const school = schools.find((s) => s.id === schoolId);
       showToast(
-        `Desfile da ${school ? school.name : 'agremiação'} concluído na passarela! As notas dos 36 jurados foram lacradas.`,
+        `Desfile da ${school ? cleanSchoolName(school) : 'agremiação'} concluído na passarela! As notas dos 36 jurados foram lacradas.`,
         'success'
       );
     },
@@ -445,7 +446,8 @@ export default function App() {
       const divSchools = schools.filter((s) => s.division === division && isSchoolActive(s));
       const divSchoolIds = divSchools.map((s) => s.id);
 
-      divSchools.forEach((sch) => {
+      const pendingSchools = divSchools.filter((s) => !completedParadeSchoolIds.includes(s.id));
+      pendingSchools.forEach((sch) => {
         const timeResult = simulateParadeDuration(sch);
         handleRecordParadeTime(
           sch.id,
@@ -472,7 +474,7 @@ export default function App() {
           : 'Grupo de Avaliação';
       showToast(`Todos os desfiles da ${divName} foram realizados e avaliados pelos jurados!`, 'success');
     },
-    [schools, showToast, isSchoolActive, handleRecordParadeTime]
+    [schools, completedParadeSchoolIds, showToast, isSchoolActive, handleRecordParadeTime]
   );
 
   const activeSchools = schools.filter(isSchoolActive);
@@ -487,7 +489,8 @@ export default function App() {
   const isAllParadesCompleted = totalSchoolsCount > 0 && completedParadeSchoolIds.length >= totalSchoolsCount;
 
   const handleCompleteAllParades = useCallback(() => {
-    activeSchools.forEach((sch) => {
+    const pendingSchools = activeSchools.filter((sch) => !completedParadeSchoolIds.includes(sch.id));
+    pendingSchools.forEach((sch) => {
       const timeResult = simulateParadeDuration(sch);
       handleRecordParadeTime(
         sch.id,
@@ -500,7 +503,7 @@ export default function App() {
     const allIds = activeSchools.map((s) => s.id);
     setCompletedParadeSchoolIds(allIds);
     showToast('Todos os desfiles do Carnaval foram realizados! A apuração oficial das notas está liberada!', 'success');
-  }, [activeSchools, showToast, handleRecordParadeTime]);
+  }, [activeSchools, completedParadeSchoolIds, showToast, handleRecordParadeTime]);
 
   // Find user school & division lists
   const userSchool = schools.find((s) => s.id === userSchoolId) || null;
@@ -522,7 +525,7 @@ export default function App() {
     showToast(
       chosen
         ? `Bem-vindo ao comando da ${chosen.name}! Temporada do Carnaval ${currentYear} iniciada!`
-        : `Modo Observador ativado! Você preside a LIGA no Carnaval ${currentYear}!`,
+        : `Modo Observador ativado! Supervisão geral do Carnaval ${currentYear} (LIESA, LIGA RJ e Superliga)!`,
       'success'
     );
   };
@@ -685,7 +688,7 @@ export default function App() {
       />
 
       {/* Main Workspace */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-6 pb-24 sm:pb-8">
         {activeTab === 'dashboard' && userSchool && (
           <DashboardView
             school={userSchool}
@@ -705,14 +708,14 @@ export default function App() {
           <div className="space-y-6">
             <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 text-center space-y-4">
               <span className="text-xs font-bold px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                MODO OBSERVADOR / PRESIDENTE DA LIGA
+                MODO OBSERVADOR • LIESA, LIGA RJ & SUPERLIGA
               </span>
               <h1 className="text-3xl font-black text-white">
                 Carnaval Carioca {currentYear} • Especial, Ouro, Prata, Bronze & Grupo de Avaliação
               </h1>
               <p className="text-sm text-slate-300 max-w-xl mx-auto">
-                Você está acompanhando a temporada das {schools.length} agremiações como Presidente da LIGA.
-                Assista e simule os desfiles de todos os 5 grupos na Passarela do Samba e realize a apuração completa das notas dos 36 jurados!
+                Você está acompanhando a temporada das {schools.length} agremiações sob administração da LIESA (Grupo Especial), LIGA RJ (Série Ouro) e Superliga (Série Prata, Série Bronze e Grupo de Avaliação).
+                Assista e simule os desfiles na Passarela do Samba e na Intendente Magalhães e acompanhe a apuração oficial das notas dos 36 jurados!
               </p>
 
               {/* Parades Progress status in Spectator Dashboard */}
@@ -870,7 +873,7 @@ export default function App() {
 
       {/* Floating Notification Toast */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 animate-bounce">
+        <div className="fixed bottom-20 sm:bottom-6 right-3 sm:right-6 z-50 animate-bounce max-w-[90vw] sm:max-w-md">
           <div
             className={`flex items-center gap-3 px-4 py-3 rounded-xl shadow-2xl border text-xs font-bold ${
               toastMessage.type === 'success'

@@ -23,7 +23,8 @@ import {
 } from 'lucide-react';
 import { soundService } from '../services/soundService';
 import { generateParadeReport, ParadeReport } from '../utils/paradeReports';
-import { PARADE_CONFIG, VENUES, getParadeDuration, simulateParadeDuration, getSectorIndex } from '../config/paradeConfig';
+import { cleanSchoolName } from '../utils/schoolNameUtils';
+import { PARADE_CONFIG, VENUES, getParadeDuration, simulateParadeDuration, getSectorIndex, LEAGUES } from '../config/paradeConfig';
 import { DIVISION_REGULATIONS } from '../config/obrigatoriedadesConfig';
 import { RegulamentoObrigatoriedadesModal } from './RegulamentoObrigatoriedadesModal';
 
@@ -133,6 +134,19 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
   const bronzeCompletedCount = bronzeSchools.filter((s) => completedSchoolIds.includes(s.id)).length;
   const avaliacaoCompletedCount = avaliacaoSchools.filter((s) => completedSchoolIds.includes(s.id)).length;
 
+  const isSelectedGroupCompleted =
+    selectedGroup === 'especial'
+      ? especialCompletedCount === especialSchools.length
+      : selectedGroup === 'ouro'
+      ? ouroCompletedCount === ouroSchools.length
+      : selectedGroup === 'prata'
+      ? prataCompletedCount === prataSchools.length
+      : selectedGroup === 'bronze'
+      ? bronzeCompletedCount === bronzeSchools.length
+      : avaliacaoCompletedCount === (avaliacaoSchools?.length ?? 0);
+
+  const currentLeague = LEAGUES[PARADE_CONFIG[selectedGroup].leagueId];
+
   const getScoreDataForSchool = (schoolId: string): SchoolParadeScores | undefined => {
     return (
       especialScores.find((s) => s.schoolId === schoolId) ||
@@ -153,7 +167,7 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
       {
         minute: at(0.03),
         sector: venue.eventSectors[0],
-        description: `A ${sch.name} entra em ${venue.name}! O intérprete ${sch.staff.interprete.name} solta o grito de guerra clássico e a galera responde nas arquibancadas!`,
+        description: `A ${cleanSchoolName(sch)} entra em ${venue.name}! O intérprete ${sch.staff.interprete.name} solta o grito de guerra clássico e a galera responde nas arquibancadas!`,
         type: 'highlight'
       },
       {
@@ -195,8 +209,13 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
     ];
   };
 
-  // Start watching a school's live runway parade
+  // Start watching a school's live runway parade (only if not yet completed)
   const handleLaunchLiveParade = (school: School) => {
+    // If the school has already desfilado, re-simulation is strictly prohibited
+    if (completedSchoolIds.includes(school.id)) {
+      return;
+    }
+
     const timeSim = simulateParadeDuration(school);
     setActiveParadeSchool(school);
     setActiveParadeSim({
@@ -251,6 +270,30 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
       setIsFinished(true);
       setIsPlaying(false);
       soundService.playChampionFanfare();
+      if (!completedSchoolIds.includes(activeParadeSchool.id)) {
+        onCompleteParade(
+          activeParadeSchool.id,
+          activeParadeSim
+            ? {
+                duration: activeParadeSim.targetDuration,
+                penalty: activeParadeSim.penalty,
+                status: activeParadeSim.timeStatus,
+                diffMinutes: activeParadeSim.diffMinutes
+              }
+            : undefined
+        );
+      }
+    }
+  }, [minute, isFinished, activeParadeSchool, paradeDuration, activeParadeSim, onCompleteParade, completedSchoolIds]);
+
+  const handleSkipToEnd = () => {
+    if (!activeParadeSchool) return;
+    setMinute(paradeDuration);
+    setEvents([...getParadeScript(activeParadeSchool, paradeDuration)].reverse());
+    setIsFinished(true);
+    setIsPlaying(false);
+    soundService.playChampionFanfare();
+    if (!completedSchoolIds.includes(activeParadeSchool.id)) {
       onCompleteParade(
         activeParadeSchool.id,
         activeParadeSim
@@ -263,26 +306,6 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
           : undefined
       );
     }
-  }, [minute, isFinished, activeParadeSchool, paradeDuration, activeParadeSim, onCompleteParade]);
-
-  const handleSkipToEnd = () => {
-    if (!activeParadeSchool) return;
-    setMinute(paradeDuration);
-    setEvents([...getParadeScript(activeParadeSchool, paradeDuration)].reverse());
-    setIsFinished(true);
-    setIsPlaying(false);
-    soundService.playChampionFanfare();
-    onCompleteParade(
-      activeParadeSchool.id,
-      activeParadeSim
-        ? {
-            duration: activeParadeSim.targetDuration,
-            penalty: activeParadeSim.penalty,
-            status: activeParadeSim.timeStatus,
-            diffMinutes: activeParadeSim.diffMinutes
-          }
-        : undefined
-    );
   };
 
   // Find next pending school to watch
@@ -293,8 +316,9 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
     }
   };
 
-  // Simulate an individual school parade instantly
+  // Simulate an individual school parade instantly (only allowed if not yet completed)
   const handleSimulateSingleSchool = (sch: School) => {
+    if (completedSchoolIds.includes(sch.id)) return;
     const timeSim = simulateParadeDuration(sch);
     onCompleteParade(sch.id, {
       duration: timeSim.duration,
@@ -391,13 +415,20 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
             )}
 
             {!isAllCarnavalCompleted && (
-              <button
-                onClick={() => onCompleteParadesForDivision(selectedGroup)}
-                className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-xs transition border border-slate-700 flex items-center gap-1.5 cursor-pointer"
-              >
-                <Zap className="w-4 h-4 text-amber-400" />
-                <span>Simular Todos da {PARADE_CONFIG[selectedGroup].label}</span>
-              </button>
+              isSelectedGroupCompleted ? (
+                <div className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-bold text-xs">
+                  <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Desfiles da {PARADE_CONFIG[selectedGroup].label} Homologados pela {currentLeague.name}</span>
+                </div>
+              ) : (
+                <button
+                  onClick={() => onCompleteParadesForDivision(selectedGroup)}
+                  className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-xs transition border border-slate-700 flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Zap className="w-4 h-4 text-amber-400" />
+                  <span>Simular Desfiles Restantes da {PARADE_CONFIG[selectedGroup].label}</span>
+                </button>
+              )
             )}
 
             {!isAllCarnavalCompleted && (
@@ -406,14 +437,14 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
                 className="px-4 py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-black text-xs transition flex items-center gap-1.5 shadow cursor-pointer"
               >
                 <Sparkles className="w-4 h-4 text-amber-400" />
-                <span>Simular Todos os Desfiles dos 5 Grupos (Completo)</span>
+                <span>Simular Todos os Desfiles Restantes (5 Grupos)</span>
               </button>
             )}
 
             {isAllCarnavalCompleted && (
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
-                <CheckCircle2 className="w-4 h-4" />
-                <span>Todos os {totalSchools} Desfiles Concluídos com Sucesso!</span>
+              <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <span>Todos os {totalSchools} Desfiles Concluídos e Homologados pelas Ligas (LIESA, LIGA RJ e Superliga)!</span>
               </div>
             )}
           </div>
@@ -480,7 +511,7 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
                   </span>
                 </div>
                 <h2 className="text-3xl font-black text-white mt-1">
-                  {activeParadeSchool.name}
+                  {cleanSchoolName(activeParadeSchool)}
                 </h2>
                 <p className="text-xs text-amber-200/90 italic">
                   "{activeParadeSchool.currentEnredo?.title || 'Enredo Consagrado na Avenida'}"
@@ -494,8 +525,8 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 bg-black/60 px-5 py-3 rounded-2xl border border-white/10 self-start md:self-auto">
-                <div className="text-right">
+              <div className="flex items-center gap-4 bg-black/60 px-4 sm:px-5 py-3 rounded-2xl border border-white/10 self-stretch sm:self-auto justify-between sm:justify-end">
+                <div className="text-right w-full sm:w-auto">
                   <div className="text-[10px] text-slate-400 uppercase tracking-widest font-semibold flex items-center justify-end gap-1.5">
                     <span>Cronômetro Oficial</span>
                     {activeConfig && minute > activeConfig.maxMinutes && (
@@ -534,7 +565,7 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
           </div>
 
           {/* Runway Progress Visualizer */}
-          <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+          <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-xl space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                 Posição da Agremiação na Pista — {activeVenue?.name}:
@@ -554,16 +585,19 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
               </div>
 
               {/* Sector Checkpoints */}
-              <div className="flex justify-between text-[10px] text-slate-500 mt-2 font-mono">
+              <div className="flex justify-between text-[9px] sm:text-[10px] text-slate-500 mt-2 font-mono overflow-x-hidden">
                 {activeVenue?.checkpoints.map((c) => (
-                  <span key={c}>{c}</span>
+                  <span key={c} className="truncate max-w-[55px] sm:max-w-none text-center">
+                    <span className="sm:hidden">{c.replace('Setor ', 'S.').replace('(Bateria)', '🥁').replace('(Jurados)', '⚖️').replace('(Apoteose)', '🏁')}</span>
+                    <span className="hidden sm:inline">{c}</span>
+                  </span>
                 ))}
               </div>
             </div>
 
             {/* Playback Controls */}
-            <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800/80">
-              <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center justify-between gap-2.5 pt-3 border-t border-slate-800/80">
+              <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
                 {!isPlaying ? (
                   <button
                     disabled={isFinished}
@@ -571,7 +605,7 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
                       setIsPlaying(true);
                       soundService.playGavel();
                     }}
-                    className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs transition flex items-center gap-2 shadow-lg shadow-amber-500/20"
+                    className="flex-1 sm:flex-initial px-4 sm:px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs transition flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20"
                   >
                     <Play className="w-4 h-4 fill-slate-950" />
                     <span>{minute === 0 ? 'Dar a Partida no Desfile' : 'Continuar'}</span>
@@ -579,7 +613,7 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
                 ) : (
                   <button
                     onClick={() => setIsPlaying(false)}
-                    className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition flex items-center gap-2"
+                    className="flex-1 sm:flex-initial px-4 sm:px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition flex items-center justify-center gap-2"
                   >
                     <Pause className="w-4 h-4" />
                     <span>Pausar</span>
@@ -589,22 +623,22 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
                 <button
                   disabled={isFinished}
                   onClick={handleSkipToEnd}
-                  className="px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:bg-slate-800 text-slate-300 text-xs font-semibold transition flex items-center gap-1.5"
+                  className="flex-1 sm:flex-initial px-3 sm:px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:bg-slate-800 text-slate-300 text-xs font-semibold transition flex items-center justify-center gap-1.5"
                 >
                   <FastForward className="w-4 h-4" />
-                  <span>Pular para o Fim</span>
+                  <span>Pular Fim</span>
                 </button>
 
                 <button
                   onClick={() => setActiveParadeSchool(null)}
-                  className="px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-400 hover:text-white text-xs font-semibold transition"
+                  className="px-3 sm:px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-400 hover:text-white text-xs font-semibold transition"
                 >
-                  Fechar Visualizador
+                  Fechar
                 </button>
               </div>
 
               {/* Speed Selector */}
-              <div className="flex items-center gap-1.5 text-xs text-slate-400">
+              <div className="flex items-center gap-1.5 text-xs text-slate-400 ml-auto sm:ml-0">
                 <span>Velocidade:</span>
                 {[1, 2, 5].map((s) => (
                   <button
@@ -667,7 +701,7 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
               <div className="mt-4 p-5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-3 animate-fadeIn">
                 <div className="flex items-center justify-center gap-2 text-emerald-400 font-bold text-base">
                   <CheckCircle className="w-5 h-5" />
-                  <span>Desfile da {activeParadeSchool.name} Concluído na Passarela!</span>
+                  <span>Desfile da {cleanSchoolName(activeParadeSchool)} Concluído na Passarela!</span>
                 </div>
                 <p className="text-xs text-slate-300 max-w-lg mx-auto">
                   Tempo total de desfile: <strong>{paradeDuration} minutos</strong> (Regulamentar: {activeConfig?.minMinutes} a {activeConfig?.maxMinutes} min).
@@ -753,127 +787,172 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
         </div>
       )}
 
-      {/* SCHEDULE & GROUPS TABS */}
+      {/* SCHEDULE & GROUPS TABS - SEPARADAS POR LIGA ADMINISTRADORA */}
       <div className="space-y-4">
-        {/* Group Selector Tabs */}
-        <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-xl">
-          <div className="flex flex-wrap items-center gap-2">
-            <button
-              onClick={() => setSelectedGroup('especial')}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
-                selectedGroup === 'especial'
-                  ? 'bg-amber-500 text-slate-950 font-black shadow-md shadow-amber-500/20'
-                  : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
-              }`}
-            >
-              <span>Grupo Especial</span>
-              <span
-                className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold ${
-                  especialCompletedCount === especialSchools.length
-                    ? 'bg-emerald-500 text-slate-950'
-                    : selectedGroup === 'especial'
-                    ? 'bg-slate-900 text-slate-300'
-                    : 'bg-slate-800 text-slate-400'
-                }`}
-              >
-                {especialCompletedCount} / {especialSchools.length}
+        {/* League Selector Header & Division Cards */}
+        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 sm:p-5 shadow-xl space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800/80">
+            <div>
+              <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                ADMINISTRAÇÃO OFICIAL DO CARNAVAL CARIOCA
               </span>
-            </button>
-
-            <button
-              onClick={() => setSelectedGroup('ouro')}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
-                selectedGroup === 'ouro'
-                  ? 'bg-blue-500 text-white font-black shadow-md shadow-blue-500/20'
-                  : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
-              }`}
-            >
-              <span>Série Ouro</span>
-              <span
-                className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold ${
-                  ouroCompletedCount === ouroSchools.length
-                    ? 'bg-emerald-500 text-slate-950'
-                    : selectedGroup === 'ouro'
-                    ? 'bg-blue-900 text-white'
-                    : 'bg-slate-800 text-slate-400'
-                }`}
-              >
-                {ouroCompletedCount} / {ouroSchools.length}
-              </span>
-            </button>
-
-            <button
-              onClick={() => setSelectedGroup('prata')}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
-                selectedGroup === 'prata'
-                  ? 'bg-slate-300 text-slate-950 font-black shadow-md shadow-slate-300/20'
-                  : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
-              }`}
-            >
-              <span>Série Prata (Superliga)</span>
-              <span
-                className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold ${
-                  prataCompletedCount === prataSchools.length
-                    ? 'bg-emerald-500 text-slate-950'
-                    : selectedGroup === 'prata'
-                    ? 'bg-slate-400 text-slate-950'
-                    : 'bg-slate-800 text-slate-400'
-                }`}
-              >
-                {prataCompletedCount} / {prataSchools.length}
-              </span>
-            </button>
-
-            <button
-              onClick={() => setSelectedGroup('bronze')}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
-                selectedGroup === 'bronze'
-                  ? 'bg-amber-700 text-amber-100 font-black shadow-md shadow-amber-800/30 ring-1 ring-amber-500'
-                  : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
-              }`}
-            >
-              <span>Série Bronze</span>
-              <span
-                className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold ${
-                  bronzeCompletedCount === bronzeSchools.length
-                    ? 'bg-emerald-500 text-slate-950'
-                    : selectedGroup === 'bronze'
-                    ? 'bg-amber-900 text-amber-200'
-                    : 'bg-slate-800 text-slate-400'
-                }`}
-              >
-                {bronzeCompletedCount} / {bronzeSchools.length}
-              </span>
-            </button>
-
-            <button
-              onClick={() => setSelectedGroup('avaliacao')}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
-                selectedGroup === 'avaliacao'
-                  ? 'bg-purple-600 text-white font-black shadow-md shadow-purple-600/30 ring-1 ring-purple-400'
-                  : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
-              }`}
-            >
-              <span>Grupo de Avaliação</span>
-              <span
-                className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold ${
-                  avaliacaoCompletedCount === avaliacaoSchools.length
-                    ? 'bg-emerald-500 text-slate-950'
-                    : selectedGroup === 'avaliacao'
-                    ? 'bg-purple-900 text-purple-200'
-                    : 'bg-slate-800 text-slate-400'
-                }`}
-              >
-                {avaliacaoCompletedCount} / {avaliacaoSchools.length}
-              </span>
-            </button>
+              <h3 className="text-lg font-black text-white mt-1">
+                Ligas Responsáveis & Supervisão das Divisões
+              </h3>
+            </div>
+            <span className="text-xs text-slate-400">
+              3 Ligas Oficiais • 5 Divisões • 80 Agremiações
+            </span>
           </div>
 
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-300">
+          {/* 3 Ligas Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {/* 1. LIESA Card */}
+            <div
+              className={`p-3.5 rounded-xl border transition-all ${
+                selectedGroup === 'especial'
+                  ? 'bg-amber-950/40 border-amber-500/80 ring-1 ring-amber-500/40 shadow-lg'
+                  : 'bg-slate-950/70 border-slate-800/90 hover:border-slate-700'
+              }`}
+            >
+              <div className="flex items-center justify-between gap-2 mb-1.5">
+                <span className="px-2 py-0.5 rounded text-[11px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                  LIESA
+                </span>
+                <span className="text-[10px] font-mono text-slate-400">
+                  {especialCompletedCount}/{especialSchools.length} Desfilaram
+                </span>
+              </div>
+              <h4 className="text-xs font-bold text-white truncate">
+                Liga Independente das Escolas de Samba do RJ
+              </h4>
+              <p className="text-[11px] text-amber-200/90 mt-0.5 leading-snug">
+                É responsável e administra o <strong>Grupo Especial</strong> na Sapucaí.
+              </p>
+              <div className="mt-3">
+                <button
+                  onClick={() => setSelectedGroup('especial')}
+                  className={`w-full py-2 px-3 rounded-lg text-xs font-bold transition flex items-center justify-between cursor-pointer ${
+                    selectedGroup === 'especial'
+                      ? 'bg-amber-500 text-slate-950 font-black shadow'
+                      : 'bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800'
+                  }`}
+                >
+                  <span>Grupo Especial</span>
+                  <span className="text-[10px] font-mono font-bold">
+                    {especialCompletedCount === especialSchools.length ? '✓ Concluído' : `${especialSchools.length} escolas`}
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            {/* 2. LIGA RJ Card */}
+            <div
+              className={`p-3.5 rounded-xl border transition-all ${
+                selectedGroup === 'ouro'
+                  ? 'bg-blue-950/40 border-blue-500/80 ring-1 ring-blue-500/40 shadow-lg'
+                  : 'bg-slate-950/70 border-slate-800/90 hover:border-slate-700'
+              }`}
+            >
+              <div className="flex items-center justify-between gap-2 mb-1.5">
+                <span className="px-2 py-0.5 rounded text-[11px] font-black bg-blue-500/20 text-blue-300 border border-blue-500/40">
+                  LIGA RJ
+                </span>
+                <span className="text-[10px] font-mono text-slate-400">
+                  {ouroCompletedCount}/{ouroSchools.length} Desfilaram
+                </span>
+              </div>
+              <h4 className="text-xs font-bold text-white truncate">
+                Liga Independente do Grupo A do Rio de Janeiro
+              </h4>
+              <p className="text-[11px] text-blue-200/90 mt-0.5 leading-snug">
+                Administra e é responsável pela <strong>Série Ouro</strong> na Sapucaí.
+              </p>
+              <div className="mt-3">
+                <button
+                  onClick={() => setSelectedGroup('ouro')}
+                  className={`w-full py-2 px-3 rounded-lg text-xs font-bold transition flex items-center justify-between cursor-pointer ${
+                    selectedGroup === 'ouro'
+                      ? 'bg-blue-500 text-white font-black shadow'
+                      : 'bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800'
+                  }`}
+                >
+                  <span>Série Ouro</span>
+                  <span className="text-[10px] font-mono font-bold">
+                    {ouroCompletedCount === ouroSchools.length ? '✓ Concluído' : `${ouroSchools.length} escolas`}
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            {/* 3. SUPERLIGA Card */}
+            <div
+              className={`p-3.5 rounded-xl border transition-all ${
+                ['prata', 'bronze', 'avaliacao'].includes(selectedGroup)
+                  ? 'bg-purple-950/40 border-purple-500/80 ring-1 ring-purple-500/40 shadow-lg'
+                  : 'bg-slate-950/70 border-slate-800/90 hover:border-slate-700'
+              }`}
+            >
+              <div className="flex items-center justify-between gap-2 mb-1.5">
+                <span className="px-2 py-0.5 rounded text-[11px] font-black bg-purple-500/20 text-purple-300 border border-purple-500/40">
+                  SUPERLIGA
+                </span>
+                <span className="text-[10px] font-mono text-slate-400">
+                  {prataCompletedCount + bronzeCompletedCount + avaliacaoCompletedCount}/{prataSchools.length + bronzeSchools.length + avaliacaoSchools.length} Desfilaram
+                </span>
+              </div>
+              <h4 className="text-xs font-bold text-white truncate">
+                Superliga Carnavalesca do Brasil
+              </h4>
+              <p className="text-[11px] text-purple-200/90 mt-0.5 leading-snug">
+                É responsável por administrar a <strong>Série Prata, Série Bronze e Grupo de Avaliação</strong>.
+              </p>
+              <div className="grid grid-cols-3 gap-1.5 mt-3">
+                <button
+                  onClick={() => setSelectedGroup('prata')}
+                  className={`py-2 px-2 rounded-lg text-xs font-bold transition text-center cursor-pointer ${
+                    selectedGroup === 'prata'
+                      ? 'bg-slate-300 text-slate-950 font-black shadow'
+                      : 'bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800'
+                  }`}
+                >
+                  <div className="truncate">Série Prata</div>
+                  <div className="text-[9px] font-mono opacity-80">{prataCompletedCount}/{prataSchools.length}</div>
+                </button>
+                <button
+                  onClick={() => setSelectedGroup('bronze')}
+                  className={`py-2 px-2 rounded-lg text-xs font-bold transition text-center cursor-pointer ${
+                    selectedGroup === 'bronze'
+                      ? 'bg-amber-700 text-amber-100 font-black shadow ring-1 ring-amber-500'
+                      : 'bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800'
+                  }`}
+                >
+                  <div className="truncate">Série Bronze</div>
+                  <div className="text-[9px] font-mono opacity-80">{bronzeCompletedCount}/{bronzeSchools.length}</div>
+                </button>
+                <button
+                  onClick={() => setSelectedGroup('avaliacao')}
+                  className={`py-2 px-2 rounded-lg text-xs font-bold transition text-center cursor-pointer ${
+                    selectedGroup === 'avaliacao'
+                      ? 'bg-purple-600 text-white font-black shadow ring-1 ring-purple-400'
+                      : 'bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800'
+                  }`}
+                >
+                  <div className="truncate">Avaliação</div>
+                  <div className="text-[9px] font-mono opacity-80">{avaliacaoCompletedCount}/{avaliacaoSchools.length}</div>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Active Division & League Regulation Banner */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 text-xs text-slate-300">
             <div className="flex items-center gap-2.5">
               <Scale className="w-4 h-4 text-amber-400 flex-shrink-0" />
               <div>
-                <span className="font-bold text-white">{DIVISION_REGULATIONS[selectedGroup].governingBody}:</span>{' '}
+                <span className="font-bold text-white">
+                  Supervisão da {currentLeague.name} ({currentLeague.fullName}):
+                </span>{' '}
                 <span className="text-slate-300">{DIVISION_REGULATIONS[selectedGroup].rules.componentes.description}</span>{' '}
                 <span className="text-amber-400 font-semibold">
                   (Penalidade: {selectedGroup === 'bronze' ? 'de 0,4 a 2,3 pts' : '-0,5 pt por item'})
@@ -893,10 +972,9 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
             </button>
           </div>
 
-          <div className="text-xs text-slate-400">
-            {PARADE_CONFIG[selectedGroup].schedule}
-            {' • '}
-            {PARADE_CONFIG[selectedGroup].minMinutes}–{PARADE_CONFIG[selectedGroup].maxMinutes} min
+          <div className="text-xs text-slate-400 flex flex-wrap items-center justify-between gap-2">
+            <span>{PARADE_CONFIG[selectedGroup].schedule}</span>
+            <span className="font-mono">{PARADE_CONFIG[selectedGroup].minMinutes}–{PARADE_CONFIG[selectedGroup].maxMinutes} minutos</span>
           </div>
         </div>
 
@@ -937,7 +1015,7 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
                       <div>
                         <div className="flex items-center gap-1.5">
                           <h4 className="font-bold text-white text-sm hover:text-amber-300 transition">
-                            {sch.name}
+                            {cleanSchoolName(sch)}
                           </h4>
                           {isUser && (
                             <span className="text-[9px] font-black px-1.5 py-0.2 rounded bg-amber-500 text-slate-950">
@@ -1080,13 +1158,13 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
                       </button>
                     </>
                   ) : (
-                    <button
-                      onClick={() => handleLaunchLiveParade(sch)}
-                      className="w-full py-2 px-3 rounded-xl bg-slate-950 border border-slate-800 hover:bg-slate-800 text-slate-300 text-xs font-semibold transition flex items-center justify-center gap-1.5 cursor-pointer"
-                    >
-                      <RotateCcw className="w-3.5 h-3.5 text-slate-400" />
-                      <span>Reassistir Apresentação na Avenida</span>
-                    </button>
+                    <div className="w-full py-2 px-3 rounded-xl bg-slate-950 border border-emerald-500/30 text-emerald-400 text-xs font-bold flex items-center justify-between shadow-inner">
+                      <span className="flex items-center gap-1.5">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>Desfile Concluído & Homologado</span>
+                      </span>
+                      <span className="text-[10px] text-slate-400 font-mono">Lacrado pela {currentLeague.name}</span>
+                    </div>
                   )}
                 </div>
               </div>

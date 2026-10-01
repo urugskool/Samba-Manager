@@ -3,6 +3,7 @@ import { School, QuesitoId } from '../types/carnaval';
 import { QUESITOS } from '../data/carnavalData';
 import { TIEBREAKER_QUESITO_ORDER } from '../services/simulationEngine';
 import { X, Trophy, Shuffle, CheckCircle, Scale } from 'lucide-react';
+import { cleanSchoolName } from '../utils/schoolNameUtils';
 
 interface TiebreakerModalProps {
   isOpen: boolean;
@@ -76,7 +77,7 @@ export const TiebreakerModal: React.FC<TiebreakerModalProps> = ({
         {/* Schools Comparison Banner */}
         <div className="grid grid-cols-2 gap-4 my-4 p-4 rounded-xl bg-slate-950/60 border border-slate-800">
           <div className="text-center border-r border-slate-800/80 pr-2">
-            <div className="text-sm font-semibold text-slate-300 truncate">{schoolA.name}</div>
+            <div className="text-sm font-semibold text-slate-300 truncate">{cleanSchoolName(schoolA)}</div>
             <div className="text-2xl font-black text-amber-400">{totalA.toFixed(1)} pts</div>
             {winner === 'A' && (
               <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-400 mt-1 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
@@ -85,7 +86,7 @@ export const TiebreakerModal: React.FC<TiebreakerModalProps> = ({
             )}
           </div>
           <div className="text-center pl-2">
-            <div className="text-sm font-semibold text-slate-300 truncate">{schoolB.name}</div>
+            <div className="text-sm font-semibold text-slate-300 truncate">{cleanSchoolName(schoolB)}</div>
             <div className="text-2xl font-black text-amber-400">{totalB.toFixed(1)} pts</div>
             {winner === 'B' && (
               <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-400 mt-1 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
@@ -114,7 +115,7 @@ export const TiebreakerModal: React.FC<TiebreakerModalProps> = ({
                   {QUESITOS.find(q => q.id === decisiveQuesitoId)?.name}
                 </strong>
                 , onde a{' '}
-                <strong>{winner === 'A' ? schoolA.name : schoolB.name}</strong> obteve pontuação
+                <strong>{cleanSchoolName(winner === 'A' ? schoolA : schoolB)}</strong> obteve pontuação
                 superior ({winner === 'A' ? sumQuesito(scoresA[decisiveQuesitoId!]).toFixed(1) : sumQuesito(scoresB[decisiveQuesitoId!]).toFixed(1)} vs{' '}
                 {winner === 'A' ? sumQuesito(scoresB[decisiveQuesitoId!]).toFixed(1) : sumQuesito(scoresA[decisiveQuesitoId!]).toFixed(1)}).
               </div>

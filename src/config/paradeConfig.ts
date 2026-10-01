@@ -58,12 +58,73 @@ export const VENUES: Record<VenueId, {
   }
 };
 
+export type LeagueId = 'liesa' | 'ligarj' | 'superliga';
+
+export interface LeagueConfig {
+  id: LeagueId;
+  name: string;
+  fullName: string;
+  roleDescription: string;
+  divisions: DivisionId[];
+  venue: string;
+  badgeBg: string;
+  badgeText: string;
+  badgeBorder: string;
+}
+
+export const LEAGUES: Record<LeagueId, LeagueConfig> = {
+  liesa: {
+    id: 'liesa',
+    name: 'LIESA',
+    fullName: 'Liga Independente das Escolas de Samba do Rio de Janeiro',
+    roleDescription: 'É responsável e administra o Grupo Especial',
+    divisions: ['especial'],
+    venue: 'Sambódromo Marquês de Sapucaí',
+    badgeBg: 'bg-amber-500/20',
+    badgeText: 'text-amber-300',
+    badgeBorder: 'border-amber-500/40'
+  },
+  ligarj: {
+    id: 'ligarj',
+    name: 'LIGA RJ',
+    fullName: 'Liga Independente do Grupo A do Rio de Janeiro',
+    roleDescription: 'Administra e é responsável pela Série Ouro',
+    divisions: ['ouro'],
+    venue: 'Sambódromo Marquês de Sapucaí',
+    badgeBg: 'bg-blue-500/20',
+    badgeText: 'text-blue-300',
+    badgeBorder: 'border-blue-500/40'
+  },
+  superliga: {
+    id: 'superliga',
+    name: 'Superliga',
+    fullName: 'Superliga Carnavalesca do Brasil',
+    roleDescription: 'É responsável por administrar a Série Prata, Série Bronze e o Grupo de Avaliação',
+    divisions: ['prata', 'bronze', 'avaliacao'],
+    venue: 'Estrada Intendente Magalhães',
+    badgeBg: 'bg-purple-500/20',
+    badgeText: 'text-purple-300',
+    badgeBorder: 'border-purple-500/40'
+  }
+};
+
+export const DIVISION_LEAGUE_MAP: Record<DivisionId, LeagueId> = {
+  especial: 'liesa',
+  ouro: 'ligarj',
+  prata: 'superliga',
+  bronze: 'superliga',
+  avaliacao: 'superliga'
+};
+
 export interface GroupParadeConfig {
   label: string;
   minMinutes: number;
   maxMinutes: number;
   venue: VenueId;
   schedule: string; // texto exibido na aba
+  leagueId: LeagueId;
+  leagueName: string;
+  leagueFullName: string;
 }
 
 export const PARADE_CONFIG: Record<DivisionId, GroupParadeConfig> = {
@@ -72,35 +133,50 @@ export const PARADE_CONFIG: Record<DivisionId, GroupParadeConfig> = {
     minMinutes: 70,
     maxMinutes: 80,
     venue: 'sapucai',
-    schedule: 'Sambódromo Marquês de Sapucaí • Domingo e Segunda de Carnaval'
+    schedule: 'Sambódromo Marquês de Sapucaí • Domingo e Segunda de Carnaval',
+    leagueId: 'liesa',
+    leagueName: 'LIESA',
+    leagueFullName: 'Liga Independente das Escolas de Samba do Rio de Janeiro'
   },
   ouro: {
     label: 'Série Ouro',
     minMinutes: 45,
     maxMinutes: 55,
     venue: 'sapucai',
-    schedule: 'Sambódromo Marquês de Sapucaí • Sexta e Sábado de Carnaval'
+    schedule: 'Sambódromo Marquês de Sapucaí • Sexta e Sábado de Carnaval',
+    leagueId: 'ligarj',
+    leagueName: 'LIGA RJ',
+    leagueFullName: 'Liga Independente do Grupo A do Rio de Janeiro'
   },
   prata: {
     label: 'Série Prata',
     minMinutes: 35,
     maxMinutes: 40,
     venue: 'intendente',
-    schedule: 'Estrada Intendente Magalhães • Terça-Feira de Carnaval'
+    schedule: 'Estrada Intendente Magalhães • Terça-Feira de Carnaval',
+    leagueId: 'superliga',
+    leagueName: 'Superliga',
+    leagueFullName: 'Superliga Carnavalesca do Brasil'
   },
   bronze: {
     label: 'Série Bronze',
     minMinutes: 30,
     maxMinutes: 35,
     venue: 'intendente',
-    schedule: 'Estrada Intendente Magalhães • Quarta-Feira de Carnaval'
+    schedule: 'Estrada Intendente Magalhães • Quarta-Feira de Carnaval',
+    leagueId: 'superliga',
+    leagueName: 'Superliga',
+    leagueFullName: 'Superliga Carnavalesca do Brasil'
   },
   avaliacao: {
     label: 'Grupo de Avaliação',
     minMinutes: 28,
     maxMinutes: 33,
     venue: 'intendente',
-    schedule: 'Estrada Intendente Magalhães • Domingo de Carnaval (Grupo de Avaliação)'
+    schedule: 'Estrada Intendente Magalhães • Domingo de Carnaval (Grupo de Avaliação)',
+    leagueId: 'superliga',
+    leagueName: 'Superliga',
+    leagueFullName: 'Superliga Carnavalesca do Brasil'
   }
 };
 

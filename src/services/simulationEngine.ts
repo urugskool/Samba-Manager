@@ -10,6 +10,7 @@ import {
 import { QUESITOS, getSchoolConsolidatedStats, generateRandomCarnavalSchool } from '../data/carnavalData';
 import { PARADE_CONFIG } from '../config/paradeConfig';
 import { evaluateSchoolParadeObrigatoriedades } from '../config/obrigatoriedadesConfig';
+import { cleanSchoolName } from '../utils/schoolNameUtils';
 
 // Reverse order of quesitos for tiebreaking as required by user prompt:
 // "Em caso de empate o desempate ocorrerá pela soma maior no último quesito e assim sucessivamente"
@@ -1194,60 +1195,60 @@ export class SimulationEngine {
     const espStandings = espRanked.map(r => ({
       rank: r.rank,
       schoolId: r.school.id,
-      schoolName: r.school.name,
+      schoolName: cleanSchoolName(r.school),
       totalScore: r.currentScore
     }));
 
     const ouroStandings = ouroRanked.map(r => ({
       rank: r.rank,
       schoolId: r.school.id,
-      schoolName: r.school.name,
+      schoolName: cleanSchoolName(r.school),
       totalScore: r.currentScore
     }));
 
     const prataStandings = prataRanked.map(r => ({
       rank: r.rank,
       schoolId: r.school.id,
-      schoolName: r.school.name,
+      schoolName: cleanSchoolName(r.school),
       totalScore: r.currentScore
     }));
 
     const bronzeStandings = bronzeRanked.map(r => ({
       rank: r.rank,
       schoolId: r.school.id,
-      schoolName: r.school.name,
+      schoolName: cleanSchoolName(r.school),
       totalScore: r.currentScore
     }));
 
     const avaliacaoStandings = avaliacaoRanked.map(r => ({
       rank: r.rank,
       schoolId: r.school.id,
-      schoolName: r.school.name,
+      schoolName: cleanSchoolName(r.school),
       totalScore: r.currentScore
     }));
 
     const historyRecord: YearHistory = {
       year: currentYear,
-      especialChampion: espRanked[0]?.school.name || 'Desconhecida',
-      especialRelegated: especialRelegated ? [especialRelegated.name] : [],
-      ouroChampion: ouroChamp ? ouroChamp.name : 'Desconhecida',
-      ouroRelegated: ouroRelegatedNames,
-      prataChampion: prataChamp ? prataChamp.name : 'Desconhecida',
-      prataPromoted: prataPromotedNames,
-      prataRelegated: prataRelegatedNames,
-      bronzeChampion: bronzeChamp ? bronzeChamp.name : 'Desconhecida',
-      bronzePromoted: bronzePromotedNames,
-      bronzeRelegated: bronzeRelegatedNames,
-      avaliacaoChampion: avaliacaoChamp ? avaliacaoChamp.name : 'Desconhecida',
-      avaliacaoPromoted: avaliacaoPromotedNames,
-      avaliacaoRelegated: avaliacaoAfastadasNames,
+      especialChampion: cleanSchoolName(espRanked[0]?.school) || 'Desconhecida',
+      especialRelegated: especialRelegated ? [cleanSchoolName(especialRelegated)] : [],
+      ouroChampion: ouroChamp ? cleanSchoolName(ouroChamp) : 'Desconhecida',
+      ouroRelegated: ouroRelegatedNames.map(n => cleanSchoolName(n)),
+      prataChampion: prataChamp ? cleanSchoolName(prataChamp) : 'Desconhecida',
+      prataPromoted: prataPromotedNames.map(n => cleanSchoolName(n)),
+      prataRelegated: prataRelegatedNames.map(n => cleanSchoolName(n)),
+      bronzeChampion: bronzeChamp ? cleanSchoolName(bronzeChamp) : 'Desconhecida',
+      bronzePromoted: bronzePromotedNames.map(n => cleanSchoolName(n)),
+      bronzeRelegated: bronzeRelegatedNames.map(n => cleanSchoolName(n)),
+      avaliacaoChampion: avaliacaoChamp ? cleanSchoolName(avaliacaoChamp) : 'Desconhecida',
+      avaliacaoPromoted: avaliacaoPromotedNames.map(n => cleanSchoolName(n)),
+      avaliacaoRelegated: avaliacaoAfastadasNames.map(n => cleanSchoolName(n)),
       especialStandings: espStandings,
       ouroStandings: ouroStandings,
       prataStandings: prataStandings,
       bronzeStandings: bronzeStandings,
       avaliacaoStandings: avaliacaoStandings,
-      reactivatedSchools: reactivatedSchoolNames,
-      newSchoolsCreated: newSchoolNames
+      reactivatedSchools: reactivatedSchoolNames.map(n => cleanSchoolName(n)),
+      newSchoolsCreated: newSchoolNames.map(n => cleanSchoolName(n))
     };
 
     return {
@@ -1255,19 +1256,19 @@ export class SimulationEngine {
       nextYear: currentYear + 1,
       newHistory: [historyRecord, ...history],
       summary: {
-        especialChampionName: espRanked[0]?.school.name || '',
-        especialRelegatedName: especialRelegated?.name || '',
-        ouroChampionName: ouroChamp?.name || '',
-        ouroRelegatedNames,
-        prataChampionName: prataChamp?.name || '',
-        prataPromotedNames,
-        prataRelegatedNames,
-        bronzeChampionName: bronzeChamp?.name || '',
-        bronzePromotedNames,
-        bronzeRelegatedNames,
-        avaliacaoChampionName: avaliacaoChamp?.name || '',
-        avaliacaoPromotedNames,
-        avaliacaoAfastadasNames,
+        especialChampionName: cleanSchoolName(espRanked[0]?.school) || '',
+        especialRelegatedName: cleanSchoolName(especialRelegated) || '',
+        ouroChampionName: cleanSchoolName(ouroChamp) || '',
+        ouroRelegatedNames: ouroRelegatedNames.map(n => cleanSchoolName(n)),
+        prataChampionName: cleanSchoolName(prataChamp) || '',
+        prataPromotedNames: prataPromotedNames.map(n => cleanSchoolName(n)),
+        prataRelegatedNames: prataRelegatedNames.map(n => cleanSchoolName(n)),
+        bronzeChampionName: cleanSchoolName(bronzeChamp) || '',
+        bronzePromotedNames: bronzePromotedNames.map(n => cleanSchoolName(n)),
+        bronzeRelegatedNames: bronzeRelegatedNames.map(n => cleanSchoolName(n)),
+        avaliacaoChampionName: cleanSchoolName(avaliacaoChamp) || '',
+        avaliacaoPromotedNames: avaliacaoPromotedNames.map(n => cleanSchoolName(n)),
+        avaliacaoAfastadasNames: avaliacaoAfastadasNames.map(n => cleanSchoolName(n)),
         reactivatedSchoolNames,
         newSchoolNames,
         ouroCountNextSeason: nextOuroCount,

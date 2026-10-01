@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import { School, DivisionId, YearHistory } from '../types/carnaval';
 import { QUESITOS, getSchoolConsolidatedStats } from '../data/carnavalData';
 import { Trophy, History, Shield, ArrowUp, ArrowDown, Star, ChevronDown, ChevronUp } from 'lucide-react';
+import {
+  cleanSchoolName,
+  getSchoolCorporateName,
+  getSchoolDenomination,
+  getSchoolDenominationExtenso
+} from '../utils/schoolNameUtils';
 
 interface TabelaViewProps {
   currentYear: number;
@@ -276,83 +282,144 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
 
       {activeTab === 'current' ? (
         <div className="space-y-4">
-          {/* Division Selector */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div className="flex flex-wrap items-center gap-2">
-              <button
-                onClick={() => setSelectedDivision('especial')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
-                  selectedDivision === 'especial'
-                    ? 'bg-amber-500 text-slate-950 font-black'
-                    : 'bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800'
-                }`}
-              >
-                Grupo Especial ({especialSchools.length} Agremiações)
-              </button>
-              <button
-                onClick={() => setSelectedDivision('ouro')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
-                  selectedDivision === 'ouro'
-                    ? 'bg-blue-500 text-white font-black'
-                    : 'bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800'
-                }`}
-              >
-                Série Ouro ({ouroSchools.length} Agremiações)
-              </button>
-              <button
-                onClick={() => setSelectedDivision('prata')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
-                  selectedDivision === 'prata'
-                    ? 'bg-slate-300 text-slate-950 font-black'
-                    : 'bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800'
-                }`}
-              >
-                Série Prata ({prataSchools.length} Agremiações)
-              </button>
-              <button
-                onClick={() => setSelectedDivision('bronze')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
-                  selectedDivision === 'bronze'
-                    ? 'bg-amber-700 text-amber-100 font-black ring-1 ring-amber-500'
-                    : 'bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800'
-                }`}
-              >
-                Série Bronze ({bronzeSchools.length} Agremiações)
-              </button>
-              <button
-                onClick={() => setSelectedDivision('avaliacao')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
-                  selectedDivision === 'avaliacao'
-                    ? 'bg-purple-600 text-white font-black ring-1 ring-purple-400'
-                    : 'bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800'
-                }`}
-              >
-                Grupo de Avaliação ({avaliacaoSchools.length} Agremiações)
-              </button>
+          {/* Division Selector Separated by Governing League */}
+          <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 sm:p-5 shadow-xl space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800/80">
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                  LIGAS & DIVISÕES DO CARNAVAL CARIOCA
+                </span>
+                <h3 className="text-base font-black text-white mt-1">
+                  Administração das 5 Divisões
+                </h3>
+              </div>
+              <span className="text-xs text-slate-400">
+                LIESA (Especial) • LIGA RJ (Ouro) • Superliga (Prata, Bronze, Avaliação)
+              </span>
+            </div>
+
+            <div className="flex items-center overflow-x-auto no-scrollbar gap-2.5 pb-1 max-w-full">
+              {/* LIESA */}
+              <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800 shrink-0">
+                <span className="text-[10px] font-black uppercase px-2 py-1 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                  LIESA
+                </span>
+                <button
+                  onClick={() => setSelectedDivision('especial')}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                    selectedDivision === 'especial'
+                      ? 'bg-amber-500 text-slate-950 font-black shadow'
+                      : 'text-slate-300 hover:text-white'
+                  }`}
+                >
+                  <span>Grupo Especial</span>
+                  <span className="text-[10px] font-mono opacity-80">({especialSchools.length})</span>
+                </button>
+              </div>
+
+              {/* LIGA RJ */}
+              <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800 shrink-0">
+                <span className="text-[10px] font-black uppercase px-2 py-1 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                  LIGA RJ
+                </span>
+                <button
+                  onClick={() => setSelectedDivision('ouro')}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                    selectedDivision === 'ouro'
+                      ? 'bg-blue-500 text-white font-black shadow'
+                      : 'text-slate-300 hover:text-white'
+                  }`}
+                >
+                  <span>Série Ouro</span>
+                  <span className="text-[10px] font-mono opacity-80">({ouroSchools.length})</span>
+                </button>
+              </div>
+
+              {/* SUPERLIGA */}
+              <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800 shrink-0">
+                <span className="text-[10px] font-black uppercase px-2 py-1 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                  SUPERLIGA
+                </span>
+                <button
+                  onClick={() => setSelectedDivision('prata')}
+                  className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 cursor-pointer ${
+                    selectedDivision === 'prata'
+                      ? 'bg-slate-300 text-slate-950 font-black shadow'
+                      : 'text-slate-300 hover:text-white'
+                  }`}
+                >
+                  <span>Série Prata</span>
+                  <span className="text-[10px] font-mono opacity-80">({prataSchools.length})</span>
+                </button>
+                <button
+                  onClick={() => setSelectedDivision('bronze')}
+                  className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 cursor-pointer ${
+                    selectedDivision === 'bronze'
+                      ? 'bg-amber-700 text-amber-100 font-black shadow ring-1 ring-amber-500'
+                      : 'text-slate-300 hover:text-white'
+                  }`}
+                >
+                  <span>Série Bronze</span>
+                  <span className="text-[10px] font-mono opacity-80">({bronzeSchools.length})</span>
+                </button>
+                <button
+                  onClick={() => setSelectedDivision('avaliacao')}
+                  className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 cursor-pointer ${
+                    selectedDivision === 'avaliacao'
+                      ? 'bg-purple-600 text-white font-black shadow ring-1 ring-purple-400'
+                      : 'text-slate-300 hover:text-white'
+                  }`}
+                >
+                  <span>Grupo Avaliação</span>
+                  <span className="text-[10px] font-mono opacity-80">({avaliacaoSchools.length})</span>
+                </button>
+              </div>
+
+              {/* INATIVAS */}
               <button
                 onClick={() => setSelectedDivision('inativas')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer shrink-0 ${
                   selectedDivision === 'inativas'
                     ? 'bg-slate-700 text-white font-black ring-1 ring-slate-500'
-                    : 'bg-slate-900/60 border border-slate-800 text-slate-400 hover:bg-slate-800 hover:text-slate-300'
+                    : 'bg-slate-950 border border-slate-800 text-slate-400 hover:bg-slate-900 hover:text-slate-300'
                 }`}
               >
-                Inativas / Afastadas ({inactiveSchools.length})
+                <span>Inativas / Afastadas ({inactiveSchools.length})</span>
               </button>
             </div>
 
-            <div className="text-xs text-slate-400 hidden lg:block">
-              {selectedDivision === 'especial'
-                ? 'Regra: Campeã (1º) | Desfile Campeãs (1º ao 6º) | Rebaixamento (12º colocado)'
-                : selectedDivision === 'ouro'
-                ? `Regra: Acesso (1º sobe ao Especial) | Rebaixamento (2 últimos caem p/ Prata - ${ouroSchools.length > 14 ? 'Ajuste até 14 escolas' : 'Estabilizado em 14'})`
-                : selectedDivision === 'prata'
-                ? `Regra: Acesso (${ouroSchools.length <= 14 ? 'Campeã e Vice sobem p/ Ouro' : 'Campeã sobe p/ Ouro'}) | Rebaixamento (${prataSchools.length > 16 ? '4 últimas caem p/ Bronze - Transição até 16 escolas' : prataSchools.length === 15 ? '2 últimas caem p/ Bronze - Ajuste para 16 escolas' : '3 últimas caem p/ Bronze - Estabilizada'})`
-                : selectedDivision === 'bronze'
-                ? `Regra: Acesso (${prataSchools.length === 15 ? 'Campeã e Vice sobem p/ Série Prata (Ajuste para 16 escolas)' : prataSchools.length > 16 ? 'Apenas a Campeã sobe p/ Prata' : 'Top 3 sobem p/ Série Prata - Estabilizada'}) | Rebaixamento (${bronzeSchools.length > 18 ? 'Rebaixamento para o Grupo de Avaliação ajustado até a Série Bronze atingir 18 escolas' : '3 últimas caem p/ Grupo de Avaliação - Estabilizada'})`
-                : selectedDivision === 'avaliacao'
-                ? `Regra: Disputado por até 20 agremiações ativas | Acesso (${bronzeSchools.length > 18 ? 'Subem apenas 2 escolas do Grupo de Avaliação p/ Série Bronze até o Bronze atingir 18 escolas' : 'Top 3 sobem p/ Série Bronze e 3 caem do Bronze - Estabilizada'}) | Processo de Afastamento: Últimas colocadas são afastadas (mín. 1 ano fora) | Pelo menos 1 retorno/estreia anual.`
-                : 'Agremiações fora de atividade, suspensas ou extintas com histórico no carnaval carioca que podem retornar via Grupo de Avaliação ou ser substituídas por novas agremiações fundadas no jogo.'}
+            {/* League Administration Information Banner */}
+            <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-xs text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                {selectedDivision === 'especial' && (
+                  <span>
+                    <strong className="text-amber-300">LIESA (Liga Independente das Escolas de Samba do Rio de Janeiro)</strong> • É responsável e administra o Grupo Especial no Sambódromo Marquês de Sapucaí.
+                  </span>
+                )}
+                {selectedDivision === 'ouro' && (
+                  <span>
+                    <strong className="text-blue-300">LIGA RJ (Liga Independente do Grupo A do Rio de Janeiro)</strong> • Administra e é responsável pela Série Ouro no Sambódromo Marquês de Sapucaí.
+                  </span>
+                )}
+                {['prata', 'bronze', 'avaliacao'].includes(selectedDivision) && (
+                  <span>
+                    <strong className="text-purple-300">Superliga Carnavalesca do Brasil</strong> • É responsável por administrar a Série Prata, Série Bronze e o Grupo de Avaliação na Estrada Intendente Magalhães.
+                  </span>
+                )}
+                {selectedDivision === 'inativas' && (
+                  <span>
+                    <strong className="text-slate-300">Histórico do Carnaval</strong> • Agremiações temporariamente inativas ou afastadas com direito de retorno através da Superliga.
+                  </span>
+                )}
+              </div>
+
+              <div className="text-[11px] text-slate-400 sm:text-right shrink-0">
+                {selectedDivision === 'especial' && '1º ao 6º no Desfile das Campeãs | 12º Rebaixado'}
+                {selectedDivision === 'ouro' && 'Campeã sobe ao Especial | 2 últimas caem para a Prata'}
+                {selectedDivision === 'prata' && 'Acesso para a Série Ouro | Rebaixamento para Série Bronze'}
+                {selectedDivision === 'bronze' && 'Acesso para a Série Prata | Rebaixamento para Grupo de Avaliação'}
+                {selectedDivision === 'avaliacao' && 'Acesso para a Série Bronze | Últimas colocadas são afastadas'}
+              </div>
             </div>
           </div>
 
@@ -394,13 +461,16 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
                           <h4 className="font-bold text-white text-sm truncate">
-                            {school.name}
+                            {cleanSchoolName(school)}
                           </h4>
                           {isUser && (
                             <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-amber-500 text-slate-950">
                               Sua Escola
                             </span>
                           )}
+                        </div>
+                        <div className="sm:hidden text-[10px] text-amber-400/90 font-medium">
+                          {stats.grandTotalTitles > 0 ? `${stats.grandTotalTitles} título${stats.grandTotalTitles === 1 ? '' : 's'}` : 'Em busca do 1º título'}
                         </div>
                       </div>
                     </div>
@@ -424,15 +494,28 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                     </div>
                   </div>
 
-                  {/* Expanded Details Breakdown */}
+                  {/* Expanded Details Breakdown - Perfil da Agremiação */}
                   {isExpanded && (
                     <div className="px-4 pb-4 pt-2 border-t border-slate-800/80 space-y-3 text-xs animate-fadeIn">
-                      {/* Informações Oficiais Cadastradas */}
-                      <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-xs space-y-2">
-                        <div className="text-[11px] font-bold text-amber-300 uppercase tracking-wider">
-                          Informações Cadastrais Oficiais
+                      {/* Informações Cadastrais Oficiais com Denominação Estatutária */}
+                      <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-xs space-y-2.5">
+                        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800/80 pb-2">
+                          <div className="text-[11px] font-bold text-amber-300 uppercase tracking-wider">
+                            Perfil Cadastral da Agremiação
+                          </div>
+                          <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                            {getSchoolDenomination(school)} • {getSchoolDenominationExtenso(school)}
+                          </span>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 text-slate-300">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 text-slate-300">
+                          <div className="sm:col-span-2">
+                            <span className="text-slate-500 text-[10px] block uppercase">Razão Social / Nome de Registro</span>
+                            <span className="font-semibold text-white">{getSchoolCorporateName(school)}</span>
+                          </div>
+                          <div>
+                            <span className="text-slate-500 text-[10px] block uppercase">Nome Completo</span>
+                            <span className="font-semibold text-white">{cleanSchoolName(school)}</span>
+                          </div>
                           <div>
                             <span className="text-slate-500 text-[10px] block uppercase">Nome Chamado</span>
                             <span className="font-semibold text-white">{school.shortName}</span>
@@ -449,11 +532,11 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                             <span className="text-slate-500 text-[10px] block uppercase">Bairro / Sede</span>
                             <span className="font-semibold text-white">{school.neighborhood}</span>
                           </div>
-                          <div className="sm:col-span-2">
+                          <div>
                             <span className="text-slate-500 text-[10px] block uppercase">Cores Oficiais</span>
                             <span className="font-semibold text-white">{school.colorsDescription || 'Tradicionais'}</span>
                           </div>
-                          <div className="sm:col-span-2">
+                          <div className="sm:col-span-4">
                             <span className="text-slate-500 text-[10px] block uppercase">Símbolo Oficial</span>
                             <span className="font-semibold text-white">{school.symbol}</span>
                           </div>
@@ -565,10 +648,10 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                         <span>Grupo Especial {record.year}</span>
                       </div>
                       <div>
-                        Campeã: <strong className="text-white text-sm">{record.especialChampion}</strong>
+                        Campeã: <strong className="text-white text-sm">{cleanSchoolName(record.especialChampion)}</strong>
                       </div>
                       <div className="text-rose-400">
-                        Rebaixada p/ Série Ouro: <strong>{record.especialRelegated.join(', ') || 'Nenhuma'}</strong>
+                        Rebaixada p/ Série Ouro: <strong>{record.especialRelegated.map(s => cleanSchoolName(s)).join(', ') || 'Nenhuma'}</strong>
                       </div>
                     </div>
 
@@ -579,10 +662,10 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                         <span>Série Ouro {record.year}</span>
                       </div>
                       <div>
-                        Campeã & Acesso: <strong className="text-emerald-400 text-sm">{record.ouroChampion}</strong>
+                        Campeã & Acesso: <strong className="text-emerald-400 text-sm">{cleanSchoolName(record.ouroChampion)}</strong>
                       </div>
                       <div className="text-rose-400">
-                        Rebaixadas p/ Série Prata: <strong>{record.ouroRelegated.join(', ') || 'Nenhuma'}</strong>
+                        Rebaixadas p/ Série Prata: <strong>{record.ouroRelegated.map(s => cleanSchoolName(s)).join(', ') || 'Nenhuma'}</strong>
                       </div>
                     </div>
 
@@ -593,14 +676,14 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                         <span>Série Prata {record.year}</span>
                       </div>
                       <div>
-                        Campeã da Prata: <strong className="text-white text-sm">{record.prataChampion || 'Desconhecida'}</strong>
+                        Campeã da Prata: <strong className="text-white text-sm">{cleanSchoolName(record.prataChampion) || 'Desconhecida'}</strong>
                       </div>
                       <div className="text-emerald-400">
-                        Promovidas p/ Série Ouro: <strong>{record.prataPromoted?.join(', ') || record.prataChampion || 'Nenhuma'}</strong>
+                        Promovidas p/ Série Ouro: <strong>{record.prataPromoted?.map(s => cleanSchoolName(s)).join(', ') || cleanSchoolName(record.prataChampion) || 'Nenhuma'}</strong>
                       </div>
                       {record.prataRelegated && record.prataRelegated.length > 0 && (
                         <div className="text-rose-400">
-                          Rebaixadas p/ Bronze: <strong>{record.prataRelegated.join(', ')}</strong>
+                          Rebaixadas p/ Bronze: <strong>{record.prataRelegated.map(s => cleanSchoolName(s)).join(', ')}</strong>
                         </div>
                       )}
                     </div>
@@ -612,14 +695,14 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                         <span>Série Bronze {record.year}</span>
                       </div>
                       <div>
-                        Campeã da Bronze: <strong className="text-amber-300 text-sm">{record.bronzeChampion || 'Desconhecida'}</strong>
+                        Campeã da Bronze: <strong className="text-amber-300 text-sm">{cleanSchoolName(record.bronzeChampion) || 'Desconhecida'}</strong>
                       </div>
                       <div className="text-emerald-400">
-                        Promovidas p/ Prata: <strong>{record.bronzePromoted?.join(', ') || record.bronzeChampion || 'Nenhuma'}</strong>
+                        Promovidas p/ Prata: <strong>{record.bronzePromoted?.map(s => cleanSchoolName(s)).join(', ') || cleanSchoolName(record.bronzeChampion) || 'Nenhuma'}</strong>
                       </div>
                       {record.bronzeRelegated && record.bronzeRelegated.length > 0 && (
                         <div className="text-rose-400">
-                          Rebaixadas p/ Avaliação: <strong>{record.bronzeRelegated.join(', ')}</strong>
+                          Rebaixadas p/ Avaliação: <strong>{record.bronzeRelegated.map(s => cleanSchoolName(s)).join(', ')}</strong>
                         </div>
                       )}
                     </div>
@@ -631,24 +714,24 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                         <span>Grupo Avaliação {record.year}</span>
                       </div>
                       <div>
-                        Campeã da Avaliação: <strong className="text-purple-300 text-sm">{record.avaliacaoChampion || 'Desconhecida'}</strong>
+                        Campeã da Avaliação: <strong className="text-purple-300 text-sm">{cleanSchoolName(record.avaliacaoChampion) || 'Desconhecida'}</strong>
                       </div>
                       <div className="text-emerald-400">
-                        Promovidas p/ Bronze: <strong>{record.avaliacaoPromoted?.join(', ') || record.avaliacaoChampion || 'Nenhuma'}</strong>
+                        Promovidas p/ Bronze: <strong>{record.avaliacaoPromoted?.map(s => cleanSchoolName(s)).join(', ') || cleanSchoolName(record.avaliacaoChampion) || 'Nenhuma'}</strong>
                       </div>
                       {record.avaliacaoSuspended && record.avaliacaoSuspended.length > 0 && (
                         <div className="text-purple-300">
-                          Afastadas (Mín. 1 ano fora): <strong>{record.avaliacaoSuspended.join(', ')}</strong>
+                          Afastadas (Mín. 1 ano fora): <strong>{record.avaliacaoSuspended.map(s => cleanSchoolName(s)).join(', ')}</strong>
                         </div>
                       )}
                       {(record.reactivatedSchools && record.reactivatedSchools.length > 0) && (
                         <div className="text-cyan-300 text-[11px]">
-                          Reativadas: <strong>{record.reactivatedSchools.join(', ')}</strong>
+                          Reativadas: <strong>{record.reactivatedSchools.map(s => cleanSchoolName(s)).join(', ')}</strong>
                         </div>
                       )}
                       {(record.newSchools && record.newSchools.length > 0) && (
                         <div className="text-amber-300 text-[11px]">
-                          Novas Fundações: <strong>{record.newSchools.join(', ')}</strong>
+                          Novas Fundações: <strong>{record.newSchools.map(s => cleanSchoolName(s)).join(', ')}</strong>
                         </div>
                       )}
                     </div>

@@ -10,6 +10,8 @@ import { QUESITOS } from '../data/carnavalData';
 import { SimulationEngine, TIEBREAKER_QUESITO_ORDER } from '../services/simulationEngine';
 import { soundService } from '../services/soundService';
 import { TiebreakerModal } from './TiebreakerModal';
+import { LEAGUES, PARADE_CONFIG } from '../config/paradeConfig';
+import { cleanSchoolName } from '../utils/schoolNameUtils';
 import confetti from 'canvas-confetti';
 import {
   Trophy,
@@ -82,6 +84,7 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
   onSimulateAllParades
 }) => {
   const [selectedDivision, setSelectedDivision] = useState<DivisionId>('especial');
+  const currentLeague = LEAGUES[PARADE_CONFIG[selectedDivision]?.leagueId || 'liesa'];
   const [speed, setSpeed] = useState<number>(1);
   const [showMatrix, setShowMatrix] = useState<boolean>(false);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -564,152 +567,164 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
           </p>
         </div>
 
-        {/* Division Selector Tabs with completion status */}
-        <div className="flex flex-wrap items-center gap-2 bg-slate-950 p-1.5 rounded-xl border border-slate-800">
-          <button
-            onClick={() => handleSelectDivision('especial')}
-            className={`px-3 sm:px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 ${
-              selectedDivision === 'especial'
-                ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20 font-black'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <span>Grupo Especial</span>
-            <span
-              className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
-                divisionStates.especial.isCompleted
-                  ? 'bg-emerald-500 text-slate-950 ring-1 ring-emerald-400'
+        {/* Division Selector Tabs Organized by Governing League */}
+        <div className="flex items-center overflow-x-auto no-scrollbar gap-2 pb-1 max-w-full">
+          {/* LIESA */}
+          <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800 shrink-0">
+            <span className="text-[10px] font-black uppercase px-2 py-1 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+              LIESA
+            </span>
+            <button
+              onClick={() => handleSelectDivision('especial')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                selectedDivision === 'especial'
+                  ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20 font-black'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <span>Grupo Especial</span>
+              <span
+                className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                  divisionStates.especial.isCompleted
+                    ? 'bg-emerald-500 text-slate-950 ring-1 ring-emerald-400'
+                    : !divisionStates.especial.hasStarted
+                    ? selectedDivision === 'especial'
+                      ? 'bg-slate-900/40 text-slate-950'
+                      : 'bg-slate-900 text-slate-400'
+                    : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                }`}
+              >
+                {divisionStates.especial.isCompleted
+                  ? '✓ Apurado'
                   : !divisionStates.especial.hasStarted
-                  ? selectedDivision === 'especial'
-                    ? 'bg-slate-900/40 text-slate-950'
-                    : 'bg-slate-900 text-slate-400'
-                  : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                  ? `${especialSchools.length} escolas`
+                  : 'Em leitura'}
+              </span>
+            </button>
+          </div>
+
+          {/* LIGA RJ */}
+          <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800 shrink-0">
+            <span className="text-[10px] font-black uppercase px-2 py-1 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              LIGA RJ
+            </span>
+            <button
+              onClick={() => handleSelectDivision('ouro')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                selectedDivision === 'ouro'
+                  ? 'bg-blue-500 text-white shadow-md shadow-blue-500/20 font-black'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
-              {divisionStates.especial.isCompleted
-                ? '✓ Apurado'
-                : !divisionStates.especial.hasStarted
-                ? `${especialSchools.length} escolas`
-                : 'Em leitura'}
-            </span>
-          </button>
-
-          <button
-            onClick={() => handleSelectDivision('ouro')}
-            className={`px-3 sm:px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 ${
-              selectedDivision === 'ouro'
-                ? 'bg-blue-500 text-white shadow-md shadow-blue-500/20 font-black'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <span>Série Ouro</span>
-            <span
-              className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
-                divisionStates.ouro.isCompleted
-                  ? 'bg-emerald-500 text-slate-950 ring-1 ring-emerald-400'
+              <span>Série Ouro</span>
+              <span
+                className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                  divisionStates.ouro.isCompleted
+                    ? 'bg-emerald-500 text-slate-950 ring-1 ring-emerald-400'
+                    : !divisionStates.ouro.hasStarted
+                    ? selectedDivision === 'ouro'
+                      ? 'bg-blue-900/60 text-white'
+                      : 'bg-slate-900 text-slate-400'
+                    : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                }`}
+              >
+                {divisionStates.ouro.isCompleted
+                  ? '✓ Apurado'
                   : !divisionStates.ouro.hasStarted
-                  ? selectedDivision === 'ouro'
-                    ? 'bg-blue-900/60 text-white'
-                    : 'bg-slate-900 text-slate-400'
-                  : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                  ? `${ouroSchools.length} escolas`
+                  : 'Em leitura'}
+              </span>
+            </button>
+          </div>
+
+          {/* SUPERLIGA */}
+          <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800 shrink-0">
+            <span className="text-[10px] font-black uppercase px-2 py-1 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">
+              SUPERLIGA
+            </span>
+            <button
+              onClick={() => handleSelectDivision('prata')}
+              className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                selectedDivision === 'prata'
+                  ? 'bg-slate-300 text-slate-950 shadow-md shadow-slate-300/20 font-black'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
-              {divisionStates.ouro.isCompleted
-                ? '✓ Apurado'
-                : !divisionStates.ouro.hasStarted
-                ? `${ouroSchools.length} escolas`
-                : 'Em leitura'}
-            </span>
-          </button>
-
-          <button
-            onClick={() => handleSelectDivision('prata')}
-            className={`px-3 sm:px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 ${
-              selectedDivision === 'prata'
-                ? 'bg-slate-300 text-slate-950 shadow-md shadow-slate-300/20 font-black'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <span>Série Prata</span>
-            <span
-              className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
-                divisionStates.prata.isCompleted
-                  ? 'bg-emerald-500 text-slate-950 ring-1 ring-emerald-400'
-                  : !divisionStates.prata.hasStarted
-                  ? selectedDivision === 'prata'
+              <span>Série Prata</span>
+              <span
+                className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
+                  divisionStates.prata.isCompleted
+                    ? 'bg-emerald-500 text-slate-950'
+                    : selectedDivision === 'prata'
                     ? 'bg-slate-400/60 text-slate-950'
                     : 'bg-slate-900 text-slate-400'
-                  : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                }`}
+              >
+                {divisionStates.prata.isCompleted ? '✓' : prataSchools.length}
+              </span>
+            </button>
+
+            <button
+              onClick={() => handleSelectDivision('bronze')}
+              className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                selectedDivision === 'bronze'
+                  ? 'bg-amber-700 text-amber-100 shadow-md shadow-amber-800/30 font-black ring-1 ring-amber-500'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
-              {divisionStates.prata.isCompleted
-                ? '✓ Apurado'
-                : !divisionStates.prata.hasStarted
-                ? `${prataSchools.length} escolas`
-                : 'Em leitura'}
-            </span>
-          </button>
-
-          <button
-            onClick={() => handleSelectDivision('bronze')}
-            className={`px-3 sm:px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 ${
-              selectedDivision === 'bronze'
-                ? 'bg-amber-700 text-amber-100 shadow-md shadow-amber-800/30 font-black ring-1 ring-amber-500'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <span>Série Bronze</span>
-            <span
-              className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
-                divisionStates.bronze.isCompleted
-                  ? 'bg-emerald-500 text-slate-950 ring-1 ring-emerald-400'
-                  : !divisionStates.bronze.hasStarted
-                  ? selectedDivision === 'bronze'
+              <span>Série Bronze</span>
+              <span
+                className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
+                  divisionStates.bronze.isCompleted
+                    ? 'bg-emerald-500 text-slate-950'
+                    : selectedDivision === 'bronze'
                     ? 'bg-amber-900/60 text-amber-200'
                     : 'bg-slate-900 text-slate-400'
-                  : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-              }`}
-            >
-              {divisionStates.bronze.isCompleted
-                ? '✓ Apurado'
-                : !divisionStates.bronze.hasStarted
-                ? `${bronzeSchools.length} escolas`
-                : 'Em leitura'}
-            </span>
-          </button>
+                }`}
+              >
+                {divisionStates.bronze.isCompleted ? '✓' : bronzeSchools.length}
+              </span>
+            </button>
 
-          <button
-            onClick={() => handleSelectDivision('avaliacao')}
-            className={`px-3 sm:px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 ${
-              selectedDivision === 'avaliacao'
-                ? 'bg-purple-600 text-white shadow-md shadow-purple-600/30 font-black ring-1 ring-purple-400'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <span>Grupo de Avaliação</span>
-            <span
-              className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
-                divisionStates.avaliacao.isCompleted
-                  ? 'bg-emerald-500 text-slate-950 ring-1 ring-emerald-400'
-                  : !divisionStates.avaliacao.hasStarted
-                  ? selectedDivision === 'avaliacao'
-                    ? 'bg-purple-900/60 text-purple-200'
-                    : 'bg-slate-900 text-slate-400'
-                  : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+            <button
+              onClick={() => handleSelectDivision('avaliacao')}
+              className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                selectedDivision === 'avaliacao'
+                  ? 'bg-purple-600 text-white font-black shadow-md shadow-purple-600/30 ring-1 ring-purple-400'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
-              {divisionStates.avaliacao.isCompleted
-                ? '✓ Apurado'
-                : !divisionStates.avaliacao.hasStarted
-                ? `${avaliacaoSchools.length} escolas`
-                : 'Em leitura'}
-            </span>
-          </button>
+              <span>Avaliação</span>
+              <span
+                className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
+                  divisionStates.avaliacao.isCompleted
+                    ? 'bg-emerald-500 text-slate-950'
+                    : selectedDivision === 'avaliacao'
+                    ? 'bg-purple-900 text-purple-200'
+                    : 'bg-slate-900 text-slate-400'
+                }`}
+              >
+                {divisionStates.avaliacao.isCompleted ? '✓' : avaliacaoSchools.length}
+              </span>
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Reader Stage / Locutor Banner */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border border-amber-500/30 p-6 shadow-2xl">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border border-amber-500/30 p-6 shadow-2xl space-y-4">
+        {/* Presiding League Header */}
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-800/80">
+          <div className="flex items-center gap-2">
+            <span className={`text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded border ${currentLeague.badgeBg} ${currentLeague.badgeText} ${currentLeague.badgeBorder}`}>
+              {currentLeague.name} • {currentLeague.roleDescription}
+            </span>
+          </div>
+          <span className="text-xs text-slate-400">
+            {currentLeague.venue} • Mesa Apuradora Oficial
+          </span>
+        </div>
+
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           {/* Quesito & Judge Info */}
           <div className="space-y-3">
@@ -741,14 +756,14 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
           </div>
 
           {/* School Envelope Announcement Card */}
-          <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-4 min-w-[280px] shadow-inner space-y-3">
+          <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-4 w-full lg:w-auto lg:min-w-[280px] shadow-inner space-y-3">
             <div className="flex items-center justify-between gap-4">
               <div className="space-y-1">
                 <div className="text-[10px] text-slate-400 uppercase font-semibold">
                   {hasStarted ? 'Lendo Envelope de' : 'Status da Mesa'}
                 </div>
                 <div className="text-lg font-black text-white flex items-center gap-2">
-                  <span>{hasStarted ? (readingSchool?.name || 'Aguardando...') : 'Envelopes Lacrados'}</span>
+                  <span>{hasStarted ? (cleanSchoolName(readingSchool) || 'Aguardando...') : 'Envelopes Lacrados'}</span>
                 </div>
                 <div className="text-xs text-slate-400">
                   {hasStarted ? `Jurado nº ${currentJudgeIdx + 1}` : 'Aguardando Início da Apuração'}
@@ -820,80 +835,76 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
         {/* Playback & Step Controls */}
         <div className="flex flex-wrap items-center justify-between gap-3 pt-5 mt-5 border-t border-slate-800/80">
           <div className="flex flex-wrap items-center gap-2">
-            {!hasStarted ? (
-              <button
-                disabled={isCompleted}
-                onClick={handleStartApuracao}
-                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-black text-xs transition flex items-center gap-2 shadow-lg shadow-amber-500/30 ring-2 ring-amber-400/50 transform hover:scale-[1.02] cursor-pointer"
-              >
-                <Play className="w-4 h-4 fill-slate-950" />
-                <span>Iniciar a Apuração</span>
-              </button>
-            ) : !isPlaying ? (
-              <button
-                disabled={isCompleted}
-                onClick={() => setIsPlaying(true)}
-                className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs transition flex items-center gap-2 shadow-lg shadow-amber-500/25 disabled:opacity-50"
-              >
-                <Play className="w-4 h-4 fill-slate-950" />
-                <span>Continuar Apuração Ao Vivo</span>
-              </button>
+            {isCompleted ? (
+              <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold shadow-inner">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <span>Apuração Homologada pela {currentLeague.name} • Resultado Oficial e Irrevogável</span>
+              </div>
             ) : (
-              <button
-                onClick={() => setIsPlaying(false)}
-                className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition flex items-center gap-2"
-              >
-                <Pause className="w-4 h-4" />
-                <span>Pausar Leitura</span>
-              </button>
+              <>
+                {!hasStarted ? (
+                  <button
+                    onClick={handleStartApuracao}
+                    className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-black text-xs transition flex items-center gap-2 shadow-lg shadow-amber-500/30 ring-2 ring-amber-400/50 transform hover:scale-[1.02] cursor-pointer"
+                  >
+                    <Play className="w-4 h-4 fill-slate-950" />
+                    <span>Iniciar a Apuração</span>
+                  </button>
+                ) : !isPlaying ? (
+                  <button
+                    onClick={() => setIsPlaying(true)}
+                    className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs transition flex items-center gap-2 shadow-lg shadow-amber-500/25 cursor-pointer"
+                  >
+                    <Play className="w-4 h-4 fill-slate-950" />
+                    <span>Continuar Apuração Ao Vivo</span>
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setIsPlaying(false)}
+                    className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition flex items-center gap-2 cursor-pointer"
+                  >
+                    <Pause className="w-4 h-4" />
+                    <span>Pausar Leitura</span>
+                  </button>
+                )}
+
+                <button
+                  onClick={handleStepNote}
+                  className="px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-200 text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer"
+                >
+                  <span>{!hasStarted ? 'Revelar 1ª Nota' : 'Próxima Nota'}</span>
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+
+                <button
+                  onClick={handleNextQuesito}
+                  className="px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-200 text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer"
+                >
+                  <SkipForward className="w-4 h-4" />
+                  <span>Pular Quesito</span>
+                </button>
+
+                <button
+                  onClick={handleInstantFinish}
+                  className="px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:bg-slate-800 text-amber-300 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer"
+                  title="Apurar instantaneamente o grupo selecionado"
+                >
+                  <FastForward className="w-4 h-4" />
+                  <span>Resultado Imediato ({selectedDivision === 'especial' ? 'Especial' : selectedDivision === 'ouro' ? 'Ouro' : selectedDivision === 'prata' ? 'Prata' : selectedDivision === 'bronze' ? 'Bronze' : 'Avaliação'})</span>
+                </button>
+
+                {!allGroupsCompleted && (
+                  <button
+                    onClick={handleInstantFinishAll}
+                    className="px-3.5 py-2.5 rounded-xl bg-amber-500/20 border border-amber-500/40 hover:bg-amber-500/30 text-amber-300 text-xs font-black transition flex items-center gap-1.5 shadow cursor-pointer"
+                    title="Apurar todos os 5 grupos (Especial, Ouro, Prata, Bronze e Avaliação) de uma só vez"
+                  >
+                    <Zap className="w-4 h-4 text-amber-400" />
+                    <span>Apurar Todos os Grupos (5 em 1)</span>
+                  </button>
+                )}
+              </>
             )}
-
-            <button
-              disabled={isCompleted}
-              onClick={handleStepNote}
-              className="px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-200 text-xs font-semibold transition flex items-center gap-1.5 disabled:opacity-50"
-            >
-              <span>{!hasStarted ? 'Revelar 1ª Nota' : 'Próxima Nota'}</span>
-              <ChevronRight className="w-4 h-4" />
-            </button>
-
-            <button
-              disabled={isCompleted}
-              onClick={handleNextQuesito}
-              className="px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-200 text-xs font-semibold transition flex items-center gap-1.5 disabled:opacity-50"
-            >
-              <SkipForward className="w-4 h-4" />
-              <span>Pular Quesito</span>
-            </button>
-
-            <button
-              disabled={isCompleted}
-              onClick={handleInstantFinish}
-              className="px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:bg-slate-800 text-amber-300 text-xs font-bold transition flex items-center gap-1.5 disabled:opacity-50"
-              title="Apurar instantaneamente o grupo selecionado"
-            >
-              <FastForward className="w-4 h-4" />
-              <span>Resultado Imediato ({selectedDivision === 'especial' ? 'Especial' : selectedDivision === 'ouro' ? 'Ouro' : selectedDivision === 'prata' ? 'Prata' : selectedDivision === 'bronze' ? 'Bronze' : 'Avaliação'})</span>
-            </button>
-
-            {!allGroupsCompleted && (
-              <button
-                onClick={handleInstantFinishAll}
-                className="px-3.5 py-2.5 rounded-xl bg-amber-500/20 border border-amber-500/40 hover:bg-amber-500/30 text-amber-300 text-xs font-black transition flex items-center gap-1.5 shadow"
-                title="Apurar todos os 5 grupos (Especial, Ouro, Prata, Bronze e Avaliação) de uma só vez"
-              >
-                <Zap className="w-4 h-4 text-amber-400" />
-                <span>Apurar Todos os Grupos (5 em 1)</span>
-              </button>
-            )}
-
-            <button
-              onClick={handleRestartApuracao}
-              className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-400 hover:text-white transition"
-              title="Reiniciar Apuração deste Grupo"
-            >
-              <RotateCcw className="w-4 h-4" />
-            </button>
           </div>
 
           <div className="flex items-center gap-4">
@@ -946,11 +957,16 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
             </span>
           </div>
 
-          <div className="overflow-x-auto min-w-[750px]">
-            <table className="w-full text-xs text-left">
+          {/* Mobile swipe hint */}
+          <div className="sm:hidden text-[11px] text-amber-300/90 font-medium flex items-center gap-1.5 px-1 py-1">
+            <span>👉 Deslize horizontalmente para ver todos os 9 quesitos</span>
+          </div>
+
+          <div className="overflow-x-auto w-full">
+            <table className="w-full min-w-[700px] text-xs text-left">
               <thead>
                 <tr className="border-b border-slate-800 text-slate-400 uppercase text-[10px]">
-                  <th className="py-2 px-3">Escola de Samba</th>
+                  <th className="py-2 px-3 sticky left-0 bg-slate-900 z-10">Escola de Samba</th>
                   {QUESITOS.map((q) => (
                     <th key={q.id} className="py-2 px-2 text-center" title={q.name}>
                       {q.shortName}
@@ -967,9 +983,9 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
                       item.school.id === userSchool?.id ? 'bg-amber-500/10 font-bold' : ''
                     }`}
                   >
-                    <td className="py-2 px-3 flex items-center gap-2 text-white">
+                    <td className="py-2 px-3 flex items-center gap-2 text-white sticky left-0 bg-slate-900/95 z-10 shadow-sm">
                       <span className="w-5 font-mono text-slate-400">{item.rank}º</span>
-                      <span>{item.school.name}</span>
+                      <span className="truncate max-w-[130px] sm:max-w-none">{cleanSchoolName(item.school)}</span>
                     </td>
                     {QUESITOS.map((q) => {
                       const qSum = item.quesitoSums[q.id] || 0;
@@ -1222,7 +1238,7 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="font-bold text-white text-sm truncate">
-                        {item.school.name}
+                        {cleanSchoolName(item.school)}
                       </span>
 
                       {isUser && (
@@ -1432,21 +1448,24 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
             O regulamento oficial de campeãs, acessos, rebaixamentos e afastamentos foi consolidado e está pronto para o próximo ano.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-            <button
-              onClick={handleAdvanceYearClick}
-              className="px-8 py-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-black text-base shadow-xl shadow-amber-500/30 transition transform hover:-translate-y-0.5 flex items-center gap-3 cursor-pointer"
-            >
-              <Sparkles className="w-5 h-5 text-slate-950" />
-              <span>AVANÇAR PARA O CARNAVAL {currentYear + 1}</span>
-            </button>
+          <div className="space-y-4 pt-3 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-black uppercase tracking-wider">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              <span>Resultados Homologados pela LIESA, LIGA RJ e Superliga • Apuração Definitiva</span>
+            </div>
+            <p className="text-xs text-slate-400 max-w-xl mx-auto">
+              Todas as 5 divisões tiveram suas notas oficiais lidas e proclamadas. Conforme o regulamento, as notas são irrevogáveis e não podem ser refeitas. O jogo agora segue em frente para a próxima temporada!
+            </p>
 
-            <button
-              onClick={onSimulateNewScores}
-              className="px-6 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-sm transition"
-            >
-              Simular Novo Desfile Deste Ano
-            </button>
+            <div className="flex items-center justify-center">
+              <button
+                onClick={handleAdvanceYearClick}
+                className="px-8 py-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-black text-base shadow-xl shadow-amber-500/30 transition transform hover:-translate-y-0.5 flex items-center gap-3 cursor-pointer"
+              >
+                <Sparkles className="w-5 h-5 text-slate-950" />
+                <span>AVANÇAR PARA O CARNAVAL {currentYear + 1} • SEGUIR EM FRENTE</span>
+              </button>
+            </div>
           </div>
         </div>
       ) : (

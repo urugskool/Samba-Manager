@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { School, DivisionId } from '../types/carnaval';
 import { getSchoolConsolidatedStats } from '../data/carnavalData';
 import {
+  cleanSchoolName,
+  getSchoolCorporateName,
+  getSchoolDenomination
+} from '../utils/schoolNameUtils';
+import {
   Trophy,
   Shield,
   Sparkles,
@@ -123,7 +128,7 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
           <div className="max-w-3xl space-y-3">
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded bg-amber-500 text-slate-950">
-                LIESA • SUPERLIGA CARIOCA
+                LIESA • LIGA RJ • SUPERLIGA
               </span>
               <span className="text-xs font-semibold text-amber-300">
                 Temporada Oficial do Carnaval {currentYear}
@@ -224,7 +229,7 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8">
+      <div className={`flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-6 sm:py-8 ${mode === 'manage' ? 'pb-28 lg:pb-8' : ''}`}>
         {mode === 'manage' ? (
           <div className="space-y-8">
             {/* Step 1: Manager Name Input */}
@@ -238,7 +243,7 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                   value={managerName}
                   onChange={(e) => setManagerName(e.target.value)}
                   placeholder="Seu nome ou cargo (Ex: Laíla, Pamplona, Diretor de Carnaval)..."
-                  className="flex-1 bg-slate-950 border border-slate-800 focus:border-amber-400 rounded-xl px-4 py-3 text-sm text-white font-semibold outline-none transition"
+                  className="flex-1 bg-slate-950 border border-slate-800 focus:border-amber-400 rounded-xl px-4 py-3 text-base sm:text-sm text-white font-semibold outline-none transition"
                 />
                 <span className="text-xs text-slate-400 self-center">
                   Você comandará as decisões técnicas e financeiras da agremiação escolhida.
@@ -259,13 +264,13 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                 </div>
 
                 {/* Division Tabs */}
-                <div className="flex flex-wrap items-center gap-1.5 p-1 bg-slate-900 border border-slate-800 rounded-xl">
+                <div className="flex items-center overflow-x-auto no-scrollbar gap-1.5 p-1 bg-slate-900 border border-slate-800 rounded-xl max-w-full">
                   <button
                     onClick={() => {
                       setSelectedDivision('especial');
                       setSelectedSchoolId(especialSchools[0]?.id || '');
                     }}
-                    className={`px-3.5 py-2 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-2 ${
+                    className={`px-3 sm:px-3.5 py-2 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 sm:gap-2 shrink-0 ${
                       selectedDivision === 'especial'
                         ? 'bg-amber-500 text-slate-950 font-black shadow'
                         : 'text-slate-400 hover:text-white'
@@ -282,7 +287,7 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                       setSelectedDivision('ouro');
                       setSelectedSchoolId(ouroSchools[0]?.id || '');
                     }}
-                    className={`px-3.5 py-2 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-2 ${
+                    className={`px-3 sm:px-3.5 py-2 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 sm:gap-2 shrink-0 ${
                       selectedDivision === 'ouro'
                         ? 'bg-blue-500 text-white font-black shadow'
                         : 'text-slate-400 hover:text-white'
@@ -299,7 +304,7 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                       setSelectedDivision('prata');
                       setSelectedSchoolId(prataSchools[0]?.id || '');
                     }}
-                    className={`px-3.5 py-2 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-2 ${
+                    className={`px-3 sm:px-3.5 py-2 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 sm:gap-2 shrink-0 ${
                       selectedDivision === 'prata'
                         ? 'bg-slate-300 text-slate-950 font-black shadow'
                         : 'text-slate-400 hover:text-white'
@@ -316,7 +321,7 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                       setSelectedDivision('bronze');
                       setSelectedSchoolId(bronzeSchools[0]?.id || '');
                     }}
-                    className={`px-3.5 py-2 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-2 ${
+                    className={`px-3 sm:px-3.5 py-2 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 sm:gap-2 shrink-0 ${
                       selectedDivision === 'bronze'
                         ? 'bg-amber-700 text-amber-100 font-black shadow ring-1 ring-amber-500'
                         : 'text-slate-400 hover:text-white'
@@ -333,7 +338,7 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                       setSelectedDivision('avaliacao');
                       setSelectedSchoolId(avaliacaoSchools[0]?.id || '');
                     }}
-                    className={`px-3.5 py-2 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-2 ${
+                    className={`px-3 sm:px-3.5 py-2 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 sm:gap-2 shrink-0 ${
                       selectedDivision === 'avaliacao'
                         ? 'bg-purple-600 text-white font-black shadow ring-1 ring-purple-400'
                         : 'text-slate-400 hover:text-white'
@@ -365,7 +370,7 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                       ? 'Série Bronze'
                       : 'Grupo de Avaliação'
                   } por nome ou bairro...`}
-                  className="w-full bg-slate-900 border border-slate-800 focus:border-amber-400 pl-10 pr-4 py-2.5 rounded-xl text-xs text-white placeholder-slate-500 outline-none transition"
+                  className="w-full bg-slate-900 border border-slate-800 focus:border-amber-400 pl-10 pr-4 py-2.5 rounded-xl text-base sm:text-xs text-white placeholder-slate-500 outline-none transition"
                 />
               </div>
 
@@ -396,13 +401,13 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                             borderColor: school.colors.border || '#fff'
                           }}
                         >
-                          {school.name.charAt(0)}
+                          {cleanSchoolName(school).charAt(0)}
                         </div>
 
                         <div className="min-w-0 flex-1 space-y-0.5">
                           <div className="flex items-center justify-between gap-1">
                             <span className="font-bold text-white text-xs truncate">
-                              {school.name}
+                              {cleanSchoolName(school)}
                             </span>
                             {isSelected && (
                               <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
@@ -443,16 +448,22 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                           borderColor: currentSchool.colors.border || '#334155'
                         }}
                       >
-                        <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-black/40 text-amber-300 border border-white/10">
-                          {currentSchool.division === 'especial'
-                            ? 'Grupo Especial'
-                            : currentSchool.division === 'ouro'
-                            ? 'Série Ouro'
-                            : currentSchool.division === 'prata'
-                            ? 'Série Prata (Superliga)'
-                            : 'Série Bronze (Superliga)'}
-                        </span>
-                        <h3 className="text-2xl font-black text-white">{currentSchool.name}</h3>
+                        <div className="flex items-center justify-center gap-1.5 flex-wrap">
+                          <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-black/40 text-amber-300 border border-white/10">
+                            {currentSchool.division === 'especial'
+                              ? 'Grupo Especial'
+                              : currentSchool.division === 'ouro'
+                              ? 'Série Ouro'
+                              : currentSchool.division === 'prata'
+                              ? 'Série Prata (Superliga)'
+                              : 'Série Bronze (Superliga)'}
+                          </span>
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                            {getSchoolDenomination(currentSchool)}
+                          </span>
+                        </div>
+                        <h3 className="text-2xl font-black text-white">{cleanSchoolName(currentSchool)}</h3>
+                        <p className="text-[11px] text-amber-300 font-semibold">{getSchoolCorporateName(currentSchool)}</p>
                         <p className="text-xs text-amber-200 italic">"{currentSchool.nickname}"</p>
                         <div className="text-[11px] text-slate-300 font-medium">
                           Fundação: {currentSchool.foundationYear} • Bairro: {currentSchool.neighborhood}
@@ -538,7 +549,7 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                         className="w-full py-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-black text-sm tracking-wide transition shadow-xl shadow-amber-500/25 flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5"
                       >
                         <Sparkles className="w-4 h-4 text-slate-950" />
-                        <span>COMANDAR {currentSchool.name.toUpperCase()} NO CARNAVAL {currentYear}</span>
+                        <span>COMANDAR {cleanSchoolName(currentSchool).toUpperCase()} NO CARNAVAL {currentYear}</span>
                         <ArrowRight className="w-4 h-4 text-slate-950" />
                       </button>
                     </>
@@ -546,6 +557,49 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                 </div>
               </div>
             </div>
+
+            {/* Mobile Fixed CTA Bar for Managing Selected School */}
+            {currentSchool && (
+              <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 backdrop-blur-md border-t border-amber-500/40 p-3 pb-safe shadow-2xl flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div
+                    className="w-8 h-8 rounded-lg flex items-center justify-center font-black text-xs shadow border shrink-0"
+                    style={{
+                      backgroundColor: currentSchool.colors.primary,
+                      color: currentSchool.colors.text,
+                      borderColor: currentSchool.colors.border || '#fff'
+                    }}
+                  >
+                    {cleanSchoolName(currentSchool).charAt(0)}
+                  </div>
+                  <div className="min-w-0">
+                    <div className="font-bold text-xs text-white truncate max-w-[130px] sm:max-w-[200px]">
+                      {cleanSchoolName(currentSchool)}
+                    </div>
+                    <div className="text-[10px] text-amber-300 font-mono">
+                      {currentSchool.division === 'especial'
+                        ? 'Grupo Especial'
+                        : currentSchool.division === 'ouro'
+                        ? 'Série Ouro'
+                        : currentSchool.division === 'prata'
+                        ? 'Série Prata'
+                        : currentSchool.division === 'bronze'
+                        ? 'Série Bronze'
+                        : 'Avaliação'}
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleStartCareer}
+                  className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black text-xs shadow-lg shadow-amber-500/25 flex items-center gap-1.5 shrink-0 cursor-pointer"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-slate-950" />
+                  <span>COMANDAR</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           /* Spectator Mode View */
@@ -557,43 +611,48 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
 
               <div className="space-y-2">
                 <span className="text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                  MODO OBSERVADOR • LIESA & SUPERLIGA
+                  MODO OBSERVADOR • LIESA, LIGA RJ & SUPERLIGA
                 </span>
                 <h2 className="text-3xl font-black text-white">
-                  Presidência da Liga do Carnaval Carioca {currentYear}
+                  Presidência Geral do Carnaval Carioca {currentYear}
                 </h2>
                 <p className="text-sm text-slate-300 max-w-xl mx-auto leading-relaxed">
                   No Modo Observador, você tem a visão panorâmica de todo o espetáculo. Você não precisa
-                  administrar um único barracão: acompanha o desempenho das <strong>{totalSchoolsCount} agremiações</strong> nas 5 divisões,
+                  administrar um único barracão: acompanha o desempenho das <strong>{totalSchoolsCount} agremiações</strong> nas 5 divisões sob supervisão da <strong>LIESA</strong> (Grupo Especial), <strong>LIGA RJ</strong> (Série Ouro) e <strong>Superliga</strong> (Séries Prata, Bronze e Avaliação),
                   assiste ou simula todos os desfiles da <strong>Marquês de Sapucaí</strong> e da <strong>Intendente Magalhães</strong>,
                   e comanda a <strong>Apuração Oficial dos 36 jurados</strong> na Praça da Apoteose!
                 </p>
               </div>
 
-              {/* 5 Divisions Summary Cards */}
+              {/* 5 Divisions Summary Cards with Governing Leagues */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-left pt-2">
                 <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
-                  <div className="text-xs font-bold text-amber-400">Grupo Especial</div>
+                  <div className="text-[10px] font-bold text-amber-400 uppercase tracking-wider">LIESA</div>
+                  <div className="text-xs font-bold text-white">Grupo Especial</div>
                   <div className="text-[11px] text-slate-400">{especialSchools.length} agremiações na elite. Desfiles no Domingo e Segunda na Sapucaí.</div>
                 </div>
 
                 <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
-                  <div className="text-xs font-bold text-blue-400">Série Ouro</div>
+                  <div className="text-[10px] font-bold text-blue-400 uppercase tracking-wider">LIGA RJ</div>
+                  <div className="text-xs font-bold text-white">Série Ouro</div>
                   <div className="text-[11px] text-slate-400">{ouroSchools.length} agremiações na Sapucaí (Sexta e Sábado). Campeã sobe ao Especial!</div>
                 </div>
 
                 <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
-                  <div className="text-xs font-bold text-slate-300">Série Prata</div>
+                  <div className="text-[10px] font-bold text-purple-400 uppercase tracking-wider">SUPERLIGA</div>
+                  <div className="text-xs font-bold text-white">Série Prata</div>
                   <div className="text-[11px] text-slate-400">{prataSchools.length} agremiações na Intendente. {ouroSchools.length <= 14 ? 'Campeã e Vice sobem para a Série Ouro' : 'Campeã sobe para a Série Ouro'}.</div>
                 </div>
 
                 <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
-                  <div className="text-xs font-bold text-amber-600">Série Bronze</div>
+                  <div className="text-[10px] font-bold text-purple-400 uppercase tracking-wider">SUPERLIGA</div>
+                  <div className="text-xs font-bold text-white">Série Bronze</div>
                   <div className="text-[11px] text-slate-400">{bronzeSchools.length} agremiações na Intendente. {prataSchools.length > 16 ? 'Campeã garante acesso à Série Prata!' : prataSchools.length === 15 ? 'Campeã, vice e 3ª colocadas garantem acesso à Prata!' : 'Top 3 sobem para a Série Prata!'}</div>
                 </div>
 
                 <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
-                  <div className="text-xs font-bold text-purple-400">Grupo de Avaliação</div>
+                  <div className="text-[10px] font-bold text-purple-400 uppercase tracking-wider">SUPERLIGA</div>
+                  <div className="text-xs font-bold text-white">Grupo de Avaliação</div>
                   <div className="text-[11px] text-slate-400">{avaliacaoSchools.length} agremiações na Intendente. Campeã e vice garantem acesso à Série Bronze!</div>
                 </div>
               </div>

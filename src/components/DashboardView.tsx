@@ -2,6 +2,11 @@ import React from 'react';
 import { School, NewsItem } from '../types/carnaval';
 import { getSchoolConsolidatedStats } from '../data/carnavalData';
 import {
+  cleanSchoolName,
+  getSchoolCorporateName,
+  getSchoolDenomination
+} from '../utils/schoolNameUtils';
+import {
   Trophy,
   Calendar,
   Sparkles,
@@ -81,10 +86,13 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               <span className="text-xs text-slate-300 bg-slate-900/60 px-2.5 py-0.5 rounded-full border border-slate-700">
                 Fundada em {school.foundationYear} • {school.neighborhood}
               </span>
+              <span className="text-xs font-bold text-amber-300 bg-amber-950/70 px-2.5 py-0.5 rounded-full border border-amber-500/40">
+                {getSchoolDenomination(school)} • {getSchoolCorporateName(school)}
+              </span>
             </div>
 
             <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight flex items-center gap-3">
-              <span>{school.name}</span>
+              <span>{cleanSchoolName(school)}</span>
             </h1>
 
             <p className="text-sm font-semibold text-amber-200/90 italic flex items-center gap-1.5">
@@ -135,22 +143,22 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           </div>
 
           {/* Quick Action Button to Parade or Apuração */}
-          <div className="flex flex-col sm:flex-row gap-3">
+          <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 w-full sm:w-auto">
             <button
               onClick={() => onNavigateTab('desfile')}
-              className={`px-6 py-3.5 rounded-xl font-black text-sm transition shadow-lg flex items-center justify-center gap-2 cursor-pointer ${
+              className={`px-4 sm:px-6 py-3 sm:py-3.5 rounded-xl font-black text-xs sm:text-sm transition shadow-lg flex items-center justify-center gap-2 cursor-pointer ${
                 !allParadesCompleted
                   ? 'bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-950 hover:from-amber-300 hover:to-amber-500 shadow-amber-500/25 ring-2 ring-amber-400/40 animate-pulse'
                   : 'bg-slate-900/90 hover:bg-slate-800 text-amber-300 border border-amber-500/40'
               }`}
             >
-              <Sparkles className="w-4 h-4" />
-              <span>
+              <Sparkles className="w-4 h-4 shrink-0" />
+              <span className="truncate">
                 {!allParadesCompleted
-                  ? `ASSISTIR & SIMULAR DESFILES (${completedParadesCount}/${totalParadesCount})`
-                  : 'VER DESFILES (CONCLUÍDOS)'}
+                  ? `Assistir & Simular Desfiles (${completedParadesCount}/${totalParadesCount})`
+                  : 'Ver Desfiles (Concluídos)'}
               </span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 shrink-0" />
             </button>
 
             <button
@@ -160,17 +168,17 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 }
                 onNavigateTab('apuracao');
               }}
-              className={`px-6 py-3.5 rounded-xl font-black text-sm transition shadow-lg flex items-center justify-center gap-2 cursor-pointer ${
+              className={`px-4 sm:px-6 py-3 sm:py-3.5 rounded-xl font-black text-xs sm:text-sm transition shadow-lg flex items-center justify-center gap-2 cursor-pointer ${
                 allParadesCompleted
                   ? 'bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 shadow-emerald-500/25 ring-2 ring-emerald-400/50'
                   : 'bg-slate-900/90 hover:bg-slate-800 text-slate-400 border border-slate-700'
               }`}
             >
-              <Trophy className={`w-4 h-4 ${allParadesCompleted ? 'text-slate-950' : 'text-amber-400/60'}`} />
-              <span>
+              <Trophy className={`w-4 h-4 shrink-0 ${allParadesCompleted ? 'text-slate-950' : 'text-amber-400/60'}`} />
+              <span className="truncate">
                 {allParadesCompleted
-                  ? 'APURAÇÃO DAS NOTAS (LIBERADA)'
-                  : 'APURAÇÃO (AGUARDA DESFILES)'}
+                  ? 'Apuração das Notas (Liberada)'
+                  : 'Apuração (Aguarda Desfiles)'}
               </span>
             </button>
           </div>

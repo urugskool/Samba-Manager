@@ -3,6 +3,7 @@ import { School, StaffMember } from '../types/carnaval';
 import { AVAILABLE_STAFF_MARKET } from '../data/carnavalData';
 import { Users, UserPlus, Star, Award, DollarSign, Check, ArrowRight } from 'lucide-react';
 import { soundService } from '../services/soundService';
+import { cleanSchoolName } from '../utils/schoolNameUtils';
 
 interface EquipeViewProps {
   school: School;
@@ -77,7 +78,7 @@ export const EquipeView: React.FC<EquipeViewProps> = ({
 
     onUpdateSchool(updatedSchool);
     onShowMessage(
-      `Grande contratação! ${newMember.name} foi anunciado como o novo ${newMember.roleName} da ${school.name}!`,
+      `Grande contratação! ${newMember.name} foi anunciado como o novo ${newMember.roleName} da ${cleanSchoolName(school)}!`,
       'success'
     );
   };
@@ -113,7 +114,7 @@ export const EquipeView: React.FC<EquipeViewProps> = ({
       <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
         <h3 className="text-lg font-bold text-white flex items-center gap-2">
           <Star className="w-5 h-5 text-amber-400" />
-          <span>Equipe Atual da {school.name}</span>
+          <span>Equipe Atual da {cleanSchoolName(school)}</span>
         </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

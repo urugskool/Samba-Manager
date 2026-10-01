@@ -175,6 +175,8 @@ export interface School {
   name: string;
   shortName: string;
   abbreviation?: string;
+  denomination?: string; // Denominação jurídica / estatutária (Ex: "G.R.E.S.", "C.C.E.S.")
+  corporateName?: string; // Razão social oficial completa nos perfis (Ex: "G.R.E.S. Estação Primeira de Mangueira")
   nickname: string;
   foundationYear: number;
   foundationDate?: string;

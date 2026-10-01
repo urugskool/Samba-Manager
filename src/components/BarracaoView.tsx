@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { School, Enredo, SchoolParadeComposition } from '../types/carnaval';
 import { SAMPLE_ENREDOS } from '../data/carnavalData';
+import { cleanSchoolName } from '../utils/schoolNameUtils';
 import {
   Hammer,
   Sparkles,
@@ -198,7 +199,7 @@ export const BarracaoView: React.FC<BarracaoViewProps> = ({
             <Hammer className="w-7 h-7" />
           </div>
           <div>
-            <h2 className="text-2xl font-black text-white">Cidade do Samba • Barracão da {school.name}</h2>
+            <h2 className="text-2xl font-black text-white">Cidade do Samba • Barracão da {cleanSchoolName(school)}</h2>
             <p className="text-xs text-slate-400">
               Desenvolva as alegorias, o ateliê de fantasias e o enredo para conquistar nota 10 dos jurados.
             </p>

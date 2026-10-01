@@ -3,6 +3,11 @@ import { School, DivisionId } from '../types/carnaval';
 import { getSchoolConsolidatedStats } from '../data/carnavalData';
 import { Trophy, Shield, Sparkles, Check, User } from 'lucide-react';
 import { soundService } from '../services/soundService';
+import {
+  cleanSchoolName,
+  getSchoolCorporateName,
+  getSchoolDenomination
+} from '../utils/schoolNameUtils';
 
 interface NewGameModalProps {
   isOpen: boolean;
@@ -113,7 +118,7 @@ export const NewGameModal: React.FC<NewGameModalProps> = ({
               }`}
             >
               <Sparkles className="w-4 h-4" />
-              <span>Modo Observador (LIESA)</span>
+              <span>Modo Observador (LIESA, LIGA RJ & Superliga)</span>
             </button>
           </div>
 
@@ -214,7 +219,7 @@ export const NewGameModal: React.FC<NewGameModalProps> = ({
                       />
                       <div className="min-w-0">
                         <div className="text-xs font-bold text-white truncate">
-                          {school.name}
+                          {cleanSchoolName(school)}
                         </div>
                         <div className="text-[10px] text-slate-400 truncate">
                           {school.neighborhood}
@@ -225,18 +230,27 @@ export const NewGameModal: React.FC<NewGameModalProps> = ({
                 })}
               </div>
 
-              {/* Selected School Preview Details */}
+              {/* Selected School Preview Details - Perfil Cadastral */}
               {currentSelectedSchool && (() => {
                 const stats = getSchoolConsolidatedStats(currentSelectedSchool);
                 return (
                   <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 text-xs space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-amber-300 text-sm">
-                        {currentSelectedSchool.name}
-                      </span>
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-amber-300 text-sm">
+                          {cleanSchoolName(currentSelectedSchool)}
+                        </span>
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                          {getSchoolDenomination(currentSelectedSchool)}
+                        </span>
+                      </div>
                       <span className="text-slate-400 italic">
                         "{currentSelectedSchool.nickname}"
                       </span>
+                    </div>
+
+                    <div className="text-[11px] text-slate-300">
+                      Razão Social: <span className="font-semibold text-white">{getSchoolCorporateName(currentSelectedSchool)}</span>
                     </div>
 
                     <div className="flex items-center gap-1.5 text-[11px] text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/20">
