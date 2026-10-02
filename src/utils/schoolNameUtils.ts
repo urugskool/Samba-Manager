@@ -36,12 +36,11 @@ export function cleanSchoolName(nameOrSchool?: string | School | null): string {
 export function getSchoolDenomination(school: School): string {
   if (school.denomination) return school.denomination;
   if (school.id === 'canarios_laranjeiras' || school.id === 'flor_da_mina') return 'C.C.E.S.';
-  if (school.id === 'renascer_de_nova_iguacu') return 'G.R.E.A.';
   return 'G.R.E.S.';
 }
 
 /**
- * Obtém a denominação por extenso (Ex: "Grêmio Recreativo Escola de Samba", "Clube Carnavalesco Escola de Samba" ou "Grêmio Recreativo Escola de Artes").
+ * Obtém a denominação por extenso (Ex: "Grêmio Recreativo Escola de Samba" ou "Clube Carnavalesco Escola de Samba").
  */
 export function getSchoolDenominationExtenso(school: School): string {
   const denom = getSchoolDenomination(school);
@@ -64,9 +63,6 @@ export function getSchoolCorporateName(school: School): string {
   const clean = cleanSchoolName(school);
   if (denom === 'C.C.E.S.' || school.id === 'canarios_laranjeiras' || school.id === 'flor_da_mina') {
     return `Clube Carnavalesco Escola de Samba ${clean}`;
-  }
-  if (denom === 'G.R.E.A.' || school.id === 'renascer_de_nova_iguacu') {
-    return `GREA ${clean}`;
   }
   return `${denom} ${clean}`;
 }

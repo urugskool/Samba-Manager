@@ -759,8 +759,8 @@ export const AVALIACAO_SCHOOLS_INITIAL: School[] = [
   },
   {
     id: 'renascer_de_nova_iguacu',
-    denomination: 'G.R.E.A.',
-    corporateName: 'GREA Renascer de Nova Iguaçu',
+    denomination: 'G.R.E.S.',
+    corporateName: 'GRES Renascer de Nova Iguaçu',
     name: 'Renascer de Nova Iguaçu',
     shortName: 'Renascer de Nova Iguaçu',
     abbreviation: 'Renascer',
