@@ -221,6 +221,7 @@ export interface School {
   denomination?: string; // Denominação jurídica / estatutária (Ex: "G.R.E.S.", "C.C.E.S.")
   corporateName?: string; // Razão social oficial completa nos perfis (Ex: "G.R.E.S. Estação Primeira de Mangueira")
   nickname: string;
+  motto?: string; // Lema da agremiação (Ex: "A princesinha da Zona Oeste")
   foundationYear: number;
   foundationDate?: string;
   neighborhood: string;

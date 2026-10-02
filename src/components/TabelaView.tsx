@@ -540,6 +540,12 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                             <span className="text-slate-500 text-[10px] block uppercase">Símbolo Oficial</span>
                             <span className="font-semibold text-white">{school.symbol}</span>
                           </div>
+                          {(school.motto || school.nickname) && (
+                            <div className="sm:col-span-4">
+                              <span className="text-slate-500 text-[10px] block uppercase">Lema / Apelido Comunitário</span>
+                              <span className="font-semibold text-amber-300 italic">"{school.motto || school.nickname}"</span>
+                            </div>
+                          )}
                         </div>
                       </div>
 
