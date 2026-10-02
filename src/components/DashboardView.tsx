@@ -16,7 +16,11 @@ import {
   ArrowRight,
   TrendingUp,
   AlertCircle,
-  Crown
+  Crown,
+  Dices,
+  Lock,
+  Clock,
+  CheckCircle2
 } from 'lucide-react';
 
 interface DashboardViewProps {
@@ -31,6 +35,7 @@ interface DashboardViewProps {
   totalParadesCount?: number;
   onSimulateAllParades?: () => void;
   allApuracoesCompleted?: boolean;
+  isSorteioCompleted?: boolean;
 }
 
 export const DashboardView: React.FC<DashboardViewProps> = ({
@@ -44,7 +49,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   completedParadesCount = 0,
   totalParadesCount = 53,
   onSimulateAllParades,
-  allApuracoesCompleted = false
+  allApuracoesCompleted = false,
+  isSorteioCompleted = true
 }) => {
   const stats = getSchoolConsolidatedStats(school);
 
@@ -148,20 +154,49 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           {/* Quick Action Button to Parade or Apuração */}
           <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 w-full sm:w-auto">
             <button
-              onClick={() => onNavigateTab('desfile')}
+              onClick={() => onNavigateTab('sorteio')}
+              className={`px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl font-black text-xs sm:text-sm transition shadow flex items-center justify-center gap-2 cursor-pointer ${
+                !isSorteioCompleted
+                  ? 'bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-400 text-slate-950 shadow-lg shadow-amber-500/30 ring-2 ring-amber-400 animate-pulse'
+                  : 'bg-slate-900/90 hover:bg-slate-800 text-amber-300 border border-slate-700'
+              }`}
+            >
+              <Dices className="w-4 h-4 text-slate-950 sm:text-inherit" />
+              <span>{!isSorteioCompleted ? 'Definir Ordem de Desfile (Pendente)' : 'Ordem de Desfile'}</span>
+            </button>
+
+            <button
+              onClick={() => {
+                if (!isSorteioCompleted) {
+                  onNavigateTab('sorteio');
+                } else {
+                  onNavigateTab('desfile');
+                }
+              }}
               className={`px-4 sm:px-6 py-3 sm:py-3.5 rounded-xl font-black text-xs sm:text-sm transition shadow-lg flex items-center justify-center gap-2 cursor-pointer ${
-                !allParadesCompleted
+                !isSorteioCompleted
+                  ? 'bg-slate-950/80 hover:bg-slate-900 text-slate-500 border border-slate-800'
+                  : !allParadesCompleted
                   ? 'bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-950 hover:from-amber-300 hover:to-amber-500 shadow-amber-500/25 ring-2 ring-amber-400/40 animate-pulse'
                   : 'bg-slate-900/90 hover:bg-slate-800 text-amber-300 border border-amber-500/40'
               }`}
             >
-              <Sparkles className="w-4 h-4 shrink-0" />
-              <span className="truncate">
-                {!allParadesCompleted
-                  ? `Assistir & Simular Desfiles (${completedParadesCount}/${totalParadesCount})`
-                  : 'Ver Desfiles (Concluídos)'}
-              </span>
-              <ArrowRight className="w-4 h-4 shrink-0" />
+              {!isSorteioCompleted ? (
+                <>
+                  <Lock className="w-4 h-4 text-amber-500/80 shrink-0" />
+                  <span className="truncate">Desfiles (Aguardando Sorteio)</span>
+                </>
+              ) : (
+                <>
+                  <Sparkles className="w-4 h-4 shrink-0" />
+                  <span className="truncate">
+                    {!allParadesCompleted
+                      ? `Assistir & Simular Desfiles (${completedParadesCount}/${totalParadesCount})`
+                      : 'Ver Desfiles (Concluídos)'}
+                  </span>
+                  <ArrowRight className="w-4 h-4 shrink-0" />
+                </>
+              )}
             </button>
 
             <button
@@ -194,6 +229,159 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 <span className="truncate">Desfile das Campeãs (G6)</span>
               </button>
             )}
+          </div>
+        </div>
+      </div>
+
+      {/* Linha do Tempo do Ciclo Carnavalesco (Passagem do Tempo) */}
+      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 sm:p-5 shadow-xl space-y-3">
+        <div className="flex items-center justify-between gap-2 flex-wrap">
+          <div className="flex items-center gap-2">
+            <Clock className="w-4 h-4 text-amber-400" />
+            <h3 className="text-xs font-black text-white uppercase tracking-wider">
+              Ciclo Carnavalesco {currentYear} • Passagem do Tempo da Temporada
+            </h3>
+          </div>
+          <span className="text-[11px] font-mono text-amber-400 font-bold bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/20">
+            {!isSorteioCompleted
+              ? 'Etapa Atual: Sorteio da Ordem de Desfile'
+              : !allParadesCompleted
+              ? 'Etapa Atual: Desfiles na Passarela'
+              : !allApuracoesCompleted
+              ? 'Etapa Atual: Apuração Oficial das Notas'
+              : 'Temporada Concluída • Campeãs'}
+          </span>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-1">
+          {/* 1. Barracão & Ensaios */}
+          <div
+            onClick={() => onNavigateTab('barracao')}
+            className="p-3 rounded-xl bg-slate-950/70 border border-emerald-500/40 cursor-pointer hover:border-emerald-400 transition"
+          >
+            <div className="flex items-center justify-between text-[10px] mb-1">
+              <span className="font-mono text-emerald-400 font-bold">1. Preparação</span>
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+            </div>
+            <div className="font-bold text-xs text-white truncate">Barracão & Ensaios</div>
+            <div className="text-[10px] text-slate-400 mt-0.5 truncate">{school.barracaoProgress}% Concluído</div>
+          </div>
+
+          {/* 2. Sorteio da Ordem */}
+          <div
+            onClick={() => onNavigateTab('sorteio')}
+            className={`p-3 rounded-xl border cursor-pointer transition ${
+              !isSorteioCompleted
+                ? 'bg-amber-500/10 border-amber-400 ring-1 ring-amber-400/40 shadow'
+                : 'bg-slate-950/70 border-emerald-500/40 hover:border-emerald-400'
+            }`}
+          >
+            <div className="flex items-center justify-between text-[10px] mb-1">
+              <span className={`font-mono font-bold ${!isSorteioCompleted ? 'text-amber-300' : 'text-emerald-400'}`}>
+                2. Ordem de Desfile
+              </span>
+              {!isSorteioCompleted ? (
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
+              ) : (
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+              )}
+            </div>
+            <div className="font-bold text-xs text-white truncate">Sorteio Oficial</div>
+            <div className={`text-[10px] mt-0.5 truncate ${!isSorteioCompleted ? 'text-amber-300 font-bold' : 'text-slate-400'}`}>
+              {!isSorteioCompleted ? 'Pendente • Sortear' : 'Ordem Definida'}
+            </div>
+          </div>
+
+          {/* 3. Desfiles */}
+          <div
+            onClick={() => {
+              if (isSorteioCompleted) onNavigateTab('desfile');
+              else onNavigateTab('sorteio');
+            }}
+            className={`p-3 rounded-xl border transition ${
+              !isSorteioCompleted
+                ? 'bg-slate-950/40 border-slate-800/80 opacity-60 cursor-not-allowed'
+                : !allParadesCompleted
+                ? 'bg-amber-500/10 border-amber-400 ring-1 ring-amber-400/40 cursor-pointer shadow'
+                : 'bg-slate-950/70 border-emerald-500/40 cursor-pointer hover:border-emerald-400'
+            }`}
+          >
+            <div className="flex items-center justify-between text-[10px] mb-1">
+              <span className="font-mono text-slate-400 font-bold">3. Passarela</span>
+              {!isSorteioCompleted ? (
+                <Lock className="w-3.5 h-3.5 text-slate-500" />
+              ) : allParadesCompleted ? (
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+              ) : (
+                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              )}
+            </div>
+            <div className="font-bold text-xs text-white truncate">Desfiles Oficiais</div>
+            <div className="text-[10px] text-slate-400 mt-0.5 truncate">
+              {!isSorteioCompleted
+                ? 'Aguardando Sorteio'
+                : allParadesCompleted
+                ? 'Todos Realizados'
+                : `${completedParadesCount}/${totalParadesCount} Desfilaram`}
+            </div>
+          </div>
+
+          {/* 4. Apuração */}
+          <div
+            onClick={() => {
+              if (allParadesCompleted) onNavigateTab('apuracao');
+            }}
+            className={`p-3 rounded-xl border transition ${
+              !allParadesCompleted
+                ? 'bg-slate-950/40 border-slate-800/80 opacity-60 cursor-not-allowed'
+                : !allApuracoesCompleted
+                ? 'bg-amber-500/10 border-amber-400 ring-1 ring-amber-400/40 cursor-pointer shadow'
+                : 'bg-slate-950/70 border-emerald-500/40 cursor-pointer hover:border-emerald-400'
+            }`}
+          >
+            <div className="flex items-center justify-between text-[10px] mb-1">
+              <span className="font-mono text-slate-400 font-bold">4. Apoteose</span>
+              {!allParadesCompleted ? (
+                <Lock className="w-3.5 h-3.5 text-slate-500" />
+              ) : allApuracoesCompleted ? (
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+              ) : (
+                <Trophy className="w-3.5 h-3.5 text-amber-400" />
+              )}
+            </div>
+            <div className="font-bold text-xs text-white truncate">Apuração Oficial</div>
+            <div className="text-[10px] text-slate-400 mt-0.5 truncate">
+              {!allParadesCompleted
+                ? 'Aguardando Desfiles'
+                : allApuracoesCompleted
+                ? 'Notas Proclamadas'
+                : 'Liberada para Leitura'}
+            </div>
+          </div>
+
+          {/* 5. Campeãs */}
+          <div
+            onClick={() => {
+              if (allApuracoesCompleted) onNavigateTab('campeas');
+            }}
+            className={`p-3 rounded-xl border transition col-span-2 sm:col-span-1 ${
+              !allApuracoesCompleted
+                ? 'bg-slate-950/40 border-slate-800/80 opacity-60 cursor-not-allowed'
+                : 'bg-gradient-to-r from-amber-500/20 to-yellow-500/20 border-amber-400/60 cursor-pointer hover:border-amber-400 shadow'
+            }`}
+          >
+            <div className="flex items-center justify-between text-[10px] mb-1">
+              <span className="font-mono text-slate-400 font-bold">5. Consagração</span>
+              {!allApuracoesCompleted ? (
+                <Lock className="w-3.5 h-3.5 text-slate-500" />
+              ) : (
+                <Crown className="w-3.5 h-3.5 text-amber-400" />
+              )}
+            </div>
+            <div className="font-bold text-xs text-white truncate">Sábado Campeãs</div>
+            <div className="text-[10px] text-slate-400 mt-0.5 truncate">
+              {allApuracoesCompleted ? 'G6 Liberado' : 'Aguardando Campeã'}
+            </div>
           </div>
         </div>
       </div>

@@ -161,6 +161,35 @@ class SoundService {
     });
   }
 
+  // Play victory alias
+  public playVictory() {
+    this.playChampionFanfare();
+  }
+
+  // Play buzzer / lock sound
+  public playBuzzer() {
+    if (!this.soundEffectsEnabled) return;
+    this.initCtx();
+    if (!this.ctx) return;
+
+    const now = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(160, now);
+    osc.frequency.linearRampToValueAtTime(110, now + 0.25);
+
+    gain.gain.setValueAtTime(0.25, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+
+    osc.start(now);
+    osc.stop(now + 0.25);
+  }
+
   // Speech announce
   public speakAnnouncement(text: string, rate = 1.1) {
     if (!this.voiceEnabled) return;
@@ -183,6 +212,88 @@ class SoundService {
       window.speechSynthesis.speak(utterance);
     } catch {
       // Ignore if speech synthesis is blocked
+    }
+  }
+
+  // Play globe spinning / ball tumbling sound for live draw ceremony
+  public playGlobeSpin() {
+    if (!this.soundEffectsEnabled) return;
+    this.initCtx();
+    if (!this.ctx) return;
+
+    const now = this.ctx.currentTime;
+    for (let i = 0; i < 7; i++) {
+      const t = now + i * 0.055;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(450 + Math.sin(i * 1.5) * 220, t);
+      osc.frequency.exponentialRampToValueAtTime(180, t + 0.045);
+
+      gain.gain.setValueAtTime(0.25, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.045);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(t);
+      osc.stop(t + 0.045);
+    }
+  }
+
+  // Play lottery ball reveal chime
+  public playBallReveal() {
+    if (!this.soundEffectsEnabled) return;
+    this.initCtx();
+    if (!this.ctx) return;
+
+    const now = this.ctx.currentTime;
+    const notes = [587.33, 880, 1174.66]; // D5, A5, D6
+    notes.forEach((freq, idx) => {
+      if (!this.ctx) return;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      const t = now + idx * 0.08;
+
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, t);
+
+      gain.gain.setValueAtTime(0.35, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start(t);
+      osc.stop(t + 0.4);
+    });
+  }
+
+  // Play suspenseful drum roll / repique
+  public playDrumRoll(duration = 0.8) {
+    if (!this.soundEffectsEnabled) return;
+    this.initCtx();
+    if (!this.ctx) return;
+
+    const now = this.ctx.currentTime;
+    const steps = Math.floor(duration * 20);
+    for (let i = 0; i < steps; i++) {
+      const t = now + (i * duration) / steps;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(140 + Math.random() * 40, t);
+      osc.frequency.exponentialRampToValueAtTime(50, t + 0.04);
+
+      const vol = 0.08 + (i / steps) * 0.22;
+      gain.gain.setValueAtTime(vol, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.04);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start(t);
+      osc.stop(t + 0.04);
     }
   }
 

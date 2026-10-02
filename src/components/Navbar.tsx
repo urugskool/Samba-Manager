@@ -21,7 +21,8 @@ import {
   Wallet,
   Music,
   Award,
-  Crown
+  Crown,
+  Dices
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -42,6 +43,7 @@ interface NavbarProps {
   totalSchoolsCount?: number;
   onOpenStartScreen?: () => void;
   isCampeasAvailable?: boolean;
+  isSorteioCompleted?: boolean;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -61,7 +63,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   completedParadesCount = 0,
   totalSchoolsCount = 80,
   onOpenStartScreen,
-  isCampeasAvailable = false
+  isCampeasAvailable = false,
+  isSorteioCompleted = true
 }) => {
   const [showResetConfirm, setShowResetConfirm] = useState<boolean>(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
@@ -75,10 +78,16 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'equipe', label: 'Equipe & Mercado', icon: Users, badge: null, hideIfSpectator: true },
     { id: 'financas', label: 'Finanças', icon: Wallet, badge: null, hideIfSpectator: true },
     {
+      id: 'sorteio',
+      label: 'Sorteio da Ordem',
+      icon: Dices,
+      badge: isSorteioCompleted ? 'Definido' : 'Pendente'
+    },
+    {
       id: 'desfile',
       label: 'Desfiles',
       icon: Sparkles,
-      badge: allParadesCompleted ? 'Concluído' : completedParadesCount > 0 ? `${completedParadesCount}/${totalSchoolsCount}` : 'Ao Vivo'
+      badge: !isSorteioCompleted ? 'Aguardando Sorteio' : allParadesCompleted ? 'Concluído' : completedParadesCount > 0 ? `${completedParadesCount}/${totalSchoolsCount}` : 'Ao Vivo'
     },
     {
       id: 'apuracao',

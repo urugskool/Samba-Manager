@@ -33,9 +33,12 @@ import { GloriasView } from './components/GloriasView';
 import { NewGameModal } from './components/NewGameModal';
 import { StartScreenView } from './components/StartScreenView';
 import { DesfileCampeãsView } from './components/DesfileCampeãsView';
+import { SorteioOrdemView } from './components/SorteioOrdemView';
 import { EnredoService } from './services/enredoService';
+import { CarnavalSorteio, ParadeDay, PARADE_DAYS_ORDER } from './types/sorteio';
+import { SorteioEngine } from './services/sorteioEngine';
 
-import { Sparkles, Trophy, CheckCircle, AlertTriangle, Info } from 'lucide-react';
+import { Sparkles, Trophy, CheckCircle, AlertTriangle, Info, Dices, Lock } from 'lucide-react';
 
 const STORAGE_KEY = 'sambamanager_save_v10';
 
@@ -411,6 +414,29 @@ export default function App() {
     return {};
   });
 
+  const [sorteio, setSorteio] = useState<CarnavalSorteio>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          const yr = parsed.currentYear || 2027;
+          if (parsed.sorteio && parsed.sorteio.year === yr) {
+            return parsed.sorteio;
+          }
+        } catch {}
+      }
+    }
+    return SorteioEngine.createInitialSorteio(currentYear);
+  });
+
+  // Ensure sorteio matches currentYear
+  useEffect(() => {
+    if (!sorteio || sorteio.year !== currentYear) {
+      setSorteio(SorteioEngine.createInitialSorteio(currentYear));
+    }
+  }, [currentYear, sorteio]);
+
   // Notifications Toast
   const [toastMessage, setToastMessage] = useState<{
     text: string;
@@ -495,7 +521,8 @@ export default function App() {
         avaliacaoScores,
         hasParadeResults,
         divisionStates,
-        campeasParadeResults
+        campeasParadeResults,
+        sorteio
       };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
     }
@@ -514,7 +541,8 @@ export default function App() {
     avaliacaoScores,
     hasParadeResults,
     divisionStates,
-    campeasParadeResults
+    campeasParadeResults,
+    sorteio
   ]);
 
   // Show Toast
@@ -598,8 +626,13 @@ export default function App() {
     (division: DivisionId) => {
       const divSchools = schools.filter((s) => s.division === division && isSchoolActive(s));
       const divSchoolIds = divSchools.map((s) => s.id);
+      const divSlots = sorteio?.divisions?.[division]?.slots || [];
+      const slotOrderMap = new Map(divSlots.map((slot, idx) => [slot.schoolId, idx]));
 
-      const pendingSchools = divSchools.filter((s) => !completedParadeSchoolIds.includes(s.id));
+      const pendingSchools = divSchools
+        .filter((s) => !completedParadeSchoolIds.includes(s.id))
+        .sort((a, b) => (slotOrderMap.get(a.id) ?? 999) - (slotOrderMap.get(b.id) ?? 999));
+
       pendingSchools.forEach((sch) => {
         const timeResult = simulateParadeDuration(sch);
         handleRecordParadeTime(
@@ -625,9 +658,41 @@ export default function App() {
           : division === 'bronze'
           ? 'Série Bronze'
           : 'Grupo de Avaliação';
-      showToast(`Todos os desfiles da ${divName} foram realizados e avaliados pelos jurados!`, 'success');
+      showToast(`Todos os desfiles da ${divName} foram realizados na ordem oficial e avaliados pelos jurados!`, 'success');
     },
-    [schools, completedParadeSchoolIds, showToast, isSchoolActive, handleRecordParadeTime]
+    [schools, completedParadeSchoolIds, showToast, isSchoolActive, handleRecordParadeTime, sorteio]
+  );
+
+  const handleCompleteDayParades = useCallback(
+    (day: ParadeDay) => {
+      const daySlots = sorteio.divisions
+        ? Object.values(sorteio.divisions).flatMap((d) => d.slots).filter((s) => s.day === day)
+        : [];
+      const daySchoolIds = daySlots.map((s) => s.schoolId);
+      const daySchools = daySchoolIds
+        .map((id) => schools.find((s) => s.id === id))
+        .filter((s): s is School => !!s && !completedParadeSchoolIds.includes(s.id));
+
+      daySchools.forEach((sch) => {
+        const timeResult = simulateParadeDuration(sch);
+        handleRecordParadeTime(
+          sch.id,
+          timeResult.duration,
+          timeResult.penalty,
+          timeResult.timeStatus,
+          timeResult.diffMinutes
+        );
+      });
+
+      setCompletedParadeSchoolIds((prev) => {
+        const updated = new Set([...prev, ...daySchools.map((s) => s.id)]);
+        return Array.from(updated);
+      });
+
+      const dayInfo = PARADE_DAYS_ORDER.find((d) => d.id === day);
+      showToast(`Desfiles de ${dayInfo?.label || day} concluídos na ordem oficial!`, 'success');
+    },
+    [sorteio, schools, completedParadeSchoolIds, showToast, handleRecordParadeTime]
   );
 
   const activeSchools = schools.filter(isSchoolActive);
@@ -649,8 +714,13 @@ export default function App() {
   );
 
   const handleCompleteAllParades = useCallback(() => {
-    const pendingSchools = activeSchools.filter((sch) => !completedParadeSchoolIds.includes(sch.id));
-    pendingSchools.forEach((sch) => {
+    const chronologicalList = sorteio?.isCompleted
+      ? SorteioEngine.getChronologicalParadeOrder(sorteio, schools)
+      : [];
+    const pendingItems = chronologicalList.filter((item) => !completedParadeSchoolIds.includes(item.school.id));
+
+    pendingItems.forEach((item) => {
+      const sch = item.school;
       const timeResult = simulateParadeDuration(sch);
       handleRecordParadeTime(
         sch.id,
@@ -660,10 +730,11 @@ export default function App() {
         timeResult.diffMinutes
       );
     });
+
     const allIds = activeSchools.map((s) => s.id);
     setCompletedParadeSchoolIds(allIds);
-    showToast('Todos os desfiles do Carnaval foram realizados! A apuração oficial das notas está liberada!', 'success');
-  }, [activeSchools, completedParadeSchoolIds, showToast, handleRecordParadeTime]);
+    showToast('Todos os desfiles do Carnaval foram realizados na ordem cronológica oficial! A apuração oficial das notas está liberada!', 'success');
+  }, [sorteio, schools, activeSchools, completedParadeSchoolIds, showToast, handleRecordParadeTime]);
 
   // Find user school & division lists
   const userSchool = schools.find((s) => s.id === userSchoolId) || null;
@@ -720,6 +791,8 @@ export default function App() {
     setAvaliacaoScores([]);
     setDivisionStates(DEFAULT_DIVISION_STATES);
     setCampeasParadeResults({});
+    const freshSorteio = SorteioEngine.createInitialSorteio(2027);
+    setSorteio(freshSorteio);
     setIsNewGameModalOpen(false);
     setIsGameStarted(schoolId !== null);
     setActiveTab('dashboard');
@@ -774,6 +847,8 @@ export default function App() {
       setAvaliacaoScores([]);
       setDivisionStates(DEFAULT_DIVISION_STATES);
       setCampeasParadeResults({});
+      const freshSorteio = SorteioEngine.createInitialSorteio(nextSeasonData.nextYear);
+      setSorteio(freshSorteio);
 
       // Add News
       const newsHeadline: NewsItem = {
@@ -918,6 +993,7 @@ export default function App() {
         completedParadesCount={completedParadeSchoolIds.length}
         totalSchoolsCount={totalSchoolsCount}
         isCampeasAvailable={isAllApuracoesCompleted}
+        isSorteioCompleted={sorteio?.isCompleted ?? false}
       />
 
       {/* Main Workspace */}
@@ -935,6 +1011,7 @@ export default function App() {
             totalParadesCount={totalSchoolsCount}
             onSimulateAllParades={handleCompleteAllParades}
             allApuracoesCompleted={isAllApuracoesCompleted}
+            isSorteioCompleted={sorteio?.isCompleted ?? false}
           />
         )}
 
@@ -952,25 +1029,62 @@ export default function App() {
                 Assista e simule os desfiles na Passarela do Samba e na Intendente Magalhães e acompanhe a apuração oficial das notas dos 36 jurados!
               </p>
 
-              {/* Parades Progress status in Spectator Dashboard */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs">
-                <span className="text-slate-400">Desfiles Realizados:</span>
-                <span className={`font-mono font-bold ${isAllParadesCompleted ? 'text-emerald-400' : 'text-amber-400'}`}>
-                  {completedParadeSchoolIds.length} / {totalSchoolsCount} {isAllParadesCompleted ? '(Concluídos)' : '(Pendentes)'}
-                </span>
+              {/* Status do Ciclo no Modo Observador */}
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs">
+                  <span className="text-slate-400">Sorteio da Ordem:</span>
+                  <span className={`font-mono font-bold ${sorteio?.isCompleted ? 'text-emerald-400' : 'text-amber-400'}`}>
+                    {sorteio?.isCompleted ? '✓ Concluído (5/5 Grupos)' : 'Pendente de Sorteio'}
+                  </span>
+                </div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs">
+                  <span className="text-slate-400">Desfiles Realizados:</span>
+                  <span className={`font-mono font-bold ${isAllParadesCompleted ? 'text-emerald-400' : 'text-amber-400'}`}>
+                    {completedParadeSchoolIds.length} / {totalSchoolsCount} {isAllParadesCompleted ? '(Concluídos)' : '(Pendentes)'}
+                  </span>
+                </div>
               </div>
 
               <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
                 <button
-                  onClick={() => setActiveTab('desfile')}
+                  onClick={() => setActiveTab('sorteio')}
+                  className={`px-5 py-3 rounded-xl font-black text-xs shadow-lg transition flex items-center gap-2 cursor-pointer ${
+                    !sorteio?.isCompleted
+                      ? 'bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-400 text-slate-950 shadow-amber-500/25 ring-2 ring-amber-400 animate-pulse'
+                      : 'bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700'
+                  }`}
+                >
+                  <Dices className="w-4 h-4 text-slate-950 sm:text-inherit" />
+                  <span>{!sorteio?.isCompleted ? 'Realizar Sorteio da Ordem (Obrigatório)' : 'Ver Ordem dos Desfiles'}</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    if (!sorteio?.isCompleted) {
+                      setActiveTab('sorteio');
+                    } else {
+                      setActiveTab('desfile');
+                    }
+                  }}
                   className={`px-6 py-3 rounded-xl font-black text-xs shadow-lg transition flex items-center gap-2 cursor-pointer ${
-                    !isAllParadesCompleted
+                    !sorteio?.isCompleted
+                      ? 'bg-slate-950 text-slate-500 border border-slate-800'
+                      : !isAllParadesCompleted
                       ? 'bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-950 shadow-amber-500/20 animate-pulse'
                       : 'bg-slate-800 hover:bg-slate-700 text-amber-300'
                   }`}
                 >
-                  <Sparkles className="w-4 h-4" />
-                  <span>Assistir & Simular Desfiles</span>
+                  {!sorteio?.isCompleted ? (
+                    <>
+                      <Lock className="w-4 h-4 text-amber-500/80" />
+                      <span>Desfiles (Aguardando Sorteio)</span>
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="w-4 h-4" />
+                      <span>Assistir & Simular Desfiles</span>
+                    </>
+                  )}
                 </button>
                 <button
                   onClick={() => setActiveTab('apuracao')}
@@ -1051,6 +1165,19 @@ export default function App() {
           />
         )}
 
+        {activeTab === 'sorteio' && (
+          <SorteioOrdemView
+            currentYear={currentYear}
+            userSchool={userSchool}
+            schools={activeSchools}
+            history={history}
+            sorteio={sorteio}
+            completedParadesCount={completedParadeSchoolIds.length}
+            onUpdateSorteio={(updated) => setSorteio(updated)}
+            onNavigateToDesfile={() => setActiveTab('desfile')}
+          />
+        )}
+
         {activeTab === 'desfile' && (
           <DesfileSimulator
             currentYear={currentYear}
@@ -1067,6 +1194,9 @@ export default function App() {
             bronzeScores={bronzeScores}
             avaliacaoScores={avaliacaoScores}
             completedSchoolIds={completedParadeSchoolIds}
+            sorteio={sorteio}
+            onNavigateToSorteio={() => setActiveTab('sorteio')}
+            onCompleteDayParades={handleCompleteDayParades}
             onCompleteParade={handleCompleteParade}
             onRecordParadeTime={handleRecordParadeTime}
             onCompleteParadesForDivision={handleCompleteParadesForDivision}
@@ -1090,7 +1220,6 @@ export default function App() {
             avaliacaoScores={avaliacaoScores}
             userSchool={userSchool}
             onAdvanceYear={handleAdvanceYear}
-            onSimulateNewScores={generateScores}
             allParadesCompleted={isAllParadesCompleted}
             completedParadeCount={completedParadeSchoolIds.length}
             totalParadeCount={totalSchoolsCount}

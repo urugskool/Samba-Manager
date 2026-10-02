@@ -269,14 +269,7 @@ export const DesfileCampeãsView: React.FC<DesfileCampeasViewProps> = ({
   };
 
   // Reset simulation
-  const handleResetParades = () => {
-    setParadeResults({});
-    setActiveParadeSchoolId(null);
-    setIsParading(false);
-    setParadeProgress(0);
-    onShowMessage?.('Simulações do Sábado das Campeãs reiniciadas.', 'info');
-  };
-
+  
   const completedCount = Object.keys(paradeResults).length;
   const isAllCompleted = completedCount >= 6;
   const championEntry = rankedG6.find((r) => r.rank === 1);
@@ -386,15 +379,7 @@ export const DesfileCampeãsView: React.FC<DesfileCampeasViewProps> = ({
                 <span>Simular Todos os Desfiles das Campeãs</span>
               </button>
 
-              {completedCount > 0 && (
-                <button
-                  onClick={handleResetParades}
-                  className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs flex items-center gap-1.5 transition border border-slate-700 cursor-pointer"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                  <span>Reiniciar Desfiles</span>
-                </button>
-              )}
+              
             </div>
 
             {/* End season button if all parades completed */}

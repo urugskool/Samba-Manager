@@ -133,7 +133,7 @@ export const PARADE_CONFIG: Record<DivisionId, GroupParadeConfig> = {
     minMinutes: 70,
     maxMinutes: 80,
     venue: 'sapucai',
-    schedule: 'Sambódromo Marquês de Sapucaí • Domingo e Segunda de Carnaval',
+    schedule: 'Sambódromo Marquês de Sapucaí • Domingo, Segunda e Terça de Carnaval',
     leagueId: 'liesa',
     leagueName: 'LIESA',
     leagueFullName: 'Liga Independente das Escolas de Samba do Rio de Janeiro'
@@ -153,7 +153,7 @@ export const PARADE_CONFIG: Record<DivisionId, GroupParadeConfig> = {
     minMinutes: 35,
     maxMinutes: 40,
     venue: 'intendente',
-    schedule: 'Estrada Intendente Magalhães • Terça-Feira de Carnaval',
+    schedule: 'Estrada Intendente Magalhães • Segunda e Terça-Feira de Carnaval',
     leagueId: 'superliga',
     leagueName: 'Superliga',
     leagueFullName: 'Superliga Carnavalesca do Brasil'
@@ -163,7 +163,7 @@ export const PARADE_CONFIG: Record<DivisionId, GroupParadeConfig> = {
     minMinutes: 30,
     maxMinutes: 35,
     venue: 'intendente',
-    schedule: 'Estrada Intendente Magalhães • Quarta-Feira de Carnaval',
+    schedule: 'Estrada Intendente Magalhães • Sábado e Domingo de Carnaval',
     leagueId: 'superliga',
     leagueName: 'Superliga',
     leagueFullName: 'Superliga Carnavalesca do Brasil'
@@ -173,7 +173,7 @@ export const PARADE_CONFIG: Record<DivisionId, GroupParadeConfig> = {
     minMinutes: 28,
     maxMinutes: 33,
     venue: 'intendente',
-    schedule: 'Estrada Intendente Magalhães • Domingo de Carnaval (Grupo de Avaliação)',
+    schedule: 'Estrada Intendente Magalhães • Quarta-Feira de Cinzas',
     leagueId: 'superliga',
     leagueName: 'Superliga',
     leagueFullName: 'Superliga Carnavalesca do Brasil'

@@ -9,6 +9,7 @@ import {
 } from '../types/carnaval';
 import { QUESITOS } from '../data/carnavalData';
 import { SimulationEngine, TIEBREAKER_QUESITO_ORDER } from '../services/simulationEngine';
+import { SorteioEngine } from '../services/sorteioEngine';
 import { soundService } from '../services/soundService';
 import { TiebreakerModal } from './TiebreakerModal';
 import { LEAGUES, PARADE_CONFIG } from '../config/paradeConfig';
@@ -55,7 +56,6 @@ interface ApuracaoViewProps {
     bronzeResult: DivisionResult,
     avaliacaoResult?: DivisionResult
   ) => void;
-  onSimulateNewScores: () => void;
   allParadesCompleted?: boolean;
   completedParadeCount?: number;
   totalParadeCount?: number;
@@ -82,7 +82,6 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
   avaliacaoScores = [],
   userSchool,
   onAdvanceYear,
-  onSimulateNewScores,
   allParadesCompleted = true,
   completedParadeCount = 0,
   totalParadeCount = 75,
@@ -145,6 +144,19 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
     (divisionStates.bronze.isCompleted ? 1 : 0) +
     (divisionStates.avaliacao.isCompleted ? 1 : 0);
 
+  const completedDivisionsMap: Record<DivisionId, boolean> = {
+    especial: Boolean(divisionStates.especial?.isCompleted),
+    ouro: Boolean(divisionStates.ouro?.isCompleted),
+    avaliacao: Boolean(divisionStates.avaliacao?.isCompleted),
+    bronze: Boolean(divisionStates.bronze?.isCompleted),
+    prata: Boolean(divisionStates.prata?.isCompleted)
+  };
+
+  const activeDivUnlock = SorteioEngine.isDivisionApuracaoUnlocked(
+    selectedDivision,
+    completedDivisionsMap
+  );
+
   const pendingDivisions: { id: DivisionId; name: string }[] = [];
   if (!divisionStates.especial.isCompleted) pendingDivisions.push({ id: 'especial', name: 'Grupo Especial' });
   if (!divisionStates.ouro.isCompleted) pendingDivisions.push({ id: 'ouro', name: 'Série Ouro' });
@@ -204,6 +216,11 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
 
   // Start Apuração: reveals the first note and commences live reading
   const handleStartApuracao = () => {
+    if (!activeDivUnlock.unlocked) {
+      soundService.playBuzzer();
+      return;
+    }
+
     updateCurrentDivision((prev) => ({
       ...prev,
       hasStarted: true
@@ -226,6 +243,11 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
 
   // Step Note: reveals 1st note if not started; otherwise advances to next school/judge
   const handleStepNote = () => {
+    if (!activeDivUnlock.unlocked) {
+      soundService.playBuzzer();
+      return;
+    }
+
     if (!hasStarted) {
       updateCurrentDivision((prev) => ({
         ...prev,
@@ -348,6 +370,11 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
   }, [isPlaying, isCompleted, hasStarted, currentQuesitoIdx, currentJudgeIdx, currentSchoolIdx, speed]);
 
   const handleNextQuesito = () => {
+    if (!activeDivUnlock.unlocked) {
+      soundService.playBuzzer();
+      return;
+    }
+
     if (!hasStarted) {
       updateCurrentDivision((prev) => ({
         ...prev,
@@ -374,6 +401,11 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
   };
 
   const handleInstantFinish = () => {
+    if (!activeDivUnlock.unlocked) {
+      soundService.playBuzzer();
+      return;
+    }
+
     updateCurrentDivision((prev) => ({
       ...prev,
       hasStarted: true,
@@ -397,9 +429,9 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
     setDivisionStates({
       especial: { hasStarted: true, quesitoIdx: 8, judgeIdx: 3, schoolIdx: especialSchools.length - 1, isCompleted: true },
       ouro: { hasStarted: true, quesitoIdx: 8, judgeIdx: 3, schoolIdx: ouroSchools.length - 1, isCompleted: true },
-      prata: { hasStarted: true, quesitoIdx: 8, judgeIdx: 3, schoolIdx: prataSchools.length - 1, isCompleted: true },
+      avaliacao: { hasStarted: true, quesitoIdx: 8, judgeIdx: 3, schoolIdx: Math.max(0, avaliacaoSchools.length - 1), isCompleted: true },
       bronze: { hasStarted: true, quesitoIdx: 8, judgeIdx: 3, schoolIdx: bronzeSchools.length - 1, isCompleted: true },
-      avaliacao: { hasStarted: true, quesitoIdx: 8, judgeIdx: 3, schoolIdx: Math.max(0, avaliacaoSchools.length - 1), isCompleted: true }
+      prata: { hasStarted: true, quesitoIdx: 8, judgeIdx: 3, schoolIdx: prataSchools.length - 1, isCompleted: true }
     });
     setIsPlaying(false);
     soundService.playChampionFanfare();
@@ -410,18 +442,6 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
         origin: { y: 0.5 }
       });
     } catch {}
-  };
-
-  const handleRestartApuracao = () => {
-    updateCurrentDivision((prev) => ({
-      ...prev,
-      hasStarted: false,
-      quesitoIdx: 0,
-      judgeIdx: 0,
-      schoolIdx: 0,
-      isCompleted: false
-    }));
-    setIsPlaying(false);
   };
 
   const handleSelectDivision = (div: DivisionId) => {
@@ -510,12 +530,12 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
           </p>
         </div>
 
-        {/* Division Selector Tabs Organized by Governing League */}
+        {/* Division Selector Tabs Organized by Governing League in Strict Apuração Sequence */}
         <div className="flex items-center overflow-x-auto no-scrollbar gap-2 pb-1 max-w-full">
-          {/* LIESA */}
+          {/* 1º LIESA - Grupo Especial */}
           <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800 shrink-0">
             <span className="text-[10px] font-black uppercase px-2 py-1 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
-              LIESA
+              1ª LIESA
             </span>
             <button
               onClick={() => handleSelectDivision('especial')}
@@ -546,116 +566,211 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
             </button>
           </div>
 
-          {/* LIGA RJ */}
-          <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800 shrink-0">
-            <span className="text-[10px] font-black uppercase px-2 py-1 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">
-              LIGA RJ
-            </span>
-            <button
-              onClick={() => handleSelectDivision('ouro')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
-                selectedDivision === 'ouro'
-                  ? 'bg-blue-500 text-white shadow-md shadow-blue-500/20 font-black'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-            >
-              <span>Série Ouro</span>
-              <span
-                className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
-                  divisionStates.ouro.isCompleted
-                    ? 'bg-emerald-500 text-slate-950 ring-1 ring-emerald-400'
-                    : !divisionStates.ouro.hasStarted
-                    ? selectedDivision === 'ouro'
-                      ? 'bg-blue-900/60 text-white'
-                      : 'bg-slate-900 text-slate-400'
-                    : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                }`}
-              >
-                {divisionStates.ouro.isCompleted
-                  ? '✓ Apurado'
-                  : !divisionStates.ouro.hasStarted
-                  ? `${ouroSchools.length} escolas`
-                  : 'Em leitura'}
-              </span>
-            </button>
-          </div>
+          {/* 2º LIGA RJ - Série Ouro */}
+          {(() => {
+            const ouroUnlocked = SorteioEngine.isDivisionApuracaoUnlocked('ouro', completedDivisionsMap).unlocked;
+            return (
+              <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800 shrink-0">
+                <span className="text-[10px] font-black uppercase px-2 py-1 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                  2ª LIGA RJ
+                </span>
+                <button
+                  onClick={() => handleSelectDivision('ouro')}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                    selectedDivision === 'ouro'
+                      ? 'bg-blue-500 text-white shadow-md shadow-blue-500/20 font-black'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  {!ouroUnlocked && <Lock className="w-3.5 h-3.5 text-slate-500" />}
+                  <span>Série Ouro</span>
+                  <span
+                    className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                      divisionStates.ouro.isCompleted
+                        ? 'bg-emerald-500 text-slate-950 ring-1 ring-emerald-400'
+                        : !ouroUnlocked
+                        ? 'bg-slate-800 text-slate-500'
+                        : !divisionStates.ouro.hasStarted
+                        ? selectedDivision === 'ouro'
+                          ? 'bg-blue-900/60 text-white'
+                          : 'bg-slate-900 text-slate-400'
+                        : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                    }`}
+                  >
+                    {divisionStates.ouro.isCompleted
+                      ? '✓ Apurado'
+                      : !ouroUnlocked
+                      ? '🔒 Bloq'
+                      : !divisionStates.ouro.hasStarted
+                      ? `${ouroSchools.length} escolas`
+                      : 'Em leitura'}
+                  </span>
+                </button>
+              </div>
+            );
+          })()}
 
-          {/* SUPERLIGA */}
+          {/* 3º SUPERLIGA - Avaliação -> Bronze -> Prata */}
           <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800 shrink-0">
             <span className="text-[10px] font-black uppercase px-2 py-1 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">
-              SUPERLIGA
+              3ª SUPERLIGA
             </span>
-            <button
-              onClick={() => handleSelectDivision('prata')}
-              className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
-                selectedDivision === 'prata'
-                  ? 'bg-slate-300 text-slate-950 shadow-md shadow-slate-300/20 font-black'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-            >
-              <span>Série Prata</span>
-              <span
-                className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
-                  divisionStates.prata.isCompleted
-                    ? 'bg-emerald-500 text-slate-950'
-                    : selectedDivision === 'prata'
-                    ? 'bg-slate-400/60 text-slate-950'
-                    : 'bg-slate-900 text-slate-400'
-                }`}
-              >
-                {divisionStates.prata.isCompleted ? '✓' : prataSchools.length}
-              </span>
-            </button>
 
-            <button
-              onClick={() => handleSelectDivision('bronze')}
-              className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
-                selectedDivision === 'bronze'
-                  ? 'bg-amber-700 text-amber-100 shadow-md shadow-amber-800/30 font-black ring-1 ring-amber-500'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-            >
-              <span>Série Bronze</span>
-              <span
-                className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
-                  divisionStates.bronze.isCompleted
-                    ? 'bg-emerald-500 text-slate-950'
-                    : selectedDivision === 'bronze'
-                    ? 'bg-amber-900/60 text-amber-200'
-                    : 'bg-slate-900 text-slate-400'
-                }`}
-              >
-                {divisionStates.bronze.isCompleted ? '✓' : bronzeSchools.length}
-              </span>
-            </button>
+            {/* 3.1 Grupo de Avaliação */}
+            {(() => {
+              const avaliacaoUnlocked = SorteioEngine.isDivisionApuracaoUnlocked('avaliacao', completedDivisionsMap).unlocked;
+              return (
+                <button
+                  onClick={() => handleSelectDivision('avaliacao')}
+                  className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                    selectedDivision === 'avaliacao'
+                      ? 'bg-purple-600 text-white font-black shadow-md shadow-purple-600/30 ring-1 ring-purple-400'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  {!avaliacaoUnlocked && <Lock className="w-3.5 h-3.5 text-slate-500" />}
+                  <span>3ª Avaliação</span>
+                  <span
+                    className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
+                      divisionStates.avaliacao.isCompleted
+                        ? 'bg-emerald-500 text-slate-950'
+                        : !avaliacaoUnlocked
+                        ? 'bg-slate-800 text-slate-500'
+                        : selectedDivision === 'avaliacao'
+                        ? 'bg-purple-900 text-purple-200'
+                        : 'bg-slate-900 text-slate-400'
+                    }`}
+                  >
+                    {divisionStates.avaliacao.isCompleted ? '✓' : !avaliacaoUnlocked ? '🔒' : avaliacaoSchools.length}
+                  </span>
+                </button>
+              );
+            })()}
 
-            <button
-              onClick={() => handleSelectDivision('avaliacao')}
-              className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
-                selectedDivision === 'avaliacao'
-                  ? 'bg-purple-600 text-white font-black shadow-md shadow-purple-600/30 ring-1 ring-purple-400'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-            >
-              <span>Avaliação</span>
-              <span
-                className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
-                  divisionStates.avaliacao.isCompleted
-                    ? 'bg-emerald-500 text-slate-950'
-                    : selectedDivision === 'avaliacao'
-                    ? 'bg-purple-900 text-purple-200'
-                    : 'bg-slate-900 text-slate-400'
-                }`}
-              >
-                {divisionStates.avaliacao.isCompleted ? '✓' : avaliacaoSchools.length}
-              </span>
-            </button>
+            {/* 3.2 Série Bronze */}
+            {(() => {
+              const bronzeUnlocked = SorteioEngine.isDivisionApuracaoUnlocked('bronze', completedDivisionsMap).unlocked;
+              return (
+                <button
+                  onClick={() => handleSelectDivision('bronze')}
+                  className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                    selectedDivision === 'bronze'
+                      ? 'bg-amber-700 text-amber-100 shadow-md shadow-amber-800/30 font-black ring-1 ring-amber-500'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  {!bronzeUnlocked && <Lock className="w-3.5 h-3.5 text-slate-500" />}
+                  <span>4ª Série Bronze</span>
+                  <span
+                    className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
+                      divisionStates.bronze.isCompleted
+                        ? 'bg-emerald-500 text-slate-950'
+                        : !bronzeUnlocked
+                        ? 'bg-slate-800 text-slate-500'
+                        : selectedDivision === 'bronze'
+                        ? 'bg-amber-900/60 text-amber-200'
+                        : 'bg-slate-900 text-slate-400'
+                    }`}
+                  >
+                    {divisionStates.bronze.isCompleted ? '✓' : !bronzeUnlocked ? '🔒' : bronzeSchools.length}
+                  </span>
+                </button>
+              );
+            })()}
+
+            {/* 3.3 Série Prata */}
+            {(() => {
+              const prataUnlocked = SorteioEngine.isDivisionApuracaoUnlocked('prata', completedDivisionsMap).unlocked;
+              return (
+                <button
+                  onClick={() => handleSelectDivision('prata')}
+                  className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                    selectedDivision === 'prata'
+                      ? 'bg-slate-300 text-slate-950 shadow-md shadow-slate-300/20 font-black'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  {!prataUnlocked && <Lock className="w-3.5 h-3.5 text-slate-500" />}
+                  <span>5ª Série Prata</span>
+                  <span
+                    className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
+                      divisionStates.prata.isCompleted
+                        ? 'bg-emerald-500 text-slate-950'
+                        : !prataUnlocked
+                        ? 'bg-slate-800 text-slate-500'
+                        : selectedDivision === 'prata'
+                        ? 'bg-slate-400/60 text-slate-950'
+                        : 'bg-slate-900 text-slate-400'
+                    }`}
+                  >
+                    {divisionStates.prata.isCompleted ? '✓' : !prataUnlocked ? '🔒' : prataSchools.length}
+                  </span>
+                </button>
+              );
+            })()}
           </div>
         </div>
       </div>
 
-      {/* Reader Stage / Locutor Banner */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border border-amber-500/30 p-6 shadow-2xl space-y-4">
+      {/* SE A DIVISÃO ESTIVER BLOQUEADA PELA SEQUÊNCIA: TELA OFICIAL DE BLOQUEIO */}
+      {!activeDivUnlock.unlocked ? (
+        <div className="bg-slate-900 border-2 border-amber-500/40 rounded-2xl p-6 sm:p-10 shadow-2xl text-center space-y-5 animate-fadeIn">
+          <div className="w-16 h-16 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center mx-auto text-amber-400 shadow-xl shadow-amber-500/10">
+            <Lock className="w-8 h-8" />
+          </div>
+          <div className="space-y-2">
+            <span className="text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 inline-flex items-center gap-1.5">
+              🔒 APURAÇÃO BLOQUEADA • ORDEM SEQUENCIAL OBRIGATÓRIA
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-black text-white mt-1">
+              Aguardando Proclamação do Resultado do {activeDivUnlock.requiredName}
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto mt-2 leading-relaxed">
+              {activeDivUnlock.reason}
+            </p>
+          </div>
+
+          <div className="max-w-md mx-auto p-4 rounded-xl bg-slate-950/80 border border-slate-800 text-xs text-left space-y-2 text-slate-400">
+            <span className="text-white font-bold block text-[11px] uppercase tracking-wider">
+              Sequência Oficial de Apuração das Notas:
+            </span>
+            <div className="space-y-1.5 font-mono text-[11px]">
+              <div className={`p-2 rounded-lg flex items-center justify-between border ${completedDivisionsMap.especial ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-300' : 'bg-slate-900 border-amber-500/30 text-amber-300 font-bold'}`}>
+                <span>1ª Grupo Especial (LIESA • Apoteose)</span>
+                <span>{completedDivisionsMap.especial ? '✓ Apurado' : '🔴 Apurando Agora'}</span>
+              </div>
+              <div className={`p-2 rounded-lg flex items-center justify-between border ${completedDivisionsMap.ouro ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-300' : 'bg-slate-900 border-slate-800 text-slate-400'}`}>
+                <span>2ª Série Ouro (LIGA-RJ)</span>
+                <span>{completedDivisionsMap.ouro ? '✓ Apurado' : 'Aguardando Especial'}</span>
+              </div>
+              <div className={`p-2 rounded-lg flex items-center justify-between border ${completedDivisionsMap.avaliacao ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-300' : 'bg-slate-900 border-slate-800 text-slate-400'}`}>
+                <span>3ª Grupo de Avaliação (Superliga)</span>
+                <span>{completedDivisionsMap.avaliacao ? '✓ Apurado' : 'Aguardando Série Ouro'}</span>
+              </div>
+              <div className={`p-2 rounded-lg flex items-center justify-between border ${completedDivisionsMap.bronze ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-300' : 'bg-slate-900 border-slate-800 text-slate-400'}`}>
+                <span>4ª Série Bronze (Superliga)</span>
+                <span>{completedDivisionsMap.bronze ? '✓ Apurado' : 'Aguardando Avaliação'}</span>
+              </div>
+              <div className={`p-2 rounded-lg flex items-center justify-between border ${completedDivisionsMap.prata ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-300' : 'bg-slate-900 border-slate-800 text-slate-400'}`}>
+                <span>5ª Série Prata (Superliga)</span>
+                <span>{completedDivisionsMap.prata ? '✓ Apurado' : 'Aguardando Bronze'}</span>
+              </div>
+            </div>
+          </div>
+
+          {activeDivUnlock.requiredDivision && (
+            <button
+              onClick={() => handleSelectDivision(activeDivUnlock.requiredDivision!)}
+              className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-black text-xs shadow-xl shadow-amber-500/25 flex items-center justify-center gap-2 cursor-pointer mx-auto transition"
+            >
+              <span>IR PARA A APURAÇÃO DO {activeDivUnlock.requiredName}</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          )}
+        </div>
+      ) : (
+        /* Reader Stage / Locutor Banner */
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border border-amber-500/30 p-6 shadow-2xl space-y-4">
         {/* Presiding League Header */}
         <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-800/80">
           <div className="flex items-center gap-2">
@@ -884,6 +999,7 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
           </div>
         </div>
       </div>
+      )}
 
       {/* Full 36-Judge Matrix Modal / Drawer */}
       {showMatrix && (
