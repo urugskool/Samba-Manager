@@ -53,6 +53,7 @@ interface NavbarProps {
   currentMonth?: string;
   onOpenSeasonCycleModal?: () => void;
   onBlockedTabClick?: (reason: string) => void;
+  onOpenLiesaRanking?: () => void;
 }
 
 interface NavbarTabItem {
@@ -86,7 +87,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   isSorteioCompleted = true,
   currentMonth = 'marco',
   onOpenSeasonCycleModal,
-  onBlockedTabClick
+  onBlockedTabClick,
+  onOpenLiesaRanking
 }) => {
   const [showResetConfirm, setShowResetConfirm] = useState<boolean>(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
@@ -300,6 +302,18 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="hidden lg:inline">Voz Apuração</span>
             </button>
 
+            {/* Ranking LIESA quick access button */}
+            {onOpenLiesaRanking && (
+              <button
+                onClick={onOpenLiesaRanking}
+                title="Ranking Oficial da LIESA (Últimos 5 Carnavais & Histórico)"
+                className="hidden lg:flex px-2.5 py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 hover:text-white border border-amber-500/40 transition items-center gap-1.5 text-xs font-bold cursor-pointer shadow-sm"
+              >
+                <Crown className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                <span>Ranking LIESA</span>
+              </button>
+            )}
+
             {/* Sound Effects Toggle */}
             <button
               onClick={() => setSfxEnabled(!sfxEnabled)}
@@ -490,7 +504,20 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
 
             {/* Quick Mobile Action Buttons */}
-            <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between gap-2">
+            <div className="pt-2 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-2">
+              {onOpenLiesaRanking && (
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenLiesaRanking();
+                  }}
+                  className="w-full py-2 px-3 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-xs font-black flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
+                >
+                  <Crown className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                  <span>Ranking Oficial da LIESA</span>
+                </button>
+              )}
+
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);

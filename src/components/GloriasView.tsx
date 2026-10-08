@@ -22,8 +22,10 @@ import {
   Building2,
   Users,
   Palette,
-  Calendar
+  Calendar,
+  Crown
 } from 'lucide-react';
+import { LiesaRankingModal } from './LiesaRankingModal';
 
 interface GloriasViewProps {
   schools: School[];
@@ -48,6 +50,7 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
   const [divisionFilter, setDivisionFilter] = useState<'all' | DivisionId | 'inativas'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [tableDivisionFilter, setTableDivisionFilter] = useState<'all' | DivisionId | 'inativas'>('all');
+  const [isLiesaModalOpen, setIsLiesaModalOpen] = useState(false);
 
   const espCount = useMemo(() => schools.filter((s) => s.division === 'especial' && isSchoolActive(s)).length, [schools]);
   const ouroCount = useMemo(() => schools.filter((s) => s.division === 'ouro' && isSchoolActive(s)).length, [schools]);
@@ -311,16 +314,30 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
           </p>
         </div>
 
-        {/* Quick actions: Select User School */}
-        {userSchool && (
+        {/* Quick actions: Ranking LIESA and User School */}
+        <div className="flex flex-wrap items-center gap-2.5 self-start md:self-auto">
           <button
-            onClick={() => handleSelectSchool(userSchool.id)}
-            className="px-4 py-2.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold rounded-xl text-xs transition flex items-center gap-2 self-start md:self-auto shadow-md cursor-pointer"
+            onClick={() => setIsLiesaModalOpen(true)}
+            className="px-4 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-xl text-xs transition flex items-center gap-2 shadow-lg shadow-amber-500/20 cursor-pointer active:scale-95"
+            title="Abrir o Ranking Oficial da LIESA (Últimos 5 Carnavais & Histórico)"
           >
-            <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-            <span>Minha Escola ({userSchool.shortName || cleanSchoolName(userSchool)})</span>
+            <Crown className="w-4 h-4 text-slate-950 fill-slate-950" />
+            <span>Ranking da LIESA</span>
+            <span className="text-[10px] px-1.5 py-0.2 rounded bg-slate-950/20 text-slate-950 font-black">
+              5 Anos
+            </span>
           </button>
-        )}
+
+          {userSchool && (
+            <button
+              onClick={() => handleSelectSchool(userSchool.id)}
+              className="px-4 py-2.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-md cursor-pointer"
+            >
+              <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+              <span>Minha Escola ({userSchool.shortName || cleanSchoolName(userSchool)})</span>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Navegador Dinâmico de Escolas (Clean & Intuitivo) */}
@@ -1163,14 +1180,23 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
       {/* Tabela Geral do Palmarés Oficial (Limpa, Dinâmica & Filtrável) */}
       <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800 gap-3">
-          <div>
-            <h3 className="text-lg font-bold text-white flex items-center gap-2">
-              <Trophy className="w-5 h-5 text-amber-400" />
-              <span>Quadro Geral de Honras (Ranking Histórico Oficial)</span>
-            </h3>
-            <p className="text-xs text-slate-400 mt-0.5">
-              Clique em qualquer agremiação para visualizar seu perfil detalhado de glórias.
-            </p>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <div>
+              <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                <Trophy className="w-5 h-5 text-amber-400" />
+                <span>Quadro Geral de Honras (Ranking Histórico Oficial)</span>
+              </h3>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Clique em qualquer agremiação para visualizar seu perfil detalhado de glórias.
+              </p>
+            </div>
+            <button
+              onClick={() => setIsLiesaModalOpen(true)}
+              className="px-3.5 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold transition flex items-center gap-1.5 self-start sm:self-auto cursor-pointer"
+            >
+              <Crown className="w-3.5 h-3.5 text-amber-400" />
+              <span>Ver Ranking LIESA</span>
+            </button>
           </div>
 
           {/* Table Division Filter */}
@@ -1330,6 +1356,17 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
           </table>
         </div>
       </div>
+
+      {/* Modal do Ranking Oficial da LIESA */}
+      <LiesaRankingModal
+        isOpen={isLiesaModalOpen}
+        onClose={() => setIsLiesaModalOpen(false)}
+        schools={schools}
+        inGameHistory={history}
+        currentYear={currentYear}
+        userSchool={userSchool}
+        onSelectSchool={handleSelectSchool}
+      />
     </div>
   );
 };

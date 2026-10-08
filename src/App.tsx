@@ -42,6 +42,7 @@ import { SorteioEngine } from './services/sorteioEngine';
 import { SeasonMonthId } from './types/seasonCycle';
 import { SEASON_PERIODS, SeasonCycleService } from './services/seasonCycleService';
 import { TemporadaCycleModal } from './components/TemporadaCycleModal';
+import { LiesaRankingModal } from './components/LiesaRankingModal';
 
 import { Sparkles, Trophy, CheckCircle, AlertTriangle, Info, Dices, Lock, Calendar, ChevronRight } from 'lucide-react';
 
@@ -324,6 +325,7 @@ export default function App() {
   const [voiceEnabled, setVoiceEnabled] = useState<boolean>(true);
   const [sfxEnabled, setSfxEnabled] = useState<boolean>(true);
   const [isNewGameModalOpen, setIsNewGameModalOpen] = useState<boolean>(false);
+  const [isLiesaModalOpen, setIsLiesaModalOpen] = useState<boolean>(false);
 
   // Parade Scores & Apuração persistent states
   const DEFAULT_DIVISION_STATES: DivisionStatesMap = {
@@ -1486,6 +1488,7 @@ export default function App() {
         currentMonth={currentSeasonMonth}
         onOpenSeasonCycleModal={() => setIsSeasonCycleModalOpen(true)}
         onBlockedTabClick={(reason) => showToast(reason, 'warning')}
+        onOpenLiesaRanking={() => setIsLiesaModalOpen(true)}
       />
 
       {/* Main Workspace */}
@@ -1824,6 +1827,19 @@ export default function App() {
         onNavigateTab={setActiveTab}
         isSorteioCompleted={isSorteioDone}
         onSimulateAllMonthsToCarnaval={handleSimulateAllMonthsToCarnaval}
+      />
+
+      {/* Global Ranking Oficial da LIESA Modal */}
+      <LiesaRankingModal
+        isOpen={isLiesaModalOpen}
+        onClose={() => setIsLiesaModalOpen(false)}
+        schools={schools}
+        inGameHistory={history}
+        currentYear={currentYear}
+        userSchool={userSchool}
+        onSelectSchool={(schoolId) => {
+          setActiveTab('glorias');
+        }}
       />
     </div>
   );
