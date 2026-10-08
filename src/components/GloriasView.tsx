@@ -792,6 +792,25 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
                 </div>
               )}
 
+              {/* Vice-Campeonatos da Série Prata */}
+              {selectedStats.allPrataRunnerUpYears && selectedStats.allPrataRunnerUpYears.length > 0 && (
+                <div className="space-y-1.5 pt-1">
+                  <span className="text-[11px] font-bold text-slate-300 uppercase flex items-center gap-1">
+                    <span>🥈 Vice-Campeonatos da Série Prata ({selectedStats.totalPrataVices}):</span>
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {selectedStats.allPrataRunnerUpYears.map((entry, idx) => (
+                      <span
+                        key={`${entry.year}-${idx}`}
+                        className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-slate-800/90 text-slate-200 border border-slate-400/30"
+                      >
+                        {entry.label || entry.year}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Títulos da Série Bronze */}
               {selectedStats.allBronzeYears.length > 0 && (
                 <div className="space-y-1.5">

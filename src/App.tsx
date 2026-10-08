@@ -170,6 +170,7 @@ function sanitizeSchoolsData(loadedSchools: School[]): School[] {
         historicalPrataTitles: historicalBaseline.championshipsPrata || 0,
         historicalPrataYears: historicalBaseline.prataYears || [],
         historicalPrataRunnerUps: historicalBaseline.runnerUpsPrata || 0,
+        historicalPrataRunnerUpYears: historicalBaseline.prataRunnerUpYears || [],
         historicalBronzeTitles: historicalBaseline.championshipsBronze || 0,
         historicalBronzeYears: historicalBaseline.bronzeYears || [],
         historicalBronzeRunnerUps: historicalBaseline.runnerUpsBronze || 0,

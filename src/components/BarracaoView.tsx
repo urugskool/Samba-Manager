@@ -49,16 +49,6 @@ export const BarracaoView: React.FC<BarracaoViewProps> = ({
 }) => {
   const [showRegulamentoModal, setShowRegulamentoModal] = useState<boolean>(false);
   const [showRoteiroModal, setShowRoteiroModal] = useState<boolean>(false);
-  const [enredoFilter, setEnredoFilter] = useState<'all' | 'patrocinado' | 'autoral'>('all');
-  const [enredoProposals, setEnredoProposals] = useState<Enredo[]>(() => {
-    return EnredoService.generateSchoolEnredoProposals(school, currentYear);
-  });
-
-  const handleRefreshProposals = () => {
-    const fresh = EnredoService.generateSchoolEnredoProposals(school, currentYear);
-    setEnredoProposals(fresh);
-    onShowMessage('A diretoria e o carnavalesco apresentaram novas propostas temáticas e comerciais inéditas!', 'info');
-  };
 
   const composition: SchoolParadeComposition =
     school.paradeComposition || generateDefaultParadeComposition(school);
@@ -281,228 +271,70 @@ export const BarracaoView: React.FC<BarracaoViewProps> = ({
         </div>
       </div>
 
-      {/* Enredo Selection Section */}
+      {/* Enredo Oficial da Agremiação */}
       <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
           <div className="flex items-center gap-2">
             <Palette className="w-5 h-5 text-amber-400" />
             <div>
-              <h3 className="text-lg font-bold text-white">Escolha do Enredo do Carnaval</h3>
+              <h3 className="text-lg font-bold text-white">Enredo Oficial da Agremiação</h3>
               <p className="text-xs text-slate-400">
-                Responsável: <strong className="text-white">{school.staff.carnavalesco.name}</strong> (Nota {school.staff.carnavalesco.rating} • {school.staff.carnavalesco.reputation})
+                Carnavalesco(a): <strong className="text-white">{school.staff?.carnavalesco?.name || 'Comissão de Carnaval'}</strong> (Nota {school.staff?.carnavalesco?.rating || 85} • {school.staff?.carnavalesco?.reputation || 'Arte & Tradição'})
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
             <button
-              onClick={handleRefreshProposals}
-              className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-xs flex items-center gap-1.5 transition border border-slate-700 cursor-pointer"
-              title="Solicitar novos temas e contatar novos patrocinadores"
-            >
-              <RefreshCw className="w-3.5 h-3.5" />
-              <span>Novas Propostas</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Current Enredo Spotlight banner */}
-        {school.currentEnredo && (
-          <div className="p-4 rounded-xl bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border border-amber-500/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                  {school.currentEnredo.themeType}
-                </span>
-                {school.currentEnredo.isSponsored && (
-                  <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center gap-1">
-                    <DollarSign className="w-3 h-3" /> Patrocinado por {school.currentEnredo.sponsorName}
-                  </span>
-                )}
-                <span className="text-[11px] font-bold text-amber-400 flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" /> Enredo em Produção
-                </span>
-              </div>
-              <h4 className="font-black text-white text-base sm:text-lg">
-                "{school.currentEnredo.title}"
-              </h4>
-              <p className="text-xs text-slate-300 leading-relaxed max-w-3xl">
-                {school.currentEnredo.synopsis}
-              </p>
-            </div>
-
-            {/* Acesso ao Roteiro Oficial do Desfile construído para o enredo */}
-            <button
               onClick={() => setShowRoteiroModal(true)}
-              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500/20 via-amber-500/10 to-amber-500/20 hover:from-amber-500/30 hover:to-amber-500/20 text-amber-300 font-bold text-xs flex items-center gap-2 border border-amber-500/40 transition shrink-0 self-start sm:self-center shadow-lg cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500/20 via-amber-500/10 to-amber-500/20 hover:from-amber-500/30 hover:to-amber-500/20 text-amber-300 font-bold text-xs flex items-center gap-2 border border-amber-500/40 transition shadow-lg cursor-pointer"
               title="Abrir o Livro Abre-Alas e o Roteiro Oficial do Desfile construído exclusivamente para este enredo"
             >
               <BookOpen className="w-4 h-4 text-amber-400" />
               <span>Ver Roteiro Oficial do Desfile</span>
             </button>
           </div>
+        </div>
+
+        {/* Current Enredo Spotlight banner */}
+        {school.currentEnredo && (
+          <div className="p-5 rounded-2xl bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border border-amber-500/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                  Vertente: {school.currentEnredo.themeType}
+                </span>
+                {school.currentEnredo.isSponsored && (
+                  <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center gap-1">
+                    <DollarSign className="w-3 h-3" /> Patrocinado por {school.currentEnredo.sponsorName}
+                  </span>
+                )}
+                <span className="text-[11px] font-bold text-amber-400 flex items-center gap-1">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" /> Enredo Definido para a Temporada
+                </span>
+              </div>
+              <h4 className="font-black text-white text-lg sm:text-xl">
+                "{school.currentEnredo.title}"
+              </h4>
+              <p className="text-xs text-slate-300 leading-relaxed max-w-4xl">
+                {school.currentEnredo.synopsis}
+              </p>
+            </div>
+
+            <div className="shrink-0 flex sm:flex-col items-center sm:items-end gap-2">
+              <span className="text-[11px] text-slate-400 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800">
+                Quesito Enredo: <strong className="text-amber-400 font-mono">{school.attributes.enredo} pts</strong>
+              </span>
+              <button
+                onClick={() => setShowRoteiroModal(true)}
+                className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs flex items-center gap-2 transition cursor-pointer shadow-md"
+              >
+                <BookOpen className="w-3.5 h-3.5 text-slate-950" />
+                <span>Roteiro Artístico</span>
+              </button>
+            </div>
+          </div>
         )}
-
-        {/* Filter bar */}
-        <div className="flex items-center gap-2 flex-wrap text-xs">
-          <span className="text-slate-400 font-semibold">Filtrar Propostas:</span>
-          <button
-            onClick={() => setEnredoFilter('all')}
-            className={`px-3 py-1 rounded-lg font-bold transition ${
-              enredoFilter === 'all'
-                ? 'bg-amber-500 text-slate-950 shadow'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
-            }`}
-          >
-            Todas as Propostas ({enredoProposals.length})
-          </button>
-          <button
-            onClick={() => setEnredoFilter('patrocinado')}
-            className={`px-3 py-1 rounded-lg font-bold transition flex items-center gap-1 ${
-              enredoFilter === 'patrocinado'
-                ? 'bg-emerald-500 text-slate-950 shadow'
-                : 'bg-emerald-950/40 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-900/50'
-            }`}
-          >
-            <DollarSign className="w-3 h-3" />
-            <span>Enredos Patrocinados ({enredoProposals.filter((p) => p.isSponsored).length})</span>
-          </button>
-          <button
-            onClick={() => setEnredoFilter('autoral')}
-            className={`px-3 py-1 rounded-lg font-bold transition ${
-              enredoFilter === 'autoral'
-                ? 'bg-amber-500 text-slate-950 shadow'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
-            }`}
-          >
-            Temas Autorais & Culturais ({enredoProposals.filter((p) => !p.isSponsored).length})
-          </button>
-        </div>
-
-        {/* Proposals Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {enredoProposals
-            .filter((enr) => {
-              if (enredoFilter === 'patrocinado') return enr.isSponsored;
-              if (enredoFilter === 'autoral') return !enr.isSponsored;
-              return true;
-            })
-            .map((enr) => {
-              const isSelected = school.currentEnredo?.title === enr.title;
-
-              return (
-                <div
-                  key={enr.id}
-                  className={`p-4 rounded-xl border flex flex-col justify-between transition ${
-                    isSelected
-                      ? 'bg-amber-500/10 border-amber-500 shadow-md shadow-amber-500/10'
-                      : enr.isSponsored
-                      ? 'bg-emerald-950/20 border-emerald-500/40 hover:border-emerald-400'
-                      : 'bg-slate-950/60 border-slate-800 hover:border-slate-700'
-                  }`}
-                >
-                  <div className="space-y-2.5">
-                    <div className="flex items-center justify-between gap-1 flex-wrap">
-                      <span
-                        className={`text-[10px] font-bold px-2 py-0.5 rounded ${
-                          enr.isSponsored
-                            ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-black'
-                            : 'bg-slate-800 text-amber-300 border border-slate-700'
-                        }`}
-                      >
-                        {enr.themeType}
-                      </span>
-                      {isSelected ? (
-                        <span className="flex items-center gap-1 text-[11px] font-bold text-amber-400">
-                          <CheckCircle className="w-3.5 h-3.5" /> Escolhido
-                        </span>
-                      ) : enr.isSponsored ? (
-                        <span className="text-[10px] font-black px-2 py-0.5 rounded bg-emerald-500 text-slate-950 animate-pulse">
-                          PATROCÍNIO R$
-                        </span>
-                      ) : null}
-                    </div>
-
-                    <h4 className="font-bold text-sm text-white leading-snug">
-                      "{enr.title}"
-                    </h4>
-
-                    {enr.isSponsored && enr.sponsorName && (
-                      <div className="p-2 rounded-lg bg-emerald-950/40 border border-emerald-500/30 text-[11px] text-emerald-200 space-y-1">
-                        <div className="font-bold flex items-center gap-1 text-emerald-300">
-                          <Building2 className="w-3.5 h-3.5 shrink-0" />
-                          <span className="truncate">{enr.sponsorName}</span>
-                        </div>
-                        <div className="text-[10px] text-emerald-400/90 font-mono font-bold">
-                          Aporte Financeiro Imediato: + R$ {enr.sponsorValue?.toLocaleString('pt-BR')}
-                        </div>
-                      </div>
-                    )}
-
-                    <p className="text-xs text-slate-400 leading-relaxed">
-                      {enr.synopsis}
-                    </p>
-
-                    {enr.commercialTradeoff && (
-                      <p className="text-[10px] text-amber-300/80 bg-slate-900 p-2 rounded border border-amber-500/20">
-                        ⚖️ {enr.commercialTradeoff}
-                      </p>
-                    )}
-
-                    {/* Affinities */}
-                    <div className="grid grid-cols-2 gap-2 pt-1 text-[10px] text-slate-400">
-                      <div className="bg-slate-900/90 px-2 py-1 rounded border border-slate-800">
-                        <span>Afinidade Carnavalesco:</span>
-                        <div className="font-bold text-amber-400 font-mono">
-                          {enr.carnavalescoAffinity || 80}%
-                        </div>
-                      </div>
-                      <div className="bg-slate-900/90 px-2 py-1 rounded border border-slate-800">
-                        <span>Afinidade Tradição:</span>
-                        <div className="font-bold text-emerald-400 font-mono">
-                          {enr.historicalAffinity || 85}%
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="pt-3 border-t border-slate-800/80 mt-3 flex items-center justify-between text-xs">
-                    <div>
-                      <div className="text-[10px] text-slate-500">
-                        {enr.isSponsored ? 'Impacto na Tesouraria' : 'Custo de Pesquisa'}
-                      </div>
-                      <div
-                        className={`font-mono font-bold ${
-                          enr.isSponsored ? 'text-emerald-400' : 'text-white'
-                        }`}
-                      >
-                        {enr.isSponsored
-                          ? `+ R$ ${enr.sponsorValue?.toLocaleString('pt-BR')}`
-                          : `R$ ${enr.cost.toLocaleString('pt-BR')}`}
-                      </div>
-                    </div>
-                    <button
-                      disabled={isSelected}
-                      onClick={() => handleSelectEnredo(enr)}
-                      className={`px-3 py-1.5 rounded-lg font-bold text-xs transition cursor-pointer ${
-                        isSelected
-                          ? 'bg-amber-500/20 text-amber-300 cursor-default'
-                          : enr.isSponsored
-                          ? 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black shadow-md shadow-emerald-500/20'
-                          : 'bg-amber-500 hover:bg-amber-400 text-slate-950 font-black'
-                      }`}
-                    >
-                      {isSelected
-                        ? 'Em Produção'
-                        : enr.isSponsored
-                        ? 'Assinar Patrocínio & Definir'
-                        : 'Definir Enredo'}
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-        </div>
       </div>
 
       {/* Barracão Investments Grid */}

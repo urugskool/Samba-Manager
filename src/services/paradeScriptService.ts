@@ -307,8 +307,8 @@ export class ParadeScriptService {
     // Carro 2
     if (alegoriasCount >= 2) {
       const f2 = preset.floats.find((f) => f.floatNumber === 2) || {
-        name: `Carro 2: A Jornada do Enredo`,
-        description: 'Segunda alegoria desenvolvendo o segundo setor narrativo.'
+        name: `Carro 2: Obra Escultórica de ${school.currentEnredo?.title || school.shortName}`,
+        description: 'Segunda grande alegoria escultórica desenvolvendo o segundo setor temático.'
       };
       elements.push({
         id: `alegoria_2_${school.id}`,

@@ -169,6 +169,7 @@ export interface ConsolidatedSchoolStats {
   allOuroYears: TitleYearEntry[];
   allOuroRunnerUpYears: TitleYearEntry[];
   allPrataYears: TitleYearEntry[];
+  allPrataRunnerUpYears: TitleYearEntry[];
   allBronzeYears: TitleYearEntry[];
   allAvaliacaoYears: TitleYearEntry[];
   achievements: InGameAchievement[];
@@ -186,6 +187,7 @@ export interface SchoolHonors {
   historicalPrataTitles?: number;
   historicalPrataYears?: number[];
   historicalPrataRunnerUps?: number;
+  historicalPrataRunnerUpYears?: number[];
   historicalBronzeTitles?: number;
   historicalBronzeYears?: number[];
   historicalBronzeRunnerUps?: number;
