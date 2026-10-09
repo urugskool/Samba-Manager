@@ -41,10 +41,101 @@ export function getLiesaPoints(rank: number): number {
 }
 
 /**
- * Resultados oficiais dos 5 últimos carnavais históricos (2022 a 2026)
- * fornecidos pela LIESA para balizar o ranking oficial inicial do jogo.
+ * Resultados oficiais catalogados dos carnavais históricos (2015 a 2026)
+ * fornecidos pela LIESA para balizar o ranking oficial e histórico do jogo.
+ * Carnaval 2021: Não houve desfiles (0 pontos).
+ * Carnaval 2017: Duas campeãs oficiais (Portela e Mocidade Independente).
  */
-export const OFFICIAL_LIESA_STANDINGS_2022_2026: Record<number, LiesaStandingRecord[]> = {
+export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRecord[]> = {
+  2015: [
+    { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
+    { rank: 2, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 3, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio' },
+    { rank: 4, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 5, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 6, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 7, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 8, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
+    { rank: 9, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
+    { rank: 10, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 11, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
+    { rank: 12, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro' }
+  ],
+  2016: [
+    { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 2, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 3, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 4, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 5, schoolId: 'beija_flor', schoolName: 'Beija-Flor de Nilópolis' },
+    { rank: 6, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 7, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio' },
+    { rank: 8, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
+    { rank: 9, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
+    { rank: 10, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 11, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
+    { rank: 12, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá' }
+  ],
+  2017: [
+    { rank: 1, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 1, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 3, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 4, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 5, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio' },
+    { rank: 6, schoolId: 'beija_flor', schoolName: 'Beija-Flor de Nilópolis' },
+    { rank: 7, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 8, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
+    { rank: 9, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
+    { rank: 10, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
+    { rank: 11, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 12, schoolId: 'tuiuti', schoolName: 'Paraíso do Tuiuti' }
+  ],
+  2018: [
+    { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor de Nilópolis' },
+    { rank: 2, schoolId: 'tuiuti', schoolName: 'Paraíso do Tuiuti' },
+    { rank: 3, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 4, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 5, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 6, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 7, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 8, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 9, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
+    { rank: 10, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
+    { rank: 11, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
+    { rank: 12, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio' },
+    { rank: 13, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' }
+  ],
+  2019: [
+    { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 2, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro' },
+    { rank: 3, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
+    { rank: 4, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 5, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 6, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 7, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 8, schoolId: 'tuiuti', schoolName: 'Paraíso do Tuiuti' },
+    { rank: 9, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio' },
+    { rank: 10, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
+    { rank: 11, schoolId: 'beija_flor', schoolName: 'Beija-Flor de Nilópolis' },
+    { rank: 12, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
+    { rank: 13, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 14, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' }
+  ],
+  2020: [
+    { rank: 1, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro' },
+    { rank: 2, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio' },
+    { rank: 3, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 4, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
+    { rank: 5, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 6, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 7, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 8, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
+    { rank: 9, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 10, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
+    { rank: 11, schoolId: 'tuiuti', schoolName: 'Paraíso do Tuiuti' },
+    { rank: 12, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá' },
+    { rank: 13, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' }
+  ],
+  2021: [], // Não Houve Carnaval
   2022: [
     { rank: 1, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio' },
     { rank: 2, schoolId: 'beija_flor', schoolName: 'Beija-Flor de Nilópolis' },
@@ -117,6 +208,18 @@ export const OFFICIAL_LIESA_STANDINGS_2022_2026: Record<number, LiesaStandingRec
   ]
 };
 
+/**
+ * Resultados oficiais dos 5 últimos carnavais históricos (2022 a 2026)
+ * fornecidos pela LIESA para balizar o ranking oficial inicial do jogo.
+ */
+export const OFFICIAL_LIESA_STANDINGS_2022_2026: Record<number, LiesaStandingRecord[]> = {
+  2022: OFFICIAL_LIESA_HISTORICAL_STANDINGS[2022],
+  2023: OFFICIAL_LIESA_HISTORICAL_STANDINGS[2023],
+  2024: OFFICIAL_LIESA_HISTORICAL_STANDINGS[2024],
+  2025: OFFICIAL_LIESA_HISTORICAL_STANDINGS[2025],
+  2026: OFFICIAL_LIESA_HISTORICAL_STANDINGS[2026]
+};
+
 export interface LiesaSchoolYearPerformance {
   year: number;
   rank?: number;
@@ -148,8 +251,21 @@ export interface HistoricalLiesaEntry {
   titlePoints: number;
   vicePoints: number;
   recentPointsPre2022: number;
+  pointsDetailedEra: number;
+  pointsEraPre2015: number;
+  performancesDetailed: Record<number, LiesaSchoolYearPerformance>;
   performances2022Onward: Record<number, LiesaSchoolYearPerformance>;
   totalCarnavalesContados: number;
+}
+
+export interface HistoricalCarnavalInfo {
+  year: number;
+  standings: LiesaStandingRecord[];
+  isNoCarnaval: boolean;
+  notes?: string;
+  championNames: string[];
+  viceChampionNames: string[];
+  totalSchools: number;
 }
 
 /**
@@ -164,22 +280,104 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (!rawName) return 'desconhecido';
   const nameNorm = rawName.toLowerCase();
   if (nameNorm.includes('viradouro')) return 'viradouro';
-  if (nameNorm.includes('beija-flor') || nameNorm.includes('beija flor')) return 'beija_flor';
+  if (nameNorm.includes('beija-flor') || nameNorm.includes('beija flor') || nameNorm.includes('beija_flor')) return 'beija_flor';
   if (nameNorm.includes('grande rio')) return 'grande_rio';
   if (nameNorm.includes('imperatriz')) return 'imperatriz';
   if (nameNorm.includes('vila isabel')) return 'vila_isabel';
   if (nameNorm.includes('salgueiro')) return 'salgueiro';
   if (nameNorm.includes('mangueira')) return 'mangueira';
   if (nameNorm.includes('portela')) return 'portela';
-  if (nameNorm.includes('tijuca')) return 'tijuca';
+  if (nameNorm.includes('tijuca') && !nameNorm.includes('barra')) return 'tijuca';
   if (nameNorm.includes('tuiuti')) return 'tuiuti';
-  if (nameNorm.includes('mocidade')) return 'mocidade';
+  if (nameNorm.includes('mocidade') && !nameNorm.includes('cidade de deus') && !nameNorm.includes('porto') && !nameNorm.includes('vicente')) return 'mocidade';
   if (nameNorm.includes('niterói') || nameNorm.includes('niteroi')) return 'niteroi';
   if (nameNorm.includes('porto da pedra')) return 'porto_da_pedra';
   if (nameNorm.includes('padre miguel') && nameNorm.includes('unidos de')) return 'unidos_padre_miguel';
   if (nameNorm.includes('império serrano') || nameNorm.includes('imperio serrano')) return 'imperio_serrano';
   if (nameNorm.includes('são clemente') || nameNorm.includes('sao clemente')) return 'sao_clemente';
+  if (nameNorm.includes('estácio') || nameNorm.includes('estacio')) return 'estacio_de_sa';
+  if (nameNorm.includes('ilha do governador') || nameNorm.includes('união da ilha') || nameNorm.includes('uniao da ilha')) return 'uniao_da_ilha';
   return nameNorm.replace(/[^a-z0-9]/g, '_');
+}
+
+/**
+ * Retorna lista de carnavais históricos com resultados oficiais catalogados (2015 em diante + save)
+ */
+export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): HistoricalCarnavalInfo[] {
+  const result: HistoricalCarnavalInfo[] = [];
+
+  // Anos simulados in-game (> 2026)
+  const inGameYears = inGameHistory
+    .filter((h) => h.year > 2026 && h.especialStandings && h.especialStandings.length > 0)
+    .sort((a, b) => b.year - a.year);
+
+  inGameYears.forEach((h) => {
+    const stands = h.especialStandings || [];
+    const champs = stands.filter((s) => s.rank === 1).map((s) => s.schoolName);
+    const vices = stands.filter((s) => s.rank === 2).map((s) => s.schoolName);
+    result.push({
+      year: h.year,
+      standings: stands.map((s) => ({
+        rank: s.rank,
+        schoolId: resolveSchoolId(s.schoolId, s.schoolName),
+        schoolName: s.schoolName,
+        totalScore: s.totalScore
+      })),
+      isNoCarnaval: false,
+      notes: `Carnaval simulado durante o save (Ano ${h.year}).`,
+      championNames: champs,
+      viceChampionNames: vices,
+      totalSchools: stands.length
+    });
+  });
+
+  // Anos oficiais catalogados (2026 descendo até 2015)
+  const officialYears = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015];
+  officialYears.forEach((yr) => {
+    const stands = OFFICIAL_LIESA_HISTORICAL_STANDINGS[yr] || [];
+    if (yr === 2021) {
+      result.push({
+        year: 2021,
+        standings: [],
+        isNoCarnaval: true,
+        notes: 'Não Houve Desfile de Carnaval no Sambódromo da Marquês de Sapucaí em razão da pandemia de COVID-19. Nenhum ponto atribuído.',
+        championNames: [],
+        viceChampionNames: [],
+        totalSchools: 0
+      });
+      return;
+    }
+
+    const champs = stands.filter((s) => s.rank === 1).map((s) => s.schoolName);
+    const vices = stands.filter((s) => s.rank === 2).map((s) => s.schoolName);
+
+    let notes: string | undefined;
+    if (yr === 2017) {
+      notes = 'Carnaval histórico com duas campeãs oficiais pela LIESA: Portela e Mocidade Independente de Padre Miguel dividiram o título (ambas pontuando 20 pontos de campeã).';
+    } else if (yr === 2020) {
+      notes = 'Carnaval 2020: Unidos do Viradouro conquistou o campeonato com 20 pontos, e Grande Rio foi a vice-campeã com 15 pontos.';
+    } else if (yr === 2019) {
+      notes = 'Carnaval 2019: Estação Primeira de Mangueira foi campeã com 20 pontos e Viradouro vice com 15 pontos.';
+    } else if (yr === 2018) {
+      notes = 'Carnaval 2018: Beija-Flor de Nilópolis foi campeã com 20 pontos e Paraíso do Tuiuti vice-campeã histórica com 15 pontos.';
+    } else if (yr === 2016) {
+      notes = 'Carnaval 2016: Estação Primeira de Mangueira foi campeã com 20 pontos e Unidos da Tijuca vice com 15 pontos.';
+    } else if (yr === 2015) {
+      notes = 'Carnaval 2015: Beija-Flor de Nilópolis foi campeã com 20 pontos e Acadêmicos do Salgueiro vice com 15 pontos.';
+    }
+
+    result.push({
+      year: yr,
+      standings: stands,
+      isNoCarnaval: false,
+      notes,
+      championNames: champs,
+      viceChampionNames: vices,
+      totalSchools: stands.length
+    });
+  });
+
+  return result;
 }
 
 /**
@@ -373,6 +571,9 @@ export function computeHistoricalLiesaRanking(
       titlePoints: number;
       vicePoints: number;
       recentPointsPre2022: number;
+      pointsDetailedEra: number;
+      pointsEraPre2015: number;
+      performancesDetailed: Record<number, LiesaSchoolYearPerformance>;
       performances2022Onward: Record<number, LiesaSchoolYearPerformance>;
       totalCarnavalesContados: number;
     }
@@ -390,6 +591,9 @@ export function computeHistoricalLiesaRanking(
         titlePoints: 0,
         vicePoints: 0,
         recentPointsPre2022: 0,
+        pointsDetailedEra: 0,
+        pointsEraPre2015: 0,
+        performancesDetailed: {},
         performances2022Onward: {},
         totalCarnavalesContados: 0
       };
@@ -397,34 +601,41 @@ export function computeHistoricalLiesaRanking(
     return historicalMap[sId];
   };
 
-  // 1. Processa todos os títulos e vices históricos da era pré-2022 a partir de HISTORICAL_CARNAVAL_RECORDS
+  // 1. Processa todos os títulos e vices históricos da era pré-2015 a partir de HISTORICAL_CARNAVAL_RECORDS
+  // A partir de 2015 em diante, todas as colocações detalhadas de 1º a 14º vêm do catálogo oficial LIESA
   Object.entries(HISTORICAL_CARNAVAL_RECORDS).forEach(([id, rec]) => {
     const sId = resolveSchoolId(id, undefined, schoolsMap);
     const entry = ensureEntry(sId);
 
-    const espYears = (rec.especialYears || []).filter((y) => y < 2022);
-    const espViceYears = (rec.especialRunnerUpYears || []).filter((y) => y < 2022);
+    const espYearsPre2015 = (rec.especialYears || []).filter((y) => y < 2015);
+    const espViceYearsPre2015 = (rec.especialRunnerUpYears || []).filter((y) => y < 2015);
 
-    const titlesPre2022 = espYears.length;
-    const vicesPre2022 = espViceYears.length;
+    const titlesPre2015 = espYearsPre2015.length;
+    const vicesPre2015 = espViceYearsPre2015.length;
 
-    entry.totalEspecialTitles += titlesPre2022;
-    entry.totalEspecialVices += vicesPre2022;
-    entry.titlePoints += titlesPre2022 * 20;
-    entry.vicePoints += vicesPre2022 * 15;
-    entry.totalPoints += titlesPre2022 * 20 + vicesPre2022 * 15;
-    entry.totalCarnavalesContados += titlesPre2022 + vicesPre2022;
+    entry.totalEspecialTitles += titlesPre2015;
+    entry.totalEspecialVices += vicesPre2015;
+    entry.titlePoints += titlesPre2015 * 20;
+    entry.vicePoints += vicesPre2015 * 15;
+    entry.pointsEraPre2015 += titlesPre2015 * 20 + vicesPre2015 * 15;
+    entry.totalPoints += titlesPre2015 * 20 + vicesPre2015 * 15;
+    entry.totalCarnavalesContados += titlesPre2015 + vicesPre2015;
   });
 
-  // 2. Processa anos de 2022 a 2026 oficiais (com todas as colocações de 1º a 12º)
-  Object.entries(OFFICIAL_LIESA_STANDINGS_2022_2026).forEach(([yrStr, list]) => {
+  // 2. Processa anos de 2015 a 2026 oficiais (com todas as colocações de 1º a 14º)
+  Object.entries(OFFICIAL_LIESA_HISTORICAL_STANDINGS).forEach(([yrStr, list]) => {
     const yr = parseInt(yrStr, 10);
+    if (yr === 2021 || !list || list.length === 0) {
+      // 2021: Não Houve Carnaval
+      return;
+    }
+
     list.forEach((st) => {
       const sId = resolveSchoolId(st.schoolId, st.schoolName, schoolsMap);
       const entry = ensureEntry(sId, st.schoolName);
       const pts = getLiesaPoints(st.rank);
 
-      entry.performances2022Onward[yr] = {
+      const perf: LiesaSchoolYearPerformance = {
         year: yr,
         rank: st.rank,
         points: pts,
@@ -432,8 +643,15 @@ export function computeHistoricalLiesaRanking(
         schoolName: st.schoolName
       };
 
+      entry.performancesDetailed[yr] = perf;
+      if (yr >= 2022) {
+        entry.performances2022Onward[yr] = perf;
+      }
+
       entry.totalPoints += pts;
+      entry.pointsDetailedEra += pts;
       entry.totalCarnavalesContados++;
+
       if (st.rank === 1) {
         entry.totalEspecialTitles++;
         entry.titlePoints += 20;
@@ -452,7 +670,7 @@ export function computeHistoricalLiesaRanking(
         const entry = ensureEntry(sId, st.schoolName);
         const pts = getLiesaPoints(st.rank);
 
-        entry.performances2022Onward[h.year] = {
+        const perf: LiesaSchoolYearPerformance = {
           year: h.year,
           rank: st.rank,
           points: pts,
@@ -460,8 +678,13 @@ export function computeHistoricalLiesaRanking(
           schoolName: st.schoolName
         };
 
+        entry.performancesDetailed[h.year] = perf;
+        entry.performances2022Onward[h.year] = perf;
+
         entry.totalPoints += pts;
+        entry.pointsDetailedEra += pts;
         entry.totalCarnavalesContados++;
+
         if (st.rank === 1) {
           entry.totalEspecialTitles++;
           entry.titlePoints += 20;
@@ -500,6 +723,9 @@ export function computeHistoricalLiesaRanking(
     titlePoints: entry.titlePoints,
     vicePoints: entry.vicePoints,
     recentPointsPre2022: entry.recentPointsPre2022,
+    pointsDetailedEra: entry.pointsDetailedEra,
+    pointsEraPre2015: entry.pointsEraPre2015,
+    performancesDetailed: entry.performancesDetailed,
     performances2022Onward: entry.performances2022Onward,
     totalCarnavalesContados: entry.totalCarnavalesContados
   }));
