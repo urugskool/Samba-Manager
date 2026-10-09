@@ -20,6 +20,7 @@ interface TabelaViewProps {
   userSchool: School | null;
   history: YearHistory[];
   onReactivateSchool?: (schoolId: string) => void;
+  onOpenLiesaRanking?: () => void;
 }
 
 export const TabelaView: React.FC<TabelaViewProps> = ({
@@ -32,7 +33,8 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
   inactiveSchools = [],
   userSchool,
   history,
-  onReactivateSchool
+  onReactivateSchool,
+  onOpenLiesaRanking
 }) => {
   const [selectedDivision, setSelectedDivision] = useState<DivisionId | 'inativas'>('especial');
   const [activeTab, setActiveTab] = useState<'current' | 'history'>('current');
@@ -415,12 +417,24 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                 )}
               </div>
 
-              <div className="text-[11px] text-slate-400 sm:text-right shrink-0">
-                {selectedDivision === 'especial' && '1º ao 6º no Desfile das Campeãs | 12º Rebaixado'}
-                {selectedDivision === 'ouro' && 'Campeã sobe ao Especial | 2 últimas caem para a Prata'}
-                {selectedDivision === 'prata' && 'Acesso para a Série Ouro | Rebaixamento para Série Bronze'}
-                {selectedDivision === 'bronze' && 'Acesso para a Série Prata | Rebaixamento para Grupo de Avaliação'}
-                {selectedDivision === 'avaliacao' && 'Acesso para a Série Bronze | Últimas colocadas são afastadas'}
+              <div className="flex flex-wrap items-center gap-2 shrink-0 sm:justify-end">
+                {onOpenLiesaRanking && (
+                  <button
+                    onClick={onOpenLiesaRanking}
+                    className="px-3 py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-amber-300 hover:text-amber-200 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-sm"
+                    title="Abrir o Ranking Oficial da LIESA (Últimos 5 Carnavais & Histórico)"
+                  >
+                    <Trophy className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Ranking Oficial LIESA</span>
+                  </button>
+                )}
+                <div className="text-[11px] text-slate-400 sm:text-right">
+                  {selectedDivision === 'especial' && '1º ao 6º no Desfile das Campeãs | 12º Rebaixado'}
+                  {selectedDivision === 'ouro' && 'Campeã sobe ao Especial | 2 últimas caem para a Prata'}
+                  {selectedDivision === 'prata' && 'Acesso para a Série Ouro | Rebaixamento para Série Bronze'}
+                  {selectedDivision === 'bronze' && 'Acesso para a Série Prata | Rebaixamento para Grupo de Avaliação'}
+                  {selectedDivision === 'avaliacao' && 'Acesso para a Série Bronze | Últimas colocadas são afastadas'}
+                </div>
               </div>
             </div>
           </div>

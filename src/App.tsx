@@ -1774,6 +1774,7 @@ export default function App() {
             userSchool={userSchool}
             history={history}
             onReactivateSchool={handleReactivateSchool}
+            onOpenLiesaRanking={() => setIsLiesaModalOpen(true)}
           />
         )}
       </main>

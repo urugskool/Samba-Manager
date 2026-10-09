@@ -197,6 +197,7 @@ export interface SchoolHistoryRecord {
   championshipsBronze?: number;
   runnerUpsBronze?: number;
   bronzeYears?: number[];
+  bronzeRunnerUpYears?: number[];
   championshipsAvaliacao?: number;
   runnerUpsAvaliacao?: number;
   avaliacaoYears?: number[];
@@ -204,6 +205,7 @@ export interface SchoolHistoryRecord {
 
 export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = {
   portela: {
+
     championshipsEspecial: 22,
     runnerUpsEspecial: 13,
     especialYears: [1935, 1939, 1941, 1942, 1943, 1944, 1945, 1946, 1947, 1951, 1953, 1957, 1958, 1959, 1960, 1962, 1964, 1966, 1970, 1980, 1984, 2017],
@@ -216,8 +218,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   mangueira: {
+
     championshipsEspecial: 20,
     runnerUpsEspecial: 19,
     especialYears: [1932, 1933, 1934, 1940, 1949, 1950, 1954, 1960, 1961, 1967, 1968, 1973, 1984, 1984, 1986, 1987, 1998, 2002, 2016, 2019],
@@ -230,8 +237,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   beija_flor: {
+
     championshipsEspecial: 15,
     runnerUpsEspecial: 14,
     especialYears: [1976, 1977, 1978, 1980, 1983, 1998, 2003, 2004, 2005, 2007, 2008, 2011, 2015, 2018, 2025],
@@ -244,8 +256,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 1,
     prataRunnerUpYears: [1967],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   salgueiro: {
+
     championshipsEspecial: 9,
     runnerUpsEspecial: 10,
     especialYears: [1960, 1963, 1965, 1969, 1971, 1974, 1975, 1993, 2009],
@@ -258,8 +275,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   imperatriz: {
+
     championshipsEspecial: 9,
     runnerUpsEspecial: 3,
     especialYears: [1980, 1981, 1989, 1994, 1995, 1999, 2000, 2001, 2023],
@@ -272,8 +294,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [1961],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   imperio_serrano: {
+
     championshipsEspecial: 9,
     runnerUpsEspecial: 10,
     especialYears: [1948, 1949, 1950, 1951, 1955, 1956, 1960, 1972, 1982],
@@ -286,8 +313,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   mocidade: {
+
     championshipsEspecial: 6,
     runnerUpsEspecial: 5,
     especialYears: [1979, 1985, 1990, 1991, 1996, 2017],
@@ -300,8 +332,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   tijuca: {
+
     championshipsEspecial: 4,
     runnerUpsEspecial: 6,
     especialYears: [1936, 2010, 2012, 2014],
@@ -314,8 +351,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   viradouro: {
+
     championshipsEspecial: 4,
     runnerUpsEspecial: 2,
     especialYears: [1997, 2020, 2024, 2026],
@@ -328,8 +370,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [1989],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 1,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [1988]
   },
   vila_isabel: {
+
     championshipsEspecial: 3,
     runnerUpsEspecial: 1,
     especialYears: [1988, 2006, 2013],
@@ -342,8 +389,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [1960],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   estacio_de_sa: {
+
     championshipsEspecial: 1,
     runnerUpsEspecial: 0,
     especialYears: [1992],
@@ -356,8 +408,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [1965, 2005],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   grande_rio: {
+
     championshipsEspecial: 1,
     runnerUpsEspecial: 5,
     especialYears: [2022],
@@ -370,8 +427,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 1,
     prataRunnerUpYears: [1989],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   tuiuti: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 1,
     especialRunnerUpYears: [2018],
@@ -383,8 +445,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [1968, 1987, 2011],
     runnerUpsPrata: 3,
     prataRunnerUpYears: [1982, 2006, 2008],
+    championshipsBronze: 2,
+    runnerUpsBronze: 0,
+    bronzeYears: [1980, 1997],
+    bronzeRunnerUpYears: []
   },
   uniao_da_ilha: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 1,
     especialRunnerUpYears: [1980],
@@ -396,9 +463,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 2,
     prataRunnerUpYears: [1961, 1970],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
-  // Escolas históricas extintas do Grupo Especial e Série Ouro (na aba Inativas)
   unidos_da_capela: {
+
     championshipsEspecial: 2,
     runnerUpsEspecial: 0,
     especialYears: [1950, 1960],
@@ -411,8 +482,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   prazer_da_serrinha: {
+
     championshipsEspecial: 1,
     runnerUpsEspecial: 0,
     especialYears: [1950],
@@ -425,8 +501,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   recreio_de_ramos: {
+
     championshipsEspecial: 1,
     runnerUpsEspecial: 0,
     especialYears: [1934],
@@ -439,8 +520,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   aprendizes_de_lucas: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 3,
     especialYears: [],
@@ -453,8 +539,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   azul_e_branco_salgueiro: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 2,
     especialYears: [],
@@ -467,8 +558,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   depois_eu_digo: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 2,
     especialYears: [],
@@ -481,8 +577,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   tres_mosqueteiros: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 2,
     especialYears: [],
@@ -495,8 +596,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   mocidade_louca_sao_cristovao: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 1,
     especialYears: [],
@@ -509,8 +615,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   cada_ano_sai_melhor: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 1,
     especialYears: [],
@@ -523,8 +634,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   coracoes_unidos_jacarepagua: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     especialYears: [],
@@ -537,8 +653,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   flor_do_lins: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     especialYears: [],
@@ -551,8 +672,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   paz_e_amor: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     especialYears: [],
@@ -565,8 +691,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   tupy_bras_de_pina: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     especialYears: [],
@@ -579,8 +710,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 1,
     prataRunnerUpYears: [1987],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   uniao_do_centenario: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     especialYears: [],
@@ -593,8 +729,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 1,
     prataRunnerUpYears: [1968],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   unidos_do_indaia: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     especialYears: [],
@@ -607,8 +748,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   academicos_bento_ribeiro: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     especialYears: [],
@@ -621,8 +767,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   aprendizes_boca_do_mato: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     especialYears: [],
@@ -635,8 +786,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 1,
     prataRunnerUpYears: [1963],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   independentes_cordovil: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     especialYears: [],
@@ -649,8 +805,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [1962, 1985],
     runnerUpsPrata: 2,
     prataRunnerUpYears: [1978, 1984],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   independentes_do_rio: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     especialYears: [],
@@ -663,8 +824,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   unidos_bento_ribeiro: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     especialYears: [],
@@ -677,8 +843,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   unidos_do_salgueiro: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     especialYears: [],
@@ -691,8 +862,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   porto_da_pedra: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 3,
@@ -703,8 +879,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   santa_cruz: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 5,
@@ -715,8 +896,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [1963, 1973, 1980, 2026],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   unidos_padre_miguel: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 2,
@@ -727,8 +913,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [1974, 1984, 2009],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 1,
+    runnerUpsBronze: 1,
+    bronzeYears: [2006],
+    bronzeRunnerUpYears: [1983]
   },
   sao_clemente: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 4,
@@ -739,8 +930,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [1964],
     runnerUpsPrata: 2,
     prataRunnerUpYears: [1983, 2026],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   unidos_da_ponte: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 1,
@@ -751,8 +947,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [1981, 2018],
     runnerUpsPrata: 3,
     prataRunnerUpYears: [1972, 1977, 2000],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   inocentes: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 1,
@@ -763,8 +964,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [2008],
     runnerUpsPrata: 3,
     prataRunnerUpYears: [1999, 2002, 2007],
+    championshipsBronze: 1,
+    runnerUpsBronze: 0,
+    bronzeYears: [1998],
+    bronzeRunnerUpYears: []
   },
   jacarezinho: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 1,
@@ -775,8 +981,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [1967, 1982, 1998, 2025],
     runnerUpsPrata: 1,
     prataRunnerUpYears: [2015],
+    championshipsBronze: 2,
+    runnerUpsBronze: 1,
+    bronzeYears: [2008, 2012],
+    bronzeRunnerUpYears: [1981]
   },
   em_cima_da_hora: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 2,
@@ -787,8 +998,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [1966, 1978, 2013],
     runnerUpsPrata: 3,
     prataRunnerUpYears: [1981, 1988, 2020],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   arranco: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 1,
@@ -799,8 +1015,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [1975, 1984, 1996],
     runnerUpsPrata: 4,
     prataRunnerUpYears: [2005, 2010, 2013, 2022],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   unidos_de_bangu: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 2,
@@ -811,8 +1032,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [2014, 2017],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 1,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [2013]
   },
   botafogo_samba_clube: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
@@ -823,8 +1049,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 1,
     prataRunnerUpYears: [2024],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   parque_acari: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
@@ -835,8 +1066,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 1,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [2019]
   },
   marica: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 1,
@@ -847,8 +1083,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 1,
     prataRunnerUpYears: [2023],
+    championshipsBronze: 1,
+    runnerUpsBronze: 0,
+    bronzeYears: [2018],
+    bronzeRunnerUpYears: []
   },
   niteroi: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 1,
@@ -859,8 +1100,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   vigario_geral: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
@@ -871,9 +1117,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [2019],
     runnerUpsPrata: 1,
     prataRunnerUpYears: [1995],
+    championshipsBronze: 0,
+    runnerUpsBronze: 1,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [1993]
   },
-  // Série Prata (Terceira Divisão - 24 agremiações)
   unidos_de_lucas: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
@@ -884,8 +1134,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 1,
+    runnerUpsBronze: 0,
+    bronzeYears: [2003],
+    bronzeRunnerUpYears: []
   },
   rosa_de_ouro: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
@@ -894,8 +1149,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   curicica: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
@@ -906,8 +1166,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 4,
     prataRunnerUpYears: [2009, 2011, 2018, 2019],
+    championshipsBronze: 2,
+    runnerUpsBronze: 1,
+    bronzeYears: [2005, 2025],
+    bronzeRunnerUpYears: [2002]
   },
   vila_santa_tereza: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
@@ -916,8 +1181,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 2,
     prataRunnerUpYears: [1964, 1971],
+    championshipsBronze: 2,
+    runnerUpsBronze: 1,
+    bronzeYears: [1982, 2011],
+    bronzeRunnerUpYears: [1989]
   },
   arrastao_cascadura: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 1,
@@ -928,8 +1198,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [1976, 1988, 1992],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 1,
+    runnerUpsBronze: 1,
+    bronzeYears: [2022],
+    bronzeRunnerUpYears: [2008]
   },
   renascer_jacarepagua: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 1,
@@ -940,8 +1215,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 1,
     prataRunnerUpYears: [2004],
+    championshipsBronze: 0,
+    runnerUpsBronze: 1,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [2000]
   },
   independentes_olaria: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
@@ -950,8 +1230,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   leao_zona_oeste: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
@@ -960,8 +1245,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 1,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [2026]
   },
   sereno_campo_grande: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
@@ -972,8 +1262,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [2023],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 1,
+    runnerUpsBronze: 2,
+    bronzeYears: [2026],
+    bronzeRunnerUpYears: [1984, 2006]
   },
   tradicao: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 3,
@@ -984,8 +1279,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [1986, 2020, 2024],
     runnerUpsPrata: 2,
     prataRunnerUpYears: [2016, 2023],
+    championshipsBronze: 1,
+    runnerUpsBronze: 0,
+    bronzeYears: [1985],
+    bronzeRunnerUpYears: []
   },
   tubarao_mesquita: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
@@ -994,8 +1294,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 1,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [2023]
   },
   engenho_da_rainha: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 1,
@@ -1006,8 +1311,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [1977, 1983, 2022],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   imperio_da_tijuca: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 4,
@@ -1018,8 +1328,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [1979, 2006],
     runnerUpsPrata: 1,
     prataRunnerUpYears: [1990],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   santa_marta: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
@@ -1028,8 +1343,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 1,
+    runnerUpsBronze: 2,
+    bronzeYears: [2014],
+    bronzeRunnerUpYears: [1994, 1997]
   },
   boi_da_ilha: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
@@ -1040,8 +1360,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 4,
+    runnerUpsBronze: 1,
+    bronzeYears: [1993, 1996, 2022, 2024],
+    bronzeRunnerUpYears: [1998]
   },
   fla_manguaca: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
@@ -1050,8 +1375,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 1,
+    runnerUpsBronze: 0,
+    bronzeYears: [2023],
+    bronzeRunnerUpYears: []
   },
   unidos_de_cosmos: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
@@ -1060,8 +1390,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   imperio_da_uva: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
@@ -1070,8 +1405,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 1,
     prataRunnerUpYears: [2025],
+    championshipsBronze: 1,
+    runnerUpsBronze: 0,
+    bronzeYears: [2019],
+    bronzeRunnerUpYears: []
   },
   rocinha: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 1,
@@ -1082,8 +1422,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [1991, 1999, 2001, 2015],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 1,
+    runnerUpsBronze: 0,
+    bronzeYears: [1990],
+    bronzeRunnerUpYears: []
   },
   cubango: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
@@ -1094,8 +1439,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [2002, 2009],
     runnerUpsPrata: 2,
     prataRunnerUpYears: [1992, 1997],
+    championshipsBronze: 0,
+    runnerUpsBronze: 1,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [1987]
   },
   abolicao: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
@@ -1104,8 +1454,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   alegria_do_vilar: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
@@ -1114,8 +1469,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   feitico_carioca: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
@@ -1124,8 +1484,13 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   lins_imperial: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 1,
@@ -1136,182 +1501,227 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [1997, 2003, 2007, 2020],
     runnerUpsPrata: 2,
     prataRunnerUpYears: [1979, 1986],
+    championshipsBronze: 0,
+    runnerUpsBronze: 2,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [2017, 2025]
   },
-  // Série Bronze (Quarta Divisão - 22 agremiações)
   arame_de_ricardo: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsPrata: 0,
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 1,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [2014]
   },
   chatuba: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsPrata: 0,
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   uniao_cruzmaltina: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsPrata: 0,
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 1,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [2022]
   },
   villa_rica: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 1,
     runnerUpsOuro: 0,
     ouroYears: [1994],
     ouroRunnerUpYears: [],
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsPrata: 1,
     prataYears: [1993],
     runnerUpsPrata: 1,
     prataRunnerUpYears: [1998],
+    championshipsBronze: 0,
+    runnerUpsBronze: 2,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [1992, 2012]
   },
   vicente_de_carvalho: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsPrata: 0,
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 1,
+    runnerUpsBronze: 3,
+    bronzeYears: [2007],
+    bronzeRunnerUpYears: [1995, 1996, 2004]
   },
   imperio_nova_iguacu: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsPrata: 0,
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 1,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [2024]
   },
   cabucu: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 2,
     runnerUpsOuro: 1,
     ouroYears: [1961, 1984],
     ouroRunnerUpYears: [1976],
-    championshipsBronze: 1,
-    runnerUpsBronze: 0,
-    bronzeYears: [2018],
     championshipsPrata: 1,
     prataYears: [1969],
     runnerUpsPrata: 3,
     prataRunnerUpYears: [1973, 2014, 2017],
+    championshipsBronze: 1,
+    runnerUpsBronze: 1,
+    bronzeYears: [2013],
+    bronzeRunnerUpYears: [2003]
   },
   novo_imperio: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsPrata: 0,
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   praca_da_bandeira: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsPrata: 0,
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 2,
+    runnerUpsBronze: 0,
+    bronzeYears: [2004, 2010],
+    bronzeRunnerUpYears: []
   },
   casa_de_malandro: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsPrata: 0,
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   coroado_jacarepagua: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsPrata: 0,
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 1,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [2016]
   },
   imperadores_rubro_negros: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsPrata: 0,
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   academicos_do_dende: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsPrata: 1,
     prataYears: [1995],
     runnerUpsPrata: 1,
     prataRunnerUpYears: [1996],
+    championshipsBronze: 1,
+    runnerUpsBronze: 1,
+    bronzeYears: [1994],
+    bronzeRunnerUpYears: [2007]
   },
   siri_de_ramos: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsPrata: 0,
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 1,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [2018]
   },
   vizinha_faladeira: {
+
     championshipsEspecial: 1,
     runnerUpsEspecial: 0,
     especialYears: [1937],
@@ -1320,220 +1730,264 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     runnerUpsOuro: 0,
     ouroYears: [],
     ouroRunnerUpYears: [],
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsPrata: 2,
     prataYears: [2004, 2023],
     runnerUpsPrata: 2,
     prataRunnerUpYears: [1994, 2022],
+    championshipsBronze: 2,
+    runnerUpsBronze: 0,
+    bronzeYears: [1992, 2016],
+    bronzeRunnerUpYears: []
   },
   academicos_do_recreio: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsPrata: 0,
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   leao_de_nova_iguacu: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 1,
     ouroYears: [],
     ouroRunnerUpYears: [1991],
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsPrata: 2,
     prataYears: [1990, 2000],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 3,
+    runnerUpsBronze: 1,
+    bronzeYears: [1988, 1999, 2015],
+    bronzeRunnerUpYears: [2020]
   },
   alegria_de_copacabana: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsPrata: 0,
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   uniao_de_jacarepagua: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
     ouroYears: [],
     ouroRunnerUpYears: [],
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsPrata: 1,
     prataYears: [2022],
     runnerUpsPrata: 3,
     prataRunnerUpYears: [1980, 1985, 2001],
+    championshipsBronze: 0,
+    runnerUpsBronze: 1,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [1999]
   },
   caprichosos_de_pilares: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 2,
     runnerUpsOuro: 3,
     ouroYears: [1960, 1982],
     ouroRunnerUpYears: [1954, 1997, 2007],
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsPrata: 2,
     prataYears: [1971, 2012],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 1,
+    runnerUpsBronze: 0,
+    bronzeYears: [2020],
+    bronzeRunnerUpYears: []
   },
   dificil_e_o_nome: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 1,
-    runnerUpsBronze: 0,
-    bronzeYears: [2020],
     championshipsPrata: 1,
     prataYears: [1994],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 1,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [2010]
   },
   academicos_de_madureira: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsPrata: 0,
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   tpm_madureira: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsAvaliacao: 0,
     runnerUpsAvaliacao: 0,
     championshipsPrata: 0,
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   amarelinho: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsAvaliacao: 0,
     runnerUpsAvaliacao: 0,
     championshipsPrata: 0,
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   uniao_vaz_lobo: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 1,
-    bronzeYears: [1980],
-    runnerUpsBronze: 0,
     championshipsAvaliacao: 0,
     runnerUpsAvaliacao: 0,
     championshipsPrata: 0,
     prataYears: [],
     runnerUpsPrata: 2,
     prataRunnerUpYears: [1960, 1969],
+    championshipsBronze: 1,
+    runnerUpsBronze: 0,
+    bronzeYears: [1984],
+    bronzeRunnerUpYears: []
   },
   imperio_petropolis: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsAvaliacao: 0,
     runnerUpsAvaliacao: 0,
     championshipsPrata: 0,
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   sao_cristovao: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 1,
-    bronzeYears: [1975],
-    runnerUpsBronze: 0,
     championshipsAvaliacao: 0,
     runnerUpsAvaliacao: 0,
     championshipsPrata: 0,
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   manguariba: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsAvaliacao: 0,
     runnerUpsAvaliacao: 0,
     championshipsPrata: 0,
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   unidos_anil: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsAvaliacao: 0,
     runnerUpsAvaliacao: 0,
     championshipsPrata: 0,
     prataYears: [],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   canarios_laranjeiras: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     championshipsOuro: 0,
     runnerUpsOuro: 0,
-    championshipsBronze: 1,
-    bronzeYears: [1968],
-    runnerUpsBronze: 0,
     championshipsAvaliacao: 0,
     runnerUpsAvaliacao: 0,
     championshipsPrata: 0,
     prataYears: [],
     runnerUpsPrata: 1,
     prataRunnerUpYears: [1993],
+    championshipsBronze: 1,
+    runnerUpsBronze: 0,
+    bronzeYears: [1991],
+    bronzeRunnerUpYears: []
   },
   unidos_de_manguinhos: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     especialYears: [],
@@ -1546,12 +2000,15 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 2,
     prataRunnerUpYears: [1966, 1976],
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsAvaliacao: 0,
-    runnerUpsAvaliacao: 0
+    runnerUpsAvaliacao: 0,
+    championshipsBronze: 0,
+    runnerUpsBronze: 1,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [1980]
   },
   academicos_do_sossego: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     especialYears: [],
@@ -1564,12 +2021,15 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [2016],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsAvaliacao: 0,
-    runnerUpsAvaliacao: 0
+    runnerUpsAvaliacao: 0,
+    championshipsBronze: 1,
+    runnerUpsBronze: 1,
+    bronzeYears: [2009],
+    bronzeRunnerUpYears: [2001]
   },
   alegria_da_zona_sul: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     especialYears: [],
@@ -1582,12 +2042,15 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [2010],
     runnerUpsPrata: 3,
     prataRunnerUpYears: [2003, 2012, 2020],
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsAvaliacao: 0,
-    runnerUpsAvaliacao: 0
+    runnerUpsAvaliacao: 0,
+    championshipsBronze: 1,
+    runnerUpsBronze: 0,
+    bronzeYears: [2001],
+    bronzeRunnerUpYears: []
   },
   cartolinhas_de_caxias: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     especialYears: [],
@@ -1600,12 +2063,15 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [1970],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsAvaliacao: 0,
+    runnerUpsAvaliacao: 0,
     championshipsBronze: 0,
     runnerUpsBronze: 0,
-    championshipsAvaliacao: 0,
-    runnerUpsAvaliacao: 0
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   imperio_de_campo_grande: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     especialYears: [],
@@ -1618,12 +2084,15 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [1972],
     runnerUpsPrata: 0,
     prataRunnerUpYears: [],
+    championshipsAvaliacao: 0,
+    runnerUpsAvaliacao: 0,
     championshipsBronze: 0,
     runnerUpsBronze: 0,
-    championshipsAvaliacao: 0,
-    runnerUpsAvaliacao: 0
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   unidos_de_nilopolis: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     especialYears: [],
@@ -1636,12 +2105,15 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 2,
     prataRunnerUpYears: [1962, 1975],
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsAvaliacao: 0,
-    runnerUpsAvaliacao: 0
+    runnerUpsAvaliacao: 0,
+    championshipsBronze: 1,
+    runnerUpsBronze: 1,
+    bronzeYears: [1981],
+    bronzeRunnerUpYears: [1979]
   },
   aprendizes_da_gavea: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     especialYears: [],
@@ -1654,12 +2126,15 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 1,
     prataRunnerUpYears: [1963],
+    championshipsAvaliacao: 0,
+    runnerUpsAvaliacao: 0,
     championshipsBronze: 0,
     runnerUpsBronze: 0,
-    championshipsAvaliacao: 0,
-    runnerUpsAvaliacao: 0
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
   },
   folioes_de_botafogo: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     especialYears: [],
@@ -1672,12 +2147,15 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 1,
     prataRunnerUpYears: [1974],
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsAvaliacao: 0,
-    runnerUpsAvaliacao: 0
+    runnerUpsAvaliacao: 0,
+    championshipsBronze: 1,
+    runnerUpsBronze: 0,
+    bronzeYears: [1979],
+    bronzeRunnerUpYears: []
   },
   unidos_do_campinho: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     especialYears: [],
@@ -1690,12 +2168,15 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 1,
     prataRunnerUpYears: [1991],
-    championshipsBronze: 0,
-    runnerUpsBronze: 0,
     championshipsAvaliacao: 0,
-    runnerUpsAvaliacao: 0
+    runnerUpsAvaliacao: 0,
+    championshipsBronze: 0,
+    runnerUpsBronze: 1,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [1990]
   },
   unidos_do_jardim: {
+
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
     especialYears: [],
@@ -1708,10 +2189,210 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     prataYears: [],
     runnerUpsPrata: 1,
     prataRunnerUpYears: [1965],
+    championshipsAvaliacao: 0,
+    runnerUpsAvaliacao: 0,
     championshipsBronze: 0,
     runnerUpsBronze: 0,
-    championshipsAvaliacao: 0,
-    runnerUpsAvaliacao: 0
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
+  },
+  mocidade_cidade_de_deus: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    especialYears: [],
+    especialRunnerUpYears: [],
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    ouroYears: [],
+    ouroRunnerUpYears: [],
+    championshipsPrata: 0,
+    prataYears: [],
+    runnerUpsPrata: 0,
+    prataRunnerUpYears: [],
+    championshipsBronze: 3,
+    runnerUpsBronze: 0,
+    bronzeYears: [1980, 1983, 1987],
+    bronzeRunnerUpYears: []
+  },
+  academicos_da_barra_da_tijuca: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    especialYears: [],
+    especialRunnerUpYears: [],
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    ouroYears: [],
+    ouroRunnerUpYears: [],
+    championshipsPrata: 0,
+    prataYears: [],
+    runnerUpsPrata: 0,
+    prataRunnerUpYears: [],
+    championshipsBronze: 1,
+    runnerUpsBronze: 0,
+    bronzeYears: [2002],
+    bronzeRunnerUpYears: []
+  },
+  flor_da_mina: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    especialYears: [],
+    especialRunnerUpYears: [],
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    ouroYears: [],
+    ouroRunnerUpYears: [],
+    championshipsPrata: 0,
+    prataYears: [],
+    runnerUpsPrata: 0,
+    prataRunnerUpYears: [],
+    championshipsBronze: 1,
+    runnerUpsBronze: 2,
+    bronzeYears: [1995],
+    bronzeRunnerUpYears: [2005, 2009]
+  },
+  imperio_do_maranga: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    especialYears: [],
+    especialRunnerUpYears: [],
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    ouroYears: [],
+    ouroRunnerUpYears: [],
+    championshipsPrata: 0,
+    prataYears: [],
+    runnerUpsPrata: 0,
+    prataRunnerUpYears: [],
+    championshipsBronze: 1,
+    runnerUpsBronze: 0,
+    bronzeYears: [1986],
+    bronzeRunnerUpYears: []
+  },
+  uniao_de_rocha_miranda: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    especialYears: [],
+    especialRunnerUpYears: [],
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    ouroYears: [],
+    ouroRunnerUpYears: [],
+    championshipsPrata: 0,
+    prataYears: [],
+    runnerUpsPrata: 0,
+    prataRunnerUpYears: [],
+    championshipsBronze: 1,
+    runnerUpsBronze: 1,
+    bronzeYears: [1989],
+    bronzeRunnerUpYears: [1985]
+  },
+  unidos_da_vila_kennedy: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    especialYears: [],
+    especialRunnerUpYears: [],
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    ouroYears: [],
+    ouroRunnerUpYears: [],
+    championshipsPrata: 0,
+    prataYears: [],
+    runnerUpsPrata: 0,
+    prataRunnerUpYears: [],
+    championshipsBronze: 1,
+    runnerUpsBronze: 1,
+    bronzeYears: [2000],
+    bronzeRunnerUpYears: [1991]
+  },
+  unidos_das_vargens: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    especialYears: [],
+    especialRunnerUpYears: [],
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    ouroYears: [],
+    ouroRunnerUpYears: [],
+    championshipsPrata: 0,
+    prataYears: [],
+    runnerUpsPrata: 0,
+    prataRunnerUpYears: [],
+    championshipsBronze: 1,
+    runnerUpsBronze: 1,
+    bronzeYears: [2017],
+    bronzeRunnerUpYears: [2015]
+  },
+  academicos_do_cachambi: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    especialYears: [],
+    especialRunnerUpYears: [],
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    ouroYears: [],
+    ouroRunnerUpYears: [],
+    championshipsPrata: 0,
+    prataYears: [],
+    runnerUpsPrata: 0,
+    prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 1,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [1982]
+  },
+  favo_de_acari: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    especialYears: [],
+    especialRunnerUpYears: [],
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    ouroYears: [],
+    ouroRunnerUpYears: [],
+    championshipsPrata: 0,
+    prataYears: [],
+    runnerUpsPrata: 0,
+    prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 1,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [2011]
+  },
+  grande_rio_duque_de_caxias: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    especialYears: [],
+    especialRunnerUpYears: [],
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    ouroYears: [],
+    ouroRunnerUpYears: [],
+    championshipsPrata: 0,
+    prataYears: [],
+    runnerUpsPrata: 0,
+    prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 1,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [1986]
+  },
+  mocidade_do_porto: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    especialYears: [],
+    especialRunnerUpYears: [],
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    ouroYears: [],
+    ouroRunnerUpYears: [],
+    championshipsPrata: 0,
+    prataYears: [],
+    runnerUpsPrata: 0,
+    prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 1,
+    bronzeYears: [],
+    bronzeRunnerUpYears: [2022]
   },
 };
 
@@ -4327,6 +5008,25 @@ export function getSchoolConsolidatedStats(school: School): ConsolidatedSchoolSt
     .map(([year, info]) => ({ year, isHistorical: info.isHistorical, source: info.source }))
     .sort((a, b) => a.year - b.year);
 
+  // Build sorted list of Série Bronze runner-up (vice) years
+  const bronzeRunnerUpYearsMap = new Map<number, { isHistorical: boolean; source: string }>();
+  (school.honors?.historicalBronzeRunnerUpYears || []).forEach((yr) => {
+    bronzeRunnerUpYearsMap.set(yr, {
+      isHistorical: true,
+      source: yr <= 2026 ? `Histórico (${yr})` : 'Histórico'
+    });
+  });
+  inGameBronzeVices.forEach((ach) => {
+    bronzeRunnerUpYearsMap.set(ach.year, {
+      isHistorical: false,
+      source: `No Jogo (${ach.year})`
+    });
+  });
+
+  const allBronzeRunnerUpYears: TitleYearEntry[] = Array.from(bronzeRunnerUpYearsMap.entries())
+    .map(([year, info]) => ({ year, isHistorical: info.isHistorical, source: info.source }))
+    .sort((a, b) => a.year - b.year);
+
   // Build sorted list of Grupo de Avaliação title years
   const avaliacaoYearsMap = new Map<number, { isHistorical: boolean; source: string }>();
   (school.honors?.historicalAvaliacaoYears || []).forEach((yr) => {
@@ -4387,6 +5087,7 @@ export function getSchoolConsolidatedStats(school: School): ConsolidatedSchoolSt
     allPrataYears,
     allPrataRunnerUpYears,
     allBronzeYears,
+    allBronzeRunnerUpYears,
     allAvaliacaoYears,
     achievements: inGameAchievements
   };
@@ -4409,8 +5110,8 @@ export const INITIAL_SCHOOLS: School[] = [
       runnerUpsOuro: stats.runnerUpsOuro,
       championshipsPrata: stats.championshipsPrata !== undefined ? stats.championshipsPrata : (school.championshipsPrata || 0),
       runnerUpsPrata: stats.runnerUpsPrata !== undefined ? stats.runnerUpsPrata : 0,
-      championshipsBronze: school.championshipsBronze || stats.championshipsBronze || 0,
-      runnerUpsBronze: stats.runnerUpsBronze || 0,
+      championshipsBronze: stats.championshipsBronze !== undefined ? stats.championshipsBronze : (school.championshipsBronze || 0),
+      runnerUpsBronze: stats.runnerUpsBronze !== undefined ? stats.runnerUpsBronze : 0,
       championshipsAvaliacao: school.championshipsAvaliacao || 0,
       runnerUpsAvaliacao: 0,
       isInactive: false,
@@ -4429,9 +5130,10 @@ export const INITIAL_SCHOOLS: School[] = [
         historicalPrataYears: stats.prataYears || [],
         historicalPrataRunnerUps: stats.runnerUpsPrata !== undefined ? stats.runnerUpsPrata : 0,
         historicalPrataRunnerUpYears: stats.prataRunnerUpYears || [],
-        historicalBronzeTitles: school.championshipsBronze || stats.championshipsBronze || 0,
+        historicalBronzeTitles: stats.championshipsBronze !== undefined ? stats.championshipsBronze : (school.championshipsBronze || 0),
         historicalBronzeYears: stats.bronzeYears || [],
-        historicalBronzeRunnerUps: stats.runnerUpsBronze || 0,
+        historicalBronzeRunnerUps: stats.runnerUpsBronze !== undefined ? stats.runnerUpsBronze : 0,
+        historicalBronzeRunnerUpYears: stats.bronzeRunnerUpYears || [],
         historicalAvaliacaoTitles: 0,
         historicalAvaliacaoYears: [],
         historicalAvaliacaoRunnerUps: 0,
@@ -4456,9 +5158,22 @@ export const INITIAL_SCHOOLS: School[] = [
     };
   }),
   ...AVALIACAO_SCHOOLS_INITIAL.map((school) => {
-    const consolidated = getSchoolConsolidatedStats(school);
-    return {
+    const stats = HISTORICAL_CARNAVAL_RECORDS[school.id];
+    const enrichedSchool: School = {
       ...school,
+      championshipsBronze: stats?.championshipsBronze !== undefined ? stats.championshipsBronze : (school.championshipsBronze || 0),
+      runnerUpsBronze: stats?.runnerUpsBronze !== undefined ? stats.runnerUpsBronze : (school.runnerUpsBronze || 0),
+      honors: {
+        ...school.honors,
+        historicalBronzeTitles: stats?.championshipsBronze !== undefined ? stats.championshipsBronze : (school.honors?.historicalBronzeTitles || 0),
+        historicalBronzeYears: stats?.bronzeYears || school.honors?.historicalBronzeYears || [],
+        historicalBronzeRunnerUps: stats?.runnerUpsBronze !== undefined ? stats.runnerUpsBronze : (school.honors?.historicalBronzeRunnerUps || 0),
+        historicalBronzeRunnerUpYears: stats?.bronzeRunnerUpYears || school.honors?.historicalBronzeRunnerUpYears || [],
+      }
+    };
+    const consolidated = getSchoolConsolidatedStats(enrichedSchool);
+    return {
+      ...enrichedSchool,
       isInactive: false,
       inactive: false,
       championshipsEspecial: consolidated.totalEspecialTitles,
@@ -4474,9 +5189,22 @@ export const INITIAL_SCHOOLS: School[] = [
     };
   }),
   ...INACTIVE_SCHOOLS_INITIAL.map((school) => {
-    const consolidated = getSchoolConsolidatedStats(school);
-    return {
+    const stats = HISTORICAL_CARNAVAL_RECORDS[school.id];
+    const enrichedSchool: School = {
       ...school,
+      championshipsBronze: stats?.championshipsBronze !== undefined ? stats.championshipsBronze : (school.championshipsBronze || 0),
+      runnerUpsBronze: stats?.runnerUpsBronze !== undefined ? stats.runnerUpsBronze : (school.runnerUpsBronze || 0),
+      honors: {
+        ...school.honors,
+        historicalBronzeTitles: stats?.championshipsBronze !== undefined ? stats.championshipsBronze : (school.honors?.historicalBronzeTitles || 0),
+        historicalBronzeYears: stats?.bronzeYears || school.honors?.historicalBronzeYears || [],
+        historicalBronzeRunnerUps: stats?.runnerUpsBronze !== undefined ? stats.runnerUpsBronze : (school.honors?.historicalBronzeRunnerUps || 0),
+        historicalBronzeRunnerUpYears: stats?.bronzeRunnerUpYears || school.honors?.historicalBronzeRunnerUpYears || [],
+      }
+    };
+    const consolidated = getSchoolConsolidatedStats(enrichedSchool);
+    return {
+      ...enrichedSchool,
       isInactive: true,
       inactive: true,
       championshipsEspecial: consolidated.totalEspecialTitles,
