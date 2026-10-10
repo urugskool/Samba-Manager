@@ -21,7 +21,11 @@ import {
   Info,
   Layers,
   Fuel,
-  Bus
+  Bus,
+  ArrowRightLeft,
+  Route,
+  Navigation,
+  ShieldCheck
 } from 'lucide-react';
 import { cleanSchoolName } from '../utils/schoolNameUtils';
 
@@ -203,36 +207,174 @@ export const ParadeLogisticsModal: React.FC<ParadeLogisticsModalProps> = ({
 
           {/* Section 2: Fleet & Contingent Needs */}
           <div className="p-5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-4">
-            <div className="flex items-center gap-2 text-xs text-amber-400 font-bold uppercase tracking-wider text-[11px]">
-              <Bus className="w-4 h-4 text-amber-400" />
-              <span>Contingente e Frota Mobilizada</span>
+            <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+              <div className="flex items-center gap-2 text-xs text-amber-400 font-bold uppercase tracking-wider">
+                <Bus className="w-4 h-4 text-amber-400" />
+                <span>Contingente e Frota Mobilizada ({report.fleetBreakdown.totalVehicles} Veículos no Comboio)</span>
+              </div>
+              <span className="text-[11px] font-mono text-slate-400 bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">
+                {report.componentesCount.toLocaleString('pt-BR')} componentes • {report.alegoriasCount} alegorias
+              </span>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-              <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
-                <div className="text-[10px] text-slate-400">Componentes a Deslocar</div>
-                <div className="text-base font-black text-white font-mono">
-                  {report.componentesCount.toLocaleString('pt-BR')}
+            {/* Grid Detalhado de Veículos Fretados */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
+              {/* Ônibus */}
+              <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] text-slate-400 uppercase font-semibold">Ônibus Fretados</span>
+                  <Bus className="w-3.5 h-3.5 text-amber-400" />
+                </div>
+                <div className="text-xl font-black text-amber-300 font-mono">
+                  {report.fleetBreakdown.busesComponentes}
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  Alas comunitárias, baianas e velha guarda
+                </p>
+              </div>
+
+              {/* Caminhão de Bateria */}
+              <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] text-slate-400 uppercase font-semibold">Caminhões de Bateria</span>
+                  <Truck className="w-3.5 h-3.5 text-emerald-400" />
+                </div>
+                <div className="text-xl font-black text-emerald-300 font-mono">
+                  {report.fleetBreakdown.trucksBateria}
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  Travas para surdos, caixas, repiques e agogôs
+                </p>
+              </div>
+
+              {/* Caminhões de Materiais */}
+              <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] text-slate-400 uppercase font-semibold">Adereços & Tripés</span>
+                  <Truck className="w-3.5 h-3.5 text-blue-400" />
+                </div>
+                <div className="text-xl font-black text-blue-300 font-mono">
+                  {report.fleetBreakdown.trucksMateriaisEAderecos}
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  Adereços de mão, chapelaria e {report.tripesCount} tripés
+                </p>
+              </div>
+
+              {/* Carretas de Alegorias */}
+              <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] text-slate-400 uppercase font-semibold">Reboque de Alegorias</span>
+                  <Layers className="w-3.5 h-3.5 text-purple-400" />
+                </div>
+                <div className="text-xl font-black text-purple-300 font-mono">
+                  {report.fleetBreakdown.trucksAlegorias}
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  Pranchas pesadas para os {report.alegoriasCount} carros
+                </p>
+              </div>
+
+              {/* Vans de Apoio */}
+              <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] text-slate-400 uppercase font-semibold">Vans de Apoio</span>
+                  <Navigation className="w-3.5 h-3.5 text-rose-400" />
+                </div>
+                <div className="text-xl font-black text-rose-300 font-mono">
+                  {report.fleetBreakdown.supportVans}
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  Harmonia, diretoria e equipe médica
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Section 2.5: Comparative Venue Analysis (Sapucaí vs. Intendente Magalhães) */}
+          <div className="p-5 rounded-2xl bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950/40 border border-indigo-500/30 space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800">
+              <div className="flex items-center gap-2">
+                <div className="p-2 rounded-xl bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                  <ArrowRightLeft className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-[10px] text-slate-400 uppercase font-semibold">Estudo Comparativo de Arenas de Desfile</div>
+                  <h4 className="text-sm font-black text-white">
+                    Sapucaí (Centro) vs. Intendente Magalhães (Campinho / Madureira)
+                  </h4>
                 </div>
               </div>
-              <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
-                <div className="text-[10px] text-slate-400">Ônibus de Transporte</div>
-                <div className="text-base font-black text-amber-300 font-mono">
-                  {report.busesNeeded} ônibus
+              <span className="text-[11px] font-bold px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">
+                Sede: {report.neighborhood} ({report.originCity || 'Rio de Janeiro'})
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Arena Atual */}
+              <div className={`p-4 rounded-xl border space-y-2 ${
+                report.venueType === 'sapucai'
+                  ? 'bg-amber-950/20 border-amber-500/40'
+                  : 'bg-emerald-950/20 border-emerald-500/40'
+              }`}>
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-black uppercase text-amber-300 flex items-center gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    Arena Atual ({report.division.toUpperCase()})
+                  </span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-800">
+                    {report.distanceKm} km
+                  </span>
+                </div>
+                <div className="text-base font-black text-white">
+                  {report.venueName}
+                </div>
+                <div className="flex items-center justify-between text-xs pt-1 border-t border-slate-800/80">
+                  <span className="text-slate-400">Gasto Total com Transporte:</span>
+                  <span className="font-mono font-bold text-amber-400 text-sm">
+                    R$ {report.totalLogisticsCost.toLocaleString('pt-BR')}
+                  </span>
                 </div>
               </div>
-              <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
-                <div className="text-[10px] text-slate-400">Alegorias & Tripés</div>
-                <div className="text-base font-black text-white font-mono">
-                  {report.alegoriasCount} carros + {report.tripesCount} tripés
+
+              {/* Arena Alternativa */}
+              <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-bold uppercase text-slate-400 flex items-center gap-1.5">
+                    <Route className="w-3.5 h-3.5" />
+                    Cenário Alternativo (Se mudasse de grupo)
+                  </span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-800">
+                    {report.comparativeVenue.alternativeDistanceKm} km
+                  </span>
+                </div>
+                <div className="text-base font-black text-slate-300">
+                  {report.comparativeVenue.alternativeVenueName}
+                </div>
+                <div className="flex items-center justify-between text-xs pt-1 border-t border-slate-800/80">
+                  <span className="text-slate-400">Gasto Estimado:</span>
+                  <span className="font-mono font-bold text-slate-200 text-sm">
+                    R$ {report.comparativeVenue.alternativeTotalCost.toLocaleString('pt-BR')}
+                  </span>
                 </div>
               </div>
-              <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
-                <div className="text-[10px] text-slate-400">Carretas & Batedores</div>
-                <div className="text-base font-black text-blue-300 font-mono">
-                  {report.trucksNeeded} caminhões
-                </div>
+            </div>
+
+            {/* Impacto Financeiro da Localização */}
+            <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+              <div className="flex items-center gap-2">
+                <Compass className="w-4 h-4 text-indigo-400 shrink-0" />
+                <span className="text-slate-300">
+                  {report.comparativeVenue.insight}
+                </span>
               </div>
+              <span className={`font-mono font-bold shrink-0 text-xs px-2.5 py-1 rounded-lg border ${
+                report.comparativeVenue.differenceCost >= 0
+                  ? 'bg-rose-500/10 text-rose-300 border-rose-500/30'
+                  : 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'
+              }`}>
+                Diferença de Deslocamento: {report.comparativeVenue.differenceCost >= 0 ? '+' : '-'}R$ {Math.abs(report.comparativeVenue.differenceCost).toLocaleString('pt-BR')} ({report.comparativeVenue.differencePercent.toFixed(1)}%)
+              </span>
             </div>
           </div>
 

@@ -1,5 +1,6 @@
 import { SeasonMonthId, SeasonPeriodConfig } from '../types/seasonCycle';
 import { School } from '../types/carnaval';
+import { LogisticsService } from './logisticsService';
 
 export const SEASON_PERIODS: SeasonPeriodConfig[] = [
   {
@@ -323,17 +324,23 @@ export class SeasonCycleService {
         summaryDescription = `Alvarás aprovados, iluminação cênica testada e figurinos ensacados para distribuição. O barracão atingiu excelência operacional para o desfile!`;
         break;
 
-      case 'janeiro':
+      case 'janeiro': {
+        const logisticsJan = LogisticsService.calculateSchoolLogistics(school);
+        budgetDelta = -logisticsJan.ensaioTecnicoCosts.total;
         rehearsalDelta = 15;
         moraleDelta = 5;
-        summaryTitle = 'Consagração no Ensaio Técnico Geral!';
-        summaryDescription = `A escola pisou forte na passarela oficial! Cronômetro fechado no tempo ideal, bateria dando espetáculo e comunidade cantando o samba de cor.`;
+        summaryTitle = `Consagração no Ensaio Técnico na ${logisticsJan.venueName}!`;
+        summaryDescription = `A escola pisou forte na passarela oficial! O transporte da comunidade em ${logisticsJan.fleetBreakdown.busesComponentes} ônibus e o translado dos instrumentos da bateria da sede em ${school.neighborhood} (${logisticsJan.distanceKm} km via ${logisticsJan.expressway}) custaram R$ ${logisticsJan.ensaioTecnicoCosts.total.toLocaleString('pt-BR')} em logística e combustível.`;
         break;
+      }
 
-      case 'fevereiro':
-        summaryTitle = 'Carnaval na Pista: Desfile e Apuração!';
-        summaryDescription = `Chegou o grande momento! A passarela da Sapucaí e da Intendente Magalhães aguardam o espetáculo oficial, as notas dos 36 jurados e o Sábado das Campeãs!`;
+      case 'fevereiro': {
+        const logisticsFev = LogisticsService.calculateSchoolLogistics(school);
+        budgetDelta = -logisticsFev.desfileOficialCosts.total;
+        summaryTitle = 'Carnaval na Pista: Desfile Oficial e Apuração!';
+        summaryDescription = `Chegou o grande momento! O comboio oficial com ${logisticsFev.fleetBreakdown.busesComponentes} ônibus de componentes, ${logisticsFev.fleetBreakdown.trucksBateria} caminhão(ões) de bateria e ${logisticsFev.fleetBreakdown.trucksAlegorias} carretas de alegorias desembarcou na ${logisticsFev.venueName}. A operação de transporte a partir de ${school.neighborhood} (${logisticsFev.distanceKm} km) gerou despesas de R$ ${logisticsFev.desfileOficialCosts.total.toLocaleString('pt-BR')}.`;
         break;
+      }
     }
 
     const updatedSchool: School = {

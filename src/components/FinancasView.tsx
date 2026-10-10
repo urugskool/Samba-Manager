@@ -33,6 +33,7 @@ import {
 import { soundService } from '../services/soundService';
 import { cleanSchoolName } from '../utils/schoolNameUtils';
 import { LogisticsService } from '../services/logisticsService';
+import { ParadeLogisticsModal } from './ParadeLogisticsModal';
 
 interface FinancasViewProps {
   school: School;
@@ -127,7 +128,9 @@ export const FinancasView: React.FC<FinancasViewProps> = ({
   onShowMessage
 }) => {
   const [showCriteriaDetail, setShowCriteriaDetail] = useState<boolean>(false);
+  const [isLogisticsModalOpen, setIsLogisticsModalOpen] = useState<boolean>(false);
 
+  const userSlot = sorteio?.divisions?.[school.division]?.slots.find((s) => s.schoolId === school.id);
   const staffTotal = Object.values(school.staff).reduce((acc, m) => acc + m.salary, 0);
 
   // ==========================================
@@ -606,11 +609,22 @@ export const FinancasView: React.FC<FinancasViewProps> = ({
                 </div>
               </div>
 
-              <div className="px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 text-right">
-                <div className="text-[10px] text-slate-400 uppercase font-semibold">Custo Total de Logística</div>
-                <div className="text-xl font-black text-amber-400 font-mono">
-                  R$ {logistics.totalLogisticsCost.toLocaleString('pt-BR')}
+              <div className="flex items-center gap-3">
+                <div className="px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 text-right">
+                  <div className="text-[10px] text-slate-400 uppercase font-semibold">Custo Total de Logística</div>
+                  <div className="text-xl font-black text-amber-400 font-mono">
+                    R$ {logistics.totalLogisticsCost.toLocaleString('pt-BR')}
+                  </div>
                 </div>
+
+                <button
+                  onClick={() => setIsLogisticsModalOpen(true)}
+                  className="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs transition flex items-center gap-1.5 shadow-lg shadow-amber-500/20 cursor-pointer shrink-0"
+                  title="Abrir mapa de geolocalização e relatório detalhado de frota"
+                >
+                  <Truck className="w-4 h-4" />
+                  <span>Ver Mapa & Frota</span>
+                </button>
               </div>
             </div>
 
@@ -1300,6 +1314,15 @@ export const FinancasView: React.FC<FinancasViewProps> = ({
           </div>
         )}
       </div>
+
+      {/* Modal Interativo de Logística & Geolocalização */}
+      {isLogisticsModalOpen && (
+        <ParadeLogisticsModal
+          school={school}
+          slot={userSlot}
+          onClose={() => setIsLogisticsModalOpen(false)}
+        />
+      )}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { School, YearHistory } from '../types/carnaval';
 import {
   computeLiesa5YearRanking,
@@ -50,7 +50,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
   onSelectSchool
 }) => {
   const [rankingMode, setRankingMode] = useState<'quinquennio' | 'historico' | 'carnavais_passados'>('quinquennio');
-  const [selectedPastYear, setSelectedPastYear] = useState<number>(2020);
+  const [selectedPastYear, setSelectedPastYear] = useState<number>(2026);
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedSchoolId, setExpandedSchoolId] = useState<string | null>(null);
   const [expandedHistSchoolId, setExpandedHistSchoolId] = useState<string | null>(null);
@@ -74,6 +74,13 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
   const currentPastCarnaval = useMemo(() => {
     return historicalCarnavals.find((c) => c.year === selectedPastYear) || historicalCarnavals[0];
   }, [historicalCarnavals, selectedPastYear]);
+
+  // Sempre iniciar quando aberto pelo jogador pelo Carnaval mais recente (2026 ou ano mais atual catalogado)
+  useEffect(() => {
+    if (isOpen && historicalCarnavals.length > 0) {
+      setSelectedPastYear(historicalCarnavals[0].year);
+    }
+  }, [isOpen, historicalCarnavals]);
 
   const filtered5YearEntries = useMemo(() => {
     const q = searchQuery.toLowerCase().trim();
@@ -199,16 +206,32 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
         </span>
       );
     }
-    if (year === 2011) {
-      // Em 2011 não houve rebaixamento
+    if (year === 2011 || year === 2017 || year === 2018) {
+      // Em 2011, 2017 e 2018 não houve rebaixamento no Grupo Especial por deliberação da LIESA
       return (
         <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-slate-800 text-slate-400 font-mono text-xs">
           {rank}º
         </span>
       );
     }
-    if (year === 2012 && rank === 12) {
+    if (year === 2012 && (rank === 12 || rank === 13)) {
       // Em 2012 duas escolas foram rebaixadas (Porto da Pedra 12º e Renascer 13º)
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs">
+          {rank}º (Rebaixada)
+        </span>
+      );
+    }
+    if (year === 2019 && (rank === 13 || rank === 14)) {
+      // Em 2019 duas escolas foram rebaixadas (Imperatriz 13º e Império Serrano 14º)
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs">
+          {rank}º (Rebaixada)
+        </span>
+      );
+    }
+    if (year === 2020 && (rank === 12 || rank === 13)) {
+      // Em 2020 duas escolas foram rebaixadas (Estácio 12º e União da Ilha 13º)
       return (
         <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs">
           {rank}º (Rebaixada)
@@ -346,7 +369,12 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
               <span>Ranking Histórico Geral</span>
             </button>
             <button
-              onClick={() => setRankingMode('carnavais_passados')}
+              onClick={() => {
+                setRankingMode('carnavais_passados');
+                if (historicalCarnavals.length > 0) {
+                  setSelectedPastYear(historicalCarnavals[0].year);
+                }
+              }}
               className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 cursor-pointer ${
                 rankingMode === 'carnavais_passados'
                   ? 'bg-amber-500 text-slate-950 font-black shadow-lg shadow-amber-500/20'
@@ -830,6 +858,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                     const isSelected = selectedPastYear === carnaval.year;
                     const is2021 = carnaval.year === 2021;
                     const is2017 = carnaval.year === 2017;
+                    const is2018 = carnaval.year === 2018;
 
                     return (
                       <button
@@ -851,7 +880,12 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                         )}
                         {is2017 && (
                           <span className="text-[9px] px-1 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                            2 Campeãs
+                            2 Campeãs • Sem Rebaixamento
+                          </span>
+                        )}
+                        {is2018 && (
+                          <span className="text-[9px] px-1 py-0.2 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">
+                            Sem Rebaixamento
                           </span>
                         )}
                       </button>
@@ -1020,13 +1054,21 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                       <span className="text-xs text-blue-300">
                                         🏅 Pontuou no Top 10
                                       </span>
-                                    ) : currentPastCarnaval.year === 2011 ? (
+                                    ) : (currentPastCarnaval.year === 2011 || currentPastCarnaval.year === 2017 || currentPastCarnaval.year === 2018) ? (
                                       <span className="text-xs text-slate-400">
-                                        Manteve no Especial (Sem Rebaixamento em 2011)
+                                        Manteve no Especial (Sem Rebaixamento em {currentPastCarnaval.year})
                                       </span>
                                     ) : currentPastCarnaval.year === 2012 && (st.rank === 12 || st.rank === 13) ? (
                                       <span className="text-xs text-rose-400">
                                         ⚠️ Rebaixada para Acesso / Ouro
+                                      </span>
+                                    ) : currentPastCarnaval.year === 2019 && (st.rank === 13 || st.rank === 14) ? (
+                                      <span className="text-xs text-rose-400">
+                                        ⚠️ Rebaixada para Série Ouro
+                                      </span>
+                                    ) : currentPastCarnaval.year === 2020 && (st.rank === 12 || st.rank === 13) ? (
+                                      <span className="text-xs text-rose-400">
+                                        ⚠️ Rebaixada para Série Ouro
                                       </span>
                                     ) : st.rank === totalSchools ? (
                                       <span className="text-xs text-rose-400">
