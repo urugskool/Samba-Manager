@@ -25,7 +25,9 @@ import {
   Dices,
   Calendar,
   Clock,
-  Lock
+  Lock,
+  Radio,
+  Newspaper
 } from 'lucide-react';
 import { SeasonCycleService } from '../services/seasonCycleService';
 import { SeasonMonthId } from '../types/seasonCycle';
@@ -54,6 +56,7 @@ interface NavbarProps {
   onOpenSeasonCycleModal?: () => void;
   onBlockedTabClick?: (reason: string) => void;
   onOpenLiesaRanking?: () => void;
+  onOpenNewsPortal?: () => void;
 }
 
 interface NavbarTabItem {
@@ -88,7 +91,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   currentMonth = 'marco',
   onOpenSeasonCycleModal,
   onBlockedTabClick,
-  onOpenLiesaRanking
+  onOpenLiesaRanking,
+  onOpenNewsPortal
 }) => {
   const [showResetConfirm, setShowResetConfirm] = useState<boolean>(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
@@ -311,6 +315,18 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 <Crown className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                 <span>Ranking LIESA</span>
+              </button>
+            )}
+
+            {/* Folia News / Voz da Passarela quick access button */}
+            {onOpenNewsPortal && (
+              <button
+                onClick={onOpenNewsPortal}
+                title="Portal de Notícias Voz da Passarela • Folia News"
+                className="px-2.5 py-1.5 rounded-lg bg-gradient-to-r from-amber-500/15 to-orange-500/15 hover:from-amber-500/25 hover:to-orange-500/25 text-amber-300 hover:text-white border border-amber-500/40 transition flex items-center gap-1.5 text-xs font-bold cursor-pointer shadow-sm"
+              >
+                <Radio className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+                <span className="hidden sm:inline">Folia News</span>
               </button>
             )}
 

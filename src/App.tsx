@@ -43,6 +43,10 @@ import { SeasonMonthId } from './types/seasonCycle';
 import { SEASON_PERIODS, SeasonCycleService } from './services/seasonCycleService';
 import { TemporadaCycleModal } from './components/TemporadaCycleModal';
 import { LiesaRankingModal } from './components/LiesaRankingModal';
+import { NoticiasPortalModal } from './components/NoticiasPortalModal';
+import { NewsService } from './services/newsService';
+import { NewsArticle } from './types/news';
+import { TransferMarketService } from './services/transferMarketService';
 
 import { Sparkles, Trophy, CheckCircle, AlertTriangle, Info, Dices, Lock, Calendar, ChevronRight } from 'lucide-react';
 
@@ -544,6 +548,12 @@ export default function App() {
   });
 
   const [isSeasonCycleModalOpen, setIsSeasonCycleModalOpen] = useState<boolean>(false);
+
+  // Sistema de Imprensa Carioca e Notícias (Folia News / Voz da Passarela)
+  const [isNewsModalOpen, setIsNewsModalOpen] = useState<boolean>(false);
+  const [newsArticles, setNewsArticles] = useState<NewsArticle[]>(() => {
+    return NewsService.loadNews(currentYear, schools);
+  });
 
   // Notifications Toast
   const [toastMessage, setToastMessage] = useState<{
@@ -1345,6 +1355,18 @@ export default function App() {
 
     setCurrentSeasonMonth(nextId);
 
+    // Gera notícias da imprensa carioca para o novo mês do ciclo
+    const newPressArticles = NewsService.generateMonthAdvanceNews(nextId, currentYear, schools, userSchool);
+    if (newPressArticles.length > 0) {
+      setNewsArticles((prev) => {
+        const existingIds = new Set(prev.map((a) => a.id));
+        const filteredNew = newPressArticles.filter((a) => !existingIds.has(a.id));
+        const updated = [...filteredNew, ...prev];
+        NewsService.saveNews(currentYear, updated);
+        return updated;
+      });
+    }
+
     if (!userSchool) {
       // No modo observador, abas exclusivas de dirigente nunca abrem telas em branco!
       if (targetTab === 'sorteio' || targetTab === 'desfile' || targetTab === 'apuracao' || targetTab === 'campeas' || targetTab === 'glorias' || targetTab === 'tabela') {
@@ -1489,6 +1511,7 @@ export default function App() {
         onOpenSeasonCycleModal={() => setIsSeasonCycleModalOpen(true)}
         onBlockedTabClick={(reason) => showToast(reason, 'warning')}
         onOpenLiesaRanking={() => setIsLiesaModalOpen(true)}
+        onOpenNewsPortal={() => setIsNewsModalOpen(true)}
       />
 
       {/* Main Workspace */}
@@ -1510,6 +1533,7 @@ export default function App() {
             currentMonth={currentSeasonMonth}
             onOpenSeasonCycleModal={() => setIsSeasonCycleModalOpen(true)}
             onAdvanceMonth={handleAdvanceSeasonMonth}
+            onOpenNewsPortal={() => setIsNewsModalOpen(true)}
           />
         )}
 
@@ -1574,8 +1598,12 @@ export default function App() {
         {activeTab === 'equipe' && userSchool && (
           <EquipeView
             school={userSchool}
+            allSchools={schools}
             onUpdateSchool={handleUpdateSchool}
+            onUpdateAllSchools={setSchools}
             onShowMessage={showToast}
+            onOpenNewsPortal={() => setIsNewsModalOpen(true)}
+            currentYear={currentYear}
           />
         )}
 
@@ -1839,6 +1867,17 @@ export default function App() {
         currentYear={currentYear}
         userSchool={userSchool}
         onSelectSchool={(schoolId) => {
+          setActiveTab('glorias');
+        }}
+      />
+
+      {/* Portal Oficial de Notícias Voz da Passarela / Folia News */}
+      <NoticiasPortalModal
+        isOpen={isNewsModalOpen}
+        onClose={() => setIsNewsModalOpen(false)}
+        articles={newsArticles}
+        currentYear={currentYear}
+        onOpenSchoolProfile={(schoolId) => {
           setActiveTab('glorias');
         }}
       />

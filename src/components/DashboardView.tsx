@@ -29,7 +29,9 @@ import {
   Wallet,
   BookOpen,
   ClipboardCheck,
-  Navigation
+  Navigation,
+  Radio,
+  ExternalLink
 } from 'lucide-react';
 import { SeasonMonthId } from '../types/seasonCycle';
 import { SEASON_PERIODS, SeasonCycleService } from '../services/seasonCycleService';
@@ -50,6 +52,7 @@ interface DashboardViewProps {
   currentMonth?: SeasonMonthId;
   onOpenSeasonCycleModal?: () => void;
   onAdvanceMonth?: (targetMonth?: SeasonMonthId) => void;
+  onOpenNewsPortal?: () => void;
 }
 
 export const DashboardView: React.FC<DashboardViewProps> = ({
@@ -67,7 +70,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   isSorteioCompleted = true,
   currentMonth = 'marco',
   onOpenSeasonCycleModal,
-  onAdvanceMonth
+  onAdvanceMonth,
+  onOpenNewsPortal
 }) => {
   const stats = getSchoolConsolidatedStats(school);
   const currentPeriod = SeasonCycleService.getPeriod(currentMonth);
@@ -640,15 +644,27 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
         {/* Jornal do Samba (Brasfoot News Feed) */}
         <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-5 shadow flex flex-col">
-          <div className="flex items-center gap-2 pb-3 border-b border-slate-800 text-amber-400 font-bold text-sm">
-            <Calendar className="w-4 h-4" />
-            <span>Jornal da Sapucaí</span>
+          <div className="flex items-center justify-between pb-3 border-b border-slate-800 text-amber-400 font-bold text-sm">
+            <div className="flex items-center gap-2">
+              <Calendar className="w-4 h-4" />
+              <span>Jornal da Sapucaí</span>
+            </div>
+            {onOpenNewsPortal && (
+              <button
+                onClick={onOpenNewsPortal}
+                className="text-[11px] font-bold text-amber-400 hover:text-amber-300 underline flex items-center gap-1 cursor-pointer"
+                title="Acessar Portal Oficial Voz da Passarela / Folia News"
+              >
+                <span>Folia News</span>
+                <ExternalLink className="w-3 h-3" />
+              </button>
+            )}
           </div>
 
           <div className="flex-1 overflow-y-auto space-y-3 pt-3 pr-1 max-h-72">
-            {news.map((item) => (
+            {news.map((item, itemIdx) => (
               <div
-                key={item.id}
+                key={`${item.id}-${itemIdx}`}
                 className="p-3 rounded-lg bg-slate-950/50 border border-slate-800/80 text-xs space-y-1 hover:border-slate-700 transition"
               >
                 <div className="flex items-center justify-between">

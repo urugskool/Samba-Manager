@@ -28,6 +28,11 @@ export interface StaffMember {
   rating: number; // 50 - 99
   salary: number; // R$ per year
   reputation: string;
+  isDupla?: boolean;
+  partnerName?: string;
+  partnerId?: string;
+  originCity?: string;
+  previousSchoolName?: string;
 }
 
 export type EnredoThemeType =
