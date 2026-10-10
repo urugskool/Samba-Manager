@@ -26,6 +26,7 @@ import {
   Crown
 } from 'lucide-react';
 import { LiesaRankingModal } from './LiesaRankingModal';
+import { AvaliacaoHistoricoModal } from './AvaliacaoHistoricoModal';
 
 interface GloriasViewProps {
   schools: School[];
@@ -51,6 +52,7 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [tableDivisionFilter, setTableDivisionFilter] = useState<'all' | DivisionId | 'inativas'>('all');
   const [isLiesaModalOpen, setIsLiesaModalOpen] = useState(false);
+  const [isAvaliacaoModalOpen, setIsAvaliacaoModalOpen] = useState(false);
 
   const espCount = useMemo(() => schools.filter((s) => s.division === 'especial' && isSchoolActive(s)).length, [schools]);
   const ouroCount = useMemo(() => schools.filter((s) => s.division === 'ouro' && isSchoolActive(s)).length, [schools]);
@@ -314,7 +316,7 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
           </p>
         </div>
 
-        {/* Quick actions: Ranking LIESA and User School */}
+        {/* Quick actions: Ranking LIESA, Grupo de Avaliação, and User School */}
         <div className="flex flex-wrap items-center gap-2.5 self-start md:self-auto">
           <button
             onClick={() => setIsLiesaModalOpen(true)}
@@ -325,6 +327,18 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
             <span>Ranking da LIESA</span>
             <span className="text-[10px] px-1.5 py-0.2 rounded bg-slate-950/20 text-slate-950 font-black">
               5 Anos
+            </span>
+          </button>
+
+          <button
+            onClick={() => setIsAvaliacaoModalOpen(true)}
+            className="px-4 py-2.5 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 text-white font-black rounded-xl text-xs transition flex items-center gap-2 shadow-lg shadow-purple-600/20 cursor-pointer active:scale-95"
+            title="Abrir o Quadro Histórico de Campeãs e Vices do Grupo de Avaliação (1989–2026)"
+          >
+            <Trophy className="w-4 h-4 text-purple-200" />
+            <span>5ª Divisão (Avaliação)</span>
+            <span className="text-[10px] px-1.5 py-0.2 rounded bg-purple-950/40 text-purple-200 font-black">
+              1989–2026
             </span>
           </button>
 
@@ -674,11 +688,13 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
 
           {/* Grupo de Avaliação */}
           <div
-            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between ${
-              selectedStats.totalAvaliacaoTitles > 0
+            onClick={() => setIsAvaliacaoModalOpen(true)}
+            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between cursor-pointer hover:border-purple-400/70 hover:shadow-purple-500/10 ${
+              selectedStats.totalAvaliacaoTitles > 0 || selectedStats.totalAvaliacaoVices > 0
                 ? 'bg-purple-600/15 border-purple-500/40 shadow-lg'
                 : 'bg-slate-900/70 border-slate-800'
             }`}
+            title="Clique para abrir a Galeria Histórica Oficial do Grupo de Avaliação"
           >
             <div>
               <div className="flex items-center justify-between mb-1.5">
@@ -885,11 +901,30 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
                 </div>
               )}
 
+              {/* Vice-Campeonatos do Grupo de Avaliação */}
+              {selectedStats.allAvaliacaoRunnerUpYears && selectedStats.allAvaliacaoRunnerUpYears.length > 0 && (
+                <div className="space-y-1.5 pt-1">
+                  <span className="text-[11px] font-bold text-slate-300 uppercase flex items-center gap-1">
+                    <span>🥈 Vice-Campeonatos do Grupo de Avaliação ({selectedStats.totalAvaliacaoVices}):</span>
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {selectedStats.allAvaliacaoRunnerUpYears.map((entry, idx) => (
+                      <span
+                        key={`${entry.year}-${idx}`}
+                        className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-slate-800/90 text-purple-200 border border-purple-500/30"
+                      >
+                        {entry.label || entry.year}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Zero titles scenario */}
               {selectedStats.grandTotalTitles === 0 && (
                 <div className="py-3 text-center text-xs text-slate-400 italic">
                   {selectedStats.grandTotalVices > 0
-                    ? `Agremiação consagrada com ${selectedStats.grandTotalVices} vice-campeonato${selectedStats.grandTotalVices === 1 ? '' : 's'} no Grupo Especial do Carnaval Carioca.`
+                    ? `Agremiação consagrada com ${selectedStats.grandTotalVices} vice-campeonato${selectedStats.grandTotalVices === 1 ? '' : 's'} no Carnaval Carioca.`
                     : 'Esta agremiação ainda está em busca da sua primeira consagração como campeã oficial no Carnaval Carioca.'}
                 </div>
               )}
@@ -1384,6 +1419,14 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
         inGameHistory={history}
         currentYear={currentYear}
         userSchool={userSchool}
+        onSelectSchool={handleSelectSchool}
+      />
+
+      {/* Modal da Galeria Histórica do Grupo de Avaliação */}
+      <AvaliacaoHistoricoModal
+        isOpen={isAvaliacaoModalOpen}
+        onClose={() => setIsAvaliacaoModalOpen(false)}
+        schools={schools}
         onSelectSchool={handleSelectSchool}
       />
     </div>

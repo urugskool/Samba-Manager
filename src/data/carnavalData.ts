@@ -1,5 +1,6 @@
 import { QuesitoConfig, School, Enredo, StaffMember, InGameAchievement, YearHistory, ConsolidatedSchoolStats, TitleYearEntry } from '../types/carnaval';
 import { AVALIACAO_SCHOOLS_INITIAL, INACTIVE_SCHOOLS_INITIAL, generateRandomCarnavalSchool } from './avaliacaoData';
+import { OFFICIAL_AVALIACAO_RECORDS_BY_SCHOOL } from './avaliacaoChampionsData';
 
 export const QUESITOS: QuesitoConfig[] = [
   {
@@ -201,6 +202,7 @@ export interface SchoolHistoryRecord {
   championshipsAvaliacao?: number;
   runnerUpsAvaliacao?: number;
   avaliacaoYears?: number[];
+  avaliacaoRunnerUpYears?: number[];
 }
 
 export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = {
@@ -2395,6 +2397,39 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     bronzeRunnerUpYears: [2022]
   },
 };
+
+// Sincronização oficial de todos os títulos e vice-campeonatos do Grupo de Avaliação (Quinta Divisão)
+Object.entries(OFFICIAL_AVALIACAO_RECORDS_BY_SCHOOL).forEach(([schoolId, rec]) => {
+  if (HISTORICAL_CARNAVAL_RECORDS[schoolId]) {
+    HISTORICAL_CARNAVAL_RECORDS[schoolId].championshipsAvaliacao = rec.titles;
+    HISTORICAL_CARNAVAL_RECORDS[schoolId].avaliacaoYears = rec.titleYears;
+    HISTORICAL_CARNAVAL_RECORDS[schoolId].runnerUpsAvaliacao = rec.runnerUps;
+    HISTORICAL_CARNAVAL_RECORDS[schoolId].avaliacaoRunnerUpYears = rec.runnerUpYears;
+  } else {
+    HISTORICAL_CARNAVAL_RECORDS[schoolId] = {
+      championshipsEspecial: 0,
+      runnerUpsEspecial: 0,
+      especialYears: [],
+      especialRunnerUpYears: [],
+      championshipsOuro: 0,
+      runnerUpsOuro: 0,
+      ouroYears: [],
+      ouroRunnerUpYears: [],
+      championshipsPrata: 0,
+      prataYears: [],
+      runnerUpsPrata: 0,
+      prataRunnerUpYears: [],
+      championshipsBronze: 0,
+      runnerUpsBronze: 0,
+      bronzeYears: [],
+      bronzeRunnerUpYears: [],
+      championshipsAvaliacao: rec.titles,
+      avaliacaoYears: rec.titleYears,
+      runnerUpsAvaliacao: rec.runnerUps,
+      avaliacaoRunnerUpYears: rec.runnerUpYears
+    };
+  }
+});
 
 const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 'runnerUpsPrata' | 'runnerUpsBronze' | 'honors'>[] = [
   // ==========================================
@@ -5170,6 +5205,25 @@ export function getSchoolConsolidatedStats(school: School): ConsolidatedSchoolSt
     .map(([year, info]) => ({ year, isHistorical: info.isHistorical, source: info.source }))
     .sort((a, b) => a.year - b.year);
 
+  // Build sorted list of Grupo de Avaliação runner-up (vice) years
+  const avaliacaoRunnerUpYearsMap = new Map<number, { isHistorical: boolean; source: string }>();
+  (school.honors?.historicalAvaliacaoRunnerUpYears || []).forEach((yr) => {
+    avaliacaoRunnerUpYearsMap.set(yr, {
+      isHistorical: true,
+      source: yr <= 2026 ? `Histórico (${yr})` : 'Histórico'
+    });
+  });
+  inGameAvaliacaoVices.forEach((ach) => {
+    avaliacaoRunnerUpYearsMap.set(ach.year, {
+      isHistorical: false,
+      source: `No Jogo (${ach.year})`
+    });
+  });
+
+  const allAvaliacaoRunnerUpYears: TitleYearEntry[] = Array.from(avaliacaoRunnerUpYearsMap.entries())
+    .map(([year, info]) => ({ year, isHistorical: info.isHistorical, source: info.source }))
+    .sort((a, b) => a.year - b.year);
+
   return {
     ancientEspecialTitles,
     ancientEspecialVices,
@@ -5213,6 +5267,7 @@ export function getSchoolConsolidatedStats(school: School): ConsolidatedSchoolSt
     allBronzeYears,
     allBronzeRunnerUpYears,
     allAvaliacaoYears,
+    allAvaliacaoRunnerUpYears,
     achievements: inGameAchievements
   };
 }
@@ -5225,6 +5280,7 @@ export const INITIAL_SCHOOLS: School[] = [
       championshipsOuro: 0,
       runnerUpsOuro: 0
     };
+    const avaRecord = OFFICIAL_AVALIACAO_RECORDS_BY_SCHOOL[school.id];
 
     const tempSchool: School = {
       ...school,
@@ -5236,8 +5292,8 @@ export const INITIAL_SCHOOLS: School[] = [
       runnerUpsPrata: stats.runnerUpsPrata !== undefined ? stats.runnerUpsPrata : 0,
       championshipsBronze: stats.championshipsBronze !== undefined ? stats.championshipsBronze : (school.championshipsBronze || 0),
       runnerUpsBronze: stats.runnerUpsBronze !== undefined ? stats.runnerUpsBronze : 0,
-      championshipsAvaliacao: school.championshipsAvaliacao || 0,
-      runnerUpsAvaliacao: 0,
+      championshipsAvaliacao: avaRecord ? avaRecord.titles : (stats.championshipsAvaliacao || 0),
+      runnerUpsAvaliacao: avaRecord ? avaRecord.runnerUps : (stats.runnerUpsAvaliacao || 0),
       isInactive: false,
       inactive: false,
       inactiveYearsCount: 0,
@@ -5258,9 +5314,10 @@ export const INITIAL_SCHOOLS: School[] = [
         historicalBronzeYears: stats.bronzeYears || [],
         historicalBronzeRunnerUps: stats.runnerUpsBronze !== undefined ? stats.runnerUpsBronze : 0,
         historicalBronzeRunnerUpYears: stats.bronzeRunnerUpYears || [],
-        historicalAvaliacaoTitles: 0,
-        historicalAvaliacaoYears: [],
-        historicalAvaliacaoRunnerUps: 0,
+        historicalAvaliacaoTitles: avaRecord ? avaRecord.titles : (stats.championshipsAvaliacao || 0),
+        historicalAvaliacaoYears: avaRecord ? avaRecord.titleYears : (stats.avaliacaoYears || []),
+        historicalAvaliacaoRunnerUps: avaRecord ? avaRecord.runnerUps : (stats.runnerUpsAvaliacao || 0),
+        historicalAvaliacaoRunnerUpYears: avaRecord ? avaRecord.runnerUpYears : (stats.avaliacaoRunnerUpYears || []),
         inGameAchievements: []
       }
     };
@@ -5283,16 +5340,23 @@ export const INITIAL_SCHOOLS: School[] = [
   }),
   ...AVALIACAO_SCHOOLS_INITIAL.map((school) => {
     const stats = HISTORICAL_CARNAVAL_RECORDS[school.id];
+    const avaRecord = OFFICIAL_AVALIACAO_RECORDS_BY_SCHOOL[school.id];
     const enrichedSchool: School = {
       ...school,
       championshipsBronze: stats?.championshipsBronze !== undefined ? stats.championshipsBronze : (school.championshipsBronze || 0),
       runnerUpsBronze: stats?.runnerUpsBronze !== undefined ? stats.runnerUpsBronze : (school.runnerUpsBronze || 0),
+      championshipsAvaliacao: avaRecord ? avaRecord.titles : (school.championshipsAvaliacao || 0),
+      runnerUpsAvaliacao: avaRecord ? avaRecord.runnerUps : (school.runnerUpsAvaliacao || 0),
       honors: {
         ...school.honors,
         historicalBronzeTitles: stats?.championshipsBronze !== undefined ? stats.championshipsBronze : (school.honors?.historicalBronzeTitles || 0),
         historicalBronzeYears: stats?.bronzeYears || school.honors?.historicalBronzeYears || [],
         historicalBronzeRunnerUps: stats?.runnerUpsBronze !== undefined ? stats.runnerUpsBronze : (school.honors?.historicalBronzeRunnerUps || 0),
         historicalBronzeRunnerUpYears: stats?.bronzeRunnerUpYears || school.honors?.historicalBronzeRunnerUpYears || [],
+        historicalAvaliacaoTitles: avaRecord ? avaRecord.titles : (school.honors?.historicalAvaliacaoTitles || 0),
+        historicalAvaliacaoYears: avaRecord ? avaRecord.titleYears : (school.honors?.historicalAvaliacaoYears || []),
+        historicalAvaliacaoRunnerUps: avaRecord ? avaRecord.runnerUps : (school.honors?.historicalAvaliacaoRunnerUps || 0),
+        historicalAvaliacaoRunnerUpYears: avaRecord ? avaRecord.runnerUpYears : (school.honors?.historicalAvaliacaoRunnerUpYears || []),
       }
     };
     const consolidated = getSchoolConsolidatedStats(enrichedSchool);
@@ -5314,16 +5378,23 @@ export const INITIAL_SCHOOLS: School[] = [
   }),
   ...INACTIVE_SCHOOLS_INITIAL.map((school) => {
     const stats = HISTORICAL_CARNAVAL_RECORDS[school.id];
+    const avaRecord = OFFICIAL_AVALIACAO_RECORDS_BY_SCHOOL[school.id];
     const enrichedSchool: School = {
       ...school,
       championshipsBronze: stats?.championshipsBronze !== undefined ? stats.championshipsBronze : (school.championshipsBronze || 0),
       runnerUpsBronze: stats?.runnerUpsBronze !== undefined ? stats.runnerUpsBronze : (school.runnerUpsBronze || 0),
+      championshipsAvaliacao: avaRecord ? avaRecord.titles : (school.championshipsAvaliacao || 0),
+      runnerUpsAvaliacao: avaRecord ? avaRecord.runnerUps : (school.runnerUpsAvaliacao || 0),
       honors: {
         ...school.honors,
         historicalBronzeTitles: stats?.championshipsBronze !== undefined ? stats.championshipsBronze : (school.honors?.historicalBronzeTitles || 0),
         historicalBronzeYears: stats?.bronzeYears || school.honors?.historicalBronzeYears || [],
         historicalBronzeRunnerUps: stats?.runnerUpsBronze !== undefined ? stats.runnerUpsBronze : (school.honors?.historicalBronzeRunnerUps || 0),
         historicalBronzeRunnerUpYears: stats?.bronzeRunnerUpYears || school.honors?.historicalBronzeRunnerUpYears || [],
+        historicalAvaliacaoTitles: avaRecord ? avaRecord.titles : (school.honors?.historicalAvaliacaoTitles || 0),
+        historicalAvaliacaoYears: avaRecord ? avaRecord.titleYears : (school.honors?.historicalAvaliacaoYears || []),
+        historicalAvaliacaoRunnerUps: avaRecord ? avaRecord.runnerUps : (school.honors?.historicalAvaliacaoRunnerUps || 0),
+        historicalAvaliacaoRunnerUpYears: avaRecord ? avaRecord.runnerUpYears : (school.honors?.historicalAvaliacaoRunnerUpYears || []),
       }
     };
     const consolidated = getSchoolConsolidatedStats(enrichedSchool);
