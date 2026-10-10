@@ -107,7 +107,7 @@ export const OFFICIAL_AVALIACAO_YEARLY_RESULTS: AvaliacaoYearResult[] = [
   {
     year: 2003,
     champions: [{ schoolId: 'praca_da_bandeira', schoolName: 'Independente da Praça da Bandeira' }],
-    runnerUps: []
+    runnerUps: [{ schoolId: 'arrastao_cascadura', schoolName: 'Arrastão de Cascadura' }]
   },
   {
     year: 2004,
@@ -317,8 +317,8 @@ export const OFFICIAL_AVALIACAO_RECORDS_BY_SCHOOL: Record<string, AvaliacaoSchoo
   arrastao_cascadura: {
     titles: 1,
     titleYears: [2020],
-    runnerUps: 0,
-    runnerUpYears: []
+    runnerUps: 1,
+    runnerUpYears: [2003]
   },
   casa_de_malandro: {
     titles: 1,

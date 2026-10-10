@@ -1203,7 +1203,11 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     championshipsBronze: 1,
     runnerUpsBronze: 1,
     bronzeYears: [2022],
-    bronzeRunnerUpYears: [2008]
+    bronzeRunnerUpYears: [2008],
+    championshipsAvaliacao: 1,
+    avaliacaoYears: [2020],
+    runnerUpsAvaliacao: 1,
+    avaliacaoRunnerUpYears: [2003]
   },
   renascer_jacarepagua: {
 

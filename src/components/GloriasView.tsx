@@ -26,7 +26,7 @@ import {
   Crown
 } from 'lucide-react';
 import { LiesaRankingModal } from './LiesaRankingModal';
-import { AvaliacaoHistoricoModal } from './AvaliacaoHistoricoModal';
+import { GaleriaDosCampeoesModal, GaleriaDivisionTab } from './GaleriaDosCampeoesModal';
 
 interface GloriasViewProps {
   schools: School[];
@@ -52,7 +52,8 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [tableDivisionFilter, setTableDivisionFilter] = useState<'all' | DivisionId | 'inativas'>('all');
   const [isLiesaModalOpen, setIsLiesaModalOpen] = useState(false);
-  const [isAvaliacaoModalOpen, setIsAvaliacaoModalOpen] = useState(false);
+  const [isGaleriaModalOpen, setIsGaleriaModalOpen] = useState(false);
+  const [galeriaDivision, setGaleriaDivision] = useState<GaleriaDivisionTab>('especial');
 
   const espCount = useMemo(() => schools.filter((s) => s.division === 'especial' && isSchoolActive(s)).length, [schools]);
   const ouroCount = useMemo(() => schools.filter((s) => s.division === 'ouro' && isSchoolActive(s)).length, [schools]);
@@ -331,14 +332,17 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
           </button>
 
           <button
-            onClick={() => setIsAvaliacaoModalOpen(true)}
-            className="px-4 py-2.5 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 text-white font-black rounded-xl text-xs transition flex items-center gap-2 shadow-lg shadow-purple-600/20 cursor-pointer active:scale-95"
-            title="Abrir o Quadro Histórico de Campeãs e Vices do Grupo de Avaliação (1989–2026)"
+            onClick={() => {
+              setGaleriaDivision('especial');
+              setIsGaleriaModalOpen(true);
+            }}
+            className="px-4 py-2.5 bg-gradient-to-r from-amber-500 via-amber-600 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black rounded-xl text-xs transition flex items-center gap-2 shadow-lg shadow-amber-500/25 cursor-pointer active:scale-95"
+            title="Abrir a Galeria dos Campeões (Separada por Grupos)"
           >
-            <Trophy className="w-4 h-4 text-purple-200" />
-            <span>5ª Divisão (Avaliação)</span>
-            <span className="text-[10px] px-1.5 py-0.2 rounded bg-purple-950/40 text-purple-200 font-black">
-              1989–2026
+            <Trophy className="w-4 h-4 text-slate-950 fill-slate-950" />
+            <span>Galeria dos Campeões</span>
+            <span className="text-[10px] px-1.5 py-0.2 rounded bg-slate-950/20 text-slate-950 font-black">
+              Por Grupos
             </span>
           </button>
 
@@ -588,11 +592,16 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
           {/* Grupo Especial */}
           <div
-            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between ${
+            onClick={() => {
+              setGaleriaDivision('especial');
+              setIsGaleriaModalOpen(true);
+            }}
+            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between cursor-pointer hover:border-amber-400/70 hover:shadow-amber-500/10 ${
               selectedStats.totalEspecialTitles > 0
                 ? 'bg-amber-500/10 border-amber-500/40 shadow-lg'
                 : 'bg-slate-900/70 border-slate-800'
             }`}
+            title="Clique para abrir a Galeria dos Campeões do Grupo Especial"
           >
             <div>
               <div className="flex items-center justify-between mb-1.5">
@@ -613,11 +622,16 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
 
           {/* Série Ouro */}
           <div
-            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between ${
+            onClick={() => {
+              setGaleriaDivision('ouro');
+              setIsGaleriaModalOpen(true);
+            }}
+            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between cursor-pointer hover:border-yellow-400/70 hover:shadow-yellow-500/10 ${
               selectedStats.totalOuroTitles > 0
                 ? 'bg-blue-500/10 border-blue-500/40 shadow-lg'
                 : 'bg-slate-900/70 border-slate-800'
             }`}
+            title="Clique para abrir a Galeria dos Campeões da Série Ouro"
           >
             <div>
               <div className="flex items-center justify-between mb-1.5">
@@ -638,11 +652,16 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
 
           {/* Série Prata */}
           <div
-            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between ${
+            onClick={() => {
+              setGaleriaDivision('prata');
+              setIsGaleriaModalOpen(true);
+            }}
+            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between cursor-pointer hover:border-slate-300/70 hover:shadow-slate-400/10 ${
               selectedStats.totalPrataTitles > 0
                 ? 'bg-slate-400/10 border-slate-400/40 shadow-lg'
                 : 'bg-slate-900/70 border-slate-800'
             }`}
+            title="Clique para abrir a Galeria dos Campeões da Série Prata"
           >
             <div>
               <div className="flex items-center justify-between mb-1.5">
@@ -663,11 +682,16 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
 
           {/* Série Bronze */}
           <div
-            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between ${
+            onClick={() => {
+              setGaleriaDivision('bronze');
+              setIsGaleriaModalOpen(true);
+            }}
+            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between cursor-pointer hover:border-orange-400/70 hover:shadow-orange-500/10 ${
               selectedStats.totalBronzeTitles > 0
                 ? 'bg-amber-700/15 border-amber-600/40 shadow-lg'
                 : 'bg-slate-900/70 border-slate-800'
             }`}
+            title="Clique para abrir a Galeria dos Campeões da Série Bronze"
           >
             <div>
               <div className="flex items-center justify-between mb-1.5">
@@ -688,13 +712,16 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
 
           {/* Grupo de Avaliação */}
           <div
-            onClick={() => setIsAvaliacaoModalOpen(true)}
+            onClick={() => {
+              setGaleriaDivision('avaliacao');
+              setIsGaleriaModalOpen(true);
+            }}
             className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between cursor-pointer hover:border-purple-400/70 hover:shadow-purple-500/10 ${
               selectedStats.totalAvaliacaoTitles > 0 || selectedStats.totalAvaliacaoVices > 0
                 ? 'bg-purple-600/15 border-purple-500/40 shadow-lg'
                 : 'bg-slate-900/70 border-slate-800'
             }`}
-            title="Clique para abrir a Galeria Histórica Oficial do Grupo de Avaliação"
+            title="Clique para abrir a Galeria dos Campeões do Grupo de Avaliação"
           >
             <div>
               <div className="flex items-center justify-between mb-1.5">
@@ -775,9 +802,9 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
                     <span>✦ Série Ouro ({selectedStats.totalOuroTitles}):</span>
                   </span>
                   <div className="flex flex-wrap gap-1.5">
-                    {selectedStats.allOuroYears.map((entry) => (
+                    {selectedStats.allOuroYears.map((entry, idx) => (
                       <span
-                        key={entry.year}
+                        key={`${entry.year}-${idx}`}
                         className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-blue-500/15 text-blue-300 border border-blue-500/30"
                       >
                         {entry.year}
@@ -813,9 +840,9 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
                     <span>◆ Série Prata ({selectedStats.totalPrataTitles}):</span>
                   </span>
                   <div className="flex flex-wrap gap-1.5">
-                    {selectedStats.allPrataYears.map((entry) => (
+                    {selectedStats.allPrataYears.map((entry, idx) => (
                       <span
-                        key={entry.year}
+                        key={`${entry.year}-${idx}`}
                         className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-slate-400/15 text-slate-200 border border-slate-400/30"
                       >
                         {entry.year}
@@ -851,9 +878,9 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
                     <span>▲ Série Bronze ({selectedStats.totalBronzeTitles}):</span>
                   </span>
                   <div className="flex flex-wrap gap-1.5">
-                    {selectedStats.allBronzeYears.map((entry) => (
+                    {selectedStats.allBronzeYears.map((entry, idx) => (
                       <span
-                        key={entry.year}
+                        key={`${entry.year}-${idx}`}
                         className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-amber-700/20 text-amber-300 border border-amber-600/30"
                       >
                         {entry.year}
@@ -889,9 +916,9 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
                     <span>✦ Grupo de Avaliação ({selectedStats.totalAvaliacaoTitles}):</span>
                   </span>
                   <div className="flex flex-wrap gap-1.5">
-                    {selectedStats.allAvaliacaoYears.map((entry) => (
+                    {selectedStats.allAvaliacaoYears.map((entry, idx) => (
                       <span
-                        key={entry.year}
+                        key={`${entry.year}-${idx}`}
                         className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-purple-600/20 text-purple-300 border border-purple-500/30"
                       >
                         {entry.year}
@@ -1422,11 +1449,12 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
         onSelectSchool={handleSelectSchool}
       />
 
-      {/* Modal da Galeria Histórica do Grupo de Avaliação */}
-      <AvaliacaoHistoricoModal
-        isOpen={isAvaliacaoModalOpen}
-        onClose={() => setIsAvaliacaoModalOpen(false)}
+      {/* Modal da Galeria dos Campeões de Todas as Divisões e Grupos */}
+      <GaleriaDosCampeoesModal
+        isOpen={isGaleriaModalOpen}
+        onClose={() => setIsGaleriaModalOpen(false)}
         schools={schools}
+        initialDivision={galeriaDivision}
         onSelectSchool={handleSelectSchool}
       />
     </div>

@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { School, DivisionId, YearHistory } from '../types/carnaval';
 import { QUESITOS, getSchoolConsolidatedStats } from '../data/carnavalData';
-import { Trophy, History, Shield, ArrowUp, ArrowDown, Star, ChevronDown, ChevronUp, RefreshCw } from 'lucide-react';
+import { Trophy, History, Shield, ArrowUp, ArrowDown, Star, ChevronDown, ChevronUp, RefreshCw, Crown } from 'lucide-react';
 import {
   cleanSchoolName,
   getSchoolCorporateName,
   getSchoolDenomination,
   getSchoolDenominationExtenso
 } from '../utils/schoolNameUtils';
+import { GaleriaDosCampeoesModal } from './GaleriaDosCampeoesModal';
 
 interface TabelaViewProps {
   currentYear: number;
@@ -39,6 +40,18 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
   const [selectedDivision, setSelectedDivision] = useState<DivisionId | 'inativas'>('especial');
   const [activeTab, setActiveTab] = useState<'current' | 'history'>('current');
   const [expandedSchoolId, setExpandedSchoolId] = useState<string | null>(null);
+  const [isGaleriaModalOpen, setIsGaleriaModalOpen] = useState(false);
+
+  const allSchools = useMemo(() => {
+    return [
+      ...especialSchools,
+      ...ouroSchools,
+      ...prataSchools,
+      ...bronzeSchools,
+      ...avaliacaoSchools,
+      ...inactiveSchools
+    ];
+  }, [especialSchools, ouroSchools, prataSchools, bronzeSchools, avaliacaoSchools, inactiveSchools]);
 
   const lastHistory = history.length > 0 ? history[0] : null;
 
@@ -279,7 +292,16 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
             }`}
           >
             <History className="w-3.5 h-3.5" />
-            <span>Galeria de Campeãs ({history.length})</span>
+            <span>Temporadas ({history.length})</span>
+          </button>
+
+          <button
+            onClick={() => setIsGaleriaModalOpen(true)}
+            className="px-4 py-2 rounded-lg text-xs font-black transition flex items-center gap-1.5 bg-gradient-to-r from-amber-500 via-amber-600 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 shadow-md cursor-pointer active:scale-95"
+            title="Abrir a Galeria dos Campeões com todas as divisões e grupos em abas"
+          >
+            <Trophy className="w-3.5 h-3.5 text-slate-950 fill-slate-950" />
+            <span>Galeria dos Campeões</span>
           </button>
         </div>
       </div>
@@ -639,9 +661,9 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                                 ✦ Títulos da Série Ouro ({stats.totalOuroTitles}):
                               </span>
                               <div className="flex flex-wrap gap-1">
-                                {stats.allOuroYears.map((entry) => (
+                                {stats.allOuroYears.map((entry, idx) => (
                                   <span
-                                    key={entry.year}
+                                    key={`${entry.year}-${idx}`}
                                     className="px-1.5 py-0.5 rounded text-[11px] font-mono font-bold bg-blue-500/15 text-blue-300 border border-blue-500/30"
                                   >
                                     {entry.year}
@@ -890,6 +912,14 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
           )}
         </div>
       )}
+
+      {/* Modal da Galeria dos Campeões */}
+      <GaleriaDosCampeoesModal
+        isOpen={isGaleriaModalOpen}
+        onClose={() => setIsGaleriaModalOpen(false)}
+        schools={allSchools}
+        initialDivision="especial"
+      />
     </div>
   );
 };
