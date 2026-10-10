@@ -534,19 +534,23 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                           </div>
                           <div>
                             <span className="text-slate-500 text-[10px] block uppercase">Nome Chamado</span>
-                            <span className="font-semibold text-white">{school.shortName}</span>
+                            <span className="font-semibold text-white">{school.nickname || school.shortName}</span>
                           </div>
                           <div>
                             <span className="text-slate-500 text-[10px] block uppercase">Abreviação / Sigla</span>
-                            <span className="font-mono font-bold text-amber-300">{school.abbreviation || '—'}</span>
+                            <span className="font-mono font-bold text-amber-300">{school.abbreviation || school.shortName || '—'}</span>
                           </div>
                           <div>
                             <span className="text-slate-500 text-[10px] block uppercase">Fundação</span>
                             <span className="font-semibold text-white">{school.foundationDate || school.foundationYear}</span>
                           </div>
                           <div>
-                            <span className="text-slate-500 text-[10px] block uppercase">Bairro / Sede</span>
-                            <span className="font-semibold text-white">{school.neighborhood}</span>
+                            <span className="text-slate-500 text-[10px] block uppercase">Bairro / Cidade / Sede</span>
+                            <span className="font-semibold text-white">
+                              {school.city && !school.neighborhood.toLowerCase().includes(school.city.split(',')[0].toLowerCase())
+                                ? `${school.neighborhood} • ${school.city}`
+                                : (school.city || school.neighborhood)}
+                            </span>
                           </div>
                           <div>
                             <span className="text-slate-500 text-[10px] block uppercase">Cores Oficiais</span>
@@ -556,10 +560,10 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                             <span className="text-slate-500 text-[10px] block uppercase">Símbolo Oficial</span>
                             <span className="font-semibold text-white">{school.symbol}</span>
                           </div>
-                          {(school.motto || school.nickname) && (
+                          {school.motto && (
                             <div className="sm:col-span-4">
-                              <span className="text-slate-500 text-[10px] block uppercase">Lema / Apelido Comunitário</span>
-                              <span className="font-semibold text-amber-300 italic">"{school.motto || school.nickname}"</span>
+                              <span className="text-slate-500 text-[10px] block uppercase">Lema Oficial</span>
+                              <span className="font-semibold text-amber-300 italic">"{school.motto}"</span>
                             </div>
                           )}
 
