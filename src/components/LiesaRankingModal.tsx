@@ -153,7 +153,14 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
     );
   };
 
-  const getPastRankBadge = (rank: number, total: number) => {
+  const getPastRankBadge = (rank: number, total: number, isHorsConcours?: boolean, year?: number) => {
+    if (isHorsConcours || rank === 0) {
+      return (
+        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-purple-500/20 text-purple-300 border border-purple-500/40 font-bold text-xs shadow-sm">
+          Hors concours
+        </span>
+      );
+    }
     if (rank === 1) {
       return (
         <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-400/50 font-black text-xs shadow-sm">
@@ -189,6 +196,22 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
       return (
         <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-blue-500/15 text-blue-300 border border-blue-500/30 font-mono text-xs">
           {rank}º (Top 10)
+        </span>
+      );
+    }
+    if (year === 2011) {
+      // Em 2011 não houve rebaixamento
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-slate-800 text-slate-400 font-mono text-xs">
+          {rank}º
+        </span>
+      );
+    }
+    if (year === 2012 && rank === 12) {
+      // Em 2012 duas escolas foram rebaixadas (Porto da Pedra 12º e Renascer 13º)
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs">
+          {rank}º (Rebaixada)
         </span>
       );
     }
@@ -331,7 +354,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
               }`}
             >
               <Trophy className="w-3.5 h-3.5" />
-              <span>Carnavais Passados (2015-2026)</span>
+              <span>Carnavais Passados (2010-2026)</span>
             </button>
           </div>
 
@@ -551,7 +574,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                 <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                 <div>
                   <span className="font-bold text-amber-300">Classificação Histórica Oficial da LIESA:</span>{' '}
-                  Atribui 20 pontos por título e 15 pontos por vice-campeonato na história do Grupo Especial, somados às colocações completas de 1º a 10º lugar para todos os carnavais catalogados com apuração completa (de 2015 em diante). Clique em qualquer agremiação para ver o histórico ano a ano.
+                  Atribui 20 pontos por título e 15 pontos por vice-campeonato na história do Grupo Especial, somados às colocações completas de 1º a 10º lugar para todos os carnavais catalogados com apuração completa (de 2010 em diante). Clique em qualquer agremiação para ver o histórico ano a ano.
                 </div>
               </div>
 
@@ -572,7 +595,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                       <th className="py-3 px-3.5">Escola de Samba</th>
                       <th className="py-3 px-3 text-center text-amber-400 font-bold">Títulos Especial (20p)</th>
                       <th className="py-3 px-3 text-center text-slate-300 font-bold">Vices Especial (15p)</th>
-                      <th className="py-3 px-3 text-center text-blue-400 font-bold">Era 2015+ (Top 10)</th>
+                      <th className="py-3 px-3 text-center text-blue-400 font-bold">Era 2010+ (Top 10)</th>
                       <th className="py-3 px-4 text-right font-black text-amber-400 text-xs">
                         TOTAL PONTOS HISTÓRICOS
                       </th>
@@ -671,7 +694,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                         <span>Desempenho Histórico Detalhado: {entry.schoolName}</span>
                                       </h4>
                                       <p className="text-[11px] text-slate-400">
-                                        {entry.totalEspecialTitles} Título(s) ({entry.totalEspecialTitles * 20}p) · {entry.totalEspecialVices} Vice(s) ({entry.totalEspecialVices * 15}p) · Era 2015+: {entry.pointsDetailedEra} pts
+                                        {entry.totalEspecialTitles} Título(s) ({entry.totalEspecialTitles * 20}p) · {entry.totalEspecialVices} Vice(s) ({entry.totalEspecialVices * 15}p) · Era 2010+: {entry.pointsDetailedEra} pts
                                       </p>
                                     </div>
                                     {onSelectSchool && entry.school && (
@@ -691,7 +714,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
 
                                   <div>
                                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-2">
-                                      Carnavais Catalogados na Era Moderna (2015 em diante):
+                                      Carnavais Catalogados na Era Moderna (2010 em diante):
                                     </span>
                                     <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2">
                                       {historicalCarnavals.map((c) => {
@@ -730,15 +753,17 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                           );
                                         }
 
-                                        const isCamp = perf.rank === 1;
-                                        const isVice = perf.rank === 2;
-                                        const isG6 = perf.rank && perf.rank <= 6;
+                                        const isCamp = perf.rank === 1 && !perf.isHorsConcours;
+                                        const isVice = perf.rank === 2 && !perf.isHorsConcours;
+                                        const isG6 = perf.rank && perf.rank <= 6 && !perf.isHorsConcours;
 
                                         return (
                                           <div
                                             key={c.year}
                                             className={`p-2 rounded-xl border text-[11px] space-y-0.5 transition ${
-                                              isCamp
+                                              perf.isHorsConcours
+                                                ? 'bg-purple-950/30 border-purple-500/40 text-purple-200'
+                                                : isCamp
                                                 ? 'bg-amber-500/15 border-amber-500/40 text-amber-200'
                                                 : isVice
                                                 ? 'bg-slate-300/15 border-slate-300/40 text-slate-200'
@@ -754,10 +779,12 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                               </span>
                                             </div>
                                             <div className="font-bold text-xs truncate">
-                                              {perf.rank ? `${perf.rank}º Lugar` : '—'}
+                                              {perf.isHorsConcours ? 'Hors concours' : perf.rank ? `${perf.rank}º Lugar` : '—'}
                                             </div>
                                             <div className="text-[9px] text-slate-400 truncate">
-                                              {isCamp
+                                              {perf.isHorsConcours
+                                                ? '🎭 Hors concours'
+                                                : isCamp
                                                 ? '🏆 Campeã'
                                                 : isVice
                                                 ? '🥈 Vice'
@@ -929,7 +956,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                   } ${st.rank === 1 ? 'bg-amber-500/10' : ''}`}
                                 >
                                   <td className="py-3 px-3.5 font-mono">
-                                    {getPastRankBadge(st.rank, totalSchools)}
+                                    {getPastRankBadge(st.rank, totalSchools, st.isHorsConcours, currentPastCarnaval.year)}
                                   </td>
                                   <td className="py-3 px-3.5 text-white">
                                     <div className="flex items-center gap-2.5">
@@ -969,7 +996,11 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                     )}
                                   </td>
                                   <td className="py-3 px-4 text-right">
-                                    {st.rank === 1 ? (
+                                    {st.isHorsConcours || st.rank === 0 ? (
+                                      <span className="text-xs font-bold text-purple-300">
+                                        Desfile Hors concours (Incêndio Cidade do Samba)
+                                      </span>
+                                    ) : st.rank === 1 ? (
                                       <span className="text-xs font-bold text-amber-300">
                                         🏆 Campeã Oficial
                                       </span>
@@ -988,6 +1019,14 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                     ) : st.rank <= 10 ? (
                                       <span className="text-xs text-blue-300">
                                         🏅 Pontuou no Top 10
+                                      </span>
+                                    ) : currentPastCarnaval.year === 2011 ? (
+                                      <span className="text-xs text-slate-400">
+                                        Manteve no Especial (Sem Rebaixamento em 2011)
+                                      </span>
+                                    ) : currentPastCarnaval.year === 2012 && (st.rank === 12 || st.rank === 13) ? (
+                                      <span className="text-xs text-rose-400">
+                                        ⚠️ Rebaixada para Acesso / Ouro
                                       </span>
                                     ) : st.rank === totalSchools ? (
                                       <span className="text-xs text-rose-400">

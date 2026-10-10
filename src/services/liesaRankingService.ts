@@ -7,6 +7,7 @@ export interface LiesaStandingRecord {
   schoolId: string;
   schoolName: string;
   totalScore?: number;
+  isHorsConcours?: boolean;
 }
 
 /**
@@ -41,12 +42,84 @@ export function getLiesaPoints(rank: number): number {
 }
 
 /**
- * Resultados oficiais catalogados dos carnavais históricos (2015 a 2026)
+ * Resultados oficiais catalogados dos carnavais históricos (2010 a 2026)
  * fornecidos pela LIESA para balizar o ranking oficial e histórico do jogo.
  * Carnaval 2021: Não houve desfiles (0 pontos).
  * Carnaval 2017: Duas campeãs oficiais (Portela e Mocidade Independente).
+ * Carnaval 2011: Grande Rio, Portela e União da Ilha desfilaram como Hors concours devido ao incêndio na Cidade do Samba.
  */
 export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRecord[]> = {
+  2010: [
+    { rank: 1, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 2, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio' },
+    { rank: 3, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
+    { rank: 4, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
+    { rank: 5, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 6, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 7, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 8, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 9, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 10, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra' },
+    { rank: 11, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
+    { rank: 12, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro' }
+  ],
+  2011: [
+    { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
+    { rank: 2, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 3, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 4, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
+    { rank: 5, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 6, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 7, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 8, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra' },
+    { rank: 9, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
+    { rank: 0, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio', isHorsConcours: true },
+    { rank: 0, schoolId: 'portela', schoolName: 'Portela', isHorsConcours: true },
+    { rank: 0, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', isHorsConcours: true }
+  ],
+  2012: [
+    { rank: 1, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 2, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 3, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
+    { rank: 4, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
+    { rank: 5, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio' },
+    { rank: 6, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 7, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 8, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
+    { rank: 9, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 10, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 11, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
+    { rank: 12, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra' },
+    { rank: 13, schoolId: 'renascer_jacarepagua', schoolName: 'Renascer de Jacarepaguá' }
+  ],
+  2013: [
+    { rank: 1, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
+    { rank: 2, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
+    { rank: 3, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 4, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 5, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 6, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio' },
+    { rank: 7, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 8, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 9, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
+    { rank: 10, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
+    { rank: 11, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 12, schoolId: 'inocentes', schoolName: 'Inocentes de Belford Roxo' }
+  ],
+  2014: [
+    { rank: 1, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 2, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 3, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 4, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
+    { rank: 5, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 6, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio' },
+    { rank: 7, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
+    { rank: 8, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 9, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 10, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
+    { rank: 11, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
+    { rank: 12, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca' }
+  ],
   2015: [
     { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
     { rank: 2, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
@@ -226,6 +299,7 @@ export interface LiesaSchoolYearPerformance {
   points: number;
   participated: boolean;
   schoolName?: string;
+  isHorsConcours?: boolean;
 }
 
 export interface LiesaRankingEntry {
@@ -287,6 +361,7 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('salgueiro')) return 'salgueiro';
   if (nameNorm.includes('mangueira')) return 'mangueira';
   if (nameNorm.includes('portela')) return 'portela';
+  if (nameNorm.includes('império da tijuca') || nameNorm.includes('imperio da tijuca')) return 'imperio_da_tijuca';
   if (nameNorm.includes('tijuca') && !nameNorm.includes('barra')) return 'tijuca';
   if (nameNorm.includes('tuiuti')) return 'tuiuti';
   if (nameNorm.includes('mocidade') && !nameNorm.includes('cidade de deus') && !nameNorm.includes('porto') && !nameNorm.includes('vicente')) return 'mocidade';
@@ -297,11 +372,13 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('são clemente') || nameNorm.includes('sao clemente')) return 'sao_clemente';
   if (nameNorm.includes('estácio') || nameNorm.includes('estacio')) return 'estacio_de_sa';
   if (nameNorm.includes('ilha do governador') || nameNorm.includes('união da ilha') || nameNorm.includes('uniao da ilha')) return 'uniao_da_ilha';
+  if (nameNorm.includes('inocentes')) return 'inocentes';
+  if (nameNorm.includes('renascer')) return 'renascer_jacarepagua';
   return nameNorm.replace(/[^a-z0-9]/g, '_');
 }
 
 /**
- * Retorna lista de carnavais históricos com resultados oficiais catalogados (2015 em diante + save)
+ * Retorna lista de carnavais históricos com resultados oficiais catalogados (2010 em diante + save)
  */
 export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): HistoricalCarnavalInfo[] {
   const result: HistoricalCarnavalInfo[] = [];
@@ -331,8 +408,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     });
   });
 
-  // Anos oficiais catalogados (2026 descendo até 2015)
-  const officialYears = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015];
+  // Anos oficiais catalogados (2026 descendo até 2010)
+  const officialYears = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010];
   officialYears.forEach((yr) => {
     const stands = OFFICIAL_LIESA_HISTORICAL_STANDINGS[yr] || [];
     if (yr === 2021) {
@@ -348,8 +425,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
       return;
     }
 
-    const champs = stands.filter((s) => s.rank === 1).map((s) => s.schoolName);
-    const vices = stands.filter((s) => s.rank === 2).map((s) => s.schoolName);
+    const champs = stands.filter((s) => s.rank === 1 && !s.isHorsConcours).map((s) => s.schoolName);
+    const vices = stands.filter((s) => s.rank === 2 && !s.isHorsConcours).map((s) => s.schoolName);
 
     let notes: string | undefined;
     if (yr === 2017) {
@@ -364,6 +441,16 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
       notes = 'Carnaval 2016: Estação Primeira de Mangueira foi campeã com 20 pontos e Unidos da Tijuca vice com 15 pontos.';
     } else if (yr === 2015) {
       notes = 'Carnaval 2015: Beija-Flor de Nilópolis foi campeã com 20 pontos e Acadêmicos do Salgueiro vice com 15 pontos.';
+    } else if (yr === 2014) {
+      notes = 'Carnaval 2014: Unidos da Tijuca foi campeã com o enredo histórico "Acelera, Tijuca!" em tributo a Ayrton Senna (+20 pts) e Acadêmicos do Salgueiro vice-campeã com "Gaia" (+15 pts). Império da Tijuca rebaixada.';
+    } else if (yr === 2013) {
+      notes = 'Carnaval 2013: Unidos de Vila Isabel sagrou-se campeã com "A Vila Canta o Brasil Celeiro do Mundo" (+20 pts) e Beija-Flor de Nilópolis vice-campeã com "Amigo Fiel" (+15 pts). Inocentes de Belford Roxo rebaixada.';
+    } else if (yr === 2012) {
+      notes = 'Carnaval 2012: Unidos da Tijuca conquistou o campeonato com homenagem a Luiz Gonzaga (+20 pts) e Acadêmicos do Salgueiro foi vice-campeã com "Cordel Branco e Encarnado" (+15 pts). Porto da Pedra e Renascer de Jacarepaguá rebaixadas.';
+    } else if (yr === 2011) {
+      notes = 'Carnaval 2011: Marcado pelo incêndio na Cidade do Samba semanas antes do desfile que atingiu os barracões de Grande Rio, Portela e União da Ilha. As três agremiações desfilaram como Hors concours (sem receber notas e sem risco de rebaixamento). Beija-Flor foi campeã com enredo sobre Roberto Carlos (+20 pts) e Unidos da Tijuca vice-campeã (+15 pts). Não houve rebaixamento.';
+    } else if (yr === 2010) {
+      notes = 'Carnaval 2010: Unidos da Tijuca sagrou-se campeã quebrando jejum histórico com a inovadora comissão de frente de Paulo Barros no enredo "É Segredo!" (+20 pts) e Acadêmicos do Grande Rio foi a vice-campeã (+15 pts). Viradouro rebaixada.';
     }
 
     result.push({
@@ -601,28 +688,28 @@ export function computeHistoricalLiesaRanking(
     return historicalMap[sId];
   };
 
-  // 1. Processa todos os títulos e vices históricos da era pré-2015 a partir de HISTORICAL_CARNAVAL_RECORDS
-  // A partir de 2015 em diante, todas as colocações detalhadas de 1º a 14º vêm do catálogo oficial LIESA
+  // 1. Processa todos os títulos e vices históricos da era pré-2010 a partir de HISTORICAL_CARNAVAL_RECORDS
+  // A partir de 2010 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA
   Object.entries(HISTORICAL_CARNAVAL_RECORDS).forEach(([id, rec]) => {
     const sId = resolveSchoolId(id, undefined, schoolsMap);
     const entry = ensureEntry(sId);
 
-    const espYearsPre2015 = (rec.especialYears || []).filter((y) => y < 2015);
-    const espViceYearsPre2015 = (rec.especialRunnerUpYears || []).filter((y) => y < 2015);
+    const espYearsPre2010 = (rec.especialYears || []).filter((y) => y < 2010);
+    const espViceYearsPre2010 = (rec.especialRunnerUpYears || []).filter((y) => y < 2010);
 
-    const titlesPre2015 = espYearsPre2015.length;
-    const vicesPre2015 = espViceYearsPre2015.length;
+    const titlesPre2010 = espYearsPre2010.length;
+    const vicesPre2010 = espViceYearsPre2010.length;
 
-    entry.totalEspecialTitles += titlesPre2015;
-    entry.totalEspecialVices += vicesPre2015;
-    entry.titlePoints += titlesPre2015 * 20;
-    entry.vicePoints += vicesPre2015 * 15;
-    entry.pointsEraPre2015 += titlesPre2015 * 20 + vicesPre2015 * 15;
-    entry.totalPoints += titlesPre2015 * 20 + vicesPre2015 * 15;
-    entry.totalCarnavalesContados += titlesPre2015 + vicesPre2015;
+    entry.totalEspecialTitles += titlesPre2010;
+    entry.totalEspecialVices += vicesPre2010;
+    entry.titlePoints += titlesPre2010 * 20;
+    entry.vicePoints += vicesPre2010 * 15;
+    entry.pointsEraPre2015 += titlesPre2010 * 20 + vicesPre2010 * 15;
+    entry.totalPoints += titlesPre2010 * 20 + vicesPre2010 * 15;
+    entry.totalCarnavalesContados += titlesPre2010 + vicesPre2010;
   });
 
-  // 2. Processa anos de 2015 a 2026 oficiais (com todas as colocações de 1º a 14º)
+  // 2. Processa anos de 2010 a 2026 oficiais (com todas as colocações de 1º a 14º)
   Object.entries(OFFICIAL_LIESA_HISTORICAL_STANDINGS).forEach(([yrStr, list]) => {
     const yr = parseInt(yrStr, 10);
     if (yr === 2021 || !list || list.length === 0) {
@@ -633,14 +720,15 @@ export function computeHistoricalLiesaRanking(
     list.forEach((st) => {
       const sId = resolveSchoolId(st.schoolId, st.schoolName, schoolsMap);
       const entry = ensureEntry(sId, st.schoolName);
-      const pts = getLiesaPoints(st.rank);
+      const pts = st.isHorsConcours ? 0 : getLiesaPoints(st.rank);
 
       const perf: LiesaSchoolYearPerformance = {
         year: yr,
-        rank: st.rank,
+        rank: st.isHorsConcours ? undefined : st.rank,
         points: pts,
         participated: true,
-        schoolName: st.schoolName
+        schoolName: st.schoolName,
+        isHorsConcours: st.isHorsConcours
       };
 
       entry.performancesDetailed[yr] = perf;
@@ -652,12 +740,14 @@ export function computeHistoricalLiesaRanking(
       entry.pointsDetailedEra += pts;
       entry.totalCarnavalesContados++;
 
-      if (st.rank === 1) {
-        entry.totalEspecialTitles++;
-        entry.titlePoints += 20;
-      } else if (st.rank === 2) {
-        entry.totalEspecialVices++;
-        entry.vicePoints += 15;
+      if (!st.isHorsConcours) {
+        if (st.rank === 1) {
+          entry.totalEspecialTitles++;
+          entry.titlePoints += 20;
+        } else if (st.rank === 2) {
+          entry.totalEspecialVices++;
+          entry.vicePoints += 15;
+        }
       }
     });
   });
