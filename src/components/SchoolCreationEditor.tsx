@@ -300,7 +300,7 @@ const EMBLEM_OPTIONS: EmblemOption[] = [
 // Lista completa de Denominações Oficiais
 const DENOMINATIONS = [
   { id: 'G.R.E.S.', label: 'G.R.E.S.', full: 'Grêmio Recreativo Escola de Samba' },
-  { id: 'E.S.', label: 'E.S.', full: 'Escola de Samba (Denominação Direta)', isDirect: true },
+  { id: 'E.S.', label: 'E.S.', full: 'Escola de Samba' },
   { id: 'C.C.E.S.', label: 'C.C.E.S.', full: 'Clube Carnavalesco Escola de Samba' },
   { id: 'S.R.E.S.', label: 'S.R.E.S.', full: 'Sociedade Recreativa Escola de Samba' },
   { id: 'A.R.E.S.', label: 'A.R.E.S.', full: 'Associação Recreativa Escola de Samba' },
@@ -347,9 +347,17 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
   const [customSymbolEmoji, setCustomSymbolEmoji] = useState<string>('');
 
   // Fundação & Quadra
+  const [foundationDay, setFoundationDay] = useState<number>(20);
+  const [foundationMonth, setFoundationMonth] = useState<number>(1); // 1 = Janeiro
   const [foundationYear, setFoundationYear] = useState<number>(currentYear);
-  const [foundationDate, setFoundationDate] = useState<string>(`20 de Janeiro de ${currentYear}`);
   const [quadraName, setQuadraName] = useState<string>('Palácio do Samba e da Folia');
+
+  const MONTH_NAMES = [
+    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+  ];
+
+  const foundationDate = `${String(foundationDay).padStart(2, '0')} de ${MONTH_NAMES[foundationMonth - 1]} de ${foundationYear}`;
 
   // Atributos de Quesitos (Base 74 + 5 pontos bônus customizáveis)
   const [bonusPoints, setBonusPoints] = useState<Record<string, number>>({
@@ -673,22 +681,13 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
                       >
                         <div className="flex items-center justify-between">
                           <strong className="text-xs font-mono font-black">{denom.id}</strong>
-                          {denom.isDirect && (
-                            <span
-                              className={`text-[9px] px-1 rounded font-bold uppercase ${
-                                isSelected ? 'bg-slate-950 text-amber-300' : 'bg-emerald-950 text-emerald-300 border border-emerald-500/30'
-                              }`}
-                            >
-                              Sem Grêmio
-                            </span>
-                          )}
                         </div>
                         <span
                           className={`text-[10px] block truncate mt-0.5 ${
                             isSelected ? 'text-slate-900 font-bold' : 'text-slate-400'
                           }`}
                         >
-                          {denom.id === 'E.S.' ? 'Apenas Escola de Samba' : denom.full.split(' ')[0]}
+                          {denom.full.split(' ')[0]} {denom.full.split(' ')[1] || ''}
                         </span>
                       </button>
                     );
@@ -896,44 +895,88 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="text-xs font-bold text-slate-300 block mb-1.5">
-                  Ano de Fundação da Escola:
+              <div className="space-y-3">
+                <label className="text-xs font-bold text-slate-300 block">
+                  Data de Fundação da Escola:
                 </label>
-                <div className="flex items-center gap-2 bg-slate-950 border border-slate-800 focus-within:border-amber-400 rounded-xl px-3 py-2">
-                  <Calendar className="w-4 h-4 text-amber-400 shrink-0" />
-                  <input
-                    type="number"
-                    min={1900}
-                    max={currentYear + 1}
-                    value={foundationYear}
-                    onChange={(e) => {
-                      const yr = parseInt(e.target.value) || currentYear;
-                      setFoundationYear(yr);
-                      setFoundationDate(`20 de Janeiro de ${yr}`);
-                    }}
-                    className="w-full bg-transparent text-sm text-white font-mono font-bold outline-none"
-                    placeholder="Ex: 2027"
-                  />
-                </div>
-                <div className="flex flex-wrap gap-1.5 mt-2">
-                  {[1923, 1948, 1954, 1970, 2000, currentYear].map((yr) => (
-                    <button
-                      key={yr}
-                      type="button"
-                      onClick={() => {
-                        setFoundationYear(yr);
-                        setFoundationDate(`20 de Janeiro de ${yr}`);
+
+                {/* Seletor Completo: Dia, Mês e Ano */}
+                <div className="grid grid-cols-12 gap-2">
+                  {/* Dia */}
+                  <div className="col-span-3">
+                    <span className="text-[10px] text-slate-400 block mb-1">Dia:</span>
+                    <input
+                      type="number"
+                      min={1}
+                      max={31}
+                      value={foundationDay}
+                      onChange={(e) => {
+                        const val = parseInt(e.target.value) || 1;
+                        setFoundationDay(Math.max(1, Math.min(31, val)));
                       }}
-                      className={`px-2.5 py-1 rounded-lg text-[10px] font-bold border transition cursor-pointer ${
-                        foundationYear === yr
-                          ? 'bg-amber-500 text-slate-950 border-amber-400 font-black shadow-sm'
-                          : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'
-                      }`}
+                      className="w-full bg-slate-950 border border-slate-800 focus:border-amber-400 rounded-xl px-2.5 py-2 text-sm text-center text-white font-mono font-bold outline-none"
+                    />
+                  </div>
+
+                  {/* Mês */}
+                  <div className="col-span-5">
+                    <span className="text-[10px] text-slate-400 block mb-1">Mês:</span>
+                    <select
+                      value={foundationMonth}
+                      onChange={(e) => setFoundationMonth(parseInt(e.target.value) || 1)}
+                      className="w-full bg-slate-950 border border-slate-800 focus:border-amber-400 rounded-xl px-2 py-2 text-xs text-white font-semibold outline-none cursor-pointer"
                     >
-                      {yr === currentYear ? `Ano Atual (${yr})` : yr}
-                    </button>
-                  ))}
+                      {MONTH_NAMES.map((m, idx) => (
+                        <option key={m} value={idx + 1}>
+                          {m}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Ano */}
+                  <div className="col-span-4">
+                    <span className="text-[10px] text-slate-400 block mb-1">Ano:</span>
+                    <input
+                      type="number"
+                      min={1900}
+                      max={currentYear + 1}
+                      value={foundationYear}
+                      onChange={(e) => {
+                        const yr = parseInt(e.target.value) || currentYear;
+                        setFoundationYear(yr);
+                      }}
+                      className="w-full bg-slate-950 border border-slate-800 focus:border-amber-400 rounded-xl px-2.5 py-2 text-sm text-center text-white font-mono font-bold outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800/80 flex items-center justify-between text-xs">
+                  <span className="text-slate-400">Data Oficial:</span>
+                  <span className="font-mono font-black text-amber-300">
+                    {foundationDate}
+                  </span>
+                </div>
+
+                {/* Anos de Referência Rápida */}
+                <div>
+                  <span className="text-[10px] text-slate-400 block mb-1">Anos Tradicionais / Rápidos:</span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {[1923, 1948, 1954, 1970, 2000, currentYear].map((yr) => (
+                      <button
+                        key={yr}
+                        type="button"
+                        onClick={() => setFoundationYear(yr)}
+                        className={`px-2.5 py-1 rounded-lg text-[10px] font-bold border transition cursor-pointer ${
+                          foundationYear === yr
+                            ? 'bg-amber-500 text-slate-950 border-amber-400 font-black shadow-sm'
+                            : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'
+                        }`}
+                      >
+                        {yr === currentYear ? `Ano Atual (${yr})` : yr}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
 
@@ -1386,8 +1429,8 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
               </div>
 
               <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-                <span className="text-slate-400">Ano de Fundação:</span>
-                <strong className="text-amber-400 font-mono font-black">{foundationYear} ({foundationDate})</strong>
+                <span className="text-slate-400">Data de Fundação:</span>
+                <strong className="text-amber-400 font-mono font-black">{foundationDate}</strong>
               </div>
 
               <div className="flex items-center justify-between pb-2 border-b border-slate-800">
