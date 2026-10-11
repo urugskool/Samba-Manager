@@ -1,12 +1,54 @@
-import { CarnavalProfessional, ProfessionalRole, TransferEvent } from '../types/professionals';
+import { CarnavalProfessional, ProfessionalRole, TransferEvent, TransferWindowStatus } from '../types/professionals';
 import { School, StaffMember } from '../types/carnaval';
 import { INITIAL_PROFESSIONALS_DATABASE } from '../data/professionalsDatabase';
 import { cleanSchoolName } from '../utils/schoolNameUtils';
 import { NewsService } from './newsService';
 import { NewsArticle } from '../types/news';
+import { SeasonMonthId } from '../types/seasonCycle';
 
 export class TransferMarketService {
-  private static STORAGE_KEY = 'samba_manager_professionals_db_v1';
+  private static STORAGE_KEY = 'samba_manager_professionals_db_v2';
+  private static HISTORY_STORAGE_KEY = 'samba_manager_transfers_history_v1';
+
+  /**
+   * Meses oficiais em que a janela de transferências está aberta na pré-temporada
+   * - Março (Pós-carnaval imediato / rescisões)
+   * - Abril (Planejamento e sondagens)
+   * - Maio (Janela oficial principal de contratações)
+   * - Junho (Ajustes finais de elenco antes do anúncio do enredo)
+   */
+  public static TRANSFER_WINDOW_MONTHS: SeasonMonthId[] = ['marco', 'abril', 'maio', 'junho'];
+
+  /**
+   * Verifica o status da janela de transferências de acordo com o mês atual da pré-temporada
+   */
+  public static getWindowStatus(currentMonthId: SeasonMonthId = 'maio'): TransferWindowStatus {
+    const isOpen = this.TRANSFER_WINDOW_MONTHS.includes(currentMonthId);
+
+    const monthNames: Record<SeasonMonthId, string> = {
+      marco: 'Março (Abertura da Janela Pós-Apuração)',
+      abril: 'Abril (Sondagens & Planejamento Financeiro)',
+      maio: 'Maio (Pico da Janela Oficial de Contratações)',
+      junho: 'Junho (Últimos Ajustes de Elenco Pré-Enredo)',
+      julho: 'Julho (Janela Fechada · Sorteio Oficial)',
+      agosto: 'Agosto (Janela Fechada · Disputas de Samba)',
+      setembro: 'Setembro (Janela Fechada · Gravações)',
+      outubro: 'Outubro (Janela Fechada · Ensaios de Quadra)',
+      novembro: 'Novembro (Janela Fechada · Ensaios de Rua)',
+      dezembro: 'Dezembro (Janela Fechada · Vistorias de Barracão)',
+      janeiro: 'Janeiro (Janela Fechada · Ensaios Técnicos)',
+      fevereiro: 'Fevereiro (Janela Fechada · Carnaval & Desfiles)'
+    };
+
+    return {
+      isOpen,
+      currentMonth: monthNames[currentMonthId] || currentMonthId,
+      deadlineName: isOpen
+        ? 'Janela de Pré-Temporada Aberta até o fim de Junho'
+        : 'Janela de Transferências Fechada (Reabre na Pré-Temporada de Março a Junho)',
+      daysRemainingInWindow: isOpen ? Math.max(0, (4 - this.TRANSFER_WINDOW_MONTHS.indexOf(currentMonthId)) * 30) : 0
+    };
+  }
 
   /**
    * Obtém a base completa de profissionais atualizada
@@ -18,6 +60,10 @@ export class TransferMarketService {
         if (stored) {
           const parsed: CarnavalProfessional[] = JSON.parse(stored);
           if (Array.isArray(parsed) && parsed.length > 0) {
+            // Sincroniza dados vitais com as escolas se fornecidas
+            if (currentSchools && currentSchools.length > 0) {
+              this.syncSchoolsWithProfessionals(parsed, currentSchools);
+            }
             return parsed;
           }
         }
@@ -27,7 +73,16 @@ export class TransferMarketService {
     }
 
     // Inicializa a partir da base e sincroniza com as escolas atuais
-    const base = [...INITIAL_PROFESSIONALS_DATABASE];
+    const base = INITIAL_PROFESSIONALS_DATABASE.map((p) => {
+      const buyout = p.buyoutClause || Math.floor(p.salary * 1.5);
+      return {
+        ...p,
+        buyoutClause: buyout,
+        contractYearsLeft: p.status === 'em_escola' ? 1 : 0,
+        loyaltyLevel: p.loyaltyLevel || Math.floor(60 + Math.random() * 35)
+      };
+    });
+
     if (currentSchools && currentSchools.length > 0) {
       this.syncSchoolsWithProfessionals(base, currentSchools);
     }
@@ -42,6 +97,34 @@ export class TransferMarketService {
       }
     } catch (e) {
       console.warn('Erro ao salvar profissionais:', e);
+    }
+  }
+
+  /**
+   * Histórico persistente de transferências registradas
+   */
+  public static getTransferHistory(): TransferEvent[] {
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        const stored = window.localStorage.getItem(this.HISTORY_STORAGE_KEY);
+        if (stored) {
+          const parsed: TransferEvent[] = JSON.parse(stored);
+          if (Array.isArray(parsed)) return parsed;
+        }
+      }
+    } catch (e) {
+      console.warn('Erro ao carregar histórico de transferências:', e);
+    }
+    return [];
+  }
+
+  public static saveTransferHistory(history: TransferEvent[]): void {
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        window.localStorage.setItem(this.HISTORY_STORAGE_KEY, JSON.stringify(history.slice(0, 100)));
+      }
+    } catch (e) {
+      console.warn('Erro ao salvar histórico de transferências:', e);
     }
   }
 
@@ -67,29 +150,73 @@ export class TransferMarketService {
           found.status = 'em_escola';
           found.rating = member.rating;
           found.salary = member.salary;
+          if (!found.buyoutClause) {
+            found.buyoutClause = Math.floor(member.salary * 1.5);
+          }
         }
       });
     });
   }
 
   /**
-   * Executa a contratação de um profissional pelo jogador ou por IA
+   * Executa a contratação ou transferência de um profissional pelo jogador ou pela IA
    */
   public static hireProfessional(
     school: School,
     professional: CarnavalProfessional,
     mode: 'solo' | 'dupla' | 'separacao_dupla',
     currentYear: number,
-    monthId: string = 'maio',
+    monthId: SeasonMonthId = 'maio',
     allSchools: School[] = []
   ): {
     updatedSchool: School;
     transferEvent: TransferEvent;
     newsArticle: NewsArticle;
+    previousSchoolUpdated?: School;
   } {
     const roleKey = professional.role as keyof typeof school.staff;
     const currentMember = school.staff[roleKey];
     const signingBonus = professional.signingBonus || Math.floor(professional.salary * 0.4);
+
+    // Se o profissional estava em outra escola rival, calcula a multa rescisória (buyout)
+    let buyoutPaid = 0;
+    let previousSchoolUpdated: School | undefined = undefined;
+
+    if (
+      professional.currentSchoolId &&
+      professional.currentSchoolId !== school.id &&
+      professional.status === 'em_escola'
+    ) {
+      buyoutPaid = professional.buyoutClause || Math.floor(professional.salary * 1.2);
+
+      // Localiza a escola anterior para creditar a multa rescisória e preencher o cargo vago com um substituto
+      const prevSchool = allSchools.find((s) => s.id === professional.currentSchoolId);
+      if (prevSchool) {
+        // Encontra um profissional da base ou promove um assistente temporário
+        const substituteStaffMember: StaffMember = {
+          id: `sub_${Date.now()}_${roleKey}`,
+          name: `Comissão Interina de ${professional.roleName}`,
+          role: professional.role,
+          roleName: professional.roleName,
+          rating: Math.max(70, professional.rating - 10),
+          salary: Math.floor(professional.salary * 0.6),
+          reputation: 'Equipe Interina da Comunidade',
+          isDupla: false
+        };
+
+        previousSchoolUpdated = {
+          ...prevSchool,
+          budget: prevSchool.budget + buyoutPaid,
+          staff: {
+            ...prevSchool.staff,
+            [roleKey]: substituteStaffMember
+          },
+          fanBaseMorale: Math.max(20, prevSchool.fanBaseMorale - 5)
+        };
+      }
+    }
+
+    const totalCashNeeded = signingBonus + buyoutPaid;
 
     let finalName = professional.name;
     let finalRating = professional.rating;
@@ -101,7 +228,7 @@ export class TransferMarketService {
       if (currentMember && currentMember.name !== professional.name) {
         partnerName = currentMember.name;
         finalName = `${professional.name} & ${currentMember.name}`;
-        // Bônus de sinergia de dupla para puxadores, carnavalescos ou mestres (+1 a +2 de rating)
+        // Bônus de sinergia de dupla para carnavalescos, puxadores ou mestres (+1 a +2 de rating)
         finalRating = Math.min(99, Math.max(professional.rating, currentMember.rating) + 1);
       } else if (professional.isDupla && professional.partnerName) {
         partnerName = professional.partnerName;
@@ -133,7 +260,7 @@ export class TransferMarketService {
       [roleKey]: updatedMember
     };
 
-    // Ajuste nos atributos da escola conforme a evolução do rating
+    // Ajuste nos atributos técnicos da escola conforme a evolução do rating
     const ratingDiff = finalRating - (currentMember?.rating || 75);
     const updatedAttrs = { ...school.attributes };
 
@@ -154,10 +281,10 @@ export class TransferMarketService {
 
     const updatedSchool: School = {
       ...school,
-      budget: school.budget - signingBonus,
+      budget: school.budget - totalCashNeeded,
       staff: updatedStaff,
       attributes: updatedAttrs,
-      fanBaseMorale: Math.min(100, Math.max(20, school.fanBaseMorale + (ratingDiff > 0 ? 5 : -2)))
+      fanBaseMorale: Math.min(100, Math.max(20, school.fanBaseMorale + (ratingDiff > 0 ? 6 : -2)))
     };
 
     const transferEvent: TransferEvent = {
@@ -174,12 +301,17 @@ export class TransferMarketService {
       partnerName,
       valueSalary: professional.salary,
       valueBonus: signingBonus,
+      buyoutPaid: buyoutPaid > 0 ? buyoutPaid : undefined,
       year: currentYear,
-      monthId
+      monthId,
+      dateStr: `${monthId.charAt(0).toUpperCase() + monthId.slice(1)} de ${currentYear}`
     };
 
     // Gera notícia jornalística correspondente
-    const newsArticle = NewsService.generateTransferNewsArticle(transferEvent, allSchools.length > 0 ? allSchools : [school]);
+    const newsArticle = NewsService.generateTransferNewsArticle(
+      transferEvent,
+      allSchools.length > 0 ? allSchools : [school]
+    );
 
     // Atualiza status do profissional no banco de dados geral
     const allProfs = this.getAllProfessionals();
@@ -191,46 +323,64 @@ export class TransferMarketService {
         currentSchoolId: school.id,
         currentSchoolName: cleanSchoolName(school),
         isDupla,
-        partnerName
+        partnerName,
+        contractYearsLeft: 1
       };
       this.saveProfessionals(allProfs);
     }
 
+    // Registra no histórico de transferências
+    const currentHistory = this.getTransferHistory();
+    this.saveTransferHistory([transferEvent, ...currentHistory]);
+
     return {
       updatedSchool,
       transferEvent,
-      newsArticle
+      newsArticle,
+      previousSchoolUpdated
     };
   }
 
   /**
    * Simula a janela de transferências das outras agremiações (IA)
-   * As escolas contratam e reestruturam equipes conforme orçamentos de cada divisão
+   * Agremiações do Especial, Ouro e Prata contratam e reestruturam equipes com notícias publicadas
    */
   public static simulateAITransfers(
     schools: School[],
     userSchoolId: string | undefined,
-    currentYear: number
+    currentYear: number,
+    currentMonthId: SeasonMonthId = 'maio'
   ): {
     updatedSchools: School[];
     generatedTransfers: TransferEvent[];
     generatedNews: NewsArticle[];
   } {
     const allProfs = this.getAllProfessionals(schools);
+
+    // Pool de alvos: free agents, destaques do acesso, profissionais de fora ou profissionais que aceitam transferência
     const availablePool = allProfs.filter(
-      (p) => p.status === 'free_agent' || p.status === 'outra_cidade' || p.status === 'destaque_acesso'
+      (p) =>
+        p.status === 'free_agent' ||
+        p.status === 'outra_cidade' ||
+        p.status === 'destaque_acesso' ||
+        (p.status === 'em_escola' && p.currentSchoolId !== userSchoolId && Math.random() < 0.25)
     );
 
     const generatedTransfers: TransferEvent[] = [];
     const generatedNews: NewsArticle[] = [];
 
-    // Filtra escolas controladas pela IA (focando em Especial e Série Ouro que mais movimentam o mercado)
+    // Filtra escolas controladas pela IA (focando em Especial, Série Ouro e Prata)
     const aiSchools = schools.filter(
-      (s) => s.id !== userSchoolId && !s.isInactive && !(s as any).inactive && (s.division === 'especial' || s.division === 'ouro')
+      (s) =>
+        s.id !== userSchoolId &&
+        !s.isInactive &&
+        !(s as any).inactive &&
+        (s.division === 'especial' || s.division === 'ouro' || s.division === 'prata')
     );
 
-    // Seleciona de 2 a 4 movimentações de impacto para gerar dinamismo sem saturar o jogo
-    const candidateSchools = [...aiSchools].sort(() => Math.random() - 0.5).slice(0, 3);
+    // Seleciona de 2 a 4 movimentações de impacto por rodada de mercado
+    const count = Math.floor(Math.random() * 3) + 2;
+    const candidateSchools = [...aiSchools].sort(() => Math.random() - 0.5).slice(0, count);
 
     const updatedSchoolsMap = new Map<string, School>();
     schools.forEach((s) => updatedSchoolsMap.set(s.id, s));
@@ -238,34 +388,58 @@ export class TransferMarketService {
     candidateSchools.forEach((school) => {
       if (availablePool.length === 0) return;
 
-      // Escolhe uma função que a escola deseja reforçar
-      const roles: ProfessionalRole[] = ['carnavalesco', 'interprete', 'mestreBateria', 'coreografo'];
+      // Escolhe uma função que a escola deseja reforçar (prioridade carnavalesco, interprete, mestreBateria)
+      const roles: ProfessionalRole[] = [
+        'carnavalesco',
+        'interprete',
+        'mestreBateria',
+        'mestreSalaPortaBandeira',
+        'coreografo'
+      ];
       const targetRole = roles[Math.floor(Math.random() * roles.length)];
 
       const eligibleProfs = availablePool.filter(
-        (p) => p.role === targetRole && (school.division === 'especial' ? p.rating >= 85 : p.rating >= 75)
+        (p) =>
+          p.role === targetRole &&
+          p.currentSchoolId !== school.id &&
+          (school.division === 'especial'
+            ? p.rating >= 84
+            : school.division === 'ouro'
+            ? p.rating >= 75 && p.rating <= 92
+            : p.rating >= 68 && p.rating <= 84)
       );
 
       if (eligibleProfs.length === 0) return;
 
       const chosenProf = eligibleProfs[Math.floor(Math.random() * eligibleProfs.length)];
 
-      // Decide modo: solo ou formação de dupla
+      // Decide modo: solo ou formação de dupla para funções compatíveis
       let mode: 'solo' | 'dupla' = 'solo';
-      if ((targetRole === 'interprete' || targetRole === 'carnavalesco' || targetRole === 'mestreBateria') && Math.random() > 0.65) {
+      if (
+        (targetRole === 'interprete' || targetRole === 'carnavalesco' || targetRole === 'mestreBateria') &&
+        chosenProf.willingToFormDupla &&
+        Math.random() > 0.6
+      ) {
         mode = 'dupla';
       }
 
+      const currentSchoolState = updatedSchoolsMap.get(school.id) || school;
+      const currentAllSchoolsState = Array.from(updatedSchoolsMap.values());
+
       const result = this.hireProfessional(
-        school,
+        currentSchoolState,
         chosenProf,
         mode,
         currentYear,
-        'maio',
-        schools
+        currentMonthId,
+        currentAllSchoolsState
       );
 
       updatedSchoolsMap.set(school.id, result.updatedSchool);
+      if (result.previousSchoolUpdated) {
+        updatedSchoolsMap.set(result.previousSchoolUpdated.id, result.previousSchoolUpdated);
+      }
+
       generatedTransfers.push(result.transferEvent);
       generatedNews.push(result.newsArticle);
 
@@ -286,6 +460,69 @@ export class TransferMarketService {
       updatedSchools,
       generatedTransfers,
       generatedNews
+    };
+  }
+
+  /**
+   * Rescinde contrato amigavelmente com um membro da equipe (demissão / quebra de contrato)
+   */
+  public static releaseMember(
+    school: School,
+    roleKey: keyof typeof school.staff,
+    currentYear: number,
+    monthId: SeasonMonthId = 'maio'
+  ): {
+    updatedSchool: School;
+    releasedProfessionalName: string;
+  } {
+    const member = school.staff[roleKey];
+    if (!member) {
+      return { updatedSchool: school, releasedProfessionalName: '' };
+    }
+
+    const releasedName = member.name;
+    const severanceFee = Math.floor(member.salary * 0.25); // Custo de rescisão 25%
+
+    // Substitui por comissão técnica básica da comunidade
+    const baseMember: StaffMember = {
+      id: `comissao_base_${roleKey}`,
+      name: `Comissão de ${member.roleName}`,
+      role: member.role,
+      roleName: member.roleName,
+      rating: 70,
+      salary: 15000,
+      reputation: 'Pratas da Casa da Comunidade',
+      isDupla: false
+    };
+
+    const updatedSchool: School = {
+      ...school,
+      budget: Math.max(0, school.budget - severanceFee),
+      staff: {
+        ...school.staff,
+        [roleKey]: baseMember
+      },
+      fanBaseMorale: Math.max(20, school.fanBaseMorale - 3)
+    };
+
+    // Marca o profissional como Free Agent na base
+    const allProfs = this.getAllProfessionals();
+    const profIndex = allProfs.findIndex((p) => p.name.toLowerCase() === releasedName.toLowerCase());
+    if (profIndex !== -1) {
+      allProfs[profIndex] = {
+        ...allProfs[profIndex],
+        status: 'free_agent',
+        currentSchoolId: undefined,
+        currentSchoolName: undefined,
+        isDupla: false,
+        contractYearsLeft: 0
+      };
+      this.saveProfessionals(allProfs);
+    }
+
+    return {
+      updatedSchool,
+      releasedProfessionalName: releasedName
     };
   }
 }

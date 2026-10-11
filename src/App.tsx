@@ -1604,6 +1604,7 @@ export default function App() {
             onShowMessage={showToast}
             onOpenNewsPortal={() => setIsNewsModalOpen(true)}
             currentYear={currentYear}
+            currentSeasonMonth={currentSeasonMonth}
           />
         )}
 

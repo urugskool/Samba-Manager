@@ -20,6 +20,7 @@ export interface CarnavalProfessional {
   rating: number; // 50 a 99
   salary: number; // R$ por ano
   signingBonus: number; // Luvas de assinatura (R$)
+  buyoutClause?: number; // Multa rescisória de quebra de contrato para tirar de outra escola
   reputation: string;
   status: ProfessionalStatus;
   currentSchoolId?: string;
@@ -30,6 +31,8 @@ export interface CarnavalProfessional {
   partnerId?: string;
   willingToSolo: boolean;
   willingToFormDupla: boolean;
+  contractYearsLeft?: number; // Anos de contrato restantes na agremiação (0 = expirado / agente livre)
+  loyaltyLevel?: number; // 1 a 100 de fidelidade à agremiação atual
   bio: string;
   specialties: string[];
   historyHighlights: string;
@@ -51,7 +54,16 @@ export interface TransferEvent {
   partnerName?: string;
   valueSalary: number;
   valueBonus: number;
+  buyoutPaid?: number; // Valor da multa rescisória paga à escola anterior
   year: number;
   monthId: string;
   headlineGenerated?: string;
+  dateStr?: string;
+}
+
+export interface TransferWindowStatus {
+  isOpen: boolean;
+  currentMonth: string;
+  deadlineName: string;
+  daysRemainingInWindow?: number;
 }
