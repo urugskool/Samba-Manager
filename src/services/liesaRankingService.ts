@@ -42,7 +42,7 @@ export function getLiesaPoints(rank: number): number {
 }
 
 /**
- * Resultados oficiais catalogados dos carnavais históricos (2005 a 2026)
+ * Resultados oficiais catalogados dos carnavais históricos (2000 a 2026)
  * fornecidos pela LIESA para balizar o ranking oficial e histórico do jogo.
  * Carnaval 2021: Não houve desfiles (0 pontos) devido à pandemia.
  * Carnaval 2018: Não houve rebaixamento por decisão unânime da plenária da LIESA (Grande Rio e Império Serrano mantiveram-se no Especial).
@@ -50,6 +50,86 @@ export function getLiesaPoints(rank: number): number {
  * Carnaval 2011: Grande Rio, Portela e União da Ilha desfilaram como Hors concours devido ao incêndio na Cidade do Samba (sem rebaixamento).
  */
 export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRecord[]> = {
+  2000: [
+    { rank: 1, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 2, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
+    { rank: 3, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro' },
+    { rank: 4, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 5, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 6, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 7, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 8, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
+    { rank: 9, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio' },
+    { rank: 10, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 11, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
+    { rank: 12, schoolId: 'tradicao', schoolName: 'Tradição' },
+    { rank: 13, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
+    { rank: 14, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra' }
+  ],
+  2001: [
+    { rank: 1, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 2, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
+    { rank: 3, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 4, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 5, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro' },
+    { rank: 6, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio' },
+    { rank: 7, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 8, schoolId: 'tradicao', schoolName: 'Tradição' },
+    { rank: 9, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 10, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 11, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' },
+    { rank: 12, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
+    { rank: 13, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
+    { rank: 14, schoolId: 'tuiuti', schoolName: 'Paraíso do Tuiuti' }
+  ],
+  2002: [
+    { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 2, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
+    { rank: 3, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 4, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 5, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro' },
+    { rank: 6, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 7, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio' },
+    { rank: 8, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 9, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' },
+    { rank: 10, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 11, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra' },
+    { rank: 12, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
+    { rank: 13, schoolId: 'tradicao', schoolName: 'Tradição' },
+    { rank: 14, schoolId: 'sao_clemente', schoolName: 'São Clemente' }
+  ],
+  2003: [
+    { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
+    { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 3, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio' },
+    { rank: 4, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 5, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 6, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro' },
+    { rank: 7, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 8, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 9, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 10, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
+    { rank: 11, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra' },
+    { rank: 12, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' },
+    { rank: 13, schoolId: 'tradicao', schoolName: 'Tradição' },
+    { rank: 14, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz' }
+  ],
+  2004: [
+    { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
+    { rank: 2, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 3, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 4, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro' },
+    { rank: 5, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 6, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 7, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 8, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 9, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' },
+    { rank: 10, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio' },
+    { rank: 11, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra' },
+    { rank: 12, schoolId: 'tradicao', schoolName: 'Tradição' },
+    { rank: 13, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
+    { rank: 14, schoolId: 'sao_clemente', schoolName: 'São Clemente' }
+  ],
   2005: [
     { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
     { rank: 2, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
@@ -453,11 +533,12 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('caprichosos')) return 'caprichosos_de_pilares';
   if (nameNorm.includes('rocinha')) return 'rocinha';
   if (nameNorm.includes('tradição') || nameNorm.includes('tradicao')) return 'tradicao';
+  if (nameNorm.includes('santa cruz')) return 'santa_cruz';
   return nameNorm.replace(/[^a-z0-9]/g, '_');
 }
 
 /**
- * Retorna lista de carnavais históricos com resultados oficiais catalogados (2005 em diante + save)
+ * Retorna lista de carnavais históricos com resultados oficiais catalogados (2000 em diante + save)
  */
 export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): HistoricalCarnavalInfo[] {
   const result: HistoricalCarnavalInfo[] = [];
@@ -487,8 +568,12 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     });
   });
 
-  // Anos oficiais catalogados (2026 descendo até 2005)
-  const officialYears = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005];
+  // Anos oficiais catalogados (2026 descendo até 2000)
+  const officialYears = [
+    2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017,
+    2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007,
+    2006, 2005, 2004, 2003, 2002, 2001, 2000
+  ];
   officialYears.forEach((yr) => {
     const stands = OFFICIAL_LIESA_HISTORICAL_STANDINGS[yr] || [];
     if (yr === 2021) {
@@ -540,6 +625,16 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
       notes = 'Carnaval 2006: Unidos de Vila Isabel conquistou o campeonato com "Soy loco por ti, América" (+20 pts) e Acadêmicos do Grande Rio vice-campeã (+15 pts). Caprichosos de Pilares e Acadêmicos da Rocinha rebaixadas.';
     } else if (yr === 2005) {
       notes = 'Carnaval 2005: Beija-Flor de Nilópolis sagrou-se tricampeã consecutiva com "Sete Pecados Capitais" (+20 pts) e Unidos da Tijuca vice-campeã com "Entrou por um lado, saiu pelo outro..." (+15 pts). Tradição rebaixada.';
+    } else if (yr === 2004) {
+      notes = 'Carnaval 2004: Beija-Flor sagrou-se bicampeã com "Manôa - Manaus - Amazônia - Terra Santa" (+20 pts) e Unidos da Tijuca vice-campeã histórica com o antológico "O Segredo do Agbê" de Paulo Barros (+15 pts). São Clemente rebaixada.';
+    } else if (yr === 2003) {
+      notes = 'Carnaval 2003: Beija-Flor de Nilópolis foi a grande campeã com "O Povo Conta a Sua História: Saco Vazio Não Pára em Pé" (+20 pts) e Estação Primeira de Mangueira vice-campeã com "Dez de Maio, Cem Anos de Glória" (+15 pts). Acadêmicos de Santa Cruz rebaixada.';
+    } else if (yr === 2002) {
+      notes = 'Carnaval 2002: Estação Primeira de Mangueira conquistou o campeonato com "Brazil com Z é pra cabra da peste, Brasil com S é a nação do Nordeste" (+20 pts) e Beija-Flor vice-campeã com "O Brasil Dá o Ar de Sua Graça" (+15 pts). São Clemente rebaixada.';
+    } else if (yr === 2001) {
+      notes = 'Carnaval 2001: Imperatriz Leopoldinense conquistou o histórico tricampeonato consecutivo com "Cana-Caiana, Cana-Roxa, Cana-Fita" (+20 pts) e Beija-Flor vice-campeã com "A Saga de Agotime" (+15 pts). União da Ilha e Paraíso do Tuiuti rebaixadas.';
+    } else if (yr === 2000) {
+      notes = 'Carnaval 2000: Carnaval comemorativo dos 500 anos do Brasil. Imperatriz Leopoldinense sagrou-se bicampeã com "Quem Descobriu o Brasil, Foi Seu Cabral..." (+20 pts) e Beija-Flor vice-campeã com "Brasil: Um Coração que Pulsa Forte" (+15 pts). Unidos de Vila Isabel e Porto da Pedra rebaixadas.';
     }
 
     result.push({
@@ -777,28 +872,28 @@ export function computeHistoricalLiesaRanking(
     return historicalMap[sId];
   };
 
-  // 1. Processa todos os títulos e vices históricos da era pré-2005 a partir de HISTORICAL_CARNAVAL_RECORDS
-  // A partir de 2005 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA
+  // 1. Processa todos os títulos e vices históricos da era pré-2000 a partir de HISTORICAL_CARNAVAL_RECORDS
+  // A partir de 2000 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA
   Object.entries(HISTORICAL_CARNAVAL_RECORDS).forEach(([id, rec]) => {
     const sId = resolveSchoolId(id, undefined, schoolsMap);
     const entry = ensureEntry(sId);
 
-    const espYearsPre2005 = (rec.especialYears || []).filter((y) => y < 2005);
-    const espViceYearsPre2005 = (rec.especialRunnerUpYears || []).filter((y) => y < 2005);
+    const espYearsPre2000 = (rec.especialYears || []).filter((y) => y < 2000);
+    const espViceYearsPre2000 = (rec.especialRunnerUpYears || []).filter((y) => y < 2000);
 
-    const titlesPre2005 = espYearsPre2005.length;
-    const vicesPre2005 = espViceYearsPre2005.length;
+    const titlesPre2000 = espYearsPre2000.length;
+    const vicesPre2000 = espViceYearsPre2000.length;
 
-    entry.totalEspecialTitles += titlesPre2005;
-    entry.totalEspecialVices += vicesPre2005;
-    entry.titlePoints += titlesPre2005 * 20;
-    entry.vicePoints += vicesPre2005 * 15;
-    entry.pointsEraPre2015 += titlesPre2005 * 20 + vicesPre2005 * 15;
-    entry.totalPoints += titlesPre2005 * 20 + vicesPre2005 * 15;
-    entry.totalCarnavalesContados += titlesPre2005 + vicesPre2005;
+    entry.totalEspecialTitles += titlesPre2000;
+    entry.totalEspecialVices += vicesPre2000;
+    entry.titlePoints += titlesPre2000 * 20;
+    entry.vicePoints += vicesPre2000 * 15;
+    entry.pointsEraPre2015 += titlesPre2000 * 20 + vicesPre2000 * 15;
+    entry.totalPoints += titlesPre2000 * 20 + vicesPre2000 * 15;
+    entry.totalCarnavalesContados += titlesPre2000 + vicesPre2000;
   });
 
-  // 2. Processa anos de 2005 a 2026 oficiais (com todas as colocações de 1º a 14º)
+  // 2. Processa anos de 2000 a 2026 oficiais (com todas as colocações de 1º a 14º)
   Object.entries(OFFICIAL_LIESA_HISTORICAL_STANDINGS).forEach(([yrStr, list]) => {
     const yr = parseInt(yrStr, 10);
     if (yr === 2021 || !list || list.length === 0) {
