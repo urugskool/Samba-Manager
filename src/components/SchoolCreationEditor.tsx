@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { School, StaffMember, SchoolAttributes } from '../types/carnaval';
+import { School, SchoolAttributes } from '../types/carnaval';
 import { EnredoService } from '../services/enredoService';
 import {
   Sparkles,
@@ -14,12 +14,14 @@ import {
   Minus,
   Check,
   ChevronRight,
-  Info,
-  Layers,
   Crown,
-  HelpCircle
+  Shuffle,
+  Grid,
+  Layers,
+  Sparkle
 } from 'lucide-react';
 import { soundService } from '../services/soundService';
+import { SchoolFlag, FlagPatternId, FlagEmblemStyle } from './SchoolFlag';
 
 interface SchoolCreationEditorProps {
   currentYear: number;
@@ -50,7 +52,12 @@ const RIO_NEIGHBORHOODS_BY_ZONE: Record<string, string[]> = {
     'Andaraí',
     'Grajaú',
     'Maracanã',
-    'Mangueira'
+    'Mangueira',
+    'Sampaio',
+    'Del Castilho',
+    'Inhaúma',
+    'Engenho Novo',
+    'Higienópolis'
   ],
   'Zona Sul': [
     'Botafogo',
@@ -64,7 +71,10 @@ const RIO_NEIGHBORHOODS_BY_ZONE: Record<string, string[]> = {
     'Flamengo',
     'Rocinha',
     'Vidigal',
-    'Urca'
+    'Urca',
+    'Gávea',
+    'Jardim Botânico',
+    'Humaitá'
   ],
   'Centro & Região Portuária': [
     'São Cristóvão',
@@ -75,7 +85,9 @@ const RIO_NEIGHBORHOODS_BY_ZONE: Record<string, string[]> = {
     'Lapa',
     'Santa Teresa',
     'Centro',
-    'Cidade Nova'
+    'Cidade Nova',
+    'Caju',
+    'Praça da Bandeira'
   ],
   'Zona Oeste': [
     'Bangu',
@@ -90,7 +102,15 @@ const RIO_NEIGHBORHOODS_BY_ZONE: Record<string, string[]> = {
     'Freguesia',
     'Recreio dos Bandeirantes',
     'Barra da Tijuca',
-    'Pedra de Guaratiba'
+    'Pedra de Guaratiba',
+    'Sepetiba',
+    'Vargem Grande',
+    'Vargem Pequena',
+    'Paciência',
+    'Cosmos',
+    'Inhoaíba',
+    'Senador Camará',
+    'Vila Valqueire'
   ],
   'Ilha do Governador': [
     'Ilha do Governador',
@@ -98,7 +118,11 @@ const RIO_NEIGHBORHOODS_BY_ZONE: Record<string, string[]> = {
     'Cocotá',
     'Cacuia',
     'Freguesia (Ilha)',
-    'Jardim Guanabara'
+    'Jardim Guanabara',
+    'Zumbi',
+    'Tauá',
+    'Bancários',
+    'Praia da Bandeira'
   ]
 };
 
@@ -112,6 +136,14 @@ const SUGGESTED_EXTERNAL_CITIES = [
   'Petrópolis - RJ',
   'Cabo Frio - RJ',
   'Campos dos Goytacazes - RJ',
+  'São João de Meriti - RJ',
+  'Belford Roxo - RJ',
+  'Mesquita - RJ',
+  'Nilópolis - RJ',
+  'Magé - RJ',
+  'Itaboraí - RJ',
+  'Angra dos Reis - RJ',
+  'Volta Redonda - RJ',
   'São Paulo - SP',
   'Santos - SP',
   'Campinas - SP',
@@ -146,39 +178,134 @@ const COLOR_PRESETS: ColorPreset[] = [
   { name: 'Roxo e Amarelo', primary: '#7e22ce', secondary: '#facc15', accent: '#fbbf24', text: '#ffffff', border: '#a855f7' },
   { name: 'Vermelho, Preto e Branco', primary: '#b91c1c', secondary: '#09090b', accent: '#ffffff', text: '#ffffff', border: '#ef4444' },
   { name: 'Azul Turquesa e Coral', primary: '#0284c7', secondary: '#f97316', accent: '#fb923c', text: '#ffffff', border: '#38bdf8' },
-  { name: 'Bordeaux e Dourado', primary: '#881337', secondary: '#d97706', accent: '#fbbf24', text: '#ffffff', border: '#be123c' }
+  { name: 'Bordeaux e Dourado', primary: '#881337', secondary: '#d97706', accent: '#fbbf24', text: '#ffffff', border: '#be123c' },
+  { name: 'Dourado Imperial e Branco', primary: '#b45309', secondary: '#ffffff', accent: '#fbbf24', text: '#ffffff', border: '#f59e0b' },
+  { name: 'Verde Esmeralda e Ouro', primary: '#047857', secondary: '#eab308', accent: '#fde047', text: '#ffffff', border: '#10b981' },
+  { name: 'Azul Royal, Vermelho e Branco', primary: '#1e3a8a', secondary: '#dc2626', accent: '#ffffff', text: '#ffffff', border: '#60a5fa' },
+  { name: 'Lilás Místico e Prata', primary: '#6b21a8', secondary: '#e2e8f0', accent: '#c084fc', text: '#ffffff', border: '#cbd5e1' },
+  { name: 'Laranja Solar e Preto', primary: '#ea580c', secondary: '#18181b', accent: '#fb923c', text: '#ffffff', border: '#f97316' }
 ];
 
-// Símbolos clássicos do samba
+// Categorias e Símbolos clássicos e contemporâneos do samba
 interface SymbolPreset {
   id: string;
   label: string;
   emoji: string;
+  category: 'Fauna' | 'Soberania' | 'Sagrado & Cultura' | 'Música & Festa' | 'Natureza & Mar' | 'História & Cidade';
 }
 
 const SYMBOL_PRESETS: SymbolPreset[] = [
-  { id: 'aguia', label: 'Águia Altaneira', emoji: '🦅' },
-  { id: 'coroa', label: 'Coroa Imperial', emoji: '👑' },
-  { id: 'leao', label: 'Leão Majestoso', emoji: '🦁' },
-  { id: 'tigre', label: 'Tigre Guerreiro', emoji: '🐯' },
-  { id: 'estrela', label: 'Estrela Guia Radiante', emoji: '⭐' },
-  { id: 'pavao', label: 'Pavão Real Místico', emoji: '🦚' },
-  { id: 'pomba', label: 'Pomba Branca da Paz', emoji: '🕊️' },
-  { id: 'serpente', label: 'Serpente Sagrada', emoji: '🐍' },
-  { id: 'sol', label: 'Sol Dourado da Vitória', emoji: '☀️' },
-  { id: 'lua', label: 'Lua de Prata dos Boêmios', emoji: '🌙' },
-  { id: 'tamborim', label: 'Tamborim & Pandeiro', emoji: '🥁' },
-  { id: 'mascara', label: 'Máscaras da Folia', emoji: '🎭' },
-  { id: 'arco', label: 'Arco e Flecha de Oxóssi', emoji: '🏹' },
-  { id: 'espada', label: 'Espadas Cruzadas de Ogum', emoji: '⚔️' },
-  { id: 'ancora', label: 'Âncora dos Navegantes', emoji: '⚓' },
-  { id: 'caravela', label: 'Caravela da Esperança', emoji: '⛵' },
-  { id: 'cavalo', label: 'Cavalo Alado / Pégaso', emoji: '🐎' },
-  { id: 'boto', label: 'Boto Encantado', emoji: '🐬' },
-  { id: 'palmeira', label: 'Palmeira Imperial', emoji: '🌴' },
-  { id: 'trompete', label: 'Trompete & Clarin', emoji: '🎺' },
-  { id: 'flordelis', label: 'Flor de Lis Imperial', emoji: '⚜️' },
-  { id: 'dragao', label: 'Dragão Alado de Fogo', emoji: '🐉' }
+  // Fauna
+  { id: 'aguia', label: 'Águia Altaneira', emoji: '🦅', category: 'Fauna' },
+  { id: 'leao', label: 'Leão Majestoso', emoji: '🦁', category: 'Fauna' },
+  { id: 'tigre', label: 'Tigre Guerreiro', emoji: '🐯', category: 'Fauna' },
+  { id: 'pavao', label: 'Pavão Real Místico', emoji: '🦚', category: 'Fauna' },
+  { id: 'pomba', label: 'Pomba Branca da Paz', emoji: '🕊️', category: 'Fauna' },
+  { id: 'serpente', label: 'Serpente Sagrada', emoji: '🐍', category: 'Fauna' },
+  { id: 'cavalo', label: 'Cavalo Alado / Pégaso', emoji: '🐎', category: 'Fauna' },
+  { id: 'boto', label: 'Boto Encantado', emoji: '🐬', category: 'Fauna' },
+  { id: 'dragao', label: 'Dragão Alado de Fogo', emoji: '🐉', category: 'Fauna' },
+  { id: 'onca', label: 'Onça-Pintada Guardiã', emoji: '🐆', category: 'Fauna' },
+  { id: 'lobo', label: 'Lobo Solitário Guerreiro', emoji: '🐺', category: 'Fauna' },
+  { id: 'gaviao', label: 'Gavião Real', emoji: '🪶', category: 'Fauna' },
+  { id: 'touro', label: 'Touro Bravo Majestoso', emoji: '🐂', category: 'Fauna' },
+  { id: 'borboleta', label: 'Borboleta Encantada', emoji: '🦋', category: 'Fauna' },
+  { id: 'tubarao', label: 'Tubarão dos Mares', emoji: '🦈', category: 'Fauna' },
+
+  // Soberania
+  { id: 'coroa', label: 'Coroa Imperial', emoji: '👑', category: 'Soberania' },
+  { id: 'estrela', label: 'Estrela Guia Radiante', emoji: '⭐', category: 'Soberania' },
+  { id: 'flordelis', label: 'Flor de Lis Imperial', emoji: '⚜️', category: 'Soberania' },
+  { id: 'cetro', label: 'Cetro e Manto Imperial', emoji: '🪄', category: 'Soberania' },
+  { id: 'trono', label: 'Trono Ancestral', emoji: '🪑', category: 'Soberania' },
+  { id: 'diamante', label: 'Diamante Brilhante', emoji: '💎', category: 'Soberania' },
+
+  // Sagrado & Cultura
+  { id: 'arco', label: 'Arco e Flecha de Oxóssi', emoji: '🏹', category: 'Sagrado & Cultura' },
+  { id: 'espada', label: 'Espadas Cruzadas de Ogum', emoji: '⚔️', category: 'Sagrado & Cultura' },
+  { id: 'axe', label: 'Machado Sagrado de Xangô', emoji: '🪓', category: 'Sagrado & Cultura' },
+  { id: 'concha', label: 'Concha de Iemanjá', emoji: '🐚', category: 'Sagrado & Cultura' },
+  { id: 'carranca', label: 'Carranca Protetora', emoji: '🗿', category: 'Sagrado & Cultura' },
+  { id: 'piramide', label: 'Pirâmide dos Faraós', emoji: '🔺', category: 'Sagrado & Cultura' },
+  { id: 'sol_sagrado', label: 'Sol Dourado da Vitória', emoji: '☀️', category: 'Sagrado & Cultura' },
+  { id: 'lua', label: 'Lua de Prata dos Boêmios', emoji: '🌙', category: 'Sagrado & Cultura' },
+
+  // Música & Festa
+  { id: 'tamborim', label: 'Tamborim & Pandeiro', emoji: '🥁', category: 'Música & Festa' },
+  { id: 'mascara', label: 'Máscaras da Folia', emoji: '🎭', category: 'Música & Festa' },
+  { id: 'trompete', label: 'Trompete & Clarin', emoji: '🎺', category: 'Música & Festa' },
+  { id: 'violao', label: 'Violão & Cavaquinho', emoji: '🎸', category: 'Música & Festa' },
+  { id: 'clube', label: 'Cartola & Bengala Boêmia', emoji: '🎩', category: 'Música & Festa' },
+  { id: 'fogos', label: 'Fogos de Artifício', emoji: '🎆', category: 'Música & Festa' },
+  { id: 'trofeu', label: 'Taça da Vitória', emoji: '🏆', category: 'Música & Festa' },
+
+  // Natureza & Mar
+  { id: 'ancora', label: 'Âncora dos Navegantes', emoji: '⚓', category: 'Natureza & Mar' },
+  { id: 'caravela', label: 'Caravela da Esperança', emoji: '⛵', category: 'Natureza & Mar' },
+  { id: 'palmeira', label: 'Palmeira Imperial', emoji: '🌴', category: 'Natureza & Mar' },
+  { id: 'farol', label: 'Farol Guia dos Mares', emoji: '🗼', category: 'Natureza & Mar' },
+  { id: 'flor', label: 'Rosa Vermelha Perfumada', emoji: '🌹', category: 'Natureza & Mar' },
+  { id: 'girassol', label: 'Girassol Iluminado', emoji: '🌻', category: 'Natureza & Mar' },
+  { id: 'onda', label: 'Onda Sagrada dos Mares', emoji: '🌊', category: 'Natureza & Mar' },
+
+  // História & Cidade
+  { id: 'locomotiva', label: 'Locomotiva da Avenida', emoji: '🚂', category: 'História & Cidade' },
+  { id: 'castelo', label: 'Fortaleza / Castelo', emoji: '🏰', category: 'História & Cidade' },
+  { id: 'bussola', label: 'Bússola / Rosa dos Ventos', emoji: '🧭', category: 'História & Cidade' },
+  { id: 'livro', label: 'Pergaminho da Sabedoria', emoji: '📜', category: 'História & Cidade' },
+  { id: 'chama', label: 'Chama Eterna do Samba', emoji: '🔥', category: 'História & Cidade' }
+];
+
+// Padrões / Traçados de Pavilhão
+interface PatternOption {
+  id: FlagPatternId;
+  label: string;
+  description: string;
+  iconName: string;
+}
+
+const FLAG_PATTERNS: PatternOption[] = [
+  { id: 'raios_16', label: '16 Raios Clássicos', description: 'Tradição do carnaval carioca (Portela, Mangueira, Salgueiro)', iconName: '☀️' },
+  { id: 'raios_8', label: '8 Raios Largos', description: 'Traços abertos e imponentes de grande impacto visual', iconName: '🔆' },
+  { id: 'raios_24', label: '24 Raios Finos', description: 'Raios detalhados em alta densidade com brilho expansivo', iconName: '✨' },
+  { id: 'raios_ondulados', label: 'Raios Ondulados', description: 'Traçado místico e dinâmico com curvas que imitam o mar e chamas', iconName: '🌊' },
+  { id: 'faixa_diagonal', label: 'Faixa Diagonal', description: 'Faixa transversal tradicional atravessando todo o pavilhão', iconName: '📐' },
+  { id: 'faixa_diagonal_dupla', label: 'Faixa Diagonal Dupla', description: 'Duas faixas paralelas com traçado moderno e esportivo', iconName: '📏' },
+  { id: 'cruz', label: 'Cruz Central', description: 'Divisão em quatro campos em cruz inspirada em brasões clássicos', iconName: '➕' },
+  { id: 'losango', label: 'Losango Central', description: 'Losango heráldico no centro do pavilhão em destaque solene', iconName: '🔶' },
+  { id: 'quatro_quadrantes', label: 'Quatro Quadrantes', description: 'Quatro campos intercalados com contraste marcante das cores', iconName: '⊞' },
+  { id: 'faixas_horizontais', label: 'Três Faixas Horizontais', description: 'Listras horizontais clássicas com acabamento nobre', iconName: '≡' },
+  { id: 'faixas_verticais', label: 'Três Faixas Verticais', description: 'Listras verticais em três campos proporcionais', iconName: '|||' },
+  { id: 'bicolor_meio', label: 'Bicolor Metade / Metade', description: 'Divisão ao meio com contraste total entre as duas cores oficiais', iconName: '◐' },
+  { id: 'circulos_concentricos', label: 'Círculos Concêntricos', description: 'Ondas circulares concêntricas emanando do brasão central', iconName: '◎' },
+  { id: 'estrelas_espalhadas', label: 'Campo Estrelado', description: 'Constelação de estrelas distribuídas pelo manto sagrado', iconName: '⭐' }
+];
+
+// Molduras de Brasão
+interface EmblemOption {
+  id: FlagEmblemStyle;
+  label: string;
+  icon: string;
+}
+
+const EMBLEM_OPTIONS: EmblemOption[] = [
+  { id: 'circulo', label: 'Círculo Clássico', icon: '⭕' },
+  { id: 'escudo', label: 'Escudo Medieval', icon: '🛡️' },
+  { id: 'losango', label: 'Losango Nobre', icon: '💎' },
+  { id: 'coroa', label: 'Coroa Imperial', icon: '👑' },
+  { id: 'estrela', label: 'Estrela Real', icon: '⭐' },
+  { id: 'nenhum', label: 'Sem Moldura (Livre)', icon: '✨' }
+];
+
+// Lista completa de Denominações Oficiais
+const DENOMINATIONS = [
+  { id: 'G.R.E.S.', label: 'G.R.E.S.', full: 'Grêmio Recreativo Escola de Samba' },
+  { id: 'E.S.', label: 'E.S.', full: 'Escola de Samba (Denominação Direta)', isDirect: true },
+  { id: 'C.C.E.S.', label: 'C.C.E.S.', full: 'Clube Carnavalesco Escola de Samba' },
+  { id: 'S.R.E.S.', label: 'S.R.E.S.', full: 'Sociedade Recreativa Escola de Samba' },
+  { id: 'A.R.E.S.', label: 'A.R.E.S.', full: 'Associação Recreativa Escola de Samba' },
+  { id: 'SERES', label: 'SERES', full: 'Sociedade Esportiva Recreativa Escola de Samba' },
+  { id: 'G.R.B.C.', label: 'G.R.B.C.', full: 'Grêmio Recreativo Bloco Carnavalesco' }
 ];
 
 export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
@@ -208,9 +335,16 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
   const [accentColor, setAccentColor] = useState<string>(COLOR_PRESETS[0].accent);
   const [colorsDescription, setColorsDescription] = useState<string>('Azul Real e Branco Neve');
 
+  // Traçado & Padrão do Pavilhão (NOVO)
+  const [flagPattern, setFlagPattern] = useState<FlagPatternId>('raios_16');
+  const [flagEmblemStyle, setFlagEmblemStyle] = useState<FlagEmblemStyle>('circulo');
+  const [patternOpacity, setPatternOpacity] = useState<number>(0.55);
+
   // Símbolo
-  const [selectedSymbol, setSelectedSymbol] = useState<SymbolPreset>(SYMBOL_PRESETS[4]); // Estrela
+  const [selectedSymbolCategory, setSelectedSymbolCategory] = useState<string>('Todos');
+  const [selectedSymbol, setSelectedSymbol] = useState<SymbolPreset>(SYMBOL_PRESETS[1]); // Coroa
   const [customSymbolText, setCustomSymbolText] = useState<string>('');
+  const [customSymbolEmoji, setCustomSymbolEmoji] = useState<string>('');
 
   // Fundação & Quadra
   const [foundationYear, setFoundationYear] = useState<number>(currentYear);
@@ -252,9 +386,37 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
   const effectiveNeighborhood =
     originType === 'rio_bairro' ? rioNeighborhood : customCityState;
 
+  // Símbolo e Emoji efetivo
+  const effectiveEmoji = customSymbolEmoji.trim()
+    ? customSymbolEmoji.trim()
+    : selectedSymbol.emoji;
+
   const effectiveSymbol = customSymbolText.trim()
     ? customSymbolText.trim()
-    : `${selectedSymbol.emoji} ${selectedSymbol.label}`;
+    : `${effectiveEmoji} ${selectedSymbol.label}`;
+
+  // Filtragem dos símbolos
+  const filteredSymbols = selectedSymbolCategory === 'Todos'
+    ? SYMBOL_PRESETS
+    : SYMBOL_PRESETS.filter((s) => s.category === selectedSymbolCategory);
+
+  // Sorteio / Criação Aleatória Divertida
+  const handleRandomizeDesign = () => {
+    soundService.playSurdoBeat(false);
+    const randomPresetIdx = Math.floor(Math.random() * COLOR_PRESETS.length);
+    handlePresetSelect(COLOR_PRESETS[randomPresetIdx], randomPresetIdx);
+
+    const randomPattern = FLAG_PATTERNS[Math.floor(Math.random() * FLAG_PATTERNS.length)].id;
+    setFlagPattern(randomPattern);
+
+    const randomEmblem = EMBLEM_OPTIONS[Math.floor(Math.random() * EMBLEM_OPTIONS.length)].id;
+    setFlagEmblemStyle(randomEmblem);
+
+    const randomSymbol = SYMBOL_PRESETS[Math.floor(Math.random() * SYMBOL_PRESETS.length)];
+    setSelectedSymbol(randomSymbol);
+    setCustomSymbolText('');
+    setCustomSymbolEmoji('');
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -265,10 +427,14 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
     }
 
     const cleanBaseName = name
+      .replace(/^Escola de Samba\s+/i, '')
       .replace(/^Grêmio Recreativo Escola de Samba\s+/i, '')
       .replace(/^G\.?R\.?E\.?S\.?\s+/i, '')
+      .replace(/^E\.?S\.?\s+/i, '')
       .replace(/^Clube Carnavalesco Escola de Samba\s+/i, '')
       .replace(/^C\.?C\.?E\.?S\.?\s+/i, '')
+      .replace(/^A\.?R\.?E\.?S\.?\s+/i, '')
+      .replace(/^SERES\s+/i, '')
       .trim();
 
     const corporateName = `${denomination} ${cleanBaseName}`;
@@ -371,6 +537,8 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
       },
       colorsDescription,
       symbol: effectiveSymbol,
+      flagPattern,
+      flagEmblemStyle,
       division: 'avaliacao', // OBRIGATORIAMENTE GRUPO DE AVALIAÇÃO
       budget: 220000, // Orçamento inicial balanceado para a Superliga
       fanBaseMorale: 78,
@@ -432,9 +600,9 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
           </h2>
 
           <p className="text-sm text-slate-200 leading-relaxed">
-            Dê asas à sua imaginação e funde sua própria agremiação com pavilhão, cores, escudo e sede sob medida!
+            Dê asas à sua imaginação e funde sua própria agremiação com pavilhão estilizado, traçados geométricos, símbolos variados e sede sob medida!
             Como manda o estatuto carnavalesco, sua escola inicia <strong>obrigatoriamente no Grupo de Avaliação</strong> da Superliga na Intendente Magalhães.
-            Contrate profissionais, vá atrás de patrocínio, reforme sua quadra, organize eventos e conduza sua comunidade degrau a degrau rumo ao <strong>Grupo Especial na Marquês de Sapucaí</strong>!
+            Contrate profissionais, vá atrás de patrocínio, reforme sua quadra, dispute a pré-temporada e conduza sua comunidade rumo ao <strong>Grupo Especial na Marquês de Sapucaí</strong>!
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-2 text-xs text-amber-300 font-bold">
@@ -442,10 +610,13 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
               <Check className="w-4 h-4 text-emerald-400" /> Início no Grupo de Avaliação
             </span>
             <span className="flex items-center gap-1.5">
-              <Check className="w-4 h-4 text-emerald-400" /> Orçamento Inicial de R$ 220.000
+              <Check className="w-4 h-4 text-emerald-400" /> Pavilhão com 14 Padrões de Traço & Molduras
             </span>
             <span className="flex items-center gap-1.5">
-              <Check className="w-4 h-4 text-emerald-400" /> Presença Obrigatória no Sorteio, Desfile e Apuração
+              <Check className="w-4 h-4 text-emerald-400" /> Denominações G.R.E.S. e E.S. (Escola de Samba)
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Check className="w-4 h-4 text-emerald-400" /> Orçamento Inicial de R$ 220.000
             </span>
           </div>
         </div>
@@ -457,109 +628,151 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
         <div className="lg:col-span-7 space-y-6">
           {/* Card 1: Identidade e Denominação */}
           <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
-            <div className="flex items-center gap-2 pb-2 border-b border-slate-800 text-amber-400">
-              <Building2 className="w-5 h-5" />
-              <h3 className="text-base font-black text-white uppercase tracking-wider">
-                1. Registro Estatutário & Nomes
-              </h3>
+            <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+              <div className="flex items-center gap-2 text-amber-400">
+                <Building2 className="w-5 h-5" />
+                <h3 className="text-base font-black text-white uppercase tracking-wider">
+                  1. Registro Estatutário & Denominação
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={handleRandomizeDesign}
+                className="px-3 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer"
+                title="Sortear cores, símbolos e traçados aleatórios"
+              >
+                <Shuffle className="w-3.5 h-3.5" />
+                <span>Sortear Visual</span>
+              </button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-4">
               <div>
-                <label className="text-xs font-bold text-slate-300 block mb-1.5">
-                  Denominação Estatutária:
-                </label>
-                <div className="grid grid-cols-4 gap-1.5">
-                  {['G.R.E.S.', 'C.C.E.S.', 'S.R.E.S.', 'G.R.B.C.'].map((denom) => (
-                    <button
-                      key={denom}
-                      type="button"
-                      onClick={() => setDenomination(denom)}
-                      className={`py-2 px-1 text-center rounded-lg text-xs font-black transition cursor-pointer border ${
-                        denomination === denom
-                          ? 'bg-amber-500 text-slate-950 border-amber-400 shadow'
-                          : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'
-                      }`}
-                    >
-                      {denom}
-                    </button>
-                  ))}
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="text-xs font-bold text-slate-300">
+                    Denominação Estatutária / Prefixo:
+                  </label>
+                  <span className="text-[11px] text-amber-400 font-semibold">
+                    {DENOMINATIONS.find((d) => d.id === denomination)?.full}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  {DENOMINATIONS.map((denom) => {
+                    const isSelected = denomination === denom.id;
+                    return (
+                      <button
+                        key={denom.id}
+                        type="button"
+                        onClick={() => setDenomination(denom.id)}
+                        className={`p-2 rounded-xl text-left transition cursor-pointer border ${
+                          isSelected
+                            ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-md ring-1 ring-amber-400'
+                            : 'bg-slate-950 text-slate-300 border-slate-800 hover:text-white hover:border-slate-700'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <strong className="text-xs font-mono font-black">{denom.id}</strong>
+                          {denom.isDirect && (
+                            <span
+                              className={`text-[9px] px-1 rounded font-bold uppercase ${
+                                isSelected ? 'bg-slate-950 text-amber-300' : 'bg-emerald-950 text-emerald-300 border border-emerald-500/30'
+                              }`}
+                            >
+                              Sem Grêmio
+                            </span>
+                          )}
+                        </div>
+                        <span
+                          className={`text-[10px] block truncate mt-0.5 ${
+                            isSelected ? 'text-slate-900 font-bold' : 'text-slate-400'
+                          }`}
+                        >
+                          {denom.id === 'E.S.' ? 'Apenas Escola de Samba' : denom.full.split(' ')[0]}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
-              <div>
-                <label className="text-xs font-bold text-slate-300 block mb-1.5">
-                  Sigla Oficial (Abreviação):
-                </label>
-                <input
-                  type="text"
-                  maxLength={5}
-                  value={abbreviation}
-                  onChange={(e) => setAbbreviation(e.target.value.toUpperCase())}
-                  placeholder="Ex: EDA, IMPS..."
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-400 rounded-xl px-3.5 py-2 text-sm text-white font-mono font-bold uppercase outline-none"
-                />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-xs font-bold text-slate-300 block mb-1.5">
+                    Sigla Oficial (Abreviação no Pavilhão):
+                  </label>
+                  <input
+                    type="text"
+                    maxLength={5}
+                    value={abbreviation}
+                    onChange={(e) => setAbbreviation(e.target.value.toUpperCase())}
+                    placeholder="Ex: EDA, IMPS, ESB..."
+                    className="w-full bg-slate-950 border border-slate-800 focus:border-amber-400 rounded-xl px-3.5 py-2 text-sm text-white font-mono font-bold uppercase outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold text-slate-300 block mb-1.5">
+                    Presidente / Diretor Geral:
+                  </label>
+                  <input
+                    type="text"
+                    value={managerName}
+                    onChange={(e) => setManagerName(e.target.value)}
+                    placeholder="Seu nome ou cargo..."
+                    className="w-full bg-slate-950 border border-slate-800 focus:border-amber-400 rounded-xl px-3.5 py-2 text-sm text-white font-semibold outline-none"
+                  />
+                </div>
               </div>
 
-              <div className="sm:col-span-2">
-                <label className="text-xs font-bold text-slate-300 block mb-1.5">
-                  Nome Completo da Agremiação:
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={name}
-                  onChange={(e) => {
-                    setName(e.target.value);
-                    if (!shortName || shortName === name) setShortName(e.target.value);
-                  }}
-                  placeholder="Ex: Estrela do Amanhã, Imperiais da Zona Sul..."
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-400 rounded-xl px-4 py-2.5 text-base sm:text-sm text-white font-bold outline-none"
-                />
-              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="sm:col-span-2">
+                  <label className="text-xs font-bold text-slate-300 block mb-1.5">
+                    Nome Completo da Agremiação:
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={name}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                      if (!shortName || shortName === name) setShortName(e.target.value);
+                    }}
+                    placeholder="Ex: Estrela do Amanhã, Imperiais da Zona Sul, Samba de Raiz..."
+                    className="w-full bg-slate-950 border border-slate-800 focus:border-amber-400 rounded-xl px-4 py-2.5 text-base sm:text-sm text-white font-bold outline-none"
+                  />
+                </div>
 
-              <div>
-                <label className="text-xs font-bold text-slate-300 block mb-1.5">
-                  Nome Chamado / Nome Curto:
-                </label>
-                <input
-                  type="text"
-                  value={shortName}
-                  onChange={(e) => setShortName(e.target.value)}
-                  placeholder="Ex: Estrela, Imperiais..."
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-400 rounded-xl px-3.5 py-2 text-sm text-white font-semibold outline-none"
-                />
-              </div>
+                <div>
+                  <label className="text-xs font-bold text-slate-300 block mb-1.5">
+                    Nome Chamado / Nome Curto:
+                  </label>
+                  <input
+                    type="text"
+                    value={shortName}
+                    onChange={(e) => setShortName(e.target.value)}
+                    placeholder="Ex: Estrela, Imperiais..."
+                    className="w-full bg-slate-950 border border-slate-800 focus:border-amber-400 rounded-xl px-3.5 py-2 text-sm text-white font-semibold outline-none"
+                  />
+                </div>
 
-              <div>
-                <label className="text-xs font-bold text-slate-300 block mb-1.5">
-                  Presidente / Diretor Geral:
-                </label>
-                <input
-                  type="text"
-                  value={managerName}
-                  onChange={(e) => setManagerName(e.target.value)}
-                  placeholder="Seu nome ou cargo..."
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-400 rounded-xl px-3.5 py-2 text-sm text-white font-semibold outline-none"
-                />
-              </div>
-
-              <div className="sm:col-span-2">
-                <label className="text-xs font-bold text-slate-300 block mb-1.5">
-                  Lema Oficial / Apelido Comunitário:
-                </label>
-                <input
-                  type="text"
-                  value={motto}
-                  onChange={(e) => setMotto(e.target.value)}
-                  placeholder="Ex: Comunidade, Raça e Coração..."
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-400 rounded-xl px-3.5 py-2 text-sm text-amber-200 italic outline-none"
-                />
+                <div>
+                  <label className="text-xs font-bold text-slate-300 block mb-1.5">
+                    Lema Oficial / Apelido Comunitário:
+                  </label>
+                  <input
+                    type="text"
+                    value={motto}
+                    onChange={(e) => setMotto(e.target.value)}
+                    placeholder="Ex: Comunidade, Raça e Coração..."
+                    className="w-full bg-slate-950 border border-slate-800 focus:border-amber-400 rounded-xl px-3.5 py-2 text-sm text-amber-200 italic outline-none"
+                  />
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Card 2: Berço / Origem Territorial (Rio de Janeiro vs Outra Cidade) */}
+          {/* Card 2: Berço / Origem Territorial */}
           <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-slate-800">
               <div className="flex items-center gap-2 text-amber-400">
@@ -652,8 +865,8 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
                   <span className="text-[11px] font-semibold text-slate-400 block mb-1.5">
                     Sugestões Rápidas:
                   </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {SUGGESTED_EXTERNAL_CITIES.slice(0, 10).map((city) => (
+                  <div className="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto pr-1">
+                    {SUGGESTED_EXTERNAL_CITIES.map((city) => (
                       <button
                         key={city}
                         type="button"
@@ -722,9 +935,6 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
                     </button>
                   ))}
                 </div>
-                <span className="text-[10px] text-slate-400 block mt-1.5">
-                  Data estatutária: {foundationDate}
-                </span>
               </div>
 
               <div>
@@ -742,13 +952,13 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
                   />
                 </div>
                 <span className="text-[10px] text-slate-400 block mt-1.5">
-                  Local oficial dos ensaios de bateria, feijoadas e modernizações de patrimônio.
+                  Local dos ensaios da bateria, rodas de samba e reformas de patrimônio.
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Card 4: Cores Oficiais e Pavilhão */}
+          {/* Card 4: Cores Oficiais */}
           <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
             <div className="flex items-center gap-2 pb-2 border-b border-slate-800 text-amber-400">
               <Palette className="w-5 h-5" />
@@ -762,7 +972,7 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
               <span className="text-xs font-bold text-slate-300 block mb-2">
                 Paletas Tradicionais do Carnaval:
               </span>
-              <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 max-h-36 overflow-y-auto pr-1">
                 {COLOR_PRESETS.map((preset, idx) => (
                   <button
                     key={preset.name}
@@ -835,7 +1045,7 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
               </div>
 
               <div>
-                <label className="text-[11px] font-bold text-slate-400 block mb-1">Cor de Acento (Borda):</label>
+                <label className="text-[11px] font-bold text-slate-400 block mb-1">Cor de Acento (Bordas & Ouro):</label>
                 <div className="flex items-center gap-2 bg-slate-950 border border-slate-800 rounded-xl p-2">
                   <input
                     type="color"
@@ -870,57 +1080,197 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
             </div>
           </div>
 
-          {/* Card 5: Símbolo Oficial */}
-          <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
-            <div className="flex items-center gap-2 pb-2 border-b border-slate-800 text-amber-400">
-              <Crown className="w-5 h-5" />
-              <h3 className="text-base font-black text-white uppercase tracking-wider">
-                5. Símbolo Oficial do Brasão
-              </h3>
+          {/* Card 5: Estilização do Pavilhão (Traçados & Molduras) - NOVO */}
+          <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl space-y-5">
+            <div className="flex items-center justify-between pb-2 border-b border-slate-800 text-amber-400">
+              <div className="flex items-center gap-2">
+                <Flag className="w-5 h-5" />
+                <h3 className="text-base font-black text-white uppercase tracking-wider">
+                  5. Geometria & Traçados do Pavilhão
+                </h3>
+              </div>
+              <span className="text-[11px] text-amber-400/90 font-bold">
+                14 Opções de Traçado
+              </span>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 max-h-48 overflow-y-auto pr-1">
-              {SYMBOL_PRESETS.map((sym) => (
-                <button
-                  key={sym.id}
-                  type="button"
-                  onClick={() => {
-                    setSelectedSymbol(sym);
-                    setCustomSymbolText('');
-                  }}
-                  className={`p-2.5 rounded-xl border text-left transition flex items-center gap-2 cursor-pointer ${
-                    selectedSymbol.id === sym.id && !customSymbolText
-                      ? 'bg-amber-500/20 border-amber-400 text-white ring-1 ring-amber-400'
-                      : 'bg-slate-950/70 border-slate-800 text-slate-300 hover:text-white hover:border-slate-700'
-                  }`}
-                >
-                  <span className="text-xl shrink-0">{sym.emoji}</span>
-                  <span className="text-[11px] font-bold truncate">{sym.label}</span>
-                </button>
-              ))}
-            </div>
-
+            {/* Traçados Geométricos */}
             <div>
-              <label className="text-[11px] font-bold text-slate-400 block mb-1">
-                Ou digite um Símbolo Personalizado:
+              <label className="text-xs font-bold text-slate-300 block mb-2">
+                Padrão Geométrico do Pavilhão (Traçado dos Raios e Faixas):
               </label>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 max-h-56 overflow-y-auto pr-1">
+                {FLAG_PATTERNS.map((pt) => {
+                  const isSelected = flagPattern === pt.id;
+                  return (
+                    <button
+                      key={pt.id}
+                      type="button"
+                      onClick={() => setFlagPattern(pt.id)}
+                      className={`p-2.5 rounded-xl border text-left transition cursor-pointer flex flex-col justify-between ${
+                        isSelected
+                          ? 'bg-amber-500/20 border-amber-400 ring-2 ring-amber-400/40 text-white'
+                          : 'bg-slate-950/70 border-slate-800 text-slate-300 hover:text-white hover:border-slate-700'
+                      }`}
+                    >
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <span className="text-sm shrink-0">{pt.iconName}</span>
+                        <strong className="text-xs font-bold truncate">{pt.label}</strong>
+                      </div>
+                      <span className="text-[10px] text-slate-400 line-clamp-2 leading-tight">
+                        {pt.description}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Moldura do Brasão Central */}
+            <div className="pt-2 border-t border-slate-800">
+              <label className="text-xs font-bold text-slate-300 block mb-2">
+                Moldura do Brasão Central:
+              </label>
+              <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                {EMBLEM_OPTIONS.map((emb) => {
+                  const isSelected = flagEmblemStyle === emb.id;
+                  return (
+                    <button
+                      key={emb.id}
+                      type="button"
+                      onClick={() => setFlagEmblemStyle(emb.id)}
+                      className={`p-2 rounded-xl border text-center transition cursor-pointer ${
+                        isSelected
+                          ? 'bg-amber-500/20 border-amber-400 ring-1 ring-amber-400 text-white font-bold'
+                          : 'bg-slate-950/70 border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 text-xs'
+                      }`}
+                    >
+                      <div className="text-lg mb-0.5">{emb.icon}</div>
+                      <span className="text-[10px] block truncate">{emb.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Intensidade do Traçado */}
+            <div className="pt-2 border-t border-slate-800">
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="text-xs font-bold text-slate-300">
+                  Intensidade do Traçado:
+                </label>
+                <span className="text-xs font-mono text-amber-400 font-bold">
+                  {Math.round(patternOpacity * 100)}%
+                </span>
+              </div>
               <input
-                type="text"
-                value={customSymbolText}
-                onChange={(e) => setCustomSymbolText(e.target.value)}
-                placeholder="Ex: 🐆 Onça-Pintada Guardiã, 🌹 Rosa Encantada..."
-                className="w-full bg-slate-950 border border-slate-800 focus:border-amber-400 rounded-xl px-3.5 py-2 text-xs text-white font-semibold outline-none"
+                type="range"
+                min={0.2}
+                max={1.0}
+                step={0.05}
+                value={patternOpacity}
+                onChange={(e) => setPatternOpacity(parseFloat(e.target.value))}
+                className="w-full accent-amber-500 cursor-pointer"
               />
             </div>
           </div>
 
-          {/* Card 6: Vocação Técnica Inicial (Bônus de 5 pontos) */}
+          {/* Card 6: Símbolo Oficial do Brasão (Expandido e com Categorias) */}
+          <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
+            <div className="flex items-center justify-between pb-2 border-b border-slate-800 text-amber-400">
+              <div className="flex items-center gap-2">
+                <Crown className="w-5 h-5" />
+                <h3 className="text-base font-black text-white uppercase tracking-wider">
+                  6. Símbolo Oficial do Brasão
+                </h3>
+              </div>
+              <span className="text-[11px] text-amber-400 font-bold">
+                {SYMBOL_PRESETS.length} Símbolos Temáticos
+              </span>
+            </div>
+
+            {/* Abas de Categorias de Símbolos */}
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+              {['Todos', 'Fauna', 'Soberania', 'Sagrado & Cultura', 'Música & Festa', 'Natureza & Mar', 'História & Cidade'].map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => setSelectedSymbolCategory(cat)}
+                  className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition whitespace-nowrap cursor-pointer border ${
+                    selectedSymbolCategory === cat
+                      ? 'bg-amber-500 text-slate-950 border-amber-400 font-black'
+                      : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            {/* Grid de Símbolos */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 max-h-56 overflow-y-auto pr-1">
+              {filteredSymbols.map((sym) => {
+                const isSelected = selectedSymbol.id === sym.id && !customSymbolText;
+                return (
+                  <button
+                    key={sym.id}
+                    type="button"
+                    onClick={() => {
+                      setSelectedSymbol(sym);
+                      setCustomSymbolText('');
+                      setCustomSymbolEmoji('');
+                    }}
+                    className={`p-2 rounded-xl border text-left transition flex items-center gap-2 cursor-pointer ${
+                      isSelected
+                        ? 'bg-amber-500/20 border-amber-400 text-white ring-1 ring-amber-400'
+                        : 'bg-slate-950/70 border-slate-800 text-slate-300 hover:text-white hover:border-slate-700'
+                    }`}
+                  >
+                    <span className="text-xl shrink-0">{sym.emoji}</span>
+                    <span className="text-[11px] font-bold truncate">{sym.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Entrada Customizada de Símbolo */}
+            <div className="pt-2 border-t border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <div className="sm:col-span-1">
+                <label className="text-[11px] font-bold text-slate-400 block mb-1">
+                  Emoji Personalizado:
+                </label>
+                <input
+                  type="text"
+                  maxLength={4}
+                  value={customSymbolEmoji}
+                  onChange={(e) => setCustomSymbolEmoji(e.target.value)}
+                  placeholder="Ex: 🚂, ⚡, 🦅..."
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-400 rounded-xl px-3 py-2 text-sm text-center text-white outline-none"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="text-[11px] font-bold text-slate-400 block mb-1">
+                  Ou digite um Símbolo Livre por extenso:
+                </label>
+                <input
+                  type="text"
+                  value={customSymbolText}
+                  onChange={(e) => setCustomSymbolText(e.target.value)}
+                  placeholder="Ex: 🚂 Locomotiva de Aço, 🌹 Rosa Encantada..."
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-400 rounded-xl px-3.5 py-2 text-xs text-white font-semibold outline-none"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Card 7: Vocação Técnica Inicial */}
           <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-slate-800">
               <div className="flex items-center gap-2 text-amber-400">
                 <Award className="w-5 h-5" />
                 <h3 className="text-base font-black text-white uppercase tracking-wider">
-                  6. Vocação Técnica Inicial (Quesitos)
+                  7. Vocação Técnica Inicial (Quesitos)
                 </h3>
               </div>
               <span
@@ -996,69 +1346,42 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
             <div className="flex items-center justify-between pb-3 border-b border-slate-800">
               <span className="text-xs font-black text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
                 <Flag className="w-4 h-4" />
-                <span>Pavilhão Oficial & Ficha Viva</span>
+                <span>Pavilhão Sagrado & Ficha Viva</span>
               </span>
               <span className="text-[10px] font-black px-2 py-0.5 rounded bg-purple-600/30 text-purple-300 border border-purple-500/40 uppercase">
                 Grupo de Avaliação
               </span>
             </div>
 
-            {/* Bandeira / Pavilhão Dinâmico Renderizado em Tempo Real */}
-            <div
-              className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden shadow-2xl border-2 flex items-center justify-center p-4 transition-all duration-300"
-              style={{
-                backgroundColor: primaryColor,
-                borderColor: accentColor || '#fff'
-              }}
-            >
-              {/* Raios / Estilização do Pavilhão */}
-              <div
-                className="absolute inset-0 opacity-40 pointer-events-none"
-                style={{
-                  background: `repeating-conic-gradient(from 0deg, ${secondaryColor} 0deg 20deg, transparent 20deg 40deg)`
+            {/* Pavilhão Renderizado com Suporte a 14 Traçados e Molduras */}
+            <div className="space-y-2">
+              <SchoolFlag
+                config={{
+                  primaryColor,
+                  secondaryColor,
+                  accentColor,
+                  pattern: flagPattern,
+                  emblemStyle: flagEmblemStyle,
+                  symbolEmoji: effectiveEmoji,
+                  symbolLabel: selectedSymbol.label,
+                  abbreviation: abbreviation || 'SAMBA',
+                  foundationYear,
+                  schoolName: name || 'Sua Escola',
+                  denomination,
+                  showBanner: true,
+                  patternOpacity
                 }}
               />
-
-              {/* Brasão Circular Central */}
-              <div
-                className="relative z-10 w-24 h-24 sm:w-28 sm:h-28 rounded-full border-4 shadow-2xl flex flex-col items-center justify-center text-center p-2 transition-transform hover:scale-105"
-                style={{
-                  backgroundColor: secondaryColor,
-                  borderColor: accentColor || primaryColor
-                }}
-              >
-                <span className="text-3xl sm:text-4xl drop-shadow-md">
-                  {selectedSymbol.emoji}
-                </span>
-                <span
-                  className="text-[9px] font-black uppercase tracking-wider font-mono line-clamp-1 mt-0.5"
-                  style={{ color: primaryColor }}
-                >
-                  {abbreviation || 'SAMBA'}
-                </span>
-                <span className="text-[8px] font-bold text-slate-800">
-                  {foundationYear}
-                </span>
-              </div>
-
-              {/* Faixa decorativa com nome */}
-              <div
-                className="absolute bottom-2 left-2 right-2 text-center py-1 px-2 rounded-lg backdrop-blur-md shadow"
-                style={{
-                  backgroundColor: `${primaryColor}e6`,
-                  border: `1px solid ${accentColor || '#ffffff80'}`
-                }}
-              >
-                <div className="text-xs sm:text-sm font-black text-white truncate tracking-wide">
-                  {denomination} {name || 'Sua Escola'}
-                </div>
+              <div className="flex items-center justify-between text-[11px] text-slate-400 px-1">
+                <span>Traçado: <strong>{FLAG_PATTERNS.find((p) => p.id === flagPattern)?.label}</strong></span>
+                <span>Moldura: <strong>{EMBLEM_OPTIONS.find((e) => e.id === flagEmblemStyle)?.label}</strong></span>
               </div>
             </div>
 
             {/* Informações Resumidas do Perfil */}
             <div className="bg-slate-950/80 rounded-2xl p-4 border border-slate-800 space-y-3 text-xs">
               <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-                <span className="text-slate-400">Denominação / Registro:</span>
+                <span className="text-slate-400">Denominação & Nome:</span>
                 <strong className="text-white font-mono">{denomination} {name}</strong>
               </div>
 
@@ -1120,7 +1443,7 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
                 <button
                   type="button"
                   onClick={onCancel}
-                  className="w-full py-2.5 text-xs text-slate-400 hover:text-white font-bold transition text-center"
+                  className="w-full py-2.5 text-xs text-slate-400 hover:text-white font-bold transition text-center cursor-pointer"
                 >
                   Voltar à Seleção de Modos
                 </button>

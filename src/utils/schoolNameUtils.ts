@@ -8,6 +8,7 @@ export function cleanSchoolName(nameOrSchool?: string | School | null): string {
   if (!nameOrSchool) return '';
   const name = typeof nameOrSchool === 'string' ? nameOrSchool : nameOrSchool.name || '';
   return name
+    .replace(/^Escola de Samba\s+/i, '')
     .replace(/^Grêmio Recreativo Escola de Samba\s+/i, '')
     .replace(/^Grêmio Recreativo Escola de Artes e Samba\s+/i, '')
     .replace(/^Grêmio Recreativo Escola de Artes\s+/i, '')
@@ -17,6 +18,7 @@ export function cleanSchoolName(nameOrSchool?: string | School | null): string {
     .replace(/^Sociedade Esportiva Recreativa Escola de Samba\s+/i, '')
     .replace(/^G\.?R\.?E\.?S\.?V?\.?\s+/i, '')
     .replace(/^GRESV?\s+/i, '')
+    .replace(/^E\.?S\.?\s+/i, '')
     .replace(/^A\.?R\.?E\.?S\.?\s+/i, '')
     .replace(/^ARES\s+/i, '')
     .replace(/^S\.?E\.?R\.?E\.?S\.?\s+/i, '')
@@ -54,6 +56,9 @@ export function getSchoolDenomination(school: School): string {
 export function getSchoolDenominationExtenso(school: School): string {
   const denom = getSchoolDenomination(school);
   if (!denom) return cleanSchoolName(school);
+  if (denom === 'E.S.' || denom === 'ES') {
+    return 'Escola de Samba';
+  }
   if (denom === 'C.C.E.S.' || denom === 'CCES') {
     return 'Clube Carnavalesco Escola de Samba';
   }
@@ -79,6 +84,9 @@ export function getSchoolCorporateName(school: School): string {
   const denom = getSchoolDenomination(school);
   const clean = cleanSchoolName(school);
   if (!denom) return clean;
+  if (denom === 'E.S.' || denom === 'ES') {
+    return `E.S. ${clean}`;
+  }
   if (denom === 'C.C.E.S.' || school.id === 'canarios_laranjeiras' || school.id === 'flor_da_mina') {
     return `Clube Carnavalesco Escola de Samba ${clean}`;
   }

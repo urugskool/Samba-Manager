@@ -268,6 +268,8 @@ export interface School {
   };
   colorsDescription?: string;
   symbol: string;
+  flagPattern?: 'raios_16' | 'raios_8' | 'raios_24' | 'raios_ondulados' | 'faixa_diagonal' | 'faixa_diagonal_dupla' | 'cruz' | 'losango' | 'faixas_horizontais' | 'faixas_verticais' | 'quatro_quadrantes' | 'bicolor_meio' | 'circulos_concentricos' | 'estrelas_espalhadas';
+  flagEmblemStyle?: 'circulo' | 'escudo' | 'losango' | 'coroa' | 'estrela' | 'nenhum';
   division: DivisionId;
   budget: number;
   fanBaseMorale: number; // 0 - 100
