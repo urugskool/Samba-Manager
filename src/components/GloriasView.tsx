@@ -588,8 +588,8 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
           </div>
         </div>
 
-        {/* 5 Cards das Divisões Oficiais (Especial, Ouro, Prata, Bronze, Avaliação) */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+        {/* Cards das Divisões Oficiais (Especial, Ouro, Prata, Bronze, Avaliação, Grupo E) */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
           {/* Grupo Especial */}
           <div
             onClick={() => {
@@ -737,6 +737,36 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
             <div className="mt-2.5 pt-2 border-t border-slate-800/80 text-[11px] text-slate-300 flex items-center justify-between">
               <span>{selectedStats.totalAvaliacaoTitles === 1 ? '1 título' : `${selectedStats.totalAvaliacaoTitles} títulos`}</span>
               <span className="text-slate-400">{selectedStats.totalAvaliacaoVices} vices</span>
+            </div>
+          </div>
+
+          {/* Grupo E (Sexta Divisão - Histórico) */}
+          <div
+            onClick={() => {
+              setGaleriaDivision('grupoE');
+              setIsGaleriaModalOpen(true);
+            }}
+            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between cursor-pointer hover:border-emerald-400/70 hover:shadow-emerald-500/10 ${
+              (selectedStats.totalGrupoETitles || 0) > 0 || (selectedStats.totalGrupoEVices || 0) > 0
+                ? 'bg-emerald-600/15 border-emerald-500/40 shadow-lg'
+                : 'bg-slate-900/70 border-slate-800'
+            }`}
+            title="Clique para abrir a Galeria dos Campeões do Grupo E (Sexta Divisão - Extinto)"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-[11px] font-bold text-emerald-400 uppercase tracking-wider">
+                  Grupo E (6ª Div)
+                </span>
+                <Award className={`w-4 h-4 ${(selectedStats.totalGrupoETitles || 0) > 0 ? 'text-emerald-400' : 'text-slate-600'}`} />
+              </div>
+              <div className="text-2xl sm:text-3xl font-black text-white font-mono">
+                {selectedStats.totalGrupoETitles || 0}
+              </div>
+            </div>
+            <div className="mt-2.5 pt-2 border-t border-slate-800/80 text-[11px] text-slate-300 flex items-center justify-between">
+              <span>{(selectedStats.totalGrupoETitles || 0) === 1 ? '1 título' : `${selectedStats.totalGrupoETitles || 0} títulos`}</span>
+              <span className="text-slate-400">{selectedStats.totalGrupoEVices || 0} vices</span>
             </div>
           </div>
         </div>
@@ -947,6 +977,44 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
                 </div>
               )}
 
+              {/* Títulos do Grupo E (Sexta Divisão) */}
+              {selectedStats.allGrupoEYears && selectedStats.allGrupoEYears.length > 0 && (
+                <div className="space-y-1.5">
+                  <span className="text-[11px] font-bold text-emerald-400 uppercase flex items-center gap-1">
+                    <span>✦ Grupo E - Sexta Divisão ({selectedStats.totalGrupoETitles || 0}):</span>
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {selectedStats.allGrupoEYears.map((entry, idx) => (
+                      <span
+                        key={`${entry.year}-${idx}`}
+                        className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-600/20 text-emerald-300 border border-emerald-500/30"
+                      >
+                        {entry.year}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Vice-Campeonatos do Grupo E (Sexta Divisão) */}
+              {selectedStats.allGrupoERunnerUpYears && selectedStats.allGrupoERunnerUpYears.length > 0 && (
+                <div className="space-y-1.5 pt-1">
+                  <span className="text-[11px] font-bold text-slate-300 uppercase flex items-center gap-1">
+                    <span>🥈 Vice-Campeonatos do Grupo E ({selectedStats.totalGrupoEVices || 0}):</span>
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {selectedStats.allGrupoERunnerUpYears.map((entry, idx) => (
+                      <span
+                        key={`${entry.year}-${idx}`}
+                        className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-slate-800/90 text-emerald-200 border border-emerald-500/30"
+                      >
+                        {entry.label || entry.year}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Zero titles scenario */}
               {selectedStats.grandTotalTitles === 0 && (
                 <div className="py-3 text-center text-xs text-slate-400 italic">
@@ -1067,6 +1135,24 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
                       {selectedStats.totalAvaliacaoTitles + selectedStats.totalAvaliacaoVices}
                     </td>
                   </tr>
+
+                  {((selectedStats.totalGrupoETitles || 0) > 0 || (selectedStats.totalGrupoEVices || 0) > 0) && (
+                    <tr>
+                      <td className="py-2 px-2 font-sans font-semibold text-emerald-400 flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                        <span>Grupo E (Sexta Divisão)</span>
+                      </td>
+                      <td className="py-2 px-2 text-center text-emerald-400 font-black">
+                        {selectedStats.totalGrupoETitles || 0}
+                      </td>
+                      <td className="py-2 px-2 text-center text-slate-400">
+                        {selectedStats.totalGrupoEVices || 0}
+                      </td>
+                      <td className="py-2 px-2 text-right font-bold text-white">
+                        {(selectedStats.totalGrupoETitles || 0) + (selectedStats.totalGrupoEVices || 0)}
+                      </td>
+                    </tr>
+                  )}
 
                   <tr className="bg-slate-950/60 font-black">
                     <td className="py-2 px-2 font-sans text-white text-[11px] uppercase tracking-wider">

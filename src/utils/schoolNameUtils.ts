@@ -41,7 +41,7 @@ export function cleanSchoolName(nameOrSchool?: string | School | null): string {
  * (Ex: "G.R.E.S." para a grande maioria, "C.C.E.S." para Canários das Laranjeiras e Flor da Mina, "A.R.E.S." para Vizinha Faladeira e Novo Império, "SERES" para Unidos do Cabuçu).
  */
 export function getSchoolDenomination(school: School): string {
-  if (school.denomination) return school.denomination;
+  if (school.denomination !== undefined) return school.denomination;
   if (school.id === 'canarios_laranjeiras' || school.id === 'flor_da_mina') return 'C.C.E.S.';
   if (school.id === 'vizinha_faladeira' || school.id === 'novo_imperio') return 'A.R.E.S.';
   if (school.id === 'cabucu') return 'SERES';
@@ -53,6 +53,7 @@ export function getSchoolDenomination(school: School): string {
  */
 export function getSchoolDenominationExtenso(school: School): string {
   const denom = getSchoolDenomination(school);
+  if (!denom) return cleanSchoolName(school);
   if (denom === 'C.C.E.S.' || denom === 'CCES') {
     return 'Clube Carnavalesco Escola de Samba';
   }
@@ -77,6 +78,7 @@ export function getSchoolCorporateName(school: School): string {
   if (school.corporateName) return school.corporateName;
   const denom = getSchoolDenomination(school);
   const clean = cleanSchoolName(school);
+  if (!denom) return clean;
   if (denom === 'C.C.E.S.' || school.id === 'canarios_laranjeiras' || school.id === 'flor_da_mina') {
     return `Clube Carnavalesco Escola de Samba ${clean}`;
   }
@@ -88,4 +90,28 @@ export function getSchoolCorporateName(school: School): string {
     return `SERES ${clean}`;
   }
   return `${denom} ${clean}`;
+}
+
+/**
+ * Obtém o Nome Chamado / Nome Conhecido oficial da agremiação para exibição nas fichas cadastrais.
+ * Garante que nunca seja retornado um lema ou slogan poético como nome chamado.
+ */
+export function getSchoolCalledName(school: School): string {
+  if (school.calledName && school.calledName.trim().length > 0) {
+    return school.calledName;
+  }
+  // Se nickname existe e não tem formato de lema (ex: "O Leão de...", "A Coroa de..."), pode ser usado
+  if (
+    school.nickname &&
+    school.nickname.trim().length > 0 &&
+    !/^([oO]|[aA]|[oO]s|[aA]s)\s+/.test(school.nickname) &&
+    school.nickname !== 'A Turma da Paz' &&
+    school.nickname !== 'As Abelhas de Acari'
+  ) {
+    return school.nickname;
+  }
+  if (school.shortName && school.shortName.trim().length > 0) {
+    return school.shortName;
+  }
+  return cleanSchoolName(school);
 }

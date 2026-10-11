@@ -6,7 +6,8 @@ import {
   cleanSchoolName,
   getSchoolCorporateName,
   getSchoolDenomination,
-  getSchoolDenominationExtenso
+  getSchoolDenominationExtenso,
+  getSchoolCalledName
 } from '../utils/schoolNameUtils';
 import { GaleriaDosCampeoesModal } from './GaleriaDosCampeoesModal';
 
@@ -556,7 +557,7 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                           </div>
                           <div>
                             <span className="text-slate-500 text-[10px] block uppercase">Nome Chamado</span>
-                            <span className="font-semibold text-white">{school.nickname || school.shortName}</span>
+                            <span className="font-semibold text-white">{getSchoolCalledName(school)}</span>
                           </div>
                           <div>
                             <span className="text-slate-500 text-[10px] block uppercase">Abreviação / Sigla</span>
@@ -749,7 +750,13 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
 
                       <div className="pt-2 flex flex-wrap items-center justify-between text-slate-400 text-xs gap-2">
                         <div>
-                          Lema: <strong className="text-amber-200">"{school.nickname}"</strong>
+                          {school.motto ? (
+                            <>Lema: <strong className="text-amber-200">"{school.motto}"</strong></>
+                          ) : (school.nickname && school.nickname !== getSchoolCalledName(school)) ? (
+                            <>Lema: <strong className="text-amber-200">"{school.nickname}"</strong></>
+                          ) : (
+                            <>Nome Chamado: <strong className="text-amber-200">{getSchoolCalledName(school)}</strong></>
+                          )}
                         </div>
                         <div>
                           Orçamento Anual: <strong className="text-emerald-400 font-mono">R$ {school.budget.toLocaleString('pt-BR')}</strong>

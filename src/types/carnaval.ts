@@ -146,6 +146,8 @@ export interface ConsolidatedSchoolStats {
   ancientBronzeVices: number;
   ancientAvaliacaoTitles: number;
   ancientAvaliacaoVices: number;
+  ancientGrupoETitles?: number;
+  ancientGrupoEVices?: number;
   inGameEspecialTitles: number;
   inGameEspecialVices: number;
   inGameOuroTitles: number;
@@ -166,6 +168,8 @@ export interface ConsolidatedSchoolStats {
   totalBronzeVices: number;
   totalAvaliacaoTitles: number;
   totalAvaliacaoVices: number;
+  totalGrupoETitles?: number;
+  totalGrupoEVices?: number;
   grandTotalTitles: number;
   grandTotalVices: number;
   grandTotalConquests: number;
@@ -179,6 +183,8 @@ export interface ConsolidatedSchoolStats {
   allBronzeRunnerUpYears: TitleYearEntry[];
   allAvaliacaoYears: TitleYearEntry[];
   allAvaliacaoRunnerUpYears: TitleYearEntry[];
+  allGrupoEYears?: TitleYearEntry[];
+  allGrupoERunnerUpYears?: TitleYearEntry[];
   achievements: InGameAchievement[];
 }
 
@@ -203,6 +209,10 @@ export interface SchoolHonors {
   historicalAvaliacaoYears?: number[];
   historicalAvaliacaoRunnerUps?: number;
   historicalAvaliacaoRunnerUpYears?: number[];
+  historicalGrupoETitles?: number;
+  historicalGrupoEYears?: number[];
+  historicalGrupoERunnerUps?: number;
+  historicalGrupoERunnerUpYears?: number[];
   inGameAchievements: InGameAchievement[];
 }
 
@@ -234,6 +244,7 @@ export interface School {
   id: string;
   name: string;
   shortName: string;
+  calledName?: string; // Nome conhecido e chamado oficial
   abbreviation?: string;
   denomination?: string; // Denominação jurídica / estatutária (Ex: "G.R.E.S.", "C.C.E.S.")
   corporateName?: string; // Razão social oficial completa nos perfis (Ex: "G.R.E.S. Estação Primeira de Mangueira")
@@ -265,11 +276,13 @@ export interface School {
   championshipsPrata?: number;
   championshipsBronze?: number;
   championshipsAvaliacao?: number;
+  championshipsGrupoE?: number;
   runnerUpsEspecial: number;
   runnerUpsOuro: number;
   runnerUpsPrata?: number;
   runnerUpsBronze?: number;
   runnerUpsAvaliacao?: number;
+  runnerUpsGrupoE?: number;
   isInactive?: boolean;
   inactive?: boolean;
   inactiveYearsCount?: number;

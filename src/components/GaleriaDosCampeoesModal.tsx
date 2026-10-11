@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { School, DivisionId } from '../types/carnaval';
 import { OFFICIAL_AVALIACAO_YEARLY_RESULTS, AvaliacaoYearResult } from '../data/avaliacaoChampionsData';
+import { OFFICIAL_GRUPO_E_YEARLY_RESULTS } from '../data/grupoEChampionsData';
 import { getSchoolConsolidatedStats } from '../data/carnavalData';
 import { cleanSchoolName } from '../utils/schoolNameUtils';
 import {
@@ -21,7 +22,7 @@ import {
   Layers
 } from 'lucide-react';
 
-export type GaleriaDivisionTab = 'especial' | 'ouro' | 'prata' | 'bronze' | 'avaliacao';
+export type GaleriaDivisionTab = 'especial' | 'ouro' | 'prata' | 'bronze' | 'avaliacao' | 'grupoE';
 export type GaleriaResultTab = 'campeas' | 'vices' | 'ano_a_ano';
 
 interface GaleriaDosCampeoesModalProps {
@@ -113,6 +114,16 @@ const DIVISION_CONFIG: Record<
     badgeBorder: 'border-purple-500/40',
     badgeText: 'text-purple-300',
     activeTabClass: 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-black shadow-lg shadow-purple-600/20'
+  },
+  grupoE: {
+    name: 'Grupo E',
+    shortName: 'Grupo E (Extinto)',
+    sublabel: '6ª Divisão • Histórico (1996-2019)',
+    color: 'from-emerald-500 to-teal-700',
+    badgeBg: 'bg-emerald-500/20',
+    badgeBorder: 'border-emerald-500/40',
+    badgeText: 'text-emerald-300',
+    activeTabClass: 'bg-gradient-to-r from-emerald-600 to-teal-700 text-white font-black shadow-lg shadow-emerald-600/20'
   }
 };
 
@@ -216,6 +227,12 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
           vicesCount = stats.totalAvaliacaoVices;
           viceYears = stats.allAvaliacaoRunnerUpYears.map((y) => y.year);
           break;
+        case 'grupoE':
+          titlesCount = stats.totalGrupoETitles || 0;
+          titleYears = (stats.allGrupoEYears || []).map((y) => y.year);
+          vicesCount = stats.totalGrupoEVices || 0;
+          viceYears = (stats.allGrupoERunnerUpYears || []).map((y) => y.year);
+          break;
       }
 
       if (titlesCount > 0) {
@@ -265,6 +282,23 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
         year: r.year,
         division: 'avaliacao' as GaleriaDivisionTab,
         divisionLabel: 'Grupo de Avaliação',
+        champions: r.champions.map((c) => ({
+          ...c,
+          school: schoolsMap.get(c.schoolId)
+        })),
+        runnerUps: r.runnerUps.map((ru) => ({
+          ...ru,
+          school: schoolsMap.get(ru.schoolId)
+        })),
+        note: r.note
+      })).sort((a, b) => b.year - a.year);
+    }
+
+    if (selectedDivision === 'grupoE') {
+      return OFFICIAL_GRUPO_E_YEARLY_RESULTS.map((r) => ({
+        year: r.year,
+        division: 'grupoE' as GaleriaDivisionTab,
+        divisionLabel: 'Grupo E (Sexta Divisão)',
         champions: r.champions.map((c) => ({
           ...c,
           school: schoolsMap.get(c.schoolId)
