@@ -583,9 +583,10 @@ export class SorteioEngine {
 
   /**
    * Sorteio do Grupo de Avaliação (Quarta-Feira de Cinzas)
-   * Regra:
-   * - Apenas a escola que vem das inativas (ou escolas criadas durante o save / reativadas) será a primeira a desfilar sempre;
-   * - As demais são sorteadas de forma aleatória entre as vagas restantes (2 até N).
+   * Regra Oficial:
+   * - Todas as agremiações reativadas ou recém-fundadas no Grupo de Avaliação sorteiam PRIMEIRO suas posições de desfile
+   *   e são OBRIGATORIAMENTE as primeiras a desfilar (se forem 5, são as 5 primeiras: 1º ao 5º lugar, sorteadas entre si).
+   * - As demais agremiações veteranas/remanescentes sorteiam em seguida as posições restantes (do 6º até o final).
    */
   public static generateAvaliacaoSorteio(
     avaliacaoSchools: School[],
@@ -595,50 +596,82 @@ export class SorteioEngine {
     const prevHistory = this.getPreviousYearHistory(currentYear, history);
     const slots: SorteioSlot[] = [];
 
-    // Identificar escola que veio de inativa / reativada
-    let openerSchoolId: string | undefined;
+    // Conjunto de identificadores/nomes de escolas reativadas ou recém-criadas na temporada
+    const reactivatedOrNewNames = new Set<string>();
+    const prevReactivated = prevHistory?.reactivatedSchools || [];
+    const prevCreated = prevHistory?.newSchoolsCreated || prevHistory?.newSchools || [];
 
-    // Verificar se houve reativação no histórico
-    const reactivatedList = prevHistory?.reactivatedSchools || prevHistory?.newSchoolsCreated || [];
-    if (reactivatedList.length > 0) {
-      const match = avaliacaoSchools.find(
-        (s) => reactivatedList.includes(s.id) || reactivatedList.includes(s.name)
-      );
-      if (match) openerSchoolId = match.id;
-    }
+    prevReactivated.forEach((item) => reactivatedOrNewNames.add(item.toLowerCase()));
+    prevCreated.forEach((item) => reactivatedOrNewNames.add(item.toLowerCase()));
 
-    // Se nenhuma reativada recente, pega a agremiação mais recente ou primeira da lista
-    if (!openerSchoolId) {
-      // Escola mais recente por ano de fundação
-      const sortedByFoundation = [...avaliacaoSchools].sort((a, b) => b.foundationYear - a.foundationYear);
-      openerSchoolId = sortedByFoundation[0]?.id;
-    }
+    // Identificar escolas do Grupo de Avaliação que são ingressantes (reativadas ou recém-fundadas)
+    const ingressantes: School[] = [];
+    const remanescentes: School[] = [];
 
-    const openerSchool = avaliacaoSchools.find((s) => s.id === openerSchoolId) || avaliacaoSchools[0];
+    avaliacaoSchools.forEach((sch) => {
+      const isReactivatedOrCreated =
+        reactivatedOrNewNames.has(sch.name.toLowerCase()) ||
+        reactivatedOrNewNames.has(sch.id.toLowerCase()) ||
+        sch.foundationYear === currentYear ||
+        sch.foundationYear === currentYear - 1;
 
-    slots.push({
-      id: 'avaliacao_quarta_1',
-      division: 'avaliacao',
-      day: 'quarta_cinzas',
-      dayLabel: 'Quarta-Feira de Cinzas (Intendente)',
-      order: 1,
-      schoolId: openerSchool.id,
-      schoolName: openerSchool.name,
-      reason: 'Escola recém-reativada/estreante no Grupo de Avaliação • Abre o desfile por regulamento',
-      isFixedRule: true,
-      ballLabel: 'Bola Branca #1 (Quarta de Cinzas)',
-      drawOrder: 1
+      if (isReactivatedOrCreated) {
+        ingressantes.push(sch);
+      } else {
+        remanescentes.push(sch);
+      }
     });
 
-    // Demais escolas sorteadas aleatoriamente entre as ordens restantes (2 até N)
-    const remaining = avaliacaoSchools.filter((s) => s.id !== openerSchool.id);
-    const shuffled = this.shuffle(remaining);
-    const availableOrders = Array.from({ length: remaining.length }, (_, i) => i + 2);
+    // Se por acaso nenhuma escola foi mapeada por histórico/ano (ex: início do jogo ou save antigo),
+    // seleciona as 5 escolas com fundação mais recente como ingressantes para respeitar o regulamento
+    if (ingressantes.length === 0 && avaliacaoSchools.length > 0) {
+      const sortedByFoundation = [...avaliacaoSchools].sort((a, b) => b.foundationYear - a.foundationYear);
+      const topCount = Math.min(5, sortedByFoundation.length);
+      const forcedIngressantes = sortedByFoundation.slice(0, topCount);
+      const forcedIds = new Set(forcedIngressantes.map((s) => s.id));
 
-    let drawSeq = 2;
-    shuffled.forEach((sch) => {
-      const pickedIndex = Math.floor(Math.random() * availableOrders.length);
-      const targetOrder = availableOrders.splice(pickedIndex, 1)[0];
+      ingressantes.push(...forcedIngressantes);
+      remanescentes.push(...avaliacaoSchools.filter((s) => !forcedIds.has(s.id)));
+    }
+
+    // 1. As escolas ingressantes (reativadas ou recém-fundadas) SORTEIAM PRIMEIRO
+    // Suas posições são exclusivamente as primeiras do desfile (1 até ingressantes.length).
+    const shuffledIngressantes = this.shuffle([...ingressantes]);
+    const ingressanteOrders = Array.from({ length: ingressantes.length }, (_, i) => i + 1);
+    let drawSeq = 1;
+
+    shuffledIngressantes.forEach((sch) => {
+      const pickedIndex = Math.floor(Math.random() * ingressanteOrders.length);
+      const targetOrder = ingressanteOrders.splice(pickedIndex, 1)[0];
+
+      slots.push({
+        id: `avaliacao_quarta_${targetOrder}`,
+        division: 'avaliacao',
+        day: 'quarta_cinzas',
+        dayLabel: 'Quarta-Feira de Cinzas (Intendente)',
+        order: targetOrder,
+        schoolId: sch.id,
+        schoolName: sch.name,
+        reason: 'Escola reativada/recém-fundada • Sorteia primeiro e abre o desfile por regulamento',
+        isFixedRule: false,
+        ballLabel: `Bola Branca #${targetOrder} (Quarta de Cinzas)`,
+        drawOrder: drawSeq++
+      });
+    });
+
+    // 2. As demais escolas (remanescentes/veteranas) SORTEIAM EM SEGUIDA
+    // Suas posições são sorteadas entre as ordens restantes (a partir de ingressantes.length + 1 até o fim).
+    const shuffledRemanescentes = this.shuffle([...remanescentes]);
+    const startRemanescenteOrder = ingressantes.length + 1;
+    const remanescenteOrders = Array.from(
+      { length: remanescentes.length },
+      (_, i) => startRemanescenteOrder + i
+    );
+
+    shuffledRemanescentes.forEach((sch) => {
+      const pickedIndex = Math.floor(Math.random() * remanescenteOrders.length);
+      const targetOrder = remanescenteOrders.splice(pickedIndex, 1)[0];
+
       slots.push({
         id: `avaliacao_quarta_${targetOrder}`,
         division: 'avaliacao',
@@ -648,6 +681,7 @@ export class SorteioEngine {
         schoolId: sch.id,
         schoolName: sch.name,
         reason: 'Sorteio Oficial da Superliga Carnavalesca',
+        isFixedRule: false,
         ballLabel: `Bola Branca #${targetOrder} (Quarta de Cinzas)`,
         drawOrder: drawSeq++
       });

@@ -719,7 +719,7 @@ export const SorteioOrdemView: React.FC<SorteioOrdemViewProps> = ({
             <p className="text-[11px] leading-relaxed">
               • <strong>Séries Prata e Bronze:</strong> <span className="text-blue-400 font-bold">🔵 Azul 1ª noite</span> e <span className="text-slate-100 font-bold">⚪ Branca 2ª noite</span>.
               <br />• <strong>Grupo de Avaliação:</strong> <span className="text-slate-100 font-bold">⚪ Bola Branca</span> (noite única na Quarta de Cinzas).
-              <br />• Todas as agremiações retiram bolinhas com cor e número no globo da Superliga.
+              <br />• <strong>Ordem Especial de Abertura:</strong> Todas as agremiações reativadas ou recém-fundadas sorteiam primeiro e abrem o desfile (1º ao 5º lugar). Em seguida, as veteranas sorteiam as vagas restantes.
             </p>
           </div>
         </div>
