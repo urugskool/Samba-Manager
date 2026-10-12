@@ -4,6 +4,7 @@ import { getSchoolConsolidatedStats, INITIAL_HISTORY } from '../data/carnavalDat
 import {
   cleanSchoolName,
   getSchoolCorporateName,
+  getSchoolCalledName,
   getSchoolDenomination,
   getSchoolDenominationExtenso
 } from '../utils/schoolNameUtils';
@@ -1253,7 +1254,16 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
               <span className="text-[10px] text-amber-400 uppercase font-semibold block">
                 Nome Chamado
               </span>
-              <span className="font-bold text-amber-300 text-sm block">{selectedSchool.shortName}</span>
+              <span className="font-bold text-amber-300 text-sm block">{getSchoolCalledName(selectedSchool)}</span>
+            </div>
+
+            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1">
+              <span className="text-[10px] text-slate-400 uppercase font-semibold block">
+                Abreviação / Sigla
+              </span>
+              <span className="font-mono font-bold text-amber-300 text-sm block">
+                {selectedSchool.abbreviation || selectedSchool.shortName || '—'}
+              </span>
             </div>
 
             <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1">
@@ -1268,7 +1278,11 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
               <span className="text-[10px] text-slate-400 uppercase font-semibold block">
                 Bairro / Cidade
               </span>
-              <span className="font-bold text-white text-sm block">{selectedSchool.neighborhood}</span>
+              <span className="font-bold text-white text-sm block">
+                {selectedSchool.city && !selectedSchool.neighborhood.toLowerCase().includes(selectedSchool.city.split(',')[0].toLowerCase())
+                  ? `${selectedSchool.neighborhood} • ${selectedSchool.city}`
+                  : (selectedSchool.city || selectedSchool.neighborhood)}
+              </span>
             </div>
 
             <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1 sm:col-span-2">

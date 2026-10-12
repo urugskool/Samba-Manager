@@ -285,7 +285,7 @@ export const SorteioOrdemView: React.FC<SorteioOrdemViewProps> = ({
     }, 800);
   };
 
-  // Simular todos os 5 grupos de uma vez (Avançar Ciclo Geral)
+  // Simular todos os 5 grupos de uma vez (Avançar Ciclo Geral) - preservando o que já foi sorteado
   const handleDrawAllGroups = () => {
     setIsDrawing(true);
     setDrawingDivision('all');
@@ -300,7 +300,7 @@ export const SorteioOrdemView: React.FC<SorteioOrdemViewProps> = ({
         ? { schoolId: userSchool.id, day: choiceDay, order: choiceOrder }
         : undefined;
 
-      const fullSorteio = SorteioEngine.generateCompleteSorteio(schools, history, currentYear, choice);
+      const fullSorteio = SorteioEngine.generateCompleteSorteio(schools, history, currentYear, choice, sorteio);
       onUpdateSorteio(fullSorteio);
 
       setAnnouncementFeed((prev) => [
@@ -318,9 +318,9 @@ export const SorteioOrdemView: React.FC<SorteioOrdemViewProps> = ({
 
   // Avançar ciclo com segurança e confiabilidade após a homologação do sorteio
   const handleAdvanceFromHomologado = () => {
-    // Garante que o sorteio de todos os 5 grupos está formalizado e gravado
+    // Garante que o sorteio de todos os 5 grupos está formalizado e gravado, preservando os grupos já sorteados
     if (!sorteio.isCompleted || !isAllSorteioCompleted) {
-      const fullSorteio = SorteioEngine.generateCompleteSorteio(schools, history, currentYear);
+      const fullSorteio = SorteioEngine.generateCompleteSorteio(schools, history, currentYear, undefined, sorteio);
       onUpdateSorteio(fullSorteio);
     }
 
@@ -467,6 +467,8 @@ export const SorteioOrdemView: React.FC<SorteioOrdemViewProps> = ({
                   <span>
                     {isDrawing && drawingDivision === 'all'
                       ? 'Girando o Globo Oficial...'
+                      : totalDrawnCount > 0
+                      ? 'Simular Grupos Restantes (Preservar Sorteados)'
                       : 'Simular Todos os Grupos (Avançar Ciclo)'}
                   </span>
                 </button>
@@ -1152,7 +1154,7 @@ export const SorteioOrdemView: React.FC<SorteioOrdemViewProps> = ({
                     {nextMonthId && (
                       <button
                         onClick={() => {
-                          const fullSorteio = SorteioEngine.generateCompleteSorteio(schools, history, currentYear);
+                          const fullSorteio = SorteioEngine.generateCompleteSorteio(schools, history, currentYear, undefined, sorteio);
                           onUpdateSorteio(fullSorteio);
                           const nextPeriod = SeasonCycleService.getPeriod(nextMonthId);
                           const targetTab = (!userSchool && (nextPeriod.focusTab === 'ensaios' || nextPeriod.focusTab === 'barracao' || nextPeriod.focusTab === 'equipe' || nextPeriod.focusTab === 'financas'))

@@ -715,13 +715,16 @@ export class SorteioEngine {
   }
 
   /**
-   * Gera o Sorteio Completo de todas as 5 divisões do Carnaval
+   * Gera o Sorteio Completo de todas as 5 divisões do Carnaval.
+   * Se um objeto de sorteio prévio (existingSorteio) for fornecido, PRESERVA intactas
+   * as divisões que já foram sorteadas/homologadas pelo usuário, sorteando apenas as divisões faltantes.
    */
   public static generateCompleteSorteio(
     schools: School[],
     history: YearHistory[],
     currentYear: number,
-    userChoice?: SorteioChoice
+    userChoice?: SorteioChoice,
+    existingSorteio?: CarnavalSorteio
   ): CarnavalSorteio {
     const isSchoolActive = (s: School) => !s.isInactive && !s.inactive;
 
@@ -731,11 +734,33 @@ export class SorteioEngine {
     const bronzeSchools = schools.filter((s) => s.division === 'bronze' && isSchoolActive(s));
     const avaliacaoSchools = schools.filter((s) => s.division === 'avaliacao' && isSchoolActive(s));
 
-    const especial = this.generateEspecialSorteio(especialSchools, currentYear, history);
-    const ouro = this.generateOuroSorteio(ouroSchools, currentYear, history, userChoice);
-    const prata = this.generatePrataSorteio(prataSchools, currentYear);
-    const bronze = this.generateBronzeSorteio(bronzeSchools, currentYear);
-    const avaliacao = this.generateAvaliacaoSorteio(avaliacaoSchools, currentYear, history);
+    // Preserva o que já foi sorteado; se não foi sorteado, gera novo sorteio para a divisão
+    const existingDivs = existingSorteio?.divisions;
+
+    const especial =
+      existingDivs?.especial?.isCompleted && existingDivs.especial.slots.length > 0
+        ? existingDivs.especial
+        : this.generateEspecialSorteio(especialSchools, currentYear, history);
+
+    const ouro =
+      existingDivs?.ouro?.isCompleted && existingDivs.ouro.slots.length > 0
+        ? existingDivs.ouro
+        : this.generateOuroSorteio(ouroSchools, currentYear, history, userChoice);
+
+    const prata =
+      existingDivs?.prata?.isCompleted && existingDivs.prata.slots.length > 0
+        ? existingDivs.prata
+        : this.generatePrataSorteio(prataSchools, currentYear);
+
+    const bronze =
+      existingDivs?.bronze?.isCompleted && existingDivs.bronze.slots.length > 0
+        ? existingDivs.bronze
+        : this.generateBronzeSorteio(bronzeSchools, currentYear);
+
+    const avaliacao =
+      existingDivs?.avaliacao?.isCompleted && existingDivs.avaliacao.slots.length > 0
+        ? existingDivs.avaliacao
+        : this.generateAvaliacaoSorteio(avaliacaoSchools, currentYear, history);
 
     return {
       year: currentYear,

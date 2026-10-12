@@ -12,10 +12,19 @@ export function cleanSchoolName(nameOrSchool?: string | School | null): string {
     .replace(/^Grêmio Recreativo Escola de Samba\s+/i, '')
     .replace(/^Grêmio Recreativo Escola de Artes e Samba\s+/i, '')
     .replace(/^Grêmio Recreativo Escola de Artes\s+/i, '')
+    .replace(/^Grêmio Recreativo Escola de Samba Educativa\s+/i, '')
+    .replace(/^Grêmio Recreativo Cultural Social Escola de Samba\s+/i, '')
+    .replace(/^Sociedade Recreativa Escola de Samba\s+/i, '')
     .replace(/^Clube Carnavalesco Escola de Samba\s+/i, '')
     .replace(/^Associação Recreativista Escola de Samba\s+/i, '')
     .replace(/^Associação Recreativa Escola de Samba\s+/i, '')
     .replace(/^Sociedade Esportiva Recreativa Escola de Samba\s+/i, '')
+    .replace(/^G\.?R\.?E\.?S\.?E\.?\s+/i, '')
+    .replace(/^GRESE\s+/i, '')
+    .replace(/^G\.?R\.?C\.?S\.?E\.?S\.?\s+/i, '')
+    .replace(/^GRCSES\s+/i, '')
+    .replace(/^S\.?R\.?E\.?S\.?\s+/i, '')
+    .replace(/^SRES\s+/i, '')
     .replace(/^G\.?R\.?E\.?S\.?V?\.?\s+/i, '')
     .replace(/^GRESV?\s+/i, '')
     .replace(/^E\.?S\.?\s+/i, '')
@@ -58,6 +67,15 @@ export function getSchoolDenominationExtenso(school: School): string {
   if (!denom) return cleanSchoolName(school);
   if (denom === 'E.S.' || denom === 'ES') {
     return 'Escola de Samba';
+  }
+  if (denom === 'G.R.E.S.E.' || denom === 'GRESE') {
+    return 'Grêmio Recreativo Escola de Samba Educativa';
+  }
+  if (denom === 'G.R.C.S.E.S.' || denom === 'GRCSES') {
+    return 'Grêmio Recreativo Cultural Social Escola de Samba';
+  }
+  if (denom === 'S.R.E.S.' || denom === 'SRES') {
+    return 'Sociedade Recreativa Escola de Samba';
   }
   if (denom === 'C.C.E.S.' || denom === 'CCES') {
     return 'Clube Carnavalesco Escola de Samba';

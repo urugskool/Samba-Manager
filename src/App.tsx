@@ -1280,7 +1280,7 @@ export default function App() {
 
     if (currentSeasonMonth === 'julho' && !isSorteioDone) {
       if (targetMonth === 'agosto' || targetTab === 'ensaios' || targetTab === 'dashboard') {
-        const fullSorteio = SorteioEngine.generateCompleteSorteio(schools, history, currentYear);
+        const fullSorteio = SorteioEngine.generateCompleteSorteio(schools, history, currentYear, undefined, sorteio);
         setSorteio(fullSorteio);
       } else {
         soundService.playBuzzer();
@@ -1398,7 +1398,7 @@ export default function App() {
       (sorteio?.divisions && SorteioEngine.SORTEIO_ORDER.every((d) => sorteio.divisions[d]?.isCompleted))
     );
     if (!isSorteioDone) {
-      const fullSorteio = SorteioEngine.generateCompleteSorteio(schools, history, currentYear);
+      const fullSorteio = SorteioEngine.generateCompleteSorteio(schools, history, currentYear, undefined, sorteio);
       setSorteio(fullSorteio);
     }
 
