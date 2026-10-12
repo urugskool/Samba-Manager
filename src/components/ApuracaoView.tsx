@@ -1468,10 +1468,10 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" /> Acesso à Série Bronze ({bronzeSchools.length > 18 ? 'Campeã e Vice (2 vagas)' : 'Top 3 sobem (3 vagas)'})
                 </span>
                 <span className="flex items-center gap-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-purple-400" /> Processo de Afastamento (Últimas 2 com risco de suspensão por min. 1 ano)
+                  <span className="w-2.5 h-2.5 rounded-full bg-purple-400" /> Processo de Afastamento (No mínimo as 5 últimas são suspensas por mín. 1 ano)
                 </span>
                 <span className="text-[11px] text-amber-300">
-                  • Grupo de Avaliação {currentYear}: {avaliacaoSchools.length} escolas (máx 20)
+                  • Grupo de Avaliação {currentYear}: {avaliacaoSchools.length} escolas (máx 20 • 5 ingressantes por ano)
                 </span>
               </>
             )}
@@ -1516,7 +1516,7 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
               hasStarted &&
               selectedDivision === 'avaliacao' &&
               item.rank <= avaliacaoPromotedCount;
-            const neededAfastadas = Math.max(2, (avaliacaoSchools.length - avaliacaoPromotedCount + bronzeRelegatedCount + 1) - 20);
+            const neededAfastadas = Math.max(5, (avaliacaoSchools.length - avaliacaoPromotedCount + bronzeRelegatedCount + 5) - 20);
             const isSuspendedAvaliacao =
               hasStarted &&
               selectedDivision === 'avaliacao' &&

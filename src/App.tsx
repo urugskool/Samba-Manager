@@ -1077,11 +1077,16 @@ export default function App() {
       setCurrentSeasonMonth('marco');
 
       // Add News
+      const ingressantesCount = (nextSeasonData.summary.reactivatedSchoolNames?.length || 0) + (nextSeasonData.summary.newSchoolNames?.length || 0);
+      const ingressantesInfo = ingressantesCount > 0
+        ? ` No Grupo de Avaliação, ${ingressantesCount} agremiações foram reativadas/fundadas para a disputa deste ano.`
+        : '';
+
       const newsHeadline: NewsItem = {
         id: `news_${nextSeasonData.nextYear}`,
         year: nextSeasonData.nextYear,
         title: `Temporada do Carnaval ${nextSeasonData.nextYear} Iniciada!`,
-        body: `${nextSeasonData.summary.especialChampionName} defende o título do Especial! ${nextSeasonData.summary.ouroChampionName} subiu para a elite. Na Série Prata, ${nextSeasonData.summary.prataChampionName} sagrou-se campeã! Na Série Bronze, ${nextSeasonData.summary.bronzeChampionName} subiu de divisão. No Grupo de Avaliação, ${nextSeasonData.summary.avaliacaoChampionName || 'a campeã'} garantiu o acesso!`,
+        body: `${nextSeasonData.summary.especialChampionName} defende o título do Especial! ${nextSeasonData.summary.ouroChampionName} subiu para a elite. Na Série Prata, ${nextSeasonData.summary.prataChampionName} sagrou-se campeã! Na Série Bronze, ${nextSeasonData.summary.bronzeChampionName} subiu de divisão. No Grupo de Avaliação, ${nextSeasonData.summary.avaliacaoChampionName || 'a campeã'} garantiu o acesso!${ingressantesInfo}`,
         type: 'success',
         date: 'Agora'
       };

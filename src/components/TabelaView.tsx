@@ -456,7 +456,7 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                   {selectedDivision === 'ouro' && 'Campeã sobe ao Especial | 2 últimas caem para a Prata'}
                   {selectedDivision === 'prata' && 'Acesso para a Série Ouro | Rebaixamento para Série Bronze'}
                   {selectedDivision === 'bronze' && 'Acesso para a Série Prata | Rebaixamento para Grupo de Avaliação'}
-                  {selectedDivision === 'avaliacao' && 'Acesso para a Série Bronze | Últimas colocadas são afastadas'}
+                  {selectedDivision === 'avaliacao' && 'Acesso para a Série Bronze | No mínimo as 5 últimas são afastadas (mín. 5 ingressantes/ano)'}
                 </div>
               </div>
             </div>

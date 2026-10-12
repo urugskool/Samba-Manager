@@ -586,13 +586,14 @@ export class SimulationEngine {
       promotedSlice.forEach((item) => promotedSchoolIds.push(item.school.id));
 
       // Afastamento do Carnaval (mínimo 1 ano fora):
-      // The bottom schools are evaluated and suspended. Ensure Grupo de Avaliação never exceeds 20 schools next year!
+      // Regulamento da Superliga: no mínimo as 5 últimas colocadas são afastadas/suspensas a cada carnaval!
+      // (Se necessário para não estourar o limite de 20 agremiações no próximo ano, afasta mais escolas).
       const currentCount = rankedList.length;
       const prataRelegatedCount = prataCountThisSeason > 16 ? 4 : prataCountThisSeason === 15 ? 2 : 3;
       const bronzePromotedCount = prataCountThisSeason > 16 ? 1 : 3;
       const netFromPrata = prataRelegatedCount - bronzePromotedCount;
       const incomingFromBronze = bronzeCountThisSeason > 18 ? (netFromPrata + 2 + Math.min(2, bronzeCountThisSeason - 18)) : Math.max(0, 3 + netFromPrata);
-      const neededAfastadas = Math.max(2, (currentCount - avaliacaoPromotedCount + incomingFromBronze + 1) - 20);
+      const neededAfastadas = Math.max(5, (currentCount - avaliacaoPromotedCount + incomingFromBronze + 5) - 20);
       const afastadasSlice = neededAfastadas > 0 ? rankedList.slice(-neededAfastadas) : [];
       afastadasSlice.forEach((item) => relegatedSchoolIds.push(item.school.id));
     }
@@ -973,9 +974,9 @@ export class SimulationEngine {
     });
 
     // Record In-Game achievements for Grupo de Avaliação
-    // Number of bottom schools suspended / afastadas:
+    // Number of bottom schools suspended / afastadas: no mínimo 5 últimas colocadas são afastadas a cada carnaval
     const currentAvaliacaoCount = avaliacaoSchools.length;
-    const neededAfastadas = Math.max(2, (currentAvaliacaoCount - avaliacaoPromotedCount + bronzeRelegatedCount + 1) - 20);
+    const neededAfastadas = Math.max(5, (currentAvaliacaoCount - avaliacaoPromotedCount + bronzeRelegatedCount + 5) - 20);
     const avaliacaoAfastadasThreshold = avaliacaoRanked.length - neededAfastadas;
 
     avaliacaoRanked.forEach((item) => {
@@ -1170,9 +1171,12 @@ export class SimulationEngine {
       }
     });
 
-    // 11. Reactivate at least 1 agremiação or create a new random school!
-    // "pelo menos 1 agremiação deve voltar todo ano ou o jogo criar uma nova aleatória. O Grupo deve a cada carnaval ser disputado por no máximo 20 escolas."
+    // 11. Reativação e Criação de Escolas no Grupo de Avaliação:
+    // Regulamento: 5 escolas são reativadas ou criadas por ano para disputar o Grupo de Avaliação (mínimo de 5 agremiações ingressantes, respeitando o teto de 20).
     const activeAvaliacaoAfterMovements = currentAvaliacaoCount - avaliacaoPromotedCount + bronzeRelegatedCount - neededAfastadas;
+    const remainingSlots = Math.max(0, 20 - activeAvaliacaoAfterMovements);
+    const targetIngressantes = Math.min(remainingSlots, Math.max(5, 20 - activeAvaliacaoAfterMovements));
+
     const eligibleInactive = Array.from(schoolMap.values()).filter(
       (s) => (s.isInactive || s.inactive) && (s.inactiveYearsCount || 0) >= 1 && !avaliacaoAfastadasNames.includes(s.name)
     );
@@ -1180,21 +1184,24 @@ export class SimulationEngine {
     const reactivatedSchoolNames: string[] = [];
     const newSchoolNames: string[] = [];
 
-    // Ensure we do not exceed 20 schools
-    if (activeAvaliacaoAfterMovements < 20) {
-      if (eligibleInactive.length > 0 && Math.random() < 0.7) {
-        const chosen = eligibleInactive[Math.floor(Math.random() * eligibleInactive.length)];
+    // Prioriza reativar escolas afastadas/históricas com elegibilidade e, caso faltem, cria novas agremiações fundadas
+    for (let i = 0; i < targetIngressantes; i++) {
+      if (eligibleInactive.length > 0) {
+        // Escolhe uma inativa elegível
+        const randomIndex = Math.floor(Math.random() * eligibleInactive.length);
+        const [chosen] = eligibleInactive.splice(randomIndex, 1);
         chosen.isInactive = false;
         chosen.inactive = false;
         chosen.inactiveYearsCount = 0;
         chosen.suspensionReason = undefined;
         chosen.division = 'avaliacao';
-        chosen.budget = 250000; // Economically revitalized
+        chosen.budget = 250000; // Revitalizada financeiramente pela comunidade
         chosen.fanBaseMorale = 80;
         chosen.rehearsalLevel = 72;
         chosen.barracaoProgress = 70;
         reactivatedSchoolNames.push(chosen.name);
       } else {
+        // Sem inativas elegíveis disponíveis: funda uma nova escola aleatória
         const newSchool = generateRandomCarnavalSchool(currentYear + 1, Array.from(schoolMap.keys()));
         schoolMap.set(newSchool.id, newSchool);
         newSchoolNames.push(newSchool.name);
@@ -1336,13 +1343,15 @@ export class SimulationEngine {
       avaliacaoChampion: avaliacaoChamp ? cleanSchoolName(avaliacaoChamp) : 'Desconhecida',
       avaliacaoPromoted: avaliacaoPromotedNames.map(n => cleanSchoolName(n)),
       avaliacaoRelegated: avaliacaoAfastadasNames.map(n => cleanSchoolName(n)),
+      avaliacaoSuspended: avaliacaoAfastadasNames.map(n => cleanSchoolName(n)),
       especialStandings: espStandings,
       ouroStandings: ouroStandings,
       prataStandings: prataStandings,
       bronzeStandings: bronzeStandings,
       avaliacaoStandings: avaliacaoStandings,
       reactivatedSchools: reactivatedSchoolNames.map(n => cleanSchoolName(n)),
-      newSchoolsCreated: newSchoolNames.map(n => cleanSchoolName(n))
+      newSchoolsCreated: newSchoolNames.map(n => cleanSchoolName(n)),
+      newSchools: newSchoolNames.map(n => cleanSchoolName(n))
     };
 
     return {
