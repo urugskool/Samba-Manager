@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { School, DivisionId, YearHistory } from '../types/carnaval';
 import { CarnavalSorteio } from '../types/sorteio';
 import { SeasonMonthId } from '../types/seasonCycle';
@@ -28,15 +28,41 @@ import {
   MapPin,
   Truck,
   Bus,
-  Compass
+  Compass,
+  Crown,
+  Tv,
+  Ticket,
+  Coins,
+  FileSpreadsheet,
+  Layers,
+  Percent,
+  HelpCircle,
+  Trophy,
+  Medal
 } from 'lucide-react';
 import { soundService } from '../services/soundService';
 import { cleanSchoolName } from '../utils/schoolNameUtils';
 import { LogisticsService } from '../services/logisticsService';
 import { ParadeLogisticsModal } from './ParadeLogisticsModal';
+import {
+  LigaFinancialService,
+  CLASSIFICATION_PRIZE_TABLE,
+  LIGA_FINANCIAL_CONSTANTS,
+  SchoolLigaPayout,
+  LigaSeasonFinancialReport
+} from '../services/ligaFinancialService';
+import {
+  RepassesFinanceirosService,
+  ExtratoFinanceiroEscola,
+  RateioFundo800kLinha,
+  DivisaoCarnaval
+} from '../services/repassesFinanceirosService';
+
+export type RepasseDivisionTab = 'especial' | 'ouro' | 'prata' | 'bronze' | 'avaliacao';
 
 interface FinancasViewProps {
   school: School;
+  allSchools?: School[];
   currentYear?: number;
   currentSeasonMonth?: SeasonMonthId;
   history?: YearHistory[];
@@ -120,6 +146,7 @@ const QUADRA_LEVELS: QuadraLevelConfig[] = [
 
 export const FinancasView: React.FC<FinancasViewProps> = ({
   school,
+  allSchools,
   currentYear = 2027,
   currentSeasonMonth = 'marco',
   history = [],
@@ -129,6 +156,218 @@ export const FinancasView: React.FC<FinancasViewProps> = ({
 }) => {
   const [showCriteriaDetail, setShowCriteriaDetail] = useState<boolean>(false);
   const [isLogisticsModalOpen, setIsLogisticsModalOpen] = useState<boolean>(false);
+  const [showClassificationModal, setShowClassificationModal] = useState<boolean>(false);
+  const [activeRepasseDivision, setActiveRepasseDivision] = useState<RepasseDivisionTab>(() => {
+    if (['especial', 'ouro', 'prata', 'bronze', 'avaliacao'].includes(school.division)) {
+      return school.division as RepasseDivisionTab;
+    }
+    return 'especial';
+  });
+  const [selectedOuroRateioEscolas, setSelectedOuroRateioEscolas] = useState<16 | 15 | 14>(16);
+  const [showOuroRateioAccordion, setShowOuroRateioAccordion] = useState<boolean>(false);
+  
+  // Ano selecionado para o demonstrativo de repasses da Liga
+  const [selectedLigaYear, setSelectedLigaYear] = useState<number>(() => {
+    if (history && history.length > 0) return history[0].year;
+    return currentYear;
+  });
+
+  const availableYears = useMemo(() => {
+    const yearsSet = new Set<number>();
+    if (history && history.length > 0) {
+      history.forEach((h) => yearsSet.add(h.year));
+    }
+    yearsSet.add(currentYear);
+    return Array.from(yearsSet).sort((a, b) => b - a);
+  }, [history, currentYear]);
+
+  const selectedHistory = useMemo(() => {
+    return history?.find((h) => h.year === selectedLigaYear);
+  }, [history, selectedLigaYear]);
+
+  const isSelectedYearProjected =
+    selectedLigaYear === currentYear && (!selectedHistory || !selectedHistory.especialStandings);
+
+  const ligaReport: LigaSeasonFinancialReport = useMemo(() => {
+    if (selectedHistory?.ligaFinancialReport) {
+      return selectedHistory.ligaFinancialReport as LigaSeasonFinancialReport;
+    }
+    const standings = selectedHistory?.especialStandings;
+    return LigaFinancialService.calculateSeasonFinancials(
+      selectedLigaYear,
+      standings,
+      allSchools,
+      isSelectedYearProjected
+    );
+  }, [selectedHistory, selectedLigaYear, allSchools, isSelectedYearProjected]);
+
+  const userSchoolPayout = useMemo(() => {
+    if (!ligaReport) return undefined;
+    return (
+      LigaFinancialService.getSchoolPayout(ligaReport, school.id) ||
+      LigaFinancialService.getSchoolPayout(ligaReport, school.name)
+    );
+  }, [ligaReport, school.id, school.name]);
+
+  // Série Ouro standings ou lista de escolas
+  const ouroSchoolsList = useMemo(() => {
+    if (selectedHistory?.ouroStandings && selectedHistory.ouroStandings.length > 0) {
+      return selectedHistory.ouroStandings.map((s, idx) => ({
+        escolaId: s.schoolId || `ouro_${idx + 1}`,
+        nomeEscola: s.schoolName,
+        posicao: s.rank || idx + 1
+      }));
+    }
+    const activeOuro = (allSchools || [])
+      .filter((s) => s.division === 'ouro' && !s.isInactive && !s.inactive)
+      .map((s, idx) => ({
+        escolaId: s.id,
+        nomeEscola: s.name,
+        posicao: idx + 1
+      }));
+    if (activeOuro.length > 0) return activeOuro;
+    return Array.from({ length: 16 }, (_, i) => ({
+      escolaId: `ouro_escola_${i + 1}`,
+      nomeEscola: `Escola Série Ouro ${i + 1}`,
+      posicao: i + 1
+    }));
+  }, [selectedHistory, allSchools]);
+
+  const ouroFinancialReport: ExtratoFinanceiroEscola[] = useMemo(() => {
+    if (selectedHistory?.ouroFinancialReport) {
+      return selectedHistory.ouroFinancialReport as ExtratoFinanceiroEscola[];
+    }
+    return RepassesFinanceirosService.calcularRepassesSerieOuro(ouroSchoolsList);
+  }, [selectedHistory, ouroSchoolsList]);
+
+  const userOuroPayout = useMemo(() => {
+    if (!ouroFinancialReport) return undefined;
+    return (
+      RepassesFinanceirosService.obterExtratoEscola(ouroFinancialReport, school.id) ||
+      RepassesFinanceirosService.obterExtratoEscola(ouroFinancialReport, school.name)
+    );
+  }, [ouroFinancialReport, school.id, school.name]);
+
+  const ouroRateioLinhas = useMemo(() => {
+    return RepassesFinanceirosService.calcularTabelaRateioFundo800k(selectedOuroRateioEscolas);
+  }, [selectedOuroRateioEscolas]);
+
+  // SÉRIE PRATA
+  const prataSchoolsList = useMemo(() => {
+    if (selectedHistory?.prataStandings && selectedHistory.prataStandings.length > 0) {
+      return selectedHistory.prataStandings.map((s, idx) => ({
+        escolaId: s.schoolId || `prata_${idx + 1}`,
+        nomeEscola: s.schoolName,
+        posicao: s.rank || idx + 1
+      }));
+    }
+    const activePrata = (allSchools || [])
+      .filter((s) => s.division === 'prata' && !s.isInactive && !s.inactive)
+      .map((s, idx) => ({
+        escolaId: s.id,
+        nomeEscola: s.name,
+        posicao: idx + 1
+      }));
+    if (activePrata.length > 0) return activePrata;
+    return Array.from({ length: 16 }, (_, i) => ({
+      escolaId: `prata_escola_${i + 1}`,
+      nomeEscola: `Escola Série Prata ${i + 1}`,
+      posicao: i + 1
+    }));
+  }, [selectedHistory, allSchools]);
+
+  const prataFinancialReport: ExtratoFinanceiroEscola[] = useMemo(() => {
+    if (selectedHistory?.prataFinancialReport) {
+      return selectedHistory.prataFinancialReport as ExtratoFinanceiroEscola[];
+    }
+    return RepassesFinanceirosService.calcularRepassesSeriePrata(prataSchoolsList);
+  }, [selectedHistory, prataSchoolsList]);
+
+  const userPrataPayout = useMemo(() => {
+    if (!prataFinancialReport) return undefined;
+    return (
+      RepassesFinanceirosService.obterExtratoEscola(prataFinancialReport, school.id) ||
+      RepassesFinanceirosService.obterExtratoEscola(prataFinancialReport, school.name)
+    );
+  }, [prataFinancialReport, school.id, school.name]);
+
+  // SÉRIE BRONZE
+  const bronzeSchoolsList = useMemo(() => {
+    if (selectedHistory?.bronzeStandings && selectedHistory.bronzeStandings.length > 0) {
+      return selectedHistory.bronzeStandings.map((s, idx) => ({
+        escolaId: s.schoolId || `bronze_${idx + 1}`,
+        nomeEscola: s.schoolName,
+        posicao: s.rank || idx + 1
+      }));
+    }
+    const activeBronze = (allSchools || [])
+      .filter((s) => s.division === 'bronze' && !s.isInactive && !s.inactive)
+      .map((s, idx) => ({
+        escolaId: s.id,
+        nomeEscola: s.name,
+        posicao: idx + 1
+      }));
+    if (activeBronze.length > 0) return activeBronze;
+    return Array.from({ length: 12 }, (_, i) => ({
+      escolaId: `bronze_escola_${i + 1}`,
+      nomeEscola: `Escola Série Bronze ${i + 1}`,
+      posicao: i + 1
+    }));
+  }, [selectedHistory, allSchools]);
+
+  const bronzeFinancialReport: ExtratoFinanceiroEscola[] = useMemo(() => {
+    if (selectedHistory?.bronzeFinancialReport) {
+      return selectedHistory.bronzeFinancialReport as ExtratoFinanceiroEscola[];
+    }
+    return RepassesFinanceirosService.calcularRepassesSerieBronze(bronzeSchoolsList);
+  }, [selectedHistory, bronzeSchoolsList]);
+
+  const userBronzePayout = useMemo(() => {
+    if (!bronzeFinancialReport) return undefined;
+    return (
+      RepassesFinanceirosService.obterExtratoEscola(bronzeFinancialReport, school.id) ||
+      RepassesFinanceirosService.obterExtratoEscola(bronzeFinancialReport, school.name)
+    );
+  }, [bronzeFinancialReport, school.id, school.name]);
+
+  // GRUPO DE AVALIAÇÃO
+  const avaliacaoSchoolsList = useMemo(() => {
+    if (selectedHistory?.avaliacaoStandings && selectedHistory.avaliacaoStandings.length > 0) {
+      return selectedHistory.avaliacaoStandings.map((s, idx) => ({
+        escolaId: s.schoolId || `avaliacao_${idx + 1}`,
+        nomeEscola: s.schoolName,
+        posicao: s.rank || idx + 1
+      }));
+    }
+    const activeAvaliacao = (allSchools || [])
+      .filter((s) => s.division === 'avaliacao' && !s.isInactive && !s.inactive)
+      .map((s, idx) => ({
+        escolaId: s.id,
+        nomeEscola: s.name,
+        posicao: idx + 1
+      }));
+    if (activeAvaliacao.length > 0) return activeAvaliacao;
+    return Array.from({ length: 15 }, (_, i) => ({
+      escolaId: `avaliacao_escola_${i + 1}`,
+      nomeEscola: `Escola Grupo de Avaliação ${i + 1}`,
+      posicao: i + 1
+    }));
+  }, [selectedHistory, allSchools]);
+
+  const avaliacaoFinancialReport: ExtratoFinanceiroEscola[] = useMemo(() => {
+    if (selectedHistory?.avaliacaoFinancialReport) {
+      return selectedHistory.avaliacaoFinancialReport as ExtratoFinanceiroEscola[];
+    }
+    return RepassesFinanceirosService.calcularRepassesGrupoAvaliacao(avaliacaoSchoolsList);
+  }, [selectedHistory, avaliacaoSchoolsList]);
+
+  const userAvaliacaoPayout = useMemo(() => {
+    if (!avaliacaoFinancialReport) return undefined;
+    return (
+      RepassesFinanceirosService.obterExtratoEscola(avaliacaoFinancialReport, school.id) ||
+      RepassesFinanceirosService.obterExtratoEscola(avaliacaoFinancialReport, school.name)
+    );
+  }, [avaliacaoFinancialReport, school.id, school.name]);
 
   const userSlot = sorteio?.divisions?.[school.division]?.slots.find((s) => s.schoolId === school.id);
   const staffTotal = Object.values(school.staff).reduce((acc, m) => acc + m.salary, 0);
@@ -517,67 +756,2465 @@ export const FinancasView: React.FC<FinancasViewProps> = ({
         </div>
       </div>
 
-      {/* Financial Overview Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4 shadow">
+      {/* Extrato de Receitas & Despesas da Agremiação */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* 1. Subvenção / Repasse Fixo */}
+        <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4 shadow space-y-1">
           <div className="flex items-center justify-between text-xs text-slate-400 mb-1">
-            <span>Cota da LIGA & Transmissão de TV</span>
-            <TrendingUp className="w-4 h-4 text-emerald-400" />
-          </div>
-          <div className="text-lg font-bold text-white font-mono">
-            {school.division === 'especial'
-              ? 'R$ 1.400.000 / ano'
-              : school.division === 'ouro'
-              ? 'R$ 750.000 / ano'
-              : school.division === 'prata'
-              ? 'R$ 450.000 / ano'
-              : school.division === 'bronze'
-              ? 'R$ 280.000 / ano'
-              : 'R$ 160.000 / ano'}
-          </div>
-          <p className="text-[10px] text-slate-400 mt-1">
-            Receita garantida aos filiados da entidade carnavalesca.
-          </p>
-        </div>
-
-        <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4 shadow">
-          <div className="flex items-center justify-between text-xs text-slate-400 mb-1">
-            <span>Despesas com Folha da Equipe</span>
-            <DollarSign className="w-4 h-4 text-rose-400" />
-          </div>
-          <div className="text-lg font-bold text-rose-400 font-mono">
-            R$ {staffTotal.toLocaleString('pt-BR')} / ano
-          </div>
-          <p className="text-[10px] text-slate-400 mt-1">
-            Carnavalesco, Mestre de Bateria, Intérprete, 1º Casal e Diretores.
-          </p>
-        </div>
-
-        <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4 shadow">
-          <div className="flex items-center justify-between text-xs text-slate-400 mb-1">
-            <span>Subvenção Pública do Município</span>
+            <span className="font-semibold text-slate-300">
+              {school.division === 'prata' ? 'Fundo da Liga (Rateio)' : school.division === 'bronze' ? 'Repasse Fixo da Liga' : 'Subvenção Governamental'}
+            </span>
             <Award className="w-4 h-4 text-amber-400" />
           </div>
-          <div className="text-lg font-bold text-amber-400 font-mono">
+          <div className="text-xl font-bold text-amber-400 font-mono">
             {school.division === 'especial'
-              ? 'R$ 2.000.000'
+              ? 'R$ 4.000.000'
               : school.division === 'ouro'
-              ? 'R$ 1.000.000'
+              ? 'R$ 600.000'
               : school.division === 'prata'
-              ? 'R$ 400.000'
+              ? `R$ ${(Math.round(1500000 / Math.max(1, prataSchoolsList.length))).toLocaleString('pt-BR')}`
               : school.division === 'bronze'
-              ? 'R$ 200.000'
-              : 'R$ 120.000'}
+              ? 'R$ 80.000'
+              : 'R$ 0'}
           </div>
-          <p className="text-[10px] text-slate-400 mt-1">
-            Incentivo ao Patrimônio Cultural e Popular.
+          <p className="text-[10px] text-slate-400 leading-tight">
+            {school.division === 'especial'
+              ? 'Aporte de R$ 4M (Governo do Estado + Prefeitura do Rio).'
+              : school.division === 'ouro'
+              ? 'Aporte de R$ 600 mil (Governo do Estado + Prefeitura do Rio).'
+              : school.division === 'prata'
+              ? `Fundo de R$ 1,5M dividido igualmente (${prataSchoolsList.length} escolas).`
+              : school.division === 'bronze'
+              ? 'Repasse fixo de R$ 80 mil para todas as participantes.'
+              : 'Sem repasse de valores fixos no Grupo de Avaliação.'}
+          </p>
+        </div>
+
+        {/* 2. Cota de TV e Liga */}
+        <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4 shadow space-y-1">
+          <div className="flex items-center justify-between text-xs text-slate-400 mb-1">
+            <span className="font-semibold text-slate-300">Cota de TV e Transmissão</span>
+            <TrendingUp className="w-4 h-4 text-emerald-400" />
+          </div>
+          <div className="text-xl font-bold text-white font-mono">
+            {school.division === 'especial'
+              ? 'R$ 17.000.000'
+              : school.division === 'ouro'
+              ? 'R$ 1.200.000'
+              : school.division === 'prata'
+              ? 'R$ 80.000'
+              : school.division === 'bronze'
+              ? 'R$ 0'
+              : 'R$ 0'}
+          </div>
+          <p className="text-[10px] text-slate-400 leading-tight">
+            {school.division === 'especial'
+              ? 'R$ 14M Patrocínio Liga + R$ 3M TV Regular (LIESA).'
+              : school.division === 'ouro'
+              ? 'R$ 500k Cota Liga + R$ 700k Direitos de TV (LIGA-RJ).'
+              : school.division === 'prata'
+              ? 'R$ 80 mil garantidos pela cota de transmissão de TV.'
+              : school.division === 'bronze'
+              ? 'Sem direitos de transmissão na Série Bronze.'
+              : 'Sem direitos de transmissão no Grupo de Avaliação.'}
+          </p>
+        </div>
+
+        {/* 3. Prêmio por Colocação */}
+        <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4 shadow space-y-1">
+          <div className="flex items-center justify-between text-xs text-slate-400 mb-1">
+            <span className="font-semibold text-slate-300">Prêmio por Colocação</span>
+            <Trophy className="w-4 h-4 text-purple-400" />
+          </div>
+          <div className="text-xl font-bold text-purple-300 font-mono">
+            {(() => {
+              if (school.division === 'especial') {
+                if (userSchoolPayout) {
+                  return `R$ ${userSchoolPayout.classificationPrize.toLocaleString('pt-BR')}`;
+                }
+                return 'Até R$ 4.400.000';
+              }
+              if (school.division === 'ouro') {
+                if (userOuroPayout) {
+                  return `R$ ${userOuroPayout.premiacaoClassificacao.toLocaleString('pt-BR')}`;
+                }
+                return 'Até R$ 2.000.000';
+              }
+              if (school.division === 'prata') {
+                if (userPrataPayout) {
+                  return `R$ ${userPrataPayout.premiacaoClassificacao.toLocaleString('pt-BR')}`;
+                }
+                return 'Até R$ 300.000';
+              }
+              if (school.division === 'bronze') {
+                if (userBronzePayout) {
+                  return `R$ ${userBronzePayout.premiacaoClassificacao.toLocaleString('pt-BR')}`;
+                }
+                return 'Até R$ 90.000';
+              }
+              if (school.division === 'avaliacao') {
+                if (userAvaliacaoPayout) {
+                  return `R$ ${userAvaliacaoPayout.premiacaoClassificacao.toLocaleString('pt-BR')}`;
+                }
+                return 'Até R$ 20.000';
+              }
+              return 'R$ 0';
+            })()}
+          </div>
+          <p className="text-[10px] text-slate-400 leading-tight">
+            {(() => {
+              if (school.division === 'especial') {
+                if (userSchoolPayout) {
+                  return `${userSchoolPayout.rank}º Lugar apurado (${userSchoolPayout.classificationPercentage.toFixed(1).replace('.', ',')}% do fundo de R$ 20M).`;
+                }
+                return 'Mérito esportivo: 1º R$ 4.4M a 12º R$ 300k (Fundo de R$ 20M).';
+              }
+              if (school.division === 'ouro') {
+                if (userOuroPayout) {
+                  return `${userOuroPayout.posicao}º Lugar • ${userOuroPayout.posicao === 1 ? 'Campeã (Acesso ao Especial)' : userOuroPayout.posicao === 2 ? 'Vice-campeã' : userOuroPayout.posicao === 3 ? '3.º Lugar' : 'Rateio do fundo de R$ 800k'}.`;
+                }
+                return 'Mérito esportivo: 1º R$ 2M, 2º R$ 900k, 3º R$ 700k e rateio de R$ 800k.';
+              }
+              if (school.division === 'prata') {
+                if (userPrataPayout) {
+                  return `${userPrataPayout.posicao}º Lugar • ${userPrataPayout.posicao === 1 ? 'Campeã (R$ 300k)' : userPrataPayout.posicao === 2 ? 'Vice (R$ 150k)' : userPrataPayout.posicao === 3 ? '3.º Lugar (R$ 70k)' : 'Sem bonificação em dinheiro'}.`;
+                }
+                return 'Top 3: 1º R$ 300k (Acesso Ouro), 2º R$ 150k e 3º R$ 70k.';
+              }
+              if (school.division === 'bronze') {
+                if (userBronzePayout) {
+                  return `${userBronzePayout.posicao}º Lugar • ${userBronzePayout.posicao === 1 ? 'Campeã (R$ 90k)' : userBronzePayout.posicao === 2 ? 'Vice (R$ 60k)' : userBronzePayout.posicao === 3 ? '3.º Lugar (R$ 30k)' : 'Sem bonificação em dinheiro'}.`;
+                }
+                return 'Top 3: 1º R$ 90k (Acesso Prata), 2º R$ 60k e 3º R$ 30k.';
+              }
+              if (school.division === 'avaliacao') {
+                if (userAvaliacaoPayout) {
+                  return `${userAvaliacaoPayout.posicao}º Lugar • ${userAvaliacaoPayout.posicao === 1 ? 'Campeã (R$ 20k)' : userAvaliacaoPayout.posicao === 2 ? 'Vice (R$ 12k)' : userAvaliacaoPayout.posicao === 3 ? '3.º Lugar (R$ 6k)' : 'Sem bonificação em dinheiro'}.`;
+                }
+                return 'Top 3: 1º R$ 20k (Acesso Bronze), 2º R$ 12k e 3º R$ 6k.';
+              }
+              return 'Premiação de mérito esportivo apurada na avenida.';
+            })()}
+          </p>
+        </div>
+
+        {/* 4. Despesas com Folha da Equipe */}
+        <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4 shadow space-y-1">
+          <div className="flex items-center justify-between text-xs text-slate-400 mb-1">
+            <span className="font-semibold text-slate-300">Folha da Equipe</span>
+            <DollarSign className="w-4 h-4 text-rose-400" />
+          </div>
+          <div className="text-xl font-bold text-rose-400 font-mono">
+            R$ {staffTotal.toLocaleString('pt-BR')} / ano
+          </div>
+          <p className="text-[10px] text-slate-400 leading-tight">
+            Carnavalesco, Mestre de Bateria, Intérprete, 1º Casal e Diretores.
           </p>
         </div>
       </div>
 
       {/* ======================================================== */}
-      {/* SEÇÃO DE LOGÍSTICA & DESPESAS DE DESLOCAMENTO / DESFILE */}
+      {/* SEÇÃO DO SISTEMA FINANCEIRO DE REPASSES DA LIGA / LIGA-RJ */}
       {/* ======================================================== */}
+      <div className="bg-slate-900/95 border border-amber-500/30 rounded-2xl p-6 shadow-2xl space-y-6 relative overflow-hidden">
+        {/* Subtle background decorative glow */}
+        <div className="absolute -top-24 -right-24 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        {/* Section Header */}
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+          <div className="flex items-start sm:items-center gap-3">
+            <div className="p-3 bg-gradient-to-br from-amber-500/20 to-emerald-500/20 border border-amber-500/40 rounded-2xl text-amber-400 shadow-inner">
+              <Coins className="w-7 h-7" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-mono tracking-wider">
+                  {activeRepasseDivision === 'especial'
+                    ? 'LIESA • RIO CARNAVAL'
+                    : activeRepasseDivision === 'ouro'
+                    ? 'LIGA-RJ • SAMBÓDROMO'
+                    : activeRepasseDivision === 'prata'
+                    ? 'SUPERLIGA • INTENDENTE'
+                    : activeRepasseDivision === 'bronze'
+                    ? 'SUPERLIGA • INTENDENTE'
+                    : 'SUPERLIGA • AVALIAÇÃO'}
+                </span>
+                <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                  {activeRepasseDivision === 'especial'
+                    ? 'GRUPO ESPECIAL (12 ESCOLAS)'
+                    : activeRepasseDivision === 'ouro'
+                    ? `SÉRIE OURO (${ouroSchoolsList.length} ESCOLAS)`
+                    : activeRepasseDivision === 'prata'
+                    ? `SÉRIE PRATA (${prataSchoolsList.length} ESCOLAS)`
+                    : activeRepasseDivision === 'bronze'
+                    ? `SÉRIE BRONZE (${bronzeSchoolsList.length} ESCOLAS)`
+                    : `GRUPO DE AVALIAÇÃO (${avaliacaoSchoolsList.length} ESCOLAS)`}
+                </span>
+                <span className="text-[10px] font-bold text-slate-400">
+                  {selectedLigaYear === currentYear ? '• Projeção da Temporada Atual' : '• Demonstrativo Homologado em Ata'}
+                </span>
+              </div>
+              <h3 className="text-2xl font-black text-white mt-1 flex items-center gap-2 flex-wrap">
+                <span>
+                  {activeRepasseDivision === 'especial'
+                    ? 'Sistema Financeiro de Repasses da LIGA'
+                    : activeRepasseDivision === 'ouro'
+                    ? 'Repasses e Premiações da Série Ouro'
+                    : activeRepasseDivision === 'prata'
+                    ? 'Repasses e Premiações da Série Prata'
+                    : activeRepasseDivision === 'bronze'
+                    ? 'Repasses e Premiações da Série Bronze'
+                    : 'Premiações do Grupo de Avaliação'}
+                </span>
+                <span className="text-xs font-mono font-normal text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-full border border-amber-500/30">
+                  {activeRepasseDivision === 'especial'
+                    ? `Fundo Global: R$ ${ligaReport.grandTotalDisbursed.toLocaleString('pt-BR')}`
+                    : activeRepasseDivision === 'ouro'
+                    ? `Piso Fixo: R$ 1.800.000 / escola • Premiações: R$ 4.400.000`
+                    : activeRepasseDivision === 'prata'
+                    ? `Fundo: R$ 1.500.000 (R$ ${Math.round(1500000 / Math.max(1, prataSchoolsList.length)).toLocaleString('pt-BR')}/escola) • TV: R$ 80k • Top 3: R$ 520k`
+                    : activeRepasseDivision === 'bronze'
+                    ? `Repasse Fixo: R$ 80.000 / escola • Premiações Top 3: R$ 180.000`
+                    : `Repasse Fixo: R$ 0 • Premiações Top 3: R$ 38.000`}
+                </span>
+              </h3>
+              <p className="text-xs text-slate-400 max-w-3xl mt-0.5">
+                {activeRepasseDivision === 'especial'
+                  ? 'Demonstrativo oficial de distribuição de receitas aos 12 integrantes da elite: cotas fixas de patrocinadores (R$ 14M), direitos de TV (R$ 3M), fundo geral de bilheteira (15%), fundo de classificação por apuração (R$ 20M) e bônus das Campeãs (Top 6).'
+                  : activeRepasseDivision === 'ouro'
+                  ? 'Cada agremiação conta com um piso fixo garantido de R$ 1.800.000 (Cota da Liga R$ 500k + Direitos de TV R$ 700k + Subvenção Pública R$ 600k) e premiação de mérito esportivo concedida após a apuração das notas (1º R$ 2M, 2º R$ 900k, 3º R$ 700k e fundo de R$ 800k rateado de forma decrescente pela posição).'
+                  : activeRepasseDivision === 'prata'
+                  ? 'As escolas da Série Prata recebem um repasse de R$ 1,5 milhão dividido igualmente entre todas as escolas do Grupo, além de R$ 80 mil para cada escola pela cota de transmissão de televisão. As 3 primeiras colocadas recebem premiação esportiva: 1º R$ 300 mil, 2º R$ 150 mil e 3º R$ 70 mil.'
+                  : activeRepasseDivision === 'bronze'
+                  ? 'Na Série Bronze, cada escola participante recebe um repasse fixo garantido de R$ 80 mil. Além disso, há premiação de mérito esportivo para as 3 primeiras colocadas na apuração: 1º R$ 90 mil, 2º R$ 60 mil e 3º R$ 30 mil.'
+                  : 'No Grupo de Avaliação não há repasse de valores fixos para as participantes, apenas premiação de mérito esportivo concedida às 3 primeiras colocadas: 1º R$ 20 mil, 2º R$ 12 mil e 3º R$ 6 mil.'}
+              </p>
+            </div>
+          </div>
+
+          {/* Division Selector & Year Selector Tabs */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 shrink-0">
+            {/* Division Switcher */}
+            <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 gap-1 flex-wrap">
+              <button
+                onClick={() => setActiveRepasseDivision('especial')}
+                className={`px-2.5 py-1.5 rounded-lg text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
+                  activeRepasseDivision === 'especial'
+                    ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/30'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-900'
+                }`}
+              >
+                <Crown className="w-3.5 h-3.5" />
+                <span>Especial</span>
+              </button>
+              <button
+                onClick={() => setActiveRepasseDivision('ouro')}
+                className={`px-2.5 py-1.5 rounded-lg text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
+                  activeRepasseDivision === 'ouro'
+                    ? 'bg-amber-400 text-slate-950 shadow-md shadow-amber-400/30'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-900'
+                }`}
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Ouro</span>
+              </button>
+              <button
+                onClick={() => setActiveRepasseDivision('prata')}
+                className={`px-2.5 py-1.5 rounded-lg text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
+                  activeRepasseDivision === 'prata'
+                    ? 'bg-slate-200 text-slate-950 shadow-md shadow-slate-200/30 font-black'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-900'
+                }`}
+              >
+                <Medal className="w-3.5 h-3.5 text-slate-400 group-hover:text-white" />
+                <span>Prata</span>
+              </button>
+              <button
+                onClick={() => setActiveRepasseDivision('bronze')}
+                className={`px-2.5 py-1.5 rounded-lg text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
+                  activeRepasseDivision === 'bronze'
+                    ? 'bg-amber-700 text-white shadow-md shadow-amber-700/30'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-900'
+                }`}
+              >
+                <Award className="w-3.5 h-3.5" />
+                <span>Bronze</span>
+              </button>
+              <button
+                onClick={() => setActiveRepasseDivision('avaliacao')}
+                className={`px-2.5 py-1.5 rounded-lg text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
+                  activeRepasseDivision === 'avaliacao'
+                    ? 'bg-purple-600 text-white shadow-md shadow-purple-600/30'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-900'
+                }`}
+              >
+                <Layers className="w-3.5 h-3.5" />
+                <span>Avaliação</span>
+              </button>
+            </div>
+
+            {/* Year Selector */}
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">
+                Ano:
+              </span>
+              <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 gap-1">
+                {availableYears.map((yr) => {
+                  const isSelected = yr === selectedLigaYear;
+                  const isCurrent = yr === currentYear;
+                  return (
+                    <button
+                      key={yr}
+                      onClick={() => setSelectedLigaYear(yr)}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
+                        isSelected
+                          ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/30'
+                          : 'text-slate-400 hover:text-white hover:bg-slate-900'
+                      }`}
+                    >
+                      <Calendar className="w-3.5 h-3.5" />
+                      <span>{yr}</span>
+                      {isCurrent && (
+                        <span className={`text-[9px] px-1 py-0.2 rounded font-normal ${isSelected ? 'bg-slate-950/40 text-slate-950' : 'bg-slate-800 text-amber-400'}`}>
+                          Atual
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ======================================================== */}
+        {/* CONDICIONAL: CONTEÚDO DA SÉRIE OURO                      */}
+        {/* ======================================================== */}
+        {activeRepasseDivision === 'ouro' && (
+          <div className="space-y-6 animate-fadeIn">
+            {/* 5 Pilares Financeiros da Série Ouro */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+              {/* Pilar 1: Cota da Liga */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5 relative hover:border-slate-700 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-slate-300">Cota da Liga</span>
+                  <Building2 className="w-4 h-4 text-amber-400" />
+                </div>
+                <div className="text-xl font-black text-white font-mono">
+                  R$ 500.000
+                </div>
+                <div className="text-[10px] font-bold text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/30 inline-block">
+                  Fixo por Escola (LIGA-RJ)
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  Cota fixa institucional da liga organizadora aos filiados da Série Ouro.
+                </p>
+              </div>
+
+              {/* Pilar 2: Direitos de Transmissão de TV */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5 relative hover:border-slate-700 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-slate-300">Direitos de TV</span>
+                  <Tv className="w-4 h-4 text-blue-400" />
+                </div>
+                <div className="text-xl font-black text-white font-mono">
+                  R$ 700.000
+                </div>
+                <div className="text-[10px] font-bold text-blue-300 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/30 inline-block">
+                  Fixo por Escola
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  Transmissão ao vivo dos desfiles oficiais da Sexta e Sábado de Carnaval.
+                </p>
+              </div>
+
+              {/* Pilar 3: Subvenção Pública */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5 relative hover:border-slate-700 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-slate-300">Subvenção Pública</span>
+                  <Award className="w-4 h-4 text-emerald-400" />
+                </div>
+                <div className="text-xl font-black text-emerald-400 font-mono">
+                  R$ 600.000
+                </div>
+                <div className="text-[10px] font-bold text-emerald-300 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30 inline-block">
+                  Governo + Prefeitura
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  Incentivo público da Prefeitura do Rio e Governo do Estado do RJ.
+                </p>
+              </div>
+
+              {/* Pilar 4: Base Fixa Total */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-amber-500/30 space-y-1.5 relative hover:border-amber-500/50 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-amber-300">Base Fixa Total</span>
+                  <Landmark className="w-4 h-4 text-amber-400" />
+                </div>
+                <div className="text-xl font-black text-amber-400 font-mono">
+                  R$ 1.800.000
+                </div>
+                <div className="text-[10px] font-bold text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/30 inline-block">
+                  Piso Garantido por Escola
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  Soma das cotas fixas (R$ 500k + R$ 700k + R$ 600k) antes das notas da apuração.
+                </p>
+              </div>
+
+              {/* Pilar 5: Premiação por Classificação */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-purple-500/30 space-y-1.5 relative hover:border-purple-500/50 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-purple-300">Premiações de Mérito</span>
+                  <Trophy className="w-4 h-4 text-purple-400" />
+                </div>
+                <div className="text-xl font-black text-purple-300 font-mono">
+                  R$ 4.400.000
+                </div>
+                <div className="text-[10px] font-bold text-purple-300 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/30 inline-block">
+                  Total de Premiações
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  1º R$ 2M • 2º R$ 900k • 3º R$ 700k • 4º ao fim: R$ 800k rateado por mérito.
+                </p>
+              </div>
+            </div>
+
+            {/* User School Highlight Card for Série Ouro */}
+            {(() => {
+              if (userOuroPayout) {
+                return (
+                  <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/15 via-slate-950 to-emerald-500/15 border border-amber-500/40 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center font-black text-lg border-2 shadow-md shrink-0 bg-amber-500/20 text-amber-300 border-amber-400">
+                        {userOuroPayout.posicao}º
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-amber-500 text-slate-950">
+                            SUA AGREMIAÇÃO NA SÉRIE OURO
+                          </span>
+                          <span className="text-xs font-bold text-white">
+                            {userOuroPayout.nomeEscola}
+                          </span>
+                          <span className="text-xs font-mono text-amber-300">
+                            (
+                            {userOuroPayout.posicao === 1
+                              ? 'Campeã da Série Ouro • Acesso ao Grupo Especial'
+                              : userOuroPayout.posicao === 2
+                              ? 'Vice-Campeã da Série Ouro'
+                              : userOuroPayout.posicao === 3
+                              ? '3.º Lugar na Apuração'
+                              : userOuroPayout.posicao >= ouroSchoolsList.length - 1
+                              ? 'Zona de Rebaixamento para Série Prata'
+                              : 'Manutenção na Série Ouro'}
+                            )
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-3 text-xs text-slate-300 mt-1 flex-wrap">
+                          <span>Subvenção: <strong>R$ 600k</strong></span>
+                          <span>•</span>
+                          <span>Cota Liga: <strong>R$ 500k</strong></span>
+                          <span>•</span>
+                          <span>TV: <strong>R$ 700k</strong></span>
+                          <span>•</span>
+                          <span>Base Fixa: <strong>R$ 1.800.000</strong></span>
+                          <span>•</span>
+                          <span className="text-purple-300 font-bold">
+                            Premiação Esportiva: +R$ {userOuroPayout.premiacaoClassificacao.toLocaleString('pt-BR')}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="px-5 py-2.5 rounded-xl bg-slate-950/90 border border-emerald-500/40 text-right shrink-0">
+                      <div className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">
+                        Repasse Total Série Ouro ({selectedLigaYear})
+                      </div>
+                      <div className="text-2xl font-black text-emerald-400 font-mono">
+                        R$ {userOuroPayout.totalRecebido.toLocaleString('pt-BR')}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              if (school.division !== 'ouro') {
+                return (
+                  <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between gap-4 text-xs">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 shrink-0">
+                        <TrendingUp className="w-5 h-5" />
+                      </div>
+                      <div className="space-y-0.5">
+                        <span className="font-bold text-white">
+                          Visão Geral da Série Ouro (LIGA-RJ)
+                        </span>
+                        <p className="text-slate-400">
+                          Sua escola ({school.name}) disputa atualmente a <strong>{school.division.toUpperCase()}</strong>. Na Série Ouro, o piso garantido é de <strong>R$ 1.800.000</strong> por agremiação, podendo atingir até <strong>R$ 3.800.000</strong> com o título de campeã e acesso ao Grupo Especial!
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              return null;
+            })()}
+
+            {/* Accordion / Regulamento do Rateio do Fundo de R$ 800.000 */}
+            <div className="bg-slate-950/60 border border-slate-800 rounded-xl overflow-hidden">
+              <button
+                onClick={() => setShowOuroRateioAccordion(!showOuroRateioAccordion)}
+                className="w-full px-5 py-3.5 flex items-center justify-between text-left hover:bg-slate-900/50 transition cursor-pointer"
+              >
+                <div className="flex items-center gap-2.5">
+                  <div className="p-1.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400">
+                    <Percent className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="text-xs font-black text-white uppercase tracking-wider block">
+                      Tabela de Rateio do Fundo de R$ 800.000 (Série Ouro)
+                    </span>
+                    <span className="text-[10px] text-slate-400 block">
+                      Clique para {showOuroRateioAccordion ? 'recolher' : 'ver'} as cotas proporcionais para 16, 15 e 14 escolas (4.º lugar até a última colocada)
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <span className="text-[11px] font-mono font-bold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded border border-amber-500/30">
+                    {selectedOuroRateioEscolas} Escolas • R$ 800k Rateado
+                  </span>
+                  {showOuroRateioAccordion ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
+                </div>
+              </button>
+
+              {showOuroRateioAccordion && (
+                <div className="px-5 pb-5 pt-2 border-t border-slate-800/80 space-y-4">
+                  {/* Pódio Fixo Summary */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/40">
+                      <span className="text-[10px] font-bold text-amber-400 uppercase block">1.º Lugar (Campeã)</span>
+                      <div className="text-lg font-black text-white font-mono">R$ 2.000.000</div>
+                      <span className="text-[10px] text-slate-400 block">Base Fixa + Prêmio = <strong>R$ 3.800.000</strong> (Sobe p/ Especial)</span>
+                    </div>
+                    <div className="p-3 rounded-xl bg-slate-800/60 border border-slate-700">
+                      <span className="text-[10px] font-bold text-slate-300 uppercase block">2.º Lugar (Vice-campeã)</span>
+                      <div className="text-lg font-black text-white font-mono">R$ 900.000</div>
+                      <span className="text-[10px] text-slate-400 block">Base Fixa + Prêmio = <strong>R$ 2.700.000</strong></span>
+                    </div>
+                    <div className="p-3 rounded-xl bg-amber-900/30 border border-amber-800/40">
+                      <span className="text-[10px] font-bold text-amber-300 uppercase block">3.º Lugar</span>
+                      <div className="text-lg font-black text-white font-mono">R$ 700.000</div>
+                      <span className="text-[10px] text-slate-400 block">Base Fixa + Prêmio = <strong>R$ 2.500.000</strong></span>
+                    </div>
+                  </div>
+
+                  {/* Switcher de Quantidade de Escolas */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-2 border-t border-slate-800/60">
+                    <p className="text-xs text-slate-300">
+                      Rateio decrescente do 4.º lugar em diante por pesos lineares <strong>(N - i + 1)</strong>:
+                    </p>
+
+                    <div className="flex items-center gap-1.5 bg-slate-900 p-1 rounded-xl border border-slate-800">
+                      <span className="text-[10px] text-slate-400 font-bold px-2 uppercase">Simular Tamanho:</span>
+                      {([16, 15, 14] as const).map((count) => (
+                        <button
+                          key={count}
+                          onClick={() => setSelectedOuroRateioEscolas(count)}
+                          className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition cursor-pointer ${
+                            selectedOuroRateioEscolas === count
+                              ? 'bg-amber-500 text-slate-950 shadow-sm'
+                              : 'text-slate-400 hover:text-white'
+                          }`}
+                        >
+                          {count} Escolas {count === 16 ? '(Inicial)' : count === 15 ? '(Transição)' : '(Meta)'}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Grid de Rateio */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5">
+                    {ouroRateioLinhas.map((item) => (
+                      <div
+                        key={item.posicao}
+                        className="p-3 rounded-xl border border-slate-800 bg-slate-900/70 flex items-center justify-between gap-2 hover:border-slate-700 transition"
+                      >
+                        <div>
+                          <span className="text-[11px] font-black block text-slate-200">
+                            {item.posicao}.º Lugar
+                          </span>
+                          <span className="text-[10px] font-mono text-slate-400">
+                            Peso: {item.peso} • {item.percentual.toFixed(2).replace('.', ',')}%
+                          </span>
+                        </div>
+
+                        <div className="text-right">
+                          <span className="text-xs font-black text-amber-400 font-mono block">
+                            R$ {item.valor.toLocaleString('pt-BR')}
+                          </span>
+                          <span className="text-[9px] text-slate-500 font-mono block">
+                            Total: R$ {(1800000 + item.valor).toLocaleString('pt-BR')}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between text-xs font-mono font-bold pt-2 border-t border-slate-800 text-slate-400">
+                    <span>Total Consolidado do Rateio (4.º ao {selectedOuroRateioEscolas}.º):</span>
+                    <span className="text-amber-400">
+                      100,0% = R$ 800.000 ({ouroRateioLinhas.length} agremiações contempladas)
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Demonstrativo Detalhado de Repasses das Escolas da Série Ouro */}
+            <div className="space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <h4 className="text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
+                    <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
+                    <span>Demonstrativo Oficial de Repasses da Série Ouro</span>
+                  </h4>
+                  <p className="text-[11px] text-slate-400">
+                    Tabela contábil oficial com a discriminação individual dos repasses e premiações da LIGA-RJ para o Carnaval {selectedLigaYear}.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-mono text-slate-400">
+                    {ouroFinancialReport.length} agremiações auditadas
+                  </span>
+                </div>
+              </div>
+
+              <div className="rounded-2xl border border-slate-800 overflow-hidden shadow-xl bg-slate-950/90">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs border-collapse">
+                    <thead>
+                      <tr className="bg-slate-900 border-b border-slate-800 text-[10px] font-black uppercase tracking-wider text-slate-400">
+                        <th className="py-3 px-3 text-center w-12">Pos.</th>
+                        <th className="py-3 px-4 min-w-[200px]">Escola de Samba</th>
+                        <th className="py-3 px-3 text-right">Subvenção</th>
+                        <th className="py-3 px-3 text-right">Cota Liga</th>
+                        <th className="py-3 px-3 text-right">Direitos TV</th>
+                        <th className="py-3 px-3 text-right">Base Fixa</th>
+                        <th className="py-3 px-3 text-right">Premiação</th>
+                        <th className="py-3 px-4 text-right min-w-[140px] text-emerald-400">Total Recebido</th>
+                        <th className="py-3 px-3 text-center">Status Oficial</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-800/80 font-mono">
+                      {ouroFinancialReport.map((row) => {
+                        const isUser =
+                          row.escolaId === school.id ||
+                          row.nomeEscola.toLowerCase() === school.name.toLowerCase();
+
+                        const matchedSchool = (allSchools || []).find(
+                          (s) => s.id === row.escolaId || s.name.toLowerCase() === row.nomeEscola.toLowerCase()
+                        );
+
+                        return (
+                          <tr
+                            key={row.escolaId}
+                            className={`transition ${
+                              isUser
+                                ? 'bg-amber-500/10 hover:bg-amber-500/15 ring-1 ring-amber-500/30'
+                                : row.posicao === 1
+                                ? 'bg-amber-500/5 hover:bg-slate-900/80'
+                                : row.posicao === 2
+                                ? 'bg-slate-800/40 hover:bg-slate-900/80'
+                                : row.posicao === 3
+                                ? 'bg-amber-950/20 hover:bg-slate-900/80'
+                                : 'hover:bg-slate-900/60'
+                            }`}
+                          >
+                            {/* Posição */}
+                            <td className="py-3 px-3 text-center">
+                              <span
+                                className={`inline-flex items-center justify-center w-7 h-7 rounded-lg font-black text-xs ${
+                                  row.posicao === 1
+                                    ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/30 ring-1 ring-amber-300'
+                                    : row.posicao === 2
+                                    ? 'bg-slate-300 text-slate-950'
+                                    : row.posicao === 3
+                                    ? 'bg-amber-700 text-white'
+                                    : row.posicao >= ouroFinancialReport.length - 1
+                                    ? 'bg-rose-950 text-rose-300 border border-rose-800'
+                                    : 'bg-slate-800 text-slate-300'
+                                }`}
+                              >
+                                {row.posicao}º
+                              </span>
+                            </td>
+
+                            {/* Escola de Samba */}
+                            <td className="py-3 px-4 font-sans font-bold text-white">
+                              <div className="flex items-center gap-2.5">
+                                <div
+                                  className="w-3.5 h-3.5 rounded-full border shadow-sm shrink-0"
+                                  style={{
+                                    backgroundColor: matchedSchool?.colors?.primary || '#1e3a8a',
+                                    borderColor: matchedSchool?.colors?.secondary || '#ffffff'
+                                  }}
+                                />
+                                <div className="truncate">
+                                  <span className="block truncate text-slate-100 font-bold">
+                                    {cleanSchoolName(row.nomeEscola)}
+                                  </span>
+                                </div>
+                                {isUser && (
+                                  <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-amber-500 text-slate-950 shrink-0">
+                                    SUA ESCOLA
+                                  </span>
+                                )}
+                              </div>
+                            </td>
+
+                            {/* Subvenção Pública */}
+                            <td className="py-3 px-3 text-right text-slate-300 font-normal">
+                              R$ {row.subvencaoPublica.toLocaleString('pt-BR')}
+                            </td>
+
+                            {/* Cota Liga */}
+                            <td className="py-3 px-3 text-right text-slate-300 font-normal">
+                              R$ {row.cotaLiga.toLocaleString('pt-BR')}
+                            </td>
+
+                            {/* Direitos TV */}
+                            <td className="py-3 px-3 text-right text-slate-300 font-normal">
+                              R$ {row.cotaTv.toLocaleString('pt-BR')}
+                            </td>
+
+                            {/* Base Fixa */}
+                            <td className="py-3 px-3 text-right text-amber-300 font-bold">
+                              R$ {(row.subvencaoPublica + row.cotaLiga + row.cotaTv).toLocaleString('pt-BR')}
+                            </td>
+
+                            {/* Premiação */}
+                            <td className="py-3 px-3 text-right">
+                              <span className="text-purple-300 font-bold block">
+                                R$ {row.premiacaoClassificacao.toLocaleString('pt-BR')}
+                              </span>
+                              <span className="text-[9px] text-slate-400 block font-sans">
+                                {row.posicao === 1
+                                  ? 'Campeã'
+                                  : row.posicao === 2
+                                  ? 'Vice'
+                                  : row.posicao === 3
+                                  ? '3.º Lugar'
+                                  : 'Rateio R$ 800k'}
+                              </span>
+                            </td>
+
+                            {/* Total Recebido */}
+                            <td className="py-3 px-4 text-right">
+                              <span className="text-sm font-black text-emerald-400 block">
+                                R$ {row.totalRecebido.toLocaleString('pt-BR')}
+                              </span>
+                              <span className="text-[9px] text-slate-400 font-normal block font-sans">
+                                {RepassesFinanceirosService.formatCompact(row.totalRecebido)}
+                              </span>
+                            </td>
+
+                            {/* Status Oficial */}
+                            <td className="py-3 px-3 text-center font-sans">
+                              <span
+                                className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                                  row.posicao === 1
+                                    ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                                    : row.posicao === 2
+                                    ? 'bg-slate-700 text-slate-200 border-slate-600'
+                                    : row.posicao === 3
+                                    ? 'bg-amber-900/30 text-amber-300 border-amber-800'
+                                    : row.posicao >= ouroFinancialReport.length - 1
+                                    ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+                                    : 'bg-slate-800 text-slate-300 border-slate-700'
+                                }`}
+                              >
+                                {row.posicao === 1
+                                  ? 'Campeã (Acesso Especial)'
+                                  : row.posicao === 2
+                                  ? 'Vice-Campeã'
+                                  : row.posicao === 3
+                                  ? '3.º Lugar'
+                                  : row.posicao >= ouroFinancialReport.length - 1
+                                  ? 'Rebaixada p/ Prata'
+                                  : 'Manutenção na Ouro'}
+                              </span>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+
+                    {/* Footer Totals */}
+                    <tfoot className="bg-slate-900 border-t-2 border-slate-700 font-mono font-bold text-slate-200 text-xs">
+                      <tr>
+                        <td colSpan={2} className="py-3.5 px-4 font-sans font-black uppercase tracking-wider text-white">
+                          Totais da Série Ouro ({ouroFinancialReport.length} escolas):
+                        </td>
+                        <td className="py-3.5 px-3 text-right">
+                          R$ {(ouroFinancialReport.reduce((a, b) => a + b.subvencaoPublica, 0)).toLocaleString('pt-BR')}
+                        </td>
+                        <td className="py-3.5 px-3 text-right">
+                          R$ {(ouroFinancialReport.reduce((a, b) => a + b.cotaLiga, 0)).toLocaleString('pt-BR')}
+                        </td>
+                        <td className="py-3.5 px-3 text-right">
+                          R$ {(ouroFinancialReport.reduce((a, b) => a + b.cotaTv, 0)).toLocaleString('pt-BR')}
+                        </td>
+                        <td className="py-3.5 px-3 text-right text-amber-300 font-black">
+                          R$ {(ouroFinancialReport.reduce((a, b) => a + b.subvencaoPublica + b.cotaLiga + b.cotaTv, 0)).toLocaleString('pt-BR')}
+                        </td>
+                        <td className="py-3.5 px-3 text-right text-purple-300 font-black">
+                          R$ {(ouroFinancialReport.reduce((a, b) => a + b.premiacaoClassificacao, 0)).toLocaleString('pt-BR')}
+                        </td>
+                        <td className="py-3.5 px-4 text-right text-base font-black text-emerald-400">
+                          R$ {(ouroFinancialReport.reduce((a, b) => a + b.totalRecebido, 0)).toLocaleString('pt-BR')}
+                        </td>
+                        <td className="py-3.5 px-3 text-center text-[10px] text-slate-400 font-sans">
+                          100% Repassado
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            {/* Regulatory Rules Footer Notes para Série Ouro */}
+            <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 text-[11px] text-slate-300 space-y-1.5">
+              <div className="font-bold text-amber-400 flex items-center gap-1.5 uppercase tracking-wide">
+                <Info className="w-4 h-4" />
+                <span>Regulamento Financeiro & Premiações da Série Ouro (LIGA-RJ):</span>
+              </div>
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-1 text-slate-400 list-disc list-inside">
+                <li>
+                  <strong>Piso Fixo Garantido:</strong> Cota da Liga de R$ 500.000 + Direitos de Transmissão de TV de R$ 700.000 + Subvenção Pública de R$ 600.000 = <strong>Base Fixa Total de R$ 1.800.000</strong> para cada escola.
+                </li>
+                <li>
+                  <strong>1.º Lugar (Campeã da Série Ouro):</strong> Premiação esportiva de <strong>R$ 2.000.000</strong> (totalizando R$ 3.800.000) e acesso consagrado ao Grupo Especial do Carnaval.
+                </li>
+                <li>
+                  <strong>2.º Lugar (Vice-campeã):</strong> Premiação esportiva de <strong>R$ 900.000</strong> (totalizando R$ 2.700.000).
+                </li>
+                <li>
+                  <strong>3.º Lugar:</strong> Premiação esportiva de <strong>R$ 700.000</strong> (totalizando R$ 2.500.000).
+                </li>
+                <li className="md:col-span-2 text-amber-300 font-medium">
+                  <strong>4.º Lugar até a Última Colocada:</strong> Fundo de <strong>R$ 800.000</strong> rateado de forma decrescente pela posição com pesos lineares decrescentes <em>(N - i + 1)</em>, garantindo bonificação meritocrática a todas as agremiações da Série Ouro.
+                </li>
+              </ul>
+            </div>
+          </div>
+        )}
+
+        {/* ======================================================== */}
+        {/* CONDICIONAL: CONTEÚDO DO GRUPO ESPECIAL                  */}
+        {/* ======================================================== */}
+        {activeRepasseDivision === 'especial' && (
+          <div className="space-y-6 animate-fadeIn">
+            {/* 5 Core Financial Pillars Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+              {/* Pilar 1: Patrocinadores Fixos */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5 relative hover:border-slate-700 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-slate-300">Patrocinadores LIGA</span>
+                  <Building2 className="w-4 h-4 text-amber-400" />
+                </div>
+                <div className="text-xl font-black text-white font-mono">
+                  R$ 14.000.000
+                </div>
+                <div className="text-[10px] font-bold text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/30 inline-block">
+                  Fixo por Escola (12 escolas)
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  Cota corporativa garantida a todas as agremiações. Total: <strong>R$ 168.000.000</strong>.
+                </p>
+              </div>
+
+              {/* Pilar 2: Direitos de TV Regular */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5 relative hover:border-slate-700 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-slate-300">Direitos de TV (Regular)</span>
+                  <Tv className="w-4 h-4 text-blue-400" />
+                </div>
+                <div className="text-xl font-black text-white font-mono">
+                  R$ 3.000.000
+                </div>
+                <div className="text-[10px] font-bold text-blue-300 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/30 inline-block">
+                  Fixo por Escola (12 escolas)
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  Transmissão ao vivo das noites oficiais de desfile. Total: <strong>R$ 36.000.000</strong>.
+                </p>
+              </div>
+
+              {/* Pilar 3: Fundo de Bilheteira Geral (15%) */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5 relative hover:border-slate-700 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-slate-300">Bilheteira Geral (15%)</span>
+                  <Ticket className="w-4 h-4 text-emerald-400" />
+                </div>
+                <div className="text-xl font-black text-emerald-400 font-mono">
+                  R$ 1.000.000
+                </div>
+                <div className="text-[10px] font-bold text-emerald-300 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30 inline-block">
+                  Divisão Igualitária (÷ 12)
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  15% dos ingressos do Desfile Oficial (R$ 80M arrecadados no Sambódromo = <strong>R$ 12M</strong>).
+                </p>
+              </div>
+
+              {/* Pilar 4: Fundo de Classificação */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5 relative hover:border-slate-700 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-slate-300">Fundo de Classificação</span>
+                  <Trophy className="w-4 h-4 text-amber-400" />
+                </div>
+                <div className="text-xl font-black text-amber-400 font-mono">
+                  R$ 300k a 4,4M
+                </div>
+                <div className="text-[10px] font-bold text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/30 inline-block">
+                  Total: R$ 20.000.000
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  Premiação meritocrática decrescente pela posição na apuração (22% à campeã até 1,5% ao 12º).
+                </p>
+              </div>
+
+              {/* Pilar 5: Bônus das Campeãs (Top 6) */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-purple-500/30 space-y-1.5 relative hover:border-purple-500/50 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-purple-300">Bônus Campeãs (Top 6)</span>
+                  <Crown className="w-4 h-4 text-purple-400" />
+                </div>
+                <div className="text-xl font-black text-purple-300 font-mono">
+                  +R$ 5.720.000
+                </div>
+                <div className="text-[10px] font-bold text-purple-300 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/30 inline-block">
+                  Exclusivo Top 6 (G6)
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  R$ 5M de TV extra + 15% da bilheteria do Sábado das Campeãs (R$ 720k cada). Total: <strong>R$ 34.320.000</strong>.
+                </p>
+              </div>
+            </div>
+
+            {/* User School Highlight Card (if in Especial or if participated in selected year) */}
+            {(() => {
+              if (userSchoolPayout) {
+                return (
+                  <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/15 via-slate-950 to-emerald-500/15 border border-amber-500/40 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="flex items-center gap-3.5">
+                      <div
+                        className="w-12 h-12 rounded-xl flex items-center justify-center font-black text-lg border-2 shadow-md shrink-0"
+                        style={{
+                          backgroundColor: userSchoolPayout.primaryColor || '#1e3a8a',
+                          borderColor: userSchoolPayout.secondaryColor || '#fbbf24',
+                          color: '#ffffff'
+                        }}
+                      >
+                        {userSchoolPayout.rank}º
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-amber-500 text-slate-950">
+                            SUA AGREMIAÇÃO
+                          </span>
+                          <span className="text-xs font-bold text-white">
+                            {userSchoolPayout.schoolName}
+                          </span>
+                          <span className="text-xs font-mono text-amber-300">
+                            ({userSchoolPayout.statusLabel})
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-3 text-xs text-slate-300 mt-1 flex-wrap">
+                          <span>Cota Fixa: <strong>R$ 14,0M</strong></span>
+                          <span>•</span>
+                          <span>TV Regular: <strong>R$ 3,0M</strong></span>
+                          <span>•</span>
+                          <span>Bilheteira Geral: <strong>R$ 1,0M</strong></span>
+                          <span>•</span>
+                          <span>Classificação: <strong>R$ {userSchoolPayout.classificationPrize.toLocaleString('pt-BR')} ({userSchoolPayout.classificationPercentage.toFixed(1).replace('.', ',')}%)</strong></span>
+                          {userSchoolPayout.isTop6 && (
+                            <>
+                              <span>•</span>
+                              <span className="text-purple-300 font-bold">
+                                Bônus Campeãs: +R$ {userSchoolPayout.totalBonusCampeas.toLocaleString('pt-BR')}
+                              </span>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="px-5 py-2.5 rounded-xl bg-slate-950/90 border border-emerald-500/40 text-right shrink-0">
+                      <div className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">
+                        Repasse Total da LIGA ({selectedLigaYear})
+                      </div>
+                      <div className="text-2xl font-black text-emerald-400 font-mono">
+                        R$ {userSchoolPayout.totalPayout.toLocaleString('pt-BR')}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              if (school.division !== 'especial') {
+                return (
+                  <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between gap-4 text-xs">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 shrink-0">
+                        <TrendingUp className="w-5 h-5" />
+                      </div>
+                      <div className="space-y-0.5">
+                        <span className="font-bold text-white">
+                          Objetivo de Acesso: Partilha Financeira da LIESA
+                        </span>
+                        <p className="text-slate-400">
+                          Sua escola ({school.name}) disputa a <strong>{school.division.toUpperCase()}</strong>. Ao conquistar o acesso para o Grupo Especial, sua agremiação terá direito ao repasse global de <strong>R$ 18.300.000 a mais de R$ 28.120.000</strong> por temporada!
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              return null;
+            })()}
+
+            {/* Toggle / Accordion for Classification Fund Regulatory Table (R$ 20.000.000) */}
+            <div className="bg-slate-950/60 border border-slate-800 rounded-xl overflow-hidden">
+              <button
+                onClick={() => setShowClassificationModal(!showClassificationModal)}
+                className="w-full px-5 py-3.5 flex items-center justify-between text-left hover:bg-slate-900/50 transition cursor-pointer"
+              >
+                <div className="flex items-center gap-2.5">
+                  <div className="p-1.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400">
+                    <Percent className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="text-xs font-black text-white uppercase tracking-wider block">
+                      Regulamento do Fundo de Classificação (R$ 20.000.000)
+                    </span>
+                    <span className="text-[10px] text-slate-400 block">
+                      Clique para {showClassificationModal ? 'recolher' : 'ver'} a tabela oficial com percentagens e valores por colocação final da apuração
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <span className="text-[11px] font-mono font-bold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded border border-amber-500/30">
+                    12 Faixas • 100% da Cota
+                  </span>
+                  {showClassificationModal ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
+                </div>
+              </button>
+
+              {showClassificationModal && (
+                <div className="px-5 pb-5 pt-2 border-t border-slate-800/80 space-y-3">
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    O Fundo de Classificação de R$ 20.000.000 é distribuído de forma decrescente pela posição final da apuração dos 36 envelopes de notas na Apoteose:
+                  </p>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5">
+                    {CLASSIFICATION_PRIZE_TABLE.map((item) => (
+                      <div
+                        key={item.rank}
+                        className={`p-3 rounded-xl border flex items-center justify-between gap-2 ${
+                          item.rank === 1
+                            ? 'bg-amber-500/10 border-amber-500/40 text-amber-200'
+                            : item.rank === 2
+                            ? 'bg-slate-800/60 border-slate-700 text-slate-200'
+                            : item.rank <= 6
+                            ? 'bg-purple-950/30 border-purple-800/40 text-purple-200'
+                            : 'bg-slate-900/60 border-slate-800 text-slate-300'
+                        }`}
+                      >
+                        <div>
+                          <span className="text-[11px] font-black block">
+                            {item.label}
+                          </span>
+                          <span className="text-[10px] font-mono text-slate-400">
+                            Quota: <strong>{item.percentage.toFixed(1).replace('.', ',')}%</strong>
+                          </span>
+                        </div>
+
+                        <div className="text-right font-mono font-black text-sm text-white">
+                          R$ {item.amount.toLocaleString('pt-BR')}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between text-xs font-mono font-bold pt-2 border-t border-slate-800 text-slate-400">
+                    <span>Total Consolidado da Quota de Classificação:</span>
+                    <span className="text-amber-400">100,0% = R$ 20.000.000</span>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Detailed Demonstrative Table of All 12 Schools in Grupo Especial */}
+            <div className="space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <h4 className="text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
+                    <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
+                    <span>Demonstrativo Detalhado de Repasses das 12 Agremiações</span>
+                  </h4>
+                  <p className="text-[11px] text-slate-400">
+                    Tabela contábil oficial com a discriminação individual dos repasses financeiros ao fechar o Carnaval {selectedLigaYear}.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-mono text-slate-400">
+                    12 agremiações auditadas
+                  </span>
+                </div>
+              </div>
+
+              <div className="rounded-2xl border border-slate-800 overflow-hidden shadow-xl bg-slate-950/90">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs border-collapse">
+                    <thead>
+                      <tr className="bg-slate-900 border-b border-slate-800 text-[10px] font-black uppercase tracking-wider text-slate-400">
+                        <th className="py-3 px-3 text-center w-12">Pos.</th>
+                        <th className="py-3 px-4 min-w-[200px]">Escola de Samba</th>
+                        <th className="py-3 px-3 text-right">Patrocínio Fixo</th>
+                        <th className="py-3 px-3 text-right">TV Regular</th>
+                        <th className="py-3 px-3 text-right">Bilheteira (15%)</th>
+                        <th className="py-3 px-3 text-right">Classificação</th>
+                        <th className="py-3 px-3 text-right">Bônus Campeãs (G6)</th>
+                        <th className="py-3 px-4 text-right min-w-[140px] text-emerald-400">Total Repassado</th>
+                        <th className="py-3 px-3 text-center">Status Oficial</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-800/80 font-mono">
+                      {ligaReport.payouts.map((row: SchoolLigaPayout) => {
+                        const isUser =
+                          row.schoolId === school.id ||
+                          row.schoolName.toLowerCase() === school.name.toLowerCase();
+
+                        return (
+                          <tr
+                            key={row.schoolId}
+                            className={`transition ${
+                              isUser
+                                ? 'bg-amber-500/10 hover:bg-amber-500/15 ring-1 ring-amber-500/30'
+                                : row.rank === 1
+                                ? 'bg-amber-500/5 hover:bg-slate-900/80'
+                                : row.isTop6
+                                ? 'bg-purple-950/10 hover:bg-slate-900/80'
+                                : 'hover:bg-slate-900/60'
+                            }`}
+                          >
+                            {/* Posição */}
+                            <td className="py-3 px-3 text-center">
+                              <span
+                                className={`inline-flex items-center justify-center w-7 h-7 rounded-lg font-black text-xs ${
+                                  row.rank === 1
+                                    ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/30 ring-1 ring-amber-300'
+                                    : row.rank === 2
+                                    ? 'bg-slate-300 text-slate-950'
+                                    : row.rank === 3
+                                    ? 'bg-amber-700 text-white'
+                                    : row.isTop6
+                                    ? 'bg-purple-900/60 text-purple-200 border border-purple-700'
+                                    : row.rank === 12
+                                    ? 'bg-rose-950 text-rose-300 border border-rose-800'
+                                    : 'bg-slate-800 text-slate-300'
+                                }`}
+                              >
+                                {row.rank}º
+                              </span>
+                            </td>
+
+                            {/* Escola de Samba */}
+                            <td className="py-3 px-4 font-sans font-bold text-white">
+                              <div className="flex items-center gap-2.5">
+                                <div
+                                  className="w-3.5 h-3.5 rounded-full border shadow-sm shrink-0"
+                                  style={{
+                                    backgroundColor: row.primaryColor || '#1e3a8a',
+                                    borderColor: row.secondaryColor || '#ffffff'
+                                  }}
+                                />
+                                <div className="truncate">
+                                  <span className="block truncate text-slate-100 font-bold">
+                                    {cleanSchoolName(row.schoolName)}
+                                  </span>
+                                  {row.totalScore && (
+                                    <span className="block text-[10px] text-slate-400 font-mono font-normal">
+                                      Nota: {row.totalScore.toFixed(1)} pts
+                                    </span>
+                                  )}
+                                </div>
+                                {isUser && (
+                                  <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-amber-500 text-slate-950 shrink-0">
+                                    SUA ESCOLA
+                                  </span>
+                                )}
+                              </div>
+                            </td>
+
+                            {/* Patrocínio Fixo */}
+                            <td className="py-3 px-3 text-right text-slate-300 font-normal">
+                              R$ {row.sponsorFixed.toLocaleString('pt-BR')}
+                            </td>
+
+                            {/* TV Regular */}
+                            <td className="py-3 px-3 text-right text-slate-300 font-normal">
+                              R$ {row.tvRegular.toLocaleString('pt-BR')}
+                            </td>
+
+                            {/* Bilheteira Geral */}
+                            <td className="py-3 px-3 text-right text-slate-300 font-normal">
+                              R$ {row.generalTicketShare.toLocaleString('pt-BR')}
+                            </td>
+
+                            {/* Fundo Classificação */}
+                            <td className="py-3 px-3 text-right">
+                              <span className="text-amber-300 font-bold block">
+                                R$ {row.classificationPrize.toLocaleString('pt-BR')}
+                              </span>
+                              <span className="text-[9px] text-slate-400 block">
+                                ({row.classificationPercentage.toFixed(1).replace('.', ',')}%)
+                              </span>
+                            </td>
+
+                            {/* Bônus Campeãs (Top 6) */}
+                            <td className="py-3 px-3 text-right">
+                              {row.isTop6 ? (
+                                <div>
+                                  <span className="text-purple-300 font-bold block">
+                                    +R$ {row.totalBonusCampeas.toLocaleString('pt-BR')}
+                                  </span>
+                                  <span className="text-[9px] text-slate-400 block">
+                                    (R$ 5M TV + R$ 720k Bilh.)
+                                  </span>
+                                </div>
+                              ) : (
+                                <span className="text-slate-600 font-normal">—</span>
+                              )}
+                            </td>
+
+                            {/* Total Repassado */}
+                            <td className="py-3 px-4 text-right">
+                              <span className="text-sm font-black text-emerald-400 block">
+                                R$ {row.totalPayout.toLocaleString('pt-BR')}
+                              </span>
+                              <span className="text-[9px] text-slate-400 font-normal block font-sans">
+                                {LigaFinancialService.formatCompact(row.totalPayout)}
+                              </span>
+                            </td>
+
+                            {/* Status Oficial */}
+                            <td className="py-3 px-3 text-center font-sans">
+                              <span
+                                className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                                  row.rank === 1
+                                    ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                                    : row.rank === 2
+                                    ? 'bg-slate-700 text-slate-200 border-slate-600'
+                                    : row.isTop6
+                                    ? 'bg-purple-500/20 text-purple-300 border-purple-500/40'
+                                    : row.rank === 12
+                                    ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+                                    : 'bg-slate-800 text-slate-300 border-slate-700'
+                                }`}
+                              >
+                                {row.statusLabel}
+                              </span>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+
+                    {/* Footer Totals */}
+                    <tfoot className="bg-slate-900 border-t-2 border-slate-700 font-mono font-bold text-slate-200 text-xs">
+                      <tr>
+                        <td colSpan={2} className="py-3.5 px-4 font-sans font-black uppercase tracking-wider text-white">
+                          Totais Globais Repassados pela LIGA:
+                        </td>
+                        <td className="py-3.5 px-3 text-right">
+                          R$ {ligaReport.totalSponsorsDisbursed.toLocaleString('pt-BR')}
+                        </td>
+                        <td className="py-3.5 px-3 text-right">
+                          R$ {ligaReport.totalTvRegularDisbursed.toLocaleString('pt-BR')}
+                        </td>
+                        <td className="py-3.5 px-3 text-right">
+                          R$ {ligaReport.officialTicketPool15.toLocaleString('pt-BR')}
+                        </td>
+                        <td className="py-3.5 px-3 text-right text-amber-300 font-black">
+                          R$ {ligaReport.totalClassificationDisbursed.toLocaleString('pt-BR')}
+                        </td>
+                        <td className="py-3.5 px-3 text-right text-purple-300 font-black">
+                          R$ {(ligaReport.totalCampeasTvDisbursed + ligaReport.totalCampeasTicketDisbursed).toLocaleString('pt-BR')}
+                        </td>
+                        <td className="py-3.5 px-4 text-right text-base font-black text-emerald-400">
+                          R$ {ligaReport.grandTotalDisbursed.toLocaleString('pt-BR')}
+                        </td>
+                        <td className="py-3.5 px-3 text-center text-[10px] text-slate-400 font-sans">
+                          100% Repassado
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            {/* Regulatory Rules Footer Notes */}
+            <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 text-[11px] text-slate-300 space-y-1.5">
+              <div className="font-bold text-amber-400 flex items-center gap-1.5 uppercase tracking-wide">
+                <Info className="w-4 h-4" />
+                <span>Regulamento Financeiro de Repasses & Premiação da LIGA:</span>
+              </div>
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-1 text-slate-400 list-disc list-inside">
+                <li>
+                  <strong>Patrocinadores Fixos:</strong> Todas as 12 escolas do Grupo Especial recebem R$ 14.000.000 fixos de cota corporativa.
+                </li>
+                <li>
+                  <strong>Direitos de Transmissão de TV:</strong> Todas as 12 escolas recebem R$ 3.000.000 fixos das transmissões da Temporada Regular.
+                </li>
+                <li>
+                  <strong>Fundo de Bilheteira Geral:</strong> 15% da arrecadação total dos ingressos do Desfile Oficial é dividido igualmente entre as 12 escolas (R$ 1.000.000 para cada agremiação).
+                </li>
+                <li>
+                  <strong>Fundo de Classificação (R$ 20.000.000):</strong> Distribuído de forma decrescente pela posição final da apuração oficial.
+                </li>
+                <li className="md:col-span-2 text-purple-300 font-medium">
+                  <strong>Bônus do Desfile das Campeãs (Top 6):</strong> R$ 5.000.000 adicionais de direitos de TV para cada uma das 6 escolas + 15% do valor arrecadado com ingressos do Sábado das Campeãs dividido igualmente entre as 6 (+R$ 5.720.000 no total por escola no G6).
+                </li>
+              </ul>
+            </div>
+          </div>
+        )}
+
+        {/* ======================================================== */}
+        {/* CONDICIONAL: CONTEÚDO DA SÉRIE PRATA                     */}
+        {/* ======================================================== */}
+        {activeRepasseDivision === 'prata' && (
+          <div className="space-y-6 animate-fadeIn">
+            {/* 5 Pilares Financeiros da Série Prata */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+              {/* Pilar 1: Fundo Global da Liga */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5 relative hover:border-slate-700 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-slate-300">Fundo da Liga (Rateio)</span>
+                  <Building2 className="w-4 h-4 text-slate-300" />
+                </div>
+                <div className="text-xl font-black text-white font-mono">
+                  R$ 1.500.000
+                </div>
+                <div className="text-[10px] font-bold text-slate-300 bg-slate-800 px-2 py-0.5 rounded border border-slate-700 inline-block">
+                  Dividido Igualmente ({prataSchoolsList.length} Escolas)
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  Cota global rateada em partes iguais: <strong>R$ {Math.round(1500000 / Math.max(1, prataSchoolsList.length)).toLocaleString('pt-BR')}</strong> por agremiação.
+                </p>
+              </div>
+
+              {/* Pilar 2: Cota de Transmissão de TV */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5 relative hover:border-slate-700 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-slate-300">Direitos de TV</span>
+                  <Tv className="w-4 h-4 text-blue-400" />
+                </div>
+                <div className="text-xl font-black text-white font-mono">
+                  R$ 80.000
+                </div>
+                <div className="text-[10px] font-bold text-blue-300 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/30 inline-block">
+                  Fixo por Escola
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  Cota individual garantida pela transmissão dos desfiles da Série Prata.
+                </p>
+              </div>
+
+              {/* Pilar 3: Base Fixa Garantida */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-700 space-y-1.5 relative hover:border-slate-600 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-slate-200">Base Fixa Garantida</span>
+                  <Landmark className="w-4 h-4 text-slate-300" />
+                </div>
+                <div className="text-xl font-black text-slate-200 font-mono">
+                  R$ {(Math.round(1500000 / Math.max(1, prataSchoolsList.length)) + 80000).toLocaleString('pt-BR')}
+                </div>
+                <div className="text-[10px] font-bold text-slate-300 bg-slate-800 px-2 py-0.5 rounded border border-slate-700 inline-block">
+                  Piso por Escola (Pré-Apuração)
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  Parcela do fundo de R$ 1,5M somada à cota de transmissão de TV.
+                </p>
+              </div>
+
+              {/* Pilar 4: Premiação Top 3 */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-purple-500/30 space-y-1.5 relative hover:border-purple-500/50 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-purple-300">Premiações Top 3</span>
+                  <Trophy className="w-4 h-4 text-purple-400" />
+                </div>
+                <div className="text-xl font-black text-purple-300 font-mono">
+                  R$ 520.000
+                </div>
+                <div className="text-[10px] font-bold text-purple-300 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/30 inline-block">
+                  Pódio da Apuração
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  1º R$ 300.000 • 2º R$ 150.000 • 3º R$ 70.000.
+                </p>
+              </div>
+
+              {/* Pilar 5: Desembolso Global Estimado */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-emerald-500/30 space-y-1.5 relative hover:border-emerald-500/50 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-emerald-300">Total Desembolsado</span>
+                  <Coins className="w-4 h-4 text-emerald-400" />
+                </div>
+                <div className="text-xl font-black text-emerald-400 font-mono">
+                  R$ {(1500000 + (prataSchoolsList.length * 80000) + 520000).toLocaleString('pt-BR')}
+                </div>
+                <div className="text-[10px] font-bold text-emerald-300 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30 inline-block">
+                  Fundo + TV + Prêmios
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  Investimento total da Superliga e emissora na Série Prata.
+                </p>
+              </div>
+            </div>
+
+            {/* Card de Destaque da Escola na Série Prata */}
+            {(() => {
+              if (userPrataPayout) {
+                return (
+                  <div className="p-4 rounded-2xl bg-gradient-to-r from-slate-400/15 via-slate-950 to-emerald-500/15 border border-slate-400/40 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center font-black text-lg border-2 shadow-md shrink-0 bg-slate-300/20 text-slate-200 border-slate-300">
+                        {userPrataPayout.posicao}º
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-slate-200 text-slate-950">
+                            SUA AGREMIAÇÃO NA SÉRIE PRATA
+                          </span>
+                          <span className="text-xs font-bold text-white">
+                            {userPrataPayout.nomeEscola}
+                          </span>
+                          <span className="text-xs font-mono text-slate-300">
+                            (
+                            {userPrataPayout.posicao === 1
+                              ? 'Campeã da Série Prata • Acesso à Série Ouro'
+                              : userPrataPayout.posicao === 2
+                              ? 'Vice-Campeã da Série Prata'
+                              : userPrataPayout.posicao === 3
+                              ? '3.º Lugar na Apuração'
+                              : userPrataPayout.posicao >= prataSchoolsList.length - 2
+                              ? 'Zona de Rebaixamento para Série Bronze'
+                              : 'Manutenção na Série Prata'}
+                            )
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-3 text-xs text-slate-300 mt-1 flex-wrap">
+                          <span>Rateio Fundo R$ 1,5M: <strong>R$ {userPrataPayout.cotaLiga.toLocaleString('pt-BR')}</strong></span>
+                          <span>•</span>
+                          <span>Cota TV: <strong>R$ 80.000</strong></span>
+                          <span>•</span>
+                          <span>Base Fixa: <strong>R$ {(userPrataPayout.cotaLiga + userPrataPayout.cotaTv).toLocaleString('pt-BR')}</strong></span>
+                          <span>•</span>
+                          <span className="text-purple-300 font-bold">
+                            Premiação Esportiva: +R$ {userPrataPayout.premiacaoClassificacao.toLocaleString('pt-BR')}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="px-5 py-2.5 rounded-xl bg-slate-950/90 border border-emerald-500/40 text-right shrink-0">
+                      <div className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">
+                        Repasse Total Série Prata ({selectedLigaYear})
+                      </div>
+                      <div className="text-2xl font-black text-emerald-400 font-mono">
+                        R$ {userPrataPayout.totalRecebido.toLocaleString('pt-BR')}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              if (school.division !== 'prata') {
+                return (
+                  <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between gap-4 text-xs">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-lg bg-slate-500/10 border border-slate-500/30 text-slate-300 shrink-0">
+                        <Medal className="w-5 h-5" />
+                      </div>
+                      <div className="space-y-0.5">
+                        <span className="font-bold text-white">
+                          Visão Geral da Série Prata (Superliga Carnavalesca do Brasil)
+                        </span>
+                        <p className="text-slate-400">
+                          Sua escola ({school.name}) disputa a <strong>{school.division.toUpperCase()}</strong>. Na Série Prata, cada escola recebe a sua cota do fundo de R$ 1,5 milhão somada a R$ 80 mil de TV, com prêmio de <strong>R$ 300.000</strong> para a campeã que sobe para a Série Ouro!
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              return null;
+            })()}
+
+            {/* Demonstrativo Detalhado de Repasses das Escolas da Série Prata */}
+            <div className="space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <h4 className="text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
+                    <FileSpreadsheet className="w-4 h-4 text-slate-300" />
+                    <span>Demonstrativo Oficial de Repasses da Série Prata</span>
+                  </h4>
+                  <p className="text-[11px] text-slate-400">
+                    Tabela com a divisão igualitária de R$ 1.500.000, cotas de TV e premiações das 3 primeiras colocadas para o Carnaval {selectedLigaYear}.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-mono text-slate-400">
+                    {prataFinancialReport.length} agremiações auditadas
+                  </span>
+                </div>
+              </div>
+
+              <div className="rounded-2xl border border-slate-800 overflow-hidden shadow-xl bg-slate-950/90">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs border-collapse">
+                    <thead>
+                      <tr className="bg-slate-900 border-b border-slate-800 text-[10px] font-black uppercase tracking-wider text-slate-400">
+                        <th className="py-3 px-3 text-center w-12">Pos.</th>
+                        <th className="py-3 px-4 min-w-[200px]">Escola de Samba</th>
+                        <th className="py-3 px-3 text-right">Fundo Liga (1,5M)</th>
+                        <th className="py-3 px-3 text-right">Cota TV</th>
+                        <th className="py-3 px-3 text-right">Base Fixa</th>
+                        <th className="py-3 px-3 text-right">Premiação Top 3</th>
+                        <th className="py-3 px-4 text-right min-w-[140px] text-emerald-400">Total Recebido</th>
+                        <th className="py-3 px-3 text-center">Status Oficial</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-800/80 font-mono">
+                      {prataFinancialReport.map((row) => {
+                        const isUser =
+                          row.escolaId === school.id ||
+                          row.nomeEscola.toLowerCase() === school.name.toLowerCase();
+
+                        const matchedSchool = (allSchools || []).find(
+                          (s) => s.id === row.escolaId || s.name.toLowerCase() === row.nomeEscola.toLowerCase()
+                        );
+
+                        return (
+                          <tr
+                            key={row.escolaId}
+                            className={`transition ${
+                              isUser
+                                ? 'bg-amber-500/10 hover:bg-amber-500/15 ring-1 ring-amber-500/30'
+                                : row.posicao === 1
+                                ? 'bg-amber-500/5 hover:bg-slate-900/80'
+                                : row.posicao === 2
+                                ? 'bg-slate-800/40 hover:bg-slate-900/80'
+                                : row.posicao === 3
+                                ? 'bg-amber-950/20 hover:bg-slate-900/80'
+                                : 'hover:bg-slate-900/60'
+                            }`}
+                          >
+                            {/* Posição */}
+                            <td className="py-3 px-3 text-center">
+                              <span
+                                className={`inline-flex items-center justify-center w-7 h-7 rounded-lg font-black text-xs ${
+                                  row.posicao === 1
+                                    ? 'bg-amber-500 text-slate-950 shadow-md ring-1 ring-amber-300'
+                                    : row.posicao === 2
+                                    ? 'bg-slate-300 text-slate-950'
+                                    : row.posicao === 3
+                                    ? 'bg-amber-700 text-white'
+                                    : row.posicao >= prataFinancialReport.length - 2
+                                    ? 'bg-rose-950 text-rose-300 border border-rose-800'
+                                    : 'bg-slate-800 text-slate-300'
+                                }`}
+                              >
+                                {row.posicao}º
+                              </span>
+                            </td>
+
+                            {/* Escola de Samba */}
+                            <td className="py-3 px-4 font-sans font-bold text-white">
+                              <div className="flex items-center gap-2.5">
+                                <div
+                                  className="w-3.5 h-3.5 rounded-full border shadow-sm shrink-0"
+                                  style={{
+                                    backgroundColor: matchedSchool?.colors?.primary || '#334155',
+                                    borderColor: matchedSchool?.colors?.secondary || '#ffffff'
+                                  }}
+                                />
+                                <div className="truncate">
+                                  <span className="block truncate text-slate-100 font-bold">
+                                    {cleanSchoolName(row.nomeEscola)}
+                                  </span>
+                                </div>
+                                {isUser && (
+                                  <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-amber-500 text-slate-950 shrink-0">
+                                    SUA ESCOLA
+                                  </span>
+                                )}
+                              </div>
+                            </td>
+
+                            {/* Parcela Fundo da Liga */}
+                            <td className="py-3 px-3 text-right text-slate-300 font-normal">
+                              R$ {row.cotaLiga.toLocaleString('pt-BR')}
+                            </td>
+
+                            {/* Cota TV */}
+                            <td className="py-3 px-3 text-right text-slate-300 font-normal">
+                              R$ {row.cotaTv.toLocaleString('pt-BR')}
+                            </td>
+
+                            {/* Base Fixa */}
+                            <td className="py-3 px-3 text-right text-slate-200 font-bold">
+                              R$ {(row.cotaLiga + row.cotaTv).toLocaleString('pt-BR')}
+                            </td>
+
+                            {/* Premiação */}
+                            <td className="py-3 px-3 text-right">
+                              <span className="text-purple-300 font-bold block">
+                                R$ {row.premiacaoClassificacao.toLocaleString('pt-BR')}
+                              </span>
+                              <span className="text-[9px] text-slate-400 block font-sans">
+                                {row.posicao === 1
+                                  ? 'Campeã'
+                                  : row.posicao === 2
+                                  ? 'Vice'
+                                  : row.posicao === 3
+                                  ? '3.º Lugar'
+                                  : '-'}
+                              </span>
+                            </td>
+
+                            {/* Total Recebido */}
+                            <td className="py-3 px-4 text-right">
+                              <span className="text-sm font-black text-emerald-400 block">
+                                R$ {row.totalRecebido.toLocaleString('pt-BR')}
+                              </span>
+                              <span className="text-[9px] text-slate-400 font-normal block font-sans">
+                                {RepassesFinanceirosService.formatCompact(row.totalRecebido)}
+                              </span>
+                            </td>
+
+                            {/* Status Oficial */}
+                            <td className="py-3 px-3 text-center font-sans">
+                              <span
+                                className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                                  row.posicao === 1
+                                    ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                                    : row.posicao === 2
+                                    ? 'bg-slate-700 text-slate-200 border-slate-600'
+                                    : row.posicao === 3
+                                    ? 'bg-amber-900/30 text-amber-300 border-amber-800'
+                                    : row.posicao >= prataFinancialReport.length - 2
+                                    ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+                                    : 'bg-slate-800 text-slate-300 border-slate-700'
+                                }`}
+                              >
+                                {row.posicao === 1
+                                  ? 'Campeã (Acesso à Ouro)'
+                                  : row.posicao === 2
+                                  ? 'Vice-Campeã'
+                                  : row.posicao === 3
+                                  ? '3.º Lugar'
+                                  : row.posicao >= prataFinancialReport.length - 2
+                                  ? 'Rebaixada p/ Bronze'
+                                  : 'Permanência na Prata'}
+                              </span>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+
+                    {/* Footer Totals */}
+                    <tfoot className="bg-slate-900 border-t-2 border-slate-700 font-mono font-bold text-slate-200 text-xs">
+                      <tr>
+                        <td colSpan={2} className="py-3.5 px-4 font-sans font-black uppercase tracking-wider text-white">
+                          Totais da Série Prata ({prataFinancialReport.length} escolas):
+                        </td>
+                        <td className="py-3.5 px-3 text-right">
+                          R$ {(prataFinancialReport.reduce((a, b) => a + b.cotaLiga, 0)).toLocaleString('pt-BR')}
+                        </td>
+                        <td className="py-3.5 px-3 text-right">
+                          R$ {(prataFinancialReport.reduce((a, b) => a + b.cotaTv, 0)).toLocaleString('pt-BR')}
+                        </td>
+                        <td className="py-3.5 px-3 text-right text-slate-200 font-black">
+                          R$ {(prataFinancialReport.reduce((a, b) => a + b.cotaLiga + b.cotaTv, 0)).toLocaleString('pt-BR')}
+                        </td>
+                        <td className="py-3.5 px-3 text-right text-purple-300 font-black">
+                          R$ {(prataFinancialReport.reduce((a, b) => a + b.premiacaoClassificacao, 0)).toLocaleString('pt-BR')}
+                        </td>
+                        <td className="py-3.5 px-4 text-right text-base font-black text-emerald-400">
+                          R$ {(prataFinancialReport.reduce((a, b) => a + b.totalRecebido, 0)).toLocaleString('pt-BR')}
+                        </td>
+                        <td className="py-3.5 px-3 text-center text-[10px] text-slate-400 font-sans">
+                          100% Repassado
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            {/* Regulamento da Série Prata */}
+            <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 text-[11px] text-slate-300 space-y-1.5">
+              <div className="font-bold text-slate-300 flex items-center gap-1.5 uppercase tracking-wide">
+                <Info className="w-4 h-4 text-slate-400" />
+                <span>Regulamento Financeiro da Série Prata:</span>
+              </div>
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-1 text-slate-400 list-disc list-inside">
+                <li>
+                  <strong>Fundo de R$ 1,5 Milhão:</strong> Rateado em quotas rigorosamente iguais entre todas as agremiações que integram a Série Prata.
+                </li>
+                <li>
+                  <strong>Cota de Transmissão de TV:</strong> R$ 80.000 fixos para cada agremiação participante.
+                </li>
+                <li className="md:col-span-2 text-purple-300 font-medium">
+                  <strong>Premiação de Mérito Esportivo:</strong> 1.º Lugar (Campeã • Acesso à Série Ouro): <strong>R$ 300.000</strong> | 2.º Lugar (Vice-campeã): <strong>R$ 150.000</strong> | 3.º Lugar: <strong>R$ 70.000</strong>.
+                </li>
+              </ul>
+            </div>
+          </div>
+        )}
+
+        {/* ======================================================== */}
+        {/* CONDICIONAL: CONTEÚDO DA SÉRIE BRONZE                     */}
+        {/* ======================================================== */}
+        {activeRepasseDivision === 'bronze' && (
+          <div className="space-y-6 animate-fadeIn">
+            {/* 4 Pilares Financeiros da Série Bronze */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+              {/* Pilar 1: Repasse Fixo Institucional */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5 relative hover:border-slate-700 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-slate-300">Repasse Fixo Garantido</span>
+                  <Award className="w-4 h-4 text-amber-600" />
+                </div>
+                <div className="text-xl font-black text-amber-500 font-mono">
+                  R$ 80.000
+                </div>
+                <div className="text-[10px] font-bold text-amber-400 bg-amber-950/40 px-2 py-0.5 rounded border border-amber-800 inline-block">
+                  Fixo por Escola ({bronzeSchoolsList.length} Escolas)
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  Repasse garantido para todas as agremiações participantes da Série Bronze.
+                </p>
+              </div>
+
+              {/* Pilar 2: Premiação Campeã */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-amber-700/30 space-y-1.5 relative hover:border-amber-700/50 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-amber-300">1.º Lugar (Campeã)</span>
+                  <Trophy className="w-4 h-4 text-amber-400" />
+                </div>
+                <div className="text-xl font-black text-amber-400 font-mono">
+                  R$ 90.000
+                </div>
+                <div className="text-[10px] font-bold text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/30 inline-block">
+                  Acesso à Série Prata
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  Premiação máxima esportiva concedida à grande campeã da Série Bronze.
+                </p>
+              </div>
+
+              {/* Pilar 3: Premiação Vice e 3º Lugar */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-purple-500/30 space-y-1.5 relative hover:border-purple-500/50 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-purple-300">Vice & 3.º Colocada</span>
+                  <Medal className="w-4 h-4 text-purple-400" />
+                </div>
+                <div className="text-xl font-black text-purple-300 font-mono">
+                  R$ 60k / R$ 30k
+                </div>
+                <div className="text-[10px] font-bold text-purple-300 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/30 inline-block">
+                  Pódio da Bronze
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  2º Lugar: R$ 60.000 • 3º Lugar: R$ 30.000. Total Top 3: <strong>R$ 180.000</strong>.
+                </p>
+              </div>
+
+              {/* Pilar 4: Total Geral Série Bronze */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-emerald-500/30 space-y-1.5 relative hover:border-emerald-500/50 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-emerald-300">Total Desembolsado</span>
+                  <Coins className="w-4 h-4 text-emerald-400" />
+                </div>
+                <div className="text-xl font-black text-emerald-400 font-mono">
+                  R$ {(bronzeSchoolsList.length * 80000 + 180000).toLocaleString('pt-BR')}
+                </div>
+                <div className="text-[10px] font-bold text-emerald-300 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30 inline-block">
+                  Repasses + Premiações
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  Soma dos repasses fixos de R$ 80k e o fundo de premiações de R$ 180k.
+                </p>
+              </div>
+            </div>
+
+            {/* Card de Destaque da Escola na Série Bronze */}
+            {(() => {
+              if (userBronzePayout) {
+                return (
+                  <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-700/20 via-slate-950 to-emerald-500/15 border border-amber-700/40 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center font-black text-lg border-2 shadow-md shrink-0 bg-amber-700/20 text-amber-300 border-amber-600">
+                        {userBronzePayout.posicao}º
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-amber-700 text-white">
+                            SUA AGREMIAÇÃO NA SÉRIE BRONZE
+                          </span>
+                          <span className="text-xs font-bold text-white">
+                            {userBronzePayout.nomeEscola}
+                          </span>
+                          <span className="text-xs font-mono text-amber-300">
+                            (
+                            {userBronzePayout.posicao === 1
+                              ? 'Campeã da Série Bronze • Acesso à Série Prata'
+                              : userBronzePayout.posicao === 2
+                              ? 'Vice-Campeã da Série Bronze'
+                              : userBronzePayout.posicao === 3
+                              ? '3.º Lugar na Apuração'
+                              : userBronzePayout.posicao >= bronzeSchoolsList.length - 2
+                              ? 'Zona de Rebaixamento para Grupo de Avaliação'
+                              : 'Manutenção na Série Bronze'}
+                            )
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-3 text-xs text-slate-300 mt-1 flex-wrap">
+                          <span>Repasse Fixo: <strong>R$ 80.000</strong></span>
+                          <span>•</span>
+                          <span className="text-purple-300 font-bold">
+                            Premiação Esportiva: +R$ {userBronzePayout.premiacaoClassificacao.toLocaleString('pt-BR')}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="px-5 py-2.5 rounded-xl bg-slate-950/90 border border-emerald-500/40 text-right shrink-0">
+                      <div className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">
+                        Repasse Total Série Bronze ({selectedLigaYear})
+                      </div>
+                      <div className="text-2xl font-black text-emerald-400 font-mono">
+                        R$ {userBronzePayout.totalRecebido.toLocaleString('pt-BR')}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              if (school.division !== 'bronze') {
+                return (
+                  <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between gap-4 text-xs">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-lg bg-amber-700/10 border border-amber-700/30 text-amber-400 shrink-0">
+                        <Award className="w-5 h-5" />
+                      </div>
+                      <div className="space-y-0.5">
+                        <span className="font-bold text-white">
+                          Visão Geral da Série Bronze
+                        </span>
+                        <p className="text-slate-400">
+                          Sua escola ({school.name}) disputa a <strong>{school.division.toUpperCase()}</strong>. Na Série Bronze, todas as participantes recebem R$ 80.000 garantidos, e as três primeiras dividem R$ 180.000 em prêmios esportivos!
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              return null;
+            })()}
+
+            {/* Demonstrativo Detalhado de Repasses das Escolas da Série Bronze */}
+            <div className="space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <h4 className="text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
+                    <FileSpreadsheet className="w-4 h-4 text-amber-500" />
+                    <span>Demonstrativo Oficial de Repasses da Série Bronze</span>
+                  </h4>
+                  <p className="text-[11px] text-slate-400">
+                    Tabela oficial de repasses de R$ 80.000 por escola e bonificações do pódio para o Carnaval {selectedLigaYear}.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-mono text-slate-400">
+                    {bronzeFinancialReport.length} agremiações auditadas
+                  </span>
+                </div>
+              </div>
+
+              <div className="rounded-2xl border border-slate-800 overflow-hidden shadow-xl bg-slate-950/90">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs border-collapse">
+                    <thead>
+                      <tr className="bg-slate-900 border-b border-slate-800 text-[10px] font-black uppercase tracking-wider text-slate-400">
+                        <th className="py-3 px-3 text-center w-12">Pos.</th>
+                        <th className="py-3 px-4 min-w-[200px]">Escola de Samba</th>
+                        <th className="py-3 px-3 text-right">Repasse Fixo</th>
+                        <th className="py-3 px-3 text-right">Premiação Top 3</th>
+                        <th className="py-3 px-4 text-right min-w-[140px] text-emerald-400">Total Recebido</th>
+                        <th className="py-3 px-3 text-center">Status Oficial</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-800/80 font-mono">
+                      {bronzeFinancialReport.map((row) => {
+                        const isUser =
+                          row.escolaId === school.id ||
+                          row.nomeEscola.toLowerCase() === school.name.toLowerCase();
+
+                        const matchedSchool = (allSchools || []).find(
+                          (s) => s.id === row.escolaId || s.name.toLowerCase() === row.nomeEscola.toLowerCase()
+                        );
+
+                        return (
+                          <tr
+                            key={row.escolaId}
+                            className={`transition ${
+                              isUser
+                                ? 'bg-amber-500/10 hover:bg-amber-500/15 ring-1 ring-amber-500/30'
+                                : row.posicao === 1
+                                ? 'bg-amber-500/5 hover:bg-slate-900/80'
+                                : row.posicao === 2
+                                ? 'bg-slate-800/40 hover:bg-slate-900/80'
+                                : row.posicao === 3
+                                ? 'bg-amber-950/20 hover:bg-slate-900/80'
+                                : 'hover:bg-slate-900/60'
+                            }`}
+                          >
+                            {/* Posição */}
+                            <td className="py-3 px-3 text-center">
+                              <span
+                                className={`inline-flex items-center justify-center w-7 h-7 rounded-lg font-black text-xs ${
+                                  row.posicao === 1
+                                    ? 'bg-amber-500 text-slate-950 shadow-md ring-1 ring-amber-300'
+                                    : row.posicao === 2
+                                    ? 'bg-slate-300 text-slate-950'
+                                    : row.posicao === 3
+                                    ? 'bg-amber-700 text-white'
+                                    : row.posicao >= bronzeFinancialReport.length - 2
+                                    ? 'bg-rose-950 text-rose-300 border border-rose-800'
+                                    : 'bg-slate-800 text-slate-300'
+                                }`}
+                              >
+                                {row.posicao}º
+                              </span>
+                            </td>
+
+                            {/* Escola de Samba */}
+                            <td className="py-3 px-4 font-sans font-bold text-white">
+                              <div className="flex items-center gap-2.5">
+                                <div
+                                  className="w-3.5 h-3.5 rounded-full border shadow-sm shrink-0"
+                                  style={{
+                                    backgroundColor: matchedSchool?.colors?.primary || '#b45309',
+                                    borderColor: matchedSchool?.colors?.secondary || '#ffffff'
+                                  }}
+                                />
+                                <div className="truncate">
+                                  <span className="block truncate text-slate-100 font-bold">
+                                    {cleanSchoolName(row.nomeEscola)}
+                                  </span>
+                                </div>
+                                {isUser && (
+                                  <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-amber-500 text-slate-950 shrink-0">
+                                    SUA ESCOLA
+                                  </span>
+                                )}
+                              </div>
+                            </td>
+
+                            {/* Repasse Fixo */}
+                            <td className="py-3 px-3 text-right text-slate-300 font-bold">
+                              R$ {row.subvencaoPublica.toLocaleString('pt-BR')}
+                            </td>
+
+                            {/* Premiação */}
+                            <td className="py-3 px-3 text-right">
+                              <span className="text-purple-300 font-bold block">
+                                R$ {row.premiacaoClassificacao.toLocaleString('pt-BR')}
+                              </span>
+                              <span className="text-[9px] text-slate-400 block font-sans">
+                                {row.posicao === 1
+                                  ? 'Campeã'
+                                  : row.posicao === 2
+                                  ? 'Vice'
+                                  : row.posicao === 3
+                                  ? '3.º Lugar'
+                                  : '-'}
+                              </span>
+                            </td>
+
+                            {/* Total Recebido */}
+                            <td className="py-3 px-4 text-right">
+                              <span className="text-sm font-black text-emerald-400 block">
+                                R$ {row.totalRecebido.toLocaleString('pt-BR')}
+                              </span>
+                              <span className="text-[9px] text-slate-400 font-normal block font-sans">
+                                {RepassesFinanceirosService.formatCompact(row.totalRecebido)}
+                              </span>
+                            </td>
+
+                            {/* Status Oficial */}
+                            <td className="py-3 px-3 text-center font-sans">
+                              <span
+                                className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                                  row.posicao === 1
+                                    ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                                    : row.posicao === 2
+                                    ? 'bg-slate-700 text-slate-200 border-slate-600'
+                                    : row.posicao === 3
+                                    ? 'bg-amber-900/30 text-amber-300 border-amber-800'
+                                    : row.posicao >= bronzeFinancialReport.length - 2
+                                    ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+                                    : 'bg-slate-800 text-slate-300 border-slate-700'
+                                }`}
+                              >
+                                {row.posicao === 1
+                                  ? 'Campeã (Acesso à Prata)'
+                                  : row.posicao === 2
+                                  ? 'Vice-Campeã'
+                                  : row.posicao === 3
+                                  ? '3.º Lugar'
+                                  : row.posicao >= bronzeFinancialReport.length - 2
+                                  ? 'Rebaixada p/ Avaliação'
+                                  : 'Permanência na Bronze'}
+                              </span>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+
+                    {/* Footer Totals */}
+                    <tfoot className="bg-slate-900 border-t-2 border-slate-700 font-mono font-bold text-slate-200 text-xs">
+                      <tr>
+                        <td colSpan={2} className="py-3.5 px-4 font-sans font-black uppercase tracking-wider text-white">
+                          Totais da Série Bronze ({bronzeFinancialReport.length} escolas):
+                        </td>
+                        <td className="py-3.5 px-3 text-right text-amber-400 font-bold">
+                          R$ {(bronzeFinancialReport.reduce((a, b) => a + b.subvencaoPublica, 0)).toLocaleString('pt-BR')}
+                        </td>
+                        <td className="py-3.5 px-3 text-right text-purple-300 font-black">
+                          R$ {(bronzeFinancialReport.reduce((a, b) => a + b.premiacaoClassificacao, 0)).toLocaleString('pt-BR')}
+                        </td>
+                        <td className="py-3.5 px-4 text-right text-base font-black text-emerald-400">
+                          R$ {(bronzeFinancialReport.reduce((a, b) => a + b.totalRecebido, 0)).toLocaleString('pt-BR')}
+                        </td>
+                        <td className="py-3.5 px-3 text-center text-[10px] text-slate-400 font-sans">
+                          100% Repassado
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            {/* Regulamento da Série Bronze */}
+            <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 text-[11px] text-slate-300 space-y-1.5">
+              <div className="font-bold text-amber-500 flex items-center gap-1.5 uppercase tracking-wide">
+                <Info className="w-4 h-4" />
+                <span>Regulamento Financeiro da Série Bronze:</span>
+              </div>
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-1 text-slate-400 list-disc list-inside">
+                <li>
+                  <strong>Repasse Fixo:</strong> Cada agremiação participante recebe R$ 80.000 garantidos para custeio de carnaval.
+                </li>
+                <li className="text-purple-300 font-medium">
+                  <strong>Premiação do Pódio:</strong> 1.º Lugar (Campeã • Acesso à Série Prata): <strong>R$ 90.000</strong> | 2.º Lugar: <strong>R$ 60.000</strong> | 3.º Lugar: <strong>R$ 30.000</strong>.
+                </li>
+              </ul>
+            </div>
+          </div>
+        )}
+
+        {/* ======================================================== */}
+        {/* CONDICIONAL: CONTEÚDO DO GRUPO DE AVALIAÇÃO              */}
+        {/* ======================================================== */}
+        {activeRepasseDivision === 'avaliacao' && (
+          <div className="space-y-6 animate-fadeIn">
+            {/* 4 Pilares Financeiros do Grupo de Avaliação */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+              {/* Pilar 1: Repasse Fixo */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5 relative hover:border-slate-700 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-slate-300">Repasse Fixo de Valores</span>
+                  <Award className="w-4 h-4 text-slate-500" />
+                </div>
+                <div className="text-xl font-black text-slate-400 font-mono">
+                  R$ 0
+                </div>
+                <div className="text-[10px] font-bold text-slate-400 bg-slate-800 px-2 py-0.5 rounded border border-slate-700 inline-block">
+                  Sem Repasses Fixos
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  No Grupo de Avaliação não há repasse de valores fixos para as agremiações.
+                </p>
+              </div>
+
+              {/* Pilar 2: Premiação Campeã */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-purple-500/30 space-y-1.5 relative hover:border-purple-500/50 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-purple-300">1.º Lugar (Campeã)</span>
+                  <Trophy className="w-4 h-4 text-purple-400" />
+                </div>
+                <div className="text-xl font-black text-purple-300 font-mono">
+                  R$ 20.000
+                </div>
+                <div className="text-[10px] font-bold text-purple-300 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/30 inline-block">
+                  Acesso à Série Bronze
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  Bonificação por mérito concedida à agremiação campeã do Grupo de Avaliação.
+                </p>
+              </div>
+
+              {/* Pilar 3: Premiação Vice e 3º Lugar */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-purple-500/30 space-y-1.5 relative hover:border-purple-500/50 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-purple-300">Vice & 3.º Colocada</span>
+                  <Medal className="w-4 h-4 text-purple-400" />
+                </div>
+                <div className="text-xl font-black text-purple-300 font-mono">
+                  R$ 12k / R$ 6k
+                </div>
+                <div className="text-[10px] font-bold text-purple-300 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/30 inline-block">
+                  Pódio de Avaliação
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  2º Lugar: R$ 12.000 • 3º Lugar: R$ 6.000. Total Top 3: <strong>R$ 38.000</strong>.
+                </p>
+              </div>
+
+              {/* Pilar 4: Total de Premiações */}
+              <div className="p-4 rounded-xl bg-slate-950/80 border border-emerald-500/30 space-y-1.5 relative hover:border-emerald-500/50 transition">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-bold text-emerald-300">Fundo Total de Prêmios</span>
+                  <Coins className="w-4 h-4 text-emerald-400" />
+                </div>
+                <div className="text-xl font-black text-emerald-400 font-mono">
+                  R$ 38.000
+                </div>
+                <div className="text-[10px] font-bold text-emerald-300 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30 inline-block">
+                  Mérito Esportivo
+                </div>
+                <p className="text-[10px] text-slate-400 leading-tight">
+                  Premiação total exclusiva para as três agremiações promovidas.
+                </p>
+              </div>
+            </div>
+
+            {/* Card de Destaque da Escola no Grupo de Avaliação */}
+            {(() => {
+              if (userAvaliacaoPayout) {
+                return (
+                  <div className="p-4 rounded-2xl bg-gradient-to-r from-purple-500/15 via-slate-950 to-emerald-500/15 border border-purple-500/40 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center font-black text-lg border-2 shadow-md shrink-0 bg-purple-500/20 text-purple-300 border-purple-400">
+                        {userAvaliacaoPayout.posicao}º
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-purple-600 text-white">
+                            SUA AGREMIAÇÃO NO GRUPO DE AVALIAÇÃO
+                          </span>
+                          <span className="text-xs font-bold text-white">
+                            {userAvaliacaoPayout.nomeEscola}
+                          </span>
+                          <span className="text-xs font-mono text-purple-300">
+                            (
+                            {userAvaliacaoPayout.posicao === 1
+                              ? 'Campeã do Grupo de Avaliação • Acesso à Série Bronze'
+                              : userAvaliacaoPayout.posicao === 2
+                              ? 'Vice-Campeã • Acesso à Série Bronze'
+                              : userAvaliacaoPayout.posicao === 3
+                              ? '3.º Lugar • Acesso à Série Bronze'
+                              : userAvaliacaoPayout.posicao >= avaliacaoSchoolsList.length - 2
+                              ? 'Zona de Afastamento / Suspensão por 1 ano'
+                              : 'Manutenção no Grupo de Avaliação'}
+                            )
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-3 text-xs text-slate-300 mt-1 flex-wrap">
+                          <span>Repasse Fixo: <strong>R$ 0</strong></span>
+                          <span>•</span>
+                          <span className="text-purple-300 font-bold">
+                            Premiação Esportiva: +R$ {userAvaliacaoPayout.premiacaoClassificacao.toLocaleString('pt-BR')}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="px-5 py-2.5 rounded-xl bg-slate-950/90 border border-emerald-500/40 text-right shrink-0">
+                      <div className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">
+                        Repasse Total Avaliação ({selectedLigaYear})
+                      </div>
+                      <div className="text-2xl font-black text-emerald-400 font-mono">
+                        R$ {userAvaliacaoPayout.totalRecebido.toLocaleString('pt-BR')}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              if (school.division !== 'avaliacao') {
+                return (
+                  <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between gap-4 text-xs">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-lg bg-purple-500/10 border border-purple-500/30 text-purple-400 shrink-0">
+                        <Layers className="w-5 h-5" />
+                      </div>
+                      <div className="space-y-0.5">
+                        <span className="font-bold text-white">
+                          Visão Geral do Grupo de Avaliação
+                        </span>
+                        <p className="text-slate-400">
+                          Sua escola ({school.name}) disputa a <strong>{school.division.toUpperCase()}</strong>. No Grupo de Avaliação, não há repasse de valores fixos, apenas premiações por mérito esportivo para as três primeiras colocadas que sobem para a Série Bronze (R$ 20k, R$ 12k e R$ 6k)!
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              return null;
+            })()}
+
+            {/* Demonstrativo Detalhado do Grupo de Avaliação */}
+            <div className="space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <h4 className="text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
+                    <FileSpreadsheet className="w-4 h-4 text-purple-400" />
+                    <span>Demonstrativo Oficial do Grupo de Avaliação</span>
+                  </h4>
+                  <p className="text-[11px] text-slate-400">
+                    Tabela de premiações de mérito esportivo concedidas às agremiações no Carnaval {selectedLigaYear}.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-mono text-slate-400">
+                    {avaliacaoFinancialReport.length} agremiações auditadas
+                  </span>
+                </div>
+              </div>
+
+              <div className="rounded-2xl border border-slate-800 overflow-hidden shadow-xl bg-slate-950/90">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs border-collapse">
+                    <thead>
+                      <tr className="bg-slate-900 border-b border-slate-800 text-[10px] font-black uppercase tracking-wider text-slate-400">
+                        <th className="py-3 px-3 text-center w-12">Pos.</th>
+                        <th className="py-3 px-4 min-w-[200px]">Escola de Samba</th>
+                        <th className="py-3 px-3 text-right">Repasse Fixo</th>
+                        <th className="py-3 px-3 text-right">Premiação Top 3</th>
+                        <th className="py-3 px-4 text-right min-w-[140px] text-emerald-400">Total Recebido</th>
+                        <th className="py-3 px-3 text-center">Status Oficial</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-800/80 font-mono">
+                      {avaliacaoFinancialReport.map((row) => {
+                        const isUser =
+                          row.escolaId === school.id ||
+                          row.nomeEscola.toLowerCase() === school.name.toLowerCase();
+
+                        const matchedSchool = (allSchools || []).find(
+                          (s) => s.id === row.escolaId || s.name.toLowerCase() === row.nomeEscola.toLowerCase()
+                        );
+
+                        return (
+                          <tr
+                            key={row.escolaId}
+                            className={`transition ${
+                              isUser
+                                ? 'bg-amber-500/10 hover:bg-amber-500/15 ring-1 ring-amber-500/30'
+                                : row.posicao === 1
+                                ? 'bg-amber-500/5 hover:bg-slate-900/80'
+                                : row.posicao === 2
+                                ? 'bg-slate-800/40 hover:bg-slate-900/80'
+                                : row.posicao === 3
+                                ? 'bg-amber-950/20 hover:bg-slate-900/80'
+                                : 'hover:bg-slate-900/60'
+                            }`}
+                          >
+                            {/* Posição */}
+                            <td className="py-3 px-3 text-center">
+                              <span
+                                className={`inline-flex items-center justify-center w-7 h-7 rounded-lg font-black text-xs ${
+                                  row.posicao === 1
+                                    ? 'bg-amber-500 text-slate-950 shadow-md ring-1 ring-amber-300'
+                                    : row.posicao === 2
+                                    ? 'bg-slate-300 text-slate-950'
+                                    : row.posicao === 3
+                                    ? 'bg-amber-700 text-white'
+                                    : row.posicao >= avaliacaoFinancialReport.length - 2
+                                    ? 'bg-rose-950 text-rose-300 border border-rose-800'
+                                    : 'bg-slate-800 text-slate-300'
+                                }`}
+                              >
+                                {row.posicao}º
+                              </span>
+                            </td>
+
+                            {/* Escola de Samba */}
+                            <td className="py-3 px-4 font-sans font-bold text-white">
+                              <div className="flex items-center gap-2.5">
+                                <div
+                                  className="w-3.5 h-3.5 rounded-full border shadow-sm shrink-0"
+                                  style={{
+                                    backgroundColor: matchedSchool?.colors?.primary || '#7c3aed',
+                                    borderColor: matchedSchool?.colors?.secondary || '#ffffff'
+                                  }}
+                                />
+                                <div className="truncate">
+                                  <span className="block truncate text-slate-100 font-bold">
+                                    {cleanSchoolName(row.nomeEscola)}
+                                  </span>
+                                </div>
+                                {isUser && (
+                                  <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-amber-500 text-slate-950 shrink-0">
+                                    SUA ESCOLA
+                                  </span>
+                                )}
+                              </div>
+                            </td>
+
+                            {/* Repasse Fixo */}
+                            <td className="py-3 px-3 text-right text-slate-400 font-normal">
+                              R$ 0
+                            </td>
+
+                            {/* Premiação */}
+                            <td className="py-3 px-3 text-right">
+                              <span className="text-purple-300 font-bold block">
+                                R$ {row.premiacaoClassificacao.toLocaleString('pt-BR')}
+                              </span>
+                              <span className="text-[9px] text-slate-400 block font-sans">
+                                {row.posicao === 1
+                                  ? 'Campeã'
+                                  : row.posicao === 2
+                                  ? 'Vice'
+                                  : row.posicao === 3
+                                  ? '3.º Lugar'
+                                  : '-'}
+                              </span>
+                            </td>
+
+                            {/* Total Recebido */}
+                            <td className="py-3 px-4 text-right">
+                              <span className="text-sm font-black text-emerald-400 block">
+                                R$ {row.totalRecebido.toLocaleString('pt-BR')}
+                              </span>
+                              <span className="text-[9px] text-slate-400 font-normal block font-sans">
+                                {RepassesFinanceirosService.formatCompact(row.totalRecebido)}
+                              </span>
+                            </td>
+
+                            {/* Status Oficial */}
+                            <td className="py-3 px-3 text-center font-sans">
+                              <span
+                                className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                                  row.posicao === 1
+                                    ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                                    : row.posicao === 2
+                                    ? 'bg-slate-700 text-slate-200 border-slate-600'
+                                    : row.posicao === 3
+                                    ? 'bg-amber-900/30 text-amber-300 border-amber-800'
+                                    : row.posicao >= avaliacaoFinancialReport.length - 2
+                                    ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+                                    : 'bg-slate-800 text-slate-300 border-slate-700'
+                                }`}
+                              >
+                                {row.posicao === 1
+                                  ? 'Campeã (Acesso à Bronze)'
+                                  : row.posicao === 2
+                                  ? 'Vice (Acesso à Bronze)'
+                                  : row.posicao === 3
+                                  ? '3.º Lugar (Acesso à Bronze)'
+                                  : row.posicao >= avaliacaoFinancialReport.length - 2
+                                  ? 'Afastada por 1 ano'
+                                  : 'Permanência na Avaliação'}
+                              </span>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+
+                    {/* Footer Totals */}
+                    <tfoot className="bg-slate-900 border-t-2 border-slate-700 font-mono font-bold text-slate-200 text-xs">
+                      <tr>
+                        <td colSpan={2} className="py-3.5 px-4 font-sans font-black uppercase tracking-wider text-white">
+                          Totais do Grupo de Avaliação ({avaliacaoFinancialReport.length} escolas):
+                        </td>
+                        <td className="py-3.5 px-3 text-right text-slate-400">
+                          R$ 0
+                        </td>
+                        <td className="py-3.5 px-3 text-right text-purple-300 font-black">
+                          R$ {(avaliacaoFinancialReport.reduce((a, b) => a + b.premiacaoClassificacao, 0)).toLocaleString('pt-BR')}
+                        </td>
+                        <td className="py-3.5 px-4 text-right text-base font-black text-emerald-400">
+                          R$ {(avaliacaoFinancialReport.reduce((a, b) => a + b.totalRecebido, 0)).toLocaleString('pt-BR')}
+                        </td>
+                        <td className="py-3.5 px-3 text-center text-[10px] text-slate-400 font-sans">
+                          100% Repassado
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            {/* Regulamento do Grupo de Avaliação */}
+            <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 text-[11px] text-slate-300 space-y-1.5">
+              <div className="font-bold text-purple-400 flex items-center gap-1.5 uppercase tracking-wide">
+                <Info className="w-4 h-4" />
+                <span>Regulamento Financeiro do Grupo de Avaliação:</span>
+              </div>
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-1 text-slate-400 list-disc list-inside">
+                <li>
+                  <strong>Sem Repasses Fixos:</strong> Não há repasse de quotas ou valores fixos para as agremiações no Grupo de Avaliação.
+                </li>
+                <li className="text-purple-300 font-medium">
+                  <strong>Premiação de Mérito Esportivo:</strong> 1.º Lugar (Campeã): <strong>R$ 20.000</strong> | 2.º Lugar (Vice): <strong>R$ 12.000</strong> | 3.º Lugar: <strong>R$ 6.000</strong>. Todas garantem vaga na Série Bronze do próximo Carnaval!
+                </li>
+              </ul>
+            </div>
+          </div>
+        )}
+      </div>
       {(() => {
         const userSlot = sorteio?.divisions?.[school.division]?.slots.find((s) => s.schoolId === school.id);
         const logistics = LogisticsService.calculateSchoolLogistics(school, userSlot);

@@ -1086,7 +1086,7 @@ export default function App() {
         id: `news_${nextSeasonData.nextYear}`,
         year: nextSeasonData.nextYear,
         title: `Temporada do Carnaval ${nextSeasonData.nextYear} Iniciada!`,
-        body: `${nextSeasonData.summary.especialChampionName} defende o título do Especial! ${nextSeasonData.summary.ouroChampionName} subiu para a elite. Na Série Prata, ${nextSeasonData.summary.prataChampionName} sagrou-se campeã! Na Série Bronze, ${nextSeasonData.summary.bronzeChampionName} subiu de divisão. No Grupo de Avaliação, ${nextSeasonData.summary.avaliacaoChampionName || 'a campeã'} garantiu o acesso!${ingressantesInfo}`,
+        body: `${nextSeasonData.summary.especialChampionName} defende o título do Especial! ${nextSeasonData.summary.ouroChampionName} subiu para a elite. Na Série Prata, ${nextSeasonData.summary.prataChampionName} sagrou-se campeã! Na Série Bronze, ${nextSeasonData.summary.bronzeChampionName} subiu de divisão. No Grupo de Avaliação, ${nextSeasonData.summary.avaliacaoChampionName || 'a campeã'} garantiu o acesso!${ingressantesInfo} Demonstrativo contábil e repasses da LIGA (${nextSeasonData.nextYear - 1}) homologados em Finanças!`,
         type: 'success',
         date: 'Agora'
       };
@@ -1094,7 +1094,7 @@ export default function App() {
 
       setActiveTab('dashboard');
       showToast(
-        `Carnaval ${nextSeasonData.nextYear} iniciado! Agremiações rebaixadas e promovidas foram transferidas de divisão!`,
+        `Carnaval ${nextSeasonData.nextYear} iniciado! Repasses e demonstrativo oficial da LIGA disponíveis em Finanças!`,
         'success'
       );
     } catch (err) {
@@ -1616,6 +1616,7 @@ export default function App() {
         {activeTab === 'financas' && userSchool && (
           <FinancasView
             school={userSchool}
+            allSchools={schools}
             currentYear={currentYear}
             currentSeasonMonth={currentSeasonMonth}
             history={history}

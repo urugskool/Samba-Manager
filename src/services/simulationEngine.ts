@@ -15,6 +15,8 @@ import { EnredoService } from './enredoService';
 import { LogisticsService, SchoolLogisticsReport } from './logisticsService';
 import { CarnavalSorteio, SorteioSlot, CarnavalQuesitosDrawState } from '../types/sorteio';
 import { SorteioEngine } from './sorteioEngine';
+import { LigaFinancialService } from './ligaFinancialService';
+import { RepassesFinanceirosService } from './repassesFinanceirosService';
 
 // Reverse order of quesitos for tiebreaking as required by user prompt:
 // "Em caso de empate o desempate ocorrerá pela soma maior no último quesito e assim sucessivamente"
@@ -742,7 +744,7 @@ export class SimulationEngine {
 
       if (item.rank === 1) {
         sch.championshipsEspecial = (sch.championshipsEspecial || 0) + 1;
-        sch.budget += 1500000; // Champion prize
+        // Premiação financeira da campeã (R$ 4.4M classificação + R$ 5.72M Campeãs) é repassada integralmente via LigaFinancialService
         sch.fanBaseMorale = Math.min(100, sch.fanBaseMorale + 10);
         sch.honors.inGameAchievements.push({
           year: currentYear,
@@ -800,7 +802,7 @@ export class SimulationEngine {
 
       if (item.rank === 1) {
         sch.championshipsOuro = (sch.championshipsOuro || 0) + 1;
-        sch.budget += 800000; // Promotion prize
+        // Premiação financeira da campeã da Série Ouro (R$ 2.000.000) e base fixa (R$ 1.8M) repassados via RepassesFinanceirosService
         sch.fanBaseMorale = Math.min(100, sch.fanBaseMorale + 12);
         sch.honors.inGameAchievements.push({
           year: currentYear,
@@ -1217,20 +1219,114 @@ export class SimulationEngine {
     const nextBronzeCount = currentBronzeCount + prataRelegatedCount - bronzePromotedCount - bronzeRelegatedCount + avaliacaoPromotedCount;
     const nextAvaliacaoCount = activeAvaliacaoAfterMovements + reactivatedSchoolNames.length + newSchoolNames.length;
 
+    // Compute standings summary for history and Liga financial distribution
+    const espStandings = espRanked.map(r => ({
+      rank: r.rank,
+      schoolId: r.school.id,
+      schoolName: cleanSchoolName(r.school),
+      totalScore: r.currentScore
+    }));
+
+    const ouroStandings = ouroRanked.map(r => ({
+      rank: r.rank,
+      schoolId: r.school.id,
+      schoolName: cleanSchoolName(r.school),
+      totalScore: r.currentScore
+    }));
+
+    const prataStandings = prataRanked.map(r => ({
+      rank: r.rank,
+      schoolId: r.school.id,
+      schoolName: cleanSchoolName(r.school),
+      totalScore: r.currentScore
+    }));
+
+    const bronzeStandings = bronzeRanked.map(r => ({
+      rank: r.rank,
+      schoolId: r.school.id,
+      schoolName: cleanSchoolName(r.school),
+      totalScore: r.currentScore
+    }));
+
+    const avaliacaoStandings = avaliacaoRanked.map(r => ({
+      rank: r.rank,
+      schoolId: r.school.id,
+      schoolName: cleanSchoolName(r.school),
+      totalScore: r.currentScore
+    }));
+
+    // Calculate official LIGA financial report for Grupo Especial
+    const espLigaReport = LigaFinancialService.calculateSeasonFinancials(currentYear, espStandings, allSchools);
+
+    // Calculate official repasses for Série Ouro (Base fixa R$ 1.8M + Premiação de Classificação e rateio R$ 800k)
+    const ouroExtratos = RepassesFinanceirosService.calcularRepassesSerieOuro(
+      ouroStandings.map((s) => ({ escolaId: s.schoolId, nomeEscola: s.schoolName, posicao: s.rank }))
+    );
+
+    // Calculate official repasses for Série Prata (R$ 1.5M dividido igualmente + R$ 80k TV + Premiações Top 3)
+    const prataExtratos = RepassesFinanceirosService.calcularRepassesSeriePrata(
+      prataStandings.map((s) => ({ escolaId: s.schoolId, nomeEscola: s.schoolName, posicao: s.rank }))
+    );
+
+    // Calculate official repasses for Série Bronze (R$ 80k para todas + Premiações Top 3)
+    const bronzeExtratos = RepassesFinanceirosService.calcularRepassesSerieBronze(
+      bronzeStandings.map((s) => ({ escolaId: s.schoolId, nomeEscola: s.schoolName, posicao: s.rank }))
+    );
+
+    // Calculate official repasses for Grupo de Avaliação (R$ 0 repasse fixo + Premiações Top 3)
+    const avaliacaoExtratos = RepassesFinanceirosService.calcularRepassesGrupoAvaliacao(
+      avaliacaoStandings.map((s) => ({ escolaId: s.schoolId, nomeEscola: s.schoolName, posicao: s.rank }))
+    );
+
     // Reset parade flags, update attributes, sync consolidated stats and assign 100% unique, diverse enredos
     const usedEnredoTitlesThisSeason = new Set<string>();
     const updatedSchools: School[] = Array.from(schoolMap.values()).map((s) => {
       const isInactive = Boolean(s.isInactive || s.inactive);
 
-      // Annual revenue from Liga + TV cotas
-      let tvRevenue = 160000;
+      // Annual revenue from Liga + TV cotas + Premiações
+      let tvRevenue = 0;
+      const ligaPayout = LigaFinancialService.getSchoolPayout(espLigaReport, s.id);
+      const ouroPayout = ouroExtratos.find(
+        (ext) => ext.escolaId === s.id || ext.nomeEscola.toLowerCase() === s.name.toLowerCase()
+      );
+      const prataPayout = prataExtratos.find(
+        (ext) => ext.escolaId === s.id || ext.nomeEscola.toLowerCase() === s.name.toLowerCase()
+      );
+      const bronzePayout = bronzeExtratos.find(
+        (ext) => ext.escolaId === s.id || ext.nomeEscola.toLowerCase() === s.name.toLowerCase()
+      );
+      const avaliacaoPayout = avaliacaoExtratos.find(
+        (ext) => ext.escolaId === s.id || ext.nomeEscola.toLowerCase() === s.name.toLowerCase()
+      );
+
       if (isInactive) {
         tvRevenue = 0;
-      } else if (s.division === 'especial') tvRevenue = 1400000;
-      else if (s.division === 'ouro') tvRevenue = 750000;
-      else if (s.division === 'prata') tvRevenue = 450000;
-      else if (s.division === 'bronze') tvRevenue = 280000;
-      else if (s.division === 'avaliacao') tvRevenue = 160000;
+      } else if (ligaPayout) {
+        // Valor total apurado e homologado pela LIGA para as 12 escolas do Grupo Especial (R$ 18.3M a R$ 28.12M)
+        tvRevenue = ligaPayout.totalPayout;
+      } else if (ouroPayout) {
+        // Valor total apurado e homologado para as escolas da Série Ouro (Base fixa R$ 1.8M + Premiação de Classificação)
+        tvRevenue = ouroPayout.totalRecebido;
+      } else if (prataPayout) {
+        // Valor total apurado para Série Prata (R$ 1.5M/N + R$ 80k TV + Premiações Top 3)
+        tvRevenue = prataPayout.totalRecebido;
+      } else if (bronzePayout) {
+        // Valor total apurado para Série Bronze (R$ 80k + Premiações Top 3)
+        tvRevenue = bronzePayout.totalRecebido;
+      } else if (avaliacaoPayout) {
+        // Valor total apurado para Grupo de Avaliação (R$ 0 repasse fixo + Premiações Top 3)
+        tvRevenue = avaliacaoPayout.totalRecebido;
+      } else if (s.division === 'especial') {
+        tvRevenue = 18300000;
+      } else if (s.division === 'ouro') {
+        tvRevenue = 1800000;
+      } else if (s.division === 'prata') {
+        tvRevenue = Math.round(1500000 / Math.max(1, prataStandings.length)) + 80000;
+      } else if (s.division === 'bronze') {
+        tvRevenue = 80000;
+      } else if (s.division === 'avaliacao') {
+        tvRevenue = 0;
+      }
 
       // Staff expenses
       const staffTotalSalary = isInactive ? 0 : Object.values(s.staff).reduce((acc, member) => acc + member.salary, 0);
@@ -1292,42 +1388,6 @@ export class SimulationEngine {
       };
     });
 
-    // Compute standings summary for history
-    const espStandings = espRanked.map(r => ({
-      rank: r.rank,
-      schoolId: r.school.id,
-      schoolName: cleanSchoolName(r.school),
-      totalScore: r.currentScore
-    }));
-
-    const ouroStandings = ouroRanked.map(r => ({
-      rank: r.rank,
-      schoolId: r.school.id,
-      schoolName: cleanSchoolName(r.school),
-      totalScore: r.currentScore
-    }));
-
-    const prataStandings = prataRanked.map(r => ({
-      rank: r.rank,
-      schoolId: r.school.id,
-      schoolName: cleanSchoolName(r.school),
-      totalScore: r.currentScore
-    }));
-
-    const bronzeStandings = bronzeRanked.map(r => ({
-      rank: r.rank,
-      schoolId: r.school.id,
-      schoolName: cleanSchoolName(r.school),
-      totalScore: r.currentScore
-    }));
-
-    const avaliacaoStandings = avaliacaoRanked.map(r => ({
-      rank: r.rank,
-      schoolId: r.school.id,
-      schoolName: cleanSchoolName(r.school),
-      totalScore: r.currentScore
-    }));
-
     const historyRecord: YearHistory = {
       year: currentYear,
       especialChampion: cleanSchoolName(espRanked[0]?.school) || 'Desconhecida',
@@ -1351,7 +1411,11 @@ export class SimulationEngine {
       avaliacaoStandings: avaliacaoStandings,
       reactivatedSchools: reactivatedSchoolNames.map(n => cleanSchoolName(n)),
       newSchoolsCreated: newSchoolNames.map(n => cleanSchoolName(n)),
-      newSchools: newSchoolNames.map(n => cleanSchoolName(n))
+      ligaFinancialReport: espLigaReport,
+      ouroFinancialReport: ouroExtratos,
+      prataFinancialReport: prataExtratos,
+      bronzeFinancialReport: bronzeExtratos,
+      avaliacaoFinancialReport: avaliacaoExtratos
     };
 
     return {

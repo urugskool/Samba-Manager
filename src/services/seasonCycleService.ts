@@ -1,6 +1,7 @@
 import { SeasonMonthId, SeasonPeriodConfig } from '../types/seasonCycle';
 import { School } from '../types/carnaval';
 import { LogisticsService } from './logisticsService';
+import { RepassesFinanceirosService, DivisaoCarnaval, ExtratoFinanceiroEscola } from './repassesFinanceirosService';
 
 export const SEASON_PERIODS: SeasonPeriodConfig[] = [
   {
@@ -362,4 +363,40 @@ export class SeasonCycleService {
       rehearsalDelta
     };
   }
+
+  /**
+   * Processamento financeiro pós-carnaval / virada de ano
+   * Identifica a divisão da escola e credita o totalRecebido
+   */
+  public static processarRepassesPosCarnaval(
+    escola: School,
+    classificacaoFinal: { escolaId: string; nomeEscola: string; posicao: number }[],
+    divisao: DivisaoCarnaval
+  ): { repasse: ExtratoFinanceiroEscola | undefined; novoOrcamento: number } {
+    let repasse: ExtratoFinanceiroEscola | undefined;
+
+    if (divisao === 'OURO') {
+      const extratos = RepassesFinanceirosService.calcularRepassesSerieOuro(classificacaoFinal);
+      repasse = extratos.find((ext) => ext.escolaId === escola.id);
+    } else if (divisao === 'ESPECIAL') {
+      const extratos = RepassesFinanceirosService.calcularRepassesGrupoEspecial(classificacaoFinal);
+      repasse = extratos.find((ext) => ext.escolaId === escola.id);
+    } else if (divisao === 'PRATA') {
+      const extratos = RepassesFinanceirosService.calcularRepassesSeriePrata(classificacaoFinal);
+      repasse = extratos.find((ext) => ext.escolaId === escola.id);
+    } else if (divisao === 'BRONZE') {
+      const extratos = RepassesFinanceirosService.calcularRepassesSerieBronze(classificacaoFinal);
+      repasse = extratos.find((ext) => ext.escolaId === escola.id);
+    } else {
+      const extratos = RepassesFinanceirosService.calcularRepassesGrupoAvaliacao(classificacaoFinal);
+      repasse = extratos.find((ext) => ext.escolaId === escola.id);
+    }
+
+    const valorRecebido = repasse?.totalRecebido || 0;
+    return {
+      repasse,
+      novoOrcamento: escola.budget + valorRecebido
+    };
+  }
 }
+

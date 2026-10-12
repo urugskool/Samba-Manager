@@ -373,6 +373,11 @@ export interface YearHistory {
   reactivatedSchools?: string[];
   newSchoolsCreated?: string[];
   newSchools?: string[];
+  ligaFinancialReport?: any;
+  ouroFinancialReport?: any;
+  prataFinancialReport?: any;
+  bronzeFinancialReport?: any;
+  avaliacaoFinancialReport?: any;
 }
 
 export interface NewsItem {
