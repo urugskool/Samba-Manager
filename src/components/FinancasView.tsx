@@ -57,12 +57,19 @@ import {
   RateioFundo800kLinha,
   DivisaoCarnaval
 } from '../services/repassesFinanceirosService';
+import { ResumoFinanceiroEscola, SaudeFinanceira, ItemDRE } from '../types/financasFM';
+import { FinancasFMService } from '../services/financasFMService';
 
 export type RepasseDivisionTab = 'especial' | 'ouro' | 'prata' | 'bronze' | 'avaliacao';
 
-interface FinancasViewProps {
+export interface FinancasViewProps {
+  // Football Manager style props (optional compatibility)
+  escolaAtualId?: string;
+  todasEscolas?: ResumoFinanceiroEscola[];
+
+  // App.tsx simulation state props
   school: School;
-  allSchools?: School[];
+  allSchools: School[];
   currentYear?: number;
   currentSeasonMonth?: SeasonMonthId;
   history?: YearHistory[];
