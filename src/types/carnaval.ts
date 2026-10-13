@@ -185,6 +185,8 @@ export interface ConsolidatedSchoolStats {
   allAvaliacaoRunnerUpYears: TitleYearEntry[];
   allGrupoEYears?: TitleYearEntry[];
   allGrupoERunnerUpYears?: TitleYearEntry[];
+  totalEspecialRelegations?: number;
+  allEspecialRelegationYears?: number[];
   achievements: InGameAchievement[];
 }
 
@@ -193,6 +195,8 @@ export interface SchoolHonors {
   historicalEspecialYears?: number[];
   historicalEspecialRunnerUps: number;
   historicalEspecialRunnerUpYears?: number[];
+  historicalEspecialRelegations?: number;
+  historicalEspecialRelegationYears?: number[];
   historicalOuroTitles: number;
   historicalOuroYears?: number[];
   historicalOuroRunnerUps: number;
@@ -285,6 +289,10 @@ export interface School {
   runnerUpsBronze?: number;
   runnerUpsAvaliacao?: number;
   runnerUpsGrupoE?: number;
+  relegationsEspecial?: number;
+  especialRelegationYears?: number[];
+  rebaixamentosEspecial?: number;
+  rebaixamentosEspecialAnos?: number[];
   isInactive?: boolean;
   inactive?: boolean;
   inactiveYearsCount?: number;

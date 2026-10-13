@@ -214,6 +214,46 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
         </span>
       );
     }
+    if (year === 1995 && (rank === 17 || rank === 18)) {
+      // Em 1995 duas escolas foram rebaixadas (São Clemente 17º e Villa Rica 18º)
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs">
+          {rank}º (Rebaixada)
+        </span>
+      );
+    }
+    if (year === 1996 && rank >= 15 && rank <= 18) {
+      // Em 1996 quatro escolas foram rebaixadas (Caprichosos 15º, Tradição 16º, Império da Tijuca 17º e Unidos da Ponte 18º)
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs">
+          {rank}º (Rebaixada)
+        </span>
+      );
+    }
+    if (year === 1997 && rank >= 13 && rank <= 16) {
+      // Em 1997 quatro escolas foram rebaixadas (Estácio 13º, Santa Cruz 14º, Império Serrano 15º e Rocinha 16º)
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs">
+          {rank}º (Rebaixada)
+        </span>
+      );
+    }
+    if (year === 1998 && (rank === 13 || rank === 14)) {
+      // Em 1998 duas escolas foram rebaixadas (Unidos da Tijuca 13º e Porto da Pedra 14º)
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs">
+          {rank}º (Rebaixada)
+        </span>
+      );
+    }
+    if (year === 1999 && (rank === 13 || rank === 14)) {
+      // Em 1999 duas escolas foram rebaixadas (Império Serrano 13º e São Clemente 14º)
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs">
+          {rank}º (Rebaixada)
+        </span>
+      );
+    }
     if (year === 2000 && (rank === 13 || rank === 14)) {
       // Em 2000 duas escolas foram rebaixadas (Vila Isabel 13º e Porto da Pedra 14º)
       return (
@@ -414,7 +454,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
               }`}
             >
               <Trophy className="w-3.5 h-3.5" />
-              <span>Carnavais Passados (2000-2026)</span>
+              <span>Carnavais Passados (1995-2026)</span>
             </button>
           </div>
 
@@ -634,7 +674,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                 <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                 <div>
                   <span className="font-bold text-amber-300">Classificação Histórica Oficial da LIESA:</span>{' '}
-                  Atribui 20 pontos por título e 15 pontos por vice-campeonato na história do Grupo Especial, somados às colocações completas de 1º a 10º lugar para todos os carnavais catalogados com apuração completa (de 2000 em diante). Clique em qualquer agremiação para ver o histórico ano a ano.
+                  Atribui 20 pontos por título e 15 pontos por vice-campeonato na história do Grupo Especial, somados às colocações completas de 1º a 10º lugar para todos os carnavais catalogados com apuração completa (a partir de 1995). Clique em qualquer agremiação para ver o histórico ano a ano.
                 </div>
               </div>
 
@@ -655,7 +695,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                       <th className="py-3 px-3.5">Escola de Samba</th>
                       <th className="py-3 px-3 text-center text-amber-400 font-bold">Títulos Especial (20p)</th>
                       <th className="py-3 px-3 text-center text-slate-300 font-bold">Vices Especial (15p)</th>
-                      <th className="py-3 px-3 text-center text-blue-400 font-bold">Era 2000+ (Top 10)</th>
+                      <th className="py-3 px-3 text-center text-blue-400 font-bold">Era 1995+ (Top 10)</th>
                       <th className="py-3 px-4 text-right font-black text-amber-400 text-xs">
                         TOTAL PONTOS HISTÓRICOS
                       </th>
@@ -754,7 +794,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                         <span>Desempenho Histórico Detalhado: {entry.schoolName}</span>
                                       </h4>
                                       <p className="text-[11px] text-slate-400">
-                                        {entry.totalEspecialTitles} Título(s) ({entry.totalEspecialTitles * 20}p) · {entry.totalEspecialVices} Vice(s) ({entry.totalEspecialVices * 15}p) · Era 2000+: {entry.pointsDetailedEra} pts
+                                        {entry.totalEspecialTitles} Título(s) ({entry.totalEspecialTitles * 20}p) · {entry.totalEspecialVices} Vice(s) ({entry.totalEspecialVices * 15}p) · Era 1995+: {entry.pointsDetailedEra} pts
                                       </p>
                                     </div>
                                     {onSelectSchool && entry.school && (
@@ -774,7 +814,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
 
                                   <div>
                                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-2">
-                                      Carnavais Catalogados na Era Moderna (2000 em diante):
+                                      Carnavais Catalogados na Era Moderna (1995 em diante):
                                     </span>
                                     <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2">
                                       {historicalCarnavals.map((c) => {
@@ -891,6 +931,8 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                     const is2021 = carnaval.year === 2021;
                     const is2017 = carnaval.year === 2017;
                     const is2018 = carnaval.year === 2018;
+                    const is2011 = carnaval.year === 2011;
+                    const is1998 = carnaval.year === 1998;
 
                     return (
                       <button
@@ -908,6 +950,16 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                         {is2021 && (
                           <span className="text-[9px] px-1 py-0.2 rounded bg-slate-800 text-slate-400 border border-slate-700">
                             Sem Desfile
+                          </span>
+                        )}
+                        {is1998 && (
+                          <span className="text-[9px] px-1 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                            2 Campeãs
+                          </span>
+                        )}
+                        {is2011 && (
+                          <span className="text-[9px] px-1 py-0.2 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">
+                            Sem Rebaixamento
                           </span>
                         )}
                         {is2017 && (

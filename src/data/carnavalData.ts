@@ -183,15 +183,30 @@ export const AVAILABLE_STAFF_MARKET: StaffMember[] = [
   { id: 'st_h3', name: 'Jorge Silveira', role: 'harmonia', roleName: 'Diretor de Harmonia', rating: 88, salary: 70000, reputation: 'Evolução Disciplinada' }
 ];
 
+export interface HistoricalPlacement1995_1999 {
+  year: number;
+  rank: number;
+  division: 'especial' | 'ouro';
+  status: 'campea' | 'vice' | 'rebaixada' | 'participante' | 'acesso';
+  titleName?: string;
+  notes?: string;
+}
+
 export interface SchoolHistoryRecord {
   championshipsEspecial: number;
   runnerUpsEspecial: number;
   especialYears?: number[];
   especialRunnerUpYears?: number[];
+  relegationsEspecial?: number;
+  especialRelegationYears?: number[];
+  rebaixamentosEspecial?: number;
+  rebaixamentosEspecialAnos?: number[];
   championshipsOuro: number;
   runnerUpsOuro: number;
   ouroYears?: number[];
   ouroRunnerUpYears?: number[];
+  relegationsOuro?: number;
+  ouroRelegationYears?: number[];
   championshipsPrata?: number;
   runnerUpsPrata?: number;
   prataYears?: number[];
@@ -204,6 +219,7 @@ export interface SchoolHistoryRecord {
   runnerUpsAvaliacao?: number;
   avaliacaoYears?: number[];
   avaliacaoRunnerUpYears?: number[];
+  detailedResults1995_1999?: Record<number, HistoricalPlacement1995_1999>;
 }
 
 export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = {
@@ -2471,6 +2487,259 @@ Object.entries(OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL).forEach(([schoolId, rec]) => 
       grupoERunnerUpYears: rec.runnerUpYears
     } as any;
   }
+});
+
+// ============================================================================
+// RESULTADOS HISTÓRICOS OFICIAIS DOS CARNAVAIS DE 1995 A 1999 (LIESA)
+// ============================================================================
+export const HISTORICAL_CARNAVAL_RESULTS_1995_1999 = {
+  1995: {
+    champion: 'Imperatriz Leopoldinense',
+    runnerUp: 'Portela',
+    third: 'Beija-Flor',
+    relegated: ['São Clemente', 'Unidos da Villa Rica'],
+    notes: 'Imperatriz Leopoldinense sagrou-se bicampeã com Rosa Magalhães ("Mais Vale um Jegue que Me Carregue..."). Portela vice-campeã com "Gosto que Me Enrosco". São Clemente e Unidos da Villa Rica rebaixadas.',
+    standings: [
+      { rank: 1, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'campea' },
+      { rank: 2, schoolId: 'portela', schoolName: 'Portela', status: 'vice' },
+      { rank: 3, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'participante' },
+      { rank: 4, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 5, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 6, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 7, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', status: 'participante' },
+      { rank: 8, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro', status: 'participante' },
+      { rank: 9, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 10, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', status: 'participante' },
+      { rank: 11, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 12, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 13, schoolId: 'tradicao', schoolName: 'Tradição', status: 'participante' },
+      { rank: 14, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte', status: 'participante' },
+      { rank: 15, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'participante' },
+      { rank: 16, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio', status: 'participante' },
+      { rank: 17, schoolId: 'sao_clemente', schoolName: 'São Clemente', status: 'rebaixada' },
+      { rank: 18, schoolId: 'villa_rica', schoolName: 'Unidos da Villa Rica', status: 'rebaixada' }
+    ]
+  },
+  1996: {
+    champion: 'Mocidade Independente de Padre Miguel',
+    runnerUp: 'Imperatriz Leopoldinense',
+    third: 'Beija-Flor',
+    relegated: ['Caprichosos de Pilares', 'Tradição', 'Império da Tijuca', 'Unidos da Ponte'],
+    notes: 'Mocidade Independente campeã com "Criador e Criatura" de Renato Lage. Imperatriz vice-campeã. Quatro agremiações rebaixadas: Caprichosos de Pilares, Tradição, Império da Tijuca e Unidos da Ponte.',
+    standings: [
+      { rank: 1, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'campea' },
+      { rank: 2, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'vice' },
+      { rank: 3, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'participante' },
+      { rank: 4, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 5, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 6, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'participante' },
+      { rank: 7, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 8, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 9, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra', status: 'participante' },
+      { rank: 10, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', status: 'participante' },
+      { rank: 11, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio', status: 'participante' },
+      { rank: 12, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 13, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro', status: 'participante' },
+      { rank: 14, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 15, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', status: 'rebaixada' },
+      { rank: 16, schoolId: 'tradicao', schoolName: 'Tradição', status: 'rebaixada' },
+      { rank: 17, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', status: 'rebaixada' },
+      { rank: 18, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte', status: 'rebaixada' }
+    ]
+  },
+  1997: {
+    champion: 'Unidos do Viradouro',
+    runnerUp: 'Mocidade Independente de Padre Miguel',
+    third: 'Estação Primeira de Mangueira',
+    relegated: ['Estácio de Sá', 'Acadêmicos de Santa Cruz', 'Império Serrano', 'Acadêmicos da Rocinha'],
+    notes: 'Unidos do Viradouro conquista seu primeiro campeonato sob comando de Joãosinho Trinta ("Trevas! Luz! A Explosão do Universo"). Mocidade vice-campeã. Quatro agremiações rebaixadas: Estácio de Sá, Acadêmicos de Santa Cruz, Império Serrano e Acadêmicos da Rocinha.',
+    standings: [
+      { rank: 1, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro', status: 'campea' },
+      { rank: 2, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'vice' },
+      { rank: 3, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 4, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'participante' },
+      { rank: 5, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra', status: 'participante' },
+      { rank: 6, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'participante' },
+      { rank: 7, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 8, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 9, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 10, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio', status: 'participante' },
+      { rank: 11, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 12, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 13, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', status: 'rebaixada' },
+      { rank: 14, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz', status: 'rebaixada' },
+      { rank: 15, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'rebaixada' },
+      { rank: 16, schoolId: 'rocinha', schoolName: 'Acadêmicos da Rocinha', status: 'rebaixada' }
+    ]
+  },
+  1998: {
+    champion: 'Beija-Flor & Estação Primeira de Mangueira',
+    champions: ['Beija-Flor', 'Estação Primeira de Mangueira'],
+    runnerUp: 'Nenhum (duas campeãs)',
+    third: 'Imperatriz Leopoldinense',
+    relegated: ['Unidos da Tijuca', 'Unidos do Porto da Pedra'],
+    notes: 'Histórico empate no campeonato: Beija-Flor ("Pará: O Mundo das Águas...") e Estação Primeira de Mangueira ("Chico Buarque da Mangueira") dividem o título oficial. Unidos da Tijuca e Porto da Pedra rebaixadas.',
+    standings: [
+      { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'campea' },
+      { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'campea' },
+      { rank: 3, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'participante' },
+      { rank: 4, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 5, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro', status: 'participante' },
+      { rank: 6, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 7, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 8, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio', status: 'participante' },
+      { rank: 9, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 10, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', status: 'participante' },
+      { rank: 11, schoolId: 'tradicao', schoolName: 'Tradição', status: 'participante' },
+      { rank: 12, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 13, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'rebaixada' },
+      { rank: 14, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra', status: 'rebaixada' }
+    ]
+  },
+  1999: {
+    champion: 'Imperatriz Leopoldinense',
+    runnerUp: 'Beija-Flor',
+    third: 'Unidos do Viradouro',
+    relegated: ['Império Serrano', 'São Clemente'],
+    notes: 'Imperatriz Leopoldinense campeã com "Brasil, Mostra a Sua Cara em... Caviar". Beija-Flor vice-campeã com "Araxá". Império Serrano e São Clemente rebaixadas.',
+    standings: [
+      { rank: 1, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'campea' },
+      { rank: 2, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'vice' },
+      { rank: 3, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro', status: 'participante' },
+      { rank: 4, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 5, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 6, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio', status: 'participante' },
+      { rank: 7, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 8, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 9, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', status: 'participante' },
+      { rank: 10, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 11, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 12, schoolId: 'tradicao', schoolName: 'Tradição', status: 'participante' },
+      { rank: 13, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'rebaixada' },
+      { rank: 14, schoolId: 'sao_clemente', schoolName: 'São Clemente', status: 'rebaixada' }
+    ]
+  }
+} as const;
+
+// Catálogo consolidado de rebaixamentos históricos oficiais do Grupo Especial por agremiação
+export const OFFICIAL_HISTORICAL_ESPECIAL_RELEGATIONS_BY_SCHOOL: Record<string, number[]> = {
+  imperio_serrano: [1997, 1999, 2007, 2009, 2019],
+  sao_clemente: [1991, 1993, 1995, 1999, 2002, 2004, 2008, 2022],
+  tijuca: [1986, 1998],
+  porto_da_pedra: [1998, 2000, 2012, 2024],
+  estacio_de_sa: [1997, 2007, 2016, 2020],
+  santa_cruz: [1985, 1990, 1997, 2003],
+  caprichosos_de_pilares: [1996, 2006],
+  tradicao: [1996, 2005],
+  imperio_da_tijuca: [1971, 1977, 1982, 1984, 1996, 2014],
+  unidos_da_ponte: [1986, 1989, 1996],
+  rocinha: [1997, 2002, 2006],
+  villa_rica: [1995],
+  imperatriz: [2019],
+  uniao_da_ilha: [2001, 2020],
+  vila_isabel: [2000],
+  viradouro: [2010, 2015],
+  grande_rio: [1991],
+  tuiuti: [2001],
+  renascer_jacarepagua: [2012],
+  niteroi: [2026]
+};
+
+// 1. Inicializa todos os registros em HISTORICAL_CARNAVAL_RECORDS com estruturas de rebaixamento e detailedResults1995_1999
+Object.keys(HISTORICAL_CARNAVAL_RECORDS).forEach((schoolId) => {
+  const rec = HISTORICAL_CARNAVAL_RECORDS[schoolId];
+  if (!rec.detailedResults1995_1999) {
+    rec.detailedResults1995_1999 = {};
+  }
+  const histRelegations = OFFICIAL_HISTORICAL_ESPECIAL_RELEGATIONS_BY_SCHOOL[schoolId] || [];
+  rec.especialRelegationYears = Array.from(new Set([...(rec.especialRelegationYears || []), ...histRelegations])).sort((a, b) => a - b);
+  rec.relegationsEspecial = rec.especialRelegationYears.length;
+  rec.rebaixamentosEspecial = rec.relegationsEspecial;
+  rec.rebaixamentosEspecialAnos = [...rec.especialRelegationYears];
+});
+
+// 2. Sincroniza detalhadamente os resultados de 1995 a 1999 (títulos, vices, rebaixamentos e colocações) no HISTORICAL_CARNAVAL_RECORDS
+Object.entries(HISTORICAL_CARNAVAL_RESULTS_1995_1999).forEach(([yrStr, edition]) => {
+  const year = parseInt(yrStr, 10);
+  edition.standings.forEach((st) => {
+    const schoolId = st.schoolId;
+    if (!HISTORICAL_CARNAVAL_RECORDS[schoolId]) {
+      HISTORICAL_CARNAVAL_RECORDS[schoolId] = {
+        championshipsEspecial: 0,
+        runnerUpsEspecial: 0,
+        especialYears: [],
+        especialRunnerUpYears: [],
+        relegationsEspecial: 0,
+        especialRelegationYears: [],
+        rebaixamentosEspecial: 0,
+        rebaixamentosEspecialAnos: [],
+        championshipsOuro: 0,
+        runnerUpsOuro: 0,
+        ouroYears: [],
+        ouroRunnerUpYears: [],
+        championshipsPrata: 0,
+        prataYears: [],
+        runnerUpsPrata: 0,
+        prataRunnerUpYears: [],
+        championshipsBronze: 0,
+        runnerUpsBronze: 0,
+        bronzeYears: [],
+        bronzeRunnerUpYears: [],
+        detailedResults1995_1999: {}
+      };
+    }
+    const rec = HISTORICAL_CARNAVAL_RECORDS[schoolId];
+    if (!rec.detailedResults1995_1999) {
+      rec.detailedResults1995_1999 = {};
+    }
+
+    rec.detailedResults1995_1999[year] = {
+      year,
+      rank: st.rank,
+      division: 'especial',
+      status: st.status as any,
+      titleName: `${st.rank}º Lugar no Grupo Especial ${year}`,
+      notes: st.status === 'campea'
+        ? `Campeã do Grupo Especial de ${year}`
+        : st.status === 'vice'
+        ? `Vice-Campeã do Grupo Especial de ${year}`
+        : st.status === 'rebaixada'
+        ? `Rebaixada para a Série Ouro (Grupo A) em ${year}`
+        : `${st.rank}º Colocada no Grupo Especial de ${year}`
+    };
+
+    // Título no Grupo Especial
+    if (st.status === 'campea') {
+      if (!rec.especialYears) rec.especialYears = [];
+      if (!rec.especialYears.includes(year)) {
+        rec.especialYears.push(year);
+        rec.especialYears.sort((a, b) => a - b);
+      }
+      rec.championshipsEspecial = rec.especialYears.length;
+    }
+
+    // Vice-campeonato no Grupo Especial
+    if (st.status === 'vice') {
+      if (!rec.especialRunnerUpYears) rec.especialRunnerUpYears = [];
+      if (!rec.especialRunnerUpYears.includes(year)) {
+        rec.especialRunnerUpYears.push(year);
+        rec.especialRunnerUpYears.sort((a, b) => a - b);
+      }
+      rec.runnerUpsEspecial = rec.especialRunnerUpYears.length;
+    }
+
+    // Rebaixamento do Grupo Especial
+    if (st.status === 'rebaixada') {
+      if (!rec.especialRelegationYears) rec.especialRelegationYears = [];
+      if (!rec.especialRelegationYears.includes(year)) {
+        rec.especialRelegationYears.push(year);
+        rec.especialRelegationYears.sort((a, b) => a - b);
+      }
+      rec.relegationsEspecial = rec.especialRelegationYears.length;
+      rec.rebaixamentosEspecial = rec.relegationsEspecial;
+      rec.rebaixamentosEspecialAnos = [...rec.especialRelegationYears];
+    }
+  });
 });
 
 const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 'runnerUpsPrata' | 'runnerUpsBronze' | 'honors'>[] = [
@@ -5637,6 +5906,11 @@ export function getSchoolConsolidatedStats(school: School): ConsolidatedSchoolSt
     allAvaliacaoRunnerUpYears,
     allGrupoEYears,
     allGrupoERunnerUpYears,
+    totalEspecialRelegations: (school.honors?.historicalEspecialRelegations ?? school.relegationsEspecial ?? 0) + inGameAchievements.filter((a) => a.badgeType === 'relegated').length,
+    allEspecialRelegationYears: [
+      ...(school.honors?.historicalEspecialRelegationYears || school.especialRelegationYears || []),
+      ...inGameAchievements.filter((a) => a.badgeType === 'relegated').map((a) => a.year)
+    ].sort((a, b) => a - b),
     achievements: inGameAchievements
   };
 }
@@ -5666,6 +5940,10 @@ export const INITIAL_SCHOOLS: School[] = [
       runnerUpsAvaliacao: avaRecord ? avaRecord.runnerUps : (stats.runnerUpsAvaliacao || 0),
       championshipsGrupoE: grupoERecord ? grupoERecord.titles : ((stats as any).championshipsGrupoE || 0),
       runnerUpsGrupoE: grupoERecord ? grupoERecord.runnerUps : ((stats as any).runnerUpsGrupoE || 0),
+      relegationsEspecial: stats.relegationsEspecial || 0,
+      especialRelegationYears: stats.especialRelegationYears || [],
+      rebaixamentosEspecial: stats.rebaixamentosEspecial || 0,
+      rebaixamentosEspecialAnos: stats.rebaixamentosEspecialAnos || [],
       isInactive: false,
       inactive: false,
       inactiveYearsCount: 0,
@@ -5674,6 +5952,8 @@ export const INITIAL_SCHOOLS: School[] = [
         historicalEspecialYears: stats.especialYears || [],
         historicalEspecialRunnerUps: stats.runnerUpsEspecial,
         historicalEspecialRunnerUpYears: stats.especialRunnerUpYears || [],
+        historicalEspecialRelegations: stats.relegationsEspecial || 0,
+        historicalEspecialRelegationYears: stats.especialRelegationYears || [],
         historicalOuroTitles: stats.championshipsOuro,
         historicalOuroYears: stats.ouroYears || [],
         historicalOuroRunnerUps: stats.runnerUpsOuro,
