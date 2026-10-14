@@ -206,11 +206,67 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
         </span>
       );
     }
-    if (year === 2011 || year === 2017 || year === 2018) {
-      // Em 2011, 2017 e 2018 não houve rebaixamento no Grupo Especial por deliberação da LIESA
+    if (year === 1988 || year === 1993 || year === 1994 || year === 2011 || year === 2017 || year === 2018) {
+      // Em 1988, 1993, 1994, 2011, 2017 e 2018 não houve rebaixamento no Grupo Especial por deliberação da LIESA
       return (
         <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-slate-800 text-slate-400 font-mono text-xs">
           {rank}º
+        </span>
+      );
+    }
+    if (year === 1985 && rank >= 14 && rank <= 16) {
+      // Em 1985 três escolas foram rebaixadas (Santa Cruz 14º, São Clemente 15º e Em Cima da Hora 16º)
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs">
+          {rank}º (Rebaixada)
+        </span>
+      );
+    }
+    if (year === 1986 && rank === 15) {
+      // Em 1986 uma escola foi rebaixada (Unidos da Tijuca 15º)
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs">
+          {rank}º (Rebaixada)
+        </span>
+      );
+    }
+    if (year === 1987 && (rank === 11 || rank === 12)) {
+      // Em 1987 duas escolas foram rebaixadas (Jacarezinho 11º e Império da Tijuca 12º)
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs">
+          {rank}º (Rebaixada)
+        </span>
+      );
+    }
+    if (year === 1989 && rank >= 15 && rank <= 18) {
+      // Em 1989 quatro escolas foram rebaixadas (Ponte 15º, Tradição 16º, Arranco 17º e Jacarezinho 18º)
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs">
+          {rank}º (Rebaixada)
+        </span>
+      );
+    }
+    if (year === 1990 && (rank === 15 || rank === 16)) {
+      // Em 1990 duas escolas foram rebaixadas (Santa Cruz 15º e Unidos do Cabuçu 16º)
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs">
+          {rank}º (Rebaixada)
+        </span>
+      );
+    }
+    if (year === 1991 && rank >= 13 && rank <= 16) {
+      // Em 1991 quatro escolas foram rebaixadas (São Clemente 13º, Lins Imperial 14º, Império Serrano 15º e Grande Rio 16º)
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs">
+          {rank}º (Rebaixada)
+        </span>
+      );
+    }
+    if (year === 1992 && rank >= 13 && rank <= 15) {
+      // Em 1992 três escolas foram rebaixadas (Leão de Nova Iguaçu 13º, Tradição 14º e Santa Cruz 15º)
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs">
+          {rank}º (Rebaixada)
         </span>
       );
     }
@@ -454,7 +510,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
               }`}
             >
               <Trophy className="w-3.5 h-3.5" />
-              <span>Carnavais Passados (1995-2026)</span>
+              <span>Carnavais Passados (1985-2026)</span>
             </button>
           </div>
 
@@ -674,7 +730,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                 <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                 <div>
                   <span className="font-bold text-amber-300">Classificação Histórica Oficial da LIESA:</span>{' '}
-                  Atribui 20 pontos por título e 15 pontos por vice-campeonato na história do Grupo Especial, somados às colocações completas de 1º a 10º lugar para todos os carnavais catalogados com apuração completa (a partir de 1995). Clique em qualquer agremiação para ver o histórico ano a ano.
+                  Atribui 20 pontos por título e 15 pontos por vice-campeonato na história do Grupo Especial, somados às colocações completas de 1º a 10º lugar para todos os carnavais catalogados com apuração completa (a partir de 1985). Clique em qualquer agremiação para ver o histórico ano a ano.
                 </div>
               </div>
 
@@ -695,7 +751,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                       <th className="py-3 px-3.5">Escola de Samba</th>
                       <th className="py-3 px-3 text-center text-amber-400 font-bold">Títulos Especial (20p)</th>
                       <th className="py-3 px-3 text-center text-slate-300 font-bold">Vices Especial (15p)</th>
-                      <th className="py-3 px-3 text-center text-blue-400 font-bold">Era 1995+ (Top 10)</th>
+                      <th className="py-3 px-3 text-center text-blue-400 font-bold">Era 1985+ (Top 10)</th>
                       <th className="py-3 px-4 text-right font-black text-amber-400 text-xs">
                         TOTAL PONTOS HISTÓRICOS
                       </th>
@@ -794,7 +850,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                         <span>Desempenho Histórico Detalhado: {entry.schoolName}</span>
                                       </h4>
                                       <p className="text-[11px] text-slate-400">
-                                        {entry.totalEspecialTitles} Título(s) ({entry.totalEspecialTitles * 20}p) · {entry.totalEspecialVices} Vice(s) ({entry.totalEspecialVices * 15}p) · Era 1995+: {entry.pointsDetailedEra} pts
+                                        {entry.totalEspecialTitles} Título(s) ({entry.totalEspecialTitles * 20}p) · {entry.totalEspecialVices} Vice(s) ({entry.totalEspecialVices * 15}p) · Era 1985+: {entry.pointsDetailedEra} pts
                                       </p>
                                     </div>
                                     {onSelectSchool && entry.school && (
@@ -814,7 +870,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
 
                                   <div>
                                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-2">
-                                      Carnavais Catalogados na Era Moderna (1995 em diante):
+                                      Carnavais Catalogados na Era Moderna (1985 em diante):
                                     </span>
                                     <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2">
                                       {historicalCarnavals.map((c) => {
@@ -933,6 +989,8 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                     const is2018 = carnaval.year === 2018;
                     const is2011 = carnaval.year === 2011;
                     const is1998 = carnaval.year === 1998;
+                    const is1994 = carnaval.year === 1994;
+                    const is1993 = carnaval.year === 1993;
 
                     return (
                       <button
@@ -957,7 +1015,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                             2 Campeãs
                           </span>
                         )}
-                        {is2011 && (
+                        {(is1993 || is1994 || is2011 || is2018) && (
                           <span className="text-[9px] px-1 py-0.2 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">
                             Sem Rebaixamento
                           </span>
@@ -965,11 +1023,6 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                         {is2017 && (
                           <span className="text-[9px] px-1 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">
                             2 Campeãs • Sem Rebaixamento
-                          </span>
-                        )}
-                        {is2018 && (
-                          <span className="text-[9px] px-1 py-0.2 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">
-                            Sem Rebaixamento
                           </span>
                         )}
                       </button>

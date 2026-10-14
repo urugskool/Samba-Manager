@@ -192,6 +192,9 @@ export interface HistoricalPlacement1995_1999 {
   notes?: string;
 }
 
+export type HistoricalPlacement1990_1999 = HistoricalPlacement1995_1999;
+export type HistoricalPlacement1985_1999 = HistoricalPlacement1995_1999;
+
 export interface SchoolHistoryRecord {
   championshipsEspecial: number;
   runnerUpsEspecial: number;
@@ -220,6 +223,8 @@ export interface SchoolHistoryRecord {
   avaliacaoYears?: number[];
   avaliacaoRunnerUpYears?: number[];
   detailedResults1995_1999?: Record<number, HistoricalPlacement1995_1999>;
+  detailedResults1990_1999?: Record<number, HistoricalPlacement1990_1999>;
+  detailedResults1985_1999?: Record<number, HistoricalPlacement1985_1999>;
 }
 
 export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = {
@@ -2490,9 +2495,256 @@ Object.entries(OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL).forEach(([schoolId, rec]) => 
 });
 
 // ============================================================================
-// RESULTADOS HISTÓRICOS OFICIAIS DOS CARNAVAIS DE 1995 A 1999 (LIESA)
+// RESULTADOS HISTÓRICOS OFICIAIS DOS CARNAVAIS DE 1985 A 1999 (LIESA)
 // ============================================================================
-export const HISTORICAL_CARNAVAL_RESULTS_1995_1999 = {
+export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
+  1985: {
+    champion: 'Mocidade Independente de Padre Miguel',
+    runnerUp: 'Beija-Flor',
+    third: 'Unidos de Vila Isabel',
+    relegated: ['Acadêmicos de Santa Cruz', 'São Clemente', 'Em Cima da Hora'],
+    notes: 'Mocidade Independente sagrou-se campeã com o enredo futurista "Ziriguidum 2001, Um Carnaval nas Estrelas" de Fernando Pinto. Beija-Flor vice-campeã com "A Lapa de Adão e Eva". Três agremiações rebaixadas: Acadêmicos de Santa Cruz, São Clemente e Em Cima da Hora.',
+    standings: [
+      { rank: 1, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'campea' },
+      { rank: 2, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'vice' },
+      { rank: 3, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 4, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 5, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', status: 'participante' },
+      { rank: 6, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 7, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'participante' },
+      { rank: 8, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'participante' },
+      { rank: 9, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 10, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', status: 'participante' },
+      { rank: 11, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', status: 'participante' },
+      { rank: 12, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 13, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', status: 'participante' },
+      { rank: 14, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz', status: 'rebaixada' },
+      { rank: 15, schoolId: 'sao_clemente', schoolName: 'São Clemente', status: 'rebaixada' },
+      { rank: 16, schoolId: 'em_cima_da_hora', schoolName: 'Em Cima da Hora', status: 'rebaixada' }
+    ]
+  },
+  1986: {
+    champion: 'Estação Primeira de Mangueira',
+    runnerUp: 'Beija-Flor',
+    third: 'Império Serrano',
+    relegated: ['Unidos da Tijuca'],
+    notes: 'Estação Primeira de Mangueira conquistou o campeonato com "Caymmi Mostra ao Mundo o que a Bahia e a Mangueira Têm" de Júlio Mattos. Beija-Flor vice-campeã com "O Mundo É uma Bola". Unidos da Tijuca rebaixada.',
+    standings: [
+      { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'campea' },
+      { rank: 2, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'vice' },
+      { rank: 3, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'participante' },
+      { rank: 4, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 5, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 6, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 7, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 8, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'participante' },
+      { rank: 9, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', status: 'participante' },
+      { rank: 10, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', status: 'participante' },
+      { rank: 11, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 12, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', status: 'participante' },
+      { rank: 13, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', status: 'participante' },
+      { rank: 14, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte', status: 'participante' },
+      { rank: 15, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'rebaixada' }
+    ]
+  },
+  1987: {
+    champion: 'Estação Primeira de Mangueira',
+    runnerUp: 'Mocidade Independente de Padre Miguel',
+    third: 'Portela',
+    relegated: ['Unidos do Jacarezinho', 'Império da Tijuca'],
+    notes: 'Estação Primeira de Mangueira sagrou-se bicampeã com "No Reino das Palavras, Carlos Drummond de Andrade". Mocidade Independente vice-campeã com "Tupinicópolis". Duas agremiações rebaixadas: Unidos do Jacarezinho e Império da Tijuca.',
+    standings: [
+      { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'campea' },
+      { rank: 2, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'vice' },
+      { rank: 3, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 4, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'participante' },
+      { rank: 4, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', status: 'participante' },
+      { rank: 5, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 5, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 6, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'participante' },
+      { rank: 7, schoolId: 'sao_clemente', schoolName: 'São Clemente', status: 'participante' },
+      { rank: 7, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', status: 'participante' },
+      { rank: 8, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', status: 'participante' },
+      { rank: 9, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 10, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte', status: 'participante' },
+      { rank: 11, schoolId: 'jacarezinho', schoolName: 'Unidos do Jacarezinho', status: 'rebaixada' },
+      { rank: 12, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', status: 'rebaixada' }
+    ]
+  },
+  1988: {
+    champion: 'Unidos de Vila Isabel',
+    runnerUp: 'Estação Primeira de Mangueira',
+    third: 'Beija-Flor',
+    relegated: [],
+    notes: 'Carnaval do Centenário da Abolição da Escravatura. Unidos de Vila Isabel sagrou-se campeã com o antológico "Kizomba, a Festa da Raça". Mangueira vice-campeã com "100 Anos de Liberdade, Realidade ou Ilusão?". Não houve rebaixamento neste ano.',
+    standings: [
+      { rank: 1, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'campea' },
+      { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'vice' },
+      { rank: 3, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'participante' },
+      { rank: 4, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 5, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 6, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 7, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'participante' },
+      { rank: 8, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', status: 'participante' },
+      { rank: 8, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 8, schoolId: 'tradicao', schoolName: 'Tradição', status: 'participante' },
+      { rank: 9, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', status: 'participante' },
+      { rank: 10, schoolId: 'sao_clemente', schoolName: 'São Clemente', status: 'participante' },
+      { rank: 11, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 12, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte', status: 'participante' },
+      { rank: 13, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', status: 'participante' },
+      { rank: 14, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'participante' }
+    ]
+  },
+  1989: {
+    champion: 'Imperatriz Leopoldinense',
+    runnerUp: 'Beija-Flor',
+    third: 'União da Ilha do Governador',
+    relegated: ['Unidos da Ponte', 'Tradição', 'Arranco', 'Unidos do Jacarezinho'],
+    notes: 'Imperatriz Leopoldinense campeã no desempate com o antológico "Liberdade, Liberdade, Abre as Asas Sobre Nós". Beija-Flor vice-campeã com o histórico desfile de Joãosinho Trinta ("Ratos e Urubus, Larguem Minha Fantasia" e o Cristo mendigo). Quatro agremiações rebaixadas: Unidos da Ponte, Tradição, Arranco e Unidos do Jacarezinho.',
+    standings: [
+      { rank: 1, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'campea' },
+      { rank: 2, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'vice' },
+      { rank: 3, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 4, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 5, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 6, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 7, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 8, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 9, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', status: 'participante' },
+      { rank: 10, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'participante' },
+      { rank: 11, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 12, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', status: 'participante' },
+      { rank: 13, schoolId: 'sao_clemente', schoolName: 'São Clemente', status: 'participante' },
+      { rank: 14, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', status: 'participante' },
+      { rank: 15, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte', status: 'rebaixada' },
+      { rank: 16, schoolId: 'tradicao', schoolName: 'Tradição', status: 'rebaixada' },
+      { rank: 17, schoolId: 'arranco', schoolName: 'Arranco', status: 'rebaixada' },
+      { rank: 18, schoolId: 'jacarezinho', schoolName: 'Unidos do Jacarezinho', status: 'rebaixada' }
+    ]
+  },
+  1990: {
+    champion: 'Mocidade Independente de Padre Miguel',
+    runnerUp: 'Beija-Flor',
+    third: 'Acadêmicos do Salgueiro',
+    relegated: ['Acadêmicos de Santa Cruz', 'Unidos do Cabuçu'],
+    notes: 'Mocidade Independente sagrou-se campeã com "Vira, Virou, a Mocidade Chegou" de Renato Lage. Beija-Flor vice-campeã com "Todo Mundo Nasceu Nu". Duas agremiações rebaixadas: Acadêmicos de Santa Cruz e Unidos do Cabuçu.',
+    standings: [
+      { rank: 1, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'campea' },
+      { rank: 2, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'vice' },
+      { rank: 3, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 4, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'participante' },
+      { rank: 5, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', status: 'participante' },
+      { rank: 6, schoolId: 'sao_clemente', schoolName: 'São Clemente', status: 'participante' },
+      { rank: 7, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 8, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 9, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 10, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 11, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'participante' },
+      { rank: 12, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 13, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', status: 'participante' },
+      { rank: 14, schoolId: 'lins_imperial', schoolName: 'Lins Imperial', status: 'participante' },
+      { rank: 15, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz', status: 'rebaixada' },
+      { rank: 16, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', status: 'rebaixada' }
+    ]
+  },
+  1991: {
+    champion: 'Mocidade Independente de Padre Miguel',
+    runnerUp: 'Acadêmicos do Salgueiro',
+    third: 'Imperatriz Leopoldinense',
+    relegated: ['São Clemente', 'Lins Imperial', 'Império Serrano', 'Acadêmicos do Grande Rio'],
+    notes: 'Mocidade Independente conquistou o bicampeonato consecutivo com "Chuê, Chuá... As Águas Vão Rolar". Acadêmicos do Salgueiro vice-campeã com "Me Masso se Não Me Passo". Quatro agremiações rebaixadas: São Clemente, Lins Imperial, Império Serrano e Acadêmicos do Grande Rio.',
+    standings: [
+      { rank: 1, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'campea' },
+      { rank: 2, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'vice' },
+      { rank: 3, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'participante' },
+      { rank: 4, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'participante' },
+      { rank: 5, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', status: 'participante' },
+      { rank: 6, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 7, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro', status: 'participante' },
+      { rank: 8, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 9, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 10, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', status: 'participante' },
+      { rank: 11, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 12, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 13, schoolId: 'sao_clemente', schoolName: 'São Clemente', status: 'rebaixada' },
+      { rank: 14, schoolId: 'lins_imperial', schoolName: 'Lins Imperial', status: 'rebaixada' },
+      { rank: 15, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'rebaixada' },
+      { rank: 16, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio', status: 'rebaixada' }
+    ]
+  },
+  1992: {
+    champion: 'Estácio de Sá',
+    runnerUp: 'Mocidade Independente de Padre Miguel',
+    third: 'Imperatriz Leopoldinense',
+    relegated: ['Leão de Nova Iguaçu', 'Tradição', 'Acadêmicos de Santa Cruz'],
+    notes: 'Estácio de Sá sagrou-se campeã histórica do Grupo Especial com o clássico "Paulicéia Desvairada - 70 Anos de Modernismo". Mocidade Independente vice-campeã com "Sonhar Não Custa Nada...". Três agremiações rebaixadas: Leão de Nova Iguaçu, Tradição e Acadêmicos de Santa Cruz.',
+    standings: [
+      { rank: 1, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', status: 'campea' },
+      { rank: 2, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'vice' },
+      { rank: 3, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'participante' },
+      { rank: 4, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 5, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 6, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 7, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'participante' },
+      { rank: 8, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 9, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro', status: 'participante' },
+      { rank: 10, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 11, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', status: 'participante' },
+      { rank: 12, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 13, schoolId: 'leao_de_nova_iguacu', schoolName: 'Leão de Nova Iguaçu', status: 'rebaixada' },
+      { rank: 14, schoolId: 'tradicao', schoolName: 'Tradição', status: 'rebaixada' },
+      { rank: 15, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz', status: 'rebaixada' }
+    ]
+  },
+  1993: {
+    champion: 'Acadêmicos do Salgueiro',
+    runnerUp: 'Imperatriz Leopoldinense',
+    third: 'Beija-Flor',
+    relegated: [],
+    notes: 'Acadêmicos do Salgueiro consagrou-se campeã com o antológico "Peguei um Ita no Norte" ("Explode Coração") de Mário Borriello. Imperatriz Leopoldinense vice-campeã com "Marquês que É Marquês do Saçarico É Freguês". Não houve rebaixamento neste ano.',
+    standings: [
+      { rank: 1, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'campea' },
+      { rank: 2, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'vice' },
+      { rank: 3, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'participante' },
+      { rank: 4, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 5, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 6, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', status: 'participante' },
+      { rank: 7, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro', status: 'participante' },
+      { rank: 8, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 9, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio', status: 'participante' },
+      { rank: 10, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 11, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 12, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 13, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', status: 'participante' },
+      { rank: 14, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte', status: 'participante' }
+    ]
+  },
+  1994: {
+    champion: 'Imperatriz Leopoldinense',
+    runnerUp: 'Acadêmicos do Salgueiro',
+    third: 'Unidos do Viradouro',
+    relegated: [],
+    notes: 'Imperatriz Leopoldinense sagrou-se campeã com "Catarina de Médicis na Corte dos Tupinambás" de Rosa Magalhães. Acadêmicos do Salgueiro vice-campeã com "O Rio que Passa em Minha Vida". Não houve rebaixamento neste ano.',
+    standings: [
+      { rank: 1, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'campea' },
+      { rank: 2, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'vice' },
+      { rank: 3, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro', status: 'participante' },
+      { rank: 4, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 5, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'participante' },
+      { rank: 6, schoolId: 'tradicao', schoolName: 'Tradição', status: 'participante' },
+      { rank: 7, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 8, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 9, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 10, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', status: 'participante' },
+      { rank: 11, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 12, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio', status: 'participante' },
+      { rank: 13, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', status: 'participante' },
+      { rank: 14, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 15, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte', status: 'participante' },
+      { rank: 16, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'participante' }
+    ]
+  },
   1995: {
     champion: 'Imperatriz Leopoldinense',
     runnerUp: 'Portela',
@@ -2621,17 +2873,20 @@ export const HISTORICAL_CARNAVAL_RESULTS_1995_1999 = {
   }
 } as const;
 
+export const HISTORICAL_CARNAVAL_RESULTS_1990_1999 = HISTORICAL_CARNAVAL_RESULTS_1985_1999;
+export const HISTORICAL_CARNAVAL_RESULTS_1995_1999 = HISTORICAL_CARNAVAL_RESULTS_1985_1999;
+
 // Catálogo consolidado de rebaixamentos históricos oficiais do Grupo Especial por agremiação
 export const OFFICIAL_HISTORICAL_ESPECIAL_RELEGATIONS_BY_SCHOOL: Record<string, number[]> = {
-  imperio_serrano: [1997, 1999, 2007, 2009, 2019],
-  sao_clemente: [1991, 1993, 1995, 1999, 2002, 2004, 2008, 2022],
+  imperio_serrano: [1991, 1997, 1999, 2007, 2009, 2019],
+  sao_clemente: [1985, 1991, 1993, 1995, 1999, 2002, 2004, 2008, 2022],
   tijuca: [1986, 1998],
   porto_da_pedra: [1998, 2000, 2012, 2024],
   estacio_de_sa: [1997, 2007, 2016, 2020],
-  santa_cruz: [1985, 1990, 1997, 2003],
+  santa_cruz: [1985, 1990, 1992, 1997, 2003],
   caprichosos_de_pilares: [1996, 2006],
-  tradicao: [1996, 2005],
-  imperio_da_tijuca: [1971, 1977, 1982, 1984, 1996, 2014],
+  tradicao: [1989, 1992, 1996, 2005],
+  imperio_da_tijuca: [1971, 1977, 1982, 1984, 1987, 1996, 2014],
   unidos_da_ponte: [1986, 1989, 1996],
   rocinha: [1997, 2002, 2006],
   villa_rica: [1995],
@@ -2642,14 +2897,26 @@ export const OFFICIAL_HISTORICAL_ESPECIAL_RELEGATIONS_BY_SCHOOL: Record<string, 
   grande_rio: [1991],
   tuiuti: [2001],
   renascer_jacarepagua: [2012],
-  niteroi: [2026]
+  niteroi: [2026],
+  leao_de_nova_iguacu: [1992],
+  lins_imperial: [1991],
+  cabucu: [1990],
+  arranco: [1989],
+  jacarezinho: [1987, 1989],
+  em_cima_da_hora: [1985]
 };
 
-// 1. Inicializa todos os registros em HISTORICAL_CARNAVAL_RECORDS com estruturas de rebaixamento e detailedResults1995_1999
+// 1. Inicializa todos os registros em HISTORICAL_CARNAVAL_RECORDS com estruturas de rebaixamento e detailedResults1985_1999
 Object.keys(HISTORICAL_CARNAVAL_RECORDS).forEach((schoolId) => {
   const rec = HISTORICAL_CARNAVAL_RECORDS[schoolId];
   if (!rec.detailedResults1995_1999) {
     rec.detailedResults1995_1999 = {};
+  }
+  if (!rec.detailedResults1990_1999) {
+    rec.detailedResults1990_1999 = rec.detailedResults1995_1999;
+  }
+  if (!rec.detailedResults1985_1999) {
+    rec.detailedResults1985_1999 = rec.detailedResults1995_1999;
   }
   const histRelegations = OFFICIAL_HISTORICAL_ESPECIAL_RELEGATIONS_BY_SCHOOL[schoolId] || [];
   rec.especialRelegationYears = Array.from(new Set([...(rec.especialRelegationYears || []), ...histRelegations])).sort((a, b) => a - b);
@@ -2658,8 +2925,8 @@ Object.keys(HISTORICAL_CARNAVAL_RECORDS).forEach((schoolId) => {
   rec.rebaixamentosEspecialAnos = [...rec.especialRelegationYears];
 });
 
-// 2. Sincroniza detalhadamente os resultados de 1995 a 1999 (títulos, vices, rebaixamentos e colocações) no HISTORICAL_CARNAVAL_RECORDS
-Object.entries(HISTORICAL_CARNAVAL_RESULTS_1995_1999).forEach(([yrStr, edition]) => {
+// 2. Sincroniza detalhadamente os resultados de 1985 a 1999 (títulos, vices, rebaixamentos e colocações) no HISTORICAL_CARNAVAL_RECORDS
+Object.entries(HISTORICAL_CARNAVAL_RESULTS_1985_1999).forEach(([yrStr, edition]) => {
   const year = parseInt(yrStr, 10);
   edition.standings.forEach((st) => {
     const schoolId = st.schoolId;
@@ -2685,18 +2952,26 @@ Object.entries(HISTORICAL_CARNAVAL_RESULTS_1995_1999).forEach(([yrStr, edition])
         runnerUpsBronze: 0,
         bronzeYears: [],
         bronzeRunnerUpYears: [],
-        detailedResults1995_1999: {}
+        detailedResults1995_1999: {},
+        detailedResults1990_1999: {},
+        detailedResults1985_1999: {}
       };
     }
     const rec = HISTORICAL_CARNAVAL_RECORDS[schoolId];
     if (!rec.detailedResults1995_1999) {
       rec.detailedResults1995_1999 = {};
     }
+    if (!rec.detailedResults1990_1999) {
+      rec.detailedResults1990_1999 = rec.detailedResults1995_1999;
+    }
+    if (!rec.detailedResults1985_1999) {
+      rec.detailedResults1985_1999 = rec.detailedResults1995_1999;
+    }
 
-    rec.detailedResults1995_1999[year] = {
+    const detailItem = {
       year,
       rank: st.rank,
-      division: 'especial',
+      division: 'especial' as const,
       status: st.status as any,
       titleName: `${st.rank}º Lugar no Grupo Especial ${year}`,
       notes: st.status === 'campea'
@@ -2707,6 +2982,10 @@ Object.entries(HISTORICAL_CARNAVAL_RESULTS_1995_1999).forEach(([yrStr, edition])
         ? `Rebaixada para a Série Ouro (Grupo A) em ${year}`
         : `${st.rank}º Colocada no Grupo Especial de ${year}`
     };
+
+    rec.detailedResults1995_1999[year] = detailItem;
+    rec.detailedResults1990_1999[year] = detailItem;
+    rec.detailedResults1985_1999[year] = detailItem;
 
     // Título no Grupo Especial
     if (st.status === 'campea') {

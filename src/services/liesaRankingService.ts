@@ -1,6 +1,6 @@
 import { School, YearHistory } from '../types/carnaval';
 import { cleanSchoolName } from '../utils/schoolNameUtils';
-import { HISTORICAL_CARNAVAL_RECORDS } from '../data/carnavalData';
+import { HISTORICAL_CARNAVAL_RECORDS, INITIAL_SCHOOLS } from '../data/carnavalData';
 
 export interface LiesaStandingRecord {
   rank: number;
@@ -42,15 +42,195 @@ export function getLiesaPoints(rank: number): number {
 }
 
 /**
- * Resultados oficiais catalogados dos carnavais históricos (1995 a 2026)
+ * Resultados oficiais catalogados dos carnavais históricos (1985 a 2026)
  * fornecidos pela LIESA para balizar o ranking oficial e histórico do jogo.
  * Carnaval 2021: Não houve desfiles (0 pontos) devido à pandemia.
  * Carnaval 2018: Não houve rebaixamento por decisão unânime da plenária da LIESA (Grande Rio e Império Serrano mantiveram-se no Especial).
  * Carnaval 2017: Duas campeãs oficiais (Portela e Mocidade Independente) e NÃO houve rebaixamento por decisão da plenária após acidentes com alegorias.
  * Carnaval 2011: Grande Rio, Portela e União da Ilha desfilaram como Hors concours devido ao incêndio na Cidade do Samba (sem rebaixamento).
  * Carnaval 1998: Duas campeãs oficiais dividindo o título (Beija-Flor e Mangueira).
+ * Carnaval 1994: Não houve rebaixamento no Grupo Especial.
+ * Carnaval 1993: Não houve rebaixamento no Grupo Especial.
+ * Carnaval 1988: Não houve rebaixamento no Grupo Especial.
  */
 export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRecord[]> = {
+  1985: [
+    { rank: 1, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 2, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
+    { rank: 3, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
+    { rank: 4, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 5, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
+    { rank: 6, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 7, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' },
+    { rank: 8, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 9, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 10, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá' },
+    { rank: 11, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca' },
+    { rank: 12, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
+    { rank: 13, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu' },
+    { rank: 14, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz' },
+    { rank: 15, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
+    { rank: 16, schoolId: 'em_cima_da_hora', schoolName: 'Em Cima da Hora' }
+  ],
+  1986: [
+    { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 2, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
+    { rank: 3, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' },
+    { rank: 4, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 5, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
+    { rank: 6, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 7, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 8, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 9, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
+    { rank: 10, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá' },
+    { rank: 11, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
+    { rank: 12, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca' },
+    { rank: 13, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu' },
+    { rank: 14, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte' },
+    { rank: 15, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' }
+  ],
+  1987: [
+    { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 2, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 3, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 4, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
+    { rank: 4, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá' },
+    { rank: 5, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 5, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
+    { rank: 6, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 7, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
+    { rank: 7, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu' },
+    { rank: 8, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
+    { rank: 9, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
+    { rank: 10, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte' },
+    { rank: 11, schoolId: 'jacarezinho', schoolName: 'Unidos do Jacarezinho' },
+    { rank: 12, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca' }
+  ],
+  1988: [
+    { rank: 1, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
+    { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 3, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
+    { rank: 4, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 5, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 6, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
+    { rank: 7, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' },
+    { rank: 8, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
+    { rank: 8, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 8, schoolId: 'tradicao', schoolName: 'Tradição' },
+    { rank: 9, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá' },
+    { rank: 10, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
+    { rank: 11, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 12, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte' },
+    { rank: 13, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu' },
+    { rank: 14, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' }
+  ],
+  1989: [
+    { rank: 1, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 2, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
+    { rank: 3, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
+    { rank: 4, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
+    { rank: 5, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 6, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 7, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 8, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 9, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá' },
+    { rank: 10, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' },
+    { rank: 11, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 12, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
+    { rank: 13, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
+    { rank: 14, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu' },
+    { rank: 15, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte' },
+    { rank: 16, schoolId: 'tradicao', schoolName: 'Tradição' },
+    { rank: 17, schoolId: 'arranco', schoolName: 'Arranco' },
+    { rank: 18, schoolId: 'jacarezinho', schoolName: 'Unidos do Jacarezinho' }
+  ],
+  1990: [
+    { rank: 1, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 2, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
+    { rank: 3, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 4, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 5, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá' },
+    { rank: 6, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
+    { rank: 7, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
+    { rank: 8, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 9, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 10, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 11, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' },
+    { rank: 12, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
+    { rank: 13, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
+    { rank: 14, schoolId: 'lins_imperial', schoolName: 'Lins Imperial' },
+    { rank: 15, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz' },
+    { rank: 16, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu' }
+  ],
+  1991: [
+    { rank: 1, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 2, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 3, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 4, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
+    { rank: 5, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá' },
+    { rank: 6, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 7, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro' },
+    { rank: 8, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 9, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
+    { rank: 10, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
+    { rank: 11, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
+    { rank: 12, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 13, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
+    { rank: 14, schoolId: 'lins_imperial', schoolName: 'Lins Imperial' },
+    { rank: 15, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' },
+    { rank: 16, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio' }
+  ],
+  1992: [
+    { rank: 1, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá' },
+    { rank: 2, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 3, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 4, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 5, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 6, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 7, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
+    { rank: 8, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 9, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro' },
+    { rank: 10, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
+    { rank: 11, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
+    { rank: 12, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
+    { rank: 13, schoolId: 'leao_de_nova_iguacu', schoolName: 'Leão de Nova Iguaçu' },
+    { rank: 14, schoolId: 'tradicao', schoolName: 'Tradição' },
+    { rank: 15, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz' }
+  ],
+  1993: [
+    { rank: 1, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 2, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 3, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
+    { rank: 4, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 5, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 6, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá' },
+    { rank: 7, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro' },
+    { rank: 8, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
+    { rank: 9, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio' },
+    { rank: 10, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 11, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
+    { rank: 12, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 13, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
+    { rank: 14, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte' }
+  ],
+  1994: [
+    { rank: 1, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
+    { rank: 2, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
+    { rank: 3, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro' },
+    { rank: 4, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
+    { rank: 5, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
+    { rank: 6, schoolId: 'tradicao', schoolName: 'Tradição' },
+    { rank: 7, schoolId: 'portela', schoolName: 'Portela' },
+    { rank: 8, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 9, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
+    { rank: 10, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
+    { rank: 11, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
+    { rank: 12, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio' },
+    { rank: 13, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá' },
+    { rank: 14, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 15, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte' },
+    { rank: 16, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' }
+  ],
   1995: [
     { rank: 1, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
     { rank: 2, schoolId: 'portela', schoolName: 'Portela' },
@@ -627,11 +807,17 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('santa cruz')) return 'santa_cruz';
   if (nameNorm.includes('villa rica') || nameNorm.includes('vila rica')) return 'villa_rica';
   if (nameNorm.includes('ponte')) return 'unidos_da_ponte';
+  if (nameNorm.includes('leão de nova') || nameNorm.includes('leao de nova')) return 'leao_de_nova_iguacu';
+  if (nameNorm.includes('lins imperial')) return 'lins_imperial';
+  if (nameNorm.includes('cabuçu') || nameNorm.includes('cabucu')) return 'cabucu';
+  if (nameNorm.includes('arranco')) return 'arranco';
+  if (nameNorm.includes('jacarezinho')) return 'jacarezinho';
+  if (nameNorm.includes('cima da hora')) return 'em_cima_da_hora';
   return nameNorm.replace(/[^a-z0-9]/g, '_');
 }
 
 /**
- * Retorna lista de carnavais históricos com resultados oficiais catalogados (1995 em diante + save)
+ * Retorna lista de carnavais históricos com resultados oficiais catalogados (1985 em diante + save)
  */
 export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): HistoricalCarnavalInfo[] {
   const result: HistoricalCarnavalInfo[] = [];
@@ -661,12 +847,14 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     });
   });
 
-  // Anos oficiais catalogados (2026 descendo até 1995)
+  // Anos oficiais catalogados (2026 descendo até 1985)
   const officialYears = [
     2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017,
     2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007,
     2006, 2005, 2004, 2003, 2002, 2001, 2000,
-    1999, 1998, 1997, 1996, 1995
+    1999, 1998, 1997, 1996, 1995,
+    1994, 1993, 1992, 1991, 1990,
+    1989, 1988, 1987, 1986, 1985
   ];
   officialYears.forEach((yr) => {
     const stands = OFFICIAL_LIESA_HISTORICAL_STANDINGS[yr] || [];
@@ -739,6 +927,26 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
       notes = 'Carnaval 1996: Mocidade Independente de Padre Miguel conquistou o campeonato com o antológico enredo "Criador e Criatura" de Renato Lage (+20 pts) e Imperatriz Leopoldinense foi a vice-campeã com "Imperatriz Leopoldinense Honra, Brilha e Resplandece..." (+15 pts). Quatro agremiações foram rebaixadas: Caprichosos de Pilares, Tradição, Império da Tijuca e Unidos da Ponte.';
     } else if (yr === 1995) {
       notes = 'Carnaval 1995: Imperatriz Leopoldinense sagrou-se bicampeã com "Mais Vale um Jegue que Me Carregue..." de Rosa Magalhães (+20 pts) e Portela conquistou o vice-campeonato com "Gosto que Me Enrosco" (+15 pts). Duas agremiações foram rebaixadas: São Clemente e Unidos da Villa Rica.';
+    } else if (yr === 1994) {
+      notes = 'Carnaval 1994: Imperatriz Leopoldinense sagrou-se campeã com "Catarina de Médicis na Corte dos Tupinambás" de Rosa Magalhães (+20 pts) e Acadêmicos do Salgueiro conquistou o vice-campeonato com "O Rio que Passa em Minha Vida" (+15 pts). Não houve rebaixamento neste ano.';
+    } else if (yr === 1993) {
+      notes = 'Carnaval 1993: Acadêmicos do Salgueiro consagrou-se campeã com o antológico "Peguei um Ita no Norte" ("Explode Coração") de Mário Borriello (+20 pts) e Imperatriz Leopoldinense foi vice-campeã com "Marquês que É Marquês do Saçarico É Freguês" (+15 pts). Não houve rebaixamento neste ano.';
+    } else if (yr === 1992) {
+      notes = 'Carnaval 1992: Estácio de Sá conquistou seu campeonato histórico no Grupo Especial com "Paulicéia Desvairada - 70 Anos de Modernismo" (+20 pts) e Mocidade Independente foi vice-campeã com "Sonhar Não Custa Nada..." (+15 pts). Três agremiações foram rebaixadas: Leão de Nova Iguaçu, Tradição e Acadêmicos de Santa Cruz.';
+    } else if (yr === 1991) {
+      notes = 'Carnaval 1991: Mocidade Independente de Padre Miguel sagrou-se bicampeã com "Chuê, Chuá... As Águas Vão Rolar" (+20 pts) e Acadêmicos do Salgueiro vice-campeã com "Me Masso se Não Me Passo" (+15 pts). Quatro agremiações foram rebaixadas: São Clemente, Lins Imperial, Império Serrano e Acadêmicos do Grande Rio.';
+    } else if (yr === 1990) {
+      notes = 'Carnaval 1990: Mocidade Independente de Padre Miguel sagrou-se campeã com "Vira, Virou, a Mocidade Chegou" de Renato Lage (+20 pts) e Beija-Flor conquistou o vice-campeonato com "Todo Mundo Nasceu Nu" (+15 pts). Duas agremiações foram rebaixadas: Acadêmicos de Santa Cruz e Unidos do Cabuçu.';
+    } else if (yr === 1989) {
+      notes = 'Carnaval 1989: Imperatriz Leopoldinense sagrou-se campeã no desempate com o antológico "Liberdade, Liberdade, Abre as Asas Sobre Nós" (+20 pts) e Beija-Flor foi vice-campeã com o histórico desfile "Ratos e Urubus, Larguem Minha Fantasia" de Joãosinho Trinta (+15 pts). Quatro agremiações foram rebaixadas: Unidos da Ponte, Tradição, Arranco e Unidos do Jacarezinho.';
+    } else if (yr === 1988) {
+      notes = 'Carnaval 1988: No centenário da Abolição, a Unidos de Vila Isabel sagrou-se campeã com o clássico "Kizomba, a Festa da Raça" (+20 pts) e Mangueira foi vice-campeã com "100 Anos de Liberdade, Realidade ou Ilusão?" (+15 pts). Não houve rebaixamento neste ano.';
+    } else if (yr === 1987) {
+      notes = 'Carnaval 1987: Estação Primeira de Mangueira sagrou-se bicampeã com "No Reino das Palavras, Carlos Drummond de Andrade" (+20 pts) e Mocidade Independente foi vice-campeã com "Tupinicópolis" (+15 pts). Duas agremiações foram rebaixadas: Unidos do Jacarezinho e Império da Tijuca.';
+    } else if (yr === 1986) {
+      notes = 'Carnaval 1986: Estação Primeira de Mangueira sagrou-se campeã com "Caymmi Mostra ao Mundo o que a Bahia e a Mangueira Têm" (+20 pts) e Beija-Flor vice-campeã com "O Mundo É uma Bola" (+15 pts). Unidos da Tijuca foi rebaixada.';
+    } else if (yr === 1985) {
+      notes = 'Carnaval 1985: Primeiro carnaval sob a organização da LIESA. Mocidade Independente sagrou-se campeã com o revolucionário "Ziriguidum 2001, Um Carnaval nas Estrelas" de Fernando Pinto (+20 pts) e Beija-Flor vice-campeã com "A Lapa de Adão e Eva" (+15 pts). Três agremiações foram rebaixadas: Acadêmicos de Santa Cruz, São Clemente e Em Cima da Hora.';
     }
 
     result.push({
@@ -928,11 +1136,12 @@ export function computeLiesa5YearRanking(
  * - Pontuações detalhadas de 3º a 10º lugar para todos os anos com resultados catalogados (como 2022 a 2026 e anos simulados)
  */
 export function computeHistoricalLiesaRanking(
-  allSchools: School[],
+  allSchools: School[] = INITIAL_SCHOOLS,
   inGameHistory: YearHistory[] = []
 ): HistoricalLiesaEntry[] {
+  const effectiveSchools = allSchools && allSchools.length > 0 ? allSchools : INITIAL_SCHOOLS;
   const schoolsMap = new Map<string, School>();
-  allSchools.forEach((s) => schoolsMap.set(s.id, s));
+  effectiveSchools.forEach((s) => schoolsMap.set(s.id, s));
 
   // Acumulador de pontos históricos
   const historicalMap: Record<
@@ -976,28 +1185,28 @@ export function computeHistoricalLiesaRanking(
     return historicalMap[sId];
   };
 
-  // 1. Processa todos os títulos e vices históricos da era pré-1995 a partir de HISTORICAL_CARNAVAL_RECORDS
-  // A partir de 1995 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA
+  // 1. Processa todos os títulos e vices históricos da era pré-1985 a partir de HISTORICAL_CARNAVAL_RECORDS
+  // A partir de 1985 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA
   Object.entries(HISTORICAL_CARNAVAL_RECORDS).forEach(([id, rec]) => {
     const sId = resolveSchoolId(id, undefined, schoolsMap);
     const entry = ensureEntry(sId);
 
-    const espYearsPre1995 = (rec.especialYears || []).filter((y) => y < 1995);
-    const espViceYearsPre1995 = (rec.especialRunnerUpYears || []).filter((y) => y < 1995);
+    const espYearsPre1985 = (rec.especialYears || []).filter((y) => y < 1985);
+    const espViceYearsPre1985 = (rec.especialRunnerUpYears || []).filter((y) => y < 1985);
 
-    const titlesPre1995 = espYearsPre1995.length;
-    const vicesPre1995 = espViceYearsPre1995.length;
+    const titlesPre1985 = espYearsPre1985.length;
+    const vicesPre1985 = espViceYearsPre1985.length;
 
-    entry.totalEspecialTitles += titlesPre1995;
-    entry.totalEspecialVices += vicesPre1995;
-    entry.titlePoints += titlesPre1995 * 20;
-    entry.vicePoints += vicesPre1995 * 15;
-    entry.pointsEraPre2015 += titlesPre1995 * 20 + vicesPre1995 * 15;
-    entry.totalPoints += titlesPre1995 * 20 + vicesPre1995 * 15;
-    entry.totalCarnavalesContados += titlesPre1995 + vicesPre1995;
+    entry.totalEspecialTitles += titlesPre1985;
+    entry.totalEspecialVices += vicesPre1985;
+    entry.titlePoints += titlesPre1985 * 20;
+    entry.vicePoints += vicesPre1985 * 15;
+    entry.pointsEraPre2015 += titlesPre1985 * 20 + vicesPre1985 * 15;
+    entry.totalPoints += titlesPre1985 * 20 + vicesPre1985 * 15;
+    entry.totalCarnavalesContados += titlesPre1985 + vicesPre1985;
   });
 
-  // 2. Processa anos de 1995 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
+  // 2. Processa anos de 1985 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
   Object.entries(OFFICIAL_LIESA_HISTORICAL_STANDINGS).forEach(([yrStr, list]) => {
     const yr = parseInt(yrStr, 10);
     if (yr === 2021 || !list || list.length === 0) {
