@@ -27,7 +27,8 @@ import {
   ExternalLink,
   AlertTriangle,
   Flame,
-  CheckCircle2
+  CheckCircle2,
+  ShieldCheck
 } from 'lucide-react';
 
 interface LiesaRankingModalProps {
@@ -121,6 +122,60 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
       st.schoolName.toLowerCase().includes(q)
     );
   }, [currentPastCarnaval, searchQuery, subgroup1984Tab]);
+
+  const isNoRelegationYear = currentPastCarnaval
+    ? [1981, 1983, 1988, 1993, 1994, 2011, 2017, 2018].includes(currentPastCarnaval.year)
+    : false;
+
+  const pastCarnavalRelegations = useMemo(() => {
+    if (!currentPastCarnaval || currentPastCarnaval.isNoCarnaval || isNoRelegationYear) return [];
+
+    // Busca agremiações marcadas com rebaixamento nas colocações catalogadas
+    const relegated = currentPastCarnaval.standings.filter((s) =>
+      s.statusDescription?.toLowerCase().includes('rebaixada')
+    );
+    if (relegated.length > 0) {
+      return Array.from(new Set(relegated.map((s) => s.schoolName)));
+    }
+
+    // Histórico oficial por ano caso não venha no statusDescription
+    const yr = currentPastCarnaval.year;
+    if (yr === 1985) return ['Acadêmicos de Santa Cruz', 'São Clemente', 'Em Cima da Hora'];
+    if (yr === 1986) return ['Unidos da Tijuca'];
+    if (yr === 1987) return ['Unidos do Jacarezinho', 'Império da Tijuca'];
+    if (yr === 1989) return ['Unidos da Ponte', 'Tradição', 'Arranco', 'Unidos do Jacarezinho'];
+    if (yr === 1990) return ['Acadêmicos de Santa Cruz', 'Unidos do Cabuçu'];
+    if (yr === 1991) return ['São Clemente', 'Lins Imperial', 'Império Serrano', 'Acadêmicos do Grande Rio'];
+    if (yr === 1992) return ['Leão de Nova Iguaçu', 'Tradição', 'Acadêmicos de Santa Cruz'];
+    if (yr === 1995) return ['São Clemente', 'Unidos da Villa Rica'];
+    if (yr === 1996) return ['Caprichosos de Pilares', 'Tradição', 'Império da Tijuca', 'Unidos da Ponte'];
+    if (yr === 1997) return ['Estácio de Sá', 'Acadêmicos de Santa Cruz', 'Império Serrano', 'Acadêmicos da Rocinha'];
+    if (yr === 1998) return ['Unidos da Tijuca', 'Unidos do Porto da Pedra'];
+    if (yr === 1999) return ['Império Serrano', 'São Clemente'];
+    if (yr === 2000) return ['Unidos de Vila Isabel', 'Porto da Pedra'];
+    if (yr === 2001) return ['União da Ilha do Governador', 'Paraíso do Tuiuti'];
+    if (yr === 2002) return ['São Clemente'];
+    if (yr === 2003) return ['Acadêmicos de Santa Cruz'];
+    if (yr === 2004) return ['São Clemente'];
+    if (yr === 2005) return ['Tradição'];
+    if (yr === 2006) return ['Caprichosos de Pilares', 'Acadêmicos da Rocinha'];
+    if (yr === 2007) return ['Império Serrano', 'Estácio de Sá'];
+    if (yr === 2008) return ['São Clemente'];
+    if (yr === 2009) return ['Império Serrano'];
+    if (yr === 2010) return ['Unidos do Viradouro'];
+    if (yr === 2012) return ['Porto da Pedra', 'Renascer de Jacarepaguá'];
+    if (yr === 2013) return ['Inocentes de Belford Roxo'];
+    if (yr === 2014) return ['Império da Tijuca'];
+    if (yr === 2019) return ['Imperatriz Leopoldinense', 'Império Serrano'];
+    if (yr === 2020) return ['Estácio de Sá', 'União da Ilha do Governador'];
+    if (yr === 2022) return ['São Clemente'];
+    if (yr === 2023) return ['Império Serrano'];
+    if (yr === 2024) return ['Porto da Pedra'];
+    if (yr === 2025) return ['Unidos de Padre Miguel'];
+    if (yr === 2026) return ['Paraíso do Tuiuti'];
+
+    return [];
+  }, [currentPastCarnaval, isNoRelegationYear]);
 
   if (!isOpen) return null;
 
@@ -231,8 +286,22 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
         </span>
       );
     }
-    if (year === 1988 || year === 1993 || year === 1994 || year === 2011 || year === 2017 || year === 2018) {
-      // Em 1988, 1993, 1994, 2011, 2017 e 2018 não houve rebaixamento no Grupo Especial por deliberação da LIESA
+    if (year === 1982 && (rank === 11 || rank === 12)) {
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs font-bold">
+          {rank}º (Rebaixada)
+        </span>
+      );
+    }
+    if (year === 1980 && rank === 6) {
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs font-bold">
+          {rank}º (Rebaixada)
+        </span>
+      );
+    }
+    if (year === 1981 || year === 1983 || year === 1988 || year === 1993 || year === 1994 || year === 2011 || year === 2017 || year === 2018) {
+      // Em 1981, 1983, 1988, 1993, 1994, 2011, 2017 e 2018 não houve rebaixamento no Grupo Especial por deliberação oficial
       return (
         <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-slate-800 text-slate-400 font-mono text-xs">
           {rank}º
@@ -535,7 +604,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
               }`}
             >
               <Trophy className="w-3.5 h-3.5" />
-              <span>Carnavais Passados (1984-2026)</span>
+              <span>Carnavais Passados (1980-2026)</span>
             </button>
           </div>
 
@@ -755,7 +824,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                 <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                 <div>
                   <span className="font-bold text-amber-300">Classificação Histórica Oficial da LIESA:</span>{' '}
-                  Atribui 20 pontos por título e 15 pontos por vice-campeonato na história do Grupo Especial, somados às colocações completas de 1º a 10º lugar para todos os carnavais catalogados com apuração completa (1984 a 2026). Clique em qualquer agremiação para ver o histórico ano a ano.
+                  Atribui 20 pontos por título e 15 pontos por vice-campeonato na história do Grupo Especial, somados às colocações completas de 1º a 10º lugar para todos os carnavais catalogados com apuração completa (1980 a 2026). A LIESA foi fundada em 24 de julho de 1984 para administrar o Grupo Especial a partir do Carnaval de 1985; as edições de 1980 a 1984 foram administradas pela AESCRJ. Clique em qualquer agremiação para ver o histórico ano a ano.
                 </div>
               </div>
 
@@ -776,7 +845,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                       <th className="py-3 px-3.5">Escola de Samba</th>
                       <th className="py-3 px-3 text-center text-amber-400 font-bold">Títulos Especial (20p)</th>
                       <th className="py-3 px-3 text-center text-slate-300 font-bold">Vices Especial (15p)</th>
-                      <th className="py-3 px-3 text-center text-blue-400 font-bold">Era 1984+ (Top 10)</th>
+                      <th className="py-3 px-3 text-center text-blue-400 font-bold">Era 1980+ (Top 10)</th>
                       <th className="py-3 px-4 text-right font-black text-amber-400 text-xs">
                         TOTAL PONTOS HISTÓRICOS
                       </th>
@@ -875,7 +944,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                         <span>Desempenho Histórico Detalhado: {entry.schoolName}</span>
                                       </h4>
                                       <p className="text-[11px] text-slate-400">
-                                        {entry.totalEspecialTitles} Título(s) ({entry.totalEspecialTitles * 20}p) · {entry.totalEspecialVices} Vice(s) ({entry.totalEspecialVices * 15}p) · Era 1984+: {entry.pointsDetailedEra} pts
+                                        {entry.totalEspecialTitles} Título(s) ({entry.totalEspecialTitles * 20}p) · {entry.totalEspecialVices} Vice(s) ({entry.totalEspecialVices * 15}p) · Era 1980+: {entry.pointsDetailedEra} pts
                                       </p>
                                     </div>
                                     {onSelectSchool && entry.school && (
@@ -895,7 +964,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
 
                                   <div>
                                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-2">
-                                      Carnavais Catalogados na Era Sambódromo (1984 a 2026):
+                                      Carnavais Catalogados na Era Moderna (1980 a 2026):
                                     </span>
                                     <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2">
                                       {historicalCarnavals.map((c) => {
@@ -1010,18 +1079,12 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                   {historicalCarnavals.map((carnaval) => {
                     const isSelected = selectedPastYear === carnaval.year;
                     const is2021 = carnaval.year === 2021;
-                    const is2017 = carnaval.year === 2017;
-                    const is2018 = carnaval.year === 2018;
-                    const is2011 = carnaval.year === 2011;
-                    const is1998 = carnaval.year === 1998;
-                    const is1994 = carnaval.year === 1994;
-                    const is1993 = carnaval.year === 1993;
 
                     return (
                       <button
                         key={carnaval.year}
                         onClick={() => setSelectedPastYear(carnaval.year)}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-bold font-mono transition shrink-0 flex items-center gap-1.5 cursor-pointer border ${
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold font-mono transition shrink-0 cursor-pointer border ${
                           isSelected
                             ? 'bg-amber-500 text-slate-950 font-black border-amber-400 shadow-md shadow-amber-500/20'
                             : is2021
@@ -1030,31 +1093,6 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                         }`}
                       >
                         <span>{carnaval.year}</span>
-                        {is2021 && (
-                          <span className="text-[9px] px-1 py-0.2 rounded bg-slate-800 text-slate-400 border border-slate-700">
-                            Sem Desfile
-                          </span>
-                        )}
-                        {is1998 && (
-                          <span className="text-[9px] px-1 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                            2 Campeãs
-                          </span>
-                        )}
-                        {(is1993 || is1994 || is2011 || is2018) && (
-                          <span className="text-[9px] px-1 py-0.2 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">
-                            Sem Rebaixamento
-                          </span>
-                        )}
-                        {is2017 && (
-                          <span className="text-[9px] px-1 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                            2 Campeãs • Sem Rebaixamento
-                          </span>
-                        )}
-                        {carnaval.year === 1984 && (
-                          <span className="text-[9px] px-1 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                            3 Campeãs • Supercampeonato
-                          </span>
-                        )}
                       </button>
                     );
                   })}
@@ -1080,23 +1118,85 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                   ) : (
                     <>
                       {/* Banner de destaques */}
-                      <div className="p-4 rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-amber-950/40 border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3">
-                        <div>
-                          <div className="flex items-center gap-2">
+                      <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-amber-950/40 border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div className="space-y-2">
+                          <div className="flex flex-wrap items-center gap-2">
                             <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                              RESULTADO OFICIAL LIESA
+                              {currentPastCarnaval.year <= 1984 ? 'RESULTADO OFICIAL AESCRJ' : 'RESULTADO OFICIAL LIESA'}
                             </span>
-                            <span className="text-xs text-slate-400 font-mono font-bold">
+                            <span className="text-xs text-slate-300 font-mono font-bold">
                               Ano {currentPastCarnaval.year}
                             </span>
+
+                            {currentPastCarnaval.year <= 1984 && (
+                              <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 border border-slate-700">
+                                Gestão AESCRJ
+                              </span>
+                            )}
+                            {currentPastCarnaval.year === 1985 && (
+                              <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                                1º Carnaval LIESA (Fundada em 24/07/1984)
+                              </span>
+                            )}
+
+                            {/* Informações de Campeãs */}
+                            {currentPastCarnaval.championNames.length > 1 && (
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-md bg-amber-500/25 text-amber-300 border border-amber-500/50 flex items-center gap-1">
+                                <Crown className="w-3 h-3 text-amber-400" />
+                                {currentPastCarnaval.championNames.length} Campeãs Oficiais
+                              </span>
+                            )}
+                            {currentPastCarnaval.viceChampionNames.length > 1 && (
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-md bg-slate-400/20 text-slate-200 border border-slate-400/40 flex items-center gap-1">
+                                <Medal className="w-3 h-3 text-slate-300" />
+                                {currentPastCarnaval.viceChampionNames.length} Vice-Campeãs
+                              </span>
+                            )}
+
+                            {/* Informações de Rebaixamento ou Não Rebaixamento */}
+                            {isNoRelegationYear ? (
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-md bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 flex items-center gap-1">
+                                <ShieldCheck className="w-3 h-3 text-indigo-400" />
+                                Sem Rebaixamento
+                              </span>
+                            ) : pastCarnavalRelegations.length > 0 ? (
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-md bg-rose-500/20 text-rose-300 border border-rose-500/40 flex items-center gap-1">
+                                <AlertTriangle className="w-3 h-3 text-rose-400" />
+                                {pastCarnavalRelegations.length} {pastCarnavalRelegations.length === 1 ? 'Rebaixada' : 'Rebaixadas'}
+                              </span>
+                            ) : null}
                           </div>
-                          <h3 className="text-lg font-black text-white mt-1">
+
+                          <h3 className="text-lg font-black text-white">
                             {currentPastCarnaval.championNames.length > 1
                               ? `Campeãs Oficiais: ${currentPastCarnaval.championNames.join(' e ')}`
                               : `Campeã: ${currentPastCarnaval.championNames[0] || 'A Definir'}`}
                           </h3>
+
+                          {/* Bloco de Informações do Carnaval Aberto: Rebaixamento e Campeãs */}
+                          <div className="flex flex-wrap gap-2 text-xs pt-0.5">
+                            {isNoRelegationYear && (
+                              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-950/60 border border-indigo-800/70 text-indigo-200 text-xs">
+                                <ShieldCheck className="w-4 h-4 text-indigo-400 shrink-0" />
+                                <span>
+                                  <strong>Sem Rebaixamento:</strong> Neste carnaval não houve rebaixamento para o grupo de acesso por deliberação oficial {currentPastCarnaval.year <= 1984 ? 'da AESCRJ' : 'da LIESA'}.
+                                </span>
+                              </div>
+                            )}
+
+                            {!isNoRelegationYear && pastCarnavalRelegations.length > 0 && (
+                              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-950/50 border border-rose-800/60 text-rose-200 text-xs">
+                                <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
+                                <span>
+                                  <strong>Rebaixamento ({pastCarnavalRelegations.length}):</strong>{' '}
+                                  {pastCarnavalRelegations.join(', ')}
+                                </span>
+                              </div>
+                            )}
+                          </div>
+
                           {currentPastCarnaval.notes && (
-                            <p className="text-[11px] text-amber-200/80 mt-1 max-w-2xl leading-relaxed">
+                            <p className="text-[11px] text-amber-200/90 mt-1 max-w-2xl leading-relaxed">
                               {currentPastCarnaval.notes}
                             </p>
                           )}
@@ -1107,7 +1207,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                           {currentPastCarnaval.championNames.map((champ, idx) => (
                             <div
                               key={idx}
-                              className="px-3 py-2 rounded-xl bg-amber-500/15 border border-amber-400/40 text-center"
+                              className="px-3.5 py-2 rounded-xl bg-amber-500/15 border border-amber-400/40 text-center"
                             >
                               <span className="text-[9px] uppercase font-black text-amber-400 block">
                                 🏆 Campeã (+20p)
@@ -1116,7 +1216,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                             </div>
                           ))}
                           {currentPastCarnaval.viceChampionNames.length > 0 && (
-                            <div className="px-3 py-2 rounded-xl bg-slate-300/15 border border-slate-300/40 text-center">
+                            <div className="px-3.5 py-2 rounded-xl bg-slate-300/15 border border-slate-300/40 text-center">
                               <span className="text-[9px] uppercase font-black text-slate-300 block">
                                 🥈 Vice (+15p)
                               </span>
@@ -1135,7 +1235,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                             <div className="flex items-center gap-2">
                               <Crown className="w-4 h-4 text-amber-400" />
                               <span className="text-xs font-black text-amber-300 uppercase tracking-wider">
-                                Resultados Oficiais do Carnaval de 1984 (Inauguração do Sambódromo):
+                                Resultados Oficiais do Carnaval de 1984 (Inauguração do Sambódromo • Gestão AESCRJ):
                               </span>
                             </div>
                             <span className="text-[11px] text-slate-400">
@@ -1218,7 +1318,9 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                             <tr className="border-b border-slate-800 text-slate-400 uppercase text-[10px] bg-slate-900/90">
                               <th className="py-3 px-3.5 w-16">Colocação</th>
                               <th className="py-3 px-3.5">Escola de Samba</th>
-                              <th className="py-3 px-3 text-center text-amber-400 font-bold">Pontos LIESA</th>
+                              <th className="py-3 px-3 text-center text-amber-400 font-bold">
+                                {currentPastCarnaval.year <= 1984 ? 'Pontos (Critério LIESA)' : 'Pontos LIESA'}
+                              </th>
                               <th className="py-3 px-4 text-right text-slate-300 font-bold">Status Oficial</th>
                             </tr>
                           </thead>

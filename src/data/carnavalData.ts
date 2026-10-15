@@ -2495,9 +2495,89 @@ Object.entries(OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL).forEach(([schoolId, rec]) => 
 });
 
 // ============================================================================
-// RESULTADOS HISTÓRICOS OFICIAIS DOS CARNAVAIS DE 1984 A 1999 (LIESA / AESCRJ)
+// RESULTADOS HISTÓRICOS OFICIAIS DE 1980 A 1999 (AESCRJ até 1984 / LIESA desde 1985)
 // ============================================================================
 export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
+  1980: {
+    champion: 'Beija-Flor, Imperatriz Leopoldinense e Portela',
+    runnerUp: 'Mocidade Independente, União da Ilha e Unidos de Vila Isabel',
+    third: 'Acadêmicos do Salgueiro',
+    relegated: ['Unidos de São Carlos'],
+    notes: 'Três campeãs e três vices. Unidos de São Carlos (Estácio de Sá) rebaixada.',
+    standings: [
+      { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'campea' },
+      { rank: 1, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'campea' },
+      { rank: 1, schoolId: 'portela', schoolName: 'Portela', status: 'campea' },
+      { rank: 2, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'vice' },
+      { rank: 2, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'vice' },
+      { rank: 2, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'vice' },
+      { rank: 3, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 4, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 5, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'participante' },
+      { rank: 6, schoolId: 'estacio_de_sa', schoolName: 'Unidos de São Carlos (Estácio de Sá)', status: 'rebaixada' }
+    ]
+  },
+  1981: {
+    champion: 'Imperatriz Leopoldinense',
+    runnerUp: 'Beija-Flor',
+    third: 'Portela',
+    relegated: [],
+    notes: 'Imperatriz Leopoldinense bicampeã. Não houve rebaixamento.',
+    standings: [
+      { rank: 1, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'campea' },
+      { rank: 2, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'vice' },
+      { rank: 3, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 4, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 5, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 6, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 7, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 8, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 9, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 10, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'participante' }
+    ]
+  },
+  1982: {
+    champion: 'Império Serrano',
+    runnerUp: 'Portela',
+    third: 'Imperatriz Leopoldinense',
+    relegated: ['Império da Tijuca', 'Unidos de São Carlos'],
+    notes: 'Império Serrano campeão com "Bum bum paticumprucumbum prugurundum". Duas rebaixadas: Império da Tijuca e Unidos de São Carlos (Estácio de Sá).',
+    standings: [
+      { rank: 1, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'campea' },
+      { rank: 2, schoolId: 'portela', schoolName: 'Portela', status: 'vice' },
+      { rank: 3, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'participante' },
+      { rank: 4, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 5, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 6, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'participante' },
+      { rank: 7, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 8, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 9, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 10, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 11, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', status: 'rebaixada' },
+      { rank: 12, schoolId: 'estacio_de_sa', schoolName: 'Unidos de São Carlos (Estácio de Sá)', status: 'rebaixada' }
+    ]
+  },
+  1983: {
+    champion: 'Beija-Flor',
+    runnerUp: 'Portela',
+    third: 'Império Serrano',
+    relegated: [],
+    notes: 'Beija-Flor campeã com "A Grande Constelação das Estrelas Negras". Não houve rebaixamento. Caprichosos de Pilares desfilou como Hors concours.',
+    standings: [
+      { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'campea' },
+      { rank: 2, schoolId: 'portela', schoolName: 'Portela', status: 'vice' },
+      { rank: 3, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'participante' },
+      { rank: 4, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'participante' },
+      { rank: 5, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 6, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 7, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 8, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 9, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 10, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 11, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte', status: 'participante' },
+      { rank: 0, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', status: 'participante' }
+    ]
+  },
   1984: {
     champion: 'Estação Primeira de Mangueira e Portela',
     runnerUp: 'Mocidade Independente e Império Serrano',
@@ -2908,7 +2988,7 @@ export const OFFICIAL_HISTORICAL_ESPECIAL_RELEGATIONS_BY_SCHOOL: Record<string, 
   sao_clemente: [1985, 1991, 1993, 1995, 1999, 2002, 2004, 2008, 2022],
   tijuca: [1984, 1986, 1998],
   porto_da_pedra: [1998, 2000, 2012, 2024],
-  estacio_de_sa: [1997, 2007, 2016, 2020],
+  estacio_de_sa: [1980, 1982, 1997, 2007, 2016, 2020],
   santa_cruz: [1985, 1990, 1992, 1997, 2003],
   caprichosos_de_pilares: [1996, 2006],
   tradicao: [1989, 1992, 1996, 2005],

@@ -568,11 +568,11 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                             <span className="font-semibold text-white">{school.foundationDate || school.foundationYear}</span>
                           </div>
                           <div>
-                            <span className="text-slate-500 text-[10px] block uppercase">Bairro / Cidade / Sede</span>
+                            <span className="text-slate-500 text-[10px] block uppercase">
+                              {school.originType === 'outra_cidade' ? 'Cidade' : 'Bairro'}
+                            </span>
                             <span className="font-semibold text-white">
-                              {school.city && !school.neighborhood.toLowerCase().includes(school.city.split(',')[0].toLowerCase())
-                                ? `${school.neighborhood} • ${school.city}`
-                                : (school.city || school.neighborhood)}
+                              {school.originType === 'outra_cidade' ? (school.city || school.cityState) : school.neighborhood}
                             </span>
                           </div>
                           <div>

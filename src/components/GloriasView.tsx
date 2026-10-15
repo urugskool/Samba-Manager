@@ -1295,12 +1295,10 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
 
             <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1">
               <span className="text-[10px] text-slate-400 uppercase font-semibold block">
-                Bairro / Cidade
+                {selectedSchool.originType === 'outra_cidade' ? 'Cidade' : 'Bairro'}
               </span>
               <span className="font-bold text-white text-sm block">
-                {selectedSchool.city && !selectedSchool.neighborhood.toLowerCase().includes(selectedSchool.city.split(',')[0].toLowerCase())
-                  ? `${selectedSchool.neighborhood} • ${selectedSchool.city}`
-                  : (selectedSchool.city || selectedSchool.neighborhood)}
+                {selectedSchool.originType === 'outra_cidade' ? (selectedSchool.city || selectedSchool.cityState) : selectedSchool.neighborhood}
               </span>
             </div>
 
