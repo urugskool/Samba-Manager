@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { School, SchoolAttributes } from '../types/carnaval';
+import { School, SchoolAttributes, Enredo } from '../types/carnaval';
 import { EnredoService } from '../services/enredoService';
+import { EnredoCreatorModal } from './EnredoCreatorModal';
+import { ParadeScript, ParadeScriptService } from '../services/paradeScriptService';
 import {
   Sparkles,
   Shield,
@@ -375,6 +377,11 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
   const totalBonusUsed = Object.values(bonusPoints).reduce((a, b) => a + b, 0);
   const maxBonusPoints = 5;
 
+  // Enredo Inaugural & Projeto de Desfile
+  const [customEnredo, setCustomEnredo] = useState<Enredo | null>(null);
+  const [customParadeScript, setCustomParadeScript] = useState<ParadeScript | null>(null);
+  const [showEnredoCreatorModal, setShowEnredoCreatorModal] = useState<boolean>(false);
+
   const handleAdjustBonus = (key: string, delta: number) => {
     const current = bonusPoints[key] || 0;
     const nextVal = current + delta;
@@ -580,12 +587,17 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
       technicalParadeDone: false
     };
 
-    // Gera um enredo inédito, único e adaptado para a identidade desta nova escola
-    const initialEnredo = EnredoService.generateUniqueEnredoForSchool(dummySchool, currentYear);
+    // Utiliza o enredo autoral criado pelo jogador ou gera um inédito caso não tenha criado
+    const finalEnredo = customEnredo || EnredoService.generateUniqueEnredoForSchool(dummySchool, currentYear);
     const completeCustomSchool: School = {
       ...dummySchool,
-      currentEnredo: initialEnredo
+      currentEnredo: finalEnredo,
+      customParadeScript: customParadeScript || undefined
     };
+
+    if (customParadeScript) {
+      ParadeScriptService.registerCustomScript(completeCustomSchool.id, customParadeScript);
+    }
 
     soundService.playLevelUp();
     onConfirmCreation(completeCustomSchool, managerName.trim() || 'Diretor Presidente');
@@ -1381,6 +1393,99 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
               })}
             </div>
           </div>
+
+          {/* Seção 5: Enredo Inaugural & Projeto de Desfile (Pesquisa Integrada) */}
+          <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+              <div className="flex items-center gap-2">
+                <Palette className="w-5 h-5 text-amber-400" />
+                <h3 className="text-lg font-bold text-white">Enredo Inaugural & Projeto de Desfile</h3>
+              </div>
+              <span className="text-xs font-mono font-bold text-amber-400">
+                Pesquisa Temática Integrada
+              </span>
+            </div>
+
+            <p className="text-xs text-slate-300 leading-relaxed">
+              Toda grande história de carnaval começa na escolha do enredo! Você pode criar seu próprio enredo autoral
+              indicando um tema de sua escolha (com pesquisa integrada e formação do roteiro) ou permitir que a diretoria
+              elabore um enredo tradicional para a estreia.
+            </p>
+
+            {customEnredo ? (
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/15 via-slate-900 to-indigo-950/40 border-2 border-amber-500/50 space-y-3">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <span className="px-2.5 py-0.5 rounded-full bg-amber-500 text-slate-950 text-[10px] font-black uppercase">
+                    🎭 Enredo Autoral Exclusivo
+                  </span>
+                  <span className="text-xs text-amber-400 font-mono">
+                    Vertente: <strong>{customEnredo.themeType}</strong>
+                  </span>
+                </div>
+
+                <h4 className="text-base font-black text-white">
+                  "{customEnredo.title}"
+                </h4>
+
+                <p className="text-xs text-slate-300 leading-relaxed line-clamp-3">
+                  {customEnredo.synopsis}
+                </p>
+
+                {customParadeScript && (
+                  <div className="pt-2 border-t border-slate-800 text-[11px] text-slate-400 flex flex-wrap items-center gap-3">
+                    <span><strong>Setores:</strong> {customParadeScript.setores.length}</span>
+                    <span>•</span>
+                    <span><strong>Comissão:</strong> {customParadeScript.obrigatoriedades.comissaoDeFrenteCount} comp.</span>
+                    <span>•</span>
+                    <span><strong>Alegorias:</strong> {customParadeScript.obrigatoriedades.totalAlegorias}</span>
+                    <span>•</span>
+                    <span><strong>Bateria:</strong> {customParadeScript.obrigatoriedades.ritmistasCount}</span>
+                  </div>
+                )}
+
+                <div className="pt-1 flex items-center justify-between">
+                  <button
+                    type="button"
+                    onClick={() => setShowEnredoCreatorModal(true)}
+                    className="text-xs text-amber-400 hover:text-amber-300 font-bold underline cursor-pointer"
+                  >
+                    Alterar Enredo / Realizar Nova Pesquisa
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCustomEnredo(null);
+                      setCustomParadeScript(null);
+                    }}
+                    className="text-xs text-rose-400 hover:text-rose-300 font-medium cursor-pointer"
+                  >
+                    Remover Enredo Customizado
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <div className="text-xs font-bold text-white flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Nenhum enredo autoral criado ainda</span>
+                  </div>
+                  <p className="text-[11px] text-slate-400">
+                    Se preferir, crie o seu enredo agora! O jogo pesquisará o tema e montará todo o seu roteiro de desfile.
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setShowEnredoCreatorModal(true)}
+                  className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs flex items-center gap-2 shadow-lg shadow-amber-500/20 transition cursor-pointer shrink-0"
+                >
+                  <Sparkles className="w-4 h-4 text-slate-950" />
+                  <span>Criar Enredo Próprio</span>
+                </button>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Coluna Direita: Pré-visualização Ao Vivo da Escola (5 colunas) */}
@@ -1463,6 +1568,13 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
                 <strong className="text-slate-200">{quadraName} (Nível 1)</strong>
               </div>
 
+              <div className="flex flex-col pb-2 border-b border-slate-800 space-y-0.5">
+                <span className="text-slate-400">Enredo de Estreia:</span>
+                <strong className="text-amber-300 font-bold text-[11px] truncate">
+                  {customEnredo ? `"${customEnredo.title}"` : 'Enredo Inédito da Comunidade'}
+                </strong>
+              </div>
+
               <div className="flex items-center justify-between">
                 <span className="text-slate-400">Orçamento em Caixa:</span>
                 <strong className="text-emerald-400 font-mono text-sm font-black">
@@ -1495,6 +1607,45 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Modal de Criação de Enredo e Formação de Roteiro */}
+      {showEnredoCreatorModal && (
+        <EnredoCreatorModal
+          school={{
+            id: 'custom_new_school',
+            name: name || 'Sua Nova Escola de Samba',
+            shortName: name || 'Nova Escola',
+            division: 'avaliacao',
+            colors: {
+              primary: primaryColor,
+              secondary: secondaryColor,
+              accent: accentColor,
+              text: '#ffffff',
+              border: primaryColor
+            },
+            attributes: {
+              bateria: 74 + (bonusPoints.bateria || 0),
+              comissaoDeFrente: 74 + (bonusPoints.comissaoDeFrente || 0),
+              evolucao: 74 + (bonusPoints.evolucao || 0),
+              harmonia: 74 + (bonusPoints.harmonia || 0),
+              enredo: 74 + (bonusPoints.enredo || 0),
+              fantasias: 74 + (bonusPoints.fantasias || 0),
+              alegorias: 74 + (bonusPoints.alegorias || 0),
+              sambaEnredo: 74 + (bonusPoints.sambaEnredo || 0),
+              mestreSalaPortaBandeira: 74 + (bonusPoints.mestreSalaPortaBandeira || 0)
+            }
+          } as School}
+          division="avaliacao"
+          initialTheme={customEnredo?.title || ''}
+          initialNotes={customEnredo?.synopsis || ''}
+          onSaveEnredo={(enr, script) => {
+            setCustomEnredo(enr);
+            setCustomParadeScript(script);
+            soundService.playSuccess();
+          }}
+          onClose={() => setShowEnredoCreatorModal(false)}
+        />
+      )}
     </form>
   );
 };

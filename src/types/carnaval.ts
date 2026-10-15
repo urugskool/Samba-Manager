@@ -37,15 +37,20 @@ export interface StaffMember {
 
 export type EnredoThemeType =
   | 'Afro-brasileiro'
+  | 'Afro-Brasileiro'
   | 'Histórico'
   | 'Homenagem'
   | 'Crítica Social'
   | 'Folclore & Lendas'
+  | 'Regional'
   | 'Cultural'
   | 'Patrocinado'
   | 'Ambiental & Natureza'
   | 'Mitológico'
   | 'Literário & Artes'
+  | 'Lúdico'
+  | 'Ciência e Tecnologia'
+  | 'Ciência & Tecnologia'
   | 'Surrealista';
 
 export interface Enredo {
@@ -310,6 +315,7 @@ export interface School {
     coreografo: StaffMember;
   };
   currentEnredo?: Enredo;
+  customParadeScript?: any;
   pastEnredoTitles?: string[];
   rehearsalLevel: number; // 0 - 100
   barracaoProgress: number; // 0 - 100

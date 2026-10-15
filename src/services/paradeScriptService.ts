@@ -133,6 +133,16 @@ export class ParadeScriptService {
    */
   public static getOrGenerateParadeScript(school: School, division?: DivisionId): ParadeScript {
     const div = division || school.division;
+    
+    // Se a agremiação possui um roteiro personalizado gerado no criador de enredos
+    if (school.customParadeScript) {
+      const custom = school.customParadeScript as ParadeScript;
+      // Garante sincronização da agremiação e divisão se houver mudança
+      if (custom.schoolId === school.id && (!division || custom.division === div)) {
+        return custom;
+      }
+    }
+
     const enredoTitle = school.currentEnredo?.title || 'O Canto Sagrado da Passarela';
     const enredoId = school.currentEnredo?.id || 'default_enr';
     const cacheKey = `${school.id}_${div}_${enredoId}_${enredoTitle}`;
@@ -144,6 +154,15 @@ export class ParadeScriptService {
     const script = this.generateScript(school, div);
     this.scriptCache.set(cacheKey, script);
     return script;
+  }
+
+  /**
+   * Armazena um roteiro personalizado no cache do serviço
+   */
+  public static registerCustomScript(schoolId: string, script: ParadeScript): void {
+    const enredoTitle = script.enredoTitle || 'Custom';
+    const cacheKey = `${schoolId}_${script.division}_custom_${enredoTitle}`;
+    this.scriptCache.set(cacheKey, script);
   }
 
   private static generateThematicPresetScript(

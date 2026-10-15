@@ -32,7 +32,8 @@ import {
 } from '../config/obrigatoriedadesConfig';
 import { RegulamentoObrigatoriedadesModal } from './RegulamentoObrigatoriedadesModal';
 import { RoteiroDesfileModal } from './RoteiroDesfileModal';
-import { ParadeScriptService } from '../services/paradeScriptService';
+import { EnredoCreatorModal } from './EnredoCreatorModal';
+import { ParadeScriptService, ParadeScript } from '../services/paradeScriptService';
 
 interface BarracaoViewProps {
   school: School;
@@ -49,6 +50,26 @@ export const BarracaoView: React.FC<BarracaoViewProps> = ({
 }) => {
   const [showRegulamentoModal, setShowRegulamentoModal] = useState<boolean>(false);
   const [showRoteiroModal, setShowRoteiroModal] = useState<boolean>(false);
+  const [showEnredoCreatorModal, setShowEnredoCreatorModal] = useState<boolean>(false);
+
+  const handleSaveCustomEnredo = (newEnredo: Enredo, script: ParadeScript) => {
+    const updated: School = {
+      ...school,
+      currentEnredo: newEnredo,
+      customParadeScript: script,
+      attributes: {
+        ...school.attributes,
+        enredo: Math.max(school.attributes.enredo, 96)
+      }
+    };
+    ParadeScriptService.clearCache(school.id);
+    ParadeScriptService.registerCustomScript(school.id, script);
+    onUpdateSchool(updated);
+    onShowMessage(
+      `🎭 Enredo autoral "${newEnredo.title}" homologado com sucesso! O roteiro de desfile completo foi registrado no barracão!`,
+      'success'
+    );
+  };
 
   const composition: SchoolParadeComposition =
     school.paradeComposition || generateDefaultParadeComposition(school);
@@ -284,7 +305,16 @@ export const BarracaoView: React.FC<BarracaoViewProps> = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              onClick={() => setShowEnredoCreatorModal(true)}
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs flex items-center gap-2 shadow-lg shadow-amber-500/20 transition cursor-pointer"
+              title="Indique o tema e resumo do seu enredo; o sistema pesquisará a história e montará todo o seu roteiro de desfile!"
+            >
+              <Sparkles className="w-4 h-4 text-slate-950" />
+              <span>Criar Enredo Próprio (Pesquisa Integrada)</span>
+            </button>
+
             <button
               onClick={() => setShowRoteiroModal(true)}
               className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500/20 via-amber-500/10 to-amber-500/20 hover:from-amber-500/30 hover:to-amber-500/20 text-amber-300 font-bold text-xs flex items-center gap-2 border border-amber-500/40 transition shadow-lg cursor-pointer"
@@ -304,6 +334,11 @@ export const BarracaoView: React.FC<BarracaoViewProps> = ({
                 <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
                   Vertente: {school.currentEnredo.themeType}
                 </span>
+                {school.customParadeScript && (
+                  <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/40 flex items-center gap-1">
+                    <Sparkles className="w-3 h-3 text-purple-400" /> Enredo Autoral da Comunidade
+                  </span>
+                )}
                 {school.currentEnredo.isSponsored && (
                   <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center gap-1">
                     <DollarSign className="w-3 h-3" /> Patrocinado por {school.currentEnredo.sponsorName}
@@ -854,6 +889,16 @@ export const BarracaoView: React.FC<BarracaoViewProps> = ({
           school={school}
           division={school.division}
           onClose={() => setShowRoteiroModal(false)}
+        />
+      )}
+
+      {/* Enredo Creator Modal */}
+      {showEnredoCreatorModal && (
+        <EnredoCreatorModal
+          school={school}
+          division={school.division}
+          onSaveEnredo={handleSaveCustomEnredo}
+          onClose={() => setShowEnredoCreatorModal(false)}
         />
       )}
     </div>
