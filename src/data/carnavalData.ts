@@ -2495,9 +2495,34 @@ Object.entries(OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL).forEach(([schoolId, rec]) => 
 });
 
 // ============================================================================
-// RESULTADOS HISTÓRICOS OFICIAIS DOS CARNAVAIS DE 1985 A 1999 (LIESA)
+// RESULTADOS HISTÓRICOS OFICIAIS DOS CARNAVAIS DE 1984 A 1999 (LIESA / AESCRJ)
 // ============================================================================
 export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
+  1984: {
+    champion: 'Estação Primeira de Mangueira e Portela',
+    runnerUp: 'Mocidade Independente e Império Serrano',
+    third: 'Beija-Flor e Caprichosos de Pilares',
+    relegated: ['Unidos da Tijuca', 'Unidos da Ponte'],
+    notes: 'Inauguração do Sambódromo da Marquês de Sapucaí (Passarela Darcy Ribeiro). Edição histórica com três campeãs e três resultados distintos: Desfile de Domingo (Portela campeã, Império Serrano vice), Desfile de Segunda-Feira (Mangueira campeã, Mocidade vice) e o Supercampeonato no Sábado das Campeãs (Mangueira Supercampeã, Portela Supervice). Duas agremiações rebaixadas: Unidos da Tijuca (Domingo) e Unidos da Ponte (Segunda-Feira).',
+    standings: [
+      { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'campea' },
+      { rank: 1, schoolId: 'portela', schoolName: 'Portela', status: 'campea' },
+      { rank: 2, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'vice' },
+      { rank: 2, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'vice' },
+      { rank: 3, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'participante' },
+      { rank: 3, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', status: 'participante' },
+      { rank: 4, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 4, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'participante' },
+      { rank: 5, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 5, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 6, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', status: 'participante' },
+      { rank: 6, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', status: 'participante' },
+      { rank: 7, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', status: 'participante' },
+      { rank: 8, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz', status: 'participante' },
+      { rank: 15, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'rebaixada' },
+      { rank: 16, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte', status: 'rebaixada' }
+    ]
+  },
   1985: {
     champion: 'Mocidade Independente de Padre Miguel',
     runnerUp: 'Beija-Flor',
@@ -2873,6 +2898,7 @@ export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
   }
 } as const;
 
+export const HISTORICAL_CARNAVAL_RESULTS_1984_1999 = HISTORICAL_CARNAVAL_RESULTS_1985_1999;
 export const HISTORICAL_CARNAVAL_RESULTS_1990_1999 = HISTORICAL_CARNAVAL_RESULTS_1985_1999;
 export const HISTORICAL_CARNAVAL_RESULTS_1995_1999 = HISTORICAL_CARNAVAL_RESULTS_1985_1999;
 
@@ -2880,14 +2906,14 @@ export const HISTORICAL_CARNAVAL_RESULTS_1995_1999 = HISTORICAL_CARNAVAL_RESULTS
 export const OFFICIAL_HISTORICAL_ESPECIAL_RELEGATIONS_BY_SCHOOL: Record<string, number[]> = {
   imperio_serrano: [1991, 1997, 1999, 2007, 2009, 2019],
   sao_clemente: [1985, 1991, 1993, 1995, 1999, 2002, 2004, 2008, 2022],
-  tijuca: [1986, 1998],
+  tijuca: [1984, 1986, 1998],
   porto_da_pedra: [1998, 2000, 2012, 2024],
   estacio_de_sa: [1997, 2007, 2016, 2020],
   santa_cruz: [1985, 1990, 1992, 1997, 2003],
   caprichosos_de_pilares: [1996, 2006],
   tradicao: [1989, 1992, 1996, 2005],
-  imperio_da_tijuca: [1971, 1977, 1982, 1984, 1987, 1996, 2014],
-  unidos_da_ponte: [1986, 1989, 1996],
+  imperio_da_tijuca: [1971, 1977, 1982, 1987, 1996, 2014],
+  unidos_da_ponte: [1984, 1986, 1989, 1996],
   rocinha: [1997, 2002, 2006],
   villa_rica: [1995],
   imperatriz: [2019],

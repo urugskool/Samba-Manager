@@ -51,6 +51,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
 }) => {
   const [rankingMode, setRankingMode] = useState<'quinquennio' | 'historico' | 'carnavais_passados'>('quinquennio');
   const [selectedPastYear, setSelectedPastYear] = useState<number>(2026);
+  const [subgroup1984Tab, setSubgroup1984Tab] = useState<'supercampeonato' | 'domingo' | 'segunda' | 'geral'>('supercampeonato');
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedSchoolId, setExpandedSchoolId] = useState<string | null>(null);
   const [expandedHistSchoolId, setExpandedHistSchoolId] = useState<string | null>(null);
@@ -104,12 +105,22 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
 
   const filteredPastCarnavalStandings = useMemo(() => {
     if (!currentPastCarnaval) return [];
+    let baseList = currentPastCarnaval.standings || [];
+    if (currentPastCarnaval.year === 1984 && currentPastCarnaval.subgroups) {
+      if (subgroup1984Tab === 'domingo' && currentPastCarnaval.subgroups.domingo) {
+        baseList = currentPastCarnaval.subgroups.domingo;
+      } else if (subgroup1984Tab === 'segunda' && currentPastCarnaval.subgroups.segunda) {
+        baseList = currentPastCarnaval.subgroups.segunda;
+      } else if (subgroup1984Tab === 'supercampeonato' && currentPastCarnaval.subgroups.supercampeonato) {
+        baseList = currentPastCarnaval.subgroups.supercampeonato;
+      }
+    }
     const q = searchQuery.toLowerCase().trim();
-    if (!q) return currentPastCarnaval.standings;
-    return currentPastCarnaval.standings.filter((st) =>
+    if (!q) return baseList;
+    return baseList.filter((st) =>
       st.schoolName.toLowerCase().includes(q)
     );
-  }, [currentPastCarnaval, searchQuery]);
+  }, [currentPastCarnaval, searchQuery, subgroup1984Tab]);
 
   if (!isOpen) return null;
 
@@ -160,11 +171,18 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
     );
   };
 
-  const getPastRankBadge = (rank: number, total: number, isHorsConcours?: boolean, year?: number) => {
+  const getPastRankBadge = (rank: number, total: number, isHorsConcours?: boolean, year?: number, statusDescription?: string) => {
     if (isHorsConcours || rank === 0) {
       return (
         <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-purple-500/20 text-purple-300 border border-purple-500/40 font-bold text-xs shadow-sm">
           Hors concours
+        </span>
+      );
+    }
+    if (statusDescription && statusDescription.toLowerCase().includes('rebaixada')) {
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs font-bold">
+          {rank}º (Rebaixada)
         </span>
       );
     }
@@ -203,6 +221,13 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
       return (
         <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-blue-500/15 text-blue-300 border border-blue-500/30 font-mono text-xs">
           {rank}º (Top 10)
+        </span>
+      );
+    }
+    if (year === 1984 && rank >= 15) {
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs font-bold">
+          {rank}º (Rebaixada)
         </span>
       );
     }
@@ -510,7 +535,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
               }`}
             >
               <Trophy className="w-3.5 h-3.5" />
-              <span>Carnavais Passados (1985-2026)</span>
+              <span>Carnavais Passados (1984-2026)</span>
             </button>
           </div>
 
@@ -730,7 +755,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                 <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                 <div>
                   <span className="font-bold text-amber-300">Classificação Histórica Oficial da LIESA:</span>{' '}
-                  Atribui 20 pontos por título e 15 pontos por vice-campeonato na história do Grupo Especial, somados às colocações completas de 1º a 10º lugar para todos os carnavais catalogados com apuração completa (a partir de 1985). Clique em qualquer agremiação para ver o histórico ano a ano.
+                  Atribui 20 pontos por título e 15 pontos por vice-campeonato na história do Grupo Especial, somados às colocações completas de 1º a 10º lugar para todos os carnavais catalogados com apuração completa (1984 a 2026). Clique em qualquer agremiação para ver o histórico ano a ano.
                 </div>
               </div>
 
@@ -751,7 +776,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                       <th className="py-3 px-3.5">Escola de Samba</th>
                       <th className="py-3 px-3 text-center text-amber-400 font-bold">Títulos Especial (20p)</th>
                       <th className="py-3 px-3 text-center text-slate-300 font-bold">Vices Especial (15p)</th>
-                      <th className="py-3 px-3 text-center text-blue-400 font-bold">Era 1985+ (Top 10)</th>
+                      <th className="py-3 px-3 text-center text-blue-400 font-bold">Era 1984+ (Top 10)</th>
                       <th className="py-3 px-4 text-right font-black text-amber-400 text-xs">
                         TOTAL PONTOS HISTÓRICOS
                       </th>
@@ -850,7 +875,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                         <span>Desempenho Histórico Detalhado: {entry.schoolName}</span>
                                       </h4>
                                       <p className="text-[11px] text-slate-400">
-                                        {entry.totalEspecialTitles} Título(s) ({entry.totalEspecialTitles * 20}p) · {entry.totalEspecialVices} Vice(s) ({entry.totalEspecialVices * 15}p) · Era 1985+: {entry.pointsDetailedEra} pts
+                                        {entry.totalEspecialTitles} Título(s) ({entry.totalEspecialTitles * 20}p) · {entry.totalEspecialVices} Vice(s) ({entry.totalEspecialVices * 15}p) · Era 1984+: {entry.pointsDetailedEra} pts
                                       </p>
                                     </div>
                                     {onSelectSchool && entry.school && (
@@ -870,7 +895,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
 
                                   <div>
                                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-2">
-                                      Carnavais Catalogados na Era Moderna (1985 em diante):
+                                      Carnavais Catalogados na Era Sambódromo (1984 a 2026):
                                     </span>
                                     <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2">
                                       {historicalCarnavals.map((c) => {
@@ -1025,6 +1050,11 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                             2 Campeãs • Sem Rebaixamento
                           </span>
                         )}
+                        {carnaval.year === 1984 && (
+                          <span className="text-[9px] px-1 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                            3 Campeãs • Supercampeonato
+                          </span>
+                        )}
                       </button>
                     );
                   })}
@@ -1098,6 +1128,89 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                         </div>
                       </div>
 
+                      {/* Seletor Especial para os 3 Resultados Oficiais de 1984 */}
+                      {currentPastCarnaval.year === 1984 && currentPastCarnaval.subgroups && (
+                        <div className="p-3.5 rounded-2xl bg-slate-900/90 border border-amber-500/30 space-y-2.5">
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div className="flex items-center gap-2">
+                              <Crown className="w-4 h-4 text-amber-400" />
+                              <span className="text-xs font-black text-amber-300 uppercase tracking-wider">
+                                Resultados Oficiais do Carnaval de 1984 (Inauguração do Sambódromo):
+                              </span>
+                            </div>
+                            <span className="text-[11px] text-slate-400">
+                              3 Campeãs • Domingo, Segunda-Feira e Supercampeonato
+                            </span>
+                          </div>
+
+                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                            <button
+                              onClick={() => setSubgroup1984Tab('supercampeonato')}
+                              className={`p-2.5 rounded-xl text-left border transition cursor-pointer ${
+                                subgroup1984Tab === 'supercampeonato'
+                                  ? 'bg-amber-500/20 border-amber-400 text-white shadow-md shadow-amber-500/10'
+                                  : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800/50'
+                              }`}
+                            >
+                              <div className="text-[10px] font-black uppercase text-amber-400 flex items-center justify-between">
+                                <span>Supercampeonato</span>
+                                <span className="text-[9px] px-1 py-0.2 rounded bg-amber-500/30 text-amber-200">Sábado</span>
+                              </div>
+                              <div className="text-xs font-bold text-white mt-0.5 truncate">Mangueira Supercampeã</div>
+                              <div className="text-[10px] text-slate-400 truncate">8 escolas (G6 + Grupo 1-B)</div>
+                            </button>
+
+                            <button
+                              onClick={() => setSubgroup1984Tab('domingo')}
+                              className={`p-2.5 rounded-xl text-left border transition cursor-pointer ${
+                                subgroup1984Tab === 'domingo'
+                                  ? 'bg-amber-500/20 border-amber-400 text-white shadow-md shadow-amber-500/10'
+                                  : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800/50'
+                              }`}
+                            >
+                              <div className="text-[10px] font-black uppercase text-blue-400 flex items-center justify-between">
+                                <span>Desfiles de Domingo</span>
+                                <span className="text-[9px] px-1 py-0.2 rounded bg-blue-500/30 text-blue-200">Domingo</span>
+                              </div>
+                              <div className="text-xs font-bold text-white mt-0.5 truncate">Portela Campeã</div>
+                              <div className="text-[10px] text-rose-300 truncate">Rebaixada: Tijuca</div>
+                            </button>
+
+                            <button
+                              onClick={() => setSubgroup1984Tab('segunda')}
+                              className={`p-2.5 rounded-xl text-left border transition cursor-pointer ${
+                                subgroup1984Tab === 'segunda'
+                                  ? 'bg-amber-500/20 border-amber-400 text-white shadow-md shadow-amber-500/10'
+                                  : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800/50'
+                              }`}
+                            >
+                              <div className="text-[10px] font-black uppercase text-pink-400 flex items-center justify-between">
+                                <span>Desfiles de Segunda</span>
+                                <span className="text-[9px] px-1 py-0.2 rounded bg-pink-500/30 text-pink-200">Segunda</span>
+                              </div>
+                              <div className="text-xs font-bold text-white mt-0.5 truncate">Mangueira Campeã</div>
+                              <div className="text-[10px] text-rose-300 truncate">Rebaixada: Ponte</div>
+                            </button>
+
+                            <button
+                              onClick={() => setSubgroup1984Tab('geral')}
+                              className={`p-2.5 rounded-xl text-left border transition cursor-pointer ${
+                                subgroup1984Tab === 'geral'
+                                  ? 'bg-amber-500/20 border-amber-400 text-white shadow-md shadow-amber-500/10'
+                                  : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800/50'
+                              }`}
+                            >
+                              <div className="text-[10px] font-black uppercase text-slate-300 flex items-center justify-between">
+                                <span>Classificação Geral</span>
+                                <span className="text-[9px] px-1 py-0.2 rounded bg-slate-800 text-slate-300">LIESA</span>
+                              </div>
+                              <div className="text-xs font-bold text-white mt-0.5 truncate">Pontuação Oficial</div>
+                              <div className="text-[10px] text-slate-400 truncate">Todas as 16 colocações</div>
+                            </button>
+                          </div>
+                        </div>
+                      )}
+
                       {/* Tabela de Colocação Oficial do Ano */}
                       <div className="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-950/60 shadow-xl">
                         <table className="w-full text-xs text-left">
@@ -1111,7 +1224,24 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                           </thead>
                           <tbody className="divide-y divide-slate-800/60">
                             {filteredPastCarnavalStandings.map((st) => {
-                              const pts = LIESA_POINTS_BY_RANK[st.rank] || 0;
+                              const pts = st.statusDescription?.includes('(+20 pts)')
+                                ? 20
+                                : st.statusDescription?.includes('(+15 pts)')
+                                ? 15
+                                : st.statusDescription?.includes('(+12 pts)')
+                                ? 12
+                                : st.statusDescription?.includes('(+10 pts)')
+                                ? 10
+                                : st.statusDescription?.includes('(+8 pts)')
+                                ? 8
+                                : st.statusDescription?.includes('(+6 pts)')
+                                ? 6
+                                : st.statusDescription?.includes('(+4 pts)')
+                                ? 4
+                                : st.statusDescription?.includes('(+3 pts)')
+                                ? 3
+                                : LIESA_POINTS_BY_RANK[st.rank] || 0;
+
                               const sch = schools.find(
                                 (s) => s.id === st.schoolId || s.name === st.schoolName
                               );
@@ -1120,14 +1250,14 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
 
                               return (
                                 <tr
-                                  key={st.schoolId || st.schoolName}
+                                  key={(st.subgroup ? `${st.subgroup}_` : '') + (st.schoolId || st.schoolName)}
                                   onClick={() => onSelectSchool && st.schoolId && onSelectSchool(st.schoolId)}
                                   className={`cursor-pointer transition hover:bg-slate-800/50 ${
                                     isUser ? 'bg-emerald-500/10 font-bold' : ''
                                   } ${st.rank === 1 ? 'bg-amber-500/10' : ''}`}
                                 >
                                   <td className="py-3 px-3.5 font-mono">
-                                    {getPastRankBadge(st.rank, totalSchools, st.isHorsConcours, currentPastCarnaval.year)}
+                                    {getPastRankBadge(st.rank, totalSchools, st.isHorsConcours, currentPastCarnaval.year, st.statusDescription)}
                                   </td>
                                   <td className="py-3 px-3.5 text-white">
                                     <div className="flex items-center gap-2.5">
@@ -1167,7 +1297,21 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                     )}
                                   </td>
                                   <td className="py-3 px-4 text-right">
-                                    {st.isHorsConcours || st.rank === 0 ? (
+                                    {st.statusDescription ? (
+                                      <span className={`text-xs font-bold ${
+                                        st.statusDescription.includes('Supercampeã') || st.statusDescription.includes('Campeã')
+                                          ? 'text-amber-300'
+                                          : st.statusDescription.includes('Supervice') || st.statusDescription.includes('Vice')
+                                          ? 'text-slate-200'
+                                          : st.statusDescription.includes('Rebaixada')
+                                          ? 'text-rose-400 font-bold'
+                                          : st.statusDescription.includes('Classificada') || st.statusDescription.includes('Supercampeonato')
+                                          ? 'text-emerald-300'
+                                          : 'text-slate-300'
+                                      }`}>
+                                        {st.statusDescription}
+                                      </span>
+                                    ) : st.isHorsConcours || st.rank === 0 ? (
                                       <span className="text-xs font-bold text-purple-300">
                                         Desfile Hors concours (Incêndio Cidade do Samba)
                                       </span>

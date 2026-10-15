@@ -8,6 +8,8 @@ export interface LiesaStandingRecord {
   schoolName: string;
   totalScore?: number;
   isHorsConcours?: boolean;
+  subgroup?: 'domingo' | 'segunda' | 'supercampeonato';
+  statusDescription?: string;
 }
 
 /**
@@ -42,18 +44,72 @@ export function getLiesaPoints(rank: number): number {
 }
 
 /**
- * Resultados oficiais catalogados dos carnavais históricos (1985 a 2026)
+ * Resultados específicos dos desfiles do Carnaval de 1984 (Ano da inauguração do Sambódromo):
+ * Domingo de Carnaval, Segunda-Feira de Carnaval e o Supercampeonato do Sábado das Campeãs.
+ */
+export const CARNAVAL_1984_DOMINGO: LiesaStandingRecord[] = [
+  { rank: 1, schoolId: 'portela', schoolName: 'Portela', subgroup: 'domingo', statusDescription: 'Campeã de Domingo (+20 pts)' },
+  { rank: 2, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', subgroup: 'domingo', statusDescription: 'Vice-Campeã de Domingo (+15 pts)' },
+  { rank: 3, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', subgroup: 'domingo', statusDescription: '3º Lugar (Classificada Supercampeonato)' },
+  { rank: 4, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', subgroup: 'domingo', statusDescription: '4º Lugar' },
+  { rank: 5, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', subgroup: 'domingo', statusDescription: '5º Lugar' },
+  { rank: 6, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', subgroup: 'domingo', statusDescription: '6º Lugar' },
+  { rank: 7, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', subgroup: 'domingo', statusDescription: '7º Lugar (Rebaixada)' }
+];
+
+export const CARNAVAL_1984_SEGUNDA: LiesaStandingRecord[] = [
+  { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', subgroup: 'segunda', statusDescription: 'Campeã de Segunda (+20 pts)' },
+  { rank: 2, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', subgroup: 'segunda', statusDescription: 'Vice-Campeã de Segunda (+15 pts)' },
+  { rank: 3, schoolId: 'beija_flor', schoolName: 'Beija-Flor', subgroup: 'segunda', statusDescription: '3º Lugar (Classificada Supercampeonato)' },
+  { rank: 4, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', subgroup: 'segunda', statusDescription: '4º Lugar' },
+  { rank: 5, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', subgroup: 'segunda', statusDescription: '5º Lugar' },
+  { rank: 6, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', subgroup: 'segunda', statusDescription: '6º Lugar' },
+  { rank: 7, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte', subgroup: 'segunda', statusDescription: '7º Lugar (Rebaixada)' }
+];
+
+export const CARNAVAL_1984_SUPERCAMPEONATO: LiesaStandingRecord[] = [
+  { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', subgroup: 'supercampeonato', statusDescription: 'Supercampeã de 1984 (+20 pts)' },
+  { rank: 2, schoolId: 'portela', schoolName: 'Portela', subgroup: 'supercampeonato', statusDescription: 'Supervice-Campeã de 1984 (+15 pts)' },
+  { rank: 3, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', subgroup: 'supercampeonato', statusDescription: '3º Lugar no Supercampeonato' },
+  { rank: 4, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', subgroup: 'supercampeonato', statusDescription: '4º Lugar no Supercampeonato' },
+  { rank: 5, schoolId: 'beija_flor', schoolName: 'Beija-Flor', subgroup: 'supercampeonato', statusDescription: '5º Lugar no Supercampeonato' },
+  { rank: 6, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', subgroup: 'supercampeonato', statusDescription: '6º Lugar no Supercampeonato' },
+  { rank: 7, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', subgroup: 'supercampeonato', statusDescription: '7º Lugar (Campeã Grupo 1-B)' },
+  { rank: 8, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz', subgroup: 'supercampeonato', statusDescription: '8º Lugar (Vice Grupo 1-B)' }
+];
+
+/**
+ * Resultados oficiais catalogados dos carnavais históricos (1984 a 2026)
  * fornecidos pela LIESA para balizar o ranking oficial e histórico do jogo.
  * Carnaval 2021: Não houve desfiles (0 pontos) devido à pandemia.
- * Carnaval 2018: Não houve rebaixamento por decisão unânime da plenária da LIESA (Grande Rio e Império Serrano mantiveram-se no Especial).
- * Carnaval 2017: Duas campeãs oficiais (Portela e Mocidade Independente) e NÃO houve rebaixamento por decisão da plenária após acidentes com alegorias.
- * Carnaval 2011: Grande Rio, Portela e União da Ilha desfilaram como Hors concours devido ao incêndio na Cidade do Samba (sem rebaixamento).
+ * Carnaval 2018: Não houve rebaixamento por decisão unânime da plenária da LIESA.
+ * Carnaval 2017: Duas campeãs oficiais (Portela e Mocidade Independente) e NÃO houve rebaixamento.
+ * Carnaval 2011: Grande Rio, Portela e União da Ilha desfilaram como Hors concours (sem rebaixamento).
  * Carnaval 1998: Duas campeãs oficiais dividindo o título (Beija-Flor e Mangueira).
  * Carnaval 1994: Não houve rebaixamento no Grupo Especial.
  * Carnaval 1993: Não houve rebaixamento no Grupo Especial.
  * Carnaval 1988: Não houve rebaixamento no Grupo Especial.
+ * Carnaval 1984: Inauguração da Passarela do Samba com 3 campeãs e três desfiles: Domingo, Segunda-Feira e Supercampeonato.
  */
 export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRecord[]> = {
+  1984: [
+    { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', statusDescription: 'Supercampeã e Campeã de Segunda (+20 pts)' },
+    { rank: 1, schoolId: 'portela', schoolName: 'Portela', statusDescription: 'Campeã de Domingo e Supervice (+20 pts)' },
+    { rank: 2, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', statusDescription: 'Vice-Campeã de Domingo e 4º no Super (+15 pts)' },
+    { rank: 2, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', statusDescription: 'Vice-Campeã de Segunda e 3º no Super (+15 pts)' },
+    { rank: 3, schoolId: 'beija_flor', schoolName: 'Beija-Flor', statusDescription: '3º Lugar Segunda e 5º no Super (+12 pts)' },
+    { rank: 3, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', statusDescription: '3º Lugar Domingo e 6º no Super (+12 pts)' },
+    { rank: 4, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', statusDescription: '4º Lugar Domingo (+10 pts)' },
+    { rank: 4, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', statusDescription: '4º Lugar Segunda (+10 pts)' },
+    { rank: 5, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', statusDescription: '5º Lugar Domingo (+8 pts)' },
+    { rank: 5, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', statusDescription: '5º Lugar Segunda (+8 pts)' },
+    { rank: 6, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', statusDescription: '6º Lugar Domingo (+6 pts)' },
+    { rank: 6, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', statusDescription: '6º Lugar Segunda (+6 pts)' },
+    { rank: 7, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', statusDescription: '7º Lugar no Supercampeonato (+4 pts)' },
+    { rank: 8, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz', statusDescription: '8º Lugar no Supercampeonato (+3 pts)' },
+    { rank: 15, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', statusDescription: '7º Lugar Domingo (Rebaixada)' },
+    { rank: 16, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte', statusDescription: '7º Lugar Segunda (Rebaixada)' }
+  ],
   1985: [
     { rank: 1, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
     { rank: 2, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
@@ -767,6 +823,11 @@ export interface HistoricalCarnavalInfo {
   championNames: string[];
   viceChampionNames: string[];
   totalSchools: number;
+  subgroups?: {
+    domingo?: LiesaStandingRecord[];
+    segunda?: LiesaStandingRecord[];
+    supercampeonato?: LiesaStandingRecord[];
+  };
 }
 
 /**
@@ -817,7 +878,7 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
 }
 
 /**
- * Retorna lista de carnavais históricos com resultados oficiais catalogados (1985 em diante + save)
+ * Retorna lista de carnavais históricos com resultados oficiais catalogados (1984 a 2026 + save)
  */
 export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): HistoricalCarnavalInfo[] {
   const result: HistoricalCarnavalInfo[] = [];
@@ -847,14 +908,14 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     });
   });
 
-  // Anos oficiais catalogados (2026 descendo até 1985)
+  // Anos oficiais catalogados (2026 descendo até 1984)
   const officialYears = [
     2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017,
     2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007,
     2006, 2005, 2004, 2003, 2002, 2001, 2000,
     1999, 1998, 1997, 1996, 1995,
     1994, 1993, 1992, 1991, 1990,
-    1989, 1988, 1987, 1986, 1985
+    1989, 1988, 1987, 1986, 1985, 1984
   ];
   officialYears.forEach((yr) => {
     const stands = OFFICIAL_LIESA_HISTORICAL_STANDINGS[yr] || [];
@@ -947,6 +1008,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
       notes = 'Carnaval 1986: Estação Primeira de Mangueira sagrou-se campeã com "Caymmi Mostra ao Mundo o que a Bahia e a Mangueira Têm" (+20 pts) e Beija-Flor vice-campeã com "O Mundo É uma Bola" (+15 pts). Unidos da Tijuca foi rebaixada.';
     } else if (yr === 1985) {
       notes = 'Carnaval 1985: Primeiro carnaval sob a organização da LIESA. Mocidade Independente sagrou-se campeã com o revolucionário "Ziriguidum 2001, Um Carnaval nas Estrelas" de Fernando Pinto (+20 pts) e Beija-Flor vice-campeã com "A Lapa de Adão e Eva" (+15 pts). Três agremiações foram rebaixadas: Acadêmicos de Santa Cruz, São Clemente e Em Cima da Hora.';
+    } else if (yr === 1984) {
+      notes = 'Carnaval Histórico de 1984 (Inauguração do Sambódromo Darcy Ribeiro): Três campeãs e três resultados distintos — Desfile de Domingo (Portela campeã com 20 pts, Império Serrano vice com 15 pts), Desfile de Segunda-Feira (Mangueira campeã com 20 pts, Mocidade vice com 15 pts) e o Supercampeonato no Sábado das Campeãs (Mangueira Supercampeã com 20 pts, Portela Supervice com 15 pts). Rebaixadas: Unidos da Tijuca (Domingo) e Unidos da Ponte (Segunda-Feira).';
     }
 
     result.push({
@@ -954,9 +1017,14 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
       standings: stands,
       isNoCarnaval: false,
       notes,
-      championNames: champs,
-      viceChampionNames: vices,
-      totalSchools: stands.length
+      championNames: yr === 1984 ? ['Estação Primeira de Mangueira (Supercampeã)', 'Portela (Campeã de Domingo)'] : champs,
+      viceChampionNames: yr === 1984 ? ['Portela (Supervice)', 'Mocidade Independente (Vice Segunda)', 'Império Serrano (Vice Domingo)'] : vices,
+      totalSchools: stands.length,
+      subgroups: yr === 1984 ? {
+        domingo: CARNAVAL_1984_DOMINGO,
+        segunda: CARNAVAL_1984_SEGUNDA,
+        supercampeonato: CARNAVAL_1984_SUPERCAMPEONATO
+      } : undefined
     });
   });
 
@@ -1185,28 +1253,28 @@ export function computeHistoricalLiesaRanking(
     return historicalMap[sId];
   };
 
-  // 1. Processa todos os títulos e vices históricos da era pré-1985 a partir de HISTORICAL_CARNAVAL_RECORDS
-  // A partir de 1985 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA
+  // 1. Processa todos os títulos e vices históricos da era pré-1984 a partir de HISTORICAL_CARNAVAL_RECORDS
+  // A partir de 1984 em diante (inauguração do Sambódromo), todas as colocações detalhadas vêm do catálogo oficial LIESA
   Object.entries(HISTORICAL_CARNAVAL_RECORDS).forEach(([id, rec]) => {
     const sId = resolveSchoolId(id, undefined, schoolsMap);
     const entry = ensureEntry(sId);
 
-    const espYearsPre1985 = (rec.especialYears || []).filter((y) => y < 1985);
-    const espViceYearsPre1985 = (rec.especialRunnerUpYears || []).filter((y) => y < 1985);
+    const espYearsPre1984 = (rec.especialYears || []).filter((y) => y < 1984);
+    const espViceYearsPre1984 = (rec.especialRunnerUpYears || []).filter((y) => y < 1984);
 
-    const titlesPre1985 = espYearsPre1985.length;
-    const vicesPre1985 = espViceYearsPre1985.length;
+    const titlesPre1984 = espYearsPre1984.length;
+    const vicesPre1984 = espViceYearsPre1984.length;
 
-    entry.totalEspecialTitles += titlesPre1985;
-    entry.totalEspecialVices += vicesPre1985;
-    entry.titlePoints += titlesPre1985 * 20;
-    entry.vicePoints += vicesPre1985 * 15;
-    entry.pointsEraPre2015 += titlesPre1985 * 20 + vicesPre1985 * 15;
-    entry.totalPoints += titlesPre1985 * 20 + vicesPre1985 * 15;
-    entry.totalCarnavalesContados += titlesPre1985 + vicesPre1985;
+    entry.totalEspecialTitles += titlesPre1984;
+    entry.totalEspecialVices += vicesPre1984;
+    entry.titlePoints += titlesPre1984 * 20;
+    entry.vicePoints += vicesPre1984 * 15;
+    entry.pointsEraPre2015 += titlesPre1984 * 20 + vicesPre1984 * 15;
+    entry.totalPoints += titlesPre1984 * 20 + vicesPre1984 * 15;
+    entry.totalCarnavalesContados += titlesPre1984 + vicesPre1984;
   });
 
-  // 2. Processa anos de 1985 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
+  // 2. Processa anos de 1984 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
   Object.entries(OFFICIAL_LIESA_HISTORICAL_STANDINGS).forEach(([yrStr, list]) => {
     const yr = parseInt(yrStr, 10);
     if (yr === 2021 || !list || list.length === 0) {
@@ -1241,7 +1309,18 @@ export function computeHistoricalLiesaRanking(
         if (st.rank === 1) {
           entry.totalEspecialTitles++;
           entry.titlePoints += 20;
+          if (yr === 1984 && sId === 'mangueira') {
+            // Em 1984 a Mangueira foi Campeã de Segunda-Feira e Supercampeã do Sábado das Campeãs
+            entry.totalEspecialTitles++;
+            entry.titlePoints += 20;
+          }
         } else if (st.rank === 2) {
+          entry.totalEspecialVices++;
+          entry.vicePoints += 15;
+        }
+
+        if (yr === 1984 && sId === 'portela') {
+          // Em 1984 a Portela foi Campeã de Domingo e Supervice no Supercampeonato
           entry.totalEspecialVices++;
           entry.vicePoints += 15;
         }
