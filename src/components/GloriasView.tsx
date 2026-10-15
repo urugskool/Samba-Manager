@@ -1320,12 +1320,21 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
               </div>
             </div>
 
-            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1 sm:col-span-2">
+            <div className={`p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1 ${selectedSchool.mascot ? 'sm:col-span-2' : 'sm:col-span-2'}`}>
               <span className="text-[10px] text-slate-400 uppercase font-semibold block">
                 Símbolo Oficial
               </span>
               <span className="font-bold text-white text-sm block">{selectedSchool.symbol}</span>
             </div>
+
+            {selectedSchool.mascot && (
+              <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1 sm:col-span-2">
+                <span className="text-[10px] text-amber-400 uppercase font-semibold block">
+                  Mascote Oficial
+                </span>
+                <span className="font-bold text-amber-300 text-sm block">{selectedSchool.mascot}</span>
+              </div>
+            )}
 
             {(selectedSchool.motto || selectedSchool.nickname) && (
               <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1 sm:col-span-4">

@@ -579,10 +579,16 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                             <span className="text-slate-500 text-[10px] block uppercase">Cores Oficiais</span>
                             <span className="font-semibold text-white">{school.colorsDescription || 'Tradicionais'}</span>
                           </div>
-                          <div className="sm:col-span-4">
+                          <div className={school.mascot ? "sm:col-span-2" : "sm:col-span-4"}>
                             <span className="text-slate-500 text-[10px] block uppercase">Símbolo Oficial</span>
                             <span className="font-semibold text-white">{school.symbol}</span>
                           </div>
+                          {school.mascot && (
+                            <div className="sm:col-span-2">
+                              <span className="text-slate-500 text-[10px] block uppercase">Mascote Oficial</span>
+                              <span className="font-semibold text-amber-300 font-medium">{school.mascot}</span>
+                            </div>
+                          )}
                           {school.motto && (
                             <div className="sm:col-span-4">
                               <span className="text-slate-500 text-[10px] block uppercase">Lema Oficial</span>

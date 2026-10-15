@@ -263,6 +263,7 @@ export interface School {
   foundationDate?: string;
   neighborhood: string;
   city?: string;
+  mascot?: string; // Mascote oficial da agremiação (Ex: "Sabiá", "Castor")
   originType?: 'rio_bairro' | 'outra_cidade';
   cityState?: string;
   isCustomSchool?: boolean;

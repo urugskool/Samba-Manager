@@ -147,6 +147,7 @@ function sanitizeSchoolsData(loadedSchools: School[]): School[] {
         ? {
             name: initialSchool.name,
             shortName: initialSchool.shortName,
+            calledName: initialSchool.calledName,
             abbreviation: initialSchool.abbreviation,
             denomination: initialSchool.denomination,
             corporateName: initialSchool.corporateName,
@@ -157,7 +158,9 @@ function sanitizeSchoolsData(loadedSchools: School[]): School[] {
             foundationYear: initialSchool.foundationYear,
             foundationDate: initialSchool.foundationDate,
             symbol: initialSchool.symbol,
-            neighborhood: initialSchool.neighborhood
+            mascot: initialSchool.mascot,
+            neighborhood: initialSchool.neighborhood,
+            city: initialSchool.city
           }
         : {}),
       isInactive,
