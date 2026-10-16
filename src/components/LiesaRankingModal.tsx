@@ -28,8 +28,13 @@ import {
   AlertTriangle,
   Flame,
   CheckCircle2,
-  ShieldCheck
+  ShieldCheck,
+  BookOpen
 } from 'lucide-react';
+import {
+  getHistoricalEnredo,
+  getSchoolHistoricalEnredosList
+} from '../data/historicalEnredosData';
 
 interface LiesaRankingModalProps {
   isOpen: boolean;
@@ -588,7 +593,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
               }`}
             >
               <History className="w-3.5 h-3.5" />
-              <span>Ranking Histórico Geral</span>
+              <span>Ranking Histórico Geral (1980-2026)</span>
             </button>
             <button
               onClick={() => {
@@ -1044,10 +1049,71 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                                 ? 'Top 10'
                                                 : 'Sem pontos'}
                                             </div>
+                                            {(() => {
+                                              const yrEnredo = getHistoricalEnredo(c.year, entry.schoolId, entry.schoolName);
+                                              if (!yrEnredo) return null;
+                                              return (
+                                                <div className="text-[9px] text-amber-300/80 italic truncate pt-0.5 border-t border-slate-800/60" title={`Enredo ${c.year}: ${yrEnredo}`}>
+                                                  &ldquo;{yrEnredo}&rdquo;
+                                                </div>
+                                              );
+                                            })()}
                                           </div>
                                         );
                                       })}
                                     </div>
+
+                                    {/* Catálogo Completo do Histórico de Enredos da Escola */}
+                                    {(() => {
+                                      const schoolEnredos = getSchoolHistoricalEnredosList(entry.schoolId, entry.schoolName);
+                                      if (schoolEnredos.length === 0) return null;
+                                      return (
+                                        <div className="pt-3 border-t border-slate-800/80 space-y-2">
+                                          <div className="flex items-center justify-between text-[11px] font-bold text-amber-300 uppercase tracking-wider">
+                                            <span className="flex items-center gap-1.5">
+                                              <BookOpen className="w-3.5 h-3.5 text-amber-400" />
+                                              <span>Histórico Oficial de Enredos no Grupo Especial ({schoolEnredos.length} Edições)</span>
+                                            </span>
+                                            <span className="text-slate-400 font-mono font-normal">1980 a 2026</span>
+                                          </div>
+                                          <div className="max-h-52 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
+                                            {schoolEnredos.map((item) => {
+                                              const perf = entry.performancesDetailed[item.year];
+                                              return (
+                                                <div
+                                                  key={item.year}
+                                                  className="p-1.5 px-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80 flex items-center justify-between gap-2 text-xs"
+                                                >
+                                                  <div className="flex items-center gap-2 min-w-0">
+                                                    <span className="font-mono font-bold text-amber-400 text-[10px] bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20 shrink-0">
+                                                      {item.year}
+                                                    </span>
+                                                    <span className="text-slate-200 italic truncate text-[11px]">
+                                                      &ldquo;{item.enredo}&rdquo;
+                                                    </span>
+                                                  </div>
+                                                  <div className="shrink-0 text-[10px] font-mono font-bold">
+                                                    {perf?.isHorsConcours ? (
+                                                      <span className="text-purple-300">Hors concours</span>
+                                                    ) : perf?.rank === 1 ? (
+                                                      <span className="text-amber-400 font-black">🏆 Campeã (+20p)</span>
+                                                    ) : perf?.rank === 2 ? (
+                                                      <span className="text-slate-300 font-bold">🥈 Vice (+15p)</span>
+                                                    ) : perf?.rank && perf.rank <= 6 ? (
+                                                      <span className="text-emerald-400">{perf.rank}º Lugar (+{perf.points}p)</span>
+                                                    ) : perf?.rank ? (
+                                                      <span className="text-slate-400">{perf.rank}º Lugar {perf.points > 0 ? `(+${perf.points}p)` : ''}</span>
+                                                    ) : (
+                                                      <span className="text-slate-600">—</span>
+                                                    )}
+                                                  </div>
+                                                </div>
+                                              );
+                                            })}
+                                          </div>
+                                        </div>
+                                      );
+                                    })()}
                                   </div>
                                 </div>
                               </td>
@@ -1302,9 +1368,9 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                             >
                               <div className="text-[10px] font-black uppercase text-slate-300 flex items-center justify-between">
                                 <span>Classificação Geral</span>
-                                <span className="text-[9px] px-1 py-0.2 rounded bg-slate-800 text-slate-300">LIESA</span>
+                                <span className="text-[9px] px-1 py-0.2 rounded bg-slate-800 text-slate-300">AESCRJ</span>
                               </div>
-                              <div className="text-xs font-bold text-white mt-0.5 truncate">Pontuação Oficial</div>
+                              <div className="text-xs font-bold text-white mt-0.5 truncate">Pontuação Oficial AESCRJ</div>
                               <div className="text-[10px] text-slate-400 truncate">Todas as 16 colocações</div>
                             </button>
                           </div>
@@ -1350,6 +1416,8 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                               const isUser = userSchool && (userSchool.id === st.schoolId || userSchool.name === st.schoolName);
                               const totalSchools = currentPastCarnaval.standings.length;
 
+                              const enredo = getHistoricalEnredo(currentPastCarnaval.year, st.schoolId, st.schoolName);
+
                               return (
                                 <tr
                                   key={(st.subgroup ? `${st.subgroup}_` : '') + (st.schoolId || st.schoolName)}
@@ -1383,9 +1451,18 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                             </span>
                                           )}
                                         </div>
-                                        <span className="text-[10px] text-slate-400 block truncate">
-                                          {sch?.nickname || 'Agremiação do Carnaval'}
-                                        </span>
+                                        {enredo ? (
+                                          <div className="flex items-center gap-1.5 mt-0.5 min-w-0" title={`Enredo ${currentPastCarnaval.year}: ${enredo}`}>
+                                            <BookOpen className="w-3 h-3 text-amber-400/80 shrink-0" />
+                                            <span className="text-[11px] text-amber-200/90 font-medium italic truncate max-w-[260px] sm:max-w-md md:max-w-lg">
+                                              Enredo: &ldquo;{enredo}&rdquo;
+                                            </span>
+                                          </div>
+                                        ) : (
+                                          <span className="text-[10px] text-slate-500 block truncate">
+                                            {st.schoolName}
+                                          </span>
+                                        )}
                                       </div>
                                     </div>
                                   </td>

@@ -24,8 +24,10 @@ import {
   Users,
   Palette,
   Calendar,
-  Crown
+  Crown,
+  BookOpen
 } from 'lucide-react';
+import { getSchoolHistoricalEnredosList } from '../data/historicalEnredosData';
 import { LiesaRankingModal } from './LiesaRankingModal';
 import { GaleriaDosCampeoesModal, GaleriaDivisionTab } from './GaleriaDosCampeoesModal';
 
@@ -1381,6 +1383,40 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
               </div>
             </div>
           )}
+
+          {/* Histórico Oficial de Enredos no Grupo Especial (1980 a 2026) */}
+          {(() => {
+            const enredos = getSchoolHistoricalEnredosList(selectedSchool.id, selectedSchool.name);
+            if (enredos.length === 0) return null;
+            return (
+              <div className="pt-3 border-t border-slate-800/80 space-y-2">
+                <div className="flex items-center justify-between text-xs text-amber-300 font-bold uppercase tracking-wider">
+                  <div className="flex items-center gap-1.5">
+                    <BookOpen className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Histórico Oficial de Enredos no Grupo Especial ({enredos.length} Edições)</span>
+                  </div>
+                  <span className="text-[11px] text-slate-400 font-mono font-normal">1980 a 2026</span>
+                </div>
+                <div className="max-h-56 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
+                  {enredos.map((item) => (
+                    <div
+                      key={item.year}
+                      className="p-2 rounded-lg bg-slate-950/60 border border-slate-800/80 flex items-center justify-between gap-3 text-xs"
+                    >
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className="font-mono font-bold text-amber-400 shrink-0 text-[11px] bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20">
+                          {item.year}
+                        </span>
+                        <span className="text-white italic truncate font-medium">
+                          &ldquo;{item.enredo}&rdquo;
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })()}
         </div>
       </div>
 
