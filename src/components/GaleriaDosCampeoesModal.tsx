@@ -1,7 +1,7 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { School, DivisionId } from '../types/carnaval';
-import { OFFICIAL_AVALIACAO_YEARLY_RESULTS, AvaliacaoYearResult } from '../data/avaliacaoChampionsData';
-import { OFFICIAL_GRUPO_E_YEARLY_RESULTS } from '../data/grupoEChampionsData';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
+import { School, DivisionId, YearHistory } from '../types/carnaval';
+import { OFFICIAL_AVALIACAO_YEARLY_RESULTS, AvaliacaoYearResult, OFFICIAL_AVALIACAO_RECORDS_BY_SCHOOL } from '../data/avaliacaoChampionsData';
+import { OFFICIAL_GRUPO_E_YEARLY_RESULTS, OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL } from '../data/grupoEChampionsData';
 import { getSchoolConsolidatedStats } from '../data/carnavalData';
 import { cleanSchoolName } from '../utils/schoolNameUtils';
 import {
@@ -29,6 +29,8 @@ interface GaleriaDosCampeoesModalProps {
   isOpen: boolean;
   onClose: () => void;
   schools: School[];
+  history?: YearHistory[];
+  currentYear?: number;
   initialDivision?: GaleriaDivisionTab;
   onSelectSchool?: (schoolId: string) => void;
 }
@@ -131,6 +133,8 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
   isOpen,
   onClose,
   schools,
+  history = [],
+  currentYear,
   initialDivision = 'especial',
   onSelectSchool
 }) => {
@@ -170,6 +174,21 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
     return Array.from(schoolsMap.values());
   }, [schoolsMap]);
 
+  // Helper to resolve school by id or name
+  const resolveSchool = useCallback((rawId?: string, rawName?: string): School | undefined => {
+    if (rawId && schoolsMap.has(rawId)) {
+      return schoolsMap.get(rawId);
+    }
+    if (rawName) {
+      const cleanTarget = cleanSchoolName(rawName).toLowerCase().trim();
+      const byName = uniqueSchools.find((s) => cleanSchoolName(s).toLowerCase().trim() === cleanTarget);
+      if (byName) return byName;
+      const byRaw = uniqueSchools.find((s) => s.name?.toLowerCase().trim() === rawName.toLowerCase().trim());
+      if (byRaw) return byRaw;
+    }
+    return undefined;
+  }, [schoolsMap, uniqueSchools]);
+
   // Calculate consolidated stats map once
   const schoolStatsMap = useMemo(() => {
     const map = new Map<string, ReturnType<typeof getSchoolConsolidatedStats>>();
@@ -181,9 +200,10 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
 
   // Rankings calculation for current division
   const { campeasRanking, vicesRanking } = useMemo(() => {
-    const campeasList: SchoolRankItem[] = [];
-    const vicesList: SchoolRankItem[] = [];
+    const campeasMap = new Map<string, SchoolRankItem>();
+    const vicesMap = new Map<string, SchoolRankItem>();
 
+    // 1. Process all schools in uniqueSchools
     uniqueSchools.forEach((school) => {
       const stats = schoolStatsMap.get(school.id);
       if (!stats) return;
@@ -199,99 +219,358 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
       switch (selectedDivision) {
         case 'especial':
           titlesCount = stats.totalEspecialTitles;
-          titleYears = stats.allEspecialYears.map((y) => y.year);
+          titleYears = [...stats.allEspecialYears.map((y) => y.year)];
           vicesCount = stats.totalEspecialVices;
-          viceYears = stats.allEspecialRunnerUpYears.map((y) => y.year);
+          viceYears = [...stats.allEspecialRunnerUpYears.map((y) => y.year)];
           break;
         case 'ouro':
           titlesCount = stats.totalOuroTitles;
-          titleYears = stats.allOuroYears.map((y) => y.year);
+          titleYears = [...stats.allOuroYears.map((y) => y.year)];
           vicesCount = stats.totalOuroVices;
-          viceYears = stats.allOuroRunnerUpYears.map((y) => y.year);
+          viceYears = [...stats.allOuroRunnerUpYears.map((y) => y.year)];
           break;
         case 'prata':
           titlesCount = stats.totalPrataTitles;
-          titleYears = stats.allPrataYears.map((y) => y.year);
+          titleYears = [...stats.allPrataYears.map((y) => y.year)];
           vicesCount = stats.totalPrataVices;
-          viceYears = stats.allPrataRunnerUpYears.map((y) => y.year);
+          viceYears = [...stats.allPrataRunnerUpYears.map((y) => y.year)];
           break;
         case 'bronze':
           titlesCount = stats.totalBronzeTitles;
-          titleYears = stats.allBronzeYears.map((y) => y.year);
+          titleYears = [...stats.allBronzeYears.map((y) => y.year)];
           vicesCount = stats.totalBronzeVices;
-          viceYears = stats.allBronzeRunnerUpYears.map((y) => y.year);
+          viceYears = [...stats.allBronzeRunnerUpYears.map((y) => y.year)];
           break;
         case 'avaliacao':
           titlesCount = stats.totalAvaliacaoTitles;
-          titleYears = stats.allAvaliacaoYears.map((y) => y.year);
+          titleYears = [...stats.allAvaliacaoYears.map((y) => y.year)];
           vicesCount = stats.totalAvaliacaoVices;
-          viceYears = stats.allAvaliacaoRunnerUpYears.map((y) => y.year);
+          viceYears = [...stats.allAvaliacaoRunnerUpYears.map((y) => y.year)];
           break;
         case 'grupoE':
           titlesCount = stats.totalGrupoETitles || 0;
-          titleYears = (stats.allGrupoEYears || []).map((y) => y.year);
+          titleYears = [...(stats.allGrupoEYears || []).map((y) => y.year)];
           vicesCount = stats.totalGrupoEVices || 0;
-          viceYears = (stats.allGrupoERunnerUpYears || []).map((y) => y.year);
+          viceYears = [...(stats.allGrupoERunnerUpYears || []).map((y) => y.year)];
           break;
       }
 
-      if (titlesCount > 0) {
-        campeasList.push({
+      if (titlesCount > 0 || titleYears.length > 0) {
+        campeasMap.set(school.id, {
           schoolId: school.id,
           schoolName: name,
-          count: titlesCount,
-          years: titleYears,
+          count: titleYears.length > 0 ? titleYears.length : titlesCount,
+          years: Array.from(new Set(titleYears)).sort((a, b) => a - b),
           isExtinct,
           school
         });
       }
 
-      if (vicesCount > 0) {
-        vicesList.push({
+      if (vicesCount > 0 || viceYears.length > 0) {
+        vicesMap.set(school.id, {
           schoolId: school.id,
           schoolName: name,
-          count: vicesCount,
-          years: viceYears,
+          count: viceYears.length > 0 ? viceYears.length : vicesCount,
+          years: Array.from(new Set(viceYears)).sort((a, b) => a - b),
           isExtinct,
           school
         });
       }
     });
 
-    campeasList.sort((a, b) => {
+    // 2. Fallback to official static datasets for historical/extinct schools not in uniqueSchools
+    if (selectedDivision === 'avaliacao') {
+      Object.entries(OFFICIAL_AVALIACAO_RECORDS_BY_SCHOOL).forEach(([sId, rec]) => {
+        const sch = resolveSchool(sId);
+        const sName = sch ? cleanSchoolName(sch) : sId.split('_').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+
+        if (rec.titles > 0 && !campeasMap.has(sId)) {
+          campeasMap.set(sId, {
+            schoolId: sId,
+            schoolName: sName,
+            count: rec.titleYears?.length || rec.titles,
+            years: Array.from(new Set(rec.titleYears || [])).sort((a, b) => a - b),
+            isExtinct: true,
+            school: sch
+          });
+        }
+
+        if (rec.runnerUps > 0 && !vicesMap.has(sId)) {
+          vicesMap.set(sId, {
+            schoolId: sId,
+            schoolName: sName,
+            count: rec.runnerUpYears?.length || rec.runnerUps,
+            years: Array.from(new Set(rec.runnerUpYears || [])).sort((a, b) => a - b),
+            isExtinct: true,
+            school: sch
+          });
+        }
+      });
+    } else if (selectedDivision === 'grupoE') {
+      Object.entries(OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL).forEach(([sId, rec]) => {
+        const sch = resolveSchool(sId);
+        const sName = sch ? cleanSchoolName(sch) : sId.split('_').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+
+        if (rec.titles > 0 && !campeasMap.has(sId)) {
+          campeasMap.set(sId, {
+            schoolId: sId,
+            schoolName: sName,
+            count: rec.titleYears?.length || rec.titles,
+            years: Array.from(new Set(rec.titleYears || [])).sort((a, b) => a - b),
+            isExtinct: true,
+            school: sch
+          });
+        }
+
+        if (rec.runnerUps > 0 && !vicesMap.has(sId)) {
+          vicesMap.set(sId, {
+            schoolId: sId,
+            schoolName: sName,
+            count: rec.runnerUpYears?.length || rec.runnerUps,
+            years: Array.from(new Set(rec.runnerUpYears || [])).sort((a, b) => a - b),
+            isExtinct: true,
+            school: sch
+          });
+        }
+      });
+    }
+
+    // Helper to record / merge an in-game conquest into a ranking map
+    const recordConquest = (
+      rawSchoolId: string | undefined,
+      rawSchoolName: string | undefined,
+      year: number,
+      targetMap: Map<string, SchoolRankItem>
+    ) => {
+      if (!rawSchoolId && !rawSchoolName) return;
+      const matched = resolveSchool(rawSchoolId, rawSchoolName);
+      const schoolId = matched?.id || rawSchoolId || rawSchoolName!;
+      const schoolName = matched ? cleanSchoolName(matched) : (rawSchoolName || rawSchoolId!);
+
+      if (targetMap.has(schoolId)) {
+        const item = targetMap.get(schoolId)!;
+        if (!item.years.includes(year)) {
+          item.years = [...item.years, year].sort((a, b) => a - b);
+          item.count = item.years.length;
+        }
+      } else {
+        // Also check if found by cleaned name
+        let foundByName = false;
+        const targetClean = cleanSchoolName(schoolName).toLowerCase().trim();
+        for (const item of targetMap.values()) {
+          if (cleanSchoolName(item.schoolName).toLowerCase().trim() === targetClean) {
+            if (!item.years.includes(year)) {
+              item.years = [...item.years, year].sort((a, b) => a - b);
+              item.count = item.years.length;
+            }
+            foundByName = true;
+            break;
+          }
+        }
+        if (!foundByName) {
+          targetMap.set(schoolId, {
+            schoolId,
+            schoolName,
+            count: 1,
+            years: [year],
+            isExtinct: Boolean(matched?.isInactive || (matched as any)?.inactive),
+            school: matched
+          });
+        }
+      }
+    };
+
+    // 3. Synchronize in-game results from history (> 2026) for the selected division
+    if (history && history.length > 0) {
+      history.forEach((h) => {
+        if (!h.year || h.year <= 2026) return;
+
+        if (selectedDivision === 'avaliacao') {
+          // Champion (rank 1)
+          const champStanding = h.avaliacaoStandings?.find((s) => s.rank === 1);
+          const champId = champStanding?.schoolId;
+          const champName = champStanding?.schoolName || h.avaliacaoChampion;
+          if (champId || champName) {
+            recordConquest(champId, champName, h.year, campeasMap);
+          }
+
+          // Vice-Campeã (rank 2)
+          const viceStanding = h.avaliacaoStandings?.find((s) => s.rank === 2);
+          const viceId = viceStanding?.schoolId;
+          const viceName = viceStanding?.schoolName || h.avaliacaoRunnerUp;
+          if (viceId || viceName) {
+            recordConquest(viceId, viceName, h.year, vicesMap);
+          }
+        } else if (selectedDivision === 'especial') {
+          const champStanding = h.especialStandings?.find((s) => s.rank === 1);
+          const champId = champStanding?.schoolId;
+          const champName = champStanding?.schoolName || h.especialChampion;
+          if (champId || champName) recordConquest(champId, champName, h.year, campeasMap);
+
+          const viceStanding = h.especialStandings?.find((s) => s.rank === 2);
+          const viceId = viceStanding?.schoolId;
+          const viceName = viceStanding?.schoolName;
+          if (viceId || viceName) recordConquest(viceId, viceName, h.year, vicesMap);
+        } else if (selectedDivision === 'ouro') {
+          const champStanding = h.ouroStandings?.find((s) => s.rank === 1);
+          const champId = champStanding?.schoolId;
+          const champName = champStanding?.schoolName || h.ouroChampion;
+          if (champId || champName) recordConquest(champId, champName, h.year, campeasMap);
+
+          const viceStanding = h.ouroStandings?.find((s) => s.rank === 2);
+          const viceId = viceStanding?.schoolId;
+          const viceName = viceStanding?.schoolName;
+          if (viceId || viceName) recordConquest(viceId, viceName, h.year, vicesMap);
+        } else if (selectedDivision === 'prata') {
+          const champStanding = h.prataStandings?.find((s) => s.rank === 1);
+          const champId = champStanding?.schoolId;
+          const champName = champStanding?.schoolName || h.prataChampion;
+          if (champId || champName) recordConquest(champId, champName, h.year, campeasMap);
+
+          const viceStanding = h.prataStandings?.find((s) => s.rank === 2);
+          const viceId = viceStanding?.schoolId;
+          const viceName = viceStanding?.schoolName;
+          if (viceId || viceName) recordConquest(viceId, viceName, h.year, vicesMap);
+        } else if (selectedDivision === 'bronze') {
+          const champStanding = h.bronzeStandings?.find((s) => s.rank === 1);
+          const champId = champStanding?.schoolId;
+          const champName = champStanding?.schoolName || h.bronzeChampion;
+          if (champId || champName) recordConquest(champId, champName, h.year, campeasMap);
+
+          const viceStanding = h.bronzeStandings?.find((s) => s.rank === 2);
+          const viceId = viceStanding?.schoolId;
+          const viceName = viceStanding?.schoolName;
+          if (viceId || viceName) recordConquest(viceId, viceName, h.year, vicesMap);
+        }
+      });
+    }
+
+    // 4. Synchronize inGameAchievements from all schools (years >= 2027)
+    uniqueSchools.forEach((school) => {
+      (school.honors?.inGameAchievements || []).forEach((ach) => {
+        if (ach.year >= 2027 && ach.division === selectedDivision) {
+          if (ach.badgeType === `champion_${selectedDivision}` || ach.placement === 1) {
+            recordConquest(school.id, cleanSchoolName(school), ach.year, campeasMap);
+          } else if (ach.badgeType === `vice_${selectedDivision}` || ach.placement === 2) {
+            recordConquest(school.id, cleanSchoolName(school), ach.year, vicesMap);
+          }
+        }
+      });
+    });
+
+    const finalCampeas = Array.from(campeasMap.values()).map((item) => ({
+      ...item,
+      count: item.years.length > 0 ? item.years.length : item.count
+    }));
+
+    const finalVices = Array.from(vicesMap.values()).map((item) => ({
+      ...item,
+      count: item.years.length > 0 ? item.years.length : item.count
+    }));
+
+    finalCampeas.sort((a, b) => {
       if (b.count !== a.count) return b.count - a.count;
       const lastA = a.years.length > 0 ? a.years[a.years.length - 1] : 0;
       const lastB = b.years.length > 0 ? b.years[b.years.length - 1] : 0;
       return lastB - lastA;
     });
 
-    vicesList.sort((a, b) => {
+    finalVices.sort((a, b) => {
       if (b.count !== a.count) return b.count - a.count;
       const lastA = a.years.length > 0 ? a.years[a.years.length - 1] : 0;
       const lastB = b.years.length > 0 ? b.years[b.years.length - 1] : 0;
       return lastB - lastA;
     });
 
-    return { campeasRanking: campeasList, vicesRanking: vicesList };
-  }, [uniqueSchools, schoolStatsMap, selectedDivision]);
+    return { campeasRanking: finalCampeas, vicesRanking: finalVices };
+  }, [uniqueSchools, schoolStatsMap, selectedDivision, history, resolveSchool]);
 
   // Timeline year-by-year builder
   const yearlyTimeline = useMemo(() => {
     if (selectedDivision === 'avaliacao') {
-      return OFFICIAL_AVALIACAO_YEARLY_RESULTS.map((r) => ({
-        year: r.year,
-        division: 'avaliacao' as GaleriaDivisionTab,
-        divisionLabel: 'Grupo de Avaliação',
-        champions: r.champions.map((c) => ({
-          ...c,
-          school: schoolsMap.get(c.schoolId)
-        })),
-        runnerUps: r.runnerUps.map((ru) => ({
-          ...ru,
-          school: schoolsMap.get(ru.schoolId)
-        })),
-        note: r.note
-      })).sort((a, b) => b.year - a.year);
+      const timelineMap = new Map<number, YearResultItem>();
+
+      // 1. Add official baseline results up to 2026
+      OFFICIAL_AVALIACAO_YEARLY_RESULTS.forEach((r) => {
+        timelineMap.set(r.year, {
+          year: r.year,
+          division: 'avaliacao' as GaleriaDivisionTab,
+          divisionLabel: 'Grupo de Avaliação',
+          champions: r.champions.map((c) => ({
+            ...c,
+            school: resolveSchool(c.schoolId, c.schoolName) || schoolsMap.get(c.schoolId)
+          })),
+          runnerUps: r.runnerUps.map((ru) => ({
+            ...ru,
+            school: resolveSchool(ru.schoolId, ru.schoolName) || schoolsMap.get(ru.schoolId)
+          })),
+          note: r.note
+        });
+      });
+
+      // 2. Add in-game results from history (> 2026)
+      if (history && history.length > 0) {
+        history.forEach((h) => {
+          if (!h.year || h.year <= 2026) return;
+
+          const champStanding = h.avaliacaoStandings?.find((s) => s.rank === 1);
+          const champSchool = resolveSchool(champStanding?.schoolId, champStanding?.schoolName || h.avaliacaoChampion);
+          const champName = champSchool ? cleanSchoolName(champSchool) : (champStanding?.schoolName || h.avaliacaoChampion);
+          const champId = champSchool?.id || champStanding?.schoolId || (champName ? `champ_${h.year}` : '');
+
+          const viceStanding = h.avaliacaoStandings?.find((s) => s.rank === 2);
+          const viceSchool = resolveSchool(viceStanding?.schoolId, viceStanding?.schoolName || h.avaliacaoRunnerUp);
+          const viceName = viceSchool ? cleanSchoolName(viceSchool) : (viceStanding?.schoolName || h.avaliacaoRunnerUp);
+          const viceId = viceSchool?.id || viceStanding?.schoolId || (viceName ? `vice_${h.year}` : '');
+
+          if (champName || viceName) {
+            const promotedList =
+              h.avaliacaoPromoted && h.avaliacaoPromoted.length > 0
+                ? `Promovidas à Série Bronze: ${h.avaliacaoPromoted.slice(0, 3).join(', ')}`
+                : 'Campeã e Vice promovidas à Série Bronze';
+
+            timelineMap.set(h.year, {
+              year: h.year,
+              division: 'avaliacao' as GaleriaDivisionTab,
+              divisionLabel: 'Grupo de Avaliação',
+              champions: champName ? [{ schoolId: champId, schoolName: champName, school: champSchool }] : [],
+              runnerUps: viceName ? [{ schoolId: viceId, schoolName: viceName, school: viceSchool }] : [],
+              note: promotedList
+            });
+          }
+        });
+      }
+
+      // 3. Fallback: check inGameAchievements across schools for any year > 2026 not yet present
+      uniqueSchools.forEach((school) => {
+        (school.honors?.inGameAchievements || []).forEach((ach) => {
+          if (ach.division === 'avaliacao' && ach.year > 2026) {
+            if (!timelineMap.has(ach.year)) {
+              timelineMap.set(ach.year, {
+                year: ach.year,
+                division: 'avaliacao' as GaleriaDivisionTab,
+                divisionLabel: 'Grupo de Avaliação',
+                champions: [],
+                runnerUps: [],
+                note: 'Carnaval disputado na Superliga'
+              });
+            }
+            const entry = timelineMap.get(ach.year)!;
+            const schName = cleanSchoolName(school);
+            if (ach.badgeType === 'champion_avaliacao' || ach.placement === 1) {
+              if (!entry.champions.some((c) => c.schoolId === school.id)) {
+                entry.champions.push({ schoolId: school.id, schoolName: schName, school });
+              }
+            } else if (ach.badgeType === 'vice_avaliacao' || ach.placement === 2) {
+              if (!entry.runnerUps.some((r) => r.schoolId === school.id)) {
+                entry.runnerUps.push({ schoolId: school.id, schoolName: schName, school });
+              }
+            }
+          }
+        });
+      });
+
+      return Array.from(timelineMap.values()).sort((a, b) => b.year - a.year);
     }
 
     if (selectedDivision === 'grupoE') {
@@ -301,11 +580,11 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
         divisionLabel: 'Grupo E (Sexta Divisão)',
         champions: r.champions.map((c) => ({
           ...c,
-          school: schoolsMap.get(c.schoolId)
+          school: resolveSchool(c.schoolId, c.schoolName) || schoolsMap.get(c.schoolId)
         })),
         runnerUps: r.runnerUps.map((ru) => ({
           ...ru,
-          school: schoolsMap.get(ru.schoolId)
+          school: resolveSchool(ru.schoolId, ru.schoolName) || schoolsMap.get(ru.schoolId)
         })),
         note: r.note
       })).sort((a, b) => b.year - a.year);
@@ -333,11 +612,13 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
               runnerUps: []
             });
           }
-          yearMap.get(t.year)!.champions.push({
-            schoolId: school.id,
-            schoolName: cleanSchoolName(school),
-            school
-          });
+          if (!yearMap.get(t.year)!.champions.some((c) => c.schoolId === school.id)) {
+            yearMap.get(t.year)!.champions.push({
+              schoolId: school.id,
+              schoolName: cleanSchoolName(school),
+              school
+            });
+          }
         });
 
         viceList.forEach((v) => {
@@ -350,11 +631,13 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
               runnerUps: []
             });
           }
-          yearMap.get(v.year)!.runnerUps.push({
-            schoolId: school.id,
-            schoolName: cleanSchoolName(school),
-            school
-          });
+          if (!yearMap.get(v.year)!.runnerUps.some((r) => r.schoolId === school.id)) {
+            yearMap.get(v.year)!.runnerUps.push({
+              schoolId: school.id,
+              schoolName: cleanSchoolName(school),
+              school
+            });
+          }
         });
       };
 
@@ -368,6 +651,64 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
         addResult(stats.allBronzeYears, stats.allBronzeRunnerUpYears, 'bronze', 'Série Bronze');
       }
     });
+
+    // Synchronize in-game years (> 2026) from history for other divisions too
+    if (history && history.length > 0) {
+      history.forEach((h) => {
+        if (!h.year || h.year <= 2026) return;
+
+        let champStanding: { rank: number; schoolId?: string; schoolName: string } | undefined;
+        let viceStanding: { rank: number; schoolId?: string; schoolName: string } | undefined;
+        let divLabel = 'Grupo Especial';
+
+        if (selectedDivision === 'especial') {
+          champStanding = h.especialStandings?.find((s) => s.rank === 1);
+          viceStanding = h.especialStandings?.find((s) => s.rank === 2);
+          divLabel = 'Grupo Especial';
+        } else if (selectedDivision === 'ouro') {
+          champStanding = h.ouroStandings?.find((s) => s.rank === 1);
+          viceStanding = h.ouroStandings?.find((s) => s.rank === 2);
+          divLabel = 'Série Ouro';
+        } else if (selectedDivision === 'prata') {
+          champStanding = h.prataStandings?.find((s) => s.rank === 1);
+          viceStanding = h.prataStandings?.find((s) => s.rank === 2);
+          divLabel = 'Série Prata';
+        } else if (selectedDivision === 'bronze') {
+          champStanding = h.bronzeStandings?.find((s) => s.rank === 1);
+          viceStanding = h.bronzeStandings?.find((s) => s.rank === 2);
+          divLabel = 'Série Bronze';
+        }
+
+        if (champStanding || viceStanding) {
+          if (!yearMap.has(h.year)) {
+            yearMap.set(h.year, {
+              year: h.year,
+              division: selectedDivision,
+              divisionLabel: divLabel,
+              champions: [],
+              runnerUps: []
+            });
+          }
+          const item = yearMap.get(h.year)!;
+          if (champStanding) {
+            const sch = resolveSchool(champStanding.schoolId, champStanding.schoolName);
+            const schId = sch?.id || champStanding.schoolId || `c_${h.year}`;
+            const schName = sch ? cleanSchoolName(sch) : champStanding.schoolName;
+            if (!item.champions.some((c) => c.schoolId === schId || c.schoolName === schName)) {
+              item.champions.push({ schoolId: schId, schoolName: schName, school: sch });
+            }
+          }
+          if (viceStanding) {
+            const sch = resolveSchool(viceStanding.schoolId, viceStanding.schoolName);
+            const schId = sch?.id || viceStanding.schoolId || `v_${h.year}`;
+            const schName = sch ? cleanSchoolName(sch) : viceStanding.schoolName;
+            if (!item.runnerUps.some((r) => r.schoolId === schId || r.schoolName === schName)) {
+              item.runnerUps.push({ schoolId: schId, schoolName: schName, school: sch });
+            }
+          }
+        }
+      });
+    }
 
     if (selectedDivision === 'especial') {
       if (!yearMap.has(2021)) {
@@ -383,7 +724,7 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
     }
 
     return Array.from(yearMap.values()).sort((a, b) => b.year - a.year);
-  }, [selectedDivision, uniqueSchools, schoolStatsMap, schoolsMap]);
+  }, [selectedDivision, uniqueSchools, schoolStatsMap, schoolsMap, history, resolveSchool]);
 
   // Filtered lists based on search query
   const filteredCampeas = useMemo(() => {
@@ -504,7 +845,9 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
                       ? '3ª Div'
                       : divKey === 'bronze'
                       ? '4ª Div'
-                      : '5ª Div'}
+                      : divKey === 'avaliacao'
+                      ? '5ª Div'
+                      : '6ª Div'}
                   </span>
                 </button>
               );

@@ -1,11 +1,13 @@
 import React from 'react';
-import { School } from '../types/carnaval';
+import { School, YearHistory } from '../types/carnaval';
 import { GaleriaDosCampeoesModal } from './GaleriaDosCampeoesModal';
 
 interface AvaliacaoHistoricoModalProps {
   isOpen: boolean;
   onClose: () => void;
   schools: School[];
+  history?: YearHistory[];
+  currentYear?: number;
   onSelectSchool?: (schoolId: string) => void;
 }
 
@@ -17,6 +19,8 @@ export const AvaliacaoHistoricoModal: React.FC<AvaliacaoHistoricoModalProps> = (
   isOpen,
   onClose,
   schools,
+  history,
+  currentYear,
   onSelectSchool
 }) => {
   return (
@@ -24,6 +28,8 @@ export const AvaliacaoHistoricoModal: React.FC<AvaliacaoHistoricoModalProps> = (
       isOpen={isOpen}
       onClose={onClose}
       schools={schools}
+      history={history}
+      currentYear={currentYear}
       initialDivision="avaliacao"
       onSelectSchool={onSelectSchool}
     />

@@ -6106,6 +6106,9 @@ export function getSchoolConsolidatedStats(school: School): ConsolidatedSchoolSt
   const inGameAvaliacaoTitles = inGameAchievements.filter((a) => a.badgeType === 'champion_avaliacao');
   const inGameAvaliacaoVices = inGameAchievements.filter((a) => a.badgeType === 'vice_avaliacao');
 
+  const avaRecord = OFFICIAL_AVALIACAO_RECORDS_BY_SCHOOL[school.id];
+  const grupoERecord = OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL[school.id];
+
   const ancientEspecialTitles = school.honors?.historicalEspecialTitles ?? 0;
   const ancientEspecialVices = school.honors?.historicalEspecialRunnerUps ?? 0;
   const ancientOuroTitles = school.honors?.historicalOuroTitles ?? 0;
@@ -6114,10 +6117,10 @@ export function getSchoolConsolidatedStats(school: School): ConsolidatedSchoolSt
   const ancientPrataVices = school.honors?.historicalPrataRunnerUps ?? 0;
   const ancientBronzeTitles = school.honors?.historicalBronzeTitles ?? 0;
   const ancientBronzeVices = school.honors?.historicalBronzeRunnerUps ?? 0;
-  const ancientAvaliacaoTitles = school.honors?.historicalAvaliacaoTitles ?? 0;
-  const ancientAvaliacaoVices = school.honors?.historicalAvaliacaoRunnerUps ?? 0;
-  const ancientGrupoETitles = school.honors?.historicalGrupoETitles ?? 0;
-  const ancientGrupoEVices = school.honors?.historicalGrupoERunnerUps ?? 0;
+  const ancientAvaliacaoTitles = Math.max(school.honors?.historicalAvaliacaoTitles ?? 0, avaRecord ? avaRecord.titles : 0);
+  const ancientAvaliacaoVices = Math.max(school.honors?.historicalAvaliacaoRunnerUps ?? 0, avaRecord ? avaRecord.runnerUps : 0);
+  const ancientGrupoETitles = Math.max(school.honors?.historicalGrupoETitles ?? 0, grupoERecord ? grupoERecord.titles : 0);
+  const ancientGrupoEVices = Math.max(school.honors?.historicalGrupoERunnerUps ?? 0, grupoERecord ? grupoERecord.runnerUps : 0);
 
   const totalEspecialTitles = ancientEspecialTitles + inGameEspecialTitles.length;
   const totalEspecialVices = ancientEspecialVices + inGameEspecialVices.length;
@@ -6301,7 +6304,8 @@ export function getSchoolConsolidatedStats(school: School): ConsolidatedSchoolSt
 
   // Build sorted list of Grupo de Avaliação title years
   const avaliacaoYearsMap = new Map<number, { isHistorical: boolean; source: string }>();
-  (school.honors?.historicalAvaliacaoYears || []).forEach((yr) => {
+  const combinedAvaYears = Array.from(new Set([...(school.honors?.historicalAvaliacaoYears || []), ...(avaRecord?.titleYears || [])]));
+  combinedAvaYears.forEach((yr) => {
     avaliacaoYearsMap.set(yr, {
       isHistorical: true,
       source: yr <= 2026 ? `Histórico (${yr})` : 'Histórico'
@@ -6320,7 +6324,8 @@ export function getSchoolConsolidatedStats(school: School): ConsolidatedSchoolSt
 
   // Build sorted list of Grupo de Avaliação runner-up (vice) years
   const avaliacaoRunnerUpYearsMap = new Map<number, { isHistorical: boolean; source: string }>();
-  (school.honors?.historicalAvaliacaoRunnerUpYears || []).forEach((yr) => {
+  const combinedAvaRunnerUpYears = Array.from(new Set([...(school.honors?.historicalAvaliacaoRunnerUpYears || []), ...(avaRecord?.runnerUpYears || [])]));
+  combinedAvaRunnerUpYears.forEach((yr) => {
     avaliacaoRunnerUpYearsMap.set(yr, {
       isHistorical: true,
       source: yr <= 2026 ? `Histórico (${yr})` : 'Histórico'
@@ -6339,7 +6344,8 @@ export function getSchoolConsolidatedStats(school: School): ConsolidatedSchoolSt
 
   // Build sorted list of Grupo E title years
   const grupoEYearsMap = new Map<number, { isHistorical: boolean; source: string }>();
-  (school.honors?.historicalGrupoEYears || []).forEach((yr) => {
+  const combinedGrupoEYears = Array.from(new Set([...(school.honors?.historicalGrupoEYears || []), ...(grupoERecord?.titleYears || [])]));
+  combinedGrupoEYears.forEach((yr) => {
     grupoEYearsMap.set(yr, {
       isHistorical: true,
       source: yr <= 2026 ? `Histórico (${yr})` : 'Histórico'
@@ -6351,7 +6357,8 @@ export function getSchoolConsolidatedStats(school: School): ConsolidatedSchoolSt
 
   // Build sorted list of Grupo E runner-up (vice) years
   const grupoERunnerUpYearsMap = new Map<number, { isHistorical: boolean; source: string }>();
-  (school.honors?.historicalGrupoERunnerUpYears || []).forEach((yr) => {
+  const combinedGrupoERunnerUpYears = Array.from(new Set([...(school.honors?.historicalGrupoERunnerUpYears || []), ...(grupoERecord?.runnerUpYears || [])]));
+  combinedGrupoERunnerUpYears.forEach((yr) => {
     grupoERunnerUpYearsMap.set(yr, {
       isHistorical: true,
       source: yr <= 2026 ? `Histórico (${yr})` : 'Histórico'

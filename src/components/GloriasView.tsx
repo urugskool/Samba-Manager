@@ -1622,6 +1622,8 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
         isOpen={isGaleriaModalOpen}
         onClose={() => setIsGaleriaModalOpen(false)}
         schools={schools}
+        history={history}
+        currentYear={currentYear}
         initialDivision={galeriaDivision}
         onSelectSchool={handleSelectSchool}
       />

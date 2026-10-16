@@ -972,7 +972,9 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
         isOpen={isGaleriaModalOpen}
         onClose={() => setIsGaleriaModalOpen(false)}
         schools={allSchools}
-        initialDivision="especial"
+        history={history}
+        currentYear={currentYear}
+        initialDivision={selectedDivision === 'inativas' ? 'especial' : selectedDivision}
       />
     </div>
   );

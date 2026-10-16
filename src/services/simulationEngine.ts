@@ -1212,7 +1212,8 @@ export class SimulationEngine {
 
     const prataChamp = schoolMap.get(prataResult.championId) || prataRanked[0]?.school;
     const bronzeChamp = schoolMap.get(bronzeResult.championId) || bronzeRanked[0]?.school;
-    const avaliacaoChamp = schoolMap.get(avaResult.championId) || avaliacaoRanked[0]?.school;
+    const avaliacaoChamp = schoolMap.get(avaResult?.championId || '') || avaliacaoRanked[0]?.school;
+    const avaliacaoVice = avaliacaoRanked[1]?.school;
 
     const nextOuroCount = currentOuroCount - 2 + prataPromotedCount;
     const nextPrataCount = currentPrataCount + 2 - prataPromotedCount - prataRelegatedCount + bronzePromotedCount;
@@ -1414,6 +1415,7 @@ export class SimulationEngine {
       bronzePromoted: bronzePromotedNames.map(n => cleanSchoolName(n)),
       bronzeRelegated: bronzeRelegatedNames.map(n => cleanSchoolName(n)),
       avaliacaoChampion: avaliacaoChamp ? cleanSchoolName(avaliacaoChamp) : 'Desconhecida',
+      avaliacaoRunnerUp: avaliacaoVice ? cleanSchoolName(avaliacaoVice) : (avaliacaoStandings.length > 1 ? avaliacaoStandings[1]?.schoolName : undefined),
       avaliacaoPromoted: avaliacaoPromotedNames.map(n => cleanSchoolName(n)),
       avaliacaoRelegated: avaliacaoAfastadasNames.map(n => cleanSchoolName(n)),
       avaliacaoSuspended: avaliacaoAfastadasNames.map(n => cleanSchoolName(n)),

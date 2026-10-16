@@ -379,6 +379,7 @@ export interface YearHistory {
   bronzePromoted?: string[];
   bronzeRelegated?: string[];
   avaliacaoChampion?: string;
+  avaliacaoRunnerUp?: string;
   avaliacaoPromoted?: string[];
   avaliacaoRelegated?: string[];
   avaliacaoSuspended?: string[];
