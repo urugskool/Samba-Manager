@@ -253,7 +253,8 @@ export interface School {
   id: string;
   name: string;
   shortName: string;
-  calledName?: string; // Nome conhecido e chamado oficial
+  calledName?: string; // Nome chamado oficial
+  knownName?: string; // Nome conhecido oficial
   abbreviation?: string;
   denomination?: string; // Denominação jurídica / estatutária (Ex: "G.R.E.S.", "C.C.E.S.")
   corporateName?: string; // Razão social oficial completa nos perfis (Ex: "G.R.E.S. Estação Primeira de Mangueira")

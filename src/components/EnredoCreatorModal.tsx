@@ -8,6 +8,7 @@ import {
 import { ParadeScript } from '../services/paradeScriptService';
 import { soundService } from '../services/soundService';
 import { cleanSchoolName } from '../utils/schoolNameUtils';
+import { DIVISION_REGULATIONS } from '../config/obrigatoriedadesConfig';
 import {
   X,
   Sparkles,
@@ -30,9 +31,12 @@ import {
   Trophy,
   Users,
   Music,
-  Eye,
   CheckCircle2,
-  Info
+  Info,
+  Scale,
+  FileText,
+  FileCheck2,
+  Wand2
 } from 'lucide-react';
 
 interface EnredoCreatorModalProps {
@@ -66,31 +70,41 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
   initialNotes = ''
 }) => {
   const effectiveDiv = division || school.division;
+  const reg = DIVISION_REGULATIONS[effectiveDiv];
   const schoolClean = cleanSchoolName(school);
 
-  // Estados de Navegação
-  const [step, setStep] = useState<'input' | 'researching' | 'dossier' | 'script'>('input');
+  // Modo de Criação: Pesquisa Integrada do Jogo vs. Criação Autoral da Sinopse pelo Jogador
+  const [creationOrigin, setCreationOrigin] = useState<'pesquisa' | 'autoral'>('pesquisa');
 
-  // Estados do Formulário de Entrada
+  // Estados de Navegação
+  // input -> researching -> dossier -> synopsis_ready -> script
+  const [step, setStep] = useState<'input' | 'researching' | 'dossier' | 'synopsis_ready' | 'script'>('input');
+
+  // Modo 1: Pesquisa do Jogo
   const [themeInput, setThemeInput] = useState(initialTheme);
   const [notesInput, setNotesInput] = useState(initialNotes);
   const [genreInput, setGenreInput] = useState<EnredoThemeType | 'auto'>('auto');
-
-  // Estados do Sistema de Pesquisa
   const [dossier, setDossier] = useState<EnredoResearchDossier | null>(null);
   const [researchPhase, setResearchPhase] = useState<string>('Conectando ao acervo carnavalesco...');
-  const [selectedApproach, setSelectedApproach] = useState<EnredoApproachOption | null>(null);
 
-  // Estados de Customização
-  const [isEditingTitle, setIsEditingTitle] = useState(false);
+  // Modo 2: Criação Autoral da Sinopse pelo Jogador
+  const [authorTitle, setAuthorTitle] = useState(initialTheme || '');
+  const [authorGenre, setAuthorGenre] = useState<EnredoThemeType>('Histórico');
+  const [authorSynopsis, setAuthorSynopsis] = useState(initialNotes || '');
+
+  // Abordagem e Sinopse Final (Comum a ambos os fluxos)
+  const [selectedApproach, setSelectedApproach] = useState<EnredoApproachOption | null>(null);
   const [customTitle, setCustomTitle] = useState('');
   const [customSynopsis, setCustomSynopsis] = useState('');
+  const [isEditingSynopsis, setIsEditingSynopsis] = useState(false);
 
   // Roteiro Gerado
   const [generatedScript, setGeneratedScript] = useState<ParadeScript | null>(null);
-  const [selectedScriptTab, setSelectedScriptTab] = useState<'setores' | 'segmentos' | 'resumo'>('setores');
+  const [selectedScriptTab, setSelectedScriptTab] = useState<'setores' | 'segmentos' | 'regulamento' | 'resumo'>('setores');
 
-  // Dispara o Sistema de Pesquisa Integrado
+  // --------------------------------------------------------------------------
+  // FLUXO 1: PESQUISA INTEGRADA DO JOGO
+  // --------------------------------------------------------------------------
   const handleStartResearch = async () => {
     if (!themeInput.trim()) return;
 
@@ -98,7 +112,6 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
     setStep('researching');
     setResearchPhase('Consultando acervo histórico e referências culturais...');
 
-    // Feedback progressivo da pesquisa temática
     const timer1 = setTimeout(() => {
       setResearchPhase('Catalogando figuras históricas, simbolismos e iconografia...');
     }, 600);
@@ -130,7 +143,6 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
     } catch {
       clearTimeout(timer1);
       clearTimeout(timer2);
-      // Fallback
       const fallback = EnredoResearchService.generateProceduralDossier(
         school,
         themeInput,
@@ -147,7 +159,6 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
     }
   };
 
-  // Seleciona uma abordagem e atualiza os campos de customização
   const handleSelectApproach = (approach: EnredoApproachOption) => {
     soundService.playClick();
     setSelectedApproach(approach);
@@ -155,36 +166,81 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
     setCustomSynopsis(approach.synopsis);
   };
 
-  // Gera o desfile e o roteiro a partir da abordagem escolhida
-  const handleGenerateParade = () => {
+  // Do Dossiê para a etapa de "Sinopse Pronta"
+  const handleProceedToSynopsisReadyFromDossier = () => {
     if (!selectedApproach) return;
-
     soundService.playClick();
 
-    // Aplica customizações caso o jogador tenha alterado o título ou sinopse
+    // Aplica eventuais edições no título ou sinopse
     const finalApproach: EnredoApproachOption = {
       ...selectedApproach,
       suggestedTitle: customTitle.trim() || selectedApproach.suggestedTitle,
       synopsis: customSynopsis.trim() || selectedApproach.synopsis
     };
+    setSelectedApproach(finalApproach);
+    setStep('synopsis_ready');
+  };
 
+  // --------------------------------------------------------------------------
+  // FLUXO 2: CRIAÇÃO AUTORAL DA SINOPSE PELO JOGADOR
+  // --------------------------------------------------------------------------
+  const handleInsertSynopsisTemplate = () => {
+    soundService.playClick();
+    const t = authorTitle.trim() || 'O Canto Sagrado da Passarela';
+    setAuthorSynopsis(
+      `Setor 1: O Prólogo e o Chamado da Memória\nDescortina-se na passarela o amanhecer das lendas em torno de ${t}. As raízes ancestrais e a magia que inspiram a nossa agremiação ganham vida nas cores do pavilhão.\n\nSetor 2: O Desenvolvimento e os Caminhos da História\nO desfile aprofunda os cenários, tradições e personagens marcantes desta epopeia, retratando as cores e a poesia do povo.\n\nSetor 3: O Conflito, a Resistência e a Voz Popular\nA dramaticidade atinge o seu ponto alto na avenida, com a força do batuque e o clamor das lutas e superações da comunidade.\n\nSetor 4: A Apoteose e a Glória Eterna na Sapucaí\nO manto sagrado da ${schoolClean} consagra ${t} no panteão dos grandes carnavais, celebrando a imortalidade do samba sob a bênção dos baluartes.`
+    );
+  };
+
+  const handleProceedToSynopsisReadyFromAuthor = () => {
+    if (!authorTitle.trim() || !authorSynopsis.trim()) return;
+    soundService.playClick();
+
+    const approach = EnredoResearchService.createApproachFromCustomSynopsis(
+      school,
+      authorTitle,
+      authorSynopsis,
+      authorGenre,
+      effectiveDiv
+    );
+
+    setSelectedApproach(approach);
+    setCustomTitle(approach.suggestedTitle);
+    setCustomSynopsis(approach.synopsis);
+    setStep('synopsis_ready');
+  };
+
+  // --------------------------------------------------------------------------
+  // MONTAGEM DO ROTEIRO: SEGUINDO A SINOPSE & REGULAMENTOS VIGENTES
+  // --------------------------------------------------------------------------
+  const handleBuildParadeScript = () => {
+    if (!selectedApproach) return;
+    soundService.playClick();
+
+    // Garante que qualquer alteração final feita na sinopse seja refletida
+    const title = customTitle.trim() || selectedApproach.suggestedTitle;
+    const synopsis = customSynopsis.trim() || selectedApproach.synopsis;
+
+    const finalApproach: EnredoApproachOption = {
+      ...selectedApproach,
+      suggestedTitle: title,
+      synopsis: synopsis
+    };
+
+    // Monta o roteiro oficial respeitando estritamente a sinopse e o regulamento da divisão
     const script = EnredoResearchService.buildParadeScript(school, finalApproach, effectiveDiv);
     setGeneratedScript(script);
     setStep('script');
     soundService.playLevelUp();
   };
 
-  // Homologa e salva o enredo e o roteiro na escola do jogador
+  // --------------------------------------------------------------------------
+  // HOMOLOGAÇÃO FINAL DO ENREDO E ROTEIRO NA ESCOLA
+  // --------------------------------------------------------------------------
   const handleConfirmAndHomologate = () => {
     if (!selectedApproach || !generatedScript) return;
 
-    const finalApproach: EnredoApproachOption = {
-      ...selectedApproach,
-      suggestedTitle: customTitle.trim() || selectedApproach.suggestedTitle,
-      synopsis: customSynopsis.trim() || selectedApproach.synopsis
-    };
-
-    const enredo = EnredoResearchService.createEnredoFromApproach(school, finalApproach);
+    const enredo = EnredoResearchService.createEnredoFromApproach(school, selectedApproach);
     soundService.playVictory();
     onSaveEnredo(enredo, generatedScript);
     onClose();
@@ -202,31 +258,33 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-[10px] uppercase font-black px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                  Pesquisa Temática & Criação Autoral
+                  Criação de Enredo & Roteiro
                 </span>
                 <span className="text-xs text-slate-400 font-medium">
-                  {schoolClean}
+                  {schoolClean} • {reg.divisionLabel}
                 </span>
               </div>
               <h3 className="text-base sm:text-xl font-black text-white tracking-tight">
-                Criador de Enredo & Roteiro de Desfile
+                Criação do Enredo, Sinopse & Roteiro do Desfile
               </h3>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
             {/* Indicador de Passos */}
-            <div className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-950/60 border border-slate-800 text-[11px] font-bold text-slate-400">
-              <span className={step === 'input' ? 'text-amber-400' : 'text-slate-500'}>1. Tema</span>
+            <div className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-950/60 border border-slate-800 text-[11px] font-bold text-slate-400">
+              <span className={step === 'input' ? 'text-amber-400 font-black' : 'text-slate-500'}>1. Origem da Sinopse</span>
               <span>›</span>
-              <span className={step === 'researching' || step === 'dossier' ? 'text-amber-400' : 'text-slate-500'}>2. Pesquisa & Abordagem</span>
+              <span className={step === 'researching' || step === 'dossier' ? 'text-amber-400 font-black' : 'text-slate-500'}>2. Pesquisa / Dossiê</span>
               <span>›</span>
-              <span className={step === 'script' ? 'text-amber-400' : 'text-slate-500'}>3. Roteiro do Desfile</span>
+              <span className={step === 'synopsis_ready' ? 'text-amber-400 font-black' : 'text-slate-500'}>3. Sinopse Pronta & Regulamento</span>
+              <span>›</span>
+              <span className={step === 'script' ? 'text-emerald-400 font-black' : 'text-slate-500'}>4. Roteiro Vigente</span>
             </div>
 
             <button
               onClick={onClose}
-              className="p-2 text-slate-400 hover:text-white rounded-xl hover:bg-slate-800 transition"
+              className="p-2 text-slate-400 hover:text-white rounded-xl hover:bg-slate-800 transition cursor-pointer"
               title="Fechar"
             >
               <X className="w-5 h-5" />
@@ -236,135 +294,285 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
 
         {/* Conteúdo Dinâmico Baseado no Passo */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
-          {/* PASSO 1: INDICAÇÃO DO TEMA E RESUMO */}
+
+          {/* ================================================================= */}
+          {/* PASSO 1: ESCOLHA DA ORIGEM DA SINOPSE (PESQUISA vs. AUTORAL)     */}
+          {/* ================================================================= */}
           {step === 'input' && (
             <div className="max-w-3xl mx-auto space-y-6 animate-fadeIn">
-              <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200/90 leading-relaxed flex items-start gap-3">
-                <Info className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-amber-300 block mb-1">
-                    Liberdade Criativa Total: Você escolhe a história, o jogo cria o desfile!
-                  </strong>
-                  Indique o tema que deseja levar para a passarela e, opcionalmente, um resumo ou ideias centrais. Nosso
-                  <strong> sistema de pesquisa carnavalesca integrado</strong> investigará as raízes históricas, personagens,
-                  simbolismos e apresentará diferentes abordagens para você decidir como sua escola contará essa história!
-                </div>
-              </div>
-
-              {/* Campo do Tema */}
-              <div className="space-y-2">
-                <label className="block text-xs font-black uppercase tracking-wider text-slate-300 flex items-center justify-between">
-                  <span>Tema / Assunto do Enredo *</span>
-                  <span className="text-[10px] text-amber-400 font-bold lowercase">obrigatório</span>
-                </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    value={themeInput}
-                    onChange={(e) => setThemeInput(e.target.value)}
-                    placeholder="Ex: Lampião e o Cangaço, O Egito dos Faraós, Canudos, Mitologia Nórdica..."
-                    className="w-full px-4 py-3.5 bg-slate-950 border-2 border-slate-700 rounded-2xl text-sm font-bold text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 transition"
-                    autoFocus
-                  />
-                  <Search className="w-4 h-4 text-slate-500 absolute right-4 top-1/2 -translate-y-1/2" />
-                </div>
-              </div>
-
-              {/* Sugestões Rápidas de Temas */}
-              <div className="space-y-2">
-                <span className="text-[11px] font-bold text-slate-400 flex items-center gap-1.5">
-                  <Lightbulb className="w-3.5 h-3.5 text-amber-400" />
-                  Sugestões de temas criativos para inspiração rápida:
-                </span>
-                <div className="flex flex-wrap gap-1.5">
-                  {THEME_INSPIRATION_CHIPS.map((chip, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => {
-                        setThemeInput(chip.theme);
-                        setGenreInput(chip.genre);
-                        soundService.playClick();
-                      }}
-                      className="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 border border-slate-700/60 hover:border-amber-500/40 text-[11px] font-medium transition cursor-pointer"
-                    >
-                      {chip.theme}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Resumo Opcional */}
-              <div className="space-y-2">
-                <label className="block text-xs font-black uppercase tracking-wider text-slate-300 flex items-center justify-between">
-                  <span>Resumo / Ideias Preliminares (Opcional)</span>
-                  <span className="text-[10px] text-slate-500 lowercase font-normal">pode deixar em branco</span>
-                </label>
-                <textarea
-                  value={notesInput}
-                  onChange={(e) => setNotesInput(e.target.value)}
-                  placeholder="Ex: Gostaria de focar no lado poético e místico do sertão, mostrando Padre Cícero, o cordel e uma apoteose com Maria Bonita como rainha guerreira..."
-                  rows={3}
-                  className="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-2xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 transition"
-                />
-                <p className="text-[10px] text-slate-500">
-                  💡 Caso você informe apenas o tema, o sistema de pesquisa fará o levantamento temático completo de forma automática!
-                </p>
-              </div>
-
-              {/* Vertente / Gênero Temático Opcional */}
-              <div className="space-y-2">
-                <label className="block text-xs font-black uppercase tracking-wider text-slate-300">
-                  Vertente Temática Desejada
-                </label>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-                  {[
-                    { id: 'auto', label: '🤖 Automática (Identificar)' },
-                    { id: 'Histórico', label: '📜 Histórico' },
-                    { id: 'Afro-Brasileiro', label: '🥁 Afro-Brasileiro' },
-                    { id: 'Regional', label: '🌵 Regional / Sertão' },
-                    { id: 'Mitológico', label: '⚡ Mitológico' },
-                    { id: 'Crítica Social', label: '✊ Crítica Social' },
-                    { id: 'Cultural', label: '🎭 Cultural & Folclore' },
-                    { id: 'Lúdico', label: '🎪 Lúdico / Sonho' }
-                  ].map((opt) => (
-                    <button
-                      key={opt.id}
-                      type="button"
-                      onClick={() => setGenreInput(opt.id as any)}
-                      className={`p-2.5 rounded-xl text-left font-bold text-xs border transition cursor-pointer ${
-                        genreInput === opt.id
-                          ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-md'
-                          : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white hover:border-slate-700'
-                      }`}
-                    >
-                      {opt.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Botão de Ação */}
-              <div className="pt-4 flex justify-end">
+              {/* Seletor de Origem da Sinopse */}
+              <div className="p-1 rounded-2xl bg-slate-950 border border-slate-800 grid grid-cols-2 gap-1">
                 <button
                   type="button"
-                  onClick={handleStartResearch}
-                  disabled={!themeInput.trim()}
-                  className={`px-6 py-3.5 rounded-2xl font-black text-sm flex items-center gap-2.5 shadow-xl transition cursor-pointer ${
-                    themeInput.trim()
-                      ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 hover:brightness-110 shadow-amber-500/20 active:scale-95'
-                      : 'bg-slate-800 text-slate-500 cursor-not-allowed'
+                  onClick={() => {
+                    setCreationOrigin('pesquisa');
+                    soundService.playClick();
+                  }}
+                  className={`p-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer ${
+                    creationOrigin === 'pesquisa'
+                      ? 'bg-amber-500 text-slate-950 font-black shadow-md shadow-amber-500/20'
+                      : 'text-slate-400 hover:text-white hover:bg-slate-900'
                   }`}
                 >
                   <Search className="w-4 h-4" />
-                  <span>Iniciar Pesquisa Temática Integrada</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <span>Pesquisa Integrada do Jogo</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCreationOrigin('autoral');
+                    soundService.playClick();
+                  }}
+                  className={`p-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer ${
+                    creationOrigin === 'autoral'
+                      ? 'bg-amber-500 text-slate-950 font-black shadow-md shadow-amber-500/20'
+                      : 'text-slate-400 hover:text-white hover:bg-slate-900'
+                  }`}
+                >
+                  <Edit3 className="w-4 h-4" />
+                  <span>Criar Sinopse Própria (Jogador)</span>
                 </button>
               </div>
+
+              {/* MODO 1: PESQUISA DO JOGO */}
+              {creationOrigin === 'pesquisa' && (
+                <div className="space-y-5 animate-fadeIn">
+                  <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200/90 leading-relaxed flex items-start gap-3">
+                    <Info className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="text-amber-300 block mb-1">
+                        Pesquisa Histórica & Cultural Integrada:
+                      </strong>
+                      Indique o tema desejado. O sistema do jogo investigará fatos históricos, simbolismos e iconografias, oferecendo abordagens com sinopses prontas para você selecionar e validar!
+                    </div>
+                  </div>
+
+                  {/* Campo do Tema */}
+                  <div className="space-y-2">
+                    <label className="block text-xs font-black uppercase tracking-wider text-slate-300 flex items-center justify-between">
+                      <span>Tema / Assunto do Enredo *</span>
+                      <span className="text-[10px] text-amber-400 font-bold lowercase">obrigatório</span>
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={themeInput}
+                        onChange={(e) => setThemeInput(e.target.value)}
+                        placeholder="Ex: Lampião e o Cangaço, O Egito dos Faraós, Canudos, Mitologia Nórdica..."
+                        className="w-full px-4 py-3.5 bg-slate-950 border-2 border-slate-700 rounded-2xl text-sm font-bold text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 transition"
+                        autoFocus
+                      />
+                      <Search className="w-4 h-4 text-slate-500 absolute right-4 top-1/2 -translate-y-1/2" />
+                    </div>
+                  </div>
+
+                  {/* Sugestões Rápidas */}
+                  <div className="space-y-2">
+                    <span className="text-[11px] font-bold text-slate-400 flex items-center gap-1.5">
+                      <Lightbulb className="w-3.5 h-3.5 text-amber-400" />
+                      Sugestões para inspiração rápida:
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {THEME_INSPIRATION_CHIPS.map((chip, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => {
+                            setThemeInput(chip.theme);
+                            setGenreInput(chip.genre);
+                            soundService.playClick();
+                          }}
+                          className="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 border border-slate-700/60 hover:border-amber-500/40 text-[11px] font-medium transition cursor-pointer"
+                        >
+                          {chip.theme}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Resumo Opcional */}
+                  <div className="space-y-2">
+                    <label className="block text-xs font-black uppercase tracking-wider text-slate-300 flex items-center justify-between">
+                      <span>Resumo ou Diretrizes Específicas (Opcional)</span>
+                      <span className="text-[10px] text-slate-500 lowercase font-normal">pode deixar em branco</span>
+                    </label>
+                    <textarea
+                      value={notesInput}
+                      onChange={(e) => setNotesInput(e.target.value)}
+                      placeholder="Ex: Gostaria de focar no misticismo e na arte popular do sertão..."
+                      rows={3}
+                      className="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-2xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 transition"
+                    />
+                  </div>
+
+                  {/* Vertente Temática */}
+                  <div className="space-y-2">
+                    <label className="block text-xs font-black uppercase tracking-wider text-slate-300">
+                      Vertente Temática Desejada
+                    </label>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                      {[
+                        { id: 'auto', label: '🤖 Automática' },
+                        { id: 'Histórico', label: '📜 Histórico' },
+                        { id: 'Afro-Brasileiro', label: '🥁 Afro-Brasileiro' },
+                        { id: 'Regional', label: '🌵 Regional' },
+                        { id: 'Mitológico', label: '⚡ Mitológico' },
+                        { id: 'Crítica Social', label: '✊ Crítica Social' },
+                        { id: 'Cultural', label: '🎭 Cultural' },
+                        { id: 'Lúdico', label: '🎪 Lúdico' }
+                      ].map((opt) => (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          onClick={() => setGenreInput(opt.id as any)}
+                          className={`p-2.5 rounded-xl text-left font-bold text-xs border transition cursor-pointer ${
+                            genreInput === opt.id
+                              ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-md'
+                              : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white hover:border-slate-700'
+                          }`}
+                        >
+                          {opt.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Botão de Disparo */}
+                  <div className="pt-3 flex justify-end">
+                    <button
+                      type="button"
+                      onClick={handleStartResearch}
+                      disabled={!themeInput.trim()}
+                      className={`px-6 py-3.5 rounded-2xl font-black text-sm flex items-center gap-2.5 shadow-xl transition cursor-pointer ${
+                        themeInput.trim()
+                          ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 hover:brightness-110 shadow-amber-500/20 active:scale-95'
+                          : 'bg-slate-800 text-slate-500 cursor-not-allowed'
+                      }`}
+                    >
+                      <Search className="w-4 h-4" />
+                      <span>Iniciar Pesquisa Temática Integrada</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* MODO 2: CRIAÇÃO AUTORAL DA SINOPSE PELO JOGADOR */}
+              {creationOrigin === 'autoral' && (
+                <div className="space-y-5 animate-fadeIn">
+                  <div className="p-4 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 text-xs text-indigo-200/90 leading-relaxed flex items-start gap-3">
+                    <Feather className="w-5 h-5 text-indigo-400 shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="text-indigo-300 block mb-1">
+                        Criação Autoral Direta da Sinopse:
+                      </strong>
+                      Você redige pessoalmente o título e a sinopse oficial do enredo. Uma vez pronta, o jogo construirá o roteiro completo de desfile seguindo a progressão dramática da sua sinopse e o regulamento vigente da {reg.governingBody}.
+                    </div>
+                  </div>
+
+                  {/* Título Oficial */}
+                  <div className="space-y-2">
+                    <label className="block text-xs font-black uppercase tracking-wider text-slate-300 flex items-center justify-between">
+                      <span>Título Oficial do Enredo *</span>
+                      <span className="text-[10px] text-amber-400 font-bold lowercase">obrigatório</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={authorTitle}
+                      onChange={(e) => setAuthorTitle(e.target.value)}
+                      placeholder="Ex: O Canto Sagrado das Águas de Yemanjá"
+                      className="w-full px-4 py-3.5 bg-slate-950 border-2 border-slate-700 rounded-2xl text-sm font-bold text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 transition"
+                    />
+                  </div>
+
+                  {/* Vertente Temática */}
+                  <div className="space-y-2">
+                    <label className="block text-xs font-black uppercase tracking-wider text-slate-300">
+                      Gênero / Vertente Temática
+                    </label>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                      {[
+                        { id: 'Histórico', label: '📜 Histórico' },
+                        { id: 'Afro-Brasileiro', label: '🥁 Afro-Brasileiro' },
+                        { id: 'Regional', label: '🌵 Regional' },
+                        { id: 'Mitológico', label: '⚡ Mitológico' },
+                        { id: 'Crítica Social', label: '✊ Crítica Social' },
+                        { id: 'Cultural', label: '🎭 Cultural' },
+                        { id: 'Homenagem', label: '🎖️ Homenagem' },
+                        { id: 'Lúdico', label: '🎪 Lúdico' }
+                      ].map((opt) => (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          onClick={() => setAuthorGenre(opt.id as EnredoThemeType)}
+                          className={`p-2 rounded-xl text-left font-bold text-xs border transition cursor-pointer ${
+                            authorGenre === opt.id
+                              ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-md'
+                              : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'
+                          }`}
+                        >
+                          {opt.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Sinopse Completa */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="block text-xs font-black uppercase tracking-wider text-slate-300">
+                        Texto Integral da Sinopse Oficial *
+                      </label>
+                      <button
+                        type="button"
+                        onClick={handleInsertSynopsisTemplate}
+                        className="text-[11px] text-amber-400 hover:text-amber-300 font-bold underline flex items-center gap-1 cursor-pointer"
+                      >
+                        <Wand2 className="w-3.5 h-3.5" />
+                        Inserir Guia Estruturado (4 Setores)
+                      </button>
+                    </div>
+
+                    <textarea
+                      value={authorSynopsis}
+                      onChange={(e) => setAuthorSynopsis(e.target.value)}
+                      placeholder="Redija a sinopse oficial da sua agremiação. Você pode estruturar por parágrafos ou indicar 'Setor 1', 'Setor 2', etc. para que o roteiro do desfile siga perfeitamente sua narrativa..."
+                      rows={8}
+                      className="w-full px-4 py-3 bg-slate-950 border-2 border-slate-700 rounded-2xl text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 transition leading-relaxed font-sans"
+                    />
+
+                    <div className="flex items-center justify-between text-[11px] text-slate-500">
+                      <span>{authorSynopsis.trim().split(/\s+/).filter(Boolean).length} palavras escritas</span>
+                      <span>O roteiro e as alegorias serão derivados desta narrativa</span>
+                    </div>
+                  </div>
+
+                  {/* Botão de Avanço */}
+                  <div className="pt-3 flex justify-end">
+                    <button
+                      type="button"
+                      onClick={handleProceedToSynopsisReadyFromAuthor}
+                      disabled={!authorTitle.trim() || !authorSynopsis.trim()}
+                      className={`px-6 py-3.5 rounded-2xl font-black text-sm flex items-center gap-2.5 shadow-xl transition cursor-pointer ${
+                        authorTitle.trim() && authorSynopsis.trim()
+                          ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 text-slate-950 hover:brightness-110 shadow-emerald-500/20 active:scale-95'
+                          : 'bg-slate-800 text-slate-500 cursor-not-allowed'
+                      }`}
+                    >
+                      <FileCheck2 className="w-4 h-4" />
+                      <span>Concluir Sinopse & Prosseguir</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
-          {/* PASSO DE CARREGAMENTO / PESQUISA */}
+          {/* ================================================================= */}
+          {/* PASSO DE CARREGAMENTO / PESQUISA NO ACERVO                       */}
+          {/* ================================================================= */}
           {step === 'researching' && (
             <div className="max-w-md mx-auto py-16 text-center space-y-6 animate-fadeIn">
               <div className="relative w-24 h-24 mx-auto">
@@ -397,14 +605,16 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
                   </li>
                   <li className="flex items-center gap-1.5 text-amber-300">
                     <span className="inline-block w-2 h-2 rounded-full bg-amber-400 animate-ping mr-1" />
-                    Elaboração de 4 abordagens narrativas contrastantes
+                    Elaboração de 4 abordagens narrativas com sinopses prontas
                   </li>
                 </ul>
               </div>
             </div>
           )}
 
-          {/* PASSO 2: DOSSIÊ DE PESQUISA & SELEÇÃO DE ABORDAGEM */}
+          {/* ================================================================= */}
+          {/* PASSO: DOSSIÊ DE PESQUISA & SELEÇÃO DE ABORDAGEM                 */}
+          {/* ================================================================= */}
           {step === 'dossier' && dossier && (
             <div className="space-y-6 animate-fadeIn">
               {/* Banner de Síntese da Pesquisa */}
@@ -412,7 +622,7 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
                     <span className="px-2.5 py-0.5 rounded-full bg-amber-500 text-slate-950 text-[10px] font-black uppercase">
-                      Dossiê Concluído
+                      Dossiê da Pesquisa Concluído
                     </span>
                     <span className="text-xs text-slate-400 font-mono">
                       Gênero: <strong>{dossier.detectedGenre}</strong>
@@ -422,7 +632,7 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
                     onClick={() => setStep('input')}
                     className="text-xs text-amber-400 hover:text-amber-300 font-bold underline flex items-center gap-1 cursor-pointer"
                   >
-                    <ChevronLeft className="w-3.5 h-3.5" /> Alterar tema ou termo de pesquisa
+                    <ChevronLeft className="w-3.5 h-3.5" /> Voltar / Mudar tema
                   </button>
                 </div>
 
@@ -434,13 +644,13 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
                   {dossier.historicalContext}
                 </p>
 
-                {/* Cards de Elementos Revelados pela Pesquisa */}
+                {/* Cards de Elementos Revelados */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2 text-xs">
                   <div className="p-3 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1">
                     <span className="font-bold text-amber-400 flex items-center gap-1.5 text-[11px]">
                       <Users className="w-3.5 h-3.5" /> Personagens Centrais:
                     </span>
-                    <p className="text-[11px] text-slate-300">
+                    <p className="text-[11px] text-slate-300 truncate">
                       {dossier.centralFigures.slice(0, 3).join(', ')}
                     </p>
                   </div>
@@ -449,7 +659,7 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
                     <span className="font-bold text-blue-400 flex items-center gap-1.5 text-[11px]">
                       <Palette className="w-3.5 h-3.5" /> Iconografia & Símbolos:
                     </span>
-                    <p className="text-[11px] text-slate-300">
+                    <p className="text-[11px] text-slate-300 truncate">
                       {dossier.iconography.slice(0, 3).join(', ')}
                     </p>
                   </div>
@@ -476,16 +686,16 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
                 </div>
               </div>
 
-              {/* SEÇÃO PRINCIPAL: ESCOLHA DA ABORDAGEM NARRATIVA */}
+              {/* Escolha da Abordagem */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <div>
                     <h4 className="text-sm sm:text-base font-black text-white flex items-center gap-2">
                       <Feather className="w-4 h-4 text-amber-400" />
-                      <span>Escolha a Abordagem Narrativa do seu Desfile</span>
+                      <span>Escolha a Abordagem Narrativa da Pesquisa</span>
                     </h4>
                     <p className="text-xs text-slate-400">
-                      O enredo dita o desfile. Selecione qual vertente você deseja que a {schoolClean} defenda na passarela:
+                      Cada opção oferece uma sinopse própria e uma perspectiva estética diferente para a {schoolClean}:
                     </p>
                   </div>
                   <span className="text-xs text-amber-400 font-bold">
@@ -538,14 +748,14 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
                           </p>
 
                           <p className="text-xs text-slate-300 leading-relaxed line-clamp-3">
-                            {approach.narrativeAxis}
+                            {approach.synopsis}
                           </p>
                         </div>
 
                         {/* Setores Preview */}
                         <div className="space-y-1.5 pt-2 border-t border-slate-800/80">
                           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
-                            Setorização na Passarela (4 Setores):
+                            Setores Planejados:
                           </span>
                           <div className="space-y-1 text-[11px] text-slate-300">
                             {approach.setorizacaoPreview.slice(0, 3).map((s, idx) => (
@@ -558,77 +768,13 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
                             ))}
                           </div>
                         </div>
-
-                        {/* Destaque das Cores & Estilo */}
-                        <div className="flex items-center justify-between text-[11px] pt-2 text-slate-400">
-                          <span className="truncate">{approach.aestheticStyle.split(',')[0]}</span>
-                          <div className="flex gap-1 shrink-0">
-                            {approach.dominatColors.map((c, i) => (
-                              <span
-                                key={i}
-                                className="w-2.5 h-2.5 rounded-full"
-                                style={{ backgroundColor: c }}
-                              />
-                            ))}
-                          </div>
-                        </div>
                       </div>
                     );
                   })}
                 </div>
               </div>
 
-              {/* PAINEL DE PERSONALIZAÇÃO LIVRE DO TÍTULO E SINOPSE */}
-              {selectedApproach && (
-                <div className="p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-amber-400 flex items-center gap-1.5">
-                      <Edit3 className="w-3.5 h-3.5" />
-                      Personalizar Título e Sinopse da Abordagem Escolhida (Opcional):
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => setIsEditingTitle(!isEditingTitle)}
-                      className="text-xs text-slate-400 hover:text-white font-bold underline cursor-pointer"
-                    >
-                      {isEditingTitle ? 'Fechar Edição' : 'Editar Detalhes'}
-                    </button>
-                  </div>
-
-                  {isEditingTitle ? (
-                    <div className="space-y-3 animate-fadeIn">
-                      <div className="space-y-1">
-                        <label className="text-[11px] font-bold text-slate-400 uppercase">
-                          Título Oficial do Enredo
-                        </label>
-                        <input
-                          type="text"
-                          value={customTitle}
-                          onChange={(e) => setCustomTitle(e.target.value)}
-                          className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white font-bold focus:outline-none focus:border-amber-400"
-                        />
-                      </div>
-                      <div className="space-y-1">
-                        <label className="text-[11px] font-bold text-slate-400 uppercase">
-                          Sinopse Oficial do Enredo
-                        </label>
-                        <textarea
-                          value={customSynopsis}
-                          onChange={(e) => setCustomSynopsis(e.target.value)}
-                          rows={4}
-                          className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-amber-400"
-                        />
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="text-xs text-slate-300">
-                      <strong>Título Atual:</strong> "{customTitle}"
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Botão de Ação: Gerar Desfile */}
+              {/* Botão de Avanço para a Sinopse Pronta */}
               <div className="pt-2 flex items-center justify-between">
                 <button
                   type="button"
@@ -640,34 +786,212 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
 
                 <button
                   type="button"
-                  onClick={handleGenerateParade}
+                  onClick={handleProceedToSynopsisReadyFromDossier}
                   disabled={!selectedApproach}
                   className="px-6 py-3.5 rounded-2xl font-black text-sm bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 hover:brightness-110 shadow-xl shadow-amber-500/20 active:scale-95 flex items-center gap-2 cursor-pointer"
                 >
-                  <Sparkles className="w-4 h-4" />
-                  <span>Gerar Desfile & Roteiro Completo</span>
+                  <FileCheck2 className="w-4 h-4" />
+                  <span>Aprovar Sinopse & Prosseguir</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
             </div>
           )}
 
-          {/* PASSO 3: ROTEIRO DE DESFILE GERADO & HOMOLOGAÇÃO */}
+          {/* ================================================================= */}
+          {/* PASSO 2: SINOPSE PRONTA & REGULAMENTOS VIGENTES                   */}
+          {/* ================================================================= */}
+          {step === 'synopsis_ready' && selectedApproach && (
+            <div className="max-w-4xl mx-auto space-y-6 animate-fadeIn">
+              {/* Banner de Confirmação da Sinopse Pronta */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-emerald-950/60 via-slate-900 to-amber-950/40 border-2 border-emerald-500/40 shadow-xl space-y-2">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 text-[10px] font-black uppercase flex items-center gap-1">
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      Sinopse Pronta & Oficializada
+                    </span>
+                    <span className="text-xs text-amber-300 font-mono font-bold">
+                      {selectedApproach.themeType}
+                    </span>
+                  </div>
+                  <span className="text-[11px] text-slate-400">
+                    Origem: <strong>{selectedApproach.badge}</strong>
+                  </span>
+                </div>
+
+                <h4 className="text-lg sm:text-2xl font-black text-white">
+                  "{customTitle || selectedApproach.suggestedTitle}"
+                </h4>
+                <p className="text-xs text-slate-400 italic">
+                  {selectedApproach.subTitle}
+                </p>
+              </div>
+
+              {/* Quadro do Texto Integral da Sinopse */}
+              <div className="p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-black uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+                    <BookOpen className="w-4 h-4" />
+                    Sinopse Oficial do Enredo
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setIsEditingSynopsis(!isEditingSynopsis)}
+                    className="text-xs text-slate-400 hover:text-white font-bold underline flex items-center gap-1 cursor-pointer"
+                  >
+                    <Edit3 className="w-3.5 h-3.5" />
+                    {isEditingSynopsis ? 'Salvar Edição' : 'Ajustar Texto da Sinopse'}
+                  </button>
+                </div>
+
+                {isEditingSynopsis ? (
+                  <div className="space-y-3">
+                    <div className="space-y-1">
+                      <label className="text-[11px] font-bold text-slate-400 uppercase">Título Oficial</label>
+                      <input
+                        type="text"
+                        value={customTitle}
+                        onChange={(e) => setCustomTitle(e.target.value)}
+                        className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white font-bold focus:outline-none focus:border-amber-400"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-[11px] font-bold text-slate-400 uppercase">Texto da Sinopse</label>
+                      <textarea
+                        value={customSynopsis}
+                        onChange={(e) => setCustomSynopsis(e.target.value)}
+                        rows={6}
+                        className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-amber-400 leading-relaxed font-sans"
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-xs sm:text-sm text-slate-200 leading-relaxed whitespace-pre-line bg-slate-900/50 p-4 rounded-xl border border-slate-800/60 max-h-60 overflow-y-auto">
+                    {customSynopsis || selectedApproach.synopsis}
+                  </div>
+                )}
+              </div>
+
+              {/* PAINEL DE REGULAMENTOS VIGENTES DA LIGA / DIVISÃO */}
+              <div className="p-5 rounded-2xl bg-gradient-to-br from-slate-950 via-slate-900 to-amber-950/20 border-2 border-amber-500/40 shadow-xl space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                  <div className="flex items-center gap-2">
+                    <Scale className="w-5 h-5 text-amber-400" />
+                    <div>
+                      <h5 className="text-sm font-black text-white">
+                        Regulamentos Oficiais Vigentes para a Montagem do Roteiro
+                      </h5>
+                      <p className="text-[11px] text-slate-400">
+                        {reg.governingBody} • {reg.divisionLabel} ({reg.venue})
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-[10px] font-mono px-2.5 py-1 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold uppercase">
+                    Normas Técnicas Aplicadas
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 text-xs">
+                  <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-center space-y-1">
+                    <span className="text-[10px] text-slate-400 block uppercase font-bold">Alegorias</span>
+                    <strong className="text-sm font-mono text-amber-400 block">
+                      {reg.rules.alegorias?.min || 1} a {reg.rules.alegorias?.max || 6}
+                    </strong>
+                    <span className="text-[9px] text-slate-500 block">Carros Oficiais</span>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-center space-y-1">
+                    <span className="text-[10px] text-slate-400 block uppercase font-bold">Comissão Frente</span>
+                    <strong className="text-sm font-mono text-blue-400 block">
+                      {reg.rules.comissaoDeFrente?.min || 10} a {reg.rules.comissaoDeFrente?.max || 15}
+                    </strong>
+                    <span className="text-[9px] text-slate-500 block">Bailarinos</span>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-center space-y-1">
+                    <span className="text-[10px] text-slate-400 block uppercase font-bold">Baianas</span>
+                    <strong className="text-sm font-mono text-emerald-400 block">
+                      Mín. {reg.rules.baianas?.min || 15}
+                    </strong>
+                    <span className="text-[9px] text-slate-500 block">Em Ala Sagrada</span>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-center space-y-1">
+                    <span className="text-[10px] text-slate-400 block uppercase font-bold">Bateria</span>
+                    <strong className="text-sm font-mono text-purple-400 block">
+                      Mín. {reg.rules.ritmistas?.min || 80}
+                    </strong>
+                    <span className="text-[9px] text-slate-500 block">Ritmistas</span>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-center space-y-1">
+                    <span className="text-[10px] text-slate-400 block uppercase font-bold">Tripés</span>
+                    <strong className="text-sm font-mono text-yellow-400 block">
+                      Até {reg.rules.tripes?.max || 0}
+                    </strong>
+                    <span className="text-[9px] text-slate-500 block">Cenografia Móvel</span>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-center space-y-1">
+                    <span className="text-[10px] text-slate-400 block uppercase font-bold">Componentes</span>
+                    <strong className="text-sm font-mono text-pink-400 block">
+                      {reg.rules.componentes?.min || 400}+
+                    </strong>
+                    <span className="text-[9px] text-slate-500 block">Desfilantes em Pista</span>
+                  </div>
+                </div>
+
+                <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 flex items-center justify-between text-xs text-slate-300">
+                  <span className="flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Ao clicar abaixo, o cortejo e o Livro Abre-Alas serão modelados diretamente a partir da sinopse acima, respeitando cada parâmetro do regulamento da <strong>{reg.governingBody}</strong>.</span>
+                  </span>
+                </div>
+              </div>
+
+              {/* Botões de Ação */}
+              <div className="pt-2 flex items-center justify-between">
+                <button
+                  type="button"
+                  onClick={() => setStep(creationOrigin === 'autoral' ? 'input' : 'dossier')}
+                  className="px-4 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white border border-slate-800 hover:bg-slate-800 transition cursor-pointer flex items-center gap-1.5"
+                >
+                  <ChevronLeft className="w-4 h-4" /> Voltar
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleBuildParadeScript}
+                  className="px-7 py-4 rounded-2xl font-black text-sm bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 hover:brightness-110 shadow-2xl shadow-amber-500/30 active:scale-95 flex items-center gap-2.5 cursor-pointer"
+                >
+                  <Sparkles className="w-5 h-5 text-slate-950 animate-spin" style={{ animationDuration: '4s' }} />
+                  <span>Criar Roteiro de Desfile (Seguindo a Sinopse & Regulamentos Vigentes)</span>
+                  <ArrowRight className="w-5 h-5 text-slate-950" />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* ================================================================= */}
+          {/* PASSO 3: ROTEIRO DE DESFILE GERADO & HOMOLOGAÇÃO                 */}
+          {/* ================================================================= */}
           {step === 'script' && generatedScript && selectedApproach && (
             <div className="space-y-6 animate-fadeIn">
               {/* Ficha Técnica do Desfile Criado */}
               <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-amber-950/60 via-slate-900 to-indigo-950/60 border-2 border-amber-500/50 shadow-xl space-y-3">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 text-[10px] font-black uppercase">
-                      Desfile Formado com Sucesso
+                    <span className="px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 text-[10px] font-black uppercase flex items-center gap-1">
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      Roteiro Criado em Conformidade com o Regulamento
                     </span>
                     <span className="text-xs text-slate-400 font-mono">
-                      Divisão: <strong>{generatedScript.divisionLabel}</strong>
+                      Divisão: <strong>{generatedScript.divisionLabel}</strong> ({reg.governingBody})
                     </span>
                   </div>
                   <span className="text-xs text-amber-300 font-bold">
-                    O enredo ditou todo o cortejo!
+                    A sinopse ditou 100% da narrativa e dos setores!
                   </span>
                 </div>
 
@@ -696,37 +1020,50 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
               </div>
 
               {/* Navegação de Abas do Roteiro */}
-              <div className="flex items-center gap-2 border-b border-slate-800 pb-2">
+              <div className="flex items-center gap-2 border-b border-slate-800 pb-2 overflow-x-auto">
                 <button
                   type="button"
                   onClick={() => setSelectedScriptTab('setores')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shrink-0 ${
                     selectedScriptTab === 'setores'
                       ? 'bg-amber-500 text-slate-950'
                       : 'text-slate-400 hover:text-white'
                   }`}
                 >
                   <Layers className="w-3.5 h-3.5" />
-                  <span>Setores da Passarela ({generatedScript.setores.length})</span>
+                  <span>Setores da Sinopse na Passarela ({generatedScript.setores.length})</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setSelectedScriptTab('segmentos')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shrink-0 ${
                     selectedScriptTab === 'segmentos'
                       ? 'bg-amber-500 text-slate-950'
                       : 'text-slate-400 hover:text-white'
                   }`}
                 >
                   <Crown className="w-3.5 h-3.5" />
-                  <span>Segmentos & Alegorias ({generatedScript.elements.length})</span>
+                  <span>Cortejo Completo ({generatedScript.elements.length} Elementos)</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setSelectedScriptTab('regulamento')}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shrink-0 ${
+                    selectedScriptTab === 'regulamento'
+                      ? 'bg-amber-500 text-slate-950'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  <Scale className="w-3.5 h-3.5" />
+                  <span>Checklist do Regulamento Vigente</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setSelectedScriptTab('resumo')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shrink-0 ${
                     selectedScriptTab === 'resumo'
                       ? 'bg-amber-500 text-slate-950'
                       : 'text-slate-400 hover:text-white'
@@ -737,35 +1074,41 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
                 </button>
               </div>
 
-              {/* ABA 1: SETORES DA PASSARELA */}
+              {/* ABA 1: SETORES DA PASSARELA DERIVADOS DA SINOPSE */}
               {selectedScriptTab === 'setores' && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-fadeIn">
-                  {generatedScript.setores.map((setor) => (
-                    <div
-                      key={setor.sectorNumber}
-                      className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2 shadow-sm"
-                    >
-                      <div className="flex items-center gap-2">
-                        <span className="w-6 h-6 rounded-full bg-amber-500 text-slate-950 font-black text-xs flex items-center justify-center">
-                          {setor.sectorNumber}
-                        </span>
-                        <h5 className="font-bold text-sm text-white">
-                          {setor.title}
-                        </h5>
+                <div className="space-y-4 animate-fadeIn">
+                  <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 text-xs text-slate-300">
+                    A narrativa da sinopse foi decomposta em <strong>{generatedScript.setores.length} setores oficiais</strong> para evolução na passarela, cada um conduzindo um arco temático do enredo:
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {generatedScript.setores.map((setor) => (
+                      <div
+                        key={setor.sectorNumber}
+                        className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2 shadow-sm"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="w-6 h-6 rounded-full bg-amber-500 text-slate-950 font-black text-xs flex items-center justify-center shrink-0">
+                            {setor.sectorNumber}
+                          </span>
+                          <h5 className="font-bold text-sm text-white">
+                            {setor.title}
+                          </h5>
+                        </div>
+                        <p className="text-xs text-slate-300 leading-relaxed">
+                          {setor.themeSynopsis}
+                        </p>
                       </div>
-                      <p className="text-xs text-slate-300 leading-relaxed">
-                        {setor.themeSynopsis}
-                      </p>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               )}
 
-              {/* ABA 2: SEGMENTOS & ELEMENTOS TEMÁTICOS */}
+              {/* ABA 2: CORTEJO COMPLETO & ELEMENTOS */}
               {selectedScriptTab === 'segmentos' && (
                 <div className="space-y-3 animate-fadeIn">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {generatedScript.elements.slice(0, 10).map((el) => (
+                    {generatedScript.elements.slice(0, 12).map((el) => (
                       <div
                         key={el.id}
                         className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1.5"
@@ -785,15 +1128,96 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
                       </div>
                     ))}
                   </div>
-                  {generatedScript.elements.length > 10 && (
+                  {generatedScript.elements.length > 12 && (
                     <p className="text-[11px] text-slate-400 text-center italic">
-                      + mais {generatedScript.elements.length - 10} alas e segmentos detalhados no Livro Abre-Alas completo!
+                      + mais {generatedScript.elements.length - 12} alas e segmentos detalhados no Livro Abre-Alas completo!
                     </p>
                   )}
                 </div>
               )}
 
-              {/* ABA 3: SINOPSE OFICIAL COMPLETA */}
+              {/* ABA 3: CHECKLIST DE REGULAMENTO VIGENTE */}
+              {selectedScriptTab === 'regulamento' && (
+                <div className="p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-4 animate-fadeIn text-xs">
+                  <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <div>
+                      <span className="font-black text-white text-sm block">
+                        Conformidade com o Regulamento da {reg.governingBody}
+                      </span>
+                      <span className="text-slate-400 text-[11px]">
+                        Verificação dos requisitos técnicos e disciplinares da divisão {reg.divisionLabel}
+                      </span>
+                    </div>
+                    <span className="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold uppercase text-[10px]">
+                      100% Homologado
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                      <div className="flex items-center justify-between font-bold text-white">
+                        <span>Alegorias & Carros</span>
+                        <span className="text-emerald-400 flex items-center gap-1 font-mono">
+                          <Check className="w-3.5 h-3.5" /> {generatedScript.obrigatoriedades.totalAlegorias} (Regulamento: {reg.rules.alegorias?.min || 1}-{reg.rules.alegorias?.max || 6})
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-400">{reg.rules.alegorias?.description || 'Quantidade rigorosamente dentro dos limites regulamentares.'}</p>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                      <div className="flex items-center justify-between font-bold text-white">
+                        <span>Comissão de Frente</span>
+                        <span className="text-emerald-400 flex items-center gap-1 font-mono">
+                          <Check className="w-3.5 h-3.5" /> {generatedScript.obrigatoriedades.comissaoDeFrenteCount} (Regulamento: {reg.rules.comissaoDeFrente?.min || 10}-{reg.rules.comissaoDeFrente?.max || 15})
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-400">{reg.rules.comissaoDeFrente?.description || 'Dançarinos oficiais cadastrados.'}</p>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                      <div className="flex items-center justify-between font-bold text-white">
+                        <span>Ala das Baianas</span>
+                        <span className="text-emerald-400 flex items-center gap-1 font-mono">
+                          <Check className="w-3.5 h-3.5" /> {generatedScript.obrigatoriedades.baianasCount} (Mínimo: {reg.rules.baianas?.min || 15})
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-400">{reg.rules.baianas?.description || 'Matriarcas agrupadas em ala exclusiva.'}</p>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                      <div className="flex items-center justify-between font-bold text-white">
+                        <span>Bateria Oficial</span>
+                        <span className="text-emerald-400 flex items-center gap-1 font-mono">
+                          <Check className="w-3.5 h-3.5" /> {generatedScript.obrigatoriedades.ritmistasCount} (Mínimo: {reg.rules.ritmistas?.min || 80})
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-400">{reg.rules.ritmistas?.description || 'Ritmistas uniformizados na bateria oficial.'}</p>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                      <div className="flex items-center justify-between font-bold text-white">
+                        <span>Tripés Cenográficos</span>
+                        <span className="text-emerald-400 flex items-center gap-1 font-mono">
+                          <Check className="w-3.5 h-3.5" /> {generatedScript.obrigatoriedades.totalTripes} (Máximo: {reg.rules.tripes?.max || 0})
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-400">{reg.rules.tripes?.description || 'Estruturas cenográficas móveis sem motorização.'}</p>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                      <div className="flex items-center justify-between font-bold text-white">
+                        <span>Total de Componentes</span>
+                        <span className="text-emerald-400 flex items-center gap-1 font-mono">
+                          <Check className="w-3.5 h-3.5" /> {generatedScript.obrigatoriedades.totalComponentes} desfilantes
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-400">{reg.rules.componentes?.description || 'Contingente total dentro da faixa regulamentar.'}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* ABA 4: SINOPSE OFICIAL COMPLETA */}
               {selectedScriptTab === 'resumo' && (
                 <div className="p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3 text-xs leading-relaxed text-slate-200 animate-fadeIn whitespace-pre-line">
                   {generatedScript.synopsis}
@@ -804,10 +1228,10 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
               <div className="pt-4 flex items-center justify-between border-t border-slate-800">
                 <button
                   type="button"
-                  onClick={() => setStep('dossier')}
+                  onClick={() => setStep('synopsis_ready')}
                   className="px-4 py-2.5 rounded-xl text-xs text-slate-400 hover:text-white border border-slate-800 hover:bg-slate-800 transition cursor-pointer flex items-center gap-1.5"
                 >
-                  <ChevronLeft className="w-4 h-4" /> Escolher Outra Abordagem
+                  <ChevronLeft className="w-4 h-4" /> Voltar à Sinopse
                 </button>
 
                 <button

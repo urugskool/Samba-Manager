@@ -150,29 +150,53 @@ export class EnredoResearchService {
     const comp = school.paradeComposition || generateDefaultParadeComposition(school);
     const divisionLabel = reg.divisionLabel;
 
-    const alegoriasCount = comp.alegorias || (div === 'especial' ? 5 : div === 'ouro' ? 3 : div === 'prata' ? 3 : div === 'bronze' ? 2 : 1);
-    const tripesCount = comp.tripes || (div === 'especial' ? 2 : div === 'ouro' ? 1 : 0);
-    const ritmistasCount = comp.ritmistas || (div === 'especial' ? 220 : div === 'ouro' ? 160 : div === 'prata' ? 130 : div === 'bronze' ? 95 : 80);
-    const baianasCount = comp.baianas || (div === 'especial' ? 70 : div === 'ouro' ? 50 : div === 'prata' ? 40 : div === 'bronze' ? 30 : 15);
-    const comissaoCount = comp.comissaoDeFrente || (div === 'especial' ? 14 : div === 'ouro' ? 14 : div === 'prata' ? 11 : 10);
+    // Aplicação estrita dos regulamentos vigentes da divisão
+    const alegoriasMin = reg.rules.alegorias?.min || 1;
+    const alegoriasMax = reg.rules.alegorias?.max || 6;
+    const defAlegorias = div === 'especial' ? 5 : div === 'ouro' ? 3 : div === 'prata' ? 3 : div === 'bronze' ? 2 : 1;
+    const alegoriasCount = Math.max(alegoriasMin, Math.min(alegoriasMax, comp.alegorias || defAlegorias));
+
+    const tripesMax = reg.rules.tripes?.max || 0;
+    const tripesCount = Math.min(tripesMax, comp.tripes || (div === 'especial' ? 2 : div === 'ouro' ? 1 : 0));
+
+    const minRitmistas = reg.rules.ritmistas?.min || 80;
+    const ritmistasCount = Math.max(minRitmistas, comp.ritmistas || (div === 'especial' ? 220 : div === 'ouro' ? 160 : div === 'prata' ? 130 : div === 'bronze' ? 95 : 80));
+
+    const minBaianas = reg.rules.baianas?.min || 15;
+    const baianasCount = Math.max(minBaianas, comp.baianas || (div === 'especial' ? 70 : div === 'ouro' ? 50 : div === 'prata' ? 40 : div === 'bronze' ? 30 : 15));
+
+    const cdfMin = reg.rules.comissaoDeFrente?.min || 10;
+    const cdfMax = reg.rules.comissaoDeFrente?.max || 15;
+    const comissaoCount = Math.max(cdfMin, Math.min(cdfMax, comp.comissaoDeFrente || (div === 'especial' ? 14 : div === 'ouro' ? 14 : div === 'prata' ? 11 : 10)));
+
+    const minComponentes = reg.rules.componentes?.min || 400;
+    const maxComponentes = reg.rules.componentes?.max || 3500;
+    const defComponentes = div === 'especial' ? 2800 : div === 'ouro' ? 1100 : div === 'prata' ? 750 : div === 'bronze' ? 600 : 400;
+    const componentesTotal = Math.max(minComponentes, Math.min(maxComponentes, comp.componentes || defComponentes));
 
     const totalAlas = div === 'especial' ? 26 : div === 'ouro' ? 18 : div === 'prata' ? 14 : div === 'bronze' ? 11 : 8;
-    const componentesTotal = comp.componentes || (div === 'especial' ? 2800 : div === 'ouro' ? 1100 : div === 'prata' ? 750 : div === 'bronze' ? 600 : 400);
-    const componentesPorAla = Math.max(25, Math.round((componentesTotal - ritmistasCount - baianasCount - comissaoCount - 150) / totalAlas));
+    const componentesPorAla = Math.max(reg.rules.alas?.minComponentesPorAla || 25, Math.round((componentesTotal - ritmistasCount - baianasCount - comissaoCount - 150) / totalAlas));
 
-    // Constrói setores
+    // Constrói setores estritamente alinhados à sinopse aprovada
     const numSectors = div === 'especial' ? 5 : 4;
+    const sectorsFromSynopsis = this.extractSectorsFromSynopsis(
+      approach.synopsis,
+      numSectors,
+      approach.themeType,
+      approach.suggestedTitle
+    );
+
     const setores: ParadeSector[] = [];
     for (let i = 0; i < numSectors; i++) {
-      const preview = approach.setorizacaoPreview[i] || {
+      const candidate = sectorsFromSynopsis[i] || approach.setorizacaoPreview[i] || {
         sectorNumber: i + 1,
         title: `Setor ${i + 1}: ${this.getGenericSectorTitle(i, approach.themeType)}`,
         synopsis: `Desenvolvimento temático da narrativa no setor ${i + 1}, exaltando as nuances poéticas do enredo "${approach.suggestedTitle}".`
       };
       setores.push({
         sectorNumber: i + 1,
-        title: preview.title,
-        themeSynopsis: preview.synopsis
+        title: candidate.title,
+        themeSynopsis: candidate.synopsis
       });
     }
 
@@ -188,7 +212,7 @@ export class EnredoResearchService {
       categoryLabel: 'Comissão de Frente',
       sectorNumber: 1,
       sectorTitle: setores[0].title,
-      description: `${approach.elementsPreview.comissaoDeFrente.concept} O grupo composto por ${comissaoCount} bailarinos atua como arauto da narrativa, apresentando truques cênicos e impacto visual na abertura do cortejo.`,
+      description: `${approach.elementsPreview.comissaoDeFrente.concept} O grupo composto por ${comissaoCount} bailarinos atua como arauto da narrativa da sinopse ("${setores[0].title}"), apresentando truques cênicos e impacto visual na abertura do cortejo.`,
       costumeDetails: approach.elementsPreview.comissaoDeFrente.costume,
       highlightPeople: `Coreógrafo(a): ${school.staff?.coreografo?.name || 'Direção Cênica'}`,
       componentsCount: comissaoCount,
@@ -204,7 +228,7 @@ export class EnredoResearchService {
       categoryLabel: '1º Casal de MS & PB',
       sectorNumber: 1,
       sectorTitle: setores[0].title,
-      description: `${approach.elementsPreview.casal1.representation} Conduzem o pavilhão sagrado de ${cleanSchoolName(school)} com bailado nobre e giros perfeitos diante das cabines de jurados.`,
+      description: `${approach.elementsPreview.casal1.representation} Conduzem o pavilhão sagrado de ${cleanSchoolName(school)} com bailado nobre e giros perfeitos diante das cabines de jurados, defendendo o tema de abertura.`,
       costumeDetails: approach.elementsPreview.casal1.costume,
       highlightPeople: `1º Casal Oficial: ${school.staff?.mestreSalaPortaBandeira?.name || 'Mestre-Sala e Porta-Bandeira'}`,
       componentsCount: 2,
@@ -212,15 +236,16 @@ export class EnredoResearchService {
     });
 
     // 3. Abre-Alas (Alegoria 1)
+    const sec1Clean = setores[0].title.replace(/^Setor\s*\d+\s*[:\-–]\s*/i, '');
     elements.push({
       id: `alegoria_1_${school.id}_custom`,
       orderNumber: orderSeq++,
       type: 'abre_alas',
-      name: approach.elementsPreview.abreAlas.name,
+      name: approach.elementsPreview.abreAlas.name || `Abre-Alas: ${sec1Clean}`,
       categoryLabel: 'Abre-Alas (Alegoria 1)',
       sectorNumber: 1,
       sectorTitle: setores[0].title,
-      description: `${approach.elementsPreview.abreAlas.concept} Uma imponente estrutura alegórica com esculturas articuladas, iluminação cênica integrada e acabamento barroco carnavalesco.`,
+      description: `${approach.elementsPreview.abreAlas.concept} Monumento alegórico de abertura que materializa a sinopse do ${setores[0].title}.`,
       costumeDetails: approach.elementsPreview.abreAlas.materials,
       highlightPeople: `Destaque Principal: A Alma Encantada do Enredo`,
       componentsCount: Math.round(componentesTotal * 0.03),
@@ -386,6 +411,164 @@ export class EnredoResearchService {
       carnavalescoAffinity: 96,
       historicalAffinity: 92,
       commercialTradeoff: 'Enredo autoral inédito criado sob medida, garantindo máxima originalidade e identidade comunitária na avenida.'
+    };
+  }
+
+  /**
+   * Extrai e modela setores do desfile a partir de qualquer sinopse (criada pelo jogador
+   * ou gerada pela pesquisa do jogo), respeitando a divisão e o gênero do enredo.
+   */
+  public static extractSectorsFromSynopsis(
+    synopsis: string,
+    numSectors: number,
+    detectedGenre: EnredoThemeType,
+    cleanTitle: string
+  ): { sectorNumber: number; title: string; synopsis: string }[] {
+    const paragraphs = (synopsis || '')
+      .split(/\n\s*\n|\n/)
+      .map(p => p.trim())
+      .filter(p => p.length > 15);
+
+    const explicitSectorMatches: { num: number; text: string }[] = [];
+    const sectorRegex = /(?:Setor\s*(\d+)|(\d+)[ºªo\.]\s*Setor)\s*[:\-–]?\s*([^\n\r]+)/gi;
+    let match;
+    while ((match = sectorRegex.exec(synopsis || '')) !== null) {
+      const sNum = parseInt(match[1] || match[2], 10);
+      const sText = match[3]?.trim() || '';
+      if (sNum && sText) {
+        explicitSectorMatches.push({ num: sNum, text: sText });
+      }
+    }
+
+    const setorizacaoPreview: { sectorNumber: number; title: string; synopsis: string }[] = [];
+
+    if (explicitSectorMatches.length >= 2) {
+      for (let i = 0; i < numSectors; i++) {
+        const found = explicitSectorMatches.find(m => m.num === i + 1);
+        const titleText = found ? found.text : this.getGenericSectorTitle(i, detectedGenre);
+        const pDesc = paragraphs[i] || `Desenvolvimento narrativo do setor ${i + 1} da sinopse oficial.`;
+        setorizacaoPreview.push({
+          sectorNumber: i + 1,
+          title: `Setor ${i + 1}: ${titleText.replace(/^Setor\s*\d+\s*[:\-–]\s*/i, '')}`,
+          synopsis: pDesc
+        });
+      }
+    } else if (paragraphs.length >= numSectors) {
+      for (let i = 0; i < numSectors; i++) {
+        const p = paragraphs[i];
+        const firstSentence = p.split(/[.!?]/)[0] || '';
+        const titleText = firstSentence.length < 55 && firstSentence.length > 8
+          ? firstSentence
+          : this.getGenericSectorTitle(i, detectedGenre);
+
+        setorizacaoPreview.push({
+          sectorNumber: i + 1,
+          title: `Setor ${i + 1}: ${titleText.replace(/^Setor\s*\d+\s*[:\-–]\s*/i, '')}`,
+          synopsis: p
+        });
+      }
+    } else {
+      const sectorThemes = [
+        { name: 'O Prólogo: As Raízes & O Chamado da Memória', phase: 'Abertura e apresentação' },
+        { name: 'O Desenvolvimento: Lendas, Fatos e Caminhos', phase: 'Construção da narrativa' },
+        { name: 'A Luta e o Clímax: O Conflito e a Força Popular', phase: 'Ponto alto e tensão dramática' },
+        { name: 'A Apoteose: A Consagração no Pavilhão Sagrado', phase: 'Glória final e exaltação' },
+        { name: 'A Imortalidade: O Legado Eterno na Sapucaí', phase: 'Homenagem final' }
+      ];
+
+      for (let i = 0; i < numSectors; i++) {
+        const theme = sectorThemes[i] || sectorThemes[sectorThemes.length - 1];
+        setorizacaoPreview.push({
+          sectorNumber: i + 1,
+          title: `Setor ${i + 1}: ${theme.name}`,
+          synopsis: paragraphs[i] || `${theme.phase} da história de "${cleanTitle}". ${(synopsis || '').slice(0, 160)}`
+        });
+      }
+    }
+
+    return setorizacaoPreview;
+  }
+
+  /**
+   * Constrói uma abordagem e estrutura de desfile completa a partir da sinopse criada
+   * diretamente pelo jogador, extraindo os setores narrativos e elementos cênicos.
+   */
+  public static createApproachFromCustomSynopsis(
+    school: School,
+    title: string,
+    synopsis: string,
+    genre?: EnredoThemeType,
+    division?: DivisionId
+  ): EnredoApproachOption {
+    const cleanTitle = title.trim() || 'O Canto Sagrado da Passarela';
+    const detectedGenre = genre || this.detectThemeGenre(`${cleanTitle} ${synopsis}`);
+    const div = division || school.division;
+    const numSectors = div === 'especial' ? 5 : 4;
+
+    const setorizacaoPreview = this.extractSectorsFromSynopsis(synopsis, numSectors, detectedGenre, cleanTitle);
+
+    const colors = [
+      school.colors.primary,
+      school.colors.secondary,
+      school.colors.accent || '#eab308',
+      '#ffffff'
+    ];
+
+    return {
+      id: `approach_custom_${Date.now()}`,
+      name: 'Sinopse Autoral Oficial',
+      badge: 'Criação Autoral',
+      tagline: 'Construção cênica 100% orientada pela sinopse aprovada',
+      suggestedTitle: cleanTitle,
+      subTitle: `A Defesa Oficial da ${cleanSchoolName(school)}`,
+      themeType: detectedGenre,
+      narrativeAxis: synopsis.slice(0, 220) + '...',
+      synopsis,
+      aestheticStyle: `Estilo Dramático-Autoral, com paleta nas cores de ${cleanSchoolName(school)}`,
+      dominatColors: colors,
+      qualityBoost: 16,
+      cost: 160000,
+      setorizacaoPreview,
+      elementsPreview: {
+        comissaoDeFrente: {
+          name: `Comissão de Frente: O Despertar de "${cleanTitle}"`,
+          concept: `Bailarinos e atores encenam o prólogo da sinopse oficial na comissão de frente.`,
+          costume: `Fantasias de alto impacto visual e efeitos cênicos nas cores da agremiação.`
+        },
+        casal1: {
+          name: `1º Casal de MS e PB: O Pavilhão no Manto do Enredo`,
+          costume: `Indumentária nobre e ricamente bordada com pedrarias e plumas.`,
+          representation: `Defesa solene do pavilhão da escola conduzindo a tese central da sinopse.`
+        },
+        abreAlas: {
+          name: `Abre-Alas: O Monumento da Abertura`,
+          concept: `Monumento plástico que descortina o primeiro setor da sinopse oficial.`,
+          materials: `Esculturas em EPS resinado, iluminação especial e ferragens monumentais.`
+        },
+        baianas: {
+          name: `Ala das Baianas: A Bênção das Matriarcas`,
+          costume: `Saias rodadas tradicionais com tecidos nobres e resplendores barrocos.`,
+          symbolism: `A essência ancestral e espiritual que abençoa a narrativa da escola.`
+        },
+        bateria: {
+          name: `Bateria: A Pulsação da Narrativa`,
+          costume: `Fantasias caracterizadas representando os guardiões rítmicos do enredo.`,
+          bossas: `Arrancadas rítmicas e paradinhas coreografadas em perfeita sincronia com o enredo.`
+        },
+        allegories: [
+          { number: 2, name: `Alegoria 2: ${setorizacaoPreview[1]?.title || 'O Segundo Arco'}`, concept: setorizacaoPreview[1]?.synopsis || 'Desenvolvimento visual do segundo setor da sinopse.' },
+          { number: 3, name: `Alegoria 3: ${setorizacaoPreview[2]?.title || 'O Terceiro Arco'}`, concept: setorizacaoPreview[2]?.synopsis || 'Desenvolvimento plástico do terceiro setor da sinopse.' },
+          { number: 4, name: `Alegoria 4: ${setorizacaoPreview[3]?.title || 'A Apoteose'}`, concept: setorizacaoPreview[3]?.synopsis || 'Apoteose final do enredo.' },
+          { number: 5, name: `Alegoria 5: ${setorizacaoPreview[4]?.title || 'O Legado'}`, concept: setorizacaoPreview[4]?.synopsis || 'Encerramento monumental do desfile.' }
+        ],
+        alasHighlights: [
+          { name: `Ala 1: O Início da Jornada`, sector: 1, concept: `Ala de abertura baseada no Setor 1 da sinopse.` },
+          { name: `Ala 2: A Memória Viva`, sector: 1, concept: `Ala temática da introdução.` },
+          { name: `Ala 3: O Desenvolvimento Cultural`, sector: 2, concept: `Representação dos símbolos centrais do Setor 2.` },
+          { name: `Ala 4: A Força Popular`, sector: 3, concept: `Ala dramática do Setor 3.` },
+          { name: `Ala 5: A Glória da Comunidade`, sector: 4, concept: `Ala de encerramento e exaltação.` }
+        ]
+      }
     };
   }
 

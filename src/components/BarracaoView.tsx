@@ -309,10 +309,10 @@ export const BarracaoView: React.FC<BarracaoViewProps> = ({
             <button
               onClick={() => setShowEnredoCreatorModal(true)}
               className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs flex items-center gap-2 shadow-lg shadow-amber-500/20 transition cursor-pointer"
-              title="Indique o tema e resumo do seu enredo; o sistema pesquisará a história e montará todo o seu roteiro de desfile!"
+              title="Crie sua sinopse autoral ou utilize a pesquisa integrada do jogo; com a sinopse pronta, o roteiro oficial é montado segundo o regulamento vigente!"
             >
               <Sparkles className="w-4 h-4 text-slate-950" />
-              <span>Criar Enredo Próprio (Pesquisa Integrada)</span>
+              <span>Criar Enredo & Roteiro</span>
             </button>
 
             <button

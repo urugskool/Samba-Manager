@@ -1385,7 +1385,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                               <th className="py-3 px-3.5 w-16">Colocação</th>
                               <th className="py-3 px-3.5">Escola de Samba</th>
                               <th className="py-3 px-3 text-center text-amber-400 font-bold">
-                                {currentPastCarnaval.year <= 1984 ? 'Pontos (Critério LIESA)' : 'Pontos LIESA'}
+                                {currentPastCarnaval.year <= 1984 ? 'Pontos no Ranking Histórico' : 'Pontos LIESA'}
                               </th>
                               <th className="py-3 px-4 text-right text-slate-300 font-bold">Status Oficial</th>
                             </tr>
