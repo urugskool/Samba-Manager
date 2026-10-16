@@ -755,9 +755,15 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                         </div>
                       )}
 
-                      {/* Histórico Oficial de Enredos no Grupo Especial (1980 a 2026) */}
+                      {/* Histórico Oficial de Enredos no Grupo Especial */}
                       {(() => {
-                        const enredos = getSchoolHistoricalEnredosList(school.id, school.name);
+                        const enredos = getSchoolHistoricalEnredosList(
+                          school.id,
+                          school.name,
+                          school,
+                          history,
+                          currentYear
+                        );
                         if (enredos.length === 0) return null;
                         return (
                           <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-2">
@@ -766,7 +772,7 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                                 <BookOpen className="w-3.5 h-3.5 text-amber-400" />
                                 <span>Histórico de Enredos no Grupo Especial ({enredos.length} Edições)</span>
                               </div>
-                              <span className="text-[11px] text-slate-400 font-mono font-normal">1980 a 2026</span>
+                              <span className="text-[11px] text-slate-400 font-mono font-normal">1980 a {currentYear || 2026}</span>
                             </div>
                             <div className="max-h-48 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
                               {enredos.map((item) => (

@@ -1384,9 +1384,15 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
             </div>
           )}
 
-          {/* Histórico Oficial de Enredos no Grupo Especial (1980 a 2026) */}
+          {/* Histórico Oficial de Enredos no Grupo Especial */}
           {(() => {
-            const enredos = getSchoolHistoricalEnredosList(selectedSchool.id, selectedSchool.name);
+            const enredos = getSchoolHistoricalEnredosList(
+              selectedSchool.id,
+              selectedSchool.name,
+              selectedSchool,
+              history,
+              currentYear
+            );
             if (enredos.length === 0) return null;
             return (
               <div className="pt-3 border-t border-slate-800/80 space-y-2">
@@ -1395,7 +1401,7 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
                     <BookOpen className="w-3.5 h-3.5 text-amber-400" />
                     <span>Histórico Oficial de Enredos no Grupo Especial ({enredos.length} Edições)</span>
                   </div>
-                  <span className="text-[11px] text-slate-400 font-mono font-normal">1980 a 2026</span>
+                  <span className="text-[11px] text-slate-400 font-mono font-normal">1980 a {currentYear || 2026}</span>
                 </div>
                 <div className="max-h-56 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
                   {enredos.map((item) => (

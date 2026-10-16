@@ -319,6 +319,7 @@ export interface School {
   currentEnredo?: Enredo;
   customParadeScript?: any;
   pastEnredoTitles?: string[];
+  enredoHistory?: { year: number; enredo: string }[];
   rehearsalLevel: number; // 0 - 100
   barracaoProgress: number; // 0 - 100
   technicalParadeDone: boolean;
@@ -386,6 +387,7 @@ export interface YearHistory {
   prataStandings?: { rank: number; schoolName: string; schoolId?: string; totalScore: number }[];
   bronzeStandings?: { rank: number; schoolName: string; schoolId?: string; totalScore: number }[];
   avaliacaoStandings?: { rank: number; schoolName: string; schoolId?: string; totalScore: number }[];
+  schoolEnredos?: Record<string, string>; // schoolId ou schoolName -> enredo title
   reactivatedSchools?: string[];
   newSchoolsCreated?: string[];
   newSchools?: string[];

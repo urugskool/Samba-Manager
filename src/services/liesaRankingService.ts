@@ -872,6 +872,23 @@ export interface HistoricalLiesaEntry {
   performancesDetailed: Record<number, LiesaSchoolYearPerformance>;
   performances2022Onward: Record<number, LiesaSchoolYearPerformance>;
   totalCarnavalesContados: number;
+  totalParticipations: number;
+  yearsInEspecial: number[];
+}
+
+export interface EspecialParticipationRecord {
+  position: number;
+  schoolId: string;
+  schoolName: string;
+  school?: School;
+  totalParticipations: number;
+  years: number[];
+  firstYear: number;
+  lastYear: number;
+  titlesCount: number;
+  vicesCount: number;
+  currentDivision?: string;
+  isCurrentlyInEspecial: boolean;
 }
 
 export interface HistoricalCarnavalInfo {
@@ -1304,6 +1321,7 @@ export function computeHistoricalLiesaRanking(
       performancesDetailed: Record<number, LiesaSchoolYearPerformance>;
       performances2022Onward: Record<number, LiesaSchoolYearPerformance>;
       totalCarnavalesContados: number;
+      participationsSet: Set<number>;
     }
   > = {};
 
@@ -1323,7 +1341,8 @@ export function computeHistoricalLiesaRanking(
         pointsEraPre2015: 0,
         performancesDetailed: {},
         performances2022Onward: {},
-        totalCarnavalesContados: 0
+        totalCarnavalesContados: 0,
+        participationsSet: new Set<number>()
       };
     }
     return historicalMap[sId];
@@ -1362,6 +1381,8 @@ export function computeHistoricalLiesaRanking(
       const sId = resolveSchoolId(st.schoolId, st.schoolName, schoolsMap);
       const entry = ensureEntry(sId, st.schoolName);
       const pts = st.isHorsConcours ? 0 : getLiesaPoints(st.rank);
+
+      entry.participationsSet.add(yr);
 
       const perf: LiesaSchoolYearPerformance = {
         year: yr,
@@ -1411,6 +1432,8 @@ export function computeHistoricalLiesaRanking(
         const sId = resolveSchoolId(st.schoolId, st.schoolName, schoolsMap);
         const entry = ensureEntry(sId, st.schoolName);
         const pts = getLiesaPoints(st.rank);
+
+        entry.participationsSet.add(h.year);
 
         const perf: LiesaSchoolYearPerformance = {
           year: h.year,
@@ -1469,6 +1492,135 @@ export function computeHistoricalLiesaRanking(
     pointsEraPre2015: entry.pointsEraPre2015,
     performancesDetailed: entry.performancesDetailed,
     performances2022Onward: entry.performances2022Onward,
-    totalCarnavalesContados: entry.totalCarnavalesContados
+    totalCarnavalesContados: entry.totalCarnavalesContados,
+    totalParticipations: entry.participationsSet.size,
+    yearsInEspecial: Array.from(entry.participationsSet).sort((a, b) => b - a)
   }));
+}
+
+/**
+ * Calcula a lista de agremiações por ordem estritamente DECRESCENTE de participações
+ * no Grupo Especial, computando todos os Carnavais Passados catalogados (1980 a 2026)
+ * somados dinamicamente aos anos decorridos no save (inGameHistory).
+ */
+export function computeEspecialParticipationsList(
+  allSchools: School[] = INITIAL_SCHOOLS,
+  inGameHistory: YearHistory[] = []
+): EspecialParticipationRecord[] {
+  const effectiveSchools = allSchools && allSchools.length > 0 ? allSchools : INITIAL_SCHOOLS;
+  const schoolsMap = new Map<string, School>();
+  effectiveSchools.forEach((s) => schoolsMap.set(s.id, s));
+
+  const participationsMap = new Map<
+    string,
+    {
+      schoolId: string;
+      schoolName: string;
+      years: Set<number>;
+      titlesCount: number;
+      vicesCount: number;
+    }
+  >();
+
+  const getOrCreate = (rawId?: string, rawName?: string) => {
+    const sId = resolveSchoolId(rawId || '', rawName, schoolsMap);
+    if (!participationsMap.has(sId)) {
+      const sch = schoolsMap.get(sId);
+      participationsMap.set(sId, {
+        schoolId: sId,
+        schoolName: sch ? cleanSchoolName(sch) : rawName || sId,
+        years: new Set<number>(),
+        titlesCount: 0,
+        vicesCount: 0
+      });
+    }
+    return participationsMap.get(sId)!;
+  };
+
+  // 1. Processa todos os anos catalogados oficiais dos Carnavais Passados (1980 a 2026)
+  Object.entries(OFFICIAL_LIESA_HISTORICAL_STANDINGS).forEach(([yrStr, standings]) => {
+    const yr = Number(yrStr);
+    if (yr === 2021 || !standings || standings.length === 0) return; // 2021: Não Houve Carnaval
+
+    standings.forEach((st) => {
+      const item = getOrCreate(st.schoolId, st.schoolName);
+      item.years.add(yr);
+      if (!st.isHorsConcours) {
+        if (st.rank === 1) item.titlesCount++;
+        else if (st.rank === 2) item.vicesCount++;
+        if (yr === 1984 && item.schoolId === 'mangueira') item.titlesCount++;
+        if (yr === 1984 && item.schoolId === 'portela') item.vicesCount++;
+      }
+    });
+  });
+
+  // 2. Processa anos decorridos no save (inGameHistory para anos > 2026)
+  inGameHistory.forEach((h) => {
+    if (h.year > 2026 && h.especialStandings && h.especialStandings.length > 0) {
+      h.especialStandings.forEach((st) => {
+        if (!st.schoolId && !st.schoolName) return;
+        const item = getOrCreate(st.schoolId, st.schoolName);
+        item.years.add(h.year);
+        if (st.rank === 1) item.titlesCount++;
+        else if (st.rank === 2) item.vicesCount++;
+      });
+    }
+  });
+
+  // 3. Converte para array e ordena em ordem DECRESCENTE de participações
+  const list = Array.from(participationsMap.values()).map((item) => {
+    const sortedYears = Array.from(item.years).sort((a, b) => b - a);
+    const sch = schoolsMap.get(item.schoolId);
+    return {
+      schoolId: item.schoolId,
+      schoolName: sch ? cleanSchoolName(sch) : item.schoolName,
+      school: sch,
+      totalParticipations: sortedYears.length,
+      years: sortedYears,
+      firstYear: sortedYears.length > 0 ? sortedYears[sortedYears.length - 1] : 0,
+      lastYear: sortedYears.length > 0 ? sortedYears[0] : 0,
+      titlesCount: item.titlesCount,
+      vicesCount: item.vicesCount,
+      currentDivision: sch?.division,
+      isCurrentlyInEspecial: sch?.division === 'especial'
+    };
+  });
+
+  list.sort((a, b) => {
+    // 1º: Maior número de participações no Especial
+    if (b.totalParticipations !== a.totalParticipations) {
+      return b.totalParticipations - a.totalParticipations;
+    }
+    // 2º: Maior número de títulos no Especial
+    if (b.titlesCount !== a.titlesCount) {
+      return b.titlesCount - a.titlesCount;
+    }
+    // 3º: Maior número de vices
+    if (b.vicesCount !== a.vicesCount) {
+      return b.vicesCount - a.vicesCount;
+    }
+    // 4º: Ano mais recente de participação
+    if (b.lastYear !== a.lastYear) {
+      return b.lastYear - a.lastYear;
+    }
+    return a.schoolName.localeCompare(b.schoolName);
+  });
+
+  return list.map((item, idx) => ({
+    ...item,
+    position: idx + 1
+  }));
+}
+
+/**
+ * Retorna o número de participações de uma escola no Grupo Especial
+ */
+export function getSchoolEspecialParticipationsCount(
+  schoolId: string,
+  schoolName?: string,
+  inGameHistory: YearHistory[] = []
+): number {
+  const list = computeEspecialParticipationsList(undefined, inGameHistory);
+  const found = list.find((r) => r.schoolId === schoolId || (schoolName && r.schoolName === schoolName));
+  return found ? found.totalParticipations : 0;
 }

@@ -1,7 +1,4 @@
-/**
- * Catálogo histórico oficial de enredos das Escolas de Samba no Grupo Especial (1980 a 2026).
- * Mapeado por ano e ID/nome da agremiação para exibição nos resultados e perfis.
- */
+import type { School, YearHistory } from '../types/carnaval';
 
 export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> = {
   2026: {
@@ -770,18 +767,52 @@ function normalizeId(rawId?: string, rawName?: string): string {
 }
 
 /**
- * Retorna o título oficial do enredo de uma escola em um carnaval histórico específico.
+/**
+ * Retorna o título oficial do enredo de uma escola em um carnaval histórico específico,
+ * considerando tanto os anos catalogados quanto os enredos utilizados durante o save.
  */
-export function getHistoricalEnredo(year: number, schoolId?: string, schoolName?: string): string | undefined {
+export function getHistoricalEnredo(
+  year: number,
+  schoolId?: string,
+  schoolName?: string,
+  schoolObj?: School,
+  inGameHistory?: YearHistory[]
+): string | undefined {
+  const key = normalizeId(schoolId, schoolName);
+
+  // 1. Verifica no histórico gravado na própria escola no save
+  if (schoolObj?.enredoHistory && schoolObj.enredoHistory.length > 0) {
+    const match = schoolObj.enredoHistory.find((h) => h.year === year);
+    if (match?.enredo) return match.enredo;
+  }
+
+  // 2. Verifica se é o ano da temporada em andamento e a escola possui enredo definido
+  if (schoolObj?.currentEnredo?.title && year >= 2026) {
+    if (year === 2026 || (schoolObj as any).currentYear === year) {
+      return schoolObj.currentEnredo.title;
+    }
+  }
+
+  // 3. Verifica nos anos simulados registrados no inGameHistory do save
+  if (inGameHistory && inGameHistory.length > 0) {
+    const histYear = inGameHistory.find((h) => h.year === year);
+    if (histYear?.schoolEnredos) {
+      const match =
+        (schoolId && histYear.schoolEnredos[schoolId]) ||
+        (schoolName && histYear.schoolEnredos[schoolName]) ||
+        (key && histYear.schoolEnredos[key]);
+      if (match) return match;
+    }
+  }
+
+  // 4. Catálogo histórico oficial (1980 a 2026)
   const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[year];
   if (!yearRecords) return undefined;
 
-  const key = normalizeId(schoolId, schoolName);
   if (key && yearRecords[key]) {
     return yearRecords[key];
   }
 
-  // Busca direta por chaves parciais
   if (schoolId && yearRecords[schoolId]) {
     return yearRecords[schoolId];
   }
@@ -790,19 +821,65 @@ export function getHistoricalEnredo(year: number, schoolId?: string, schoolName?
 }
 
 /**
- * Retorna todos os enredos históricos catalogados de uma escola em ordem decrescente de ano.
+ * Retorna todos os enredos históricos de uma escola em ordem decrescente de ano,
+ * combinando os registros históricos oficiais com os enredos usados no save.
  */
-export function getSchoolHistoricalEnredosList(schoolId: string, schoolName?: string): { year: number; enredo: string }[] {
+export function getSchoolHistoricalEnredosList(
+  schoolId: string,
+  schoolName?: string,
+  schoolObj?: School,
+  inGameHistory?: YearHistory[],
+  currentYear?: number
+): { year: number; enredo: string }[] {
   const key = normalizeId(schoolId, schoolName);
-  const result: { year: number; enredo: string }[] = [];
+  const enredosMap = new Map<number, string>();
 
+  // 1. Catálogo histórico oficial (1980 a 2026)
   const years = Object.keys(HISTORICAL_ENREDOS_BY_YEAR).map(Number).sort((a, b) => b - a);
   years.forEach((yr) => {
     const enredo = HISTORICAL_ENREDOS_BY_YEAR[yr]?.[key];
     if (enredo) {
-      result.push({ year: yr, enredo });
+      enredosMap.set(yr, enredo);
     }
   });
+
+  // 2. Histórico de enredos gravado no save (inGameHistory)
+  if (inGameHistory && inGameHistory.length > 0) {
+    inGameHistory.forEach((h) => {
+      if (h.schoolEnredos) {
+        const found =
+          (schoolId && h.schoolEnredos[schoolId]) ||
+          (schoolName && h.schoolEnredos[schoolName]) ||
+          (key && h.schoolEnredos[key]);
+        if (found) {
+          enredosMap.set(h.year, found);
+        }
+      }
+    });
+  }
+
+  // 3. Histórico de enredos na própria agremiação no save
+  if (schoolObj?.enredoHistory && schoolObj.enredoHistory.length > 0) {
+    schoolObj.enredoHistory.forEach((item) => {
+      if (item.year && item.enredo) {
+        enredosMap.set(item.year, item.enredo);
+      }
+    });
+  }
+
+  // 4. Enredo atual da escola na temporada em andamento
+  if (schoolObj?.currentEnredo?.title) {
+    const activeYr = currentYear || (schoolObj as any).currentYear || 2026;
+    enredosMap.set(activeYr, schoolObj.currentEnredo.title);
+  }
+
+  // Ordena decrescente por ano
+  const result: { year: number; enredo: string }[] = [];
+  Array.from(enredosMap.entries())
+    .sort((a, b) => b[0] - a[0])
+    .forEach(([yr, enredo]) => {
+      result.push({ year: yr, enredo });
+    });
 
   return result;
 }

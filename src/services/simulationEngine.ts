@@ -1341,15 +1341,19 @@ export class SimulationEngine {
 
       let nextEnredo = s.currentEnredo;
       let updatedPastTitles = s.pastEnredoTitles || [];
+      let updatedEnredoHistory = s.enredoHistory ? [...s.enredoHistory] : [];
+
       if (!isInactive) {
         const priorTitle = s.currentEnredo?.title;
-        updatedPastTitles = [
-          ...(s.pastEnredoTitles || []),
-          ...(priorTitle && !priorTitle.includes('SAMPLE') && !s.pastEnredoTitles?.includes(priorTitle)
-            ? [priorTitle]
-            : [])
-        ];
-        const schoolWithPast = { ...s, pastEnredoTitles: updatedPastTitles };
+        if (priorTitle && !priorTitle.includes('SAMPLE')) {
+          if (!updatedPastTitles.includes(priorTitle)) {
+            updatedPastTitles = [...updatedPastTitles, priorTitle];
+          }
+          if (!updatedEnredoHistory.some(h => h.year === currentYear)) {
+            updatedEnredoHistory = [...updatedEnredoHistory, { year: currentYear, enredo: priorTitle }];
+          }
+        }
+        const schoolWithPast = { ...s, pastEnredoTitles: updatedPastTitles, enredoHistory: updatedEnredoHistory };
         nextEnredo = EnredoService.generateUniqueEnredoForSchool(schoolWithPast, currentYear + 1, usedEnredoTitlesThisSeason);
         usedEnredoTitlesThisSeason.add(nextEnredo.title);
       }
@@ -1374,6 +1378,7 @@ export class SimulationEngine {
         technicalParadeDone: false,
         currentEnredo: nextEnredo,
         pastEnredoTitles: updatedPastTitles,
+        enredoHistory: updatedEnredoHistory,
         attributes: {
           bateria: evolveAttr(s.attributes.bateria),
           comissaoDeFrente: evolveAttr(s.attributes.comissaoDeFrente),
@@ -1386,6 +1391,14 @@ export class SimulationEngine {
           mestreSalaPortaBandeira: evolveAttr(s.attributes.mestreSalaPortaBandeira)
         }
       };
+    });
+
+    const schoolEnredosRecord: Record<string, string> = {};
+    allSchools.forEach((s: School) => {
+      if (s.currentEnredo?.title) {
+        schoolEnredosRecord[s.id] = s.currentEnredo.title;
+        schoolEnredosRecord[s.name] = s.currentEnredo.title;
+      }
     });
 
     const historyRecord: YearHistory = {
@@ -1409,6 +1422,7 @@ export class SimulationEngine {
       prataStandings: prataStandings,
       bronzeStandings: bronzeStandings,
       avaliacaoStandings: avaliacaoStandings,
+      schoolEnredos: schoolEnredosRecord,
       reactivatedSchools: reactivatedSchoolNames.map(n => cleanSchoolName(n)),
       newSchoolsCreated: newSchoolNames.map(n => cleanSchoolName(n)),
       ligaFinancialReport: espLigaReport,

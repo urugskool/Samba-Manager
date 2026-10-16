@@ -3,11 +3,13 @@ import { School, YearHistory } from '../types/carnaval';
 import {
   computeLiesa5YearRanking,
   computeHistoricalLiesaRanking,
+  computeEspecialParticipationsList,
   getHistoricalCarnavalsList,
   LIESA_POINTS_BY_RANK,
   LiesaRankingEntry,
   HistoricalLiesaEntry,
-  HistoricalCarnavalInfo
+  HistoricalCarnavalInfo,
+  EspecialParticipationRecord
 } from '../services/liesaRankingService';
 import { cleanSchoolName } from '../utils/schoolNameUtils';
 import {
@@ -55,12 +57,14 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
   userSchool,
   onSelectSchool
 }) => {
-  const [rankingMode, setRankingMode] = useState<'quinquennio' | 'historico' | 'carnavais_passados'>('quinquennio');
+  const [rankingMode, setRankingMode] = useState<'quinquennio' | 'historico' | 'participacoes' | 'carnavais_passados'>('quinquennio');
   const [selectedPastYear, setSelectedPastYear] = useState<number>(2026);
   const [subgroup1984Tab, setSubgroup1984Tab] = useState<'supercampeonato' | 'domingo' | 'segunda' | 'geral'>('supercampeonato');
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedSchoolId, setExpandedSchoolId] = useState<string | null>(null);
   const [expandedHistSchoolId, setExpandedHistSchoolId] = useState<string | null>(null);
+  const [expandedPartSchoolId, setExpandedPartSchoolId] = useState<string | null>(null);
+  const [sortHistoricoBy, setSortHistoricoBy] = useState<'pontos' | 'participacoes'>('pontos');
   const [showRegulamento, setShowRegulamento] = useState(false);
 
   // Calcula ranking dos últimos 5 carnavais
@@ -71,6 +75,11 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
   // Calcula ranking histórico geral
   const historicalLiesaData = useMemo(() => {
     return computeHistoricalLiesaRanking(schools, inGameHistory);
+  }, [schools, inGameHistory]);
+
+  // Calcula lista de participações das escolas no Grupo Especial em ordem decrescente
+  const participationsList = useMemo(() => {
+    return computeEspecialParticipationsList(schools, inGameHistory);
   }, [schools, inGameHistory]);
 
   // Lista dos carnavais catalogados (2015 em diante + save)
@@ -101,13 +110,35 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
 
   const filteredHistoricalEntries = useMemo(() => {
     const q = searchQuery.toLowerCase().trim();
-    if (!q) return historicalLiesaData;
-    return historicalLiesaData.filter(
-      (e) =>
-        e.schoolName.toLowerCase().includes(q) ||
-        (e.school?.shortName && e.school.shortName.toLowerCase().includes(q))
+    let base = historicalLiesaData;
+    if (q) {
+      base = base.filter(
+        (e) =>
+          e.schoolName.toLowerCase().includes(q) ||
+          (e.school?.shortName && e.school.shortName.toLowerCase().includes(q))
+      );
+    }
+    if (sortHistoricoBy === 'participacoes') {
+      return [...base].sort((a, b) => {
+        if (b.totalParticipations !== a.totalParticipations) {
+          return b.totalParticipations - a.totalParticipations;
+        }
+        return b.totalPoints - a.totalPoints;
+      });
+    }
+    return base;
+  }, [historicalLiesaData, searchQuery, sortHistoricoBy]);
+
+  const filteredParticipations = useMemo(() => {
+    const q = searchQuery.toLowerCase().trim();
+    if (!q) return participationsList;
+    return participationsList.filter(
+      (item) =>
+        item.schoolName.toLowerCase().includes(q) ||
+        (item.school?.shortName && item.school.shortName.toLowerCase().includes(q)) ||
+        (item.school?.calledName && item.school.calledName.toLowerCase().includes(q))
     );
-  }, [historicalLiesaData, searchQuery]);
+  }, [participationsList, searchQuery]);
 
   const filteredPastCarnavalStandings = useMemo(() => {
     if (!currentPastCarnaval) return [];
@@ -190,6 +221,10 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
 
   const toggleHistExpand = (schoolId: string) => {
     setExpandedHistSchoolId((prev) => (prev === schoolId ? null : schoolId));
+  };
+
+  const togglePartExpand = (schoolId: string) => {
+    setExpandedPartSchoolId((prev) => (prev === schoolId ? null : schoolId));
   };
 
   const getPositionBadge = (pos: number) => {
@@ -593,7 +628,18 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
               }`}
             >
               <History className="w-3.5 h-3.5" />
-              <span>Ranking Histórico Geral (1980-2026)</span>
+              <span>Ranking Histórico Geral (1980-{currentYear || 2026})</span>
+            </button>
+            <button
+              onClick={() => setRankingMode('participacoes')}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 cursor-pointer ${
+                rankingMode === 'participacoes'
+                  ? 'bg-amber-500 text-slate-950 font-black shadow-lg shadow-amber-500/20'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <Award className="w-3.5 h-3.5" />
+              <span>Participações no Especial</span>
             </button>
             <button
               onClick={() => {
@@ -609,7 +655,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
               }`}
             >
               <Trophy className="w-3.5 h-3.5" />
-              <span>Carnavais Passados (1980-2026)</span>
+              <span>Carnavais Passados (1980-{currentYear || 2026})</span>
             </button>
           </div>
 
@@ -833,10 +879,32 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-xs text-slate-400">
-                <span>
-                  Mostrando ranking cumulativo de todas as agremiações:
-                </span>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs text-slate-400 gap-2">
+                <div className="flex items-center gap-2">
+                  <span className="font-medium text-slate-300">Ordenar por:</span>
+                  <div className="flex items-center bg-slate-900 border border-slate-800 rounded-lg p-0.5">
+                    <button
+                      onClick={() => setSortHistoricoBy('pontos')}
+                      className={`px-2.5 py-1 rounded-md text-[11px] font-bold transition cursor-pointer ${
+                        sortHistoricoBy === 'pontos'
+                          ? 'bg-amber-500 text-slate-950 shadow-sm'
+                          : 'text-slate-400 hover:text-white'
+                      }`}
+                    >
+                      Pontos Históricos
+                    </button>
+                    <button
+                      onClick={() => setSortHistoricoBy('participacoes')}
+                      className={`px-2.5 py-1 rounded-md text-[11px] font-bold transition cursor-pointer ${
+                        sortHistoricoBy === 'participacoes'
+                          ? 'bg-purple-500 text-white shadow-sm'
+                          : 'text-slate-400 hover:text-white'
+                      }`}
+                    >
+                      Nº de Participações (Decrescente)
+                    </button>
+                  </div>
+                </div>
                 <span className="font-bold text-amber-400">
                   {filteredHistoricalEntries.length} agremiações registradas
                 </span>
@@ -848,6 +916,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                     <tr className="border-b border-slate-800 text-slate-400 uppercase text-[10px] bg-slate-900/90">
                       <th className="py-3 px-3.5 w-16">Pos</th>
                       <th className="py-3 px-3.5">Escola de Samba</th>
+                      <th className="py-3 px-3 text-center text-purple-400 font-bold">Participações Especial</th>
                       <th className="py-3 px-3 text-center text-amber-400 font-bold">Títulos Especial (20p)</th>
                       <th className="py-3 px-3 text-center text-slate-300 font-bold">Vices Especial (15p)</th>
                       <th className="py-3 px-3 text-center text-blue-400 font-bold">Era 1980+ (Top 10)</th>
@@ -901,6 +970,11 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                 </div>
                               </div>
                             </td>
+                            <td className="py-3 px-3 text-center">
+                              <span className="font-mono font-bold text-purple-300 bg-purple-500/10 border border-purple-500/20 px-2 py-0.5 rounded-full text-[11px]">
+                                {entry.totalParticipations} {entry.totalParticipations === 1 ? 'ano' : 'anos'}
+                              </span>
+                            </td>
                             <td className="py-3 px-3 text-center font-mono font-bold text-amber-400">
                               {entry.totalEspecialTitles > 0 ? (
                                 <span>
@@ -941,7 +1015,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                           {/* Historical Detailed Breakdown Row */}
                           {isExpanded && (
                             <tr className="bg-slate-900/95 border-b border-slate-800">
-                              <td colSpan={6} className="p-4 sm:p-5">
+                              <td colSpan={7} className="p-4 sm:p-5">
                                 <div className="space-y-3">
                                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-2.5">
                                     <div>
@@ -1065,7 +1139,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
 
                                     {/* Catálogo Completo do Histórico de Enredos da Escola */}
                                     {(() => {
-                                      const schoolEnredos = getSchoolHistoricalEnredosList(entry.schoolId, entry.schoolName);
+                                      const schoolEnredos = getSchoolHistoricalEnredosList(entry.schoolId, entry.schoolName, entry.school, inGameHistory, currentYear);
                                       if (schoolEnredos.length === 0) return null;
                                       return (
                                         <div className="pt-3 border-t border-slate-800/80 space-y-2">
@@ -1074,7 +1148,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                               <BookOpen className="w-3.5 h-3.5 text-amber-400" />
                                               <span>Histórico Oficial de Enredos no Grupo Especial ({schoolEnredos.length} Edições)</span>
                                             </span>
-                                            <span className="text-slate-400 font-mono font-normal">1980 a 2026</span>
+                                            <span className="text-slate-400 font-mono font-normal">1980 a {currentYear || 2026}</span>
                                           </div>
                                           <div className="max-h-52 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
                                             {schoolEnredos.map((item) => {
@@ -1115,6 +1189,273 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                       );
                                     })()}
                                   </div>
+                                </div>
+                              </td>
+                            </tr>
+                          )}
+                        </React.Fragment>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ) : rankingMode === 'participacoes' ? (
+            /* TABELA DE PARTICIPAÇÕES NO GRUPO ESPECIAL (ORDEM DECRESCENTE) */
+            <div className="space-y-4">
+              <div className="p-3.5 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-start gap-2.5 text-xs text-purple-200/90 leading-relaxed">
+                <Award className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-bold text-purple-300">Quadro Histórico de Participações no Grupo Especial:</span>{' '}
+                  Contabiliza o total exato de edições em que cada agremiação participou na divisão principal do Carnaval carioca (desde a era de 1980 até o ano corrente {currentYear || 2026}). O cálculo integra todos os anos oficiais dos Carnavais Passados com os anos transcorridos no seu save, atualizando-se automaticamente temporada a temporada. As escolas estão organizadas em ordem estritamente <strong>DECRESCENTE de participações</strong>. Clique em qualquer agremiação para visualizar os anos disputados e o histórico de enredos.
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs text-slate-400 gap-2">
+                <span className="flex items-center gap-1.5">
+                  <span>Mostrando escolas que já integraram a elite:</span>
+                  <span className="font-bold text-purple-300 font-mono">
+                    {filteredParticipations.length} agremiações
+                  </span>
+                </span>
+                {participationsList.length > 0 && (
+                  <span className="text-[11px] text-slate-400">
+                    Recordista histórica: <strong className="text-amber-400">{participationsList[0].schoolName}</strong> ({participationsList[0].totalParticipations} participações)
+                  </span>
+                )}
+              </div>
+
+              <div className="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-950/60 shadow-xl">
+                <table className="w-full text-xs text-left">
+                  <thead>
+                    <tr className="border-b border-slate-800 text-slate-400 uppercase text-[10px] bg-slate-900/90">
+                      <th className="py-3 px-3.5 w-16">Pos</th>
+                      <th className="py-3 px-3.5">Escola de Samba</th>
+                      <th className="py-3 px-3 text-center text-purple-400 font-bold">Participações no Especial</th>
+                      <th className="py-3 px-3 text-center text-slate-300 font-bold">Período na Elite</th>
+                      <th className="py-3 px-3 text-center text-amber-400 font-bold">Títulos Especial</th>
+                      <th className="py-3 px-3 text-center text-slate-300 font-bold">Vices Especial</th>
+                      <th className="py-3 px-3 text-center text-slate-400 font-bold">Situação no Save</th>
+                      <th className="py-3 px-3 text-center w-10"></th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-800/60">
+                    {filteredParticipations.map((item) => {
+                      const isUser = userSchool && (userSchool.id === item.schoolId || userSchool.name === item.schoolName);
+                      const isExpanded = expandedPartSchoolId === item.schoolId;
+                      const sch = item.school;
+                      const schoolEnredos = getSchoolHistoricalEnredosList(
+                        item.schoolId,
+                        item.schoolName,
+                        sch,
+                        inGameHistory,
+                        currentYear
+                      );
+
+                      return (
+                        <React.Fragment key={item.schoolId}>
+                          <tr
+                            onClick={() => togglePartExpand(item.schoolId)}
+                            className={`cursor-pointer transition hover:bg-slate-800/50 ${
+                              isUser ? 'bg-emerald-500/10 font-bold' : ''
+                            } ${item.position === 1 ? 'bg-purple-500/10' : ''}`}
+                          >
+                            <td className="py-3 px-3.5 font-mono">
+                              {getPositionBadge(item.position)}
+                            </td>
+                            <td className="py-3 px-3.5 text-white">
+                              <div className="flex items-center gap-2.5">
+                                {sch && (
+                                  <div
+                                    className="w-4 h-4 rounded-full border shrink-0 shadow-sm"
+                                    style={{
+                                      backgroundColor: sch.colors.primary,
+                                      borderColor: sch.colors.border || '#fff'
+                                    }}
+                                  />
+                                )}
+                                <div className="min-w-0">
+                                  <div className="flex items-center gap-1.5">
+                                    <span className="font-black text-xs sm:text-sm truncate">
+                                      {item.schoolName}
+                                    </span>
+                                    {isUser && (
+                                      <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 uppercase font-black">
+                                        Sua
+                                      </span>
+                                    )}
+                                  </div>
+                                  <span className="text-[10px] text-slate-400 block truncate">
+                                    {sch?.nickname || sch?.calledName || 'Agremiação Histórica'}
+                                  </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="py-3 px-3 text-center">
+                              <div className="inline-flex flex-col items-center">
+                                <span className="font-mono font-black text-purple-300 bg-purple-500/20 border border-purple-500/40 px-3 py-1 rounded-xl text-xs sm:text-sm shadow-sm">
+                                  {item.totalParticipations} {item.totalParticipations === 1 ? 'edição' : 'edições'}
+                                </span>
+                              </div>
+                            </td>
+                            <td className="py-3 px-3 text-center text-slate-300 font-mono text-xs">
+                              {item.firstYear > 0 ? (
+                                <span>
+                                  {item.firstYear} <span className="text-slate-500">→</span> {item.lastYear}
+                                </span>
+                              ) : (
+                                <span className="text-slate-600">—</span>
+                              )}
+                            </td>
+                            <td className="py-3 px-3 text-center font-mono font-bold text-amber-400">
+                              {item.titlesCount > 0 ? (
+                                <span className="inline-flex items-center gap-1 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded-lg">
+                                  <Trophy className="w-3 h-3 text-amber-400" />
+                                  <span>{item.titlesCount}</span>
+                                </span>
+                              ) : (
+                                <span className="text-slate-600 font-normal">0</span>
+                              )}
+                            </td>
+                            <td className="py-3 px-3 text-center font-mono font-bold text-slate-300">
+                              {item.vicesCount > 0 ? (
+                                <span className="inline-flex items-center gap-1 bg-slate-300/15 border border-slate-300/30 px-2 py-0.5 rounded-lg">
+                                  <Medal className="w-3 h-3 text-slate-300" />
+                                  <span>{item.vicesCount}</span>
+                                </span>
+                              ) : (
+                                <span className="text-slate-600 font-normal">0</span>
+                              )}
+                            </td>
+                            <td className="py-3 px-3 text-center text-[11px]">
+                              {sch?.division === 'especial' ? (
+                                <span className="px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold">
+                                  Grupo Especial
+                                </span>
+                              ) : sch?.division === 'ouro' ? (
+                                <span className="px-2 py-0.5 rounded-md bg-yellow-500/20 text-yellow-300 border border-yellow-500/40 font-medium">
+                                  Série Ouro
+                                </span>
+                              ) : sch?.division === 'prata' ? (
+                                <span className="px-2 py-0.5 rounded-md bg-slate-400/20 text-slate-300 border border-slate-400/40 font-medium">
+                                  Série Prata
+                                </span>
+                              ) : sch?.division === 'bronze' ? (
+                                <span className="px-2 py-0.5 rounded-md bg-amber-700/20 text-amber-400 border border-amber-700/40 font-medium">
+                                  Série Bronze
+                                </span>
+                              ) : sch?.division === 'avaliacao' ? (
+                                <span className="px-2 py-0.5 rounded-md bg-blue-500/20 text-blue-300 border border-blue-500/40 font-medium">
+                                  Avaliação
+                                </span>
+                              ) : (
+                                <span className="px-2 py-0.5 rounded-md bg-slate-800 text-slate-400 border border-slate-700">
+                                  Inativa / Histórica
+                                </span>
+                              )}
+                            </td>
+                            <td className="py-3 px-3 text-center text-slate-400">
+                              {isExpanded ? (
+                                <ChevronUp className="w-4 h-4 text-purple-400 mx-auto" />
+                              ) : (
+                                <ChevronDown className="w-4 h-4 mx-auto" />
+                              )}
+                            </td>
+                          </tr>
+
+                          {/* Participations Detailed Breakdown Row */}
+                          {isExpanded && (
+                            <tr className="bg-slate-900/95 border-b border-slate-800">
+                              <td colSpan={8} className="p-4 sm:p-5">
+                                <div className="space-y-4">
+                                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-2.5">
+                                    <div>
+                                      <h4 className="font-black text-sm text-white flex items-center gap-2">
+                                        <Award className="w-4 h-4 text-purple-400" />
+                                        <span>Trajetória no Grupo Especial: {item.schoolName}</span>
+                                      </h4>
+                                      <p className="text-[11px] text-slate-400 mt-0.5">
+                                        Total de <strong className="text-purple-300">{item.totalParticipations} participações</strong> na elite · Estreia em {item.firstYear} · Mais recente em {item.lastYear} · {item.titlesCount} título(s) e {item.vicesCount} vice-campeonato(s)
+                                      </p>
+                                    </div>
+                                    {onSelectSchool && sch && (
+                                      <button
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          onSelectSchool(sch.id);
+                                          onClose();
+                                        }}
+                                        className="px-3 py-1.5 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 text-purple-200 border border-purple-500/40 text-xs font-bold transition flex items-center gap-1.5 self-start cursor-pointer"
+                                      >
+                                        <span>Ver Ficha da Agremiação</span>
+                                        <ExternalLink className="w-3 h-3" />
+                                      </button>
+                                    )}
+                                  </div>
+
+                                  {/* Anos de Desfile no Grupo Especial */}
+                                  <div className="space-y-1.5">
+                                    <div className="text-[11px] font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                                      <Calendar className="w-3.5 h-3.5 text-purple-400" />
+                                      <span>Anos em que Desfilou no Grupo Especial ({item.years.length} Carnavais)</span>
+                                    </div>
+                                    <div className="flex flex-wrap gap-1.5">
+                                      {item.years.map((yr) => (
+                                        <span
+                                          key={yr}
+                                          className={`px-2 py-0.5 rounded-md font-mono text-[11px] font-bold border ${
+                                            yr > 2026
+                                              ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300'
+                                              : 'bg-slate-950 border-slate-800 text-slate-300'
+                                          }`}
+                                          title={yr > 2026 ? `Ano ${yr} disputado no seu save` : `Ano oficial ${yr}`}
+                                        >
+                                          {yr}
+                                        </span>
+                                      ))}
+                                    </div>
+                                  </div>
+
+                                  {/* Catálogo de Enredos Atualizado com o Save */}
+                                  {schoolEnredos.length > 0 && (
+                                    <div className="pt-3 border-t border-slate-800/80 space-y-2">
+                                      <div className="flex items-center justify-between text-[11px] font-bold text-amber-300 uppercase tracking-wider">
+                                        <span className="flex items-center gap-1.5">
+                                          <BookOpen className="w-3.5 h-3.5 text-amber-400" />
+                                          <span>Histórico Oficial de Enredos no Grupo Especial ({schoolEnredos.length} Edições - Atualizado com o Save)</span>
+                                        </span>
+                                        <span className="text-slate-400 font-mono font-normal">1980 a {currentYear || 2026}</span>
+                                      </div>
+                                      <div className="max-h-56 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
+                                        {schoolEnredos.map((enr) => (
+                                          <div
+                                            key={enr.year}
+                                            className="p-1.5 px-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80 flex items-center justify-between gap-2 text-xs"
+                                          >
+                                            <div className="flex items-center gap-2 min-w-0">
+                                              <span
+                                                className={`font-mono font-bold text-[10px] px-1.5 py-0.5 rounded border shrink-0 ${
+                                                  enr.year > 2026
+                                                    ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+                                                    : 'bg-amber-500/10 text-amber-400 border-amber-500/20'
+                                                }`}
+                                              >
+                                                {enr.year}
+                                              </span>
+                                              <span className="text-white italic truncate font-medium">
+                                                &ldquo;{enr.enredo}&rdquo;
+                                              </span>
+                                            </div>
+                                            {enr.year > 2026 && (
+                                              <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shrink-0">
+                                                No Save
+                                              </span>
+                                            )}
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  )}
                                 </div>
                               </td>
                             </tr>
