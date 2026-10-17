@@ -46,6 +46,7 @@ import { SEASON_PERIODS, SeasonCycleService } from './services/seasonCycleServic
 import { TemporadaCycleModal } from './components/TemporadaCycleModal';
 import { LiesaRankingModal } from './components/LiesaRankingModal';
 import { NoticiasPortalModal } from './components/NoticiasPortalModal';
+import { HistoricoTransferenciasModal } from './components/HistoricoTransferenciasModal';
 import { NewsService } from './services/newsService';
 import { NewsArticle } from './types/news';
 import { TransferMarketService } from './services/transferMarketService';
@@ -351,6 +352,7 @@ export default function App() {
   const [sfxEnabled, setSfxEnabled] = useState<boolean>(true);
   const [isNewGameModalOpen, setIsNewGameModalOpen] = useState<boolean>(false);
   const [isLiesaModalOpen, setIsLiesaModalOpen] = useState<boolean>(false);
+  const [isTransferHistoryModalOpen, setIsTransferHistoryModalOpen] = useState<boolean>(false);
 
   // Parade Scores & Apuração persistent states
   const DEFAULT_DIVISION_STATES: DivisionStatesMap = {
@@ -1538,6 +1540,7 @@ export default function App() {
         onBlockedTabClick={(reason) => showToast(reason, 'warning')}
         onOpenLiesaRanking={() => setIsLiesaModalOpen(true)}
         onOpenNewsPortal={() => setIsNewsModalOpen(true)}
+        onOpenTransferHistory={() => setIsTransferHistoryModalOpen(true)}
       />
 
       {/* Main Workspace */}
@@ -1629,6 +1632,7 @@ export default function App() {
             onUpdateAllSchools={setSchools}
             onShowMessage={showToast}
             onOpenNewsPortal={() => setIsNewsModalOpen(true)}
+            onOpenTransferHistory={() => setIsTransferHistoryModalOpen(true)}
             currentYear={currentYear}
             currentSeasonMonth={currentSeasonMonth}
           />
@@ -1908,6 +1912,15 @@ export default function App() {
         onOpenSchoolProfile={(schoolId) => {
           setActiveTab('glorias');
         }}
+      />
+
+      {/* Central Oficial do Histórico de Transferências (1976 a 2026+) */}
+      <HistoricoTransferenciasModal
+        isOpen={isTransferHistoryModalOpen}
+        onClose={() => setIsTransferHistoryModalOpen(false)}
+        allSchools={schools}
+        inGameTransfers={TransferMarketService.getTransferHistory()}
+        currentYear={currentYear}
       />
     </div>
   );

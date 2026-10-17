@@ -34,10 +34,12 @@ import {
   ArrowLeftRight,
   UserMinus,
   CheckCircle2,
-  X
+  X,
+  Crown
 } from 'lucide-react';
 import { soundService } from '../services/soundService';
 import { cleanSchoolName } from '../utils/schoolNameUtils';
+import { getUnifiedTransferHistory, HistoricalTransferItem } from '../data/historicalTransfersData';
 
 interface EquipeViewProps {
   school: School;
@@ -46,6 +48,7 @@ interface EquipeViewProps {
   onUpdateAllSchools?: (updatedSchools: School[]) => void;
   onShowMessage: (msg: string, type?: 'info' | 'success' | 'warning' | 'alert') => void;
   onOpenNewsPortal?: () => void;
+  onOpenTransferHistory?: () => void;
   currentYear?: number;
   currentSeasonMonth?: SeasonMonthId;
 }
@@ -57,6 +60,7 @@ export const EquipeView: React.FC<EquipeViewProps> = ({
   onUpdateAllSchools,
   onShowMessage,
   onOpenNewsPortal,
+  onOpenTransferHistory,
   currentYear = 2026,
   currentSeasonMonth = 'maio'
 }) => {
@@ -77,10 +81,15 @@ export const EquipeView: React.FC<EquipeViewProps> = ({
     return TransferMarketService.getAllProfessionals(allSchools);
   }, [allSchools]);
 
-  // Histórico de transferências
+  // Histórico de transferências do save
   const transferHistory = useMemo(() => {
     return TransferMarketService.getTransferHistory();
   }, [professionals]);
+
+  // Histórico unificado (1976 a 2026+ com marcos históricos)
+  const unifiedTransfers = useMemo(() => {
+    return getUnifiedTransferHistory(transferHistory);
+  }, [transferHistory]);
 
   const staffRoles = [
     {
@@ -853,33 +862,61 @@ export const EquipeView: React.FC<EquipeViewProps> = ({
 
       {/* TAB 3: HISTÓRICO DE TRANSFERÊNCIAS */}
       {activeTab === 'historico' && (
-        <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-            <div>
-              <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                <History className="w-5 h-5 text-amber-400" />
-                <span>Movimentações Registradas na Janela</span>
-              </h3>
-              <p className="text-xs text-slate-400">
-                Todas as transferências, contratações e quebras contratuais registradas na Liga.
+        <div className="space-y-4">
+          {/* Hero Banner da Central de Transferências */}
+          <div className="p-5 rounded-2xl bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-slate-800 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="p-1.5 rounded-lg bg-blue-500/20 text-blue-300 border border-blue-500/40">
+                  <ArrowLeftRight className="w-4 h-4 text-blue-400" />
+                </span>
+                <h3 className="text-base sm:text-lg font-black text-white tracking-wide">
+                  Histórico de Transferências do Carnaval Carioca
+                </h3>
+              </div>
+              <p className="text-xs text-slate-300 max-w-2xl leading-relaxed">
+                Explore a dança das cadeiras de carnavalescos, mestres de bateria, intérpretes e casais de MS/PB desde 1976 até a temporada atual, com crônicas e títulos imediatos.
               </p>
             </div>
-            <span className="text-xs text-slate-400 font-mono">
-              Total: {transferHistory.length} movimentações
-            </span>
+
+            {onOpenTransferHistory && (
+              <button
+                onClick={onOpenTransferHistory}
+                className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs shadow-lg shadow-amber-500/20 flex items-center gap-2 shrink-0 cursor-pointer transition"
+              >
+                <Sparkles className="w-4 h-4 text-slate-950" />
+                <span>Abrir Central Completa (Dossiês & Linha do Tempo)</span>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
+              </button>
+            )}
           </div>
 
-          {transferHistory.length === 0 ? (
-            <div className="p-12 text-center text-slate-500 bg-slate-950/40 rounded-xl border border-slate-800 space-y-3">
-              <History className="w-8 h-8 mx-auto text-slate-600" />
-              <p className="text-sm">Nenhuma transferência realizada ainda nesta temporada.</p>
-              <p className="text-xs text-slate-400">
-                Use o botão "Agitar Mercado da Liga" ou contrate profissionais para ver os registros e notícias aqui.
-              </p>
+          {/* Container de Registros */}
+          <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800 text-xs">
+              <div>
+                <h4 className="font-bold text-white flex items-center gap-2">
+                  <History className="w-4 h-4 text-amber-400" />
+                  <span>Movimentações Registradas ({unifiedTransfers.length})</span>
+                </h4>
+                <span className="text-[11px] text-slate-400">
+                  {transferHistory.length} movimentações no save • {unifiedTransfers.length - transferHistory.length} registros históricos oficiais
+                </span>
+              </div>
+
+              {onOpenTransferHistory && (
+                <button
+                  onClick={onOpenTransferHistory}
+                  className="text-amber-400 hover:text-amber-300 font-bold underline flex items-center gap-1 cursor-pointer"
+                >
+                  <span>Ver Linha do Tempo Filtrável</span>
+                  <ArrowRight className="w-3 h-3" />
+                </button>
+              )}
             </div>
-          ) : (
+
             <div className="space-y-3">
-              {transferHistory.map((tr) => (
+              {unifiedTransfers.slice(0, 20).map((tr) => (
                 <div
                   key={tr.id}
                   className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3 hover:border-slate-700 transition"
@@ -894,6 +931,16 @@ export const EquipeView: React.FC<EquipeViewProps> = ({
                         <span className="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-amber-400 font-bold uppercase">
                           {tr.roleName}
                         </span>
+                        {tr.wonTitleInFirstYear && (
+                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-400 text-slate-950 font-black flex items-center gap-1">
+                            <Crown className="w-2.5 h-2.5" /> Campeão 1º Ano
+                          </span>
+                        )}
+                        {tr.isHistoricalMilestone && !tr.wonTitleInFirstYear && (
+                          <span className="text-[10px] px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 font-bold">
+                            Marco Histórico
+                          </span>
+                        )}
                         {tr.mode === 'dupla' && (
                           <span className="text-[10px] px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 font-bold">
                             Formou Dupla
@@ -909,22 +956,30 @@ export const EquipeView: React.FC<EquipeViewProps> = ({
                       <div className="flex items-center gap-2 text-xs text-slate-400 mt-1 flex-wrap">
                         <span>De:</span>
                         <strong className="text-slate-300">
-                          {tr.previousSchoolName || 'Sem Clube (Free Agent)'}
+                          {cleanSchoolName(tr.previousSchoolName) || 'Sem Clube (Free Agent)'}
                         </strong>
                         <ArrowRight className="w-3.5 h-3.5 text-amber-400" />
                         <span>Para:</span>
-                        <strong className="text-emerald-400">{tr.newSchoolName}</strong>
+                        <strong className="text-emerald-400">{cleanSchoolName(tr.newSchoolName)}</strong>
                       </div>
+
+                      {tr.notes && (
+                        <p className="text-[11px] text-slate-400 mt-1 line-clamp-2 font-sans">
+                          {tr.notes}
+                        </p>
+                      )}
                     </div>
                   </div>
 
                   <div className="text-right shrink-0 border-t md:border-t-0 pt-2 md:pt-0 border-slate-800">
-                    <span className="text-[10px] text-slate-500 block">
+                    <span className="text-[10px] font-mono font-bold text-amber-400 block">
                       {tr.dateStr || `Temporada ${tr.year}`}
                     </span>
-                    <span className="text-xs font-mono font-bold text-white">
-                      Salário R$ {tr.valueSalary.toLocaleString('pt-BR')}
-                    </span>
+                    {tr.valueSalary && tr.valueSalary > 0 && (
+                      <span className="text-xs font-mono font-bold text-white">
+                        Salário R$ {tr.valueSalary.toLocaleString('pt-BR')}
+                      </span>
+                    )}
                     {tr.buyoutPaid && tr.buyoutPaid > 0 && (
                       <span className="text-[10px] font-mono text-rose-400 block">
                         Multa: R$ {tr.buyoutPaid.toLocaleString('pt-BR')}
@@ -934,7 +989,18 @@ export const EquipeView: React.FC<EquipeViewProps> = ({
                 </div>
               ))}
             </div>
-          )}
+
+            {unifiedTransfers.length > 20 && onOpenTransferHistory && (
+              <div className="pt-2 text-center">
+                <button
+                  onClick={onOpenTransferHistory}
+                  className="px-5 py-2 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-700 text-xs font-bold text-amber-300 transition cursor-pointer"
+                >
+                  Ver todas as {unifiedTransfers.length} movimentações no Histórico Completo ➔
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>

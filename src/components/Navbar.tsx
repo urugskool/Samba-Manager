@@ -27,7 +27,8 @@ import {
   Clock,
   Lock,
   Radio,
-  Newspaper
+  Newspaper,
+  ArrowLeftRight
 } from 'lucide-react';
 import { SeasonCycleService } from '../services/seasonCycleService';
 import { SeasonMonthId } from '../types/seasonCycle';
@@ -57,6 +58,7 @@ interface NavbarProps {
   onBlockedTabClick?: (reason: string) => void;
   onOpenLiesaRanking?: () => void;
   onOpenNewsPortal?: () => void;
+  onOpenTransferHistory?: () => void;
 }
 
 interface NavbarTabItem {
@@ -92,7 +94,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenSeasonCycleModal,
   onBlockedTabClick,
   onOpenLiesaRanking,
-  onOpenNewsPortal
+  onOpenNewsPortal,
+  onOpenTransferHistory
 }) => {
   const [showResetConfirm, setShowResetConfirm] = useState<boolean>(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
@@ -330,6 +333,19 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
             )}
 
+            {/* Histórico de Transferências quick access button */}
+            {onOpenTransferHistory && (
+              <button
+                onClick={onOpenTransferHistory}
+                title="Histórico de Transferências (1976 a 2026+)"
+                className="hidden md:flex px-2.5 py-1.5 rounded-lg bg-gradient-to-r from-blue-500/15 to-indigo-500/15 hover:from-blue-500/25 hover:to-indigo-500/25 text-blue-300 hover:text-white border border-blue-500/40 transition items-center gap-1.5 text-xs font-bold cursor-pointer shadow-sm"
+              >
+                <ArrowLeftRight className="w-3.5 h-3.5 text-blue-400" />
+                <span className="hidden xl:inline">Histórico de</span>
+                <span>Transferências</span>
+              </button>
+            )}
+
             {/* Sound Effects Toggle */}
             <button
               onClick={() => setSfxEnabled(!sfxEnabled)}
@@ -531,6 +547,19 @@ export const Navbar: React.FC<NavbarProps> = ({
                 >
                   <Crown className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                   <span>Ranking Oficial da LIESA</span>
+                </button>
+              )}
+
+              {onOpenTransferHistory && (
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenTransferHistory();
+                  }}
+                  className="w-full py-2 px-3 rounded-xl bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/40 text-blue-300 text-xs font-black flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
+                >
+                  <ArrowLeftRight className="w-3.5 h-3.5 text-blue-400" />
+                  <span>Histórico de Transferências (1976-2026+)</span>
                 </button>
               )}
 
