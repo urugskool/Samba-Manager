@@ -2498,6 +2498,103 @@ Object.entries(OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL).forEach(([schoolId, rec]) => 
 // RESULTADOS HISTÓRICOS OFICIAIS DE 1980 A 1999 (AESCRJ até 1984 / LIESA desde 1985)
 // ============================================================================
 export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
+  1970: {
+    champion: 'Portela',
+    runnerUp: 'Acadêmicos do Salgueiro',
+    third: 'Estação Primeira de Mangueira',
+    relegated: ['Unidos do Jacarezinho', 'Acadêmicos de Santa Cruz'],
+    notes: 'Portela campeã com Lendas e Mistérios da Amazônia. 2 rebaixadas.',
+    standings: [
+      { rank: 1, schoolId: 'portela', schoolName: 'Portela', status: 'campea' },
+      { rank: 2, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'vice' },
+      { rank: 3, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 4, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 5, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 6, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'participante' },
+      { rank: 7, schoolId: 'estacio_de_sa', schoolName: 'Unidos de São Carlos (Estácio de Sá)', status: 'participante' },
+      { rank: 8, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'participante' },
+      { rank: 9, schoolId: 'jacarezinho', schoolName: 'Unidos do Jacarezinho', status: 'rebaixada' },
+      { rank: 10, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz', status: 'rebaixada' }
+    ]
+  },
+  1971: {
+    champion: 'Acadêmicos do Salgueiro',
+    runnerUp: 'Portela',
+    third: 'Império Serrano',
+    relegated: [],
+    notes: 'Salgueiro campeã com Festa para um Rei Negro (Pega no Ganzê). Não houve rebaixamento.',
+    standings: [
+      { rank: 1, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'campea' },
+      { rank: 2, schoolId: 'portela', schoolName: 'Portela', status: 'vice' },
+      { rank: 3, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'participante' },
+      { rank: 4, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 5, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 6, schoolId: 'estacio_de_sa', schoolName: 'Unidos de São Carlos (Estácio de Sá)', status: 'participante' },
+      { rank: 7, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'participante' },
+      { rank: 8, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', status: 'participante' },
+      { rank: 9, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 10, schoolId: 'unidos_padre_miguel', schoolName: 'Unidos de Padre Miguel', status: 'participante' }
+    ]
+  },
+  1972: {
+    champion: 'Império Serrano',
+    runnerUp: 'Estação Primeira de Mangueira',
+    third: 'Portela',
+    relegated: ['Unidos de São Carlos (Estácio de Sá)', 'Império da Tijuca', 'Unidos de Lucas', 'Unidos de Padre Miguel'],
+    notes: 'Império Serrano campeã com Alô, Alô, Ta-Hí de Fernando Pinto. 4 rebaixadas.',
+    standings: [
+      { rank: 1, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'campea' },
+      { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'vice' },
+      { rank: 3, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 4, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'participante' },
+      { rank: 5, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 6, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 7, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 8, schoolId: 'em_cima_da_hora', schoolName: 'Em Cima da Hora', status: 'participante' },
+      { rank: 9, schoolId: 'estacio_de_sa', schoolName: 'Unidos de São Carlos (Estácio de Sá)', status: 'rebaixada' },
+      { rank: 10, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', status: 'rebaixada' },
+      { rank: 11, schoolId: 'unidos_de_lucas', schoolName: 'Unidos de Lucas', status: 'rebaixada' },
+      { rank: 12, schoolId: 'unidos_padre_miguel', schoolName: 'Unidos de Padre Miguel', status: 'rebaixada' }
+    ]
+  },
+  1973: {
+    champion: 'Estação Primeira de Mangueira',
+    runnerUp: 'Império Serrano',
+    third: 'Acadêmicos do Salgueiro',
+    relegated: ['Tupy de Brás de Pina', 'Unidos do Jacarezinho'],
+    notes: 'Mangueira campeã com Lendas do Abaeté. 2 rebaixadas.',
+    standings: [
+      { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'campea' },
+      { rank: 2, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'vice' },
+      { rank: 3, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 4, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 5, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'participante' },
+      { rank: 6, schoolId: 'em_cima_da_hora', schoolName: 'Em Cima da Hora', status: 'participante' },
+      { rank: 7, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 8, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 9, schoolId: 'tupy_bras_de_pina', schoolName: 'Tupy de Brás de Pina', status: 'rebaixada' },
+      { rank: 10, schoolId: 'jacarezinho', schoolName: 'Unidos do Jacarezinho', status: 'rebaixada' }
+    ]
+  },
+  1974: {
+    champion: 'Acadêmicos do Salgueiro',
+    runnerUp: 'Portela',
+    third: 'Império Serrano',
+    relegated: [],
+    notes: 'Salgueiro campeã com O Rei de França na Ilha da Assombração. Mangueira 4º, Mocidade 5º. Não houve rebaixamento.',
+    standings: [
+      { rank: 1, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'campea' },
+      { rank: 2, schoolId: 'portela', schoolName: 'Portela', status: 'vice' },
+      { rank: 3, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'participante' },
+      { rank: 4, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 5, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 6, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'participante' },
+      { rank: 7, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'participante' },
+      { rank: 8, schoolId: 'em_cima_da_hora', schoolName: 'Em Cima da Hora', status: 'participante' },
+      { rank: 9, schoolId: 'estacio_de_sa', schoolName: 'Unidos de São Carlos (Estácio de Sá)', status: 'participante' },
+      { rank: 10, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' }
+    ]
+  },
   1975: {
     champion: 'Acadêmicos do Salgueiro',
     runnerUp: 'Estação Primeira de Mangueira',
@@ -3089,11 +3186,11 @@ export const OFFICIAL_HISTORICAL_ESPECIAL_RELEGATIONS_BY_SCHOOL: Record<string, 
   sao_clemente: [1985, 1991, 1993, 1995, 1999, 2002, 2004, 2008, 2022],
   tijuca: [1984, 1986, 1998],
   porto_da_pedra: [1998, 2000, 2012, 2024],
-  estacio_de_sa: [1977, 1980, 1982, 1997, 2007, 2016, 2020],
-  santa_cruz: [1985, 1990, 1992, 1997, 2003],
+  estacio_de_sa: [1972, 1977, 1980, 1982, 1997, 2007, 2016, 2020],
+  santa_cruz: [1970, 1985, 1990, 1992, 1997, 2003],
   caprichosos_de_pilares: [1996, 2006],
   tradicao: [1989, 1992, 1996, 2005],
-  imperio_da_tijuca: [1971, 1977, 1982, 1987, 1996, 2014],
+  imperio_da_tijuca: [1972, 1977, 1982, 1987, 1996, 2014],
   unidos_da_ponte: [1984, 1986, 1989, 1996],
   rocinha: [1997, 2002, 2006],
   villa_rica: [1995],
@@ -3110,9 +3207,10 @@ export const OFFICIAL_HISTORICAL_ESPECIAL_RELEGATIONS_BY_SCHOOL: Record<string, 
   cabucu: [1977, 1990],
   arranco: [1978, 1989],
   arrastao_cascadura: [1978],
-  unidos_de_lucas: [1976],
-  tupy_bras_de_pina: [1976],
-  jacarezinho: [1987, 1989],
+  unidos_de_lucas: [1972, 1976],
+  tupy_bras_de_pina: [1973, 1976],
+  jacarezinho: [1970, 1973, 1987, 1989],
+  unidos_padre_miguel: [1972],
   em_cima_da_hora: [1976, 1985]
 };
 

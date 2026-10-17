@@ -1382,7 +1382,7 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
                     <BookOpen className="w-3.5 h-3.5 text-amber-400" />
                     <span>Histórico Oficial de Enredos no Grupo Especial ({enredos.length} Edições)</span>
                   </div>
-                  <span className="text-[11px] text-slate-400 font-mono font-normal">1975 a {currentYear || 2026}</span>
+                  <span className="text-[11px] text-slate-400 font-mono font-normal">1970 a {currentYear || 2026}</span>
                 </div>
                 <div className="max-h-56 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
                   {enredos.map((item) => (

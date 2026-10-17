@@ -788,6 +788,68 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     estacio_de_sa: 'A Festa do Círio de Nazaré',
     unidos_de_lucas: 'Cidades Feitas de Memórias',
     em_cima_da_hora: 'Boi da Cara Preta'
+  },
+  1974: {
+    salgueiro: 'O Rei de França na Ilha da Assombração',
+    portela: 'O Mundo Melhor de Pixinguinha (Pizindin)',
+    imperio_serrano: 'Dona Santa, Rainha do Maracatu',
+    mangueira: 'Mangueira no Ponto do Amor',
+    mocidade: 'O Festejo do Boi-Pintadinho em Noite de Reis',
+    imperatriz: 'Réquiem por um Sambista, Silas de Oliveira',
+    beija_flor: 'Brasil Ano 2000',
+    em_cima_da_hora: 'Festa dos Deuses Afro-Brasileiros',
+    estacio_de_sa: 'Heroínas do Romance Brasileiro',
+    vila_isabel: 'Aruanã-Açu'
+  },
+  1973: {
+    mangueira: 'Lendas do Abaeté',
+    imperio_serrano: 'Viagem Encantada Pelo Mar das Esmeraldas',
+    salgueiro: 'Eneida: Amor e Fantasia',
+    portela: 'Pasárgada, o Amigo do Rei',
+    imperatriz: 'Cinderela de Boas Festas',
+    em_cima_da_hora: 'Bahia do Amor, Monte Pascoal',
+    mocidade: 'Criança, a Felicidade Tem Cor de Esperança',
+    vila_isabel: 'Fados e Danças de Portugal',
+    tupy_bras_de_pina: 'O Corsário',
+    jacarezinho: 'Aquarela de um Povo'
+  },
+  1972: {
+    imperio_serrano: 'Alô, Alô, Ta-Hí, Cem Anos de Carmen Miranda',
+    mangueira: 'Rio, Carnaval dos Carnavais',
+    portela: 'Ilariê: O Desfile dos Bonecos',
+    imperatriz: 'Martim Cererê',
+    salgueiro: 'Nossa Madrinha, Mangueira Querida',
+    vila_isabel: 'Onde o Brasil Aprendeu a Liberdade',
+    mocidade: 'Rainha de Sabá',
+    em_cima_da_hora: 'Amor de Mãe, Amor Que Fica',
+    estacio_de_sa: 'Rio Grande do Sul na Festa do Arroz',
+    imperio_da_tijuca: 'O Samba na Cidade das Sete Colinas',
+    unidos_de_lucas: 'O Poeta das Praias e dos Amores',
+    unidos_padre_miguel: 'Madureira, Seu Samba, Sua História'
+  },
+  1971: {
+    salgueiro: 'Festa para um Rei Negro (Pega no Ganzê)',
+    portela: 'Lapa em Três Tempos',
+    imperio_serrano: 'Nordeste: Seu Povo, Seu Canto, Sua Glória',
+    mangueira: 'Os Modernos Bandeirantes',
+    vila_isabel: 'O Quatrocentos Anos de Mem de Sá',
+    estacio_de_sa: 'Festa do Divino Salvador',
+    imperatriz: 'Barra do Ouro, Riqueza do Brasil',
+    imperio_da_tijuca: 'O Poeta dos Orixás',
+    mocidade: 'O Sol Amigo',
+    unidos_padre_miguel: 'O Samba do Crioulo Doido'
+  },
+  1970: {
+    portela: 'Lendas e Mistérios da Amazônia',
+    salgueiro: 'Praça Onze, Carioca da Gema',
+    mangueira: 'Um Cântico à Natureza',
+    mocidade: 'O Meu Pé de Laranja Lima',
+    vila_isabel: 'Glórias Gaúchas',
+    imperatriz: 'Ode a Castro Alves',
+    estacio_de_sa: 'Terra de Caruaru',
+    imperio_serrano: 'Arte em Tom Maior',
+    jacarezinho: 'Ginga, Samba e Cor',
+    santa_cruz: 'Braz de Pina, Ontem e Hoje'
   }
 };
 
@@ -877,7 +939,7 @@ export function getHistoricalEnredo(
     }
   }
 
-  // 4. Catálogo histórico oficial (1975 a 2026)
+  // 4. Catálogo histórico oficial (1970 a 2026)
   const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[year];
   if (!yearRecords) return undefined;
 
@@ -906,7 +968,7 @@ export function getSchoolHistoricalEnredosList(
   const key = normalizeId(schoolId, schoolName);
   const enredosMap = new Map<number, string>();
 
-  // 1. Catálogo histórico oficial (1975 a 2026)
+  // 1. Catálogo histórico oficial (1970 a 2026)
   const years = Object.keys(HISTORICAL_ENREDOS_BY_YEAR).map(Number).sort((a, b) => b - a);
   years.forEach((yr) => {
     const enredo = HISTORICAL_ENREDOS_BY_YEAR[yr]?.[key];
