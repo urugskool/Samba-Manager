@@ -118,9 +118,9 @@ const DIVISION_CONFIG: Record<
     activeTabClass: 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-black shadow-lg shadow-purple-600/20'
   },
   grupoE: {
-    name: 'Grupo E',
-    shortName: 'Grupo E (Extinto)',
-    sublabel: '6ª Divisão • Histórico (1996-2019)',
+    name: 'Grupo E (Extinto)',
+    shortName: 'Grupo E (6ª Div)',
+    sublabel: '6ª Divisão • Extinto (1996-2019)',
     color: 'from-emerald-500 to-teal-700',
     badgeBg: 'bg-emerald-500/20',
     badgeBorder: 'border-emerald-500/40',
@@ -577,7 +577,7 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
       return OFFICIAL_GRUPO_E_YEARLY_RESULTS.map((r) => ({
         year: r.year,
         division: 'grupoE' as GaleriaDivisionTab,
-        divisionLabel: 'Grupo E (Sexta Divisão)',
+        divisionLabel: 'Grupo E (6ª Divisão • Histórico)',
         champions: r.champions.map((c) => ({
           ...c,
           school: resolveSchool(c.schoolId, c.schoolName) || schoolsMap.get(c.schoolId)
@@ -878,6 +878,15 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
               </div>
             )}
           </div>
+
+          {selectedDivision === 'grupoE' && (
+            <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-2 text-xs text-emerald-300">
+              <Info className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>
+                <strong>6ª Divisão do Carnaval Carioca:</strong> O extinto Grupo E foi a sexta divisão oficial da folia entre 1996 e 2019 (abaixo do Grupo Especial [1ª], Série Ouro [2ª], Série Prata [3ª], Série Bronze [4ª] e Grupo de Avaliação [5ª]).
+              </span>
+            </div>
+          )}
 
           {/* Result Sub-tabs (Campeãs / Vices / Ano a Ano) & Search Input */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 pt-1">
