@@ -160,7 +160,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
   }, [currentPastCarnaval, searchQuery, subgroup1984Tab]);
 
   const isNoRelegationYear = currentPastCarnaval
-    ? [1981, 1983, 1988, 1993, 1994, 2011, 2017, 2018].includes(currentPastCarnaval.year)
+    ? [1975, 1979, 1981, 1983, 1988, 1993, 1994, 2011, 2017, 2018].includes(currentPastCarnaval.year)
     : false;
 
   const pastCarnavalRelegations = useMemo(() => {
@@ -176,6 +176,9 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
 
     // Histórico oficial por ano caso não venha no statusDescription
     const yr = currentPastCarnaval.year;
+    if (yr === 1976) return ['Lins Imperial', 'Unidos de Lucas', 'Em Cima da Hora', 'Tupy de Brás de Pina'];
+    if (yr === 1977) return ['Imperatriz Leopoldinense', 'Unidos de São Carlos (Estácio de Sá)', 'Império da Tijuca', 'Unidos do Cabuçu'];
+    if (yr === 1978) return ['Império Serrano', 'Unidos de Vila Isabel', 'Arrastão de Cascadura', 'Arranco'];
     if (yr === 1985) return ['Acadêmicos de Santa Cruz', 'São Clemente', 'Em Cima da Hora'];
     if (yr === 1986) return ['Unidos da Tijuca'];
     if (yr === 1987) return ['Unidos do Jacarezinho', 'Império da Tijuca'];

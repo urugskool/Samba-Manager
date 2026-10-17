@@ -828,25 +828,6 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
                 </div>
               )}
 
-              {/* Rebaixamentos Históricos do Grupo Especial */}
-              {selectedStats.allEspecialRelegationYears && selectedStats.allEspecialRelegationYears.length > 0 && (
-                <div className="space-y-1.5 pt-1">
-                  <span className="text-[11px] font-bold text-rose-400 uppercase flex items-center gap-1">
-                    <span>⚠️ Rebaixamentos do Grupo Especial ({selectedStats.totalEspecialRelegations || selectedStats.allEspecialRelegationYears.length}):</span>
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {selectedStats.allEspecialRelegationYears.map((yr, idx) => (
-                      <span
-                        key={`rel-${yr}-${idx}`}
-                        className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-rose-500/15 text-rose-300 border border-rose-500/30"
-                      >
-                        {yr}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
               {/* Títulos da Série Ouro */}
               {selectedStats.allOuroYears.length > 0 && (
                 <div className="space-y-1.5">
@@ -1059,7 +1040,7 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
               <div className="flex items-center gap-2">
                 <Trophy className="w-4 h-4 text-amber-400" />
                 <h3 className="text-sm font-bold text-white uppercase tracking-wider">
-                  Resumo Geral de Conquistas (5 Divisões)
+                  Resumo Geral de Conquistas
                 </h3>
               </div>
               <span className="text-[11px] text-slate-400 font-mono">
