@@ -722,6 +722,72 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     mangueira: 'Dos Jeitos da Gente, Mineira',
     imperio_serrano: 'Império das Ilusões',
     estacio_de_sa: 'Brasil, Terra à Vista'
+  },
+  1979: {
+    mocidade: 'O Descobrimento do Brasil',
+    beija_flor: 'O Paraíso da Loucura',
+    portela: 'Incrível, Fantástico, Extraordinário',
+    mangueira: 'Avatar da e Popa a Valença',
+    uniao_da_ilha: 'O que Será do Amanhã?',
+    salgueiro: 'O Reino Encantado de Mãe Zulmira',
+    imperatriz: 'Oxumarê, a Lenda do Arco-Íris',
+    estacio_de_sa: 'Das Maravilhas do Mar, Fez-se o Esplendor de uma Noite'
+  },
+  1978: {
+    beija_flor: 'A Criação do Mundo na Tradição Nagô',
+    mangueira: 'Dos Carroceiros do Imperador ao Palácio do Samba',
+    mocidade: 'Brasiliana',
+    uniao_da_ilha: 'O Amanhã',
+    portela: 'Mulher à Brasileira',
+    salgueiro: 'Do Yorubá à Luz, a Aurora dos Deuses',
+    imperio_serrano: 'Oscarito, Carnaval e Chanchada',
+    vila_isabel: 'Dique, um Mar de Amor',
+    arrastao_cascadura: 'Tala de Marfim',
+    arranco: 'Sonho de Pintor'
+  },
+  1977: {
+    beija_flor: 'Vovó e o Rei da Saturnália na Corte de Tutankamon',
+    portela: 'Festa da Aclamação',
+    uniao_da_ilha: 'Domingo',
+    salgueiro: 'Do Caboclo ao Negro',
+    vila_isabel: 'Ai Que Saudades Que Eu Tenho',
+    imperio_serrano: 'Brasil, Berço dos Imigrantes',
+    mangueira: 'Panapaná, o Segredo do Amor',
+    mocidade: 'Samba, Marca Registrada do Brasil',
+    imperatriz: 'Viagem Fantástica às Terras de Ibirapitanga',
+    estacio_de_sa: 'Alô, Alô, Brasil, 40 Anos de Rádio Nacional',
+    imperio_da_tijuca: 'O Mundo de Barro de Mestre Vitalino',
+    cabucu: 'Sete Povos das Missões'
+  },
+  1976: {
+    beija_flor: 'Sonhar com Rei Dá Leão',
+    mangueira: 'No Reino da Mãe do Ouro',
+    mocidade: 'Mãe Menininha do Gantois',
+    portela: 'Homem do Rio, os Meus Bens Você Levou',
+    salgueiro: 'Valongo',
+    vila_isabel: 'Invenção de Orfeu',
+    imperio_serrano: 'A Lenda das Sereias, Rainhas do Mar',
+    imperatriz: 'Por Mares Nunca Dantes Navegados',
+    uniao_da_ilha: 'Poemas de Vinicius de Moraes',
+    estacio_de_sa: 'Arte Negra na Legendária Bahia',
+    lins_imperial: 'Festa da Uva no Rio Grande do Sul',
+    unidos_de_lucas: 'Mar Baiano em Noite de Gala',
+    em_cima_da_hora: 'Os Sertões',
+    tupy_bras_de_pina: 'Riquezas do Mar'
+  },
+  1975: {
+    salgueiro: 'O Segredo das Minas do Rei Salomão',
+    mangueira: 'Imagens Poéticas de Jorge de Lima',
+    imperio_serrano: 'Zaquia Jorge, a Vedete do Subúrbio, Estrela de Madureira',
+    mocidade: 'O Mundo Fantástico do Circo',
+    portela: 'Macunaíma, Herói de Nossa Gente',
+    vila_isabel: 'Arrastão de Flores',
+    beija_flor: 'O Grande Decênio',
+    imperatriz: 'Desencontrados da Vida',
+    uniao_da_ilha: 'Nos Confins de Vila Rica',
+    estacio_de_sa: 'A Festa do Círio de Nazaré',
+    unidos_de_lucas: 'Cidades Feitas de Memórias',
+    em_cima_da_hora: 'Boi da Cara Preta'
   }
 };
 
@@ -763,6 +829,12 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('santa cruz')) return 'santa_cruz';
   if (n.includes('cabuçu') || n.includes('cabucu')) return 'cabucu';
   if (n.includes('niterói') || n.includes('niteroi')) return 'niteroi';
+  if (n.includes('arrastão') || n.includes('arrastao')) return 'arrastao_cascadura';
+  if (n.includes('arranco')) return 'arranco';
+  if (n.includes('lucas')) return 'unidos_de_lucas';
+  if (n.includes('lins')) return 'lins_imperial';
+  if (n.includes('cima da hora')) return 'em_cima_da_hora';
+  if (n.includes('tupy') || n.includes('brás de pina') || n.includes('bras de pina')) return 'tupy_bras_de_pina';
   return '';
 }
 
@@ -805,7 +877,7 @@ export function getHistoricalEnredo(
     }
   }
 
-  // 4. Catálogo histórico oficial (1980 a 2026)
+  // 4. Catálogo histórico oficial (1975 a 2026)
   const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[year];
   if (!yearRecords) return undefined;
 
@@ -834,7 +906,7 @@ export function getSchoolHistoricalEnredosList(
   const key = normalizeId(schoolId, schoolName);
   const enredosMap = new Map<number, string>();
 
-  // 1. Catálogo histórico oficial (1980 a 2026)
+  // 1. Catálogo histórico oficial (1975 a 2026)
   const years = Object.keys(HISTORICAL_ENREDOS_BY_YEAR).map(Number).sort((a, b) => b - a);
   years.forEach((yr) => {
     const enredo = HISTORICAL_ENREDOS_BY_YEAR[yr]?.[key];

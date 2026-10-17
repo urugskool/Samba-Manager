@@ -97,8 +97,79 @@ export const CARNAVAL_1984_SUPERCAMPEONATO: LiesaStandingRecord[] = [
  * Carnaval 1982: Império da Tijuca e Unidos de São Carlos (Estácio) rebaixadas pela AESCRJ.
  * Carnaval 1981: Não houve rebaixamento no Grupo Especial por deliberação da AESCRJ.
  * Carnaval 1980: Três campeãs oficiais (Beija-Flor, Imperatriz e Portela) e três vices oficiais (Mocidade, União da Ilha e Vila Isabel). Rebaixada pela AESCRJ: Unidos de São Carlos.
+ * Carnaval 1979: Mocidade Independente de Padre Miguel campeã e Beija-Flor vice. Não houve rebaixamento.
+ * Carnaval 1978: Beija-Flor campeã e Mangueira vice. Rebaixadas: Império Serrano, Unidos de Vila Isabel, Arrastão de Cascadura e Arranco.
+ * Carnaval 1977: Beija-Flor campeã e Portela vice. Rebaixadas: Imperatriz Leopoldinense, Unidos de São Carlos, Império da Tijuca e Unidos do Cabuçu.
+ * Carnaval 1976: Beija-Flor campeã e Mangueira vice. Rebaixadas: Lins Imperial, Unidos de Lucas, Em Cima da Hora e Tupy de Brás de Pina.
+ * Carnaval 1975: Salgueiro campeã e Mangueira vice. Não houve rebaixamento.
  */
 export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRecord[]> = {
+  1975: [
+    { rank: 1, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', statusDescription: 'Campeã Oficial (+20 pts)' },
+    { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', statusDescription: 'Vice-Campeã Oficial (+15 pts)' },
+    { rank: 3, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', statusDescription: '3º Lugar (+12 pts)' },
+    { rank: 4, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', statusDescription: '4º Lugar (+10 pts)' },
+    { rank: 5, schoolId: 'portela', schoolName: 'Portela', statusDescription: '5º Lugar (+8 pts)' },
+    { rank: 6, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', statusDescription: '6º Lugar (+6 pts)' },
+    { rank: 7, schoolId: 'beija_flor', schoolName: 'Beija-Flor', statusDescription: '7º Lugar (+4 pts)' },
+    { rank: 8, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', statusDescription: '8º Lugar (+3 pts)' },
+    { rank: 9, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', statusDescription: '9º Lugar (+2 pts)' },
+    { rank: 10, schoolId: 'estacio_de_sa', schoolName: 'Unidos de São Carlos (Estácio de Sá)', statusDescription: '10º Lugar (+1 pt)' },
+    { rank: 11, schoolId: 'unidos_de_lucas', schoolName: 'Unidos de Lucas', statusDescription: '11º Lugar (Sem Rebaixamento)' },
+    { rank: 12, schoolId: 'em_cima_da_hora', schoolName: 'Em Cima da Hora', statusDescription: '12º Lugar (Sem Rebaixamento)' }
+  ],
+  1976: [
+    { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor', statusDescription: 'Campeã Oficial (+20 pts)' },
+    { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', statusDescription: 'Vice-Campeã Oficial (+15 pts)' },
+    { rank: 3, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', statusDescription: '3º Lugar (+12 pts)' },
+    { rank: 4, schoolId: 'portela', schoolName: 'Portela', statusDescription: '4º Lugar (+10 pts)' },
+    { rank: 5, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', statusDescription: '5º Lugar (+8 pts)' },
+    { rank: 6, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', statusDescription: '6º Lugar (+6 pts)' },
+    { rank: 7, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', statusDescription: '7º Lugar (+4 pts)' },
+    { rank: 8, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', statusDescription: '8º Lugar (+3 pts)' },
+    { rank: 9, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', statusDescription: '9º Lugar (+2 pts)' },
+    { rank: 10, schoolId: 'estacio_de_sa', schoolName: 'Unidos de São Carlos (Estácio de Sá)', statusDescription: '10º Lugar (+1 pt)' },
+    { rank: 11, schoolId: 'lins_imperial', schoolName: 'Lins Imperial', statusDescription: '11º Lugar (Rebaixada)' },
+    { rank: 12, schoolId: 'unidos_de_lucas', schoolName: 'Unidos de Lucas', statusDescription: '12º Lugar (Rebaixada)' },
+    { rank: 13, schoolId: 'em_cima_da_hora', schoolName: 'Em Cima da Hora', statusDescription: '13º Lugar (Rebaixada)' },
+    { rank: 14, schoolId: 'tupy_bras_de_pina', schoolName: 'Tupy de Brás de Pina', statusDescription: '14º Lugar (Rebaixada)' }
+  ],
+  1977: [
+    { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor', statusDescription: 'Campeã Oficial (+20 pts)' },
+    { rank: 2, schoolId: 'portela', schoolName: 'Portela', statusDescription: 'Vice-Campeã Oficial (+15 pts)' },
+    { rank: 3, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', statusDescription: '3º Lugar (+12 pts)' },
+    { rank: 4, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', statusDescription: '4º Lugar (+10 pts)' },
+    { rank: 5, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', statusDescription: '5º Lugar (+8 pts)' },
+    { rank: 6, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', statusDescription: '6º Lugar (+6 pts)' },
+    { rank: 7, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', statusDescription: '7º Lugar (+4 pts)' },
+    { rank: 8, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', statusDescription: '8º Lugar (+3 pts)' },
+    { rank: 9, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', statusDescription: '9º Lugar (+2 pts • Rebaixada)' },
+    { rank: 10, schoolId: 'estacio_de_sa', schoolName: 'Unidos de São Carlos (Estácio de Sá)', statusDescription: '10º Lugar (+1 pt • Rebaixada)' },
+    { rank: 11, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', statusDescription: '11º Lugar (Rebaixada)' },
+    { rank: 12, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', statusDescription: '12º Lugar (Rebaixada)' }
+  ],
+  1978: [
+    { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor', statusDescription: 'Campeã Oficial (+20 pts)' },
+    { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', statusDescription: 'Vice-Campeã Oficial (+15 pts)' },
+    { rank: 3, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', statusDescription: '3º Lugar (+12 pts)' },
+    { rank: 4, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', statusDescription: '4º Lugar (+10 pts)' },
+    { rank: 5, schoolId: 'portela', schoolName: 'Portela', statusDescription: '5º Lugar (+8 pts)' },
+    { rank: 6, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', statusDescription: '6º Lugar (+6 pts)' },
+    { rank: 7, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', statusDescription: '7º Lugar (+4 pts • Rebaixada)' },
+    { rank: 8, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', statusDescription: '8º Lugar (+3 pts • Rebaixada)' },
+    { rank: 9, schoolId: 'arrastao_cascadura', schoolName: 'Arrastão de Cascadura', statusDescription: '9º Lugar (+2 pts • Rebaixada)' },
+    { rank: 10, schoolId: 'arranco', schoolName: 'Arranco', statusDescription: '10º Lugar (+1 pt • Rebaixada)' }
+  ],
+  1979: [
+    { rank: 1, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', statusDescription: 'Campeã Oficial (+20 pts)' },
+    { rank: 2, schoolId: 'beija_flor', schoolName: 'Beija-Flor', statusDescription: 'Vice-Campeã Oficial (+15 pts)' },
+    { rank: 3, schoolId: 'portela', schoolName: 'Portela', statusDescription: '3º Lugar (+12 pts)' },
+    { rank: 4, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', statusDescription: '4º Lugar (+10 pts)' },
+    { rank: 5, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', statusDescription: '5º Lugar (+8 pts)' },
+    { rank: 6, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', statusDescription: '6º Lugar (+6 pts)' },
+    { rank: 7, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', statusDescription: '7º Lugar (+4 pts)' },
+    { rank: 8, schoolId: 'estacio_de_sa', schoolName: 'Unidos de São Carlos (Estácio de Sá)', statusDescription: '8º Lugar (+3 pts • Sem Rebaixamento)' }
+  ],
   1980: [
     { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor', statusDescription: 'Campeã Oficial (+20 pts)' },
     { rank: 1, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', statusDescription: 'Campeã Oficial (+20 pts)' },
@@ -947,14 +1018,17 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('leão de nova') || nameNorm.includes('leao de nova')) return 'leao_de_nova_iguacu';
   if (nameNorm.includes('lins imperial')) return 'lins_imperial';
   if (nameNorm.includes('cabuçu') || nameNorm.includes('cabucu')) return 'cabucu';
+  if (nameNorm.includes('arrastão') || nameNorm.includes('arrastao')) return 'arrastao_cascadura';
   if (nameNorm.includes('arranco')) return 'arranco';
   if (nameNorm.includes('jacarezinho')) return 'jacarezinho';
+  if (nameNorm.includes('lucas')) return 'unidos_de_lucas';
+  if (nameNorm.includes('tupy') || nameNorm.includes('brás de pina') || nameNorm.includes('bras de pina')) return 'tupy_bras_de_pina';
   if (nameNorm.includes('cima da hora')) return 'em_cima_da_hora';
   return nameNorm.replace(/[^a-z0-9]/g, '_');
 }
 
 /**
- * Retorna lista de carnavais históricos com resultados oficiais catalogados (1980 a 2026 + save)
+ * Retorna lista de carnavais históricos com resultados oficiais catalogados (1975 a 2026 + save)
  */
 export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): HistoricalCarnavalInfo[] {
   const result: HistoricalCarnavalInfo[] = [];
@@ -984,7 +1058,7 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     });
   });
 
-  // Anos oficiais catalogados (2026 descendo até 1980)
+  // Anos oficiais catalogados (2026 descendo até 1975)
   const officialYears = [
     2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017,
     2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007,
@@ -992,7 +1066,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     1999, 1998, 1997, 1996, 1995,
     1994, 1993, 1992, 1991, 1990,
     1989, 1988, 1987, 1986, 1985, 1984,
-    1983, 1982, 1981, 1980
+    1983, 1982, 1981, 1980,
+    1979, 1978, 1977, 1976, 1975
   ];
   officialYears.forEach((yr) => {
     const stands = OFFICIAL_LIESA_HISTORICAL_STANDINGS[yr] || [];
@@ -1095,6 +1170,16 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
       notes = 'Carnaval 1981 (Administrado pela AESCRJ): Imperatriz Leopoldinense sagrou-se bicampeã com "O O que É que a Bahia Tem" (+20 pts) e Beija-Flor foi vice-campeã com "Carnaval do Brasil" (+15 pts). Não houve rebaixamento no Grupo Especial por deliberação da AESCRJ.';
     } else if (yr === 1980) {
       notes = 'Carnaval Histórico de 1980 (Administrado pela AESCRJ): Edição marcante com três campeãs oficiais dividindo o título — Beija-Flor, Imperatriz Leopoldinense e Portela (+20 pts cada), além de três vices oficiais — Mocidade Independente, União da Ilha e Unidos de Vila Isabel (+15 pts cada). Rebaixada pela AESCRJ: Unidos de São Carlos (atual Estácio de Sá).';
+    } else if (yr === 1979) {
+      notes = 'Carnaval Histórico de 1979 (Administrado pela AESCRJ): Mocidade Independente de Padre Miguel conquistou seu primeiro campeonato histórico com o enredo "O Descobrimento do Brasil" (+20 pts) e Beija-Flor sagrou-se vice-campeã com "O Paraíso da Loucura" (+15 pts). Não houve rebaixamento neste ano por deliberação da AESCRJ.';
+    } else if (yr === 1978) {
+      notes = 'Carnaval Histórico de 1978 (Administrado pela AESCRJ): Beija-Flor de Nilópolis conquistou o histórico tricampeonato consecutivo com "A Criação do Mundo na Tradição Nagô" de Joãosinho Trinta (+20 pts) e Estação Primeira de Mangueira foi vice-campeã com "Dos Carroceiros do Imperador ao Palácio do Samba" (+15 pts). Quatro agremiações foram rebaixadas: Império Serrano, Unidos de Vila Isabel, Arrastão de Cascadura e Arranco.';
+    } else if (yr === 1977) {
+      notes = 'Carnaval Histórico de 1977 (Administrado pela AESCRJ): Beija-Flor de Nilópolis sagrou-se bicampeã com o deslumbrante "Vovó e o Rei da Saturnália na Corte de Tutankamon" de Joãosinho Trinta (+20 pts) e Portela foi vice-campeã com "Festa da Aclamação" (+15 pts). Quatro agremiações foram rebaixadas: Imperatriz Leopoldinense, Unidos de São Carlos (atual Estácio de Sá), Império da Tijuca e Unidos do Cabuçu.';
+    } else if (yr === 1976) {
+      notes = 'Carnaval Histórico de 1976 (Administrado pela AESCRJ): Beija-Flor de Nilópolis conquistou seu histórico primeiro título na elite do samba com o antológico "Sonhar com Rei Dá Leão" de Joãosinho Trinta (+20 pts) e Estação Primeira de Mangueira foi vice-campeã com "No Reino da Mãe do Ouro" (+15 pts). Quatro agremiações foram rebaixadas: Lins Imperial, Unidos de Lucas, Em Cima da Hora e Tupy de Brás de Pina.';
+    } else if (yr === 1975) {
+      notes = 'Carnaval Histórico de 1975 (Administrado pela AESCRJ): Acadêmicos do Salgueiro sagrou-se bicampeã com a obra-prima "O Segredo das Minas do Rei Salomão" de Joãosinho Trinta (+20 pts) e Estação Primeira de Mangueira foi vice-campeã com "Imagens Poéticas de Jorge de Lima" (+15 pts). Não houve rebaixamento neste ano por deliberação da AESCRJ.';
     }
 
     result.push({
@@ -1348,28 +1433,28 @@ export function computeHistoricalLiesaRanking(
     return historicalMap[sId];
   };
 
-  // 1. Processa todos os títulos e vices históricos da era pré-1980 a partir de HISTORICAL_CARNAVAL_RECORDS
-  // A partir de 1980 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA
+  // 1. Processa todos os títulos e vices históricos da era pré-1975 a partir de HISTORICAL_CARNAVAL_RECORDS
+  // A partir de 1975 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA
   Object.entries(HISTORICAL_CARNAVAL_RECORDS).forEach(([id, rec]) => {
     const sId = resolveSchoolId(id, undefined, schoolsMap);
     const entry = ensureEntry(sId);
 
-    const espYearsPre1980 = (rec.especialYears || []).filter((y) => y < 1980);
-    const espViceYearsPre1980 = (rec.especialRunnerUpYears || []).filter((y) => y < 1980);
+    const espYearsPre1975 = (rec.especialYears || []).filter((y) => y < 1975);
+    const espViceYearsPre1975 = (rec.especialRunnerUpYears || []).filter((y) => y < 1975);
 
-    const titlesPre1980 = espYearsPre1980.length;
-    const vicesPre1980 = espViceYearsPre1980.length;
+    const titlesPre1975 = espYearsPre1975.length;
+    const vicesPre1975 = espViceYearsPre1975.length;
 
-    entry.totalEspecialTitles += titlesPre1980;
-    entry.totalEspecialVices += vicesPre1980;
-    entry.titlePoints += titlesPre1980 * 20;
-    entry.vicePoints += vicesPre1980 * 15;
-    entry.pointsEraPre2015 += titlesPre1980 * 20 + vicesPre1980 * 15;
-    entry.totalPoints += titlesPre1980 * 20 + vicesPre1980 * 15;
-    entry.totalCarnavalesContados += titlesPre1980 + vicesPre1980;
+    entry.totalEspecialTitles += titlesPre1975;
+    entry.totalEspecialVices += vicesPre1975;
+    entry.titlePoints += titlesPre1975 * 20;
+    entry.vicePoints += vicesPre1975 * 15;
+    entry.pointsEraPre2015 += titlesPre1975 * 20 + vicesPre1975 * 15;
+    entry.totalPoints += titlesPre1975 * 20 + vicesPre1975 * 15;
+    entry.totalCarnavalesContados += titlesPre1975 + vicesPre1975;
   });
 
-  // 2. Processa anos de 1980 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
+  // 2. Processa anos de 1975 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
   Object.entries(OFFICIAL_LIESA_HISTORICAL_STANDINGS).forEach(([yrStr, list]) => {
     const yr = parseInt(yrStr, 10);
     if (yr === 2021 || !list || list.length === 0) {
@@ -1500,7 +1585,7 @@ export function computeHistoricalLiesaRanking(
 
 /**
  * Calcula a lista de agremiações por ordem estritamente DECRESCENTE de participações
- * no Grupo Especial, computando todos os Carnavais Passados catalogados (1980 a 2026)
+ * no Grupo Especial, computando todos os Carnavais Passados catalogados (1975 a 2026)
  * somados dinamicamente aos anos decorridos no save (inGameHistory).
  */
 export function computeEspecialParticipationsList(
@@ -1537,7 +1622,7 @@ export function computeEspecialParticipationsList(
     return participationsMap.get(sId)!;
   };
 
-  // 1. Processa todos os anos catalogados oficiais dos Carnavais Passados (1980 a 2026)
+  // 1. Processa todos os anos catalogados oficiais dos Carnavais Passados (1975 a 2026)
   Object.entries(OFFICIAL_LIESA_HISTORICAL_STANDINGS).forEach(([yrStr, standings]) => {
     const yr = Number(yrStr);
     if (yr === 2021 || !standings || standings.length === 0) return; // 2021: Não Houve Carnaval

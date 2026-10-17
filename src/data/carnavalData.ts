@@ -2498,6 +2498,107 @@ Object.entries(OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL).forEach(([schoolId, rec]) => 
 // RESULTADOS HISTÓRICOS OFICIAIS DE 1980 A 1999 (AESCRJ até 1984 / LIESA desde 1985)
 // ============================================================================
 export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
+  1975: {
+    champion: 'Acadêmicos do Salgueiro',
+    runnerUp: 'Estação Primeira de Mangueira',
+    third: 'Império Serrano',
+    relegated: [],
+    notes: 'Salgueiro campeã com O Segredo das Minas do Rei Salomão. Mangueira vice. Não houve rebaixamento.',
+    standings: [
+      { rank: 1, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'campea' },
+      { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'vice' },
+      { rank: 3, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'participante' },
+      { rank: 4, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 5, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 6, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 7, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'participante' },
+      { rank: 8, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'participante' },
+      { rank: 9, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 10, schoolId: 'estacio_de_sa', schoolName: 'Unidos de São Carlos (Estácio de Sá)', status: 'participante' },
+      { rank: 11, schoolId: 'unidos_de_lucas', schoolName: 'Unidos de Lucas', status: 'participante' },
+      { rank: 12, schoolId: 'em_cima_da_hora', schoolName: 'Em Cima da Hora', status: 'participante' }
+    ]
+  },
+  1976: {
+    champion: 'Beija-Flor',
+    runnerUp: 'Estação Primeira de Mangueira',
+    third: 'Mocidade Independente de Padre Miguel',
+    relegated: ['Lins Imperial', 'Unidos de Lucas', 'Em Cima da Hora', 'Tupy de Brás de Pina'],
+    notes: 'Beija-Flor conquista 1º título com Sonhar com Rei Dá Leão. 4 rebaixadas.',
+    standings: [
+      { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'campea' },
+      { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'vice' },
+      { rank: 3, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 4, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 5, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 6, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 7, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'participante' },
+      { rank: 8, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'participante' },
+      { rank: 9, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 10, schoolId: 'estacio_de_sa', schoolName: 'Unidos de São Carlos (Estácio de Sá)', status: 'participante' },
+      { rank: 11, schoolId: 'lins_imperial', schoolName: 'Lins Imperial', status: 'rebaixada' },
+      { rank: 12, schoolId: 'unidos_de_lucas', schoolName: 'Unidos de Lucas', status: 'rebaixada' },
+      { rank: 13, schoolId: 'em_cima_da_hora', schoolName: 'Em Cima da Hora', status: 'rebaixada' },
+      { rank: 14, schoolId: 'tupy_bras_de_pina', schoolName: 'Tupy de Brás de Pina', status: 'rebaixada' }
+    ]
+  },
+  1977: {
+    champion: 'Beija-Flor',
+    runnerUp: 'Portela',
+    third: 'União da Ilha do Governador',
+    relegated: ['Imperatriz Leopoldinense', 'Unidos de São Carlos (Estácio de Sá)', 'Império da Tijuca', 'Unidos do Cabuçu'],
+    notes: 'Beija-Flor bicampeã. 4 rebaixadas.',
+    standings: [
+      { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'campea' },
+      { rank: 2, schoolId: 'portela', schoolName: 'Portela', status: 'vice' },
+      { rank: 3, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 4, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 5, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'participante' },
+      { rank: 6, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'participante' },
+      { rank: 7, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 8, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 9, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'rebaixada' },
+      { rank: 10, schoolId: 'estacio_de_sa', schoolName: 'Unidos de São Carlos (Estácio de Sá)', status: 'rebaixada' },
+      { rank: 11, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', status: 'rebaixada' },
+      { rank: 12, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', status: 'rebaixada' }
+    ]
+  },
+  1978: {
+    champion: 'Beija-Flor',
+    runnerUp: 'Estação Primeira de Mangueira',
+    third: 'Mocidade Independente de Padre Miguel',
+    relegated: ['Império Serrano', 'Unidos de Vila Isabel', 'Arrastão de Cascadura', 'Arranco'],
+    notes: 'Beija-Flor tricampeã com A Criação do Mundo na Tradição Nagô. 4 rebaixadas.',
+    standings: [
+      { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'campea' },
+      { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'vice' },
+      { rank: 3, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 4, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 5, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 6, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 7, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'rebaixada' },
+      { rank: 8, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'rebaixada' },
+      { rank: 9, schoolId: 'arrastao_cascadura', schoolName: 'Arrastão de Cascadura', status: 'rebaixada' },
+      { rank: 10, schoolId: 'arranco', schoolName: 'Arranco', status: 'rebaixada' }
+    ]
+  },
+  1979: {
+    champion: 'Mocidade Independente de Padre Miguel',
+    runnerUp: 'Beija-Flor',
+    third: 'Portela',
+    relegated: [],
+    notes: 'Mocidade campeã inédita com O Descobrimento do Brasil. Não houve rebaixamento.',
+    standings: [
+      { rank: 1, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'campea' },
+      { rank: 2, schoolId: 'beija_flor', schoolName: 'Beija-Flor', status: 'vice' },
+      { rank: 3, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 4, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 5, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', status: 'participante' },
+      { rank: 6, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 7, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', status: 'participante' },
+      { rank: 8, schoolId: 'estacio_de_sa', schoolName: 'Unidos de São Carlos (Estácio de Sá)', status: 'participante' }
+    ]
+  },
   1980: {
     champion: 'Beija-Flor, Imperatriz Leopoldinense e Portela',
     runnerUp: 'Mocidade Independente, União da Ilha e Unidos de Vila Isabel',
@@ -2984,11 +3085,11 @@ export const HISTORICAL_CARNAVAL_RESULTS_1995_1999 = HISTORICAL_CARNAVAL_RESULTS
 
 // Catálogo consolidado de rebaixamentos históricos oficiais do Grupo Especial por agremiação
 export const OFFICIAL_HISTORICAL_ESPECIAL_RELEGATIONS_BY_SCHOOL: Record<string, number[]> = {
-  imperio_serrano: [1991, 1997, 1999, 2007, 2009, 2019],
+  imperio_serrano: [1978, 1991, 1997, 1999, 2007, 2009, 2019],
   sao_clemente: [1985, 1991, 1993, 1995, 1999, 2002, 2004, 2008, 2022],
   tijuca: [1984, 1986, 1998],
   porto_da_pedra: [1998, 2000, 2012, 2024],
-  estacio_de_sa: [1980, 1982, 1997, 2007, 2016, 2020],
+  estacio_de_sa: [1977, 1980, 1982, 1997, 2007, 2016, 2020],
   santa_cruz: [1985, 1990, 1992, 1997, 2003],
   caprichosos_de_pilares: [1996, 2006],
   tradicao: [1989, 1992, 1996, 2005],
@@ -2996,20 +3097,23 @@ export const OFFICIAL_HISTORICAL_ESPECIAL_RELEGATIONS_BY_SCHOOL: Record<string, 
   unidos_da_ponte: [1984, 1986, 1989, 1996],
   rocinha: [1997, 2002, 2006],
   villa_rica: [1995],
-  imperatriz: [2019],
+  imperatriz: [1977, 2019],
   uniao_da_ilha: [2001, 2020],
-  vila_isabel: [2000],
+  vila_isabel: [1978, 2000],
   viradouro: [2010, 2015],
   grande_rio: [1991],
   tuiuti: [2001],
   renascer_jacarepagua: [2012],
   niteroi: [2026],
   leao_de_nova_iguacu: [1992],
-  lins_imperial: [1991],
-  cabucu: [1990],
-  arranco: [1989],
+  lins_imperial: [1976, 1991],
+  cabucu: [1977, 1990],
+  arranco: [1978, 1989],
+  arrastao_cascadura: [1978],
+  unidos_de_lucas: [1976],
+  tupy_bras_de_pina: [1976],
   jacarezinho: [1987, 1989],
-  em_cima_da_hora: [1985]
+  em_cima_da_hora: [1976, 1985]
 };
 
 // 1. Inicializa todos os registros em HISTORICAL_CARNAVAL_RECORDS com estruturas de rebaixamento e detailedResults1985_1999
