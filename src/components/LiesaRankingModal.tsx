@@ -176,6 +176,11 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
 
     // Histórico oficial por ano caso não venha no statusDescription
     const yr = currentPastCarnaval.year;
+    if (yr === 1965) return ['União de Jacarepaguá', 'Imperatriz Leopoldinense'];
+    if (yr === 1966) return ['Unidos da Capela', 'Acadêmicos de Santa Cruz'];
+    if (yr === 1967) return ['Imperatriz Leopoldinense', 'São Clemente'];
+    if (yr === 1968) return ['Independentes do Leblon (Independentes de Cordovil)', 'Império da Tijuca'];
+    if (yr === 1969) return ['Unidos de Lucas', 'Em Cima da Hora'];
     if (yr === 1970) return ['Unidos do Jacarezinho', 'Acadêmicos de Santa Cruz'];
     if (yr === 1972) return ['Unidos de São Carlos (Estácio de Sá)', 'Império da Tijuca', 'Unidos de Lucas', 'Unidos de Padre Miguel'];
     if (yr === 1973) return ['Tupy de Brás de Pina', 'Unidos do Jacarezinho'];
@@ -386,11 +391,26 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
         </span>
       );
     }
-    if (year === 1970 && rank >= 9) {
-      // Em 1970 duas escolas foram rebaixadas (Unidos do Jacarezinho 9º e Acadêmicos de Santa Cruz 10º)
+    if ((year === 1965 || year === 1967 || year === 1968 || year === 1969 || year === 1970) && rank >= 9) {
+      // Rebaixadas dos carnavais de 1965, 1967, 1968, 1969 e 1970
       return (
         <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs font-bold">
           {rank}º (Rebaixada)
+        </span>
+      );
+    }
+    if (year === 1966 && (rank === 8 || rank === 9)) {
+      // Em 1966 Unidos da Capela (8º) e Acadêmicos de Santa Cruz (9º) foram rebaixadas
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs font-bold">
+          {rank}º (Rebaixada)
+        </span>
+      );
+    }
+    if (year === 1966 && rank === 10) {
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 font-mono text-xs font-bold">
+          Hors Concours
         </span>
       );
     }
@@ -682,7 +702,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
               }`}
             >
               <History className="w-3.5 h-3.5" />
-              <span>Ranking Histórico Geral (1970-{currentYear || 2026})</span>
+              <span>Ranking Histórico Geral (1965-{currentYear || 2026})</span>
             </button>
             <button
               onClick={() => setRankingMode('participacoes')}
@@ -709,7 +729,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
               }`}
             >
               <Trophy className="w-3.5 h-3.5" />
-              <span>Carnavais Passados (1970-{currentYear || 2026})</span>
+              <span>Carnavais Passados (1965-{currentYear || 2026})</span>
             </button>
           </div>
 
@@ -929,7 +949,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                 <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                 <div>
                   <span className="font-bold text-amber-300">Classificação Histórica Oficial da LIESA:</span>{' '}
-                  Atribui 20 pontos por título e 15 pontos por vice-campeonato na história do Grupo Especial, somados às colocações completas de 1º a 10º lugar para todos os carnavais catalogados com apuração completa (1970 a 2026). A LIESA foi fundada em 24 de julho de 1984 para administrar o Grupo Especial a partir do Carnaval de 1985; as edições de 1970 a 1984 foram administradas pela AESCRJ. Clique em qualquer agremiação para ver o histórico ano a ano.
+                  Atribui 20 pontos por título e 15 pontos por vice-campeonato na história do Grupo Especial, somados às colocações completas de 1º a 10º lugar para todos os carnavais catalogados com apuração completa (1965 a 2026). A LIESA foi fundada em 24 de julho de 1984 para administrar o Grupo Especial a partir do Carnaval de 1985; as edições de 1965 a 1984 foram administradas pela AESCRJ. Clique em qualquer agremiação para ver o histórico ano a ano.
                 </div>
               </div>
 
@@ -973,7 +993,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                       <th className="py-3 px-3 text-center text-purple-400 font-bold">Participações Especial</th>
                       <th className="py-3 px-3 text-center text-amber-400 font-bold">Títulos Especial (20p)</th>
                       <th className="py-3 px-3 text-center text-slate-300 font-bold">Vices Especial (15p)</th>
-                      <th className="py-3 px-3 text-center text-blue-400 font-bold">Era 1970+ (Top 10)</th>
+                      <th className="py-3 px-3 text-center text-blue-400 font-bold">Era 1965+ (Top 10)</th>
                       <th className="py-3 px-4 text-right font-black text-amber-400 text-xs">
                         TOTAL PONTOS HISTÓRICOS
                       </th>
@@ -1077,7 +1097,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                         <span>Desempenho Histórico Detalhado: {entry.schoolName}</span>
                                       </h4>
                                       <p className="text-[11px] text-slate-400">
-                                        {entry.totalEspecialTitles} Título(s) ({entry.totalEspecialTitles * 20}p) · {entry.totalEspecialVices} Vice(s) ({entry.totalEspecialVices * 15}p) · Era 1970+: {entry.pointsDetailedEra} pts
+                                        {entry.totalEspecialTitles} Título(s) ({entry.totalEspecialTitles * 20}p) · {entry.totalEspecialVices} Vice(s) ({entry.totalEspecialVices * 15}p) · Era 1965+: {entry.pointsDetailedEra} pts
                                       </p>
                                     </div>
                                     {onSelectSchool && entry.school && (
@@ -1097,7 +1117,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
 
                                   <div>
                                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-2">
-                                      Carnavais Catalogados na Era Moderna (1970 a 2026):
+                                      Carnavais Catalogados na Era Moderna (1965 a 2026):
                                     </span>
                                     <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2">
                                       {historicalCarnavals.map((c) => {
@@ -1202,7 +1222,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                               <BookOpen className="w-3.5 h-3.5 text-amber-400" />
                                               <span>Histórico Oficial de Enredos no Grupo Especial ({schoolEnredos.length} Edições)</span>
                                             </span>
-                                            <span className="text-slate-400 font-mono font-normal">1970 a {currentYear || 2026}</span>
+                                            <span className="text-slate-400 font-mono font-normal">1965 a {currentYear || 2026}</span>
                                           </div>
                                           <div className="max-h-52 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
                                             {schoolEnredos.map((item) => {
@@ -1261,7 +1281,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                 <Award className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
                 <div>
                   <span className="font-bold text-purple-300">Quadro Histórico de Participações no Grupo Especial:</span>{' '}
-                  Contabiliza o total exato de edições em que cada agremiação participou na divisão principal do Carnaval carioca (desde a era de 1970 até o ano corrente {currentYear || 2026}). O cálculo integra todos os anos oficiais dos Carnavais Passados com os anos transcorridos no seu save, atualizando-se automaticamente temporada a temporada. As escolas estão organizadas em ordem estritamente <strong>DECRESCENTE de participações</strong>. Clique em qualquer agremiação para visualizar os anos disputados e o histórico de enredos.
+                  Contabiliza o total exato de edições em que cada agremiação participou na divisão principal do Carnaval carioca (desde a era de 1965 até o ano corrente {currentYear || 2026}). O cálculo integra todos os anos oficiais dos Carnavais Passados com os anos transcorridos no seu save, atualizando-se automaticamente temporada a temporada. As escolas estão organizadas em ordem estritamente <strong>DECRESCENTE de participações</strong>. Clique em qualquer agremiação para visualizar os anos disputados e o histórico de enredos.
                 </div>
               </div>
 
@@ -1478,7 +1498,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                           <BookOpen className="w-3.5 h-3.5 text-amber-400" />
                                           <span>Histórico Oficial de Enredos no Grupo Especial ({schoolEnredos.length} Edições - Atualizado com o Save)</span>
                                         </span>
-                                        <span className="text-slate-400 font-mono font-normal">1970 a {currentYear || 2026}</span>
+                                        <span className="text-slate-400 font-mono font-normal">1965 a {currentYear || 2026}</span>
                                       </div>
                                       <div className="max-h-56 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
                                         {schoolEnredos.map((enr) => (

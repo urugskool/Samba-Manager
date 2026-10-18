@@ -347,6 +347,8 @@ export interface SchoolParadeScores {
   timeStatus?: 'regular' | 'estouro' | 'abaixo';
   timeDifferenceMinutes?: number;
   technicalPenalty?: number;
+  financialPenalty?: number;
+  financialPenaltyJustificativa?: string;
   infractions?: TechnicalInfraction[];
   paradeComposition?: SchoolParadeComposition;
   logisticsReport?: import('../services/logisticsService').SchoolLogisticsReport;

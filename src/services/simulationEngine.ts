@@ -17,6 +17,9 @@ import { CarnavalSorteio, SorteioSlot, CarnavalQuesitosDrawState } from '../type
 import { SorteioEngine } from './sorteioEngine';
 import { LigaFinancialService } from './ligaFinancialService';
 import { RepassesFinanceirosService } from './repassesFinanceirosService';
+import { calcularTotalComPenalizacao } from './financasFMService';
+
+export { calcularTotalComPenalizacao };
 
 // Reverse order of quesitos for tiebreaking as required by user prompt:
 // "Em caso de empate o desempate ocorrerá pela soma maior no último quesito e assim sucessivamente"
@@ -298,7 +301,13 @@ export class SimulationEngine {
 
       // Technical obrigatoriedades evaluation based on official regulations
       const techEval = evaluateSchoolParadeObrigatoriedades(school);
-      const totalPenalties = Math.round((timeSim.timePenalty + techEval.technicalPenalty) * 10) / 10;
+
+      // Penalizações financeiras da Liga / Prestação de contas
+      const prestacao = (school as any).financas?.prestacaoContasUltimoAno || (school as any).prestacaoContas;
+      const calcPenalidade = calcularTotalComPenalizacao(sum, prestacao);
+      const financialPenalty = calcPenalidade.penalidadeAplicada;
+
+      const totalPenalties = Math.round((timeSim.timePenalty + techEval.technicalPenalty + financialPenalty) * 10) / 10;
       const finalScore = Math.max(0, Math.round((sum - totalPenalties) * 10) / 10);
 
       // Assign a consistent sorteioRandomValue for transparent tie-breaking draw if needed
@@ -316,6 +325,8 @@ export class SimulationEngine {
         timeStatus: timeSim.timeStatus,
         timeDifferenceMinutes: timeSim.diffMinutes,
         technicalPenalty: techEval.technicalPenalty,
+        financialPenalty: financialPenalty > 0 ? financialPenalty : undefined,
+        financialPenaltyJustificativa: calcPenalidade.justificativa,
         infractions: techEval.infractions,
         paradeComposition: techEval.composition,
         logisticsReport

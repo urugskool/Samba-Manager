@@ -3,6 +3,14 @@ import { School } from '../types/carnaval';
 import { LogisticsService } from './logisticsService';
 import { RepassesFinanceirosService, DivisaoCarnaval, ExtratoFinanceiroEscola } from './repassesFinanceirosService';
 import { atribuirEnredosAleatorios } from './enredoService';
+import { 
+  processarCustoMensalOperacional, 
+  processarMudancaDivisaoBarracao, 
+  auditarPrestacaoContas,
+  calcularTotalComPenalizacao
+} from './financasFMService';
+
+export { calcularTotalComPenalizacao };
 
 export const SEASON_PERIODS: SeasonPeriodConfig[] = [
   {
@@ -412,6 +420,40 @@ export function iniciarNovaTemporada(estadoAtual: any) {
     ...estadoAtual,
     ano: estadoAtual.ano + 1,
     faseTemporada: 'escolha_enredo',
+    escolas: escolasAtualizadas
+  };
+}
+
+export function fecharTemporadaEIniciarNova(estadoTemporada: any) {
+  const anoAtual = estadoTemporada.ano;
+
+  const escolasAtualizadas = estadoTemporada.escolas.map((escola: any) => {
+    let financas = escola.financas;
+
+    // 1. Auditoria da Liga referente ao ano que se encerra
+    const prestacao = auditarPrestacaoContas(
+      financas,
+      escola.receitaAnualTotal || 20_000_000,
+      anoAtual
+    );
+
+    // 2. Ajuste de barracão caso tenha sido promovida ou despromovida
+    if (escola.mudouDeGrupo) {
+      financas = processarMudancaDivisaoBarracao(financas, escola.grupoDestino);
+    }
+
+    return {
+      ...escola,
+      financas: {
+        ...financas,
+        prestacaoContasUltimoAno: prestacao
+      }
+    };
+  });
+
+  return {
+    ...estadoTemporada,
+    ano: anoAtual + 1,
     escolas: escolasAtualizadas
   };
 }

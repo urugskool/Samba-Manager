@@ -850,6 +850,66 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     imperio_serrano: 'Arte em Tom Maior',
     jacarezinho: 'Ginga, Samba e Cor',
     santa_cruz: 'Braz de Pina, Ontem e Hoje'
+  },
+  1969: {
+    salgueiro: 'Bahia de Todos os Deuses',
+    mangueira: 'Mercadores e Suas Mercadorias',
+    portela: 'Treze Naus',
+    imperio_serrano: 'Brasil, Berço dos Imigrantes',
+    vila_isabel: 'I Jogo Aberto (Festa de São João)',
+    estacio_de_sa: 'A Cama de Gonçalo Fernandes',
+    mocidade: 'Vida e Glória de Francisco Alves',
+    imperatriz: 'Brasil Flor Amoroso',
+    unidos_de_lucas: 'Rapsódia de Saudades',
+    em_cima_da_hora: 'O Sino do Alto da Colina'
+  },
+  1968: {
+    mangueira: 'Samba, Festa de um Povo',
+    imperio_serrano: 'Pernambuco, Leão do Norte',
+    salgueiro: 'Dona Beja, a Feiticeira de Araxá',
+    portela: 'O Tronco do Ipê',
+    unidos_de_lucas: 'Sublime Pergaminho',
+    mocidade: 'Viagem ao Mundo da Ilusão',
+    estacio_de_sa: 'Visita ao Rio Antigo',
+    vila_isabel: 'Quatro Séculos de Modas e Costumes',
+    independentes_cordovil: 'Festival do Folclore Brasileiro',
+    imperio_da_tijuca: 'A Epopéia dos Bandeirantes'
+  },
+  1967: {
+    mangueira: 'O Mundo Encantado de Monteiro Lobato',
+    imperio_serrano: 'São Paulo, Chapadão de Glórias',
+    salgueiro: 'História do Carnaval Carioca - E o Samba Sambou',
+    vila_isabel: 'Carnaval das Ilusões',
+    unidos_de_lucas: 'Festas Tradicionais do Brasil',
+    portela: 'Ressurreição das Coroas',
+    mocidade: 'A Musa de Ataulfo Alves',
+    imperio_da_tijuca: 'O Ouro de Ouro Preto',
+    imperatriz: 'A Volta da Corte Real',
+    sao_clemente: 'Festas de Santo Antônio'
+  },
+  1966: {
+    portela: 'Memórias de um Sargento de Milícias',
+    mangueira: 'Exaltação a Villa-Lobos',
+    imperio_serrano: 'Glórias e Graças da Bahia',
+    vila_isabel: 'Três Acontecimentos Históricos',
+    salgueiro: 'Os Amores Célebres do Brasil',
+    mocidade: 'Exaltação ao Engenho de Dentro',
+    aprendizes_de_lucas: 'História de um Povo',
+    unidos_da_capela: 'No Reino da Alegria',
+    santa_cruz: 'O Homem na Lua',
+    imperio_da_tijuca: 'Glória Histórica de Ouro Preto'
+  },
+  1965: {
+    salgueiro: 'História do Carnaval Carioca',
+    imperio_serrano: 'Cinco Bailes Tradicionais na História do Rio',
+    portela: 'Histórias do Rio Antigo',
+    mangueira: 'Rio Através dos Séculos',
+    unidos_da_capela: 'Rio de Ontem, de Hoje e de Sempre',
+    mocidade: 'Parabéns para Você, Rio',
+    aprendizes_de_lucas: 'Rio de Quatrocentos Janeiros',
+    imperio_da_tijuca: 'Quatro Séculos de Glórias',
+    uniao_de_jacarepagua: 'O Rio e Suas Belezas',
+    imperatriz: 'Homenagem ao IV Centenário do Rio'
   }
 };
 

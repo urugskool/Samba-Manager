@@ -1774,6 +1774,11 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
                           (Regulamento: -{item.scores.technicalPenalty.toFixed(1)})
                         </div>
                       ) : null}
+                      {item.scores.financialPenalty && item.scores.financialPenalty > 0 ? (
+                        <div className="text-[9px] text-amber-300 font-normal" title={item.scores.financialPenaltyJustificativa}>
+                          (Prestação de Contas: -{item.scores.financialPenalty.toFixed(1)})
+                        </div>
+                      ) : null}
                     </div>
                   )}
                 </div>

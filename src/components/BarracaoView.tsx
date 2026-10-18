@@ -34,6 +34,7 @@ import { RegulamentoObrigatoriedadesModal } from './RegulamentoObrigatoriedadesM
 import { RoteiroDesfileModal } from './RoteiroDesfileModal';
 import { EnredoCreatorModal } from './EnredoCreatorModal';
 import { ParadeScriptService, ParadeScript } from '../services/paradeScriptService';
+import { GestaoFinanceiraEscola, TipoBarracao } from '../types/financasFM';
 
 interface BarracaoViewProps {
   school: School;
@@ -76,6 +77,26 @@ export const BarracaoView: React.FC<BarracaoViewProps> = ({
 
   const evaluation = evaluateSchoolParadeObrigatoriedades(school, composition);
   const divReg = DIVISION_REGULATIONS[school.division];
+
+  const financas: GestaoFinanceiraEscola = (school as any).financas || {
+    escolaId: school.id,
+    saldoCaixa: school.budget,
+    dividaConsolidada: 0,
+    limiteCreditoDisponivel: 10_000_000,
+    tipoBarracao: (school.division === 'especial'
+      ? 'cidade_do_samba_1'
+      : school.division === 'ouro'
+      ? 'cidade_do_samba_2'
+      : 'galpao_campinho') as TipoBarracao,
+    custosInstitucionaisAnuais: {
+      folhaSedeQuadra: 600_000,
+      manutencaoEspacos: 300_000,
+      impostosJuridicoContabilidade: 150_000,
+      projetosSociaisEventos: 150_000
+    },
+    departamentosCarnaval: {} as any,
+    prestacaoContasUltimoAno: (school as any).prestacaoContasUltimoAno
+  };
 
   const handleUpdateComp = (delta: Partial<SchoolParadeComposition>) => {
     const updatedComp = { ...composition, ...delta };
@@ -290,6 +311,36 @@ export const BarracaoView: React.FC<BarracaoViewProps> = ({
             />
           </div>
         </div>
+      </div>
+
+      {/* Indicador de Saúde Fiscal e Barracão */}
+      <div className={`p-4 rounded-lg border ${
+        financas.saldoCaixa < 0 
+          ? 'bg-red-950/40 border-red-500 text-red-200' 
+          : 'bg-emerald-950/30 border-emerald-500 text-emerald-200'
+      }`}>
+        <div className="flex justify-between items-center mb-2">
+          <h3 className="font-bold text-lg">Saúde Financeira & Auditoria da Liga</h3>
+          <span className="text-xs uppercase px-2 py-1 bg-black/40 rounded font-semibold">
+            {financas.tipoBarracao.replace(/_/g, ' ')}
+          </span>
+        </div>
+        
+        <p className="text-sm">
+          Saldo Atual: <strong>R$ {(financas.saldoCaixa / 1_000_000).toFixed(2)} mi</strong>
+        </p>
+
+        {financas.saldoCaixa < 0 && (
+          <div className="mt-2 text-xs text-red-300">
+            ⚠️ <strong>Atenção:</strong> O caixa está no vermelho. Se o exercício fechar em défice superior a 10% da receita anual, a escola sofrerá retenção de verbas e perda de pontos no próximo Carnaval.
+          </div>
+        )}
+
+        {financas.prestacaoContasUltimoAno && financas.prestacaoContasUltimoAno.penalizacaoPontosApuracao > 0 && (
+          <div className="mt-2 p-2 bg-red-900/60 rounded text-xs font-semibold">
+            Punição Ativa: -{financas.prestacaoContasUltimoAno.penalizacaoPontosApuracao} pontos na Apuração deste ano!
+          </div>
+        )}
       </div>
 
       {/* Enredo Oficial da Agremiação */}

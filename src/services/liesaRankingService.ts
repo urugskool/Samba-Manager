@@ -107,8 +107,73 @@ export const CARNAVAL_1984_SUPERCAMPEONATO: LiesaStandingRecord[] = [
  * Carnaval 1972: Império Serrano campeã e Mangueira vice. Rebaixadas: Unidos de São Carlos, Império da Tijuca, Unidos de Lucas e Unidos de Padre Miguel.
  * Carnaval 1971: Salgueiro campeã e Portela vice. Não houve rebaixamento.
  * Carnaval 1970: Portela campeã e Salgueiro vice. Rebaixadas: Unidos do Jacarezinho e Acadêmicos de Santa Cruz.
+ * Carnaval 1969: Salgueiro campeã e Mangueira vice. Rebaixadas: Unidos de Lucas e Em Cima da Hora.
+ * Carnaval 1968: Mangueira campeã e Império Serrano vice. Rebaixadas: Independentes do Leblon (Independentes de Cordovil) e Império da Tijuca.
+ * Carnaval 1967: Mangueira campeã e Império Serrano vice. Rebaixadas: Imperatriz Leopoldinense e São Clemente.
+ * Carnaval 1966: Portela campeã e Mangueira vice. Rebaixadas: Unidos da Capela e Acadêmicos de Santa Cruz. Império da Tijuca desfilou como Hors Concours.
+ * Carnaval 1965: Salgueiro campeã e Império Serrano vice. Rebaixadas: União de Jacarepaguá e Imperatriz Leopoldinense.
  */
 export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRecord[]> = {
+  1965: [
+    { rank: 1, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', statusDescription: 'Campeã Oficial (+20 pts)' },
+    { rank: 2, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', statusDescription: 'Vice-Campeã Oficial (+15 pts)' },
+    { rank: 3, schoolId: 'portela', schoolName: 'Portela', statusDescription: '3º Lugar (+12 pts)' },
+    { rank: 4, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', statusDescription: '4º Lugar (+10 pts)' },
+    { rank: 5, schoolId: 'unidos_da_capela', schoolName: 'Unidos da Capela', statusDescription: '5º Lugar (+8 pts)' },
+    { rank: 6, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', statusDescription: '6º Lugar (+6 pts)' },
+    { rank: 7, schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas', statusDescription: '7º Lugar (+4 pts)' },
+    { rank: 8, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', statusDescription: '8º Lugar (+3 pts)' },
+    { rank: 9, schoolId: 'uniao_de_jacarepagua', schoolName: 'União de Jacarepaguá', statusDescription: '9º Lugar (+2 pts • Rebaixada)' },
+    { rank: 10, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', statusDescription: '10º Lugar (+1 pt • Rebaixada)' }
+  ],
+  1966: [
+    { rank: 1, schoolId: 'portela', schoolName: 'Portela', statusDescription: 'Campeã Oficial (+20 pts)' },
+    { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', statusDescription: 'Vice-Campeã Oficial (+15 pts)' },
+    { rank: 3, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', statusDescription: '3º Lugar (+12 pts)' },
+    { rank: 4, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', statusDescription: '4º Lugar (+10 pts)' },
+    { rank: 5, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', statusDescription: '5º Lugar (+8 pts)' },
+    { rank: 6, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', statusDescription: '6º Lugar (+6 pts)' },
+    { rank: 7, schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas', statusDescription: '7º Lugar (+4 pts)' },
+    { rank: 8, schoolId: 'unidos_da_capela', schoolName: 'Unidos da Capela', statusDescription: '8º Lugar (+3 pts • Rebaixada)' },
+    { rank: 9, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz', statusDescription: '9º Lugar (+2 pts • Rebaixada)' },
+    { rank: 10, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', statusDescription: 'Hors Concours (Sem julgamento oficial)', isHorsConcours: true }
+  ],
+  1967: [
+    { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', statusDescription: 'Campeã Oficial (+20 pts)' },
+    { rank: 2, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', statusDescription: 'Vice-Campeã Oficial (+15 pts)' },
+    { rank: 3, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', statusDescription: '3º Lugar (+12 pts)' },
+    { rank: 4, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', statusDescription: '4º Lugar (+10 pts)' },
+    { rank: 5, schoolId: 'unidos_de_lucas', schoolName: 'Unidos de Lucas', statusDescription: '5º Lugar (+8 pts)' },
+    { rank: 6, schoolId: 'portela', schoolName: 'Portela', statusDescription: '6º Lugar (+6 pts)' },
+    { rank: 7, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', statusDescription: '7º Lugar (+4 pts)' },
+    { rank: 8, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', statusDescription: '8º Lugar (+3 pts)' },
+    { rank: 9, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', statusDescription: '9º Lugar (+2 pts • Rebaixada)' },
+    { rank: 10, schoolId: 'sao_clemente', schoolName: 'São Clemente', statusDescription: '10º Lugar (+1 pt • Rebaixada)' }
+  ],
+  1968: [
+    { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', statusDescription: 'Campeã Oficial (+20 pts)' },
+    { rank: 2, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', statusDescription: 'Vice-Campeã Oficial (+15 pts)' },
+    { rank: 3, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', statusDescription: '3º Lugar (+12 pts)' },
+    { rank: 4, schoolId: 'portela', schoolName: 'Portela', statusDescription: '4º Lugar (+10 pts)' },
+    { rank: 5, schoolId: 'unidos_de_lucas', schoolName: 'Unidos de Lucas', statusDescription: '5º Lugar (+8 pts)' },
+    { rank: 6, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', statusDescription: '6º Lugar (+6 pts)' },
+    { rank: 7, schoolId: 'estacio_de_sa', schoolName: 'Unidos de São Carlos (Estácio de Sá)', statusDescription: '7º Lugar (+4 pts)' },
+    { rank: 8, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', statusDescription: '8º Lugar (+3 pts)' },
+    { rank: 9, schoolId: 'independentes_cordovil', schoolName: 'Independentes do Leblon (Independentes de Cordovil)', statusDescription: '9º Lugar (+2 pts • Rebaixada)' },
+    { rank: 10, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', statusDescription: '10º Lugar (+1 pt • Rebaixada)' }
+  ],
+  1969: [
+    { rank: 1, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', statusDescription: 'Campeã Oficial (+20 pts)' },
+    { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', statusDescription: 'Vice-Campeã Oficial (+15 pts)' },
+    { rank: 3, schoolId: 'portela', schoolName: 'Portela', statusDescription: '3º Lugar (+12 pts)' },
+    { rank: 4, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', statusDescription: '4º Lugar (+10 pts)' },
+    { rank: 5, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', statusDescription: '5º Lugar (+8 pts)' },
+    { rank: 6, schoolId: 'estacio_de_sa', schoolName: 'Unidos de São Carlos (Estácio de Sá)', statusDescription: '6º Lugar (+6 pts)' },
+    { rank: 7, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', statusDescription: '7º Lugar (+4 pts)' },
+    { rank: 8, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', statusDescription: '8º Lugar (+3 pts)' },
+    { rank: 9, schoolId: 'unidos_de_lucas', schoolName: 'Unidos de Lucas', statusDescription: '9º Lugar (+2 pts • Rebaixada)' },
+    { rank: 10, schoolId: 'em_cima_da_hora', schoolName: 'Em Cima da Hora', statusDescription: '10º Lugar (+1 pt • Rebaixada)' }
+  ],
   1970: [
     { rank: 1, schoolId: 'portela', schoolName: 'Portela', statusDescription: 'Campeã Oficial (+20 pts)' },
     { rank: 2, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', statusDescription: 'Vice-Campeã Oficial (+15 pts)' },
@@ -1088,6 +1153,10 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('arrastão') || nameNorm.includes('arrastao')) return 'arrastao_cascadura';
   if (nameNorm.includes('arranco')) return 'arranco';
   if (nameNorm.includes('jacarezinho')) return 'jacarezinho';
+  if (nameNorm.includes('jacarepaguá') || nameNorm.includes('jacarepagua')) return 'uniao_de_jacarepagua';
+  if (nameNorm.includes('capela')) return 'unidos_da_capela';
+  if (nameNorm.includes('aprendizes')) return 'aprendizes_de_lucas';
+  if (nameNorm.includes('leblon') || nameNorm.includes('cordovil')) return 'independentes_cordovil';
   if (nameNorm.includes('lucas')) return 'unidos_de_lucas';
   if (nameNorm.includes('tupy') || nameNorm.includes('brás de pina') || nameNorm.includes('bras de pina')) return 'tupy_bras_de_pina';
   if (nameNorm.includes('cima da hora')) return 'em_cima_da_hora';
@@ -1135,7 +1204,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     1989, 1988, 1987, 1986, 1985, 1984,
     1983, 1982, 1981, 1980,
     1979, 1978, 1977, 1976, 1975,
-    1974, 1973, 1972, 1971, 1970
+    1974, 1973, 1972, 1971, 1970,
+    1969, 1968, 1967, 1966, 1965
   ];
   officialYears.forEach((yr) => {
     const stands = OFFICIAL_LIESA_HISTORICAL_STANDINGS[yr] || [];
@@ -1258,6 +1328,16 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
       notes = 'Carnaval Histórico de 1971 (Administrado pela AESCRJ): Acadêmicos do Salgueiro sagrou-se campeã com o imortal "Festa para um Rei Negro (Pega no Ganzê)" de Fernando Pamplona (+20 pts) e Portela foi vice-campeã com "Lapa em Três Tempos" (+15 pts). Não houve rebaixamento neste ano por deliberação da AESCRJ.';
     } else if (yr === 1970) {
       notes = 'Carnaval Histórico de 1970 (Administrado pela AESCRJ): Portela sagrou-se campeã com "Lendas e Mistérios da Amazônia" (+20 pts) e Acadêmicos do Salgueiro foi a vice-campeã com "Praça Onze, Carioca da Gema" (+15 pts). Duas agremiações foram rebaixadas: Unidos do Jacarezinho e Acadêmicos de Santa Cruz.';
+    } else if (yr === 1969) {
+      notes = 'Carnaval Histórico de 1969 (Administrado pela AESCRJ): Acadêmicos do Salgueiro sagrou-se campeã com a obra histórica "Bahia de Todos os Deuses" de Fernando Pamplona e Arlindo Rodrigues (+20 pts) e Estação Primeira de Mangueira foi vice-campeã com "Mercadores e Suas Mercadorias" (+15 pts). Rebaixadas: Unidos de Lucas e Em Cima da Hora.';
+    } else if (yr === 1968) {
+      notes = 'Carnaval Histórico de 1968 (Administrado pela AESCRJ): Estação Primeira de Mangueira sagrou-se campeã com "Samba, Festa de um Povo" de Júlio Mattos (+20 pts) e Império Serrano foi a vice-campeã com "Pernambuco, Leão do Norte" (+15 pts). Rebaixadas: Independentes do Leblon (Independentes de Cordovil) e Império da Tijuca.';
+    } else if (yr === 1967) {
+      notes = 'Carnaval Histórico de 1967 (Administrado pela AESCRJ): Estação Primeira de Mangueira sagrou-se campeã com o inesquecível "O Mundo Encantado de Monteiro Lobato" (+20 pts) e Império Serrano foi vice-campeã com "São Paulo, Chapadão de Glórias" (+15 pts). Rebaixadas: Imperatriz Leopoldinense e São Clemente.';
+    } else if (yr === 1966) {
+      notes = 'Carnaval Histórico de 1966 (Administrado pela AESCRJ): Portela sagrou-se campeã com "Memórias de um Sargento de Milícias" de Paulinho da Viola (+20 pts) e Estação Primeira de Mangueira foi vice-campeã com "Exaltação a Villa-Lobos" (+15 pts). Rebaixadas: Unidos da Capela e Acadêmicos de Santa Cruz. Império da Tijuca desfilou como Hors Concours.';
+    } else if (yr === 1965) {
+      notes = 'Carnaval Histórico de 1965 (Administrado pela AESCRJ - Comemoração do IV Centenário do Rio de Janeiro): Acadêmicos do Salgueiro sagrou-se campeã com "História do Carnaval Carioca" de Fernando Pamplona (+20 pts) e Império Serrano foi vice-campeã com "Cinco Bailes Tradicionais na História do Rio" (+15 pts). Rebaixadas: União de Jacarepaguá e Imperatriz Leopoldinense.';
     }
 
     result.push({
@@ -1511,28 +1591,28 @@ export function computeHistoricalLiesaRanking(
     return historicalMap[sId];
   };
 
-  // 1. Processa todos os títulos e vices históricos da era pré-1975 a partir de HISTORICAL_CARNAVAL_RECORDS
-  // A partir de 1970 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA
+  // 1. Processa todos os títulos e vices históricos da era pré-1965 a partir de HISTORICAL_CARNAVAL_RECORDS
+  // A partir de 1965 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA
   Object.entries(HISTORICAL_CARNAVAL_RECORDS).forEach(([id, rec]) => {
     const sId = resolveSchoolId(id, undefined, schoolsMap);
     const entry = ensureEntry(sId);
 
-    const espYearsPre1970 = (rec.especialYears || []).filter((y) => y < 1970);
-    const espViceYearsPre1970 = (rec.especialRunnerUpYears || []).filter((y) => y < 1970);
+    const espYearsPre1965 = (rec.especialYears || []).filter((y) => y < 1965);
+    const espViceYearsPre1965 = (rec.especialRunnerUpYears || []).filter((y) => y < 1965);
 
-    const titlesPre1970 = espYearsPre1970.length;
-    const vicesPre1970 = espViceYearsPre1970.length;
+    const titlesPre1965 = espYearsPre1965.length;
+    const vicesPre1965 = espViceYearsPre1965.length;
 
-    entry.totalEspecialTitles += titlesPre1970;
-    entry.totalEspecialVices += vicesPre1970;
-    entry.titlePoints += titlesPre1970 * 20;
-    entry.vicePoints += vicesPre1970 * 15;
-    entry.pointsEraPre2015 += titlesPre1970 * 20 + vicesPre1970 * 15;
-    entry.totalPoints += titlesPre1970 * 20 + vicesPre1970 * 15;
-    entry.totalCarnavalesContados += titlesPre1970 + vicesPre1970;
+    entry.totalEspecialTitles += titlesPre1965;
+    entry.totalEspecialVices += vicesPre1965;
+    entry.titlePoints += titlesPre1965 * 20;
+    entry.vicePoints += vicesPre1965 * 15;
+    entry.pointsEraPre2015 += titlesPre1965 * 20 + vicesPre1965 * 15;
+    entry.totalPoints += titlesPre1965 * 20 + vicesPre1965 * 15;
+    entry.totalCarnavalesContados += titlesPre1965 + vicesPre1965;
   });
 
-  // 2. Processa anos de 1970 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
+  // 2. Processa anos de 1965 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
   Object.entries(OFFICIAL_LIESA_HISTORICAL_STANDINGS).forEach(([yrStr, list]) => {
     const yr = parseInt(yrStr, 10);
     if (yr === 2021 || !list || list.length === 0) {
@@ -1663,7 +1743,7 @@ export function computeHistoricalLiesaRanking(
 
 /**
  * Calcula a lista de agremiações por ordem estritamente DECRESCENTE de participações
- * no Grupo Especial, computando todos os Carnavais Passados catalogados (1970 a 2026)
+ * no Grupo Especial, computando todos os Carnavais Passados catalogados (1965 a 2026)
  * somados dinamicamente aos anos decorridos no save (inGameHistory).
  */
 export function computeEspecialParticipationsList(
