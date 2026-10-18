@@ -1585,6 +1585,26 @@ export function atribuirEnredosAleatorios(
       };
     }
 
+    // Escolas extintas ou inativas NÃO têm enredo (só terão algum tema em caso de serem reativadas)
+    const isInactive = Boolean(
+      escola.isInactive ||
+      escola.inactive ||
+      (escola.inactiveReason && escola.inactiveReason.length > 0) ||
+      (escola.suspensionReason && escola.suspensionReason.length > 0)
+    );
+
+    if (isInactive) {
+      return {
+        ...escola,
+        currentEnredo: undefined,
+        enredo: undefined,
+        tituloEnredo: undefined,
+        temaEnredo: undefined,
+        sinopseEnredo: undefined,
+        complexidadeEnredo: undefined
+      };
+    }
+
     let enredo = gerarEnredoAleatorio();
     while (titulosUsados.has(enredo.titulo)) {
       enredo = gerarEnredoAleatorio();

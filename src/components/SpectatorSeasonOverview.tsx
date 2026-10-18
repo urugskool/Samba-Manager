@@ -502,13 +502,13 @@ export const SpectatorSeasonOverview: React.FC<SpectatorSeasonOverviewProps> = (
                       {getDivisionLabel(school.division, isInactive)}
                     </span>
                     {!isInactive && lastRankInfo.rank <= 50 ? (
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-950/80 text-amber-300 border border-slate-700/80 flex items-center gap-1 shadow-sm" title={lastRankInfo.badgeText}>
+                      <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-slate-950/80 text-amber-300 border border-slate-700/80 flex items-center gap-1 shadow-sm" title={`Classificação no Carnaval anterior: ${lastRankInfo.badgeText}`}>
                         <Trophy className="w-2.5 h-2.5 text-amber-400" />
-                        {lastRankInfo.rank}º Lugar ({lastRankInfo.score > 0 ? `${lastRankInfo.score.toFixed(1)} pts` : lastRankInfo.divisionLabel})
+                        {lastRankInfo.badgeText}
                       </span>
                     ) : isInactive ? (
                       <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-950/60 text-rose-300 border border-rose-800/60">
-                        Inativa (A-Z)
+                        Inativa / Extinta (A-Z)
                       </span>
                     ) : null}
                   </div>
@@ -516,13 +516,21 @@ export const SpectatorSeasonOverview: React.FC<SpectatorSeasonOverviewProps> = (
 
                 {/* Exibição condicional de acordo com a Categoria selecionada ou status de Inativa */}
                 {isInactive ? (
-                  <div className="p-3 rounded-xl bg-slate-950/70 border border-slate-800 space-y-2 text-xs">
+                  <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 space-y-2 text-xs">
+                    <div className="flex items-center gap-2">
+                      <span className="px-2 py-0.5 rounded bg-rose-500/10 text-rose-300 border border-rose-500/30 text-[10px] font-bold uppercase tracking-wider">
+                        Sem Atividades Carnavalescas
+                      </span>
+                      <span className="text-[10px] text-slate-400">
+                        Sem enredo oficial
+                      </span>
+                    </div>
                     <div className="text-[11px] text-slate-300 leading-relaxed">
                       {school.inactiveReason || school.suspensionReason || 'Agremiação histórica extinta ou temporariamente afastada com direito de retorno através da Superliga.'}
                     </div>
                     <div className="flex items-center justify-between text-[10px] text-slate-400 pt-1.5 border-t border-slate-800">
                       <span>Fundação: <strong className="text-slate-300">{school.foundationYear || 'Tradicional'}</strong></span>
-                      <span className="text-amber-400 font-semibold">Ordem Alfabética</span>
+                      <span className="text-amber-400 font-semibold">Sem Enredo (Aguardando Reativação)</span>
                     </div>
                   </div>
                 ) : selectedCategory === 'equipe' ? (
@@ -591,10 +599,10 @@ export const SpectatorSeasonOverview: React.FC<SpectatorSeasonOverviewProps> = (
                         <span className="font-bold text-amber-400">{enredo?.themeType || 'Cultural'}</span>
                       </div>
                       <h4 className="text-xs font-black text-slate-200 line-clamp-1" title={enredo?.title}>
-                        "{enredo?.title || 'A Festa da Raiz do Samba'}"
+                        {enredo?.title ? `"${enredo.title}"` : 'Enredo em definição pela diretoria'}
                       </h4>
                       <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed">
-                        {enredo?.synopsis || 'Projeto carnavalesco em fase de desenvolvimento artístico.'}
+                        {enredo?.synopsis || 'Pesquisa temática e artística em elaboração pela comissão de carnaval.'}
                       </p>
                     </div>
 
@@ -637,13 +645,19 @@ export const SpectatorSeasonOverview: React.FC<SpectatorSeasonOverviewProps> = (
 
               {/* Botão de abrir o Livro Abre-Alas / Roteiro da Escola */}
               <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between gap-2">
-                <button
-                  onClick={() => setInspectingSchool(school)}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-xs flex items-center justify-center gap-1.5 transition border border-slate-700 cursor-pointer"
-                >
-                  <BookOpen className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Ver Roteiro Oficial (Livro Abre-Alas)</span>
-                </button>
+                {isInactive ? (
+                  <div className="w-full px-3 py-2 rounded-xl bg-slate-950/60 text-slate-500 text-xs font-semibold text-center border border-slate-800/80">
+                    Sem enredo na temporada • Reativação disponível na Superliga
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setInspectingSchool(school)}
+                    className="w-full px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-xs flex items-center justify-center gap-1.5 transition border border-slate-700 cursor-pointer"
+                  >
+                    <BookOpen className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Ver Roteiro Oficial (Livro Abre-Alas)</span>
+                  </button>
+                )}
               </div>
             </div>
           );

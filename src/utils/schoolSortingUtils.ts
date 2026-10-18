@@ -79,12 +79,12 @@ export function getSchoolLastCarnavalRank(
       score: esp.totalScore,
       badgeText:
         esp.rank === 1
-          ? `🏆 Campeã do Grupo Especial (${esp.totalScore.toFixed(1)} pts)`
+          ? '🏆 Campeã do Grupo Especial'
           : esp.rank === 2
-          ? `🥈 Vice-Campeã do Especial (${esp.totalScore.toFixed(1)} pts)`
+          ? '🥈 Vice-Campeã do Especial'
           : esp.rank <= 6
-          ? `${esp.rank}º Lugar • G6 Especial (${esp.totalScore.toFixed(1)} pts)`
-          : `${esp.rank}º Lugar • Grupo Especial (${esp.totalScore.toFixed(1)} pts)`,
+          ? `${esp.rank}º Lugar • G6 Especial`
+          : `${esp.rank}º Lugar • Grupo Especial`,
       divisionLabel: 'Grupo Especial',
       isInactive: false
     };
@@ -99,10 +99,10 @@ export function getSchoolLastCarnavalRank(
       score: ouro.totalScore,
       badgeText:
         ouro.rank === 1
-          ? `🏆 Campeã da Série Ouro • Acesso (${ouro.totalScore.toFixed(1)} pts)`
+          ? '🏆 Campeã da Série Ouro • Acesso'
           : ouro.rank === 2
-          ? `🥈 Vice-Campeã da Série Ouro (${ouro.totalScore.toFixed(1)} pts)`
-          : `${ouro.rank}º Lugar • Série Ouro (${ouro.totalScore.toFixed(1)} pts)`,
+          ? '🥈 Vice-Campeã da Série Ouro'
+          : `${ouro.rank}º Lugar • Série Ouro`,
       divisionLabel: 'Série Ouro',
       isInactive: false
     };
@@ -117,10 +117,10 @@ export function getSchoolLastCarnavalRank(
       score: prata.totalScore,
       badgeText:
         prata.rank === 1
-          ? `🏆 Campeã da Série Prata • Acesso (${prata.totalScore.toFixed(1)} pts)`
+          ? '🏆 Campeã da Série Prata • Acesso'
           : prata.rank === 2
-          ? `🥈 Vice-Campeã da Série Prata (${prata.totalScore.toFixed(1)} pts)`
-          : `${prata.rank}º Lugar • Série Prata (${prata.totalScore.toFixed(1)} pts)`,
+          ? '🥈 Vice-Campeã da Série Prata'
+          : `${prata.rank}º Lugar • Série Prata`,
       divisionLabel: 'Série Prata',
       isInactive: false
     };
@@ -135,10 +135,10 @@ export function getSchoolLastCarnavalRank(
       score: bronze.totalScore,
       badgeText:
         bronze.rank === 1
-          ? `🏆 Campeã da Série Bronze • Acesso (${bronze.totalScore.toFixed(1)} pts)`
+          ? '🏆 Campeã da Série Bronze • Acesso'
           : bronze.rank === 2
-          ? `🥈 Vice-Campeã da Série Bronze (${bronze.totalScore.toFixed(1)} pts)`
-          : `${bronze.rank}º Lugar • Série Bronze (${bronze.totalScore.toFixed(1)} pts)`,
+          ? '🥈 Vice-Campeã da Série Bronze'
+          : `${bronze.rank}º Lugar • Série Bronze`,
       divisionLabel: 'Série Bronze',
       isInactive: false
     };
@@ -153,10 +153,10 @@ export function getSchoolLastCarnavalRank(
       score: ava.totalScore,
       badgeText:
         ava.rank === 1
-          ? `🏆 Campeã do Grupo de Avaliação (${ava.totalScore.toFixed(1)} pts)`
+          ? '🏆 Campeã do Grupo de Avaliação'
           : ava.rank === 2
-          ? `🥈 Vice-Campeã de Avaliação (${ava.totalScore.toFixed(1)} pts)`
-          : `${ava.rank}º Lugar • Grupo de Avaliação (${ava.totalScore.toFixed(1)} pts)`,
+          ? '🥈 Vice-Campeã de Avaliação'
+          : `${ava.rank}º Lugar • Grupo de Avaliação`,
       divisionLabel: 'Grupo de Avaliação',
       isInactive: false
     };

@@ -39,7 +39,7 @@ import { StartScreenView } from './components/StartScreenView';
 import { DesfileCampeãsView } from './components/DesfileCampeãsView';
 import { SorteioOrdemView } from './components/SorteioOrdemView';
 import { SpectatorSeasonOverview } from './components/SpectatorSeasonOverview';
-import { EnredoService, atribuirEnredosAleatorios } from './services/enredoService';
+import { EnredoService, atribuirEnredosAleatorios, gerarEnredoAleatorio } from './services/enredoService';
 import { criarNovoJogo, iniciarNovaTemporada } from './utils/novoJogo';
 import { CarnavalSorteio, ParadeDay, PARADE_DAYS_ORDER, CarnavalQuesitosDrawState } from './types/sorteio';
 import { SorteioEngine } from './services/sorteioEngine';
@@ -229,7 +229,12 @@ function sanitizeSchoolsData(loadedSchools: School[]): School[] {
   // Ensure active schools have 100% unique, non-repeating tailored enredos (no duplicates or generic sample enredos)
   const usedTitlesThisSeason = new Set<string>();
   return processedSchools.map((school) => {
-    if (school.isInactive || (school as any).inactive) return school;
+    if (school.isInactive || (school as any).inactive) {
+      return {
+        ...school,
+        currentEnredo: undefined
+      };
+    }
 
     const currentTitle = school.currentEnredo?.title;
     const isSampleOrDuplicate =
@@ -898,19 +903,30 @@ export default function App() {
     setSchools((prev) =>
       prev.map((s) => {
         if (s.id === schoolId) {
+          const novoEnredo = gerarEnredoAleatorio();
           return {
             ...s,
             isInactive: false,
             inactive: false,
             division: 'avaliacao',
             inactiveYearsCount: 0,
-            suspensionReason: undefined
+            suspensionReason: undefined,
+            inactiveReason: undefined,
+            currentEnredo: {
+              id: novoEnredo.id,
+              title: novoEnredo.titulo,
+              themeType: novoEnredo.tema as any,
+              synopsis: novoEnredo.sinopse,
+              cost: 100000,
+              qualityBoost: Math.round((novoEnredo.potencialNota - 9.0) * 10),
+              complexity: novoEnredo.complexidade
+            }
           };
         }
         return s;
       })
     );
-    showToast('Agremiação reativada com sucesso! Agora disputa o Grupo de Avaliação pela Superliga.', 'success');
+    showToast('Agremiação reativada com sucesso! Agora disputa o Grupo de Avaliação pela Superliga com novo enredo.', 'success');
   }, [showToast]);
 
   const totalSchoolsCount = activeSchools.length;
