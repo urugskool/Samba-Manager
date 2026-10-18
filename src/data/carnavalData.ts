@@ -6806,6 +6806,8 @@ export const INITIAL_SCHOOLS: School[] = [
   })
 ];
 
+export const ESCOLAS_INICIAIS = INITIAL_SCHOOLS;
+
 export const INITIAL_HISTORY: YearHistory[] = [
   {
     year: 2026,

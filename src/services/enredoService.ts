@@ -1502,3 +1502,114 @@ export class EnredoService {
   }
 }
 
+export interface EnredoGerado {
+  id: string;
+  titulo: string;
+  subtitulo?: string;
+  tema: string;
+  sinopse: string;
+  complexidade: 'baixa' | 'media' | 'alta';
+  potencialNota: number;
+}
+
+// Bancos de fragmentos para geração procedural ilimitada
+export const TEMAS_BASE = [
+  'Afro-Brasileiro', 'Mitologia & Ancestralidade', 'História Nacional', 
+  'Literatura & Poesia', 'Crítica Social & Política', 'Natureza & Ecologia', 
+  'Cosmologia & Ficção', 'Homenagem a Grandes Figuras', 'Manifestações Populares', 
+  'Filosofia & Sonhos'
+];
+
+export const PREFIXOS_TITULOS = [
+  'O Canto de', 'O Brilho de', 'Nas Asas de', 'Segredos de', 
+  'A Saga de', 'Ecos de', 'No Reino de', 'Clamor de', 
+  'Memórias de', 'O Mistério de', 'Caminhos de', 'A Dança de'
+];
+
+export const NUCLEOS_TITULOS = [
+  'Aruanda', 'Pindorama', 'Orun', 'Quilombo', 'Malandragem', 
+  'Utopia', 'Sertão Encantado', 'Carnavais Passados', 'Estrelas Guia', 
+  'Flores de Aço', 'Guerreiros da Paz', 'Mares Bravios'
+];
+
+export const SUFIXOS_TITULOS = [
+  'sob a Luz do Luar', 'no Compassar da Emoção', 'e a Redenção da Terra',
+  'um Grito na Avenida', 'o Encontro dos Tempos', 'a Força do Nosso Povo',
+  'da Cinza ao Ouro', 'a Odisseia do Povo Brasileiro'
+];
+
+/**
+ * Gera um enredo totalmente procedural e aleatório.
+ */
+export function gerarEnredoAleatorio(): EnredoGerado {
+  const tema = TEMAS_BASE[Math.floor(Math.random() * TEMAS_BASE.length)];
+  const pre = PREFIXOS_TITULOS[Math.floor(Math.random() * PREFIXOS_TITULOS.length)];
+  const nuc = NUCLEOS_TITULOS[Math.floor(Math.random() * NUCLEOS_TITULOS.length)];
+  const suf = SUFIXOS_TITULOS[Math.floor(Math.random() * SUFIXOS_TITULOS.length)];
+
+  const titulo = `${pre} ${nuc} ${suf}`;
+  const complexidades: ('baixa' | 'media' | 'alta')[] = ['baixa', 'media', 'alta'];
+  const complexidade = complexidades[Math.floor(Math.random() * complexidades.length)];
+
+  return {
+    id: `enredo_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+    titulo,
+    tema,
+    sinopse: `Uma viagem lúdica e arrebatadora explorando as nuances de ${tema.toLowerCase()}, celebrando a memória e a emoção na passarela do samba.`,
+    complexidade,
+    potencialNota: parseFloat((9.7 + Math.random() * 0.3).toFixed(1))
+  };
+}
+
+/**
+ * Distribui enredos aleatórios e exclusivos para todas as escolas informadas.
+ * Se apenas a IA deve receber, passe o id da escola do jogador em `jogadorEscolaId`.
+ */
+export function atribuirEnredosAleatorios(
+  escolas: any[],
+  jogadorEscolaId?: string
+): any[] {
+  const titulosUsados = new Set<string>();
+
+  return escolas.map((escola) => {
+    // Se for a escola do jogador: mantém a do jogador limpa para ele definir na tela de enredo
+    if (jogadorEscolaId && escola.id === jogadorEscolaId) {
+      return {
+        ...escola,
+        currentEnredo: undefined,
+        enredo: undefined,
+        tituloEnredo: undefined,
+        temaEnredo: undefined,
+        sinopseEnredo: undefined,
+        complexidadeEnredo: undefined
+      };
+    }
+
+    let enredo = gerarEnredoAleatorio();
+    while (titulosUsados.has(enredo.titulo)) {
+      enredo = gerarEnredoAleatorio();
+    }
+    titulosUsados.add(enredo.titulo);
+
+    const updated = {
+      ...escola,
+      enredo: enredo.titulo,
+      tituloEnredo: enredo.titulo,
+      temaEnredo: enredo.tema,
+      sinopseEnredo: enredo.sinopse,
+      complexidadeEnredo: enredo.complexidade,
+      currentEnredo: {
+        id: enredo.id,
+        title: enredo.titulo,
+        themeType: enredo.tema as any,
+        synopsis: enredo.sinopse,
+        cost: 150000,
+        qualityBoost: Math.round((enredo.potencialNota - 9.0) * 10),
+        complexity: enredo.complexidade
+      }
+    };
+
+    return updated;
+  });
+}
+

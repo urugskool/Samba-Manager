@@ -38,7 +38,8 @@ import { StartScreenView } from './components/StartScreenView';
 import { DesfileCampeãsView } from './components/DesfileCampeãsView';
 import { SorteioOrdemView } from './components/SorteioOrdemView';
 import { SpectatorSeasonOverview } from './components/SpectatorSeasonOverview';
-import { EnredoService } from './services/enredoService';
+import { EnredoService, atribuirEnredosAleatorios } from './services/enredoService';
+import { criarNovoJogo, iniciarNovaTemporada } from './utils/novoJogo';
 import { CarnavalSorteio, ParadeDay, PARADE_DAYS_ORDER, CarnavalQuesitosDrawState } from './types/sorteio';
 import { SorteioEngine } from './services/sorteioEngine';
 import { SeasonMonthId } from './types/seasonCycle';
@@ -273,7 +274,8 @@ export default function App() {
         } catch {}
       }
     }
-    return sanitizeSchoolsData(INITIAL_SCHOOLS);
+    const novoJogo = criarNovoJogo('');
+    return sanitizeSchoolsData(novoJogo.escolas as School[]);
   });
 
   const [currentYear, setCurrentYear] = useState<number>(() => {
@@ -979,6 +981,10 @@ export default function App() {
       return;
     }
 
+    if (schoolId) {
+      setSchools((prev) => atribuirEnredosAleatorios(prev, schoolId) as School[]);
+    }
+
     setUserSchoolId(schoolId);
     setIsSpectatorMode(!schoolId);
     setManagerName(name);
@@ -1009,7 +1015,8 @@ export default function App() {
       localStorage.removeItem('sambamanager_save_v4');
       localStorage.removeItem('sambamanager_save_v3');
     }
-    setSchools(sanitizeSchoolsData(INITIAL_SCHOOLS));
+    const novoJogo = criarNovoJogo(schoolId || '');
+    setSchools(sanitizeSchoolsData(novoJogo.escolas as School[]));
     setCurrentYear(2027);
     setUserSchoolId(schoolId);
     setIsSpectatorMode(!schoolId);
@@ -1081,7 +1088,15 @@ export default function App() {
         quesitoOrders
       );
 
-      setSchools(nextSeasonData.nextSchools);
+      // Inicia a nova temporada distribuindo novos enredos para as IAs
+      // e mantendo a do jogador limpa para ele definir na tela de enredo
+      const novaTemporadaEstado = iniciarNovaTemporada({
+        escolas: nextSeasonData.nextSchools,
+        jogadorEscolaId: userSchoolId || undefined,
+        ano: currentYear
+      });
+
+      setSchools(novaTemporadaEstado.escolas);
       setCurrentYear(nextSeasonData.nextYear);
       setHistory(nextSeasonData.newHistory);
       setHasParadeResults(false);
