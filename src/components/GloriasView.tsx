@@ -207,7 +207,7 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
 
   // Filtered schools for browser list
   const filteredSchools = useMemo(() => {
-    return rankedSchools.filter((item) => {
+    const list = rankedSchools.filter((item) => {
       let matchDivision = true;
       if (divisionFilter === 'inativas') {
         matchDivision = isSchoolInactive(item.school);
@@ -225,12 +225,22 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
         (item.school.neighborhood && item.school.neighborhood.toLowerCase().includes(query));
       return matchDivision && matchSearch;
     });
+
+    if (divisionFilter === 'inativas') {
+      return [...list].sort((a, b) => a.school.name.localeCompare(b.school.name, 'pt-BR'));
+    }
+
+    return list;
   }, [rankedSchools, divisionFilter, searchQuery]);
 
   // Filtered schools for the all-time ranking table
   const tableSchools = useMemo(() => {
     if (tableDivisionFilter === 'all') return rankedSchools.filter((item) => isSchoolActive(item.school));
-    if (tableDivisionFilter === 'inativas') return rankedSchools.filter((item) => isSchoolInactive(item.school));
+    if (tableDivisionFilter === 'inativas') {
+      return [...rankedSchools.filter((item) => isSchoolInactive(item.school))].sort((a, b) =>
+        a.school.name.localeCompare(b.school.name, 'pt-BR')
+      );
+    }
     return rankedSchools.filter((item) => item.school.division === tableDivisionFilter && isSchoolActive(item.school));
   }, [rankedSchools, tableDivisionFilter]);
 

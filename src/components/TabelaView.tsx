@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { School, DivisionId, YearHistory } from '../types/carnaval';
-import { QUESITOS, getSchoolConsolidatedStats } from '../data/carnavalData';
+import { QUESITOS, getSchoolConsolidatedStats, INITIAL_HISTORY } from '../data/carnavalData';
 import { Trophy, History, Shield, ArrowUp, ArrowDown, Star, ChevronDown, ChevronUp, RefreshCw, Crown, BookOpen } from 'lucide-react';
 import {
   cleanSchoolName,
@@ -55,7 +55,7 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
     ];
   }, [especialSchools, ouroSchools, prataSchools, bronzeSchools, avaliacaoSchools, inactiveSchools]);
 
-  const lastHistory = history.length > 0 ? history[0] : null;
+  const lastHistory = history.length > 0 ? history[0] : INITIAL_HISTORY[0];
 
   const getSchoolLastCarnavalResult = (school: School) => {
     const isInactive = Boolean(school.isInactive || school.inactive);
@@ -238,25 +238,18 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
       ? avaliacaoSchools
       : inactiveSchools;
 
-  // Sort schools in order according to the result of the last carnival
+  // Sort schools in order according to the result of the last carnival (and inativas alphabetically)
   const schools = [...rawSchools].sort((a, b) => {
+    if (selectedDivision === 'inativas' || Boolean(a.isInactive || (a as any).inactive)) {
+      return a.name.localeCompare(b.name, 'pt-BR');
+    }
+
     const resA = getSchoolLastCarnavalResult(a);
     const resB = getSchoolLastCarnavalResult(b);
 
-    if (selectedDivision === 'especial') {
-      if (resA.tier !== resB.tier) return resA.tier - resB.tier;
-      return resA.rank - resB.rank;
-    } else if (selectedDivision === 'ouro') {
-      if (resA.tier !== resB.tier) return resA.tier - resB.tier;
-      return resA.rank - resB.rank;
-    } else if (selectedDivision === 'prata') {
-      if (resA.tier !== resB.tier) return resA.tier - resB.tier;
-      return resA.rank - resB.rank;
-    } else {
-      // Série Bronze
-      if (resA.tier !== resB.tier) return resA.tier - resB.tier;
-      return resA.rank - resB.rank;
-    }
+    if (resA.tier !== resB.tier) return resA.tier - resB.tier;
+    if (resA.rank !== resB.rank) return resA.rank - resB.rank;
+    return a.name.localeCompare(b.name, 'pt-BR');
   });
 
   return (

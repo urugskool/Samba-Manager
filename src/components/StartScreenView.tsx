@@ -6,6 +6,7 @@ import {
   getSchoolCorporateName,
   getSchoolDenomination
 } from '../utils/schoolNameUtils';
+import { getSchoolLastCarnavalRank, sortSchools } from '../utils/schoolSortingUtils';
 import {
   Trophy,
   Shield,
@@ -69,8 +70,8 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [showResetModal, setShowResetModal] = useState<boolean>(false);
 
-  // Active division school list
-  const activeDivisionSchools =
+  // Active division school list ordered by last carnival classification
+  const activeDivisionSchools = sortSchools(
     selectedDivision === 'especial'
       ? especialSchools
       : selectedDivision === 'ouro'
@@ -79,7 +80,8 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
       ? prataSchools
       : selectedDivision === 'bronze'
       ? bronzeSchools
-      : avaliacaoSchools;
+      : avaliacaoSchools
+  );
 
   const totalSchoolsCount =
     especialSchools.length + ouroSchools.length + prataSchools.length + bronzeSchools.length + avaliacaoSchools.length;
@@ -430,6 +432,7 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                   {filteredSchools.map((school) => {
                     const isSelected = selectedSchoolId === school.id;
                     const schStats = getSchoolConsolidatedStats(school);
+                    const lastRank = getSchoolLastCarnavalRank(school);
 
                     return (
                       <button
@@ -465,13 +468,20 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                           <div className="text-[11px] text-slate-400 truncate">
                             {school.neighborhood}
                           </div>
-                          <div className="flex items-center gap-1.5 text-[10px] text-amber-300 font-medium">
-                            <Trophy className="w-3 h-3 text-amber-400" />
-                            <span>
-                              {schStats.grandTotalTitles > 0
-                                ? `${schStats.grandTotalTitles} título${schStats.grandTotalTitles === 1 ? '' : 's'}`
-                                : 'Em busca do 1º título'}
+                          <div className="flex items-center justify-between gap-1 text-[10px] text-amber-300 font-medium">
+                            <span className="flex items-center gap-1 truncate">
+                              <Trophy className="w-3 h-3 text-amber-400 shrink-0" />
+                              <span className="truncate">
+                                {schStats.grandTotalTitles > 0
+                                  ? `${schStats.grandTotalTitles} título${schStats.grandTotalTitles === 1 ? '' : 's'}`
+                                  : 'Em busca do 1º título'}
+                              </span>
                             </span>
+                            {lastRank.rank <= 50 && (
+                              <span className="px-1.5 py-0.5 rounded bg-slate-950 text-amber-300 border border-slate-800 text-[9px] font-bold shrink-0">
+                                {lastRank.rank}º Lugar
+                              </span>
+                            )}
                           </div>
                         </div>
                       </button>

@@ -1,10 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { School, DivisionId, NewsItem } from '../types/carnaval';
+import React, { useState, useEffect, useMemo } from 'react';
+import { School, DivisionId, NewsItem, YearHistory } from '../types/carnaval';
 import { SeasonMonthId } from '../types/seasonCycle';
 import { SeasonCycleService, SEASON_PERIODS } from '../services/seasonCycleService';
 import { CarnavalSorteio } from '../types/sorteio';
 import { cleanSchoolName } from '../utils/schoolNameUtils';
 import { RoteiroDesfileModal } from './RoteiroDesfileModal';
+import {
+  sortSchools,
+  sortInactiveSchoolsAlphabetically,
+  getSchoolLastCarnavalRank,
+  isSchoolInactiveOrExtinct
+} from '../utils/schoolSortingUtils';
 import {
   Calendar,
   Clock,
@@ -47,6 +53,7 @@ interface SpectatorSeasonOverviewProps {
   totalParadeCount?: number;
   onOpenSeasonCycleModal?: () => void;
   onSimulateAllMonthsToCarnaval?: () => void;
+  history?: YearHistory[];
 }
 
 export const SpectatorSeasonOverview: React.FC<SpectatorSeasonOverviewProps> = ({
@@ -63,7 +70,8 @@ export const SpectatorSeasonOverview: React.FC<SpectatorSeasonOverviewProps> = (
   completedParadeCount = 0,
   totalParadeCount = 0,
   onOpenSeasonCycleModal,
-  onSimulateAllMonthsToCarnaval
+  onSimulateAllMonthsToCarnaval,
+  history
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<'dashboard' | 'barracao' | 'ensaios' | 'equipe' | 'financas'>(defaultCategory);
 
@@ -72,7 +80,7 @@ export const SpectatorSeasonOverview: React.FC<SpectatorSeasonOverviewProps> = (
       setSelectedCategory(defaultCategory);
     }
   }, [defaultCategory]);
-  const [selectedDivision, setSelectedDivision] = useState<DivisionId | 'all'>('all');
+  const [selectedDivision, setSelectedDivision] = useState<DivisionId | 'all' | 'inativas'>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [inspectingSchool, setInspectingSchool] = useState<School | null>(null);
 
@@ -81,19 +89,46 @@ export const SpectatorSeasonOverview: React.FC<SpectatorSeasonOverviewProps> = (
   const nextPeriod = nextMonthId ? SeasonCycleService.getPeriod(nextMonthId) : null;
   const currentMonthIdx = SEASON_PERIODS.findIndex((p) => p.id === currentMonth);
 
-  const activeSchools = schools.filter((s) => !s.isInactive && !(s as any).inactive);
-  const filteredSchools = activeSchools.filter((school) => {
-    if (selectedDivision !== 'all' && school.division !== selectedDivision) return false;
-    if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase();
-      const name = school.name.toLowerCase();
-      const short = school.shortName.toLowerCase();
-      const enredo = (school.currentEnredo?.title || '').toLowerCase();
-      const carnavalesco = (school.staff?.carnavalesco?.name || '').toLowerCase();
-      return name.includes(q) || short.includes(q) || enredo.includes(q) || carnavalesco.includes(q);
+  // Escolas ativas sempre ordenadas pela classificação do último Carnaval
+  const activeSchools = useMemo(() => {
+    return sortSchools(schools.filter((s) => !isSchoolInactiveOrExtinct(s)), history);
+  }, [schools, history]);
+
+  // Escolas inativas ou extintas organizadas estritamente em ordem alfabética
+  const inactiveSchools = useMemo(() => {
+    return sortInactiveSchoolsAlphabetically(schools.filter((s) => isSchoolInactiveOrExtinct(s)));
+  }, [schools]);
+
+  const baseDivisionSchools = useMemo(() => {
+    if (selectedDivision === 'inativas') {
+      return inactiveSchools;
     }
-    return true;
-  });
+    if (selectedDivision === 'all') {
+      return activeSchools;
+    }
+    return activeSchools.filter((s) => s.division === selectedDivision);
+  }, [selectedDivision, activeSchools, inactiveSchools]);
+
+  const filteredSchools = useMemo(() => {
+    return baseDivisionSchools.filter((school) => {
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase();
+        const name = school.name.toLowerCase();
+        const short = school.shortName.toLowerCase();
+        const enredo = (school.currentEnredo?.title || '').toLowerCase();
+        const carnavalesco = (school.staff?.carnavalesco?.name || '').toLowerCase();
+        const neighborhood = (school.neighborhood || '').toLowerCase();
+        return (
+          name.includes(q) ||
+          short.includes(q) ||
+          enredo.includes(q) ||
+          carnavalesco.includes(q) ||
+          neighborhood.includes(q)
+        );
+      }
+      return true;
+    });
+  }, [baseDivisionSchools, searchQuery]);
 
   // Médias consolidadas para o observador
   const avgBarracao = activeSchools.length > 0
@@ -104,7 +139,8 @@ export const SpectatorSeasonOverview: React.FC<SpectatorSeasonOverviewProps> = (
     : 70;
   const totalEnredos = activeSchools.filter((s) => s.currentEnredo && !s.currentEnredo.title.includes('SAMPLE')).length;
 
-  const getDivisionBadgeColor = (div: DivisionId) => {
+  const getDivisionBadgeColor = (div: DivisionId | string, isInactive?: boolean) => {
+    if (isInactive) return 'bg-rose-500/20 text-rose-300 border-rose-500/40';
     switch (div) {
       case 'especial':
         return 'bg-amber-500/20 text-amber-300 border-amber-500/40';
@@ -121,7 +157,8 @@ export const SpectatorSeasonOverview: React.FC<SpectatorSeasonOverviewProps> = (
     }
   };
 
-  const getDivisionLabel = (div: DivisionId) => {
+  const getDivisionLabel = (div: DivisionId | string, isInactive?: boolean) => {
+    if (isInactive) return 'Inativa / Extinta';
     switch (div) {
       case 'especial': return 'Grupo Especial';
       case 'ouro': return 'Série Ouro';
@@ -371,15 +408,18 @@ export const SpectatorSeasonOverview: React.FC<SpectatorSeasonOverviewProps> = (
         <div className="flex items-center gap-1.5 text-xs">
           <select
             value={selectedDivision}
-            onChange={(e) => setSelectedDivision(e.target.value as DivisionId | 'all')}
+            onChange={(e) => setSelectedDivision(e.target.value as DivisionId | 'all' | 'inativas')}
             className="px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-700 text-amber-300 font-bold text-xs focus:ring-2 focus:ring-amber-500 outline-none cursor-pointer"
           >
-            <option value="all">Todas as Divisões ({activeSchools.length})</option>
+            <option value="all">Todas as Agremiações Ativas ({activeSchools.length})</option>
             <option value="especial">Grupo Especial (12)</option>
             <option value="ouro">Série Ouro (16)</option>
             <option value="prata">Série Prata (16)</option>
             <option value="bronze">Série Bronze (12)</option>
             <option value="avaliacao">Grupo de Avaliação</option>
+            {inactiveSchools.length > 0 && (
+              <option value="inativas">Escolas Inativas / Extintas ({inactiveSchools.length})</option>
+            )}
           </select>
         </div>
       </div>
@@ -414,6 +454,8 @@ export const SpectatorSeasonOverview: React.FC<SpectatorSeasonOverviewProps> = (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredSchools.map((school) => {
           const cleanName = cleanSchoolName(school);
+          const isInactive = isSchoolInactiveOrExtinct(school);
+          const lastRankInfo = getSchoolLastCarnavalRank(school, history);
           const enredo = school.currentEnredo;
           const carnavalesco = school.staff?.carnavalesco?.name || 'Comissão Artística';
           const mestreBateria = school.staff?.mestreBateria?.name || 'Mestre de Bateria';
@@ -455,13 +497,35 @@ export const SpectatorSeasonOverview: React.FC<SpectatorSeasonOverviewProps> = (
                     </div>
                   </div>
 
-                  <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-full border ${getDivisionBadgeColor(school.division)} shrink-0`}>
-                    {getDivisionLabel(school.division)}
-                  </span>
+                  <div className="flex flex-col items-end gap-1 shrink-0">
+                    <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-full border ${getDivisionBadgeColor(school.division, isInactive)} shrink-0`}>
+                      {getDivisionLabel(school.division, isInactive)}
+                    </span>
+                    {!isInactive && lastRankInfo.rank <= 50 ? (
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-950/80 text-amber-300 border border-slate-700/80 flex items-center gap-1 shadow-sm" title={lastRankInfo.badgeText}>
+                        <Trophy className="w-2.5 h-2.5 text-amber-400" />
+                        {lastRankInfo.rank}º Lugar ({lastRankInfo.score > 0 ? `${lastRankInfo.score.toFixed(1)} pts` : lastRankInfo.divisionLabel})
+                      </span>
+                    ) : isInactive ? (
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-950/60 text-rose-300 border border-rose-800/60">
+                        Inativa (A-Z)
+                      </span>
+                    ) : null}
+                  </div>
                 </div>
 
-                {/* Exibição condicional de acordo com a Categoria selecionada */}
-                {selectedCategory === 'equipe' ? (
+                {/* Exibição condicional de acordo com a Categoria selecionada ou status de Inativa */}
+                {isInactive ? (
+                  <div className="p-3 rounded-xl bg-slate-950/70 border border-slate-800 space-y-2 text-xs">
+                    <div className="text-[11px] text-slate-300 leading-relaxed">
+                      {school.inactiveReason || school.suspensionReason || 'Agremiação histórica extinta ou temporariamente afastada com direito de retorno através da Superliga.'}
+                    </div>
+                    <div className="flex items-center justify-between text-[10px] text-slate-400 pt-1.5 border-t border-slate-800">
+                      <span>Fundação: <strong className="text-slate-300">{school.foundationYear || 'Tradicional'}</strong></span>
+                      <span className="text-amber-400 font-semibold">Ordem Alfabética</span>
+                    </div>
+                  </div>
+                ) : selectedCategory === 'equipe' ? (
                   <div className="p-3 rounded-xl bg-slate-950/70 border border-slate-800 space-y-2 text-xs">
                     <div className="flex items-center justify-between text-[11px] border-b border-slate-800/80 pb-1.5">
                       <span className="text-slate-400 flex items-center gap-1"><Users className="w-3 h-3 text-amber-400" /> Carnavalesco:</span>

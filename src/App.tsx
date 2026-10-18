@@ -22,6 +22,7 @@ import { simulateParadeDuration } from './config/paradeConfig';
 import { SimulationEngine } from './services/simulationEngine';
 import { soundService } from './services/soundService';
 import { cleanSchoolName } from './utils/schoolNameUtils';
+import { sortSchools, sortInactiveSchoolsAlphabetically } from './utils/schoolSortingUtils';
 
 import { Navbar } from './components/Navbar';
 import { DashboardView } from './components/DashboardView';
@@ -866,13 +867,13 @@ export default function App() {
     [sorteio, schools, completedParadeSchoolIds, showToast, handleRecordParadeTime]
   );
 
-  const activeSchools = useMemo(() => schools.filter(isSchoolActive), [schools, isSchoolActive]);
-  const especialSchools = useMemo(() => schools.filter((s) => s.division === 'especial' && isSchoolActive(s)), [schools, isSchoolActive]);
-  const ouroSchools = useMemo(() => schools.filter((s) => s.division === 'ouro' && isSchoolActive(s)), [schools, isSchoolActive]);
-  const prataSchools = useMemo(() => schools.filter((s) => s.division === 'prata' && isSchoolActive(s)), [schools, isSchoolActive]);
-  const bronzeSchools = useMemo(() => schools.filter((s) => s.division === 'bronze' && isSchoolActive(s)), [schools, isSchoolActive]);
-  const avaliacaoSchools = useMemo(() => schools.filter((s) => s.division === 'avaliacao' && isSchoolActive(s)), [schools, isSchoolActive]);
-  const inactiveSchools = useMemo(() => schools.filter(isSchoolInactive), [schools, isSchoolInactive]);
+  const activeSchools = useMemo(() => sortSchools(schools.filter(isSchoolActive), history), [schools, isSchoolActive, history]);
+  const especialSchools = useMemo(() => sortSchools(schools.filter((s) => s.division === 'especial' && isSchoolActive(s)), history), [schools, isSchoolActive, history]);
+  const ouroSchools = useMemo(() => sortSchools(schools.filter((s) => s.division === 'ouro' && isSchoolActive(s)), history), [schools, isSchoolActive, history]);
+  const prataSchools = useMemo(() => sortSchools(schools.filter((s) => s.division === 'prata' && isSchoolActive(s)), history), [schools, isSchoolActive, history]);
+  const bronzeSchools = useMemo(() => sortSchools(schools.filter((s) => s.division === 'bronze' && isSchoolActive(s)), history), [schools, isSchoolActive, history]);
+  const avaliacaoSchools = useMemo(() => sortSchools(schools.filter((s) => s.division === 'avaliacao' && isSchoolActive(s)), history), [schools, isSchoolActive, history]);
+  const inactiveSchools = useMemo(() => sortInactiveSchoolsAlphabetically(schools.filter(isSchoolInactive)), [schools, isSchoolInactive]);
 
   // Canonical official standings for Grupo Especial (single source of truth)
   const officialEspecialStandings = useMemo(() => {
@@ -1585,9 +1586,10 @@ export default function App() {
         {(!userSchool || isSpectatorMode) && (
           (activeTab === 'dashboard' || activeTab === 'barracao' || activeTab === 'ensaios' || activeTab === 'equipe' || activeTab === 'financas') && (
             <SpectatorSeasonOverview
-              schools={activeSchools}
+              schools={schools}
               currentYear={currentYear}
               currentMonth={currentSeasonMonth}
+              history={history}
               onNavigateTab={(tab) => {
                 if (tab === 'sorteio' || tab === 'desfile' || tab === 'apuracao' || tab === 'campeas' || tab === 'glorias' || tab === 'tabela') {
                   setActiveTab(tab);
