@@ -79,6 +79,61 @@ export const RegulamentoObrigatoriedadesModal: React.FC<RegulamentoObrigatorieda
 
         {/* Content Body */}
         <div className="p-6 space-y-6 overflow-y-auto flex-1">
+          {/* Card Oficial de Julgamento dos Jurados */}
+          <div className="bg-gradient-to-r from-amber-500/15 via-slate-900 to-amber-500/10 border border-amber-500/40 rounded-2xl p-5 shadow-lg space-y-3">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <div className="flex items-center gap-2">
+                <span className="p-1.5 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                  <Scale className="w-4 h-4 text-amber-400" />
+                </span>
+                <h4 className="text-sm font-black text-white uppercase tracking-wider">
+                  Regras Oficiais de Julgamento das Escolas de Samba (Notas de 9 a 10)
+                </h4>
+              </div>
+              <span className="text-[10px] font-mono font-bold text-amber-300 px-2 py-0.5 rounded bg-amber-500/20 border border-amber-500/30">
+                Padrão LIESA & Superliga
+              </span>
+            </div>
+
+            <p className="text-xs text-slate-300 leading-relaxed">
+              O corpo de jurados avalia os 9 quesitos oficiais partindo da nota máxima <strong>10,0</strong>, fracionando descontos em <strong>0,1</strong> para cada falha, erro técnico ou imprecisão constatada nas cabines.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 pt-1 text-xs">
+              <div className="p-3 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1">
+                <div className="text-[10px] uppercase font-bold text-slate-400">Escala de Notas</div>
+                <div className="text-base font-black text-amber-400 font-mono">9,0 a 10,0</div>
+                <p className="text-[10px] text-slate-400">Nenhum jurado pode atribuir nota inferior a 9,0 ou superior a 10,0.</p>
+              </div>
+
+              <div className="p-3 rounded-xl bg-slate-950/70 border border-rose-500/30 space-y-1">
+                <div className="text-[10px] uppercase font-bold text-rose-400">Nota Mínima 9,0</div>
+                <div className="text-base font-black text-rose-300 font-mono">9,0 = Nota Zero</div>
+                <p className="text-[10px] text-slate-400">A nota 9,0 equivale a zero técnico, aplicada em caso de colapso ou desastre no quesito.</p>
+              </div>
+
+              <div className="p-3 rounded-xl bg-slate-950/70 border border-emerald-500/30 space-y-1">
+                <div className="text-[10px] uppercase font-bold text-emerald-400">Nota Máxima 10,0</div>
+                <div className="text-base font-black text-emerald-300 font-mono">10,0 = Perfeição</div>
+                <p className="text-[10px] text-slate-400">Desfile irrepreensível, sem qualquer falha perceptível na passagem pela cabine.</p>
+              </div>
+
+              <div className="p-3 rounded-xl bg-slate-950/70 border border-sky-500/30 space-y-1">
+                <div className="text-[10px] uppercase font-bold text-sky-400">Fracionamento em 0,1</div>
+                <div className="text-base font-black text-sky-300 font-mono">Descontos de 0,1</div>
+                <p className="text-[10px] text-slate-400">Deduções progressivas: 9,9; 9,8; 9,7; 9,6 e assim por diante até 9,0, justificadas em ata.</p>
+              </div>
+            </div>
+
+            <div className="p-2.5 rounded-xl bg-slate-950/50 border border-slate-800/80 flex items-center justify-between text-[11px] text-slate-300">
+              <span className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-amber-400" />
+                <span><strong>Descarte da Menor Nota:</strong> 4 jurados por quesito (a menor nota é descartada e somam-se as 3 maiores).</span>
+              </span>
+              <span className="font-mono font-bold text-amber-400 shrink-0">Máx. 270,0 pts</span>
+            </div>
+          </div>
+
           {/* Header Card for Division */}
           <div className="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-5 shadow-inner flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>

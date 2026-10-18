@@ -35,7 +35,13 @@ export const TIEBREAKER_QUESITO_ORDER: QuesitoId[] = [
 export class SimulationEngine {
   /**
    * Generates authentic judge scores for a school in a specific quesito.
-   * Scores in Rio carnival realistically range between 9.7 and 10.0 (occasional 9.5-9.6 for incidents).
+   * Regras Oficiais de Julgamento do Carnaval Carioca:
+   * - Escala de Notas: 9,0 a 10,0.
+   * - Nota Mínima: 9,0 (igual a zero técnico / desastre no quesito).
+   * - Nota Máxima: 10,0 (plenitude e perfeição técnica/artística).
+   * - Fracionamento estritamente em décimos (0,1): 10.0, 9.9, 9.8, 9.7, 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0.
+   * - Para cada erro, imprecisão ou desconto identificado na cabine, o jurado deduz 0,1.
+   * - 4 jurados avaliam cada quesito de forma independente; a menor nota é descartada e somam-se as 3 maiores.
    */
   private static generateScoresForQuesito(
     school: School,
@@ -44,25 +50,29 @@ export class SimulationEngine {
   ): JuradoScores {
     const attr = school.attributes[quesitoId] || 85;
     
-    // Influence of rehearsal, barracao, staff
+    // Influência de profissionais (staff), barracão, ensaios e enredo
     let modifier = 0;
     if (quesitoId === 'bateria') {
-      modifier += (school.staff.mestreBateria.rating - 85) * 0.15;
+      modifier += (school.staff.mestreBateria.rating - 85) * 0.18;
+      modifier += (school.rehearsalLevel - 80) * 0.08;
     } else if (quesitoId === 'comissaoDeFrente') {
-      modifier += (school.staff.coreografo.rating - 85) * 0.15;
+      modifier += (school.staff.coreografo.rating - 85) * 0.18;
+      modifier += (school.rehearsalLevel - 80) * 0.08;
     } else if (quesitoId === 'evolucao' || quesitoId === 'harmonia') {
-      modifier += (school.staff.harmonia.rating - 85) * 0.12;
-      modifier += (school.rehearsalLevel - 80) * 0.1;
+      modifier += (school.staff.harmonia.rating - 85) * 0.15;
+      modifier += (school.rehearsalLevel - 80) * 0.12;
     } else if (quesitoId === 'enredo') {
-      modifier += (school.staff.carnavalesco.rating - 85) * 0.12;
-      if (school.currentEnredo) modifier += (school.currentEnredo.qualityBoost - 8) * 0.4;
+      modifier += (school.staff.carnavalesco.rating - 85) * 0.15;
+      if (school.currentEnredo) modifier += (school.currentEnredo.qualityBoost - 8) * 0.5;
     } else if (quesitoId === 'fantasias' || quesitoId === 'alegorias') {
-      modifier += (school.staff.carnavalesco.rating - 85) * 0.12;
-      modifier += (school.barracaoProgress - 80) * 0.15;
+      modifier += (school.staff.carnavalesco.rating - 85) * 0.15;
+      modifier += (school.barracaoProgress - 80) * 0.18;
     } else if (quesitoId === 'sambaEnredo') {
-      modifier += (school.staff.interprete.rating - 85) * 0.15;
+      modifier += (school.staff.interprete.rating - 85) * 0.18;
+      if (school.currentEnredo) modifier += (school.currentEnredo.qualityBoost - 8) * 0.3;
     } else if (quesitoId === 'mestreSalaPortaBandeira') {
-      modifier += (school.staff.mestreSalaPortaBandeira.rating - 85) * 0.18;
+      modifier += (school.staff.mestreSalaPortaBandeira.rating - 85) * 0.20;
+      modifier += (school.rehearsalLevel - 80) * 0.08;
     }
 
     // Impacto de Logística e Posição de Desfile
@@ -78,30 +88,92 @@ export class SimulationEngine {
       modifier += logistics.performanceModifiers.judgeStrictnessMod;
     }
 
-    const effectiveScore = attr + modifier; // approx 75 - 105
+    const effectiveScore = attr + modifier; // Typical range: 50 to 105+
 
-    // Probabilities of 10.0, 9.9, 9.8, 9.7, 9.6
+    // Regras de Julgamento:
+    // A nota inicial de partida é 10.0 (nota máxima).
+    // Cada falha, oscilação ou erro detectado acarreta desconto em frações de 0,1 (ex: 9.9, 9.8, 9.7...).
+    // A nota mínima é 9.0 (equivalente a zero técnico / desastre no quesito).
+    // 4 jurados avaliam de forma independente no módulo/cabine.
     const jurados: number[] = [];
     for (let j = 0; j < 4; j++) {
-      const rand = Math.random() * 100;
-      let score = 10.0;
+      // Variação de rigor e ângulo de visão de cada jurado
+      const judgeSubjectivity = (Math.random() - 0.5) * 0.3;
+      const judgeEffective = effectiveScore + judgeSubjectivity * 10;
 
-      // School level threshold
-      const tenThreshold = Math.min(88, Math.max(25, (effectiveScore - 75) * 3.5));
-      const nineNineThreshold = tenThreshold + 25;
-      const nineEightThreshold = nineNineThreshold + 12;
+      // Base de erro esperado (em número de décimos descontados de 0 a 10)
+      let expectedDeductionTenths = 0;
 
-      if (rand < tenThreshold) {
-        score = 10.0;
-      } else if (rand < nineNineThreshold) {
-        score = 9.9;
-      } else if (rand < nineEightThreshold) {
-        score = 9.8;
-      } else if (rand < 98) {
-        score = 9.7;
+      if (judgeEffective >= 96) {
+        // Altíssimo nível: 75% 10.0, 20% 9.9 (-0.1), 5% 9.8 (-0.2)
+        const roll = Math.random();
+        if (roll < 0.75) expectedDeductionTenths = 0;
+        else if (roll < 0.95) expectedDeductionTenths = 1;
+        else expectedDeductionTenths = 2;
+      } else if (judgeEffective >= 91) {
+        // Excelente: 55% 10.0, 30% 9.9 (-0.1), 12% 9.8 (-0.2), 3% 9.7 (-0.3)
+        const roll = Math.random();
+        if (roll < 0.55) expectedDeductionTenths = 0;
+        else if (roll < 0.85) expectedDeductionTenths = 1;
+        else if (roll < 0.97) expectedDeductionTenths = 2;
+        else expectedDeductionTenths = 3;
+      } else if (judgeEffective >= 85) {
+        // Bom / Regular forte: 30% 10.0, 38% 9.9, 22% 9.8, 8% 9.7, 2% 9.6
+        const roll = Math.random();
+        if (roll < 0.30) expectedDeductionTenths = 0;
+        else if (roll < 0.68) expectedDeductionTenths = 1;
+        else if (roll < 0.90) expectedDeductionTenths = 2;
+        else if (roll < 0.98) expectedDeductionTenths = 3;
+        else expectedDeductionTenths = 4;
+      } else if (judgeEffective >= 78) {
+        // Regular intermediário: 12% 10.0, 30% 9.9, 32% 9.8, 16% 9.7, 8% 9.6, 2% 9.5
+        const roll = Math.random();
+        if (roll < 0.12) expectedDeductionTenths = 0;
+        else if (roll < 0.42) expectedDeductionTenths = 1;
+        else if (roll < 0.74) expectedDeductionTenths = 2;
+        else if (roll < 0.90) expectedDeductionTenths = 3;
+        else if (roll < 0.98) expectedDeductionTenths = 4;
+        else expectedDeductionTenths = 5;
+      } else if (judgeEffective >= 70) {
+        // Dificuldades visíveis: notas de 9.8 a 9.3
+        const roll = Math.random();
+        if (roll < 0.05) expectedDeductionTenths = 1;
+        else if (roll < 0.25) expectedDeductionTenths = 2;
+        else if (roll < 0.55) expectedDeductionTenths = 3;
+        else if (roll < 0.78) expectedDeductionTenths = 4;
+        else if (roll < 0.92) expectedDeductionTenths = 5;
+        else if (roll < 0.98) expectedDeductionTenths = 6;
+        else expectedDeductionTenths = 7;
+      } else if (judgeEffective >= 60) {
+        // Problemas graves: notas de 9.5 a 9.1
+        const roll = Math.random();
+        if (roll < 0.10) expectedDeductionTenths = 3;
+        else if (roll < 0.30) expectedDeductionTenths = 4;
+        else if (roll < 0.55) expectedDeductionTenths = 5;
+        else if (roll < 0.75) expectedDeductionTenths = 6;
+        else if (roll < 0.90) expectedDeductionTenths = 7;
+        else if (roll < 0.97) expectedDeductionTenths = 8;
+        else expectedDeductionTenths = 9;
       } else {
-        score = 9.6;
+        // Desastre técnico / colapso (nota mínima 9.0 igual a zero)
+        const roll = Math.random();
+        if (roll < 0.15) expectedDeductionTenths = 6;
+        else if (roll < 0.35) expectedDeductionTenths = 7;
+        else if (roll < 0.60) expectedDeductionTenths = 8;
+        else if (roll < 0.85) expectedDeductionTenths = 9;
+        else expectedDeductionTenths = 10; // 9.0 (nota mínima)
       }
+
+      // Possibilidade de incidente ou falha pontual perante o módulo do jurado
+      const incidentRisk = (100 - (school.rehearsalLevel ?? 80)) * 0.001 + (100 - (school.barracaoProgress ?? 80)) * 0.001;
+      if (Math.random() < incidentRisk) {
+        expectedDeductionTenths += Math.floor(Math.random() * 3) + 1; // +1 a +3 décimos de desconto
+      }
+
+      // A nota mínima é estritamente 9.0 (equivalente a zero) e a máxima é 10.0
+      // Fracionamento em 0,1
+      expectedDeductionTenths = Math.max(0, Math.min(10, expectedDeductionTenths));
+      const score = Math.round((10.0 - expectedDeductionTenths * 0.1) * 10) / 10;
 
       jurados.push(score);
     }

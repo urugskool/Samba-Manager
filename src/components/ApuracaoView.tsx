@@ -619,7 +619,7 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
             Apuração Oficial das Notas
           </h2>
           <p className="text-xs text-slate-400">
-            9 quesitos oficiais com 4 jurados cada. Regulamento oficial: a menor nota de cada quesito é descartada (somam-se as 3 maiores notas, total máximo de 270,0 pontos).
+            9 quesitos oficiais com 4 jurados cada. Regulamento oficial: notas de 9,0 a 10,0 (nota mínima 9,0 = zero / nota máxima 10,0, fracionadas em 0,1 para erros e descontos). A menor nota de cada quesito é descartada (somam-se as 3 maiores notas, total máximo de 270,0 pontos).
           </p>
         </div>
 
@@ -1046,7 +1046,13 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
                       ? 'text-amber-400'
                       : currentRevealedScore >= 9.9
                       ? 'text-emerald-400'
-                      : 'text-rose-400'
+                      : currentRevealedScore >= 9.8
+                      ? 'text-sky-400'
+                      : currentRevealedScore >= 9.5
+                      ? 'text-yellow-400'
+                      : currentRevealedScore >= 9.2
+                      ? 'text-orange-400'
+                      : 'text-rose-500 font-extrabold'
                   }`}
                 >
                   {currentRevealedScore !== null ? currentRevealedScore.toFixed(1) : '---'}
