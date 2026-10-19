@@ -5,7 +5,7 @@ import {
   EnredoResearchDossier,
   EnredoApproachOption
 } from '../services/enredoResearchService';
-import { ParadeScript } from '../services/paradeScriptService';
+import { ParadeScript, ParadeScriptService } from '../services/paradeScriptService';
 import { soundService } from '../services/soundService';
 import { cleanSchoolName } from '../utils/schoolNameUtils';
 import { DIVISION_REGULATIONS } from '../config/obrigatoriedadesConfig';
@@ -100,6 +100,7 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
 
   // Roteiro Gerado
   const [generatedScript, setGeneratedScript] = useState<ParadeScript | null>(null);
+  const [isBuildingScript, setIsBuildingScript] = useState(false);
   const [selectedScriptTab, setSelectedScriptTab] = useState<'setores' | 'segmentos' | 'regulamento' | 'resumo'>('setores');
 
   // --------------------------------------------------------------------------
@@ -213,9 +214,10 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
   // --------------------------------------------------------------------------
   // MONTAGEM DO ROTEIRO: SEGUINDO A SINOPSE & REGULAMENTOS VIGENTES
   // --------------------------------------------------------------------------
-  const handleBuildParadeScript = () => {
+  const handleBuildParadeScript = async () => {
     if (!selectedApproach) return;
     soundService.playClick();
+    setIsBuildingScript(true);
 
     // Garante que qualquer alteração final feita na sinopse seja refletida
     const title = customTitle.trim() || selectedApproach.suggestedTitle;
@@ -227,9 +229,27 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
       synopsis: synopsis
     };
 
-    // Monta o roteiro oficial respeitando estritamente a sinopse e o regulamento da divisão
-    const script = EnredoResearchService.buildParadeScript(school, finalApproach, effectiveDiv);
+    // Tenta primeiro gerar o roteiro canônico via IA (se online com Gemini)
+    let script: ParadeScript | null = null;
+    try {
+      script = await ParadeScriptService.gerarRoteiroAbreAlasIA(
+        school,
+        title,
+        synopsis,
+        finalApproach.themeType,
+        effectiveDiv
+      );
+    } catch {
+      // Fallback procedural local
+    }
+
+    // Se offline ou não retornado da API, executa o motor procedural canônico da LIESA
+    if (!script) {
+      script = EnredoResearchService.buildParadeScript(school, finalApproach, effectiveDiv);
+    }
+
     setGeneratedScript(script);
+    setIsBuildingScript(false);
     setStep('script');
     soundService.playLevelUp();
   };
@@ -962,11 +982,12 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
 
                 <button
                   type="button"
+                  disabled={isBuildingScript}
                   onClick={handleBuildParadeScript}
-                  className="px-7 py-4 rounded-2xl font-black text-sm bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 hover:brightness-110 shadow-2xl shadow-amber-500/30 active:scale-95 flex items-center gap-2.5 cursor-pointer"
+                  className="px-7 py-4 rounded-2xl font-black text-sm bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 hover:brightness-110 shadow-2xl shadow-amber-500/30 active:scale-95 flex items-center gap-2.5 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  <Sparkles className="w-5 h-5 text-slate-950 animate-spin" style={{ animationDuration: '4s' }} />
-                  <span>Criar Roteiro de Desfile (Seguindo a Sinopse & Regulamentos Vigentes)</span>
+                  <Sparkles className={`w-5 h-5 text-slate-950 ${isBuildingScript ? 'animate-spin' : ''}`} />
+                  <span>{isBuildingScript ? 'Redigindo Livro Abre-Alas Oficial da LIESA...' : 'Criar Roteiro de Desfile (Livro Abre-Alas Oficial)'}</span>
                   <ArrowRight className="w-5 h-5 text-slate-950" />
                 </button>
               </div>

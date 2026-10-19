@@ -119,6 +119,152 @@ Retorne APENAS um objeto JSON com a seguinte estrutura:
   res.status(204).end();
 });
 
+/**
+ * Endpoint de Geração do Roteiro Oficial do Desfile (Livro Abre-Alas) com IA
+ * Cria o roteiro 100% derivado da sinopse e do tema no padrão LIESA
+ */
+app.post('/api/enredo/gerar-roteiro', async (req: Request, res: Response) => {
+  const { schoolName, shortName, enredoTitle, synopsis, themeType, division, colors, staff } = req.body;
+
+  if (!synopsis || typeof synopsis !== 'string') {
+    res.status(400).json({ error: 'Sinopse não fornecida' });
+    return;
+  }
+
+  if (process.env.GEMINI_API_KEY) {
+    try {
+      const prompt = `Você é um Enredista e Carnavalesco consagrado do Carnaval do Rio de Janeiro (LIESA/Série Ouro).
+Sua missão é redigir o roteiro oficial do desfile no formato rigoroso do "Livro Abre-Alas" da LIESA para a agremiação ${schoolName || 'Escola de Samba'} (Cores: ${colors?.join(', ') || 'Tradicionais'}), Divisão ${division || 'especial'}.
+
+Título do Enredo: "${enredoTitle || 'Enredo Oficial'}"
+Linha Temática: ${themeType || 'Cultural'}
+Sinopse Oficial do Enredo:
+"""
+${synopsis}
+"""
+
+DIRETRIZES FUNDAMENTAIS:
+1. SEM PRÉ-DEFINIÇÕES OU CLICHÊS GENÉRICOS: Todo o roteiro, cada setor, ala, alegoria e personagem deve nascer EXCLUSIVAMENTE das passagens, metáforas, histórias e conceitos da sinopse e do tema fornecidos.
+2. TRANSPOSIÇÃO VISUAL RIGOROSA: Cada ala e alegoria deve traduzir um trecho concreto da sinopse em indumentária (cabeça, costeiro, adereço de mão, tecidos, texturas e paleta de cores).
+3. DRAMATURGIA SETORIZADA: O desfile deve ser dividido entre 4 e 5 setores numerados, cada um com um título poético extraído da narrativa da sinopse e um resumo da sua função narrativa no enredo.
+4. SEGMENTOS OBRIGATÓRIOS INTEGRADOS AO ENREDO:
+   - Comissão de Frente: Nome da encenação, elemento cênico e ação coreográfica (atos).
+   - 1º Casal de Mestre-Sala e Porta-Bandeira: Fantasia do casal e dos seus guardiões inserida no Setor 1 com defesa da dança ritual.
+   - 2º Casal de Mestre-Sala e Porta-Bandeira: Fantasia inserida nos setores intermediários.
+   - Ala das Baianas: Figurino monumental e simbólico em setor de grande peso.
+   - Bateria e Rainha: Fantasia contextualizada ao setor em que desfilam.
+   - Passistas e Velha-Guarda: Fantasias temáticas.
+5. ALEGORIAS DETALHADAS: Para cada carro alegórico e tripé, forneça título poético, descrição cenográfica minuciosa (esculturas, módulos, iluminação, acabamento), Destaque Central Alto, Destaques Baixos/Médios, Semi-Destaques Laterais, Composições e Convidados.
+6. FICHAS TÉCNICAS:
+   - Bateria com 4 arranjos/bossas (nome, trecho do samba, sinal do mestre e defesa rítmica).
+   - Samba-enredo com letra poética, defesa estrofe a estrofe e defesa melódica.
+
+Retorne APENAS um objeto JSON válido, pronto para o motor do jogo, seguindo este esquema:
+{
+  "tituloEnredo": "${enredoTitle}",
+  "justificativaEnredo": "Texto denso e formal de justificativa do enredo para os jurados da LIESA",
+  "pesquisaBibliografica": ["Livro ou documento 1", "Tese ou consulta 2", "Arquivo 3"],
+  "setores": [
+    {
+      "numeroSetor": 1,
+      "tituloSetor": "Título Poético do Setor 1",
+      "resumoConceitual": "Resumo conceitual do setor desdobrado da sinopse"
+    }
+  ],
+  "elementos": [
+    {
+      "tipo": "comissao_frente" | "casal_mspb" | "ala" | "baianas" | "bateria" | "passistas" | "velha_guarda" | "tripe" | "abre_alas" | "alegoria" | "apoteose" | "musa_destaque_chao",
+      "ordem": 1,
+      "nomeElemento": "Nome poético do elemento",
+      "categoryLabel": "Categoria (ex: Comissão de Frente, Ala 01, Abre-Alas, etc.)",
+      "setorNumero": 1,
+      "setorTitulo": "Título do Setor",
+      "personagemOuConceito": "O que representa na narrativa",
+      "defesaEnredo": "Texto de defesa para a comissão julgadora",
+      "responsavelAla": "Nome do responsável ou ateliê",
+      "highlightPeople": "Destaque central ou coreógrafo/mestre",
+      "componentsCount": 15,
+      "isAllegoryOrTripod": false,
+      "detalhesPlasticos": {
+        "paletaCores": ["#cor1", "#cor2"],
+        "elementosVisuais": "Descrição minuciosa da cabeça, costeiro, corpo, tecidos e adereço de mão",
+        "destaquesComposicoes": "Destaques centrais, laterais e composições de chassi (para alegorias)"
+      }
+    }
+  ],
+  "fichaBateria": {
+    "mestreGeral": "${staff?.mestreBateria?.name || 'Mestre da Bateria'}",
+    "diretores": "Diretores de Tamborim, Repique, Caixa e Marcação",
+    "totalRitmistas": 250,
+    "instrumentos": { "1ª Marcação": 14, "2ª Marcação": 14, "3ª Marcação": 14, "Caixa": 90, "Tarol": 30, "Tamborim": 35, "Repinique": 40, "Cuíca": 25, "Agogô": 24, "Chocalho": 25 },
+    "particularidades": "Defesa conceitual da bateria alinhada ao enredo",
+    "bossas": [
+      {
+        "numero": 1,
+        "nome": "Nome do arranjo 1",
+        "trechoSamba": "Verso do samba em que ocorre a bossa",
+        "sinal": "Gesto do mestre",
+        "defesa": "Defesa da convenção rítmica"
+      }
+    ]
+  },
+  "fichaSambaEnredo": {
+    "compositores": ["Compositor 1", "Compositor 2"],
+    "interprete": "${staff?.interprete?.name || 'Intérprete Oficial'}",
+    "letra": "Letra completa do samba dividida em estrofes",
+    "defesaLetra": [
+      { "versoOuEstrofe": "Trecho da letra", "explicacao": "Defesa de como o verso traduz a sinopse" }
+    ],
+    "defesaMelodia": "Análise da tonalidade, modulações harmônicas e andamento"
+  },
+  "fichaComissaoFrente": {
+    "coreografo": "${staff?.coreografo?.name || 'Coreógrafo Oficial'}",
+    "nomeApresentacao": "Nome da coreografia",
+    "elementoCenografico": "Nome e tipo do tripé/plataforma cênica",
+    "totalComponentes": 15,
+    "sinopseAcao": "Sinopse dramatúrgica da apresentação na pista",
+    "atos": [
+      { "ato": "Ato 1 - O Chamado", "descricao": "Descrição da movimentação cênica" },
+      { "ato": "Ato 2 - O Conflito", "descricao": "Transformação e impacto visual" },
+      { "ato": "Ato 3 - A Celebração", "descricao": "Bailado e efeito de palco" },
+      { "ato": "Ato 4 - A Apoteose", "descricao": "Desfecho perante as cabines de jurados" }
+    ]
+  },
+  "casaisMSPB": [
+    {
+      "numeroCasal": 1,
+      "portaBandeira": "Nome da Porta-Bandeira",
+      "mestreSala": "Nome do Mestre-Sala",
+      "fantasiaCasal": "Nome da fantasia oficial",
+      "fantasiaGuardioes": "Nome da fantasia dos guardiões",
+      "defesaDança": "Defesa ritual da coreografia e reverência ao pavilhão"
+    }
+  ]
+}`;
+
+      const response = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: prompt,
+        config: {
+          responseMimeType: 'application/json'
+        }
+      });
+
+      if (response.text) {
+        const parsed = JSON.parse(response.text);
+        if (parsed && parsed.setores && parsed.elementos) {
+          res.json(parsed);
+          return;
+        }
+      }
+    } catch {
+      // Falha silenciosa na IA -> status 204 para fallback procedural local
+    }
+  }
+
+  res.status(204).end();
+});
+
 // Inicialização do Vite middleware (dev) ou arquivos estáticos (prod)
 async function startServer() {
   if (!isProduction) {

@@ -1,6 +1,6 @@
 import { School, DivisionId, Enredo, EnredoThemeType } from '../types/carnaval';
 import { cleanSchoolName } from '../utils/schoolNameUtils';
-import { ParadeScript, ParadeScriptElement, ParadeSector } from './paradeScriptService';
+import { ParadeScript, ParadeScriptElement, ParadeSector, ParadeScriptService } from './paradeScriptService';
 import { DIVISION_REGULATIONS, generateDefaultParadeComposition } from '../config/obrigatoriedadesConfig';
 
 export interface EnredoResearchTopic {
@@ -146,251 +146,23 @@ export class EnredoResearchService {
     division?: DivisionId
   ): ParadeScript {
     const div = division || school.division;
-    const reg = DIVISION_REGULATIONS[div];
-    const comp = school.paradeComposition || generateDefaultParadeComposition(school);
-    const divisionLabel = reg.divisionLabel;
 
-    // Aplicação estrita dos regulamentos vigentes da divisão
-    const alegoriasMin = reg.rules.alegorias?.min || 1;
-    const alegoriasMax = reg.rules.alegorias?.max || 6;
-    const defAlegorias = div === 'especial' ? 5 : div === 'ouro' ? 3 : div === 'prata' ? 3 : div === 'bronze' ? 2 : 1;
-    const alegoriasCount = Math.max(alegoriasMin, Math.min(alegoriasMax, comp.alegorias || defAlegorias));
-
-    const tripesMax = reg.rules.tripes?.max || 0;
-    const tripesCount = Math.min(tripesMax, comp.tripes || (div === 'especial' ? 2 : div === 'ouro' ? 1 : 0));
-
-    const minRitmistas = reg.rules.ritmistas?.min || 80;
-    const ritmistasCount = Math.max(minRitmistas, comp.ritmistas || (div === 'especial' ? 220 : div === 'ouro' ? 160 : div === 'prata' ? 130 : div === 'bronze' ? 95 : 80));
-
-    const minBaianas = reg.rules.baianas?.min || 15;
-    const baianasCount = Math.max(minBaianas, comp.baianas || (div === 'especial' ? 70 : div === 'ouro' ? 50 : div === 'prata' ? 40 : div === 'bronze' ? 30 : 15));
-
-    const cdfMin = reg.rules.comissaoDeFrente?.min || 10;
-    const cdfMax = reg.rules.comissaoDeFrente?.max || 15;
-    const comissaoCount = Math.max(cdfMin, Math.min(cdfMax, comp.comissaoDeFrente || (div === 'especial' ? 14 : div === 'ouro' ? 14 : div === 'prata' ? 11 : 10)));
-
-    const minComponentes = reg.rules.componentes?.min || 400;
-    const maxComponentes = reg.rules.componentes?.max || 3500;
-    const defComponentes = div === 'especial' ? 2800 : div === 'ouro' ? 1100 : div === 'prata' ? 750 : div === 'bronze' ? 600 : 400;
-    const componentesTotal = Math.max(minComponentes, Math.min(maxComponentes, comp.componentes || defComponentes));
-
-    const totalAlas = div === 'especial' ? 26 : div === 'ouro' ? 18 : div === 'prata' ? 14 : div === 'bronze' ? 11 : 8;
-    const componentesPorAla = Math.max(reg.rules.alas?.minComponentesPorAla || 25, Math.round((componentesTotal - ritmistasCount - baianasCount - comissaoCount - 150) / totalAlas));
-
-    // Constrói setores estritamente alinhados à sinopse aprovada
-    const numSectors = div === 'especial' ? 5 : 4;
-    const sectorsFromSynopsis = this.extractSectorsFromSynopsis(
-      approach.synopsis,
-      numSectors,
-      approach.themeType,
-      approach.suggestedTitle
-    );
-
-    const setores: ParadeSector[] = [];
-    for (let i = 0; i < numSectors; i++) {
-      const candidate = sectorsFromSynopsis[i] || approach.setorizacaoPreview[i] || {
-        sectorNumber: i + 1,
-        title: `Setor ${i + 1}: ${this.getGenericSectorTitle(i, approach.themeType)}`,
-        synopsis: `Desenvolvimento temático da narrativa no setor ${i + 1}, exaltando as nuances poéticas do enredo "${approach.suggestedTitle}".`
-      };
-      setores.push({
-        sectorNumber: i + 1,
-        title: candidate.title,
-        themeSynopsis: candidate.synopsis
-      });
-    }
-
-    const elements: ParadeScriptElement[] = [];
-    let orderSeq = 1;
-
-    // 1. Comissão de Frente
-    elements.push({
-      id: `cdf_${school.id}_custom`,
-      orderNumber: orderSeq++,
-      type: 'comissao_frente',
-      name: approach.elementsPreview.comissaoDeFrente.name,
-      categoryLabel: 'Comissão de Frente',
-      sectorNumber: 1,
-      sectorTitle: setores[0].title,
-      description: `${approach.elementsPreview.comissaoDeFrente.concept} O grupo composto por ${comissaoCount} bailarinos atua como arauto da narrativa da sinopse ("${setores[0].title}"), apresentando truques cênicos e impacto visual na abertura do cortejo.`,
-      costumeDetails: approach.elementsPreview.comissaoDeFrente.costume,
-      highlightPeople: `Coreógrafo(a): ${school.staff?.coreografo?.name || 'Direção Cênica'}`,
-      componentsCount: comissaoCount,
-      isAllegoryOrTripod: false
-    });
-
-    // 2. 1º Casal de Mestre-Sala e Porta-Bandeira
-    elements.push({
-      id: `casal_1_${school.id}_custom`,
-      orderNumber: orderSeq++,
-      type: 'casal_mspb',
-      name: approach.elementsPreview.casal1.name,
-      categoryLabel: '1º Casal de MS & PB',
-      sectorNumber: 1,
-      sectorTitle: setores[0].title,
-      description: `${approach.elementsPreview.casal1.representation} Conduzem o pavilhão sagrado de ${cleanSchoolName(school)} com bailado nobre e giros perfeitos diante das cabines de jurados, defendendo o tema de abertura.`,
-      costumeDetails: approach.elementsPreview.casal1.costume,
-      highlightPeople: `1º Casal Oficial: ${school.staff?.mestreSalaPortaBandeira?.name || 'Mestre-Sala e Porta-Bandeira'}`,
-      componentsCount: 2,
-      isAllegoryOrTripod: false
-    });
-
-    // 3. Abre-Alas (Alegoria 1)
-    const sec1Clean = setores[0].title.replace(/^Setor\s*\d+\s*[:\-–]\s*/i, '');
-    elements.push({
-      id: `alegoria_1_${school.id}_custom`,
-      orderNumber: orderSeq++,
-      type: 'abre_alas',
-      name: approach.elementsPreview.abreAlas.name || `Abre-Alas: ${sec1Clean}`,
-      categoryLabel: 'Abre-Alas (Alegoria 1)',
-      sectorNumber: 1,
-      sectorTitle: setores[0].title,
-      description: `${approach.elementsPreview.abreAlas.concept} Monumento alegórico de abertura que materializa a sinopse do ${setores[0].title}.`,
-      costumeDetails: approach.elementsPreview.abreAlas.materials,
-      highlightPeople: `Destaque Principal: A Alma Encantada do Enredo`,
-      componentsCount: Math.round(componentesTotal * 0.03),
-      isAllegoryOrTripod: true
-    });
-
-    // 4. Ala das Baianas (Setor 2)
-    elements.push({
-      id: `baianas_${school.id}_custom`,
-      orderNumber: orderSeq++,
-      type: 'baianas',
-      name: approach.elementsPreview.baianas.name,
-      categoryLabel: 'Ala das Baianas',
-      sectorNumber: 2,
-      sectorTitle: setores[1] ? setores[1].title : setores[0].title,
-      description: `${approach.elementsPreview.baianas.symbolism} Compostas por ${baianasCount} matriarcas, giram com elegância monumental trazendo o manto tradicional do samba e a bênção dos ancestrais.`,
-      costumeDetails: approach.elementsPreview.baianas.costume,
-      highlightPeople: 'Matriarcas da Velha Guarda & Conselho de Baianas',
-      componentsCount: baianasCount,
-      isAllegoryOrTripod: false
-    });
-
-    // 5. Bateria (Setor 3)
-    const bateriaSectorIdx = Math.min(2, setores.length - 1);
-    elements.push({
-      id: `bateria_${school.id}_custom`,
-      orderNumber: orderSeq++,
-      type: 'bateria',
-      name: approach.elementsPreview.bateria.name,
-      categoryLabel: 'Bateria',
-      sectorNumber: bateriaSectorIdx + 1,
-      sectorTitle: setores[bateriaSectorIdx].title,
-      description: `${approach.elementsPreview.bateria.bossas} Sob o comando enérgico do mestre de bateria, os ${ritmistasCount} ritmistas ditam o andamento do samba-enredo, sustentando o canto de toda a escola.`,
-      costumeDetails: approach.elementsPreview.bateria.costume,
-      highlightPeople: `Comandante dos Tambores: ${school.staff?.mestreBateria?.name || 'Mestre de Bateria'}`,
-      componentsCount: ritmistasCount,
-      isAllegoryOrTripod: false
-    });
-
-    // 6. Demais Alegorias e Tripés distribuídos
-    let alegoriaIndex = 2;
-    for (let sIdx = 1; sIdx < setores.length; sIdx++) {
-      if (alegoriaIndex <= alegoriasCount) {
-        const customAl = approach.elementsPreview.allegories.find(a => a.number === alegoriaIndex) || {
-          number: alegoriaIndex,
-          name: `Alegoria ${alegoriaIndex}: ${setores[sIdx].title}`,
-          concept: `Representação plástica monumental das teses do setor ${sIdx + 1}.`
-        };
-
-        elements.push({
-          id: `alegoria_${alegoriaIndex}_${school.id}_custom`,
-          orderNumber: orderSeq++,
-          type: 'alegoria',
-          name: customAl.name,
-          categoryLabel: `Alegoria ${alegoriaIndex}`,
-          sectorNumber: sIdx + 1,
-          sectorTitle: setores[sIdx].title,
-          description: customAl.concept,
-          costumeDetails: `Esculturas em EPS resinado, ferragens estruturais e tecidos nobres nas cores ${approach.dominatColors.join(', ')}.`,
-          highlightPeople: `Destaques Centrais e Composição de Carro`,
-          componentsCount: Math.round(componentesTotal * 0.025),
-          isAllegoryOrTripod: true
-        });
-        alegoriaIndex++;
-      }
-    }
-
-    // 7. Tripés cenográficos
-    for (let t = 1; t <= tripesCount; t++) {
-      const targetSector = Math.min(t + 1, setores.length);
-      elements.push({
-        id: `tripe_${t}_${school.id}_custom`,
-        orderNumber: orderSeq++,
-        type: 'tripe',
-        name: `Tripé Cênico ${t}: O Emblema da Memória`,
-        categoryLabel: `Tripé Cênico ${t}`,
-        sectorNumber: targetSector,
-        sectorTitle: setores[targetSector - 1].title,
-        description: `Elemento cênico móvel que apoia a evolução teatral das alas do setor ${targetSector}.`,
-        costumeDetails: `Estrutura de ferro leve com adereços cenográficos temáticos.`,
-        componentsCount: 3,
-        isAllegoryOrTripod: true
-      });
-    }
-
-    // 8. Alas Temáticas distribuídas
-    const alasHighlights = approach.elementsPreview.alasHighlights;
-    let alaSeq = 1;
-    for (let sIdx = 0; sIdx < setores.length; sIdx++) {
-      const sectorNumber = sIdx + 1;
-      const alasInSector = Math.round(totalAlas / setores.length);
-
-      for (let a = 0; a < alasInSector && alaSeq <= totalAlas; a++) {
-        const highlight = alasHighlights.find(h => h.sector === sectorNumber && !elements.some(e => e.name === h.name));
-        const alaName = highlight
-          ? highlight.name
-          : `Ala ${alaSeq}: Guardiões de ${setores[sIdx].title}`;
-        const alaDesc = highlight
-          ? highlight.concept
-          : `Ala caracterizada representando os elementos conceituais do setor ${sectorNumber}.`;
-
-        elements.push({
-          id: `ala_${alaSeq}_${school.id}_custom`,
-          orderNumber: orderSeq++,
-          type: 'ala',
-          name: alaName,
-          categoryLabel: `Ala ${alaSeq}`,
-          sectorNumber,
-          sectorTitle: setores[sIdx].title,
-          description: alaDesc,
-          costumeDetails: `Fantasia detalhada em tons de ${approach.dominatColors[a % approach.dominatColors.length] || 'dourado'}, com esplendor e adereço de mão.`,
-          componentsCount: componentesPorAla,
-          isAllegoryOrTripod: false
-        });
-        alaSeq++;
-      }
-    }
-
-    // Ordena elementos por setor e sequência lógica de desfile
-    elements.sort((a, b) => a.orderNumber - b.orderNumber);
-
-    return {
-      schoolId: school.id,
-      schoolName: school.name,
-      shortName: school.shortName,
+    // Constrói objeto temporário de agremiação com os dados autorais da abordagem
+    const schoolWithEnredo: School = {
+      ...school,
       division: div,
-      divisionLabel,
-      enredoTitle: approach.suggestedTitle,
-      enredoTheme: approach.themeType,
-      synopsis: approach.synopsis,
-      carnavalesco: school.staff?.carnavalesco?.name || 'Comissão de Carnaval',
-      obrigatoriedades: {
-        totalComponentes: componentesTotal,
-        totalAlas,
-        totalAlegorias: alegoriasCount,
-        totalTripes: tripesCount,
-        ritmistasCount,
-        baianasCount,
-        comissaoDeFrenteCount: comissaoCount,
-        componentesPorAla,
-        casaisCount: div === 'especial' ? 4 : 3
-      },
-      setores,
-      elements
+      currentEnredo: {
+        id: approach.id,
+        title: approach.suggestedTitle,
+        themeType: approach.themeType,
+        synopsis: approach.synopsis,
+        qualityBoost: approach.qualityBoost,
+        cost: approach.cost
+      }
     };
+
+    // Gera o roteiro oficial canônico 100% derivado da sinopse e do tema pelo motor Abre-Alas
+    return ParadeScriptService.generateScriptFromSynopsis(schoolWithEnredo, div);
   }
 
   /**
@@ -430,7 +202,7 @@ export class EnredoResearchService {
       .filter(p => p.length > 15);
 
     const explicitSectorMatches: { num: number; text: string }[] = [];
-    const sectorRegex = /(?:Setor\s*(\d+)|(\d+)[ºªo\.]\s*Setor)\s*[:\-–]?\s*([^\n\r]+)/gi;
+    const sectorRegex = /(?:(\d+)[ºªo\.]?\s*(?:setor|encanto|ato|capítulo|parte)|(?:setor|encanto|ato|capítulo|parte)\s*(\d+))\s*[-–—:]\s*["“]?([^"”\n\r]+)["”]?/gi;
     let match;
     while ((match = sectorRegex.exec(synopsis || '')) !== null) {
       const sNum = parseInt(match[1] || match[2], 10);
@@ -445,48 +217,46 @@ export class EnredoResearchService {
     if (explicitSectorMatches.length >= 2) {
       for (let i = 0; i < numSectors; i++) {
         const found = explicitSectorMatches.find(m => m.num === i + 1);
-        const titleText = found ? found.text : this.getGenericSectorTitle(i, detectedGenre);
-        const pDesc = paragraphs[i] || `Desenvolvimento narrativo do setor ${i + 1} da sinopse oficial.`;
+        const titleText = found ? found.text : this.extractPoeticPhraseFromText(paragraphs[i] || synopsis, cleanTitle, i + 1);
+        const pDesc = paragraphs[i] || `Desenvolvimento narrativo do ${i + 1}º setor da sinopse oficial.`;
         setorizacaoPreview.push({
           sectorNumber: i + 1,
-          title: `Setor ${i + 1}: ${titleText.replace(/^Setor\s*\d+\s*[:\-–]\s*/i, '')}`,
+          title: `${i + 1}º Setor - “${titleText.replace(/^Setor\s*\d+\s*[:\-–]\s*/i, '').replace(/["“”]/g, '')}”`,
           synopsis: pDesc
         });
       }
-    } else if (paragraphs.length >= numSectors) {
-      for (let i = 0; i < numSectors; i++) {
-        const p = paragraphs[i];
-        const firstSentence = p.split(/[.!?]/)[0] || '';
-        const titleText = firstSentence.length < 55 && firstSentence.length > 8
-          ? firstSentence
-          : this.getGenericSectorTitle(i, detectedGenre);
-
-        setorizacaoPreview.push({
-          sectorNumber: i + 1,
-          title: `Setor ${i + 1}: ${titleText.replace(/^Setor\s*\d+\s*[:\-–]\s*/i, '')}`,
-          synopsis: p
-        });
-      }
     } else {
-      const sectorThemes = [
-        { name: 'O Prólogo: As Raízes & O Chamado da Memória', phase: 'Abertura e apresentação' },
-        { name: 'O Desenvolvimento: Lendas, Fatos e Caminhos', phase: 'Construção da narrativa' },
-        { name: 'A Luta e o Clímax: O Conflito e a Força Popular', phase: 'Ponto alto e tensão dramática' },
-        { name: 'A Apoteose: A Consagração no Pavilhão Sagrado', phase: 'Glória final e exaltação' },
-        { name: 'A Imortalidade: O Legado Eterno na Sapucaí', phase: 'Homenagem final' }
-      ];
-
+      const paragraphChunks = Math.max(1, Math.floor(paragraphs.length / numSectors));
       for (let i = 0; i < numSectors; i++) {
-        const theme = sectorThemes[i] || sectorThemes[sectorThemes.length - 1];
+        const start = i * paragraphChunks;
+        const end = i === numSectors - 1 ? paragraphs.length : (i + 1) * paragraphChunks;
+        const slice = paragraphs.slice(start, end).join(' ') || paragraphs[i % paragraphs.length] || synopsis;
+        const titleText = this.extractPoeticPhraseFromText(slice, cleanTitle, i + 1);
+
         setorizacaoPreview.push({
           sectorNumber: i + 1,
-          title: `Setor ${i + 1}: ${theme.name}`,
-          synopsis: paragraphs[i] || `${theme.phase} da história de "${cleanTitle}". ${(synopsis || '').slice(0, 160)}`
+          title: `${i + 1}º Setor - “${titleText.replace(/^Setor\s*\d+\s*[:\-–]\s*/i, '').replace(/["“”]/g, '')}”`,
+          synopsis: slice.slice(0, 200) + (slice.length > 200 ? '...' : '')
         });
       }
     }
 
     return setorizacaoPreview;
+  }
+
+  private static extractPoeticPhraseFromText(text: string, title: string, sectorNum: number): string {
+    const quote = text.match(/["“]([^"”]{6,45})["”]/);
+    if (quote && quote[1]) return quote[1].trim();
+
+    const sentences = text.split(/[.!?]/).map(s => s.trim()).filter(s => s.length >= 8 && s.length <= 45);
+    if (sentences.length > 0) return sentences[0];
+
+    const words = text.replace(/[^\w\sÀ-ÿ]/g, '').split(/\s+/).filter(w => w.length > 3);
+    if (words.length >= 4) {
+      const start = (sectorNum * 2) % Math.max(1, words.length - 4);
+      return words.slice(start, start + 4).join(' ');
+    }
+    return `${title} - Ato ${sectorNum}`;
   }
 
   /**
@@ -1031,19 +801,5 @@ export class EnredoResearchService {
         ]
       }
     };
-  }
-
-  private static getGenericSectorTitle(sectorIndex: number, genre: EnredoThemeType): string {
-    const titlesByGenre: Record<string, string[]> = {
-      'Histórico': ['A Gênese e as Raízes da Trajetória', 'Os Embates e a Marcha dos Pioneiros', 'A Grande Transformação', 'O Legado Eterno e a Glória'],
-      'Afro-Brasileiro': ['A Invocação dos Sagrados Orixás', 'A Travessia e a Raiz Ancestral', 'O Quilombo da Resistência', 'O Triunfo dos Filhos de África'],
-      'Regional': ['O Chão Sagrado e o Despertar da Terra', 'A Bravura e os Costumes do Povo', 'As Festas e o Folclore Tradicional', 'A Apoteose da Identidade'],
-      'Mitológico': ['O Olimpo dos Deuses e os Enigmas', 'A Queda e a Busca da Imortalidade', 'O Confronto com os Monstros Místicos', 'A Coroação Estelar'],
-      'Crítica Social': ['O Espelho da Desigualdade', 'A Labuta dos Invisíveis', 'O Grito da Coletividade', 'A Alvorada da Cidadania'],
-      'Cultural': ['O Berço das Tradições', 'A Mistura de Culturas e Cores', 'A Celebração da Arte', 'O Estandarte da Glória']
-    };
-
-    const list = titlesByGenre[genre] || titlesByGenre['Cultural'];
-    return list[sectorIndex % list.length];
   }
 }
