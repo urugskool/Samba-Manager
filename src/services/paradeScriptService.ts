@@ -1239,3 +1239,42 @@ export class ParadeScriptService {
     return result;
   }
 }
+
+declare const process: any;
+
+export async function gerarRoteiroAbreAlasIA(
+  nomeEscola: string,
+  tituloEnredo: string,
+  sinopseEnredo: string,
+  coresEscola: string[]
+) {
+  const apiKey =
+    (typeof process !== 'undefined' && process.env?.VITE_GEMINI_API_KEY) ||
+    (import.meta as any).env?.VITE_GEMINI_API_KEY ||
+    (typeof process !== 'undefined' && process.env?.GEMINI_API_KEY) ||
+    '';
+
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=${apiKey}`;
+
+  const prompt = `Gere o Roteiro Oficial do Desfile (Livro Abre-Alas) para a agremiação ${nomeEscola} (Cores: ${coresEscola.join(', ')}).
+Título do Enredo: "${tituloEnredo}".
+Sinopse:
+"${sinopseEnredo}"
+
+Siga a estrutura canônica da LIESA: 5 setores encadeados, desdobrando a sinopse em alas específicas (comunidade, baianas, bateria, passistas, velha-guarda), casais, comissão de frente e 5 alegorias com destaques e composições. Proibido usar clichês genéricos.`;
+
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: {
+        responseMimeType: 'application/json'
+      }
+    })
+  });
+
+  const data = await response.json();
+  const roteiroJson = JSON.parse(data.candidates[0].content.parts[0].text);
+  return roteiroJson;
+}
