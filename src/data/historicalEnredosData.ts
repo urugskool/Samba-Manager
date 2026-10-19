@@ -910,6 +910,69 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     imperio_da_tijuca: 'Quatro Séculos de Glórias',
     uniao_de_jacarepagua: 'O Rio e Suas Belezas',
     imperatriz: 'Homenagem ao IV Centenário do Rio'
+  },
+  1964: {
+    portela: 'O Segundo Casamento de D. Pedro I',
+    salgueiro: 'Chico Rei',
+    mangueira: 'História de um Preto Velho',
+    imperio_serrano: 'Aquarela Brasileira',
+    unidos_da_capela: 'A Marquesa de Santos',
+    uniao_de_jacarepagua: 'Uma Festa no Rio Antigo',
+    mocidade: 'O Café, Riqueza do Brasil',
+    aprendizes_de_lucas: 'Glória a Tomé de Souza',
+    unidos_padre_miguel: 'Feira de Caruaru',
+    cabucu: 'A Terra das Mil e Uma Noites'
+  },
+  1963: {
+    salgueiro: 'Chica da Silva',
+    mangueira: 'Exaltação à Bahia',
+    imperio_serrano: 'Rio de Ontem e de Hoje',
+    portela: 'Barão de Mauá e Suas Realizações',
+    uniao_de_jacarepagua: 'Origem da Moeda Brasileira',
+    mocidade: 'A Chegada de D. João VI',
+    cabucu: 'Homenagem à Cidade do Rio de Janeiro',
+    aprendizes_de_lucas: 'Brasília, Capital da Esperança',
+    unidos_de_bangu: 'Panorama de Brasília',
+    beija_flor: 'Peri e Ceci'
+  },
+  1962: {
+    portela: 'Rugendas - Viagens Pitorescas através do Brasil',
+    imperio_serrano: 'Rio dos Vice-Reis',
+    salgueiro: 'O Descobrimento do Brasil',
+    mangueira: 'Casa-Grande e Senzala',
+    mocidade: 'A Presença de Tomé de Souza',
+    aprendizes_de_lucas: 'Homenagem ao Barão de Mauá',
+    cabucu: 'A Deusa de Ébano',
+    uniao_de_jacarepagua: 'Retratos de Gonçalves Dias',
+    unidos_da_capela: 'Três Séculos de Glórias da Igreja da Candelária',
+    tupy_bras_de_pina: 'Seca do Nordeste'
+  },
+  1961: {
+    mangueira: 'Reminiscências do Rio Antigo',
+    salgueiro: 'Vida e Obra de Aleijadinho',
+    portela: 'Jóias das Minas Gerais',
+    imperio_serrano: 'Movimentos Revolucionários Brasileiros',
+    unidos_da_capela: 'D. João VI no Brasil',
+    aprendizes_de_lucas: 'Riquezas do Brasil',
+    mocidade: 'Carnaval no Rio',
+    uniao_de_jacarepagua: 'O Primeiro Reinado',
+    caprichosos_de_pilares: 'A Coroação de D. Pedro II',
+    unidos_padre_miguel: 'Exaltação aos Ex-Combatentes',
+    academicos_bento_ribeiro: 'Epopéia dos Bandeirantes'
+  },
+  1960: {
+    portela: 'Vila Rica de Ouro Preto',
+    mangueira: 'Carnaval de Todos os Tempos',
+    salgueiro: 'Quilombo dos Palmares',
+    unidos_da_capela: 'Noite de Gala no Palácio de São Cristóvão',
+    imperio_serrano: 'Exaltação a Tiradentes',
+    aprendizes_de_lucas: 'Os Bandeirantes',
+    mocidade: 'Exaltação à Cidade de Salvador',
+    uniao_de_jacarepagua: 'Apolo e Suas Musas',
+    unidos_padre_miguel: 'A Chegada de D. João VI',
+    beija_flor: 'Regência Trina',
+    aprendizes_boca_do_mato: 'Homenagem às Forças Armadas',
+    unidos_de_bangu: 'A Epopéia dos Bandeirantes'
   }
 };
 
