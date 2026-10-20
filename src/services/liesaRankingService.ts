@@ -122,8 +122,35 @@ export const CARNAVAL_1984_SUPERCAMPEONATO: LiesaStandingRecord[] = [
  * Carnaval 1956: Império Serrano campeã e Portela vice. Rebaixadas: Unidos da Congonha, Unidos do Indaiá e Unidos do Salgueiro.
  * Carnaval 1955: Império Serrano campeã e Mangueira vice. Rebaixadas: Índios do Acaú, Império da Tijuca e União do Catete.
  * Carnaval 1954: Mangueira campeã e Império Serrano vice. Rebaixadas: Acadêmicos do Engenho da Rainha, Aventureiros da Matriz, Paz e Amor, Unidos da Tamarineira, Independentes do Rio, Independentes do Leblon e União de Vaz Lobo.
+ * Carnaval 1953: Portela campeã e Império Serrano vice. Primeiro Carnaval com sistema de rebaixamento. Império da Tijuca desfilou como Hors concours. Rebaixadas: Vai Se Quiser, Cada Ano Sai Melhor, Aventureiros da Matriz e Azul e Branco do Salgueiro.
+ * Carnaval 1952: Não houve apuração oficial em função das fortes chuvas ocorridas durante os desfiles.
  */
 export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRecord[]> = {
+  1952: [], // Não houve apuração em função das chuvas
+  1953: [
+    { rank: 1, schoolId: 'portela', schoolName: 'Portela', statusDescription: 'Campeã Oficial (+20 pts)' },
+    { rank: 2, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', statusDescription: 'Vice-Campeã Oficial (+15 pts)' },
+    { rank: 3, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', statusDescription: '3º Lugar (+12 pts)' },
+    { rank: 4, schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas', statusDescription: '4º Lugar (+10 pts)' },
+    { rank: 5, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', statusDescription: '5º Lugar (+8 pts)' },
+    { rank: 6, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', statusDescription: '6º Lugar (+6 pts)' },
+    { rank: 7, schoolId: 'filhos_do_deserto', schoolName: 'Filhos do Deserto', statusDescription: '7º Lugar (+4 pts)' },
+    { rank: 8, schoolId: 'unidos_da_capela', schoolName: 'Unidos da Capela', statusDescription: '8º Lugar (+3 pts)' },
+    { rank: 9, schoolId: 'tres_mosqueteiros', schoolName: 'Três Mosqueteiros', statusDescription: '9º Lugar (+2 pts)' },
+    { rank: 10, schoolId: 'paz_e_amor', schoolName: 'Paz e Amor', statusDescription: '10º Lugar (+1 pt)' },
+    { rank: 11, schoolId: 'floresta_do_andarai', schoolName: 'Floresta do Andaraí', statusDescription: '11º Lugar (0 pts)' },
+    { rank: 12, schoolId: 'unidos_da_tamarineira', schoolName: 'Unidos da Tamarineira', statusDescription: '12º Lugar (0 pts)' },
+    { rank: 13, schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo', statusDescription: '13º Lugar (0 pts)' },
+    { rank: 14, schoolId: 'unidos_do_indaia', schoolName: 'Unidos do Indaiá', statusDescription: '14º Lugar (0 pts)' },
+    { rank: 15, schoolId: 'uniao_do_catete', schoolName: 'União do Catete', statusDescription: '15º Lugar (0 pts)' },
+    { rank: 16, schoolId: 'indios_do_acau', schoolName: 'Índios do Acaú', statusDescription: '16º Lugar (0 pts)' },
+    { rank: 17, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', statusDescription: '17º Lugar (0 pts)' },
+    { rank: 18, schoolId: 'vai_se_quiser', schoolName: 'Vai Se Quiser', statusDescription: '18º Lugar (0 pts • Rebaixada)' },
+    { rank: 19, schoolId: 'cada_ano_sai_melhor', schoolName: 'Cada Ano Sai Melhor', statusDescription: '19º Lugar (0 pts • Rebaixada)' },
+    { rank: 20, schoolId: 'aventureiros_da_matriz', schoolName: 'Aventureiros da Matriz', statusDescription: '20º Lugar (0 pts • Rebaixada)' },
+    { rank: 21, schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro', statusDescription: '21º Lugar (0 pts • Rebaixada)' },
+    { rank: 0, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', statusDescription: 'Hors Concours (Sem julgamento oficial)', isHorsConcours: true }
+  ],
   1954: [
     { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', statusDescription: 'Campeã Oficial (+20 pts)' },
     { rank: 2, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', statusDescription: 'Vice-Campeã Oficial (+15 pts)' },
@@ -1328,6 +1355,7 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('imperatriz')) return 'imperatriz';
   if (nameNorm.includes('vila isabel')) return 'vila_isabel';
   if (nameNorm.includes('unidos do salgueiro')) return 'unidos_do_salgueiro';
+  if (nameNorm.includes('azul e branco') && nameNorm.includes('salgueiro')) return 'azul_e_branco_salgueiro';
   if (nameNorm.includes('salgueiro')) return 'salgueiro';
   if (nameNorm.includes('mangueira')) return 'mangueira';
   if (nameNorm.includes('portela')) return 'portela';
@@ -1385,11 +1413,16 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('engenho da rainha')) return 'engenho_da_rainha';
   if (nameNorm.includes('vaz lobo')) return 'uniao_vaz_lobo';
   if (nameNorm.includes('independentes do rio')) return 'independentes_do_rio';
+  if (nameNorm.includes('três mosqueteiros') || nameNorm.includes('tres mosqueteiros')) return 'tres_mosqueteiros';
+  if (nameNorm.includes('depois eu digo')) return 'depois_eu_digo';
+  if (nameNorm.includes('cada ano sai melhor')) return 'cada_ano_sai_melhor';
+  if (nameNorm.includes('unidos do pecado') || nameNorm.includes('pecado')) return 'unidos_do_pecado';
+  if (nameNorm.includes('combinado do amor') || nameNorm.includes('combinado')) return 'combinado_do_amor';
   return nameNorm.replace(/[^a-z0-9]/g, '_');
 }
 
 /**
- * Retorna lista de carnavais históricos com resultados oficiais catalogados (1954 a 2026 + save)
+ * Retorna lista de carnavais históricos com resultados oficiais catalogados (1952 a 2026 + save)
  */
 export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): HistoricalCarnavalInfo[] {
   const result: HistoricalCarnavalInfo[] = [];
@@ -1419,7 +1452,7 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     });
   });
 
-  // Anos oficiais catalogados (2026 descendo até 1954)
+  // Anos oficiais catalogados (2026 descendo até 1952)
   const officialYears = [
     2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017,
     2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007,
@@ -1432,7 +1465,7 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     1974, 1973, 1972, 1971, 1970,
     1969, 1968, 1967, 1966, 1965,
     1964, 1963, 1962, 1961, 1960,
-    1959, 1958, 1957, 1956, 1955, 1954
+    1959, 1958, 1957, 1956, 1955, 1954, 1953, 1952
   ];
   officialYears.forEach((yr) => {
     const stands = OFFICIAL_LIESA_HISTORICAL_STANDINGS[yr] || [];
@@ -1442,6 +1475,18 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
         standings: [],
         isNoCarnaval: true,
         notes: 'Não Houve Desfile de Carnaval no Sambódromo da Marquês de Sapucaí em razão da pandemia de COVID-19. Nenhum ponto atribuído.',
+        championNames: [],
+        viceChampionNames: [],
+        totalSchools: 0
+      });
+      return;
+    }
+    if (yr === 1952) {
+      result.push({
+        year: 1952,
+        standings: [],
+        isNoCarnaval: true,
+        notes: 'Carnaval de 1952: Não houve apuração oficial em função das fortes chuvas ocorridas durante os desfiles. Nenhum ponto atribuído.',
         championNames: [],
         viceChampionNames: [],
         totalSchools: 0
@@ -1587,6 +1632,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
       notes = 'Carnaval Histórico de 1955 (Administrado pela AESCRJ): Império Serrano sagrou-se campeã com "Exaltação a Caxias" (+20 pts) e Estação Primeira de Mangueira vice-campeã com "As Quatro Estações do Ano" (+15 pts). Rebaixadas: Índios do Acaú, Império da Tijuca e União do Catete.';
     } else if (yr === 1954) {
       notes = 'Carnaval Histórico de 1954 (Administrado pela AESCRJ): Estação Primeira de Mangueira sagrou-se campeã com "O Novo Continente" (+20 pts) e Império Serrano foi vice-campeã com "O Guarda da Marinha Real" (+15 pts). Sete agremiações foram rebaixadas: Acadêmicos do Engenho da Rainha, Aventureiros da Matriz, Paz e Amor, Unidos da Tamarineira, Independentes do Rio, Independentes do Leblon (Independentes de Cordovil) e União de Vaz Lobo.';
+    } else if (yr === 1953) {
+      notes = 'Carnaval Histórico de 1953 (Administrado pela AESCRJ - Primeiro Carnaval da história com sistema de rebaixamento): Portela sagrou-se campeã com "Seis Datas Magnas" (+20 pts) e Império Serrano foi a vice-campeã com "O Último Baile da Ilha Fiscal" (+15 pts). O Império da Tijuca desfilou como Hors concours. Quatro agremiações foram rebaixadas: Vai Se Quiser, Cada Ano Sai Melhor, Aventureiros da Matriz e Azul e Branco do Salgueiro.';
     }
 
     result.push({
@@ -1844,32 +1891,32 @@ export function computeHistoricalLiesaRanking(
     return historicalMap[sId];
   };
 
-  // 1. Processa todos os títulos e vices históricos da era pré-1954 a partir de HISTORICAL_CARNAVAL_RECORDS
-  // A partir de 1954 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA
+  // 1. Processa todos os títulos e vices históricos da era pré-1953 a partir de HISTORICAL_CARNAVAL_RECORDS
+  // A partir de 1953 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA
   Object.entries(HISTORICAL_CARNAVAL_RECORDS).forEach(([id, rec]) => {
     const sId = resolveSchoolId(id, undefined, schoolsMap);
     const entry = ensureEntry(sId);
 
-    const espYearsPre1954 = (rec.especialYears || []).filter((y) => y < 1954);
-    const espViceYearsPre1954 = (rec.especialRunnerUpYears || []).filter((y) => y < 1954);
+    const espYearsPre1953 = (rec.especialYears || []).filter((y) => y < 1953);
+    const espViceYearsPre1953 = (rec.especialRunnerUpYears || []).filter((y) => y < 1953);
 
-    const titlesPre1954 = espYearsPre1954.length;
-    const vicesPre1954 = espViceYearsPre1954.length;
+    const titlesPre1953 = espYearsPre1953.length;
+    const vicesPre1953 = espViceYearsPre1953.length;
 
-    entry.totalEspecialTitles += titlesPre1954;
-    entry.totalEspecialVices += vicesPre1954;
-    entry.titlePoints += titlesPre1954 * 20;
-    entry.vicePoints += vicesPre1954 * 15;
-    entry.pointsEraPre2015 += titlesPre1954 * 20 + vicesPre1954 * 15;
-    entry.totalPoints += titlesPre1954 * 20 + vicesPre1954 * 15;
-    entry.totalCarnavalesContados += titlesPre1954 + vicesPre1954;
+    entry.totalEspecialTitles += titlesPre1953;
+    entry.totalEspecialVices += vicesPre1953;
+    entry.titlePoints += titlesPre1953 * 20;
+    entry.vicePoints += vicesPre1953 * 15;
+    entry.pointsEraPre2015 += titlesPre1953 * 20 + vicesPre1953 * 15;
+    entry.totalPoints += titlesPre1953 * 20 + vicesPre1953 * 15;
+    entry.totalCarnavalesContados += titlesPre1953 + vicesPre1953;
   });
 
-  // 2. Processa anos de 1954 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
+  // 2. Processa anos de 1953 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
   Object.entries(OFFICIAL_LIESA_HISTORICAL_STANDINGS).forEach(([yrStr, list]) => {
     const yr = parseInt(yrStr, 10);
-    if (yr === 2021 || !list || list.length === 0) {
-      // 2021: Não Houve Carnaval
+    if (yr === 2021 || yr === 1952 || !list || list.length === 0) {
+      // 2021 e 1952: Anos sem apuração oficial
       return;
     }
 
@@ -1996,7 +2043,7 @@ export function computeHistoricalLiesaRanking(
 
 /**
  * Calcula a lista de agremiações por ordem estritamente DECRESCENTE de participações
- * no Grupo Especial, computando todos os Carnavais Passados catalogados (1954 a 2026)
+ * no Grupo Especial, computando todos os Carnavais Passados catalogados (1953 a 2026)
  * somados dinamicamente aos anos decorridos no save (inGameHistory).
  */
 export function computeEspecialParticipationsList(
@@ -2033,10 +2080,10 @@ export function computeEspecialParticipationsList(
     return participationsMap.get(sId)!;
   };
 
-  // 1. Processa todos os anos catalogados oficiais dos Carnavais Passados (1970 a 2026)
+  // 1. Processa todos os anos catalogados oficiais dos Carnavais Passados (1953 a 2026)
   Object.entries(OFFICIAL_LIESA_HISTORICAL_STANDINGS).forEach(([yrStr, standings]) => {
     const yr = Number(yrStr);
-    if (yr === 2021 || !standings || standings.length === 0) return; // 2021: Não Houve Carnaval
+    if (yr === 2021 || yr === 1952 || !standings || standings.length === 0) return;
 
     standings.forEach((st) => {
       const item = getOrCreate(st.schoolId, st.schoolName);

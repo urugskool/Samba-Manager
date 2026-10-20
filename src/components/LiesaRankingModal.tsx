@@ -176,6 +176,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
 
     // Histórico oficial por ano caso não venha no statusDescription
     const yr = currentPastCarnaval.year;
+    if (yr === 1953) return ['Vai Se Quiser', 'Cada Ano Sai Melhor', 'Aventureiros da Matriz', 'Azul e Branco do Salgueiro'];
     if (yr === 1954) return ['Acadêmicos do Engenho da Rainha', 'Aventureiros da Matriz', 'Paz e Amor', 'Unidos da Tamarineira', 'Independentes do Rio', 'Independentes do Leblon (Independentes de Cordovil)', 'União de Vaz Lobo'];
     if (yr === 1955) return ['Índios do Acaú', 'Império da Tijuca', 'União do Catete'];
     if (yr === 1956) return ['Unidos da Congonha', 'Unidos do Indaiá', 'Unidos do Salgueiro'];
@@ -452,6 +453,14 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
     }
     if (year === 1954 && rank >= 17) {
       // Em 1954: Engenho da Rainha (17º), Aventureiros da Matriz (18º), Paz e Amor (19º), Unidos da Tamarineira (19º), Independentes do Rio (20º), Independentes do Leblon (21º) e União de Vaz Lobo (21º) foram rebaixadas
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs font-bold">
+          {rank}º (Rebaixada)
+        </span>
+      );
+    }
+    if (year === 1953 && rank >= 18) {
+      // Em 1953 (Primeiro Carnaval com rebaixamento): Vai Se Quiser (18º), Cada Ano Sai Melhor (19º), Aventureiros da Matriz (20º) e Azul e Branco do Salgueiro (21º) foram rebaixadas
       return (
         <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs font-bold">
           {rank}º (Rebaixada)
@@ -761,7 +770,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
               }`}
             >
               <History className="w-3.5 h-3.5" />
-              <span>Ranking Histórico Geral (1954-{currentYear || 2026})</span>
+              <span>Ranking Histórico Geral (1953-{currentYear || 2026})</span>
             </button>
             <button
               onClick={() => setRankingMode('participacoes')}
@@ -788,7 +797,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
               }`}
             >
               <Trophy className="w-3.5 h-3.5" />
-              <span>Carnavais Passados (1954-{currentYear || 2026})</span>
+              <span>Carnavais Passados (1952-{currentYear || 2026})</span>
             </button>
           </div>
 
@@ -1008,7 +1017,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                 <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                 <div>
                   <span className="font-bold text-amber-300">Classificação Histórica Oficial da LIESA:</span>{' '}
-                  Atribui 20 pontos por título e 15 pontos por vice-campeonato na história do Grupo Especial, somados às colocações completas de 1º a 10º lugar para todos os carnavais catalogados com apuração completa (1954 a 2026). A LIESA foi fundada em 24 de julho de 1984 para administrar o Grupo Especial a partir do Carnaval de 1985; as edições de 1954 a 1984 foram administradas pela AESCRJ. Clique em qualquer agremiação para ver o histórico ano a ano.
+                  Atribui 20 pontos por título e 15 pontos por vice-campeonato na história do Grupo Especial, somados às colocações completas de 1º a 10º lugar para todos os carnavais catalogados com apuração completa (1953 a 2026). A LIESA foi fundada em 24 de julho de 1984 para administrar o Grupo Especial a partir do Carnaval de 1985; as edições de 1953 a 1984 foram administradas pela AESCRJ. Clique em qualquer agremiação para ver o histórico ano a ano.
                 </div>
               </div>
 
@@ -1052,7 +1061,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                       <th className="py-3 px-3 text-center text-purple-400 font-bold">Participações Especial</th>
                       <th className="py-3 px-3 text-center text-amber-400 font-bold">Títulos Especial (20p)</th>
                       <th className="py-3 px-3 text-center text-slate-300 font-bold">Vices Especial (15p)</th>
-                      <th className="py-3 px-3 text-center text-blue-400 font-bold">Era 1954+ (Top 10)</th>
+                      <th className="py-3 px-3 text-center text-blue-400 font-bold">Era 1953+ (Top 10)</th>
                       <th className="py-3 px-4 text-right font-black text-amber-400 text-xs">
                         TOTAL PONTOS HISTÓRICOS
                       </th>
@@ -1156,7 +1165,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                         <span>Desempenho Histórico Detalhado: {entry.schoolName}</span>
                                       </h4>
                                       <p className="text-[11px] text-slate-400">
-                                        {entry.totalEspecialTitles} Título(s) ({entry.totalEspecialTitles * 20}p) · {entry.totalEspecialVices} Vice(s) ({entry.totalEspecialVices * 15}p) · Era 1954+: {entry.pointsDetailedEra} pts
+                                        {entry.totalEspecialTitles} Título(s) ({entry.totalEspecialTitles * 20}p) · {entry.totalEspecialVices} Vice(s) ({entry.totalEspecialVices * 15}p) · Era 1953+: {entry.pointsDetailedEra} pts
                                       </p>
                                     </div>
                                     {onSelectSchool && entry.school && (
@@ -1176,23 +1185,23 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
 
                                   <div>
                                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-2">
-                                      Carnavais Catalogados na Era Moderna (1954 a 2026):
+                                      Carnavais Catalogados na Era Moderna (1953 a 2026):
                                     </span>
                                     <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2">
                                       {historicalCarnavals.map((c) => {
                                         const perf = entry.performancesDetailed[c.year];
-                                        if (c.year === 2021) {
+                                        if (c.isNoCarnaval || c.year === 2021 || c.year === 1952) {
                                           return (
                                             <div
                                               key={c.year}
                                               className="p-2 rounded-xl bg-slate-950/60 border border-slate-800/80 text-[11px] space-y-0.5"
                                             >
                                               <div className="flex items-center justify-between text-[10px] text-slate-500 font-mono">
-                                                <span>2021</span>
+                                                <span>{c.year}</span>
                                                 <span>0p</span>
                                               </div>
                                               <div className="text-[10px] text-slate-400 italic">
-                                                Sem Desfile (COVID)
+                                                {c.year === 1952 ? 'Apuração Canc. (Chuvas)' : 'Sem Desfile (COVID)'}
                                               </div>
                                             </div>
                                           );
@@ -1281,7 +1290,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                               <BookOpen className="w-3.5 h-3.5 text-amber-400" />
                                               <span>Histórico Oficial de Enredos no Grupo Especial ({schoolEnredos.length} Edições)</span>
                                             </span>
-                                            <span className="text-slate-400 font-mono font-normal">1954 a {currentYear || 2026}</span>
+                                            <span className="text-slate-400 font-mono font-normal">1953 a {currentYear || 2026}</span>
                                           </div>
                                           <div className="max-h-52 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
                                             {schoolEnredos.map((item) => {
@@ -1340,7 +1349,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                 <Award className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
                 <div>
                   <span className="font-bold text-purple-300">Quadro Histórico de Participações no Grupo Especial:</span>{' '}
-                  Contabiliza o total exato de edições em que cada agremiação participou na divisão principal do Carnaval carioca (desde a era de 1954 até o ano corrente {currentYear || 2026}). O cálculo integra todos os anos oficiais dos Carnavais Passados com os anos transcorridos no seu save, atualizando-se automaticamente temporada a temporada. As escolas estão organizadas em ordem estritamente <strong>DECRESCENTE de participações</strong>. Clique em qualquer agremiação para visualizar os anos disputados e o histórico de enredos.
+                  Contabiliza o total exato de edições em que cada agremiação participou na divisão principal do Carnaval carioca (desde a era de 1953 até o ano corrente {currentYear || 2026}). O cálculo integra todos os anos oficiais dos Carnavais Passados com os anos transcorridos no seu save, atualizando-se automaticamente temporada a temporada. As escolas estão organizadas em ordem estritamente <strong>DECRESCENTE de participações</strong>. Clique em qualquer agremiação para visualizar os anos disputados e o histórico de enredos.
                 </div>
               </div>
 
@@ -1557,7 +1566,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                           <BookOpen className="w-3.5 h-3.5 text-amber-400" />
                                           <span>Histórico Oficial de Enredos no Grupo Especial ({schoolEnredos.length} Edições - Atualizado com o Save)</span>
                                         </span>
-                                        <span className="text-slate-400 font-mono font-normal">1954 a {currentYear || 2026}</span>
+                                        <span className="text-slate-400 font-mono font-normal">1953 a {currentYear || 2026}</span>
                                       </div>
                                       <div className="max-h-56 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
                                         {schoolEnredos.map((enr) => (
@@ -1649,10 +1658,12 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                         <AlertTriangle className="w-6 h-6 text-amber-500" />
                       </div>
                       <h3 className="text-lg font-black text-white">
-                        Carnaval 2021 — Não Houve Carnaval
+                        Carnaval {currentPastCarnaval.year} — {currentPastCarnaval.year === 1952 ? 'Apuração Cancelada (Chuvas)' : 'Não Houve Carnaval'}
                       </h3>
                       <p className="text-xs text-slate-400 max-w-xl mx-auto leading-relaxed">
-                        Em virtude do ápice da pandemia mundial de COVID-19 e das medidas sanitárias vigentes, a LIESA e os órgãos públicos cancelaram os desfiles das escolas de samba no Sambódromo da Marquês de Sapucaí em 2021. Nenhuma agremiação pontuou no Ranking Oficial.
+                        {currentPastCarnaval.notes || (currentPastCarnaval.year === 1952
+                          ? 'Carnaval de 1952: Não houve apuração oficial em função das fortes chuvas ocorridas durante os desfiles. Nenhum ponto atribuído.'
+                          : 'Em virtude do ápice da pandemia mundial de COVID-19 e das medidas sanitárias vigentes, a LIESA e os órgãos públicos cancelaram os desfiles das escolas de samba no Sambódromo da Marquês de Sapucaí em 2021. Nenhuma agremiação pontuou no Ranking Oficial.')}
                       </p>
                     </div>
                   ) : (

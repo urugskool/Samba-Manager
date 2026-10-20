@@ -1102,6 +1102,30 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     independentes_do_rio: 'Achegas da História do Brasil',
     independentes_cordovil: 'O Esplendor da Natureza',
     uniao_vaz_lobo: 'Vultos Ilustres da Pátria'
+  },
+  1953: {
+    portela: 'Seis Datas Magnas',
+    imperio_serrano: 'O Último Baile da Ilha Fiscal',
+    mangueira: 'Unidade Nacional',
+    aprendizes_de_lucas: 'Três Épocas do Brasil',
+    tijuca: 'De D. Pedro I a Caxias',
+    unidos_do_salgueiro: 'Episódios Históricos',
+    filhos_do_deserto: 'Glória à Marinha do Brasil',
+    unidos_da_capela: 'Homenagem aos Heróis Nacionais',
+    tres_mosqueteiros: 'Achegas Históricas',
+    paz_e_amor: 'Quatro Vultos da História',
+    floresta_do_andarai: 'Sonho das Flores',
+    unidos_da_tamarineira: 'Exaltação ao Samba',
+    depois_eu_digo: 'Vultos Históricos',
+    unidos_do_indaia: 'Homenagem a Santos Dumont',
+    uniao_do_catete: 'O Catete e a República',
+    indios_do_acau: 'A Lenda da Vitória-Régia',
+    cabucu: 'Bandeirantes do Sertão',
+    vai_se_quiser: 'Tradições do Rio Antigo',
+    cada_ano_sai_melhor: 'Reminiscências da Guanabara',
+    aventureiros_da_matriz: 'Homenagem à Pátria',
+    azul_e_branco_salgueiro: 'Os Bandeirantes da História',
+    imperio_da_tijuca: 'Glória a Caxias'
   }
 };
 
@@ -1121,6 +1145,8 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('viradouro')) return 'viradouro';
   if (n.includes('beija-flor') || n.includes('beija flor')) return 'beija_flor';
   if (n.includes('vila isabel')) return 'vila_isabel';
+  if (n.includes('unidos do salgueiro')) return 'unidos_do_salgueiro';
+  if (n.includes('azul e branco') && n.includes('salgueiro')) return 'azul_e_branco_salgueiro';
   if (n.includes('salgueiro')) return 'salgueiro';
   if (n.includes('imperatriz')) return 'imperatriz';
   if (n.includes('mangueira')) return 'mangueira';

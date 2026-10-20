@@ -118,7 +118,9 @@ const INITIAL_INACTIVE_SCHOOL_IDS = new Set([
   'paraiso_das_baianas',
   'unidos_do_grajau',
   'floresta_do_andarai',
-  'unidos_da_tamarineira'
+  'unidos_da_tamarineira',
+  'unidos_do_pecado',
+  'combinado_do_amor'
 ]);
 
 function sanitizeSchoolsData(loadedSchools: School[]): School[] {
