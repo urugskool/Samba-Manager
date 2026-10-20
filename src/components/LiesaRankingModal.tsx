@@ -176,6 +176,12 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
 
     // Histórico oficial por ano caso não venha no statusDescription
     const yr = currentPastCarnaval.year;
+    if (yr === 1954) return ['Acadêmicos do Engenho da Rainha', 'Aventureiros da Matriz', 'Paz e Amor', 'Unidos da Tamarineira', 'Independentes do Rio', 'Independentes do Leblon (Independentes de Cordovil)', 'União de Vaz Lobo'];
+    if (yr === 1955) return ['Índios do Acaú', 'Império da Tijuca', 'União do Catete'];
+    if (yr === 1956) return ['Unidos da Congonha', 'Unidos do Indaiá', 'Unidos do Salgueiro'];
+    if (yr === 1957) return ['Unidos de Vila Isabel', 'Paraíso do Tuiuti', 'Paz e Amor'];
+    if (yr === 1958) return ['Unidos de Bento Ribeiro', 'Flor do Lins', 'Filhos do Deserto'];
+    if (yr === 1959) return ['Caprichosos de Pilares', 'Cartolinhas de Caxias', 'União do Centenário', 'Tupy de Brás de Pina', 'Unidos do Cabuçu', 'Paraíso do Tuiuti', 'Unidos da Tijuca', 'Unidos do Salgueiro'];
     if (yr === 1960) return ['Beija-Flor', 'Aprendizes da Boca do Mato', 'Unidos de Bangu'];
     if (yr === 1961) return ['Caprichosos de Pilares', 'Unidos de Padre Miguel', 'Acadêmicos de Bento Ribeiro'];
     if (yr === 1962) return ['Unidos da Capela', 'Tupy de Brás de Pina'];
@@ -414,6 +420,38 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
     }
     if (year === 1960 && rank >= 6) {
       // Em 1960: Beija-Flor (6º), Aprendizes da Boca do Mato (7º) e Unidos de Bangu (8º) foram rebaixadas
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs font-bold">
+          {rank}º (Rebaixada)
+        </span>
+      );
+    }
+    if (year === 1959 && (rank >= 12 || (rank === 11 && statusDescription?.toLowerCase().includes('rebaixada')) || rank === 10)) {
+      // Em 1959: Caprichosos (10º), Cartolinhas (11º), Centenário (12º), Tupy (13º), Cabuçu (14º), Tuiuti (15º), Tijuca (16º) e Unidos do Salgueiro (17º) foram rebaixadas
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs font-bold">
+          {rank}º (Rebaixada)
+        </span>
+      );
+    }
+    if ((year === 1958 || year === 1957 || year === 1955) && rank >= 16) {
+      // Rebaixadas dos carnavais de 1958 (16º a 18º), 1957 (16º e 17º) e 1955 (16º a 18º)
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs font-bold">
+          {rank}º (Rebaixada)
+        </span>
+      );
+    }
+    if (year === 1956 && rank >= 15) {
+      // Em 1956: Unidos da Congonha (15º), Unidos do Indaiá (16º) e Unidos do Salgueiro (16º) foram rebaixadas
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs font-bold">
+          {rank}º (Rebaixada)
+        </span>
+      );
+    }
+    if (year === 1954 && rank >= 17) {
+      // Em 1954: Engenho da Rainha (17º), Aventureiros da Matriz (18º), Paz e Amor (19º), Unidos da Tamarineira (19º), Independentes do Rio (20º), Independentes do Leblon (21º) e União de Vaz Lobo (21º) foram rebaixadas
       return (
         <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 font-mono text-xs font-bold">
           {rank}º (Rebaixada)
@@ -723,7 +761,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
               }`}
             >
               <History className="w-3.5 h-3.5" />
-              <span>Ranking Histórico Geral (1960-{currentYear || 2026})</span>
+              <span>Ranking Histórico Geral (1954-{currentYear || 2026})</span>
             </button>
             <button
               onClick={() => setRankingMode('participacoes')}
@@ -750,7 +788,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
               }`}
             >
               <Trophy className="w-3.5 h-3.5" />
-              <span>Carnavais Passados (1960-{currentYear || 2026})</span>
+              <span>Carnavais Passados (1954-{currentYear || 2026})</span>
             </button>
           </div>
 
@@ -970,7 +1008,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                 <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                 <div>
                   <span className="font-bold text-amber-300">Classificação Histórica Oficial da LIESA:</span>{' '}
-                  Atribui 20 pontos por título e 15 pontos por vice-campeonato na história do Grupo Especial, somados às colocações completas de 1º a 10º lugar para todos os carnavais catalogados com apuração completa (1960 a 2026). A LIESA foi fundada em 24 de julho de 1984 para administrar o Grupo Especial a partir do Carnaval de 1985; as edições de 1960 a 1984 foram administradas pela AESCRJ. Clique em qualquer agremiação para ver o histórico ano a ano.
+                  Atribui 20 pontos por título e 15 pontos por vice-campeonato na história do Grupo Especial, somados às colocações completas de 1º a 10º lugar para todos os carnavais catalogados com apuração completa (1954 a 2026). A LIESA foi fundada em 24 de julho de 1984 para administrar o Grupo Especial a partir do Carnaval de 1985; as edições de 1954 a 1984 foram administradas pela AESCRJ. Clique em qualquer agremiação para ver o histórico ano a ano.
                 </div>
               </div>
 
@@ -1014,7 +1052,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                       <th className="py-3 px-3 text-center text-purple-400 font-bold">Participações Especial</th>
                       <th className="py-3 px-3 text-center text-amber-400 font-bold">Títulos Especial (20p)</th>
                       <th className="py-3 px-3 text-center text-slate-300 font-bold">Vices Especial (15p)</th>
-                      <th className="py-3 px-3 text-center text-blue-400 font-bold">Era 1960+ (Top 10)</th>
+                      <th className="py-3 px-3 text-center text-blue-400 font-bold">Era 1954+ (Top 10)</th>
                       <th className="py-3 px-4 text-right font-black text-amber-400 text-xs">
                         TOTAL PONTOS HISTÓRICOS
                       </th>
@@ -1118,7 +1156,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                         <span>Desempenho Histórico Detalhado: {entry.schoolName}</span>
                                       </h4>
                                       <p className="text-[11px] text-slate-400">
-                                        {entry.totalEspecialTitles} Título(s) ({entry.totalEspecialTitles * 20}p) · {entry.totalEspecialVices} Vice(s) ({entry.totalEspecialVices * 15}p) · Era 1960+: {entry.pointsDetailedEra} pts
+                                        {entry.totalEspecialTitles} Título(s) ({entry.totalEspecialTitles * 20}p) · {entry.totalEspecialVices} Vice(s) ({entry.totalEspecialVices * 15}p) · Era 1954+: {entry.pointsDetailedEra} pts
                                       </p>
                                     </div>
                                     {onSelectSchool && entry.school && (
@@ -1138,7 +1176,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
 
                                   <div>
                                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-2">
-                                      Carnavais Catalogados na Era Moderna (1960 a 2026):
+                                      Carnavais Catalogados na Era Moderna (1954 a 2026):
                                     </span>
                                     <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2">
                                       {historicalCarnavals.map((c) => {
@@ -1243,7 +1281,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                               <BookOpen className="w-3.5 h-3.5 text-amber-400" />
                                               <span>Histórico Oficial de Enredos no Grupo Especial ({schoolEnredos.length} Edições)</span>
                                             </span>
-                                            <span className="text-slate-400 font-mono font-normal">1960 a {currentYear || 2026}</span>
+                                            <span className="text-slate-400 font-mono font-normal">1954 a {currentYear || 2026}</span>
                                           </div>
                                           <div className="max-h-52 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
                                             {schoolEnredos.map((item) => {
@@ -1302,7 +1340,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                 <Award className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
                 <div>
                   <span className="font-bold text-purple-300">Quadro Histórico de Participações no Grupo Especial:</span>{' '}
-                  Contabiliza o total exato de edições em que cada agremiação participou na divisão principal do Carnaval carioca (desde a era de 1960 até o ano corrente {currentYear || 2026}). O cálculo integra todos os anos oficiais dos Carnavais Passados com os anos transcorridos no seu save, atualizando-se automaticamente temporada a temporada. As escolas estão organizadas em ordem estritamente <strong>DECRESCENTE de participações</strong>. Clique em qualquer agremiação para visualizar os anos disputados e o histórico de enredos.
+                  Contabiliza o total exato de edições em que cada agremiação participou na divisão principal do Carnaval carioca (desde a era de 1954 até o ano corrente {currentYear || 2026}). O cálculo integra todos os anos oficiais dos Carnavais Passados com os anos transcorridos no seu save, atualizando-se automaticamente temporada a temporada. As escolas estão organizadas em ordem estritamente <strong>DECRESCENTE de participações</strong>. Clique em qualquer agremiação para visualizar os anos disputados e o histórico de enredos.
                 </div>
               </div>
 
@@ -1519,7 +1557,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                           <BookOpen className="w-3.5 h-3.5 text-amber-400" />
                                           <span>Histórico Oficial de Enredos no Grupo Especial ({schoolEnredos.length} Edições - Atualizado com o Save)</span>
                                         </span>
-                                        <span className="text-slate-400 font-mono font-normal">1960 a {currentYear || 2026}</span>
+                                        <span className="text-slate-400 font-mono font-normal">1954 a {currentYear || 2026}</span>
                                       </div>
                                       <div className="max-h-56 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
                                         {schoolEnredos.map((enr) => (

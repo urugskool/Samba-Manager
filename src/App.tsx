@@ -108,7 +108,17 @@ const INITIAL_INACTIVE_SCHOOL_IDS = new Set([
   'independentes_cordovil',
   'independentes_do_rio',
   'unidos_bento_ribeiro',
-  'unidos_do_salgueiro'
+  'unidos_do_salgueiro',
+  'filhos_do_deserto',
+  'indios_do_acau',
+  'uniao_do_catete',
+  'vai_se_quiser',
+  'unidos_da_congonha',
+  'aventureiros_da_matriz',
+  'paraiso_das_baianas',
+  'unidos_do_grajau',
+  'floresta_do_andarai',
+  'unidos_da_tamarineira'
 ]);
 
 function sanitizeSchoolsData(loadedSchools: School[]): School[] {
