@@ -8,8 +8,8 @@ export interface LiesaStandingRecord {
   schoolName: string;
   totalScore?: number;
   isHorsConcours?: boolean;
-  subgroup?: 'domingo' | 'segunda' | 'supercampeonato' | 'fbes' | 'ugesb';
-  league?: 'FBES' | 'UGESB';
+  subgroup?: 'domingo' | 'segunda' | 'supercampeonato' | 'fbes' | 'ugesb' | 'uces';
+  league?: 'FBES' | 'UGESB' | 'UCES' | 'AESCRJ' | 'LIESA';
   statusDescription?: string;
 }
 
@@ -77,6 +77,87 @@ export const CARNAVAL_1984_SUPERCAMPEONATO: LiesaStandingRecord[] = [
   { rank: 6, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', subgroup: 'supercampeonato', statusDescription: '6º Lugar no Supercampeonato' },
   { rank: 7, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', subgroup: 'supercampeonato', statusDescription: '7º Lugar (Campeã Grupo 1-B)' },
   { rank: 8, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz', subgroup: 'supercampeonato', statusDescription: '8º Lugar (Vice Grupo 1-B)' }
+];
+
+/**
+ * Resultados específicos dos desfiles competitivos do Carnaval de 1950:
+ * FBES (Federação Brasileira de Escolas de Samba), UCES (União Cívica das Escolas de Samba) e UGESB (União Geral das Escolas de Samba do Brasil).
+ */
+export const CARNAVAL_1950_FBES: LiesaStandingRecord[] = [
+  { rank: 1, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', subgroup: 'fbes', league: 'FBES', statusDescription: 'Campeã FBES (+20 pts)' },
+  { rank: 2, schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas', subgroup: 'fbes', league: 'FBES', statusDescription: 'Vice-Campeã FBES (+15 pts)' },
+  { rank: 3, schoolId: 'irmaos_unidos_do_catete', schoolName: 'Irmãos Unidos do Catete', subgroup: 'fbes', league: 'FBES', statusDescription: '3º Lugar FBES (+12 pts)' },
+  { rank: 4, schoolId: 'floresta_do_andarai', schoolName: 'Floresta do Andaraí', subgroup: 'fbes', league: 'FBES', statusDescription: '4º Lugar FBES (+10 pts)' },
+  { rank: 5, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', subgroup: 'fbes', league: 'FBES', statusDescription: '5º Lugar FBES (+8 pts)' },
+  { rank: 6, schoolId: 'indios_do_acau', schoolName: 'Índios do Acaú', subgroup: 'fbes', league: 'FBES', statusDescription: '6º Lugar FBES (+6 pts)' },
+  { rank: 7, schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro', subgroup: 'fbes', league: 'FBES', statusDescription: '7º Lugar FBES (+4 pts)' },
+  { rank: 8, schoolId: 'independentes_cordovil', schoolName: 'Independentes do Leblon (Independentes de Cordovil)', subgroup: 'fbes', league: 'FBES', statusDescription: '8º Lugar FBES (+3 pts)' },
+  { rank: 9, schoolId: 'unidos_do_engenho_velho', schoolName: 'Unidos do Engenho Velho', subgroup: 'fbes', league: 'FBES', statusDescription: '9º Lugar FBES (+2 pts)' },
+  { rank: 10, schoolId: 'mocidade_de_um_paraiso', schoolName: 'Mocidade de Um Paraíso', subgroup: 'fbes', league: 'FBES', statusDescription: '10º Lugar FBES (+1 pt)' },
+  { rank: 11, schoolId: 'capricho_do_centenario', schoolName: 'Capricho do Centenário', subgroup: 'fbes', league: 'FBES', statusDescription: '11º Lugar FBES (0 pts)' },
+  { rank: 12, schoolId: 'estrela_de_ouro', schoolName: 'Estrela de Ouro', subgroup: 'fbes', league: 'FBES', statusDescription: '12º Lugar FBES (0 pts)' },
+  { rank: 13, schoolId: 'independentes_do_rio', schoolName: 'Independentes do Rio', subgroup: 'fbes', league: 'FBES', statusDescription: '13º Lugar FBES (0 pts)' },
+  { rank: 14, schoolId: 'paraiso_da_mocidade', schoolName: 'Paraíso da Mocidade', subgroup: 'fbes', league: 'FBES', statusDescription: '14º Lugar FBES (0 pts)' },
+  { rank: 15, schoolId: 'uniao_vaz_lobo', schoolName: 'União de Vaz Lobo', subgroup: 'fbes', league: 'FBES', statusDescription: '15º Lugar FBES (0 pts)' },
+  { rank: 16, schoolId: 'unidos_de_santo_amaro', schoolName: 'Unidos de Santo Amaro', subgroup: 'fbes', league: 'FBES', statusDescription: '16º Lugar FBES (0 pts)' },
+  { rank: 17, schoolId: 'unidos_do_grajau', schoolName: 'Unidos do Grajaú', subgroup: 'fbes', league: 'FBES', statusDescription: '17º Lugar FBES (0 pts)' },
+  { rank: 18, schoolId: 'uniao_dos_casados', schoolName: 'União dos Casados', subgroup: 'fbes', league: 'FBES', statusDescription: '18º Lugar FBES (0 pts)' },
+  { rank: 18, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', subgroup: 'fbes', league: 'FBES', statusDescription: '18º Lugar FBES (0 pts)' },
+  { rank: 19, schoolId: 'unidos_do_outeiro', schoolName: 'Unidos do Outeiro', subgroup: 'fbes', league: 'FBES', statusDescription: '19º Lugar FBES (0 pts)' },
+  { rank: 20, schoolId: 'engenho_da_rainha', schoolName: 'Acadêmicos do Engenho da Rainha', subgroup: 'fbes', league: 'FBES', statusDescription: '20º Lugar FBES (0 pts)' },
+  { rank: 20, schoolId: 'vitoria_de_bento_ribeiro', schoolName: 'Vitória de Bento Ribeiro', subgroup: 'fbes', league: 'FBES', statusDescription: '20º Lugar FBES (0 pts)' },
+  { rank: 21, schoolId: 'unidos_do_pecado', schoolName: 'Unidos do Pecado', subgroup: 'fbes', league: 'FBES', statusDescription: '21º Lugar FBES (0 pts)' },
+  { rank: 22, schoolId: 'imperio_da_colina', schoolName: 'Império da Colina', subgroup: 'fbes', league: 'FBES', statusDescription: '22º Lugar FBES (0 pts)' },
+  { rank: 23, schoolId: 'orgulho_de_cordovil', schoolName: 'Orgulho de Cordovil', subgroup: 'fbes', league: 'FBES', statusDescription: '23º Lugar FBES (0 pts)' },
+  { rank: 24, schoolId: 'coracoes_unidos_da_favela', schoolName: 'Corações Unidos da Favela', subgroup: 'fbes', league: 'FBES', statusDescription: '24º Lugar FBES (0 pts)' },
+  { rank: 25, schoolId: 'flor_do_lins', schoolName: 'Flor do Lins', subgroup: 'fbes', league: 'FBES', statusDescription: '25º Lugar FBES (0 pts)' },
+  { rank: 26, schoolId: 'unidos_do_itambi', schoolName: 'Unidos do Itambí', subgroup: 'fbes', league: 'FBES', statusDescription: '26º Lugar FBES (0 pts)' },
+  { rank: 27, schoolId: 'unidos_de_cosmos', schoolName: 'Unidos de Cosmos', subgroup: 'fbes', league: 'FBES', statusDescription: '27º Lugar FBES (0 pts)' },
+  { rank: 28, schoolId: 'imperio_do_samba', schoolName: 'Império do Samba', subgroup: 'fbes', league: 'FBES', statusDescription: '28º Lugar FBES (0 pts)' },
+  { rank: 28, schoolId: 'sem_voce_vivo_bem', schoolName: 'Sem Você Vivo Bem', subgroup: 'fbes', league: 'FBES', statusDescription: '28º Lugar FBES (0 pts)' },
+  { rank: 29, schoolId: 'unidos_da_lagoa', schoolName: 'Unidos da Lagoa', subgroup: 'fbes', league: 'FBES', statusDescription: '29º Lugar FBES (0 pts)' },
+  { rank: 30, schoolId: 'unidos_da_barao_de_petropolis', schoolName: 'Unidos da Barão de Petrópolis', subgroup: 'fbes', league: 'FBES', statusDescription: '30º Lugar FBES (0 pts)' },
+  { rank: 31, schoolId: 'uniao_dos_topazios', schoolName: 'União dos Topázios', subgroup: 'fbes', league: 'FBES', statusDescription: '31º Lugar FBES (0 pts)' },
+  { rank: 32, schoolId: 'unidos_dos_telegrafos', schoolName: 'Unidos dos Telégrafos', subgroup: 'fbes', league: 'FBES', statusDescription: '32º Lugar FBES (0 pts)' },
+  { rank: 33, schoolId: 'coracoes_da_liberdade', schoolName: 'Corações da Liberdade', subgroup: 'fbes', league: 'FBES', statusDescription: '33º Lugar FBES (0 pts)' },
+  { rank: 34, schoolId: 'de_nos_ninguem_esquece', schoolName: 'De Nós Ninguém Esquece', subgroup: 'fbes', league: 'FBES', statusDescription: '34º Lugar FBES (0 pts)' }
+];
+
+export const CARNAVAL_1950_UCES: LiesaStandingRecord[] = [
+  { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', subgroup: 'uces', league: 'UCES', statusDescription: 'Campeã UCES (+20 pts)' },
+  { rank: 2, schoolId: 'portela', schoolName: 'Portela', subgroup: 'uces', league: 'UCES', statusDescription: 'Vice-Campeã UCES (+15 pts)' },
+  { rank: 3, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', subgroup: 'uces', league: 'UCES', statusDescription: '3º Lugar UCES (+12 pts)' },
+  { rank: 4, schoolId: 'coracoes_unidos_jacarepagua', schoolName: 'Corações Unidos de Jacarepaguá', subgroup: 'uces', league: 'UCES', statusDescription: '4º Lugar UCES (+10 pts)' },
+  { rank: 4, schoolId: 'vai_se_quiser', schoolName: 'Vai Se Quiser', subgroup: 'uces', league: 'UCES', statusDescription: '4º Lugar UCES (+10 pts)' },
+  { rank: 5, schoolId: 'filhos_do_deserto', schoolName: 'Filhos do Deserto', subgroup: 'uces', league: 'UCES', statusDescription: '5º Lugar UCES (+8 pts)' },
+  { rank: 6, schoolId: 'unidos_do_coqueiro', schoolName: 'Unidos do Coqueiro', subgroup: 'uces', league: 'UCES', statusDescription: '6º Lugar UCES (+6 pts)' },
+  { rank: 7, schoolId: 'uniao_do_realengo', schoolName: 'União do Realengo', subgroup: 'uces', league: 'UCES', statusDescription: '7º Lugar UCES (+4 pts)' },
+  { rank: 8, schoolId: 'unidos_de_riachuelo', schoolName: 'Unidos de Riachuelo', subgroup: 'uces', league: 'UCES', statusDescription: '8º Lugar UCES (+3 pts)' },
+  { rank: 9, schoolId: 'cada_ano_sai_melhor', schoolName: 'Cada Ano Sai Melhor', subgroup: 'uces', league: 'UCES', statusDescription: '9º Lugar UCES (+2 pts)' },
+  { rank: 10, schoolId: 'voz_do_orion', schoolName: 'Voz do Orion', subgroup: 'uces', league: 'UCES', statusDescription: '10º Lugar UCES (+1 pt)' }
+];
+
+export const CARNAVAL_1950_UGESB: LiesaStandingRecord[] = [
+  { rank: 1, schoolId: 'prazer_da_serrinha', schoolName: 'Prazer da Serrinha', subgroup: 'ugesb', league: 'UGESB', statusDescription: 'Campeã UGESB empatada (+20 pts)' },
+  { rank: 1, schoolId: 'unidos_da_capela', schoolName: 'Unidos da Capela', subgroup: 'ugesb', league: 'UGESB', statusDescription: 'Campeã UGESB empatada (+20 pts)' },
+  { rank: 2, schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo', subgroup: 'ugesb', league: 'UGESB', statusDescription: 'Vice-Campeã UGESB empatada (+15 pts)' },
+  { rank: 2, schoolId: 'paz_e_amor', schoolName: 'Paz e Amor', subgroup: 'ugesb', league: 'UGESB', statusDescription: 'Vice-Campeã UGESB empatada (+15 pts)' },
+  { rank: 2, schoolId: 'tres_mosqueteiros', schoolName: 'Três Mosqueteiros', subgroup: 'ugesb', league: 'UGESB', statusDescription: 'Vice-Campeã UGESB empatada (+15 pts)' },
+  { rank: 2, schoolId: 'unidos_da_congonha', schoolName: 'Unidos da Congonha', subgroup: 'ugesb', league: 'UGESB', statusDescription: 'Vice-Campeã UGESB empatada (+15 pts)' },
+  { rank: 2, schoolId: 'unidos_da_tamarineira', schoolName: 'Unidos da Tamarineira', subgroup: 'ugesb', league: 'UGESB', statusDescription: 'Vice-Campeã UGESB empatada (+15 pts)' },
+  { rank: 3, schoolId: 'unidos_do_indaia', schoolName: 'Unidos do Indaiá', subgroup: 'ugesb', league: 'UGESB', statusDescription: '3º Lugar UGESB (+12 pts)' },
+  { rank: 4, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', subgroup: 'ugesb', league: 'UGESB', statusDescription: '4º Lugar UGESB (+10 pts)' },
+  { rank: 5, schoolId: 'unidos_de_turiacu', schoolName: 'Unidos de Turiaçu', subgroup: 'ugesb', league: 'UGESB', statusDescription: '5º Lugar UGESB (+8 pts)' },
+  { rank: 6, schoolId: 'recreio_de_inhauma', schoolName: 'Recreio de Inhaúma', subgroup: 'ugesb', league: 'UGESB', statusDescription: '6º Lugar UGESB (+6 pts)' },
+  { rank: 7, schoolId: 'prazer_da_mocidade', schoolName: 'Prazer da Mocidade', subgroup: 'ugesb', league: 'UGESB', statusDescription: '7º Lugar UGESB (+4 pts)' },
+  { rank: 8, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', subgroup: 'ugesb', league: 'UGESB', statusDescription: '8º Lugar UGESB (+3 pts)' },
+  { rank: 9, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', subgroup: 'ugesb', league: 'UGESB', statusDescription: '9º Lugar UGESB (+2 pts)' },
+  { rank: 10, schoolId: 'em_cima_da_hora_catumbi', schoolName: 'Em Cima da Hora do Catumbi', subgroup: 'ugesb', league: 'UGESB', statusDescription: '10º Lugar UGESB (+1 pt)' },
+  { rank: 11, schoolId: 'paraiso_da_floresta', schoolName: 'Paraíso da Floresta', subgroup: 'ugesb', league: 'UGESB', statusDescription: '11º Lugar UGESB (0 pts)' },
+  { rank: 12, schoolId: 'unidos_de_riachuelo', schoolName: 'Unidos de Riachuelo', subgroup: 'ugesb', league: 'UGESB', statusDescription: '12º Lugar UGESB (0 pts)' },
+  { rank: 13, schoolId: 'unidos_de_terra_nova', schoolName: 'Unidos de Terra Nova', subgroup: 'ugesb', league: 'UGESB', statusDescription: '13º Lugar UGESB (0 pts)' },
+  { rank: 14, schoolId: 'uniao_de_sampaio', schoolName: 'União do Sampaio', subgroup: 'ugesb', league: 'UGESB', statusDescription: '14º Lugar UGESB (0 pts)' },
+  { rank: 15, schoolId: 'fiquei_firme', schoolName: 'Fiquei Firme', subgroup: 'ugesb', league: 'UGESB', statusDescription: '15º Lugar UGESB (0 pts)' }
 ];
 
 /**
@@ -195,8 +276,117 @@ export const CARNAVAL_1951_UGESB: LiesaStandingRecord[] = [
  *   - FBES: Império Serrano campeã e Aprendizes de Lucas vice.
  *   - UGESB: Portela campeã e Três Mosqueteiros vice.
  *   Não houve rebaixamento.
+ * Carnaval 1950: Três competições oficiais de Escolas de Samba:
+ *   - FBES: Império Serrano campeã e Aprendizes de Lucas vice.
+ *   - UCES: Estação Primeira de Mangueira campeã e Portela vice.
+ *   - UGESB: Prazer da Serrinha e Unidos da Capela campeãs empatadas, com cinco agremiações vice-campeãs empatadas.
+ *   Não houve rebaixamento.
  */
 export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRecord[]> = {
+  1950: [
+    // 1º Lugares (+20 pts)
+    { rank: 1, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', subgroup: 'fbes', league: 'FBES', statusDescription: 'Campeã FBES (+20 pts)' },
+    { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', subgroup: 'uces', league: 'UCES', statusDescription: 'Campeã UCES (+20 pts)' },
+    { rank: 1, schoolId: 'prazer_da_serrinha', schoolName: 'Prazer da Serrinha', subgroup: 'ugesb', league: 'UGESB', statusDescription: 'Campeã UGESB empatada (+20 pts)' },
+    { rank: 1, schoolId: 'unidos_da_capela', schoolName: 'Unidos da Capela', subgroup: 'ugesb', league: 'UGESB', statusDescription: 'Campeã UGESB empatada (+20 pts)' },
+    // 2º Lugares (+15 pts)
+    { rank: 2, schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas', subgroup: 'fbes', league: 'FBES', statusDescription: 'Vice-Campeã FBES (+15 pts)' },
+    { rank: 2, schoolId: 'portela', schoolName: 'Portela', subgroup: 'uces', league: 'UCES', statusDescription: 'Vice-Campeã UCES (+15 pts)' },
+    { rank: 2, schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo', subgroup: 'ugesb', league: 'UGESB', statusDescription: 'Vice-Campeã UGESB empatada (+15 pts)' },
+    { rank: 2, schoolId: 'paz_e_amor', schoolName: 'Paz e Amor', subgroup: 'ugesb', league: 'UGESB', statusDescription: 'Vice-Campeã UGESB empatada (+15 pts)' },
+    { rank: 2, schoolId: 'tres_mosqueteiros', schoolName: 'Três Mosqueteiros', subgroup: 'ugesb', league: 'UGESB', statusDescription: 'Vice-Campeã UGESB empatada (+15 pts)' },
+    { rank: 2, schoolId: 'unidos_da_congonha', schoolName: 'Unidos da Congonha', subgroup: 'ugesb', league: 'UGESB', statusDescription: 'Vice-Campeã UGESB empatada (+15 pts)' },
+    { rank: 2, schoolId: 'unidos_da_tamarineira', schoolName: 'Unidos da Tamarineira', subgroup: 'ugesb', league: 'UGESB', statusDescription: 'Vice-Campeã UGESB empatada (+15 pts)' },
+    // 3º Lugares (+12 pts)
+    { rank: 3, schoolId: 'irmaos_unidos_do_catete', schoolName: 'Irmãos Unidos do Catete', subgroup: 'fbes', league: 'FBES', statusDescription: '3º Lugar FBES (+12 pts)' },
+    { rank: 3, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', subgroup: 'uces', league: 'UCES', statusDescription: '3º Lugar UCES (+12 pts)' },
+    { rank: 3, schoolId: 'unidos_do_indaia', schoolName: 'Unidos do Indaiá', subgroup: 'ugesb', league: 'UGESB', statusDescription: '3º Lugar UGESB (+12 pts)' },
+    // 4º Lugares (+10 pts)
+    { rank: 4, schoolId: 'floresta_do_andarai', schoolName: 'Floresta do Andaraí', subgroup: 'fbes', league: 'FBES', statusDescription: '4º Lugar FBES (+10 pts)' },
+    { rank: 4, schoolId: 'coracoes_unidos_jacarepagua', schoolName: 'Corações Unidos de Jacarepaguá', subgroup: 'uces', league: 'UCES', statusDescription: '4º Lugar UCES (+10 pts)' },
+    { rank: 4, schoolId: 'vai_se_quiser', schoolName: 'Vai Se Quiser', subgroup: 'uces', league: 'UCES', statusDescription: '4º Lugar UCES (+10 pts)' },
+    { rank: 4, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', subgroup: 'ugesb', league: 'UGESB', statusDescription: '4º Lugar UGESB (+10 pts)' },
+    // 5º Lugares (+8 pts)
+    { rank: 5, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', subgroup: 'fbes', league: 'FBES', statusDescription: '5º Lugar FBES (+8 pts)' },
+    { rank: 5, schoolId: 'filhos_do_deserto', schoolName: 'Filhos do Deserto', subgroup: 'uces', league: 'UCES', statusDescription: '5º Lugar UCES (+8 pts)' },
+    { rank: 5, schoolId: 'unidos_de_turiacu', schoolName: 'Unidos de Turiaçu', subgroup: 'ugesb', league: 'UGESB', statusDescription: '5º Lugar UGESB (+8 pts)' },
+    // 6º Lugares (+6 pts)
+    { rank: 6, schoolId: 'indios_do_acau', schoolName: 'Índios do Acaú', subgroup: 'fbes', league: 'FBES', statusDescription: '6º Lugar FBES (+6 pts)' },
+    { rank: 6, schoolId: 'unidos_do_coqueiro', schoolName: 'Unidos do Coqueiro', subgroup: 'uces', league: 'UCES', statusDescription: '6º Lugar UCES (+6 pts)' },
+    { rank: 6, schoolId: 'recreio_de_inhauma', schoolName: 'Recreio de Inhaúma', subgroup: 'ugesb', league: 'UGESB', statusDescription: '6º Lugar UGESB (+6 pts)' },
+    // 7º Lugares (+4 pts)
+    { rank: 7, schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro', subgroup: 'fbes', league: 'FBES', statusDescription: '7º Lugar FBES (+4 pts)' },
+    { rank: 7, schoolId: 'uniao_do_realengo', schoolName: 'União do Realengo', subgroup: 'uces', league: 'UCES', statusDescription: '7º Lugar UCES (+4 pts)' },
+    { rank: 7, schoolId: 'prazer_da_mocidade', schoolName: 'Prazer da Mocidade', subgroup: 'ugesb', league: 'UGESB', statusDescription: '7º Lugar UGESB (+4 pts)' },
+    // 8º Lugares (+3 pts)
+    { rank: 8, schoolId: 'independentes_cordovil', schoolName: 'Independentes do Leblon (Independentes de Cordovil)', subgroup: 'fbes', league: 'FBES', statusDescription: '8º Lugar FBES (+3 pts)' },
+    { rank: 8, schoolId: 'unidos_de_riachuelo', schoolName: 'Unidos de Riachuelo', subgroup: 'uces', league: 'UCES', statusDescription: '8º Lugar UCES (+3 pts)' },
+    { rank: 8, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', subgroup: 'ugesb', league: 'UGESB', statusDescription: '8º Lugar UGESB (+3 pts)' },
+    // 9º Lugares (+2 pts)
+    { rank: 9, schoolId: 'unidos_do_engenho_velho', schoolName: 'Unidos do Engenho Velho', subgroup: 'fbes', league: 'FBES', statusDescription: '9º Lugar FBES (+2 pts)' },
+    { rank: 9, schoolId: 'cada_ano_sai_melhor', schoolName: 'Cada Ano Sai Melhor', subgroup: 'uces', league: 'UCES', statusDescription: '9º Lugar UCES (+2 pts)' },
+    { rank: 9, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', subgroup: 'ugesb', league: 'UGESB', statusDescription: '9º Lugar UGESB (+2 pts)' },
+    // 10º Lugares (+1 pt)
+    { rank: 10, schoolId: 'mocidade_de_um_paraiso', schoolName: 'Mocidade de Um Paraíso', subgroup: 'fbes', league: 'FBES', statusDescription: '10º Lugar FBES (+1 pt)' },
+    { rank: 10, schoolId: 'voz_do_orion', schoolName: 'Voz do Orion', subgroup: 'uces', league: 'UCES', statusDescription: '10º Lugar UCES (+1 pt)' },
+    { rank: 10, schoolId: 'em_cima_da_hora_catumbi', schoolName: 'Em Cima da Hora do Catumbi', subgroup: 'ugesb', league: 'UGESB', statusDescription: '10º Lugar UGESB (+1 pt)' },
+    // 11º Lugares
+    { rank: 11, schoolId: 'capricho_do_centenario', schoolName: 'Capricho do Centenário', subgroup: 'fbes', league: 'FBES', statusDescription: '11º Lugar FBES (0 pts)' },
+    { rank: 11, schoolId: 'paraiso_da_floresta', schoolName: 'Paraíso da Floresta', subgroup: 'ugesb', league: 'UGESB', statusDescription: '11º Lugar UGESB (0 pts)' },
+    // 12º Lugares
+    { rank: 12, schoolId: 'estrela_de_ouro', schoolName: 'Estrela de Ouro', subgroup: 'fbes', league: 'FBES', statusDescription: '12º Lugar FBES (0 pts)' },
+    { rank: 12, schoolId: 'unidos_de_riachuelo', schoolName: 'Unidos de Riachuelo', subgroup: 'ugesb', league: 'UGESB', statusDescription: '12º Lugar UGESB (0 pts)' },
+    // 13º Lugares
+    { rank: 13, schoolId: 'independentes_do_rio', schoolName: 'Independentes do Rio', subgroup: 'fbes', league: 'FBES', statusDescription: '13º Lugar FBES (0 pts)' },
+    { rank: 13, schoolId: 'unidos_de_terra_nova', schoolName: 'Unidos de Terra Nova', subgroup: 'ugesb', league: 'UGESB', statusDescription: '13º Lugar UGESB (0 pts)' },
+    // 14º Lugares
+    { rank: 14, schoolId: 'paraiso_da_mocidade', schoolName: 'Paraíso da Mocidade', subgroup: 'fbes', league: 'FBES', statusDescription: '14º Lugar FBES (0 pts)' },
+    { rank: 14, schoolId: 'uniao_de_sampaio', schoolName: 'União do Sampaio', subgroup: 'ugesb', league: 'UGESB', statusDescription: '14º Lugar UGESB (0 pts)' },
+    // 15º Lugares
+    { rank: 15, schoolId: 'uniao_vaz_lobo', schoolName: 'União de Vaz Lobo', subgroup: 'fbes', league: 'FBES', statusDescription: '15º Lugar FBES (0 pts)' },
+    { rank: 15, schoolId: 'fiquei_firme', schoolName: 'Fiquei Firme', subgroup: 'ugesb', league: 'UGESB', statusDescription: '15º Lugar UGESB (0 pts)' },
+    // 16º Lugares
+    { rank: 16, schoolId: 'unidos_de_santo_amaro', schoolName: 'Unidos de Santo Amaro', subgroup: 'fbes', league: 'FBES', statusDescription: '16º Lugar FBES (0 pts)' },
+    // 17º Lugares
+    { rank: 17, schoolId: 'unidos_do_grajau', schoolName: 'Unidos do Grajaú', subgroup: 'fbes', league: 'FBES', statusDescription: '17º Lugar FBES (0 pts)' },
+    // 18º Lugares
+    { rank: 18, schoolId: 'uniao_dos_casados', schoolName: 'União dos Casados', subgroup: 'fbes', league: 'FBES', statusDescription: '18º Lugar FBES (0 pts)' },
+    { rank: 18, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', subgroup: 'fbes', league: 'FBES', statusDescription: '18º Lugar FBES (0 pts)' },
+    // 19º Lugares
+    { rank: 19, schoolId: 'unidos_do_outeiro', schoolName: 'Unidos do Outeiro', subgroup: 'fbes', league: 'FBES', statusDescription: '19º Lugar FBES (0 pts)' },
+    // 20º Lugares
+    { rank: 20, schoolId: 'engenho_da_rainha', schoolName: 'Acadêmicos do Engenho da Rainha', subgroup: 'fbes', league: 'FBES', statusDescription: '20º Lugar FBES (0 pts)' },
+    { rank: 20, schoolId: 'vitoria_de_bento_ribeiro', schoolName: 'Vitória de Bento Ribeiro', subgroup: 'fbes', league: 'FBES', statusDescription: '20º Lugar FBES (0 pts)' },
+    // 21º Lugares
+    { rank: 21, schoolId: 'unidos_do_pecado', schoolName: 'Unidos do Pecado', subgroup: 'fbes', league: 'FBES', statusDescription: '21º Lugar FBES (0 pts)' },
+    // 22º Lugares
+    { rank: 22, schoolId: 'imperio_da_colina', schoolName: 'Império da Colina', subgroup: 'fbes', league: 'FBES', statusDescription: '22º Lugar FBES (0 pts)' },
+    // 23º Lugares
+    { rank: 23, schoolId: 'orgulho_de_cordovil', schoolName: 'Orgulho de Cordovil', subgroup: 'fbes', league: 'FBES', statusDescription: '23º Lugar FBES (0 pts)' },
+    // 24º Lugares
+    { rank: 24, schoolId: 'coracoes_unidos_da_favela', schoolName: 'Corações Unidos da Favela', subgroup: 'fbes', league: 'FBES', statusDescription: '24º Lugar FBES (0 pts)' },
+    // 25º Lugares
+    { rank: 25, schoolId: 'flor_do_lins', schoolName: 'Flor do Lins', subgroup: 'fbes', league: 'FBES', statusDescription: '25º Lugar FBES (0 pts)' },
+    // 26º Lugares
+    { rank: 26, schoolId: 'unidos_do_itambi', schoolName: 'Unidos do Itambí', subgroup: 'fbes', league: 'FBES', statusDescription: '26º Lugar FBES (0 pts)' },
+    // 27º Lugares
+    { rank: 27, schoolId: 'unidos_de_cosmos', schoolName: 'Unidos de Cosmos', subgroup: 'fbes', league: 'FBES', statusDescription: '27º Lugar FBES (0 pts)' },
+    // 28º Lugares
+    { rank: 28, schoolId: 'imperio_do_samba', schoolName: 'Império do Samba', subgroup: 'fbes', league: 'FBES', statusDescription: '28º Lugar FBES (0 pts)' },
+    { rank: 28, schoolId: 'sem_voce_vivo_bem', schoolName: 'Sem Você Vivo Bem', subgroup: 'fbes', league: 'FBES', statusDescription: '28º Lugar FBES (0 pts)' },
+    // 29º Lugares
+    { rank: 29, schoolId: 'unidos_da_lagoa', schoolName: 'Unidos da Lagoa', subgroup: 'fbes', league: 'FBES', statusDescription: '29º Lugar FBES (0 pts)' },
+    // 30º Lugares
+    { rank: 30, schoolId: 'unidos_da_barao_de_petropolis', schoolName: 'Unidos da Barão de Petrópolis', subgroup: 'fbes', league: 'FBES', statusDescription: '30º Lugar FBES (0 pts)' },
+    // 31º Lugares
+    { rank: 31, schoolId: 'uniao_dos_topazios', schoolName: 'União dos Topázios', subgroup: 'fbes', league: 'FBES', statusDescription: '31º Lugar FBES (0 pts)' },
+    // 32º Lugares
+    { rank: 32, schoolId: 'unidos_dos_telegrafos', schoolName: 'Unidos dos Telégrafos', subgroup: 'fbes', league: 'FBES', statusDescription: '32º Lugar FBES (0 pts)' },
+    // 33º Lugares
+    { rank: 33, schoolId: 'coracoes_da_liberdade', schoolName: 'Corações da Liberdade', subgroup: 'fbes', league: 'FBES', statusDescription: '33º Lugar FBES (0 pts)' },
+    // 34º Lugares
+    { rank: 34, schoolId: 'de_nos_ninguem_esquece', schoolName: 'De Nós Ninguém Esquece', subgroup: 'fbes', league: 'FBES', statusDescription: '34º Lugar FBES (0 pts)' }
+  ],
   1951: [
     // 1º Lugares (+20 pts)
     { rank: 1, schoolId: 'portela', schoolName: 'Portela', subgroup: 'ugesb', league: 'UGESB', statusDescription: 'Campeã UGESB (+20 pts)' },
@@ -1424,6 +1614,8 @@ export interface LiesaSchoolYearPerformance {
   participated: boolean;
   schoolName?: string;
   isHorsConcours?: boolean;
+  league?: string;
+  statusDescription?: string;
 }
 
 export interface LiesaRankingEntry {
@@ -1486,6 +1678,7 @@ export interface HistoricalCarnavalInfo {
     segunda?: LiesaStandingRecord[];
     supercampeonato?: LiesaStandingRecord[];
     fbes?: LiesaStandingRecord[];
+    uces?: LiesaStandingRecord[];
     ugesb?: LiesaStandingRecord[];
   };
 }
@@ -1514,6 +1707,8 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('império da tijuca') || nameNorm.includes('imperio da tijuca')) return 'imperio_da_tijuca';
   if (nameNorm.includes('tijuca') && !nameNorm.includes('barra')) return 'tijuca';
   if (nameNorm.includes('tuiuti')) return 'tuiuti';
+  if (nameNorm.includes('paraiso da mocidade') || nameNorm.includes('paraíso da mocidade')) return 'paraiso_da_mocidade';
+  if (nameNorm.includes('prazer da mocidade')) return 'prazer_da_mocidade';
   if (nameNorm.includes('mocidade de um paraíso') || nameNorm.includes('mocidade de um paraiso')) return 'mocidade_de_um_paraiso';
   if (nameNorm.includes('mocidade') && !nameNorm.includes('cidade de deus') && !nameNorm.includes('porto') && !nameNorm.includes('vicente')) return 'mocidade';
   if (nameNorm.includes('niterói') || nameNorm.includes('niteroi')) return 'niteroi';
@@ -1525,8 +1720,8 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('ilha do governador') || nameNorm.includes('união da ilha') || nameNorm.includes('uniao da ilha')) return 'uniao_da_ilha';
   if (nameNorm.includes('inocentes')) return 'inocentes';
   if (nameNorm.includes('renascer')) return 'renascer_jacarepagua';
-  if (nameNorm.includes('capricho do centenário') || nameNorm.includes('capricho do centenario') || nameNorm.includes('capricho')) return 'capricho_do_centenario';
   if (nameNorm.includes('caprichosos')) return 'caprichosos_de_pilares';
+  if (nameNorm.includes('capricho do centenário') || nameNorm.includes('capricho do centenario') || nameNorm.includes('capricho')) return 'capricho_do_centenario';
   if (nameNorm.includes('rocinha')) return 'rocinha';
   if (nameNorm.includes('tradição') || nameNorm.includes('tradicao')) return 'tradicao';
   if (nameNorm.includes('santa cruz')) return 'santa_cruz';
@@ -1546,6 +1741,7 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('vitória de bento ribeiro') || nameNorm.includes('vitoria de bento ribeiro')) return 'vitoria_de_bento_ribeiro';
   if (nameNorm.includes('bento ribeiro')) return 'academicos_bento_ribeiro';
   if (nameNorm.includes('aprendizes')) return 'aprendizes_de_lucas';
+  if (nameNorm.includes('orgulho de cordovil')) return 'orgulho_de_cordovil';
   if (nameNorm.includes('unidos de cordovil')) return 'unidos_de_cordovil';
   if (nameNorm.includes('leblon') || nameNorm.includes('cordovil')) return 'independentes_cordovil';
   if (nameNorm.includes('lucas')) return 'unidos_de_lucas';
@@ -1563,13 +1759,16 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('flor do lins')) return 'flor_do_lins';
   if (nameNorm.includes('paz e amor')) return 'paz_e_amor';
   if (nameNorm.includes('indaia') || nameNorm.includes('indaiá')) return 'unidos_do_indaia';
+  if (nameNorm.includes('corações da liberdade') || nameNorm.includes('coracoes da liberdade')) return 'coracoes_da_liberdade';
   if (nameNorm.includes('corações unidos da favela') || nameNorm.includes('coracoes unidos da favela')) return 'coracoes_unidos_da_favela';
   if (nameNorm.includes('corações unidos') || nameNorm.includes('coracoes unidos')) return 'coracoes_unidos_jacarepagua';
   if (nameNorm.includes('baianas')) return 'paraiso_das_baianas';
   if (nameNorm.includes('aventureiros')) return 'aventureiros_da_matriz';
   if (nameNorm.includes('grajaú') || nameNorm.includes('grajau')) return 'unidos_do_grajau';
+  if (nameNorm.includes('paraiso da floresta') || nameNorm.includes('paraíso da floresta')) return 'paraiso_da_floresta';
   if (nameNorm.includes('floresta')) return 'floresta_do_andarai';
   if (nameNorm.includes('tamarineira')) return 'unidos_da_tamarineira';
+  if (nameNorm.includes('engenho velho')) return 'unidos_do_engenho_velho';
   if (nameNorm.includes('engenho da rainha')) return 'engenho_da_rainha';
   if (nameNorm.includes('vaz lobo')) return 'uniao_vaz_lobo';
   if (nameNorm.includes('independentes do rio')) return 'independentes_do_rio';
@@ -1590,10 +1789,25 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('campo grande')) return 'unidos_de_campo_grande';
   if (nameNorm.includes('recreio de inhaúma') || nameNorm.includes('recreio de inhauma') || nameNorm.includes('inhaúma') || nameNorm.includes('inhauma')) return 'recreio_de_inhauma';
   if (nameNorm.includes('morro azul')) return 'unidos_do_morro_azul';
-  if (nameNorm.includes('turiaçu') || nameNorm.includes('turiacu')) return 'independentes_de_turiacu';
+  if (nameNorm.includes('independentes de turiaçu') || nameNorm.includes('independentes de turiacu')) return 'independentes_de_turiacu';
+  if (nameNorm.includes('turiaçu') || nameNorm.includes('turiacu')) return 'unidos_de_turiacu';
   if (nameNorm.includes('coqueiro')) return 'unidos_do_coqueiro';
   if (nameNorm.includes('embaixadores')) return 'embaixadores_sao_joao_meriti';
   if (nameNorm.includes('não é o que dizem') || nameNorm.includes('nao e o que dizem')) return 'nao_e_o_que_dizem';
+  if (nameNorm.includes('império da colina') || nameNorm.includes('imperio da colina') || nameNorm.includes('colina')) return 'imperio_da_colina';
+  if (nameNorm.includes('império do samba') || nameNorm.includes('imperio do samba')) return 'imperio_do_samba';
+  if (nameNorm.includes('sem você vivo bem') || nameNorm.includes('sem voce vivo bem')) return 'sem_voce_vivo_bem';
+  if (nameNorm.includes('lagoa')) return 'unidos_da_lagoa';
+  if (nameNorm.includes('barão de petrópolis') || nameNorm.includes('barao de petropolis') || nameNorm.includes('petrópolis') || nameNorm.includes('petropolis')) return 'unidos_da_barao_de_petropolis';
+  if (nameNorm.includes('topázios') || nameNorm.includes('topazios')) return 'uniao_dos_topazios';
+  if (nameNorm.includes('de nós ninguém esquece') || nameNorm.includes('de nos ninguem esquece') || nameNorm.includes('ninguém esquece') || nameNorm.includes('ninguem esquece')) return 'de_nos_ninguem_esquece';
+  if (nameNorm.includes('união do realengo') || nameNorm.includes('uniao do realengo') || nameNorm.includes('realengo')) return 'uniao_do_realengo';
+  if (nameNorm.includes('riachuelo')) return 'unidos_de_riachuelo';
+  if (nameNorm.includes('orion') || nameNorm.includes('órion')) return 'voz_do_orion';
+  if (nameNorm.includes('prazer da serrinha')) return 'prazer_da_serrinha';
+  if (nameNorm.includes('terra nova')) return 'unidos_de_terra_nova';
+  if (nameNorm.includes('sampaio')) return 'uniao_de_sampaio';
+  if (nameNorm.includes('fiquei firme')) return 'fiquei_firme';
   if (nameNorm.includes('guarani')) return 'guarani_de_realengo';
   return nameNorm.replace(/[^a-z0-9]/g, '_');
 }
@@ -1642,7 +1856,7 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     1974, 1973, 1972, 1971, 1970,
     1969, 1968, 1967, 1966, 1965,
     1964, 1963, 1962, 1961, 1960,
-    1959, 1958, 1957, 1956, 1955, 1954, 1953, 1952, 1951
+    1959, 1958, 1957, 1956, 1955, 1954, 1953, 1952, 1951, 1950
   ];
   officialYears.forEach((yr) => {
     const stands = OFFICIAL_LIESA_HISTORICAL_STANDINGS[yr] || [];
@@ -1813,6 +2027,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
       notes = 'Carnaval Histórico de 1953 (Administrado pela AESCRJ - Primeiro Carnaval da história com sistema de rebaixamento): Portela sagrou-se campeã com "Seis Datas Magnas" (+20 pts) e Império Serrano foi a vice-campeã com "O Último Baile da Ilha Fiscal" (+15 pts). O Império da Tijuca desfilou como Hors concours. Quatro agremiações foram rebaixadas: Vai Se Quiser, Cada Ano Sai Melhor, Aventureiros da Matriz e Azul e Branco do Salgueiro.';
     } else if (yr === 1951) {
       notes = 'Carnaval Histórico de 1951: Houve dois desfiles competitivos oficiais no Grupo Especial: o desfile da Federação Brasileira de Escolas de Samba (FBES), vencido pelo Império Serrano (+20 pts) com Aprendizes de Lucas vice-campeã (+15 pts); e o desfile da União Geral das Escolas de Samba do Brasil (UGESB), vencido pela Portela (+20 pts) com Três Mosqueteiros vice-campeã (+15 pts). Não houve rebaixamento.';
+    } else if (yr === 1950) {
+      notes = 'Carnaval Histórico de 1950: Houve três competições oficiais de Escolas de Samba no Grupo Especial: o desfile da Federação Brasileira de Escolas de Samba (FBES), vencido pelo Império Serrano (+20 pts) com Aprendizes de Lucas vice-campeã (+15 pts); o desfile da União Cívica das Escolas de Samba (UCES), vencido pela Estação Primeira de Mangueira (+20 pts) com a Portela vice-campeã (+15 pts); e o desfile da União Geral das Escolas de Samba do Brasil (UGESB), com título dividido entre Prazer da Serrinha e Unidos da Capela (+20 pts cada) e cinco vices empatadas (Depois Eu Digo, Paz e Amor, Três Mosqueteiros, Unidos da Congonha e Unidos da Tamarineira, +15 pts cada). Não houve rebaixamento.';
     }
 
     result.push({
@@ -1828,6 +2044,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
         ? ['Portela', 'Estação Primeira de Mangueira', 'Acadêmicos do Salgueiro', 'Unidos da Capela', 'Império Serrano']
         : yr === 1951
         ? ['Portela (Campeã UGESB)', 'Império Serrano (Campeã FBES)']
+        : yr === 1950
+        ? ['Império Serrano (Campeã FBES)', 'Estação Primeira de Mangueira (Campeã UCES)', 'Prazer da Serrinha (Campeã UGESB)', 'Unidos da Capela (Campeã UGESB)']
         : champs,
       viceChampionNames: yr === 1984
         ? ['Portela (Supervice)', 'Mocidade Independente (Vice Segunda)', 'Império Serrano (Vice Domingo)']
@@ -1837,6 +2055,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
         ? ['Aprendizes de Lucas']
         : yr === 1951
         ? ['Três Mosqueteiros (Vice UGESB)', 'Aprendizes de Lucas (Vice FBES)']
+        : yr === 1950
+        ? ['Aprendizes de Lucas (Vice FBES)', 'Portela (Vice UCES)', 'Depois Eu Digo (Vice UGESB)', 'Paz e Amor (Vice UGESB)', 'Três Mosqueteiros (Vice UGESB)', 'Unidos da Congonha (Vice UGESB)', 'Unidos da Tamarineira (Vice UGESB)']
         : vices,
       totalSchools: stands.length,
       subgroups: yr === 1984 ? {
@@ -1846,6 +2066,10 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
       } : yr === 1951 ? {
         fbes: CARNAVAL_1951_FBES,
         ugesb: CARNAVAL_1951_UGESB
+      } : yr === 1950 ? {
+        fbes: CARNAVAL_1950_FBES,
+        uces: CARNAVAL_1950_UCES,
+        ugesb: CARNAVAL_1950_UGESB
       } : undefined
     });
   });
@@ -2077,28 +2301,52 @@ export function computeHistoricalLiesaRanking(
     return historicalMap[sId];
   };
 
-  // 1. Processa todos os títulos e vices históricos da era pré-1951 a partir de HISTORICAL_CARNAVAL_RECORDS
-  // A partir de 1951 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA/AESCRJ/FBES/UGESB
+  // 1. Processa todos os títulos e vices históricos da era pré-1950 a partir de HISTORICAL_CARNAVAL_RECORDS
+  // A partir de 1950 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA/AESCRJ/FBES/UCES/UGESB
   Object.entries(HISTORICAL_CARNAVAL_RECORDS).forEach(([id, rec]) => {
     const sId = resolveSchoolId(id, undefined, schoolsMap);
     const entry = ensureEntry(sId);
 
-    const espYearsPre1951 = (rec.especialYears || []).filter((y) => y < 1951);
-    const espViceYearsPre1951 = (rec.especialRunnerUpYears || []).filter((y) => y < 1951);
+    const espYearsPre1950 = (rec.especialYears || []).filter((y) => y < 1950);
+    const espViceYearsPre1950 = (rec.especialRunnerUpYears || []).filter((y) => y < 1950);
 
-    const titlesPre1951 = espYearsPre1951.length;
-    const vicesPre1951 = espViceYearsPre1951.length;
+    const titlesPre1950 = espYearsPre1950.length;
+    const vicesPre1950 = espViceYearsPre1950.length;
 
-    entry.totalEspecialTitles += titlesPre1951;
-    entry.totalEspecialVices += vicesPre1951;
-    entry.titlePoints += titlesPre1951 * 20;
-    entry.vicePoints += vicesPre1951 * 15;
-    entry.pointsEraPre2015 += titlesPre1951 * 20 + vicesPre1951 * 15;
-    entry.totalPoints += titlesPre1951 * 20 + vicesPre1951 * 15;
-    entry.totalCarnavalesContados += titlesPre1951 + vicesPre1951;
+    espYearsPre1950.forEach((y) => {
+      entry.participationsSet.add(y);
+      entry.performancesDetailed[y] = {
+        year: y,
+        rank: 1,
+        points: 20,
+        participated: true,
+        schoolName: entry.schoolName,
+        statusDescription: 'Campeã do Carnaval (+20 pts)'
+      };
+    });
+
+    espViceYearsPre1950.forEach((y) => {
+      entry.participationsSet.add(y);
+      entry.performancesDetailed[y] = {
+        year: y,
+        rank: 2,
+        points: 15,
+        participated: true,
+        schoolName: entry.schoolName,
+        statusDescription: 'Vice-Campeã do Carnaval (+15 pts)'
+      };
+    });
+
+    entry.totalEspecialTitles += titlesPre1950;
+    entry.totalEspecialVices += vicesPre1950;
+    entry.titlePoints += titlesPre1950 * 20;
+    entry.vicePoints += vicesPre1950 * 15;
+    entry.pointsEraPre2015 += titlesPre1950 * 20 + vicesPre1950 * 15;
+    entry.totalPoints += titlesPre1950 * 20 + vicesPre1950 * 15;
+    entry.totalCarnavalesContados += titlesPre1950 + vicesPre1950;
   });
 
-  // 2. Processa anos de 1951 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
+  // 2. Processa anos de 1950 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
   Object.entries(OFFICIAL_LIESA_HISTORICAL_STANDINGS).forEach(([yrStr, list]) => {
     const yr = parseInt(yrStr, 10);
     if (yr === 2021 || yr === 1952 || !list || list.length === 0) {
@@ -2119,7 +2367,9 @@ export function computeHistoricalLiesaRanking(
         points: pts,
         participated: true,
         schoolName: st.schoolName,
-        isHorsConcours: st.isHorsConcours
+        isHorsConcours: st.isHorsConcours,
+        league: st.league,
+        statusDescription: st.statusDescription
       };
 
       entry.performancesDetailed[yr] = perf;
@@ -2169,7 +2419,8 @@ export function computeHistoricalLiesaRanking(
           rank: st.rank,
           points: pts,
           participated: true,
-          schoolName: st.schoolName
+          schoolName: st.schoolName,
+          statusDescription: st.rank === 1 ? 'Campeã (+20 pts)' : st.rank === 2 ? 'Vice-Campeã (+15 pts)' : `${st.rank}º Lugar (+${pts} pts)`
         };
 
         entry.performancesDetailed[h.year] = perf;

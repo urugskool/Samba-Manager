@@ -145,7 +145,27 @@ const INITIAL_INACTIVE_SCHOOL_IDS = new Set([
   'embaixadores_sao_joao_meriti',
   'nao_e_o_que_dizem',
   'unidos_do_jacare',
-  'guarani_de_realengo'
+  'guarani_de_realengo',
+  'fiquei_firme',
+  'uniao_de_sampaio',
+  'unidos_de_terra_nova',
+  'unidos_de_riachuelo',
+  'paraiso_da_floresta',
+  'prazer_da_mocidade',
+  'unidos_de_turiacu',
+  'voz_do_orion',
+  'uniao_do_realengo',
+  'de_nos_ninguem_esquece',
+  'coracoes_da_liberdade',
+  'uniao_dos_topazios',
+  'unidos_da_barao_de_petropolis',
+  'unidos_da_lagoa',
+  'sem_voce_vivo_bem',
+  'imperio_do_samba',
+  'orgulho_de_cordovil',
+  'imperio_da_colina',
+  'paraiso_da_mocidade',
+  'unidos_do_engenho_velho'
 ]);
 
 function sanitizeSchoolsData(loadedSchools: School[]): School[] {

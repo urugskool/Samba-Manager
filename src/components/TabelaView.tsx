@@ -9,7 +9,6 @@ import {
   getSchoolDenominationExtenso,
   getSchoolCalledName
 } from '../utils/schoolNameUtils';
-import { GaleriaDosCampeoesModal } from './GaleriaDosCampeoesModal';
 import { getSchoolHistoricalEnredosList } from '../data/historicalEnredosData';
 
 interface TabelaViewProps {
@@ -42,7 +41,6 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
   const [selectedDivision, setSelectedDivision] = useState<DivisionId | 'inativas'>('especial');
   const [activeTab, setActiveTab] = useState<'current' | 'history'>('current');
   const [expandedSchoolId, setExpandedSchoolId] = useState<string | null>(null);
-  const [isGaleriaModalOpen, setIsGaleriaModalOpen] = useState(false);
 
   const allSchools = useMemo(() => {
     return [
@@ -288,15 +286,6 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
           >
             <History className="w-3.5 h-3.5" />
             <span>Temporadas ({history.length})</span>
-          </button>
-
-          <button
-            onClick={() => setIsGaleriaModalOpen(true)}
-            className="px-4 py-2 rounded-lg text-xs font-black transition flex items-center gap-1.5 bg-gradient-to-r from-amber-500 via-amber-600 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 shadow-md cursor-pointer active:scale-95"
-            title="Abrir a Galeria dos Campeões com todas as divisões e grupos em abas"
-          >
-            <Trophy className="w-3.5 h-3.5 text-slate-950 fill-slate-950" />
-            <span>Galeria dos Campeões</span>
           </button>
         </div>
       </div>
@@ -959,16 +948,6 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
           )}
         </div>
       )}
-
-      {/* Modal da Galeria dos Campeões */}
-      <GaleriaDosCampeoesModal
-        isOpen={isGaleriaModalOpen}
-        onClose={() => setIsGaleriaModalOpen(false)}
-        schools={allSchools}
-        history={history}
-        currentYear={currentYear}
-        initialDivision={selectedDivision === 'inativas' ? 'especial' : selectedDivision}
-      />
     </div>
   );
 };

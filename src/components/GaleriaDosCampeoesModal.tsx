@@ -791,10 +791,10 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
             <div>
               <div className="flex flex-wrap items-center gap-2">
                 <h2 className="text-lg sm:text-2xl font-black text-white tracking-wide">
-                  Galeria dos Campeões
+                  Galeria de Campeãs
                 </h2>
                 <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                  Separado por Grupos
+                  Separado por Divisões
                 </span>
               </div>
               <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5 line-clamp-1">

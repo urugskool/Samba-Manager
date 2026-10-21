@@ -29,6 +29,7 @@ import {
 } from 'lucide-react';
 import { getSchoolHistoricalEnredosList } from '../data/historicalEnredosData';
 import { LiesaRankingModal } from './LiesaRankingModal';
+import { CarnavaisPassadosModal } from './CarnavaisPassadosModal';
 import { GaleriaDosCampeoesModal, GaleriaDivisionTab } from './GaleriaDosCampeoesModal';
 
 interface GloriasViewProps {
@@ -54,6 +55,7 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
   const [divisionFilter, setDivisionFilter] = useState<'all' | DivisionId | 'inativas'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [tableDivisionFilter, setTableDivisionFilter] = useState<'all' | DivisionId | 'inativas'>('all');
+  const [isCarnavaisPassadosModalOpen, setIsCarnavaisPassadosModalOpen] = useState(false);
   const [isLiesaModalOpen, setIsLiesaModalOpen] = useState(false);
   const [isGaleriaModalOpen, setIsGaleriaModalOpen] = useState(false);
   const [galeriaDivision, setGaleriaDivision] = useState<GaleriaDivisionTab>('especial');
@@ -323,46 +325,52 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
             <span className="text-xs text-slate-400 font-medium">Palmarés Oficial do Carnaval</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-black text-white mt-1">
-            Galeria de Títulos e Estatísticas
+            Galeria de Títulos & Glórias
           </h2>
           <p className="text-xs text-slate-400 max-w-2xl mt-0.5">
-            Classificação histórica e oficial do Carnaval Carioca: total de <strong className="text-amber-300 font-bold">{activeSchoolsCount} desfiles por ano</strong> de agremiações ativas ({espCount} Especial, {ouroCount} Ouro, {prataCount} Prata, {bronzeCount} Bronze, {avaliacaoCount} Avaliação) e <strong className="text-rose-400 font-bold">{inativasCount} agremiações inativas / afastadas</strong> atualmente (Carnaval {currentYear}).
+            Palmarés oficial do Carnaval Carioca: resultados históricos, participações na elite, rankings oficiais e galeria de campeãs.
           </p>
         </div>
 
-        {/* Quick actions: Ranking LIESA, Grupo de Avaliação, and User School */}
+        {/* 3 Botões Principais: Carnavais Passados, Ranking LIESA e Galeria de Campeãs (+ Minha Escola) */}
         <div className="flex flex-wrap items-center gap-2.5 self-start md:self-auto">
+          {/* 1. Carnavais Passados (com participações no grupo especial dentro) */}
+          <button
+            onClick={() => setIsCarnavaisPassadosModalOpen(true)}
+            className="px-4 py-2.5 bg-gradient-to-r from-amber-500/20 to-amber-600/20 hover:from-amber-500/30 hover:to-amber-600/30 text-amber-300 hover:text-white border border-amber-500/40 font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-md cursor-pointer active:scale-95"
+            title="Abrir Carnavais Passados (Resultados 1950 a 2026+ & Participações no Grupo Especial)"
+          >
+            <Calendar className="w-4 h-4 text-amber-400" />
+            <span>Carnavais Passados</span>
+          </button>
+
+          {/* 2. Ranking LIESA (com Ranking Histórico dentro) */}
           <button
             onClick={() => setIsLiesaModalOpen(true)}
             className="px-4 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-xl text-xs transition flex items-center gap-2 shadow-lg shadow-amber-500/20 cursor-pointer active:scale-95"
-            title="Abrir o Ranking Oficial da LIESA (Últimos 5 Carnavais & Histórico)"
+            title="Abrir o Ranking da LIESA (Últimos 5 Carnavais & Ranking Histórico Geral)"
           >
             <Crown className="w-4 h-4 text-slate-950 fill-slate-950" />
-            <span>Ranking da LIESA</span>
-            <span className="text-[10px] px-1.5 py-0.2 rounded bg-slate-950/20 text-slate-950 font-black">
-              5 Anos
-            </span>
+            <span>Ranking LIESA</span>
           </button>
 
+          {/* 3. Galeria de Campeãs (botão único) */}
           <button
             onClick={() => {
               setGaleriaDivision('especial');
               setIsGaleriaModalOpen(true);
             }}
-            className="px-4 py-2.5 bg-gradient-to-r from-amber-500 via-amber-600 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black rounded-xl text-xs transition flex items-center gap-2 shadow-lg shadow-amber-500/25 cursor-pointer active:scale-95"
-            title="Abrir a Galeria dos Campeões (Separada por Grupos)"
+            className="px-4 py-2.5 bg-gradient-to-r from-purple-500/20 to-purple-600/20 hover:from-purple-500/30 hover:to-purple-600/30 text-purple-300 hover:text-white border border-purple-500/40 font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-md cursor-pointer active:scale-95"
+            title="Abrir a Galeria de Campeãs (Por Divisões: Especial, Ouro, Prata, Bronze, Avaliação e Grupo E)"
           >
-            <Trophy className="w-4 h-4 text-slate-950 fill-slate-950" />
-            <span>Galeria dos Campeões</span>
-            <span className="text-[10px] px-1.5 py-0.2 rounded bg-slate-950/20 text-slate-950 font-black">
-              Por Grupos
-            </span>
+            <Trophy className="w-4 h-4 text-purple-400" />
+            <span>Galeria de Campeãs</span>
           </button>
 
           {userSchool && (
             <button
               onClick={() => handleSelectSchool(userSchool.id)}
-              className="px-4 py-2.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-md cursor-pointer"
+              className="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-sm cursor-pointer"
             >
               <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
               <span>Minha Escola ({userSchool.shortName || cleanSchoolName(userSchool)})</span>
@@ -601,20 +609,15 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
           </div>
         </div>
 
-        {/* Cards das Divisões Oficiais (Especial, Ouro, Prata, Bronze, Avaliação, Grupo E) */}
+        {/* Indicadores Consolidados das Divisões Oficiais da Agremiação */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
           {/* Grupo Especial */}
           <div
-            onClick={() => {
-              setGaleriaDivision('especial');
-              setIsGaleriaModalOpen(true);
-            }}
-            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between cursor-pointer hover:border-amber-400/70 hover:shadow-amber-500/10 ${
+            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between ${
               selectedStats.totalEspecialTitles > 0
                 ? 'bg-amber-500/10 border-amber-500/40 shadow-lg'
                 : 'bg-slate-900/70 border-slate-800'
             }`}
-            title="Clique para abrir a Galeria dos Campeões do Grupo Especial"
           >
             <div>
               <div className="flex items-center justify-between mb-1.5">
@@ -635,16 +638,11 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
 
           {/* Série Ouro */}
           <div
-            onClick={() => {
-              setGaleriaDivision('ouro');
-              setIsGaleriaModalOpen(true);
-            }}
-            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between cursor-pointer hover:border-yellow-400/70 hover:shadow-yellow-500/10 ${
+            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between ${
               selectedStats.totalOuroTitles > 0
                 ? 'bg-blue-500/10 border-blue-500/40 shadow-lg'
                 : 'bg-slate-900/70 border-slate-800'
             }`}
-            title="Clique para abrir a Galeria dos Campeões da Série Ouro"
           >
             <div>
               <div className="flex items-center justify-between mb-1.5">
@@ -665,16 +663,11 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
 
           {/* Série Prata */}
           <div
-            onClick={() => {
-              setGaleriaDivision('prata');
-              setIsGaleriaModalOpen(true);
-            }}
-            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between cursor-pointer hover:border-slate-300/70 hover:shadow-slate-400/10 ${
+            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between ${
               selectedStats.totalPrataTitles > 0
                 ? 'bg-slate-400/10 border-slate-400/40 shadow-lg'
                 : 'bg-slate-900/70 border-slate-800'
             }`}
-            title="Clique para abrir a Galeria dos Campeões da Série Prata"
           >
             <div>
               <div className="flex items-center justify-between mb-1.5">
@@ -695,16 +688,11 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
 
           {/* Série Bronze */}
           <div
-            onClick={() => {
-              setGaleriaDivision('bronze');
-              setIsGaleriaModalOpen(true);
-            }}
-            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between cursor-pointer hover:border-orange-400/70 hover:shadow-orange-500/10 ${
+            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between ${
               selectedStats.totalBronzeTitles > 0
                 ? 'bg-amber-700/15 border-amber-600/40 shadow-lg'
                 : 'bg-slate-900/70 border-slate-800'
             }`}
-            title="Clique para abrir a Galeria dos Campeões da Série Bronze"
           >
             <div>
               <div className="flex items-center justify-between mb-1.5">
@@ -725,16 +713,11 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
 
           {/* Grupo de Avaliação */}
           <div
-            onClick={() => {
-              setGaleriaDivision('avaliacao');
-              setIsGaleriaModalOpen(true);
-            }}
-            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between cursor-pointer hover:border-purple-400/70 hover:shadow-purple-500/10 ${
+            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between ${
               selectedStats.totalAvaliacaoTitles > 0 || selectedStats.totalAvaliacaoVices > 0
                 ? 'bg-purple-600/15 border-purple-500/40 shadow-lg'
                 : 'bg-slate-900/70 border-slate-800'
             }`}
-            title="Clique para abrir a Galeria dos Campeões do Grupo de Avaliação"
           >
             <div>
               <div className="flex items-center justify-between mb-1.5">
@@ -755,16 +738,11 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
 
           {/* Grupo E (Sexta Divisão - Histórico) */}
           <div
-            onClick={() => {
-              setGaleriaDivision('grupoE');
-              setIsGaleriaModalOpen(true);
-            }}
-            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between cursor-pointer hover:border-emerald-400/70 hover:shadow-emerald-500/10 ${
+            className={`rounded-2xl p-4 sm:p-5 border transition flex flex-col justify-between ${
               (selectedStats.totalGrupoETitles || 0) > 0 || (selectedStats.totalGrupoEVices || 0) > 0
                 ? 'bg-emerald-600/15 border-emerald-500/40 shadow-lg'
                 : 'bg-slate-900/70 border-slate-800'
             }`}
-            title="Clique para abrir a Galeria dos Campeões do Grupo E (Sexta Divisão - Extinto)"
           >
             <div>
               <div className="flex items-center justify-between mb-1.5">
@@ -784,406 +762,262 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
           </div>
         </div>
 
-        {/* Quadro Consolidado e Anos das Conquistas (Apenas o que é necessário!) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {/* Anos de Consagração dos Títulos */}
-          <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-3.5 flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 pb-2.5 border-b border-slate-800">
-                <History className="w-4 h-4 text-amber-400" />
-                <h3 className="text-sm font-bold text-white uppercase tracking-wider">
-                  Títulos Eternizados por Divisão
-                </h3>
-              </div>
-
-              {/* Títulos do Especial */}
-              {selectedStats.allEspecialYears.length > 0 && (
-                <div className="space-y-1.5">
-                  <span className="text-[11px] font-bold text-amber-400 uppercase flex items-center gap-1">
-                    <span>★ Grupo Especial ({selectedStats.totalEspecialTitles} Título{selectedStats.totalEspecialTitles === 1 ? '' : 's'}):</span>
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {selectedStats.allEspecialYears.map((entry, idx) => (
-                      <span
-                        key={`${entry.year}-${idx}`}
-                        className={`px-2 py-0.5 rounded text-xs font-mono font-bold border transition ${
-                          entry.label?.includes('Supercampeã')
-                            ? 'bg-amber-400 text-slate-950 border-amber-300 font-black shadow-sm'
-                            : 'bg-amber-500/15 text-amber-300 border border-amber-500/30'
-                        }`}
-                      >
-                        {entry.label || entry.year}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Vice-Campeonatos do Grupo Especial */}
-              {selectedStats.allEspecialRunnerUpYears && selectedStats.allEspecialRunnerUpYears.length > 0 && (
-                <div className="space-y-1.5 pt-1">
-                  <span className="text-[11px] font-bold text-slate-300 uppercase flex items-center gap-1">
-                    <span>🥈 Vice-Campeonatos do Grupo Especial ({selectedStats.totalEspecialVices}):</span>
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {selectedStats.allEspecialRunnerUpYears.map((entry, idx) => (
-                      <span
-                        key={`${entry.year}-${idx}`}
-                        className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-slate-800/90 text-slate-300 border border-slate-700/70"
-                      >
-                        {entry.label || entry.year}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Títulos da Série Ouro */}
-              {selectedStats.allOuroYears.length > 0 && (
-                <div className="space-y-1.5">
-                  <span className="text-[11px] font-bold text-blue-400 uppercase flex items-center gap-1">
-                    <span>✦ Série Ouro ({selectedStats.totalOuroTitles}):</span>
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {selectedStats.allOuroYears.map((entry, idx) => (
-                      <span
-                        key={`${entry.year}-${idx}`}
-                        className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-blue-500/15 text-blue-300 border border-blue-500/30"
-                      >
-                        {entry.year}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Vice-Campeonatos da Série Ouro */}
-              {selectedStats.allOuroRunnerUpYears && selectedStats.allOuroRunnerUpYears.length > 0 && (
-                <div className="space-y-1.5 pt-1">
-                  <span className="text-[11px] font-bold text-blue-300 uppercase flex items-center gap-1">
-                    <span>🥈 Vice-Campeonatos da Série Ouro ({selectedStats.totalOuroVices}):</span>
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {selectedStats.allOuroRunnerUpYears.map((entry, idx) => (
-                      <span
-                        key={`${entry.year}-${idx}`}
-                        className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-slate-800/90 text-blue-200 border border-blue-500/30"
-                      >
-                        {entry.label || entry.year}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Títulos da Série Prata */}
-              {selectedStats.allPrataYears.length > 0 && (
-                <div className="space-y-1.5">
-                  <span className="text-[11px] font-bold text-slate-300 uppercase flex items-center gap-1">
-                    <span>◆ Série Prata ({selectedStats.totalPrataTitles}):</span>
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {selectedStats.allPrataYears.map((entry, idx) => (
-                      <span
-                        key={`${entry.year}-${idx}`}
-                        className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-slate-400/15 text-slate-200 border border-slate-400/30"
-                      >
-                        {entry.year}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Vice-Campeonatos da Série Prata */}
-              {selectedStats.allPrataRunnerUpYears && selectedStats.allPrataRunnerUpYears.length > 0 && (
-                <div className="space-y-1.5 pt-1">
-                  <span className="text-[11px] font-bold text-slate-300 uppercase flex items-center gap-1">
-                    <span>🥈 Vice-Campeonatos da Série Prata ({selectedStats.totalPrataVices}):</span>
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {selectedStats.allPrataRunnerUpYears.map((entry, idx) => (
-                      <span
-                        key={`${entry.year}-${idx}`}
-                        className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-slate-800/90 text-slate-200 border border-slate-400/30"
-                      >
-                        {entry.label || entry.year}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Títulos da Série Bronze */}
-              {selectedStats.allBronzeYears.length > 0 && (
-                <div className="space-y-1.5">
-                  <span className="text-[11px] font-bold text-amber-500 uppercase flex items-center gap-1">
-                    <span>▲ Série Bronze ({selectedStats.totalBronzeTitles}):</span>
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {selectedStats.allBronzeYears.map((entry, idx) => (
-                      <span
-                        key={`${entry.year}-${idx}`}
-                        className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-amber-700/20 text-amber-300 border border-amber-600/30"
-                      >
-                        {entry.year}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Vice-Campeonatos da Série Bronze */}
-              {selectedStats.allBronzeRunnerUpYears && selectedStats.allBronzeRunnerUpYears.length > 0 && (
-                <div className="space-y-1.5 pt-1">
-                  <span className="text-[11px] font-bold text-amber-400 uppercase flex items-center gap-1">
-                    <span>🥈 Vice-Campeonatos da Série Bronze ({selectedStats.totalBronzeVices}):</span>
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {selectedStats.allBronzeRunnerUpYears.map((entry, idx) => (
-                      <span
-                        key={`${entry.year}-${idx}`}
-                        className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-slate-800/90 text-amber-200 border border-amber-600/30"
-                      >
-                        {entry.label || entry.year}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Títulos do Grupo de Avaliação */}
-              {selectedStats.allAvaliacaoYears && selectedStats.allAvaliacaoYears.length > 0 && (
-                <div className="space-y-1.5">
-                  <span className="text-[11px] font-bold text-purple-400 uppercase flex items-center gap-1">
-                    <span>✦ Grupo de Avaliação ({selectedStats.totalAvaliacaoTitles}):</span>
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {selectedStats.allAvaliacaoYears.map((entry, idx) => (
-                      <span
-                        key={`${entry.year}-${idx}`}
-                        className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-purple-600/20 text-purple-300 border border-purple-500/30"
-                      >
-                        {entry.year}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Vice-Campeonatos do Grupo de Avaliação */}
-              {selectedStats.allAvaliacaoRunnerUpYears && selectedStats.allAvaliacaoRunnerUpYears.length > 0 && (
-                <div className="space-y-1.5 pt-1">
-                  <span className="text-[11px] font-bold text-slate-300 uppercase flex items-center gap-1">
-                    <span>🥈 Vice-Campeonatos do Grupo de Avaliação ({selectedStats.totalAvaliacaoVices}):</span>
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {selectedStats.allAvaliacaoRunnerUpYears.map((entry, idx) => (
-                      <span
-                        key={`${entry.year}-${idx}`}
-                        className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-slate-800/90 text-purple-200 border border-purple-500/30"
-                      >
-                        {entry.label || entry.year}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Títulos do Grupo E (Sexta Divisão) */}
-              {selectedStats.allGrupoEYears && selectedStats.allGrupoEYears.length > 0 && (
-                <div className="space-y-1.5">
-                  <span className="text-[11px] font-bold text-emerald-400 uppercase flex items-center gap-1">
-                    <span>✦ Grupo E - Sexta Divisão ({selectedStats.totalGrupoETitles || 0}):</span>
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {selectedStats.allGrupoEYears.map((entry, idx) => (
-                      <span
-                        key={`${entry.year}-${idx}`}
-                        className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-600/20 text-emerald-300 border border-emerald-500/30"
-                      >
-                        {entry.year}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Vice-Campeonatos do Grupo E (Sexta Divisão) */}
-              {selectedStats.allGrupoERunnerUpYears && selectedStats.allGrupoERunnerUpYears.length > 0 && (
-                <div className="space-y-1.5 pt-1">
-                  <span className="text-[11px] font-bold text-slate-300 uppercase flex items-center gap-1">
-                    <span>🥈 Vice-Campeonatos do Grupo E ({selectedStats.totalGrupoEVices || 0}):</span>
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {selectedStats.allGrupoERunnerUpYears.map((entry, idx) => (
-                      <span
-                        key={`${entry.year}-${idx}`}
-                        className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-slate-800/90 text-emerald-200 border border-emerald-500/30"
-                      >
-                        {entry.label || entry.year}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Zero titles scenario */}
-              {selectedStats.grandTotalTitles === 0 && (
-                <div className="py-3 text-center text-xs text-slate-400 italic">
-                  {selectedStats.grandTotalVices > 0
-                    ? `Agremiação consagrada com ${selectedStats.grandTotalVices} vice-campeonato${selectedStats.grandTotalVices === 1 ? '' : 's'} no Carnaval Carioca.`
-                    : 'Esta agremiação ainda está em busca da sua primeira consagração como campeã oficial no Carnaval Carioca.'}
-                </div>
-              )}
+        {/* Anos de Consagração dos Títulos por Divisão */}
+        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div className="flex items-center gap-2">
+              <History className="w-5 h-5 text-amber-400" />
+              <h3 className="text-base font-bold text-white uppercase tracking-wider">
+                Anos de Consagração dos Títulos por Divisão
+              </h3>
             </div>
-
-            <div className="pt-2 border-t border-slate-800/80 text-[11px] text-slate-400 flex items-center justify-between">
+            <div className="text-xs text-slate-400 flex items-center gap-2">
               <span>Situação no Carnaval {lastHistory?.year || currentYear - 1}:</span>
               <span className="font-bold text-white">{selectedEntry.lastResult.badgeText}</span>
             </div>
           </div>
 
-          {/* Tabela Resumo das 5 Divisões */}
-          <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-3">
-            <div className="flex items-center justify-between pb-2.5 border-b border-slate-800">
-              <div className="flex items-center gap-2">
-                <Trophy className="w-4 h-4 text-amber-400" />
-                <h3 className="text-sm font-bold text-white uppercase tracking-wider">
-                  Resumo Geral de Conquistas
-                </h3>
+          <div className="space-y-3.5">
+            {/* Títulos do Especial */}
+            {selectedStats.allEspecialYears.length > 0 && (
+              <div className="space-y-1.5">
+                <span className="text-[11px] font-bold text-amber-400 uppercase flex items-center gap-1">
+                  <span>★ Grupo Especial ({selectedStats.totalEspecialTitles} Título{selectedStats.totalEspecialTitles === 1 ? '' : 's'}):</span>
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedStats.allEspecialYears.map((entry, idx) => (
+                    <span
+                      key={`${entry.year}-${idx}`}
+                      className={`px-2.5 py-0.5 rounded text-xs font-mono font-bold border transition ${
+                        entry.label?.includes('Supercampeã')
+                          ? 'bg-amber-400 text-slate-950 border-amber-300 font-black shadow-sm'
+                          : 'bg-amber-500/15 text-amber-300 border border-amber-500/30'
+                      }`}
+                    >
+                      {entry.label || entry.year}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <span className="text-[11px] text-slate-400 font-mono">
-                {selectedStats.grandTotalConquests} conquistas
-              </span>
-            </div>
+            )}
 
-            <div className="overflow-x-auto">
-              <table className="w-full text-xs text-left">
-                <thead>
-                  <tr className="border-b border-slate-800 text-slate-400 uppercase text-[10px]">
-                    <th className="py-1.5 px-2">Divisão</th>
-                    <th className="py-1.5 px-2 text-center text-amber-400 font-bold">Títulos</th>
-                    <th className="py-1.5 px-2 text-center text-slate-300 font-bold">Vices</th>
-                    <th className="py-1.5 px-2 text-right text-white font-bold">Total</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-800/60 font-mono">
-                  <tr>
-                    <td className="py-2 px-2 font-sans font-semibold text-amber-300 flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-amber-400" />
-                      <span>Grupo Especial</span>
-                    </td>
-                    <td className="py-2 px-2 text-center text-amber-400 font-black">
-                      {selectedStats.totalEspecialTitles}
-                    </td>
-                    <td className="py-2 px-2 text-center text-slate-400">
-                      {selectedStats.totalEspecialVices}
-                    </td>
-                    <td className="py-2 px-2 text-right font-bold text-white">
-                      {selectedStats.totalEspecialTitles + selectedStats.totalEspecialVices}
-                    </td>
-                  </tr>
+            {/* Vice-Campeonatos do Grupo Especial */}
+            {selectedStats.allEspecialRunnerUpYears && selectedStats.allEspecialRunnerUpYears.length > 0 && (
+              <div className="space-y-1.5 pt-1">
+                <span className="text-[11px] font-bold text-slate-300 uppercase flex items-center gap-1">
+                  <span>🥈 Vice-Campeonatos do Grupo Especial ({selectedStats.totalEspecialVices}):</span>
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedStats.allEspecialRunnerUpYears.map((entry, idx) => (
+                    <span
+                      key={`${entry.year}-${idx}`}
+                      className="px-2.5 py-0.5 rounded text-xs font-mono font-bold bg-slate-800/90 text-slate-300 border border-slate-700/70"
+                    >
+                      {entry.label || entry.year}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
 
-                  <tr>
-                    <td className="py-2 px-2 font-sans font-semibold text-blue-300 flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-blue-400" />
-                      <span>Série Ouro</span>
-                    </td>
-                    <td className="py-2 px-2 text-center text-blue-400 font-black">
-                      {selectedStats.totalOuroTitles}
-                    </td>
-                    <td className="py-2 px-2 text-center text-slate-400">
-                      {selectedStats.totalOuroVices}
-                    </td>
-                    <td className="py-2 px-2 text-right font-bold text-white">
-                      {selectedStats.totalOuroTitles + selectedStats.totalOuroVices}
-                    </td>
-                  </tr>
+            {/* Títulos da Série Ouro */}
+            {selectedStats.allOuroYears.length > 0 && (
+              <div className="space-y-1.5">
+                <span className="text-[11px] font-bold text-blue-400 uppercase flex items-center gap-1">
+                  <span>✦ Série Ouro ({selectedStats.totalOuroTitles}):</span>
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedStats.allOuroYears.map((entry, idx) => (
+                    <span
+                      key={`${entry.year}-${idx}`}
+                      className="px-2.5 py-0.5 rounded text-xs font-mono font-bold bg-blue-500/15 text-blue-300 border border-blue-500/30"
+                    >
+                      {entry.year}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
 
-                  <tr>
-                    <td className="py-2 px-2 font-sans font-semibold text-slate-300 flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-slate-400" />
-                      <span>Série Prata</span>
-                    </td>
-                    <td className="py-2 px-2 text-center text-slate-300 font-black">
-                      {selectedStats.totalPrataTitles}
-                    </td>
-                    <td className="py-2 px-2 text-center text-slate-400">
-                      {selectedStats.totalPrataVices}
-                    </td>
-                    <td className="py-2 px-2 text-right font-bold text-white">
-                      {selectedStats.totalPrataTitles + selectedStats.totalPrataVices}
-                    </td>
-                  </tr>
+            {/* Vice-Campeonatos da Série Ouro */}
+            {selectedStats.allOuroRunnerUpYears && selectedStats.allOuroRunnerUpYears.length > 0 && (
+              <div className="space-y-1.5 pt-1">
+                <span className="text-[11px] font-bold text-blue-300 uppercase flex items-center gap-1">
+                  <span>🥈 Vice-Campeonatos da Série Ouro ({selectedStats.totalOuroVices}):</span>
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedStats.allOuroRunnerUpYears.map((entry, idx) => (
+                    <span
+                      key={`${entry.year}-${idx}`}
+                      className="px-2.5 py-0.5 rounded text-xs font-mono font-bold bg-slate-800/90 text-blue-200 border border-blue-500/30"
+                    >
+                      {entry.label || entry.year}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
 
-                  <tr>
-                    <td className="py-2 px-2 font-sans font-semibold text-amber-400 flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-amber-600" />
-                      <span>Série Bronze</span>
-                    </td>
-                    <td className="py-2 px-2 text-center text-amber-500 font-black">
-                      {selectedStats.totalBronzeTitles}
-                    </td>
-                    <td className="py-2 px-2 text-center text-slate-400">
-                      {selectedStats.totalBronzeVices}
-                    </td>
-                    <td className="py-2 px-2 text-right font-bold text-white">
-                      {selectedStats.totalBronzeTitles + selectedStats.totalBronzeVices}
-                    </td>
-                  </tr>
+            {/* Títulos da Série Prata */}
+            {selectedStats.allPrataYears.length > 0 && (
+              <div className="space-y-1.5">
+                <span className="text-[11px] font-bold text-slate-300 uppercase flex items-center gap-1">
+                  <span>◆ Série Prata ({selectedStats.totalPrataTitles}):</span>
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedStats.allPrataYears.map((entry, idx) => (
+                    <span
+                      key={`${entry.year}-${idx}`}
+                      className="px-2.5 py-0.5 rounded text-xs font-mono font-bold bg-slate-400/15 text-slate-200 border border-slate-400/30"
+                    >
+                      {entry.year}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
 
-                  <tr>
-                    <td className="py-2 px-2 font-sans font-semibold text-purple-400 flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-purple-500" />
-                      <span>Grupo de Avaliação</span>
-                    </td>
-                    <td className="py-2 px-2 text-center text-purple-400 font-black">
-                      {selectedStats.totalAvaliacaoTitles}
-                    </td>
-                    <td className="py-2 px-2 text-center text-slate-400">
-                      {selectedStats.totalAvaliacaoVices}
-                    </td>
-                    <td className="py-2 px-2 text-right font-bold text-white">
-                      {selectedStats.totalAvaliacaoTitles + selectedStats.totalAvaliacaoVices}
-                    </td>
-                  </tr>
+            {/* Vice-Campeonatos da Série Prata */}
+            {selectedStats.allPrataRunnerUpYears && selectedStats.allPrataRunnerUpYears.length > 0 && (
+              <div className="space-y-1.5 pt-1">
+                <span className="text-[11px] font-bold text-slate-300 uppercase flex items-center gap-1">
+                  <span>🥈 Vice-Campeonatos da Série Prata ({selectedStats.totalPrataVices}):</span>
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedStats.allPrataRunnerUpYears.map((entry, idx) => (
+                    <span
+                      key={`${entry.year}-${idx}`}
+                      className="px-2.5 py-0.5 rounded text-xs font-mono font-bold bg-slate-800/90 text-slate-200 border border-slate-400/30"
+                    >
+                      {entry.label || entry.year}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
 
-                  {((selectedStats.totalGrupoETitles || 0) > 0 || (selectedStats.totalGrupoEVices || 0) > 0) && (
-                    <tr>
-                      <td className="py-2 px-2 font-sans font-semibold text-emerald-400 flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                        <span>Grupo E (Sexta Divisão)</span>
-                      </td>
-                      <td className="py-2 px-2 text-center text-emerald-400 font-black">
-                        {selectedStats.totalGrupoETitles || 0}
-                      </td>
-                      <td className="py-2 px-2 text-center text-slate-400">
-                        {selectedStats.totalGrupoEVices || 0}
-                      </td>
-                      <td className="py-2 px-2 text-right font-bold text-white">
-                        {(selectedStats.totalGrupoETitles || 0) + (selectedStats.totalGrupoEVices || 0)}
-                      </td>
-                    </tr>
-                  )}
+            {/* Títulos da Série Bronze */}
+            {selectedStats.allBronzeYears.length > 0 && (
+              <div className="space-y-1.5">
+                <span className="text-[11px] font-bold text-amber-500 uppercase flex items-center gap-1">
+                  <span>▲ Série Bronze ({selectedStats.totalBronzeTitles}):</span>
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedStats.allBronzeYears.map((entry, idx) => (
+                    <span
+                      key={`${entry.year}-${idx}`}
+                      className="px-2.5 py-0.5 rounded text-xs font-mono font-bold bg-amber-700/20 text-amber-300 border border-amber-600/30"
+                    >
+                      {entry.year}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
 
-                  <tr className="bg-slate-950/60 font-black">
-                    <td className="py-2 px-2 font-sans text-white text-[11px] uppercase tracking-wider">
-                      TOTAL GERAL
-                    </td>
-                    <td className="py-2 px-2 text-center text-amber-400 text-sm">
-                      {selectedStats.grandTotalTitles}
-                    </td>
-                    <td className="py-2 px-2 text-center text-slate-300 text-sm">
-                      {selectedStats.grandTotalVices}
-                    </td>
-                    <td className="py-2 px-2 text-right text-emerald-400 text-sm">
-                      {selectedStats.grandTotalConquests}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            {/* Vice-Campeonatos da Série Bronze */}
+            {selectedStats.allBronzeRunnerUpYears && selectedStats.allBronzeRunnerUpYears.length > 0 && (
+              <div className="space-y-1.5 pt-1">
+                <span className="text-[11px] font-bold text-amber-400 uppercase flex items-center gap-1">
+                  <span>🥈 Vice-Campeonatos da Série Bronze ({selectedStats.totalBronzeVices}):</span>
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedStats.allBronzeRunnerUpYears.map((entry, idx) => (
+                    <span
+                      key={`${entry.year}-${idx}`}
+                      className="px-2.5 py-0.5 rounded text-xs font-mono font-bold bg-slate-800/90 text-amber-200 border border-amber-600/30"
+                    >
+                      {entry.label || entry.year}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Títulos do Grupo de Avaliação */}
+            {selectedStats.allAvaliacaoYears && selectedStats.allAvaliacaoYears.length > 0 && (
+              <div className="space-y-1.5">
+                <span className="text-[11px] font-bold text-purple-400 uppercase flex items-center gap-1">
+                  <span>✦ Grupo de Avaliação ({selectedStats.totalAvaliacaoTitles}):</span>
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedStats.allAvaliacaoYears.map((entry, idx) => (
+                    <span
+                      key={`${entry.year}-${idx}`}
+                      className="px-2.5 py-0.5 rounded text-xs font-mono font-bold bg-purple-600/20 text-purple-300 border border-purple-500/30"
+                    >
+                      {entry.year}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Vice-Campeonatos do Grupo de Avaliação */}
+            {selectedStats.allAvaliacaoRunnerUpYears && selectedStats.allAvaliacaoRunnerUpYears.length > 0 && (
+              <div className="space-y-1.5 pt-1">
+                <span className="text-[11px] font-bold text-slate-300 uppercase flex items-center gap-1">
+                  <span>🥈 Vice-Campeonatos do Grupo de Avaliação ({selectedStats.totalAvaliacaoVices}):</span>
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedStats.allAvaliacaoRunnerUpYears.map((entry, idx) => (
+                    <span
+                      key={`${entry.year}-${idx}`}
+                      className="px-2.5 py-0.5 rounded text-xs font-mono font-bold bg-slate-800/90 text-purple-200 border border-purple-500/30"
+                    >
+                      {entry.label || entry.year}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Títulos do Grupo E (Sexta Divisão) */}
+            {selectedStats.allGrupoEYears && selectedStats.allGrupoEYears.length > 0 && (
+              <div className="space-y-1.5">
+                <span className="text-[11px] font-bold text-emerald-400 uppercase flex items-center gap-1">
+                  <span>✦ Grupo E - Sexta Divisão ({selectedStats.totalGrupoETitles || 0}):</span>
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedStats.allGrupoEYears.map((entry, idx) => (
+                    <span
+                      key={`${entry.year}-${idx}`}
+                      className="px-2.5 py-0.5 rounded text-xs font-mono font-bold bg-emerald-600/20 text-emerald-300 border border-emerald-500/30"
+                    >
+                      {entry.year}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Vice-Campeonatos do Grupo E (Sexta Divisão) */}
+            {selectedStats.allGrupoERunnerUpYears && selectedStats.allGrupoERunnerUpYears.length > 0 && (
+              <div className="space-y-1.5 pt-1">
+                <span className="text-[11px] font-bold text-slate-300 uppercase flex items-center gap-1">
+                  <span>🥈 Vice-Campeonatos do Grupo E ({selectedStats.totalGrupoEVices || 0}):</span>
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedStats.allGrupoERunnerUpYears.map((entry, idx) => (
+                    <span
+                      key={`${entry.year}-${idx}`}
+                      className="px-2.5 py-0.5 rounded text-xs font-mono font-bold bg-slate-800/90 text-emerald-200 border border-emerald-500/30"
+                    >
+                      {entry.label || entry.year}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Zero titles scenario */}
+            {selectedStats.grandTotalTitles === 0 && (
+              <div className="py-3 text-center text-xs text-slate-400 italic">
+                {selectedStats.grandTotalVices > 0
+                  ? `Agremiação consagrada com ${selectedStats.grandTotalVices} vice-campeonato${selectedStats.grandTotalVices === 1 ? '' : 's'} no Carnaval Carioca.`
+                  : 'Esta agremiação ainda está em busca da sua primeira consagração como campeã oficial no Carnaval Carioca.'}
+              </div>
+            )}
           </div>
         </div>
 
@@ -1244,65 +1078,15 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
             )}
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1 sm:col-span-2">
-              <span className="text-[10px] text-amber-400 uppercase font-semibold block">
-                Razão Social / Denominação Estatutária
-              </span>
-              <span className="font-bold text-white text-sm block">{getSchoolCorporateName(selectedSchool)}</span>
-              <span className="text-[10px] text-slate-400 block font-medium">
-                {getSchoolDenominationExtenso(selectedSchool)} ({getSchoolDenomination(selectedSchool)})
-              </span>
-            </div>
-
-            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1 sm:col-span-2">
-              <span className="text-[10px] text-slate-400 uppercase font-semibold block">
-                Nome Oficial da Agremiação
-              </span>
-              <span className="font-bold text-white text-sm block">{cleanSchoolName(selectedSchool)}</span>
-            </div>
-
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
             <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1">
-              <span className="text-[10px] text-amber-400 uppercase font-semibold block">
-                Nome Chamado
-              </span>
-              <span className="font-bold text-amber-300 text-sm block">{getSchoolCalledName(selectedSchool)}</span>
-            </div>
-
-            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1">
-              <span className="text-[10px] text-slate-400 uppercase font-semibold block">
-                Abreviação / Sigla
-              </span>
-              <span className="font-mono font-bold text-amber-300 text-sm block">
-                {selectedSchool.abbreviation || selectedSchool.shortName || '—'}
-              </span>
-            </div>
-
-            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1">
-              <span className="text-[10px] text-slate-400 uppercase font-semibold flex items-center gap-1">
-                <Calendar className="w-3 h-3 text-slate-400" />
-                Fundação
-              </span>
-              <span className="font-bold text-white text-sm block">{selectedSchool.foundationDate || selectedSchool.foundationYear}</span>
-            </div>
-
-            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1">
-              <span className="text-[10px] text-slate-400 uppercase font-semibold block">
-                {selectedSchool.originType === 'outra_cidade' ? 'Cidade' : 'Bairro'}
-              </span>
-              <span className="font-bold text-white text-sm block">
-                {selectedSchool.originType === 'outra_cidade' ? (selectedSchool.city || selectedSchool.cityState) : selectedSchool.neighborhood}
-              </span>
-            </div>
-
-            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1 sm:col-span-2">
               <span className="text-[10px] text-slate-400 uppercase font-semibold flex items-center gap-1">
                 <Palette className="w-3 h-3 text-slate-400" />
                 Cores Oficiais
               </span>
               <div className="flex items-center gap-2">
                 <div
-                  className="w-4 h-4 rounded-full border shadow-sm"
+                  className="w-4 h-4 rounded-full border shadow-sm shrink-0"
                   style={{ backgroundColor: selectedSchool.colors.primary, borderColor: selectedSchool.colors.border || '#fff' }}
                 />
                 <span className="font-bold text-white text-sm">
@@ -1311,32 +1095,24 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
               </div>
             </div>
 
-            <div className={`p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1 ${selectedSchool.mascot ? 'sm:col-span-2' : 'sm:col-span-2'}`}>
+            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1">
               <span className="text-[10px] text-slate-400 uppercase font-semibold block">
-                Símbolo Oficial
+                Símbolo & Mascote
               </span>
-              <span className="font-bold text-white text-sm block">{selectedSchool.symbol}</span>
+              <span className="font-bold text-white text-sm block truncate">
+                {selectedSchool.mascot ? `${selectedSchool.symbol} • Mascote: ${selectedSchool.mascot}` : selectedSchool.symbol}
+              </span>
             </div>
 
-            {selectedSchool.mascot && (
-              <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1 sm:col-span-2">
-                <span className="text-[10px] text-amber-400 uppercase font-semibold block">
-                  Mascote Oficial
-                </span>
-                <span className="font-bold text-amber-300 text-sm block">{selectedSchool.mascot}</span>
-              </div>
-            )}
-
-            {(selectedSchool.motto || selectedSchool.nickname) && (
-              <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1 sm:col-span-4">
-                <span className="text-[10px] text-amber-400 uppercase font-semibold block">
-                  Lema / Apelido Comunitário
-                </span>
-                <span className="font-bold text-amber-300 text-sm block italic">
-                  "{selectedSchool.motto || selectedSchool.nickname}"
-                </span>
-              </div>
-            )}
+            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1">
+              <span className="text-[10px] text-amber-400 uppercase font-semibold block">
+                Nome Chamado / Apelido
+              </span>
+              <span className="font-bold text-amber-300 text-sm block truncate">
+                {getSchoolCalledName(selectedSchool)}
+                {selectedSchool.nickname ? ` • "${selectedSchool.nickname}"` : ''}
+              </span>
+            </div>
           </div>
 
           {/* Profissionais / Corpo Técnico */}
@@ -1420,23 +1196,14 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
       {/* Tabela Geral do Palmarés Oficial (Limpa, Dinâmica & Filtrável) */}
       <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800 gap-3">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-            <div>
-              <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                <Trophy className="w-5 h-5 text-amber-400" />
-                <span>Quadro Geral de Honras (Ranking Histórico Oficial)</span>
-              </h3>
-              <p className="text-xs text-slate-400 mt-0.5">
-                Clique em qualquer agremiação para visualizar seu perfil detalhado de glórias.
-              </p>
-            </div>
-            <button
-              onClick={() => setIsLiesaModalOpen(true)}
-              className="px-3.5 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold transition flex items-center gap-1.5 self-start sm:self-auto cursor-pointer"
-            >
-              <Crown className="w-3.5 h-3.5 text-amber-400" />
-              <span>Ver Ranking LIESA</span>
-            </button>
+          <div>
+            <h3 className="text-lg font-bold text-white flex items-center gap-2">
+              <Trophy className="w-5 h-5 text-amber-400" />
+              <span>Quadro Geral de Honras (Ranking Histórico Oficial)</span>
+            </h3>
+            <p className="text-xs text-slate-400 mt-0.5">
+              Clique em qualquer agremiação para visualizar seu perfil detalhado de glórias.
+            </p>
           </div>
 
           {/* Table Division Filter */}
@@ -1597,7 +1364,18 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
         </div>
       </div>
 
-      {/* Modal do Ranking Oficial da LIESA */}
+      {/* 1. Modal dos Carnavais Passados (Resultados 1950 a 2026+ & Participações no Grupo Especial dentro) */}
+      <CarnavaisPassadosModal
+        isOpen={isCarnavaisPassadosModalOpen}
+        onClose={() => setIsCarnavaisPassadosModalOpen(false)}
+        schools={schools}
+        inGameHistory={history}
+        currentYear={currentYear}
+        userSchool={userSchool}
+        onSelectSchool={handleSelectSchool}
+      />
+
+      {/* 2. Modal do Ranking Oficial da LIESA (com Ranking Histórico dentro) */}
       <LiesaRankingModal
         isOpen={isLiesaModalOpen}
         onClose={() => setIsLiesaModalOpen(false)}
@@ -1608,7 +1386,7 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
         onSelectSchool={handleSelectSchool}
       />
 
-      {/* Modal da Galeria dos Campeões de Todas as Divisões e Grupos */}
+      {/* 3. Modal da Galeria de Campeãs de Todas as Divisões e Grupos */}
       <GaleriaDosCampeoesModal
         isOpen={isGaleriaModalOpen}
         onClose={() => setIsGaleriaModalOpen(false)}
