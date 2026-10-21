@@ -60,6 +60,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
   const [rankingMode, setRankingMode] = useState<'quinquennio' | 'historico' | 'participacoes' | 'carnavais_passados'>('quinquennio');
   const [selectedPastYear, setSelectedPastYear] = useState<number>(2026);
   const [subgroup1984Tab, setSubgroup1984Tab] = useState<'supercampeonato' | 'domingo' | 'segunda' | 'geral'>('supercampeonato');
+  const [subgroup1951Tab, setSubgroup1951Tab] = useState<'geral' | 'fbes' | 'ugesb'>('geral');
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedSchoolId, setExpandedSchoolId] = useState<string | null>(null);
   const [expandedHistSchoolId, setExpandedHistSchoolId] = useState<string | null>(null);
@@ -151,16 +152,22 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
       } else if (subgroup1984Tab === 'supercampeonato' && currentPastCarnaval.subgroups.supercampeonato) {
         baseList = currentPastCarnaval.subgroups.supercampeonato;
       }
+    } else if (currentPastCarnaval.year === 1951 && currentPastCarnaval.subgroups) {
+      if (subgroup1951Tab === 'fbes' && currentPastCarnaval.subgroups.fbes) {
+        baseList = currentPastCarnaval.subgroups.fbes;
+      } else if (subgroup1951Tab === 'ugesb' && currentPastCarnaval.subgroups.ugesb) {
+        baseList = currentPastCarnaval.subgroups.ugesb;
+      }
     }
     const q = searchQuery.toLowerCase().trim();
     if (!q) return baseList;
     return baseList.filter((st) =>
       st.schoolName.toLowerCase().includes(q)
     );
-  }, [currentPastCarnaval, searchQuery, subgroup1984Tab]);
+  }, [currentPastCarnaval, searchQuery, subgroup1984Tab, subgroup1951Tab]);
 
   const isNoRelegationYear = currentPastCarnaval
-    ? [1971, 1974, 1975, 1979, 1981, 1983, 1988, 1993, 1994, 2011, 2017, 2018].includes(currentPastCarnaval.year)
+    ? currentPastCarnaval.year <= 1952 || [1971, 1974, 1975, 1979, 1981, 1983, 1988, 1993, 1994, 2011, 2017, 2018].includes(currentPastCarnaval.year)
     : false;
 
   const pastCarnavalRelegations = useMemo(() => {
@@ -770,7 +777,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
               }`}
             >
               <History className="w-3.5 h-3.5" />
-              <span>Ranking Histórico Geral (1953-{currentYear || 2026})</span>
+              <span>Ranking Histórico Geral (1951-{currentYear || 2026})</span>
             </button>
             <button
               onClick={() => setRankingMode('participacoes')}
@@ -1017,7 +1024,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                 <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                 <div>
                   <span className="font-bold text-amber-300">Classificação Histórica Oficial da LIESA:</span>{' '}
-                  Atribui 20 pontos por título e 15 pontos por vice-campeonato na história do Grupo Especial, somados às colocações completas de 1º a 10º lugar para todos os carnavais catalogados com apuração completa (1953 a 2026). A LIESA foi fundada em 24 de julho de 1984 para administrar o Grupo Especial a partir do Carnaval de 1985; as edições de 1953 a 1984 foram administradas pela AESCRJ. Clique em qualquer agremiação para ver o histórico ano a ano.
+                  Atribui 20 pontos por título e 15 pontos por vice-campeonato na história do Grupo Especial, somados às colocações completas de 1º a 10º lugar para todos os carnavais catalogados com apuração completa (1951 a 2026). A LIESA foi fundada em 24 de julho de 1984 para administrar o Grupo Especial a partir do Carnaval de 1985; as edições de 1951 a 1984 foram administradas pelas ligas históricas (FBES/UGESB/AESCRJ). Clique em qualquer agremiação para ver o histórico ano a ano.
                 </div>
               </div>
 
@@ -1061,7 +1068,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                       <th className="py-3 px-3 text-center text-purple-400 font-bold">Participações Especial</th>
                       <th className="py-3 px-3 text-center text-amber-400 font-bold">Títulos Especial (20p)</th>
                       <th className="py-3 px-3 text-center text-slate-300 font-bold">Vices Especial (15p)</th>
-                      <th className="py-3 px-3 text-center text-blue-400 font-bold">Era 1953+ (Top 10)</th>
+                      <th className="py-3 px-3 text-center text-blue-400 font-bold">Era 1951+ (Top 10)</th>
                       <th className="py-3 px-4 text-right font-black text-amber-400 text-xs">
                         TOTAL PONTOS HISTÓRICOS
                       </th>
@@ -1165,7 +1172,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                         <span>Desempenho Histórico Detalhado: {entry.schoolName}</span>
                                       </h4>
                                       <p className="text-[11px] text-slate-400">
-                                        {entry.totalEspecialTitles} Título(s) ({entry.totalEspecialTitles * 20}p) · {entry.totalEspecialVices} Vice(s) ({entry.totalEspecialVices * 15}p) · Era 1953+: {entry.pointsDetailedEra} pts
+                                        {entry.totalEspecialTitles} Título(s) ({entry.totalEspecialTitles * 20}p) · {entry.totalEspecialVices} Vice(s) ({entry.totalEspecialVices * 15}p) · Era 1951+: {entry.pointsDetailedEra} pts
                                       </p>
                                     </div>
                                     {onSelectSchool && entry.school && (
@@ -1185,7 +1192,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
 
                                   <div>
                                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-2">
-                                      Carnavais Catalogados na Era Moderna (1953 a 2026):
+                                      Carnavais Catalogados na Era Moderna (1951 a 2026):
                                     </span>
                                     <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2">
                                       {historicalCarnavals.map((c) => {
@@ -1290,7 +1297,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                               <BookOpen className="w-3.5 h-3.5 text-amber-400" />
                                               <span>Histórico Oficial de Enredos no Grupo Especial ({schoolEnredos.length} Edições)</span>
                                             </span>
-                                            <span className="text-slate-400 font-mono font-normal">1953 a {currentYear || 2026}</span>
+                                            <span className="text-slate-400 font-mono font-normal">1951 a {currentYear || 2026}</span>
                                           </div>
                                           <div className="max-h-52 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
                                             {schoolEnredos.map((item) => {
@@ -1349,7 +1356,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                 <Award className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
                 <div>
                   <span className="font-bold text-purple-300">Quadro Histórico de Participações no Grupo Especial:</span>{' '}
-                  Contabiliza o total exato de edições em que cada agremiação participou na divisão principal do Carnaval carioca (desde a era de 1953 até o ano corrente {currentYear || 2026}). O cálculo integra todos os anos oficiais dos Carnavais Passados com os anos transcorridos no seu save, atualizando-se automaticamente temporada a temporada. As escolas estão organizadas em ordem estritamente <strong>DECRESCENTE de participações</strong>. Clique em qualquer agremiação para visualizar os anos disputados e o histórico de enredos.
+                  Contabiliza o total exato de edições em que cada agremiação participou na divisão principal do Carnaval carioca (desde a era de 1951 até o ano corrente {currentYear || 2026}). O cálculo integra todos os anos oficiais dos Carnavais Passados com os anos transcorridos no seu save, atualizando-se automaticamente temporada a temporada. As escolas estão organizadas em ordem estritamente <strong>DECRESCENTE de participações</strong>. Clique em qualquer agremiação para visualizar os anos disputados e o histórico de enredos.
                 </div>
               </div>
 
@@ -1566,7 +1573,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                                           <BookOpen className="w-3.5 h-3.5 text-amber-400" />
                                           <span>Histórico Oficial de Enredos no Grupo Especial ({schoolEnredos.length} Edições - Atualizado com o Save)</span>
                                         </span>
-                                        <span className="text-slate-400 font-mono font-normal">1953 a {currentYear || 2026}</span>
+                                        <span className="text-slate-400 font-mono font-normal">1951 a {currentYear || 2026}</span>
                                       </div>
                                       <div className="max-h-56 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
                                         {schoolEnredos.map((enr) => (
@@ -1673,17 +1680,21 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                         <div className="space-y-2">
                           <div className="flex flex-wrap items-center gap-2">
                             <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                              {currentPastCarnaval.year <= 1984 ? 'RESULTADO OFICIAL AESCRJ' : 'RESULTADO OFICIAL LIESA'}
+                              {currentPastCarnaval.year === 1951 ? 'RESULTADO OFICIAL FBES / UGESB' : currentPastCarnaval.year <= 1984 ? 'RESULTADO OFICIAL AESCRJ' : 'RESULTADO OFICIAL LIESA'}
                             </span>
                             <span className="text-xs text-slate-300 font-mono font-bold">
                               Ano {currentPastCarnaval.year}
                             </span>
 
-                            {currentPastCarnaval.year <= 1984 && (
+                            {currentPastCarnaval.year === 1951 ? (
+                              <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 border border-slate-700">
+                                Desfiles FBES & UGESB
+                              </span>
+                            ) : currentPastCarnaval.year <= 1984 ? (
                               <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 border border-slate-700">
                                 Gestão AESCRJ
                               </span>
-                            )}
+                            ) : null}
                             {currentPastCarnaval.year === 1985 && (
                               <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
                                 1º Carnaval LIESA (Fundada em 24/07/1984)
@@ -1730,7 +1741,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                               <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-950/60 border border-indigo-800/70 text-indigo-200 text-xs">
                                 <ShieldCheck className="w-4 h-4 text-indigo-400 shrink-0" />
                                 <span>
-                                  <strong>Sem Rebaixamento:</strong> Neste carnaval não houve rebaixamento para o grupo de acesso por deliberação oficial {currentPastCarnaval.year <= 1984 ? 'da AESCRJ' : 'da LIESA'}.
+                                  <strong>Sem Rebaixamento:</strong> Neste carnaval não houve rebaixamento para o grupo de acesso {currentPastCarnaval.year === 1951 ? '(sistema de rebaixamento teve início no Carnaval de 1953)' : `por deliberação oficial ${currentPastCarnaval.year <= 1984 ? 'da AESCRJ' : 'da LIESA'}`}.
                                 </span>
                               </div>
                             )}
@@ -1857,6 +1868,73 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                               </div>
                               <div className="text-xs font-bold text-white mt-0.5 truncate">Pontuação Oficial AESCRJ</div>
                               <div className="text-[10px] text-slate-400 truncate">Todas as 16 colocações</div>
+                            </button>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Seletor Especial para os 2 Desfiles Competitivos de 1951 (FBES e UGESB) */}
+                      {currentPastCarnaval.year === 1951 && currentPastCarnaval.subgroups && (
+                        <div className="p-3.5 rounded-2xl bg-slate-900/90 border border-amber-500/30 space-y-2.5">
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div className="flex items-center gap-2">
+                              <Crown className="w-4 h-4 text-amber-400" />
+                              <span className="text-xs font-black text-amber-300 uppercase tracking-wider">
+                                Desfiles Competitivos do Carnaval de 1951 (Divisão das Ligas Oficiais):
+                              </span>
+                            </div>
+                            <span className="text-[11px] text-slate-400">
+                              FBES & UGESB • Não houve rebaixamento
+                            </span>
+                          </div>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            <button
+                              onClick={() => setSubgroup1951Tab('geral')}
+                              className={`p-2.5 rounded-xl text-left border transition cursor-pointer ${
+                                subgroup1951Tab === 'geral'
+                                  ? 'bg-amber-500/20 border-amber-400 text-white shadow-md shadow-amber-500/10'
+                                  : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800/50'
+                              }`}
+                            >
+                              <div className="text-[10px] font-black uppercase text-amber-400 flex items-center justify-between">
+                                <span>Geral (Ambos os Desfiles)</span>
+                                <span className="text-[9px] px-1 py-0.2 rounded bg-amber-500/30 text-amber-200">53 agremiações</span>
+                              </div>
+                              <div className="text-xs font-bold text-white mt-0.5 truncate">FBES + UGESB Integrados</div>
+                              <div className="text-[10px] text-slate-400 truncate">Todas as colocações e pontos</div>
+                            </button>
+
+                            <button
+                              onClick={() => setSubgroup1951Tab('fbes')}
+                              className={`p-2.5 rounded-xl text-left border transition cursor-pointer ${
+                                subgroup1951Tab === 'fbes'
+                                  ? 'bg-amber-500/20 border-amber-400 text-white shadow-md shadow-amber-500/10'
+                                  : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800/50'
+                              }`}
+                            >
+                              <div className="text-[10px] font-black uppercase text-emerald-400 flex items-center justify-between">
+                                <span>Desfile FBES</span>
+                                <span className="text-[9px] px-1 py-0.2 rounded bg-emerald-500/30 text-emerald-200">31 escolas</span>
+                              </div>
+                              <div className="text-xs font-bold text-white mt-0.5 truncate">Império Serrano Campeã</div>
+                              <div className="text-[10px] text-slate-400 truncate">Aprendizes de Lucas Vice</div>
+                            </button>
+
+                            <button
+                              onClick={() => setSubgroup1951Tab('ugesb')}
+                              className={`p-2.5 rounded-xl text-left border transition cursor-pointer ${
+                                subgroup1951Tab === 'ugesb'
+                                  ? 'bg-amber-500/20 border-amber-400 text-white shadow-md shadow-amber-500/10'
+                                  : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800/50'
+                              }`}
+                            >
+                              <div className="text-[10px] font-black uppercase text-blue-400 flex items-center justify-between">
+                                <span>Desfile UGESB</span>
+                                <span className="text-[9px] px-1 py-0.2 rounded bg-blue-500/30 text-blue-200">20 escolas</span>
+                              </div>
+                              <div className="text-xs font-bold text-white mt-0.5 truncate">Portela Campeã</div>
+                              <div className="text-[10px] text-slate-400 truncate">Três Mosqueteiros Vice</div>
                             </button>
                           </div>
                         </div>

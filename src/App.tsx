@@ -120,7 +120,32 @@ const INITIAL_INACTIVE_SCHOOL_IDS = new Set([
   'floresta_do_andarai',
   'unidos_da_tamarineira',
   'unidos_do_pecado',
-  'combinado_do_amor'
+  'combinado_do_amor',
+  'irmaos_unidos_do_catete',
+  'coracoes_unidos_da_favela',
+  'unidos_de_santo_amaro',
+  'unidos_do_outeiro',
+  'estrela_de_ouro',
+  'unidos_de_cordovil',
+  'unidos_do_itambi',
+  'capricho_do_centenario',
+  'unidos_dos_arcos',
+  'paraiso_do_grotao',
+  'mocidade_de_um_paraiso',
+  'vitoria_de_bento_ribeiro',
+  'unidos_dos_telegrafos',
+  'trovadores_do_maracana',
+  'uniao_dos_casados',
+  'unidos_de_campo_grande',
+  'recreio_de_inhauma',
+  'unidos_do_morro_azul',
+  'independentes_de_turiacu',
+  'unidos_do_coqueiro',
+  'em_cima_da_hora_catumbi',
+  'embaixadores_sao_joao_meriti',
+  'nao_e_o_que_dizem',
+  'unidos_do_jacare',
+  'guarani_de_realengo'
 ]);
 
 function sanitizeSchoolsData(loadedSchools: School[]): School[] {
