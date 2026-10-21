@@ -2,18 +2,18 @@ import type { School, YearHistory } from '../types/carnaval';
 
 export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> = {
   2026: {
-    viradouro: 'Malandragem, Dá um Tempo',
-    beija_flor: 'Laíla de Todos os Santos, Laíla de Todos os Sambas',
-    vila_isabel: 'Quanto Mais Eu Rezo, Mais Assombração Me Aparece',
-    salgueiro: 'Salgueiro de Corpo Fechado',
-    imperatriz: 'Ómi Tútú ao Rei do Terreiro de Mina',
-    mangueira: 'À Flor da Terra - No Rio da Vida, Quem Tem Sede Bebe Choro',
-    tijuca: 'Logun-Edé: Santo Menino Que Velho Respeita',
-    grande_rio: 'Pororocas Parawaras: As Águas dos Meus Encantos nas Contas do Meu Rosário',
-    tuiuti: 'Quem Tem Medo de Xica Manicongo?',
-    portela: 'Cantar Será Buscar o Céu que Mora em Mim',
-    mocidade: 'Voltando Para o Futuro - Não Há Limites Para Sonhar',
-    niteroi: 'A Dança das Estrelas e os Segredos de Arariboia',
+    viradouro: 'Pra cima, Ciça!',
+    beija_flor: 'Bembé',
+    vila_isabel: 'Macumbembê, Samborembá - Sonhei que um sambista sonhou a África',
+    salgueiro: 'A Delirante Jornada Carnavalesca da Professora que não tinha medo de Bruxa, de Bacalhau e nem do Pirata da Perna-de-Pau',
+    imperatriz: 'Camaleônico',
+    mangueira: 'Mestre Sacaca do Encanto Tucuju - O Guardião da Amazônia Negra',
+    tijuca: 'Carolina Maria de Jesus',
+    grande_rio: 'A Nação do Mangue',
+    tuiuti: 'Lonã Ifá Lukumi',
+    portela: 'O Mistério do Príncipe do Bará - A Oração do Negrinho e a Ressurreição de Sua Coroa sob o Céu Aberto do Rio Grande',
+    mocidade: 'Rita Lee, a Padroeira da Liberdade',
+    niteroi: 'Do alto do Mulungu surge a esperança: Lula, o operário do Brasil',
     marica: 'O Meu País é Meu Lugar'
   },
   2025: {

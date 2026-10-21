@@ -4807,7 +4807,7 @@ export const INACTIVE_SCHOOLS_INITIAL: School[] = [
     motto: 'O Canto dos Poetas do Samba',
     foundationYear: 1946,
     foundationDate: '1946',
-    neighborhood: 'Mangueira / Maracanã',
+    neighborhood: 'Mangueira',
     colors: { primary: '#1e3a8a', secondary: '#eab308', accent: '#ffffff', text: '#ffffff', border: '#1d4ed8' },
     colorsDescription: 'Azul e Ouro',
     symbol: '🎶 Lira dos Trovadores',

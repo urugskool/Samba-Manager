@@ -7033,15 +7033,15 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
 export const RESULTS_2026: Record<string, InGameAchievement> = {
   // Grupo Especial 2026 (escala de 270.0 com menor nota descartada)
   viradouro: { year: 2026, division: 'especial', placement: 1, titleName: 'Campeã do Grupo Especial 2026', badgeType: 'champion_especial', totalScore: 270.0 },
-  imperatriz: { year: 2026, division: 'especial', placement: 2, titleName: 'Vice-Campeã do Grupo Especial 2026', badgeType: 'vice_especial', totalScore: 269.8 },
-  grande_rio: { year: 2026, division: 'especial', placement: 3, titleName: '3º Lugar - Desfile das Campeãs (G6) 2026', badgeType: 'g6', totalScore: 269.7 },
+  beija_flor: { year: 2026, division: 'especial', placement: 2, titleName: 'Vice-Campeã do Grupo Especial 2026', badgeType: 'vice_especial', totalScore: 269.8 },
+  vila_isabel: { year: 2026, division: 'especial', placement: 3, titleName: '3º Lugar - Desfile das Campeãs (G6) 2026', badgeType: 'g6', totalScore: 269.7 },
   salgueiro: { year: 2026, division: 'especial', placement: 4, titleName: '4º Lugar - Desfile das Campeãs (G6) 2026', badgeType: 'g6', totalScore: 269.5 },
-  portela: { year: 2026, division: 'especial', placement: 5, titleName: '5º Lugar - Desfile das Campeãs (G6) 2026', badgeType: 'g6', totalScore: 269.4 },
+  imperatriz: { year: 2026, division: 'especial', placement: 5, titleName: '5º Lugar - Desfile das Campeãs (G6) 2026', badgeType: 'g6', totalScore: 269.4 },
   mangueira: { year: 2026, division: 'especial', placement: 6, titleName: '6º Lugar - Desfile das Campeãs (G6) 2026', badgeType: 'g6', totalScore: 269.2 },
-  beija_flor: { year: 2026, division: 'especial', placement: 7, titleName: '7º Lugar no Grupo Especial 2026', badgeType: 'regular', totalScore: 269.0 },
-  vila_isabel: { year: 2026, division: 'especial', placement: 8, titleName: '8º Lugar no Grupo Especial 2026', badgeType: 'regular', totalScore: 268.9 },
-  tijuca: { year: 2026, division: 'especial', placement: 9, titleName: '9º Lugar no Grupo Especial 2026', badgeType: 'regular', totalScore: 268.7 },
-  tuiuti: { year: 2026, division: 'especial', placement: 10, titleName: '10º Lugar no Grupo Especial 2026', badgeType: 'regular', totalScore: 268.5 },
+  tijuca: { year: 2026, division: 'especial', placement: 7, titleName: '7º Lugar no Grupo Especial 2026', badgeType: 'regular', totalScore: 269.0 },
+  grande_rio: { year: 2026, division: 'especial', placement: 8, titleName: '8º Lugar no Grupo Especial 2026', badgeType: 'regular', totalScore: 268.9 },
+  tuiuti: { year: 2026, division: 'especial', placement: 9, titleName: '9º Lugar no Grupo Especial 2026', badgeType: 'regular', totalScore: 268.7 },
+  portela: { year: 2026, division: 'especial', placement: 10, titleName: '10º Lugar no Grupo Especial 2026', badgeType: 'regular', totalScore: 268.5 },
   mocidade: { year: 2026, division: 'especial', placement: 11, titleName: '11º Lugar no Grupo Especial 2026', badgeType: 'regular', totalScore: 268.3 },
   niteroi: { year: 2026, division: 'especial', placement: 12, titleName: '12º Lugar - Rebaixada para a Série Ouro (2026)', badgeType: 'relegated', totalScore: 267.6 },
 
