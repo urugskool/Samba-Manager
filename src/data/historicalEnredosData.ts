@@ -1,4 +1,7 @@
 import type { School, YearHistory } from '../types/carnaval';
+import { CANONICAL_2026_ENREDOS, getCanonical2026Enredo } from './canonicalEnredosRegistry';
+
+export { CANONICAL_2026_ENREDOS, getCanonical2026Enredo };
 
 export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> = {
   2026: {
@@ -14,7 +17,31 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     portela: 'O Mistério do Príncipe do Bará - A Oração do Negrinho e a Ressurreição de Sua Coroa sob o Céu Aberto do Rio Grande',
     mocidade: 'Rita Lee, a Padroeira da Liberdade',
     niteroi: 'Do alto do Mulungu surge a esperança: Lula, o operário do Brasil',
-    marica: 'O Meu País é Meu Lugar'
+    marica: 'O Meu País é Meu Lugar',
+    imperio_serrano: 'O Que Vale É a Intenção',
+    unidos_padre_miguel: 'Egbé Iyá Nassô',
+    porto_da_pedra: 'Lunário Perpétuo: A Profética do Saber Popular',
+    uniao_da_ilha: 'Dou-lhe uma, dou-lhe duas, dou-lhe três... Da Feira de São Cristóvão ao Rio de Janeiro',
+    estacio_de_sa: 'Chora, Cuíca! A Menina dos Olhos da Estácio',
+    em_cima_da_hora: 'A Nossa Luta Continua',
+    unidos_da_ponte: 'Tendadô',
+    unidos_de_bangu: 'Jorge da Capadócia',
+    arranco: 'As Manas do Brasil',
+    botafogo_samba_clube: 'Uma Estrela Chamada Garrincha',
+    parque_acari: 'Ginga da Quebrada',
+    inocentes: 'Debret Pintou, Camões Cantou: A Inocentes É Show',
+    santa_cruz: 'Os Filhos da Noite',
+    vigario_geral: 'Maracatu da Glória',
+    jacarezinho: 'Na Fé dos Meus Orixás',
+    sao_clemente: 'Quem Avisa Amigo É',
+    caprichosos_de_pilares: 'Caprichando no Samba',
+    tradicao: 'Tradição É Tradição',
+    cubango: 'No Rastro da Onça',
+    rocinha: 'A Rocinha É Nossa Casa',
+    lins_imperial: 'Mazzaropi, o Poeta Caipira',
+    sereno_campo_grande: 'O Sertão de Suassuna',
+    leao_zona_oeste: 'A Dança dos Quatro Cantos',
+    casa_de_malandro: 'No Compasso da Boêmia'
   },
   2025: {
     beija_flor: 'Laíla de Todos os Santos, Laíla de Todos os Sambas',
@@ -1325,20 +1352,22 @@ export function getHistoricalEnredo(
 ): string | undefined {
   const key = normalizeId(schoolId, schoolName);
 
-  // 1. Verifica no histórico gravado na própria escola no save
-  if (schoolObj?.enredoHistory && schoolObj.enredoHistory.length > 0) {
-    const match = schoolObj.enredoHistory.find((h) => h.year === year);
-    if (match?.enredo) return match.enredo;
-  }
+  // 1. Para todos os carnavais oficiais já catalogados (1950 a 2026),
+  // o Catálogo Oficial Canônico é soberano e autoritativo em 100% dos locais
+  if (year <= 2026) {
+    const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[year];
+    if (yearRecords) {
+      if (key && yearRecords[key]) return yearRecords[key];
+      if (schoolId && yearRecords[schoolId]) return yearRecords[schoolId];
+    }
 
-  // 2. Verifica se é o ano da temporada em andamento e a escola possui enredo definido
-  if (schoolObj?.currentEnredo?.title && year >= 2026) {
-    if (year === 2026 || (schoolObj as any).currentYear === year) {
-      return schoolObj.currentEnredo.title;
+    if (year === 2026) {
+      const canonical = getCanonical2026Enredo(schoolId, schoolName);
+      if (canonical?.title) return canonical.title;
     }
   }
 
-  // 3. Verifica nos anos simulados registrados no inGameHistory do save
+  // 2. Para temporadas simuladas in-game (anos > 2026), verifica no inGameHistory do save
   if (inGameHistory && inGameHistory.length > 0) {
     const histYear = inGameHistory.find((h) => h.year === year);
     if (histYear?.schoolEnredos) {
@@ -1350,16 +1379,25 @@ export function getHistoricalEnredo(
     }
   }
 
-  // 4. Catálogo histórico oficial (1970 a 2026)
-  const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[year];
-  if (!yearRecords) return undefined;
-
-  if (key && yearRecords[key]) {
-    return yearRecords[key];
+  // 3. Temporada atual em andamento no save (se for > 2026 ou se a escola do jogador definiu enredo novo)
+  if (schoolObj?.currentEnredo?.title) {
+    const activeYr = (schoolObj as any).currentYear || 2026;
+    if (year === activeYr && year > 2026) {
+      return schoolObj.currentEnredo.title;
+    }
   }
 
-  if (schoolId && yearRecords[schoolId]) {
-    return yearRecords[schoolId];
+  // 4. Histórico gravado na própria escola no save
+  if (schoolObj?.enredoHistory && schoolObj.enredoHistory.length > 0) {
+    const match = schoolObj.enredoHistory.find((h) => h.year === year);
+    if (match?.enredo) return match.enredo;
+  }
+
+  // 5. Fallback geral no catálogo
+  const fallbackRecords = HISTORICAL_ENREDOS_BY_YEAR[year];
+  if (fallbackRecords) {
+    if (key && fallbackRecords[key]) return fallbackRecords[key];
+    if (schoolId && fallbackRecords[schoolId]) return fallbackRecords[schoolId];
   }
 
   return undefined;

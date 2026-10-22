@@ -1572,19 +1572,6 @@ export function atribuirEnredosAleatorios(
   const titulosUsados = new Set<string>();
 
   return escolas.map((escola) => {
-    // Se for a escola do jogador: mantém a do jogador limpa para ele definir na tela de enredo
-    if (jogadorEscolaId && escola.id === jogadorEscolaId) {
-      return {
-        ...escola,
-        currentEnredo: undefined,
-        enredo: undefined,
-        tituloEnredo: undefined,
-        temaEnredo: undefined,
-        sinopseEnredo: undefined,
-        complexidadeEnredo: undefined
-      };
-    }
-
     // Escolas extintas ou inativas NÃO têm enredo (só terão algum tema em caso de serem reativadas)
     const isInactive = Boolean(
       escola.isInactive ||
@@ -1605,27 +1592,47 @@ export function atribuirEnredosAleatorios(
       };
     }
 
-    let enredo = gerarEnredoAleatorio();
-    while (titulosUsados.has(enredo.titulo)) {
-      enredo = gerarEnredoAleatorio();
+    // Gera tema verdadeiramente aleatório, autêntico e exclusivo para a agremiação
+    let enredoObj: any;
+    try {
+      enredoObj = EnredoService.generateUniqueEnredoForSchool(
+        escola,
+        (escola as any).currentYear || 2026,
+        titulosUsados
+      );
+    } catch {
+      let fallback = gerarEnredoAleatorio();
+      while (titulosUsados.has(fallback.titulo)) {
+        fallback = gerarEnredoAleatorio();
+      }
+      enredoObj = {
+        id: fallback.id,
+        title: fallback.titulo,
+        themeType: fallback.tema as any,
+        synopsis: fallback.sinopse,
+        cost: 150000,
+        qualityBoost: Math.round((fallback.potencialNota - 9.0) * 10),
+        complexity: fallback.complexidade
+      };
     }
-    titulosUsados.add(enredo.titulo);
+
+    titulosUsados.add(enredoObj.title);
 
     const updated = {
       ...escola,
-      enredo: enredo.titulo,
-      tituloEnredo: enredo.titulo,
-      temaEnredo: enredo.tema,
-      sinopseEnredo: enredo.sinopse,
-      complexidadeEnredo: enredo.complexidade,
+      enredo: enredoObj.title,
+      tituloEnredo: enredoObj.title,
+      temaEnredo: enredoObj.themeType,
+      sinopseEnredo: enredoObj.synopsis,
+      complexidadeEnredo: enredoObj.complexity || 'Média',
       currentEnredo: {
-        id: enredo.id,
-        title: enredo.titulo,
-        themeType: enredo.tema as any,
-        synopsis: enredo.sinopse,
-        cost: 150000,
-        qualityBoost: Math.round((enredo.potencialNota - 9.0) * 10),
-        complexity: enredo.complexidade
+        id: enredoObj.id,
+        title: enredoObj.title,
+        themeType: enredoObj.themeType,
+        synopsis: enredoObj.synopsis,
+        cost: enredoObj.cost || 160000,
+        qualityBoost: enredoObj.qualityBoost ?? 15,
+        complexity: enredoObj.complexity || 'Média'
       }
     };
 

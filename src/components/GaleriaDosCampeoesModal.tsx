@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { School, DivisionId, YearHistory } from '../types/carnaval';
 import { OFFICIAL_AVALIACAO_YEARLY_RESULTS, AvaliacaoYearResult, OFFICIAL_AVALIACAO_RECORDS_BY_SCHOOL } from '../data/avaliacaoChampionsData';
 import { OFFICIAL_GRUPO_E_YEARLY_RESULTS, OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL } from '../data/grupoEChampionsData';
-import { getSchoolConsolidatedStats } from '../data/carnavalData';
+import { getSchoolConsolidatedStats, HISTORICAL_CARNAVAL_RECORDS } from '../data/carnavalData';
 import { cleanSchoolName } from '../utils/schoolNameUtils';
 import {
   Trophy,
@@ -329,6 +329,37 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
             count: rec.runnerUpYears?.length || rec.runnerUps,
             years: Array.from(new Set(rec.runnerUpYears || [])).sort((a, b) => a - b),
             isExtinct: true,
+            school: sch
+          });
+        }
+      });
+    } else if (selectedDivision === 'especial') {
+      Object.entries(HISTORICAL_CARNAVAL_RECORDS).forEach(([sId, rec]) => {
+        const sch = resolveSchool(sId);
+        const sName = sch ? cleanSchoolName(sch) : sId.split('_').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+
+        const titleYears = rec.especialYears || [];
+        const titleCount = titleYears.length > 0 ? titleYears.length : (rec.championshipsEspecial || 0);
+        if (titleCount > 0 && !campeasMap.has(sId)) {
+          campeasMap.set(sId, {
+            schoolId: sId,
+            schoolName: sName,
+            count: titleCount,
+            years: Array.from(new Set(titleYears)).sort((a, b) => a - b),
+            isExtinct: Boolean(sch ? (sch.isInactive || (sch as any).inactive) : true),
+            school: sch
+          });
+        }
+
+        const viceYears = rec.especialRunnerUpYears || [];
+        const viceCount = viceYears.length > 0 ? viceYears.length : (rec.runnerUpsEspecial || 0);
+        if (viceCount > 0 && !vicesMap.has(sId)) {
+          vicesMap.set(sId, {
+            schoolId: sId,
+            schoolName: sName,
+            count: viceCount,
+            years: Array.from(new Set(viceYears)).sort((a, b) => a - b),
+            isExtinct: Boolean(sch ? (sch.isInactive || (sch as any).inactive) : true),
             school: sch
           });
         }
@@ -721,6 +752,62 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
           note: 'Não houve Carnaval presencial oficial devido à pandemia de COVID-19'
         });
       }
+
+      // Carnaval Histórico de 1950: 3 Ligas Oficiais (FBES, UCES e UGESB) com as 7 vices oficiais
+      yearMap.set(1950, {
+        year: 1950,
+        division: 'especial',
+        divisionLabel: 'Grupo Especial (FBES / UCES / UGESB)',
+        champions: [
+          { schoolId: 'imperio_serrano', schoolName: 'Império Serrano (Campeã FBES)', school: resolveSchool('imperio_serrano') },
+          { schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira (Campeã UCES)', school: resolveSchool('mangueira') },
+          { schoolId: 'prazer_da_serrinha', schoolName: 'Prazer da Serrinha (Campeã UGESB)', school: resolveSchool('prazer_da_serrinha') },
+          { schoolId: 'unidos_da_capela', schoolName: 'Unidos da Capela (Campeã UGESB)', school: resolveSchool('unidos_da_capela') }
+        ],
+        runnerUps: [
+          { schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas (Vice FBES)', school: resolveSchool('aprendizes_de_lucas') },
+          { schoolId: 'portela', schoolName: 'Portela (Vice UCES)', school: resolveSchool('portela') },
+          { schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo (Vice UGESB)', school: resolveSchool('depois_eu_digo') },
+          { schoolId: 'paz_e_amor', schoolName: 'Paz e Amor (Vice UGESB)', school: resolveSchool('paz_e_amor') },
+          { schoolId: 'tres_mosqueteiros', schoolName: 'Três Mosqueteiros (Vice UGESB)', school: resolveSchool('tres_mosqueteiros') },
+          { schoolId: 'unidos_da_congonha', schoolName: 'Unidos da Congonha (Vice UGESB)', school: resolveSchool('unidos_da_congonha') },
+          { schoolId: 'unidos_da_tamarineira', schoolName: 'Unidos da Tamarineira (Vice UGESB)', school: resolveSchool('unidos_da_tamarineira') }
+        ],
+        note: 'Carnaval Histórico de 1950: Três competições oficiais no Grupo Especial (FBES, UCES e UGESB)'
+      });
+
+      // Carnaval Histórico de 1951: 2 Ligas Oficiais (FBES e UGESB)
+      yearMap.set(1951, {
+        year: 1951,
+        division: 'especial',
+        divisionLabel: 'Grupo Especial (FBES / UGESB)',
+        champions: [
+          { schoolId: 'imperio_serrano', schoolName: 'Império Serrano (Campeã FBES)', school: resolveSchool('imperio_serrano') },
+          { schoolId: 'portela', schoolName: 'Portela (Campeã UGESB)', school: resolveSchool('portela') }
+        ],
+        runnerUps: [
+          { schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas (Vice FBES)', school: resolveSchool('aprendizes_de_lucas') },
+          { schoolId: 'tres_mosqueteiros', schoolName: 'Três Mosqueteiros (Vice UGESB)', school: resolveSchool('tres_mosqueteiros') }
+        ],
+        note: 'Carnaval Histórico de 1951: Duas competições oficiais no Grupo Especial (FBES e UGESB)'
+      });
+
+      // Carnaval Histórico de 1984: Inauguração do Sambódromo e Supercampeonato
+      yearMap.set(1984, {
+        year: 1984,
+        division: 'especial',
+        divisionLabel: 'Grupo Especial (Inauguração do Sambódromo)',
+        champions: [
+          { schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira (Supercampeã)', school: resolveSchool('mangueira') },
+          { schoolId: 'portela', schoolName: 'Portela (Campeã de Domingo)', school: resolveSchool('portela') }
+        ],
+        runnerUps: [
+          { schoolId: 'portela', schoolName: 'Portela (Supervice)', school: resolveSchool('portela') },
+          { schoolId: 'mocidade', schoolName: 'Mocidade Independente (Vice Segunda)', school: resolveSchool('mocidade') },
+          { schoolId: 'imperio_serrano', schoolName: 'Império Serrano (Vice Domingo)', school: resolveSchool('imperio_serrano') }
+        ],
+        note: 'Inauguração da Passarela do Samba (Sambódromo) com desfiles divididos e Supercampeonato'
+      });
     }
 
     return Array.from(yearMap.values()).sort((a, b) => b.year - a.year);

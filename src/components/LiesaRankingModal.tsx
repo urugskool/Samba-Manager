@@ -20,8 +20,19 @@ import {
   ChevronRight,
   ShieldCheck,
   Award,
-  Sparkles
+  Sparkles,
+  BookOpen,
+  Palette,
+  CheckCircle2,
+  Building2,
+  ExternalLink
 } from 'lucide-react';
+import {
+  cleanSchoolName,
+  getSchoolCorporateName,
+  getSchoolDenomination
+} from '../utils/schoolNameUtils';
+import { getHistoricalEnredo } from '../data/historicalEnredosData';
 
 interface LiesaRankingModalProps {
   isOpen: boolean;
@@ -392,23 +403,173 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                             </tr>
 
                             {isExpanded && (
-                              <tr className="bg-slate-900/80">
-                                <td colSpan={7} className="p-4 border-t border-slate-800 space-y-2">
-                                  <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs">
-                                    {entry.yearsCovered.map((yr) => {
-                                      const p = entry.performancesByYear[yr];
-                                      return (
-                                        <div key={yr} className="p-2 rounded-xl bg-slate-950 border border-slate-800 text-center">
-                                          <div className="text-[10px] text-slate-400 font-mono">{yr}</div>
-                                          <div className="font-bold text-white mt-0.5">
-                                            {p && p.participated ? (p.rank ? `${p.rank}º Lugar` : 'Desfilou') : 'Fora do Especial'}
+                              <tr className="bg-slate-900/90 border-t border-slate-800">
+                                <td colSpan={7} className="p-4 sm:p-5">
+                                  <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 sm:p-5 space-y-4 shadow-xl">
+                                    {/* Header da Ficha do Quinquênio */}
+                                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3.5 border-b border-slate-800/80">
+                                      <div className="flex items-center gap-3">
+                                        {entry.school?.colors ? (
+                                          <div
+                                            className="w-10 h-10 rounded-2xl flex items-center justify-center font-bold text-white shadow-md border border-white/20 shrink-0"
+                                            style={{
+                                              background: `linear-gradient(135deg, ${entry.school.colors.primary}, ${entry.school.colors.secondary || entry.school.colors.primary})`
+                                            }}
+                                          >
+                                            <Award className="w-5 h-5 text-white drop-shadow" />
                                           </div>
-                                          <div className="text-[11px] font-mono text-amber-300 mt-0.5">
-                                            {p ? `+${p.points} pts` : '0 pts'}
+                                        ) : (
+                                          <div className="w-10 h-10 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 shrink-0">
+                                            <Crown className="w-5 h-5" />
                                           </div>
+                                        )}
+                                        <div>
+                                          <div className="flex items-center gap-2 flex-wrap">
+                                            <h4 className="font-black text-white text-base sm:text-lg">
+                                              {entry.schoolName}
+                                            </h4>
+                                            {entry.school && (
+                                              <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                                                {entry.school.division === 'especial' ? 'Grupo Especial' : entry.school.division.toUpperCase()}
+                                              </span>
+                                            )}
+                                          </div>
+                                          <p className="text-xs text-slate-400 mt-0.5">
+                                            {entry.school ? getSchoolCorporateName(entry.school) : entry.schoolName}
+                                            {entry.school?.foundationYear ? ` • Fundada em ${entry.school.foundationYear}` : ''}
+                                            {entry.school?.neighborhood ? ` • ${entry.school.neighborhood}` : ''}
+                                          </p>
                                         </div>
-                                      );
-                                    })}
+                                      </div>
+
+                                      <div className="flex items-center gap-2 self-start sm:self-auto">
+                                        <div className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-right">
+                                          <span className="text-[10px] text-slate-500 uppercase font-bold block">Pontos no Quinquênio</span>
+                                          <span className="text-sm font-black text-amber-400 font-mono">{entry.totalPoints} pts</span>
+                                        </div>
+                                        {onSelectSchool && entry.schoolId && (
+                                          <button
+                                            onClick={(e) => {
+                                              e.stopPropagation();
+                                              onSelectSchool(entry.schoolId);
+                                              onClose();
+                                            }}
+                                            className="px-3 py-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer active:scale-95"
+                                            title="Ver perfil completo da escola"
+                                          >
+                                            <span>Ver Perfil</span>
+                                            <ExternalLink className="w-3.5 h-3.5" />
+                                          </button>
+                                        )}
+                                      </div>
+                                    </div>
+
+                                    {/* Resumo do Quinquênio */}
+                                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                                      <div className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center gap-2.5">
+                                        <Trophy className="w-4 h-4 text-amber-400 shrink-0" />
+                                        <div>
+                                          <span className="text-[10px] text-slate-500 block uppercase font-bold">Títulos (5 anos)</span>
+                                          <span className="font-black text-amber-300 font-mono">{entry.titlesInWindow}</span>
+                                        </div>
+                                      </div>
+                                      <div className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center gap-2.5">
+                                        <Medal className="w-4 h-4 text-slate-300 shrink-0" />
+                                        <div>
+                                          <span className="text-[10px] text-slate-500 block uppercase font-bold">Vices (5 anos)</span>
+                                          <span className="font-black text-slate-200 font-mono">{entry.vicesInWindow}</span>
+                                        </div>
+                                      </div>
+                                      <div className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center gap-2.5">
+                                        <TrendingUp className="w-4 h-4 text-emerald-400 shrink-0" />
+                                        <div>
+                                          <span className="text-[10px] text-slate-500 block uppercase font-bold">Posição Geral</span>
+                                          <span className="font-black text-emerald-300 font-mono">{entry.position}º Lugar</span>
+                                        </div>
+                                      </div>
+                                      <div className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center gap-2.5">
+                                        <Award className="w-4 h-4 text-amber-400 shrink-0" />
+                                        <div>
+                                          <span className="text-[10px] text-slate-500 block uppercase font-bold">Total LIESA</span>
+                                          <span className="font-black text-amber-400 font-mono">{entry.totalPoints} pts</span>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    {/* Grade detalhada dos 5 anos com Resultados, Pontuações e Enredos */}
+                                    <div className="space-y-2">
+                                      <div className="flex items-center gap-2 text-xs font-bold text-slate-300">
+                                        <Calendar className="w-3.5 h-3.5 text-amber-400" />
+                                        <span>Desempenhos Ano a Ano na Janela Oficial ({entry.yearsCovered.join(' • ')})</span>
+                                      </div>
+
+                                      <div className="grid grid-cols-1 md:grid-cols-5 gap-2.5">
+                                        {entry.yearsCovered.map((yr) => {
+                                          const p = entry.performancesByYear[yr];
+                                          const enredo = getHistoricalEnredo(
+                                            yr,
+                                            entry.schoolId,
+                                            entry.schoolName,
+                                            entry.school,
+                                            inGameHistory
+                                          );
+                                          const rank = p?.rank;
+                                          const pts = p?.points || 0;
+                                          const participated = Boolean(p && p.participated);
+
+                                          return (
+                                            <div
+                                              key={yr}
+                                              className={`p-3 rounded-xl border flex flex-col justify-between transition ${
+                                                rank === 1
+                                                  ? 'bg-amber-500/10 border-amber-500/40 shadow-sm shadow-amber-500/10'
+                                                  : rank === 2
+                                                  ? 'bg-slate-300/10 border-slate-300/30'
+                                                  : rank && rank <= 6
+                                                  ? 'bg-emerald-500/10 border-emerald-500/30'
+                                                  : participated
+                                                  ? 'bg-slate-900 border-slate-800'
+                                                  : 'bg-slate-950/60 border-slate-800/60 opacity-60'
+                                              }`}
+                                            >
+                                              <div>
+                                                <div className="flex items-center justify-between gap-1 mb-1.5">
+                                                  <span className="text-xs font-black font-mono text-slate-300">{yr}</span>
+                                                  <span
+                                                    className={`text-[10px] font-black px-1.5 py-0.5 rounded font-mono ${
+                                                      pts > 0 ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-slate-800 text-slate-500'
+                                                    }`}
+                                                  >
+                                                    {pts > 0 ? `+${pts} pts` : '0 pts'}
+                                                  </span>
+                                                </div>
+
+                                                <div className="font-bold text-xs text-white flex items-center gap-1.5">
+                                                  {rank === 1 && <Crown className="w-3.5 h-3.5 text-amber-400 shrink-0" />}
+                                                  {rank === 2 && <Medal className="w-3.5 h-3.5 text-slate-300 shrink-0" />}
+                                                  {rank === 3 && <Medal className="w-3.5 h-3.5 text-amber-600 shrink-0" />}
+                                                  <span>
+                                                    {participated ? (rank ? `${rank}º Lugar` : 'Desfilou') : 'Fora do Especial'}
+                                                  </span>
+                                                </div>
+                                              </div>
+
+                                              {enredo && (
+                                                <div className="mt-2.5 pt-2 border-t border-slate-800/80">
+                                                  <div className="text-[10px] text-slate-500 flex items-center gap-1 mb-0.5">
+                                                    <BookOpen className="w-3 h-3 text-slate-400 shrink-0" />
+                                                    <span>Enredo:</span>
+                                                  </div>
+                                                  <p className="text-[11px] text-slate-300 line-clamp-2 italic leading-tight" title={enredo}>
+                                                    "{enredo}"
+                                                  </p>
+                                                </div>
+                                              )}
+                                            </div>
+                                          );
+                                        })}
+                                      </div>
+                                    </div>
                                   </div>
                                 </td>
                               </tr>
@@ -499,32 +660,226 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
                             </tr>
 
                             {isExpanded && (
-                              <tr className="bg-slate-900/80">
-                                <td colSpan={7} className="p-4 border-t border-slate-800 space-y-2">
-                                  <div className="flex flex-wrap items-center justify-between text-xs gap-3">
-                                    <div className="flex items-center gap-4">
-                                      <div>
-                                        <span className="text-slate-400">Pontos por Título: </span>
-                                        <strong className="text-amber-300 font-bold">{entry.titlePoints} pts</strong>
+                              <tr className="bg-slate-900/90 border-t border-slate-800">
+                                <td colSpan={7} className="p-4 sm:p-5">
+                                  <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 sm:p-5 space-y-4 shadow-xl">
+                                    {/* Header da Ficha Histórica */}
+                                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3.5 border-b border-slate-800/80">
+                                      <div className="flex items-center gap-3">
+                                        {entry.school?.colors ? (
+                                          <div
+                                            className="w-11 h-11 rounded-2xl flex items-center justify-center font-bold text-white shadow-md border border-white/20 shrink-0"
+                                            style={{
+                                              background: `linear-gradient(135deg, ${entry.school.colors.primary}, ${entry.school.colors.secondary || entry.school.colors.primary})`
+                                            }}
+                                          >
+                                            <Award className="w-6 h-6 text-white drop-shadow" />
+                                          </div>
+                                        ) : (
+                                          <div className="w-11 h-11 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 shrink-0">
+                                            <Crown className="w-6 h-6" />
+                                          </div>
+                                        )}
+                                        <div>
+                                          <div className="flex items-center gap-2 flex-wrap">
+                                            <h4 className="font-black text-white text-base sm:text-lg">
+                                              {entry.schoolName}
+                                            </h4>
+                                            {entry.school && (
+                                              <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                                                {entry.school.division === 'especial' ? 'Grupo Especial' : entry.school.division.toUpperCase()}
+                                              </span>
+                                            )}
+                                            <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-900 text-slate-400 border border-slate-800">
+                                              {entry.totalParticipations} carnavais na elite
+                                            </span>
+                                          </div>
+                                          <p className="text-xs text-slate-400 mt-0.5">
+                                            {entry.school ? getSchoolCorporateName(entry.school) : entry.schoolName}
+                                            {entry.school?.foundationYear ? ` • Fundada em ${entry.school.foundationYear}` : ''}
+                                            {entry.school?.neighborhood ? ` • ${entry.school.neighborhood}` : ''}
+                                          </p>
+                                        </div>
                                       </div>
-                                      <div>
-                                        <span className="text-slate-400">Pontos por Vice: </span>
-                                        <strong className="text-slate-200 font-bold">{entry.vicePoints} pts</strong>
-                                      </div>
-                                      <div>
-                                        <span className="text-slate-400">Pontos por Colocações: </span>
-                                        <strong className="text-emerald-300 font-bold">{entry.totalPoints - entry.titlePoints - entry.vicePoints} pts</strong>
+
+                                      <div className="flex items-center gap-2 self-start sm:self-auto">
+                                        <div className="px-3.5 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-right">
+                                          <span className="text-[10px] text-slate-500 uppercase font-bold block">Pontuação Total Histórica</span>
+                                          <span className="text-base font-black text-amber-400 font-mono">{entry.totalPoints} pts</span>
+                                        </div>
+                                        {onSelectSchool && entry.schoolId && (
+                                          <button
+                                            onClick={(e) => {
+                                              e.stopPropagation();
+                                              onSelectSchool(entry.schoolId);
+                                              onClose();
+                                            }}
+                                            className="px-3 py-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer active:scale-95"
+                                            title="Ver perfil completo da escola"
+                                          >
+                                            <span>Ver Perfil</span>
+                                            <ExternalLink className="w-3.5 h-3.5" />
+                                          </button>
+                                        )}
                                       </div>
                                     </div>
-                                    <div className="text-[11px] text-slate-400">
-                                      {entry.yearsInEspecial.length > 0 && (
-                                        <span>Anos no Especial: {entry.yearsInEspecial.slice(0, 10).join(', ')}{entry.yearsInEspecial.length > 10 ? '...' : ''}</span>
-                                      )}
+
+                                    {/* Estatísticas Resumidas de Pontos */}
+                                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                                      <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                                        <span className="text-[10px] text-slate-500 block uppercase font-bold">Por Títulos (+20 pts)</span>
+                                        <div className="flex items-baseline gap-1.5 mt-0.5">
+                                          <span className="text-base font-black text-amber-300 font-mono">{entry.totalEspecialTitles}</span>
+                                          <span className="text-[11px] text-slate-400 font-mono">({entry.titlePoints} pts)</span>
+                                        </div>
+                                      </div>
+                                      <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                                        <span className="text-[10px] text-slate-500 block uppercase font-bold">Por Vices (+15 pts)</span>
+                                        <div className="flex items-baseline gap-1.5 mt-0.5">
+                                          <span className="text-base font-black text-slate-200 font-mono">{entry.totalEspecialVices}</span>
+                                          <span className="text-[11px] text-slate-400 font-mono">({entry.vicePoints} pts)</span>
+                                        </div>
+                                      </div>
+                                      <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                                        <span className="text-[10px] text-slate-500 block uppercase font-bold">Por Colocações (3º a 10º)</span>
+                                        <div className="mt-0.5">
+                                          <span className="text-base font-black text-emerald-300 font-mono">
+                                            {entry.totalPoints - entry.titlePoints - entry.vicePoints} pts
+                                          </span>
+                                        </div>
+                                      </div>
+                                      <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                                        <span className="text-[10px] text-slate-500 block uppercase font-bold">Temporadas na Elite</span>
+                                        <div className="mt-0.5">
+                                          <span className="text-base font-black text-amber-400 font-mono">
+                                            {entry.totalParticipations} carnavais
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    {/* Grade/Tabela Completa de Resultados e Pontuações Conquistadas */}
+                                    <div className="space-y-2">
+                                      <div className="flex items-center justify-between gap-2 text-xs font-bold text-slate-300">
+                                        <div className="flex items-center gap-2">
+                                          <History className="w-3.5 h-3.5 text-amber-400" />
+                                          <span>Resultados & Pontuações Conquistadas ({entry.yearsInEspecial.length} carnavais catalogados)</span>
+                                        </div>
+                                        <span className="text-[11px] text-slate-500 font-normal">
+                                          Ordenado do mais recente ao mais antigo
+                                        </span>
+                                      </div>
+
+                                      <div className="max-h-80 overflow-y-auto space-y-1.5 pr-1 custom-scrollbar border border-slate-800/80 rounded-xl p-2 bg-slate-950/70">
+                                        {entry.yearsInEspecial.map((yr) => {
+                                          const perf = entry.performancesDetailed[yr];
+                                          const enredo = getHistoricalEnredo(
+                                            yr,
+                                            entry.schoolId,
+                                            entry.schoolName,
+                                            entry.school,
+                                            inGameHistory
+                                          );
+                                          const rank = perf?.rank;
+                                          const pts = perf?.points ?? 0;
+                                          const league = perf?.league;
+                                          const statusDesc = perf?.statusDescription;
+
+                                          return (
+                                            <div
+                                              key={yr}
+                                              className={`p-2.5 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2 transition ${
+                                                rank === 1
+                                                  ? 'bg-amber-500/10 border-amber-500/40 shadow-sm shadow-amber-500/10'
+                                                  : rank === 2
+                                                  ? 'bg-slate-300/10 border-slate-300/30'
+                                                  : rank && rank <= 6
+                                                  ? 'bg-emerald-500/10 border-emerald-500/30'
+                                                  : pts > 0
+                                                  ? 'bg-slate-900 border-slate-800'
+                                                  : 'bg-slate-950/80 border-slate-800/60 opacity-70'
+                                              }`}
+                                            >
+                                              <div className="flex items-start sm:items-center gap-3">
+                                                {/* Badge do Ano */}
+                                                <div className="w-12 text-center shrink-0">
+                                                  <span className="text-xs font-black font-mono text-white block bg-slate-900 py-0.5 px-1.5 rounded border border-slate-800">
+                                                    {yr}
+                                                  </span>
+                                                  {league && (
+                                                    <span className="text-[9px] font-bold text-amber-400/90 uppercase block mt-0.5">
+                                                      {league}
+                                                    </span>
+                                                  )}
+                                                </div>
+
+                                                {/* Colocação e Enredo */}
+                                                <div className="space-y-0.5">
+                                                  <div className="flex items-center gap-2 flex-wrap">
+                                                    <span
+                                                      className={`font-black text-xs ${
+                                                        rank === 1
+                                                          ? 'text-amber-300 flex items-center gap-1'
+                                                          : rank === 2
+                                                          ? 'text-slate-200 flex items-center gap-1'
+                                                          : rank && rank <= 6
+                                                          ? 'text-emerald-300'
+                                                          : 'text-white'
+                                                      }`}
+                                                    >
+                                                      {rank === 1 && <Crown className="w-3.5 h-3.5 text-amber-400 shrink-0" />}
+                                                      {rank === 2 && <Medal className="w-3.5 h-3.5 text-slate-300 shrink-0" />}
+                                                      {rank === 1
+                                                        ? '1º Lugar (Campeã)'
+                                                        : rank === 2
+                                                        ? '2º Lugar (Vice-Campeã)'
+                                                        : rank
+                                                        ? `${rank}º Lugar`
+                                                        : 'Desfilou no Especial'}
+                                                    </span>
+
+                                                    {statusDesc && statusDesc !== `${rank}º Lugar (+${pts} pts)` && (
+                                                      <span className="text-[10px] text-slate-400 bg-slate-900 px-1.5 py-0.5 rounded border border-slate-800">
+                                                        {statusDesc}
+                                                      </span>
+                                                    )}
+                                                  </div>
+
+                                                  {enredo && (
+                                                    <p className="text-[11px] text-slate-300 italic flex items-center gap-1">
+                                                      <BookOpen className="w-3 h-3 text-slate-500 shrink-0" />
+                                                      <span className="line-clamp-1">"{enredo}"</span>
+                                                    </p>
+                                                  )}
+                                                </div>
+                                              </div>
+
+                                              {/* Pontos Conquistados */}
+                                              <div className="flex items-center gap-2 self-end sm:self-center shrink-0">
+                                                <span
+                                                  className={`text-xs font-mono font-black px-2.5 py-1 rounded-lg ${
+                                                    rank === 1
+                                                      ? 'bg-amber-500 text-slate-950 shadow-sm shadow-amber-500/30'
+                                                      : rank === 2
+                                                      ? 'bg-slate-300 text-slate-950 font-black'
+                                                      : pts > 0
+                                                      ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold'
+                                                      : 'bg-slate-900 text-slate-500 border border-slate-800'
+                                                  }`}
+                                                >
+                                                  {pts > 0 ? `+${pts} pts` : '0 pts'}
+                                                </span>
+                                              </div>
+                                            </div>
+                                          );
+                                        })}
+                                      </div>
                                     </div>
                                   </div>
                                 </td>
                               </tr>
                             )}
+
                           </React.Fragment>
                         );
                       })}

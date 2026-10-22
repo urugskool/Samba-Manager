@@ -52,6 +52,7 @@ import { HistoricoTransferenciasModal } from './components/HistoricoTransferenci
 import { NewsService } from './services/newsService';
 import { NewsArticle } from './types/news';
 import { TransferMarketService } from './services/transferMarketService';
+import { getCanonical2026Enredo } from './data/canonicalEnredosRegistry';
 
 import { Sparkles, Trophy, CheckCircle, AlertTriangle, Info, Dices, Lock, Calendar, ChevronRight } from 'lucide-react';
 
@@ -283,42 +284,73 @@ function sanitizeSchoolsData(loadedSchools: School[]): School[] {
     };
   });
 
-  // Ensure active schools have 100% unique, non-repeating tailored enredos (no duplicates or generic sample enredos)
+  // Ensure active schools have randomized, unique procedural enredos
   const usedTitlesThisSeason = new Set<string>();
+
   return processedSchools.map((school) => {
     if (school.isInactive || (school as any).inactive) {
       return {
         ...school,
-        currentEnredo: undefined
+        currentEnredo: undefined,
+        enredo: undefined,
+        tituloEnredo: undefined,
+        temaEnredo: undefined,
+        sinopseEnredo: undefined,
+        complexidadeEnredo: undefined
       };
     }
 
-    const currentTitle = school.currentEnredo?.title;
+    const currentTitle = school.currentEnredo?.title || (school as any).enredo || (school as any).tituloEnredo;
+    const canonical = getCanonical2026Enredo(school.id, school.name);
+    const isCanonical2026 = Boolean(
+      canonical &&
+      currentTitle &&
+      currentTitle.toLowerCase().trim() === canonical.title.toLowerCase().trim()
+    );
+
     const isSampleOrDuplicate =
       !currentTitle ||
       currentTitle.includes('SAMPLE') ||
+      currentTitle.includes('O Império do Sol Nascente') ||
+      currentTitle.includes('Os Mistérios de Tutancâmon') ||
+      isCanonical2026 ||
       usedTitlesThisSeason.has(currentTitle);
 
-    if (!isSampleOrDuplicate && currentTitle) {
+    if (!isSampleOrDuplicate && currentTitle && school.currentEnredo) {
       usedTitlesThisSeason.add(currentTitle);
       return school;
     }
 
-    const freshEnredo = EnredoService.generateUniqueEnredoForSchool(school, 2027, usedTitlesThisSeason);
+    const targetYear = (school as any).currentYear || 2026;
+    const freshEnredo = EnredoService.generateUniqueEnredoForSchool(school, targetYear, usedTitlesThisSeason);
     usedTitlesThisSeason.add(freshEnredo.title);
     return {
       ...school,
-      currentEnredo: freshEnredo
-    };
+      currentEnredo: freshEnredo,
+      enredo: freshEnredo.title,
+      tituloEnredo: freshEnredo.title,
+      temaEnredo: freshEnredo.themeType,
+      sinopseEnredo: freshEnredo.synopsis,
+      complexidadeEnredo: (freshEnredo as any).complexity || 'Média'
+    } as any;
   });
 }
 
 function sanitizeHistoryData(loadedHistory: YearHistory[]): YearHistory[] {
-  const has2026 = loadedHistory.some((h) => h.year === 2026);
+  let list = loadedHistory;
+  const has2026 = list.some((h) => h.year === 2026);
   if (!has2026 && INITIAL_HISTORY.length > 0) {
-    return [...INITIAL_HISTORY, ...loadedHistory];
+    list = [...INITIAL_HISTORY, ...list];
   }
-  return loadedHistory;
+  return list.map((h) => {
+    if (h.year === 2026 && (!h.schoolEnredos || Object.keys(h.schoolEnredos).length === 0)) {
+      return {
+        ...h,
+        schoolEnredos: INITIAL_HISTORY[0]?.schoolEnredos || {}
+      };
+    }
+    return h;
+  });
 }
 
 export default function App() {
@@ -1055,9 +1087,7 @@ export default function App() {
       return;
     }
 
-    if (schoolId) {
-      setSchools((prev) => atribuirEnredosAleatorios(prev, schoolId) as School[]);
-    }
+    setSchools((prev) => atribuirEnredosAleatorios(prev, schoolId || undefined) as School[]);
 
     setUserSchoolId(schoolId);
     setIsSpectatorMode(!schoolId);

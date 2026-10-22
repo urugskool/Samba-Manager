@@ -55,6 +55,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<'carnavais_passados' | 'participacoes'>(initialTab);
   const [selectedPastYear, setSelectedPastYear] = useState<number>(2026);
+  const [selectedDecade, setSelectedDecade] = useState<string>('recentes');
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedSchoolId, setExpandedSchoolId] = useState<string | null>(null);
   const [expandedPartSchoolId, setExpandedPartSchoolId] = useState<string | null>(null);
@@ -79,6 +80,19 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
   const currentPastCarnaval = useMemo(() => {
     return historicalCarnavals.find((c) => c.year === selectedPastYear) || historicalCarnavals[0];
   }, [historicalCarnavals, selectedPastYear]);
+
+  const displayedCarnavals = useMemo(() => {
+    if (selectedDecade === 'todos') return historicalCarnavals;
+    if (selectedDecade === 'recentes') return historicalCarnavals.filter((c) => c.year >= 2020);
+    if (selectedDecade === '2010s') return historicalCarnavals.filter((c) => c.year >= 2010 && c.year <= 2019);
+    if (selectedDecade === '2000s') return historicalCarnavals.filter((c) => c.year >= 2000 && c.year <= 2009);
+    if (selectedDecade === '1990s') return historicalCarnavals.filter((c) => c.year >= 1990 && c.year <= 1999);
+    if (selectedDecade === '1980s') return historicalCarnavals.filter((c) => c.year >= 1980 && c.year <= 1989);
+    if (selectedDecade === '1970s') return historicalCarnavals.filter((c) => c.year >= 1970 && c.year <= 1979);
+    if (selectedDecade === '1960s') return historicalCarnavals.filter((c) => c.year >= 1960 && c.year <= 1969);
+    if (selectedDecade === '1950s') return historicalCarnavals.filter((c) => c.year >= 1950 && c.year <= 1959);
+    return historicalCarnavals;
+  }, [historicalCarnavals, selectedDecade]);
 
   // Define o ano inicial ao abrir
   useEffect(() => {
@@ -289,29 +303,74 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
           {/* TAB 1: RESULTADOS ANO A ANO */}
           {activeTab === 'carnavais_passados' && (
             <div className="space-y-4">
-              {/* Year Selector */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800">
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-amber-400" />
-                  <span className="text-xs font-bold text-slate-300">Selecione o Carnaval:</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <select
-                    value={selectedPastYear}
-                    onChange={(e) => {
-                      setSelectedPastYear(Number(e.target.value));
-                      setExpandedSchoolId(null);
-                    }}
-                    className="px-3.5 py-1.5 rounded-xl bg-slate-900 border border-amber-500/40 text-amber-300 font-bold text-xs focus:outline-none focus:border-amber-400 cursor-pointer"
-                  >
-                    {historicalCarnavals.map((c) => (
-                      <option key={c.year} value={c.year} className="bg-slate-900 text-white">
-                        Carnaval {c.year} {c.isNoCarnaval ? '(Sem Desfile)' : `• ${c.championNames.join(' & ')}`}
-                      </option>
+              {/* Interactive Year Buttons Selector */}
+              <div className="p-3.5 sm:p-4 rounded-2xl bg-slate-950/90 border border-slate-800 space-y-3 shadow-lg">
+                {/* Header with Decade Tabs & Active Year Highlight */}
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5 pb-2.5 border-b border-slate-800/80">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <Calendar className="w-4 h-4 text-amber-400" />
+                    <span className="text-xs font-bold text-white">Carnavais Catalogados:</span>
+                    <span className="text-xs font-mono px-2.5 py-0.5 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30 font-black">
+                      Carnaval {selectedPastYear}
+                    </span>
+                    <span className="text-[11px] text-slate-400 hidden sm:inline">
+                      • Clique em qualquer ano para abrir o resultado oficial
+                    </span>
+                  </div>
+
+                  {/* Decade Filter Tabs */}
+                  <div className="flex flex-wrap items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800 text-[11px]">
+                    {[
+                      { id: 'recentes', label: '2020s' },
+                      { id: '2010s', label: '2010s' },
+                      { id: '2000s', label: '2000s' },
+                      { id: '1990s', label: '1990s' },
+                      { id: '1980s', label: '1980s' },
+                      { id: '1970s', label: '1970s' },
+                      { id: '1960s', label: '1960s' },
+                      { id: '1950s', label: '1950s' },
+                      { id: 'todos', label: 'Todos' }
+                    ].map((d) => (
+                      <button
+                        key={d.id}
+                        onClick={() => setSelectedDecade(d.id)}
+                        className={`px-2.5 py-1 rounded-lg font-bold transition cursor-pointer ${
+                          selectedDecade === d.id
+                            ? 'bg-amber-500 text-slate-950 font-black shadow-sm'
+                            : 'text-slate-400 hover:text-white'
+                        }`}
+                      >
+                        {d.label}
+                      </button>
                     ))}
-                  </select>
+                  </div>
+                </div>
+
+                {/* Grid of Year Buttons */}
+                <div className="flex flex-wrap items-center gap-1.5 max-h-40 overflow-y-auto p-1 custom-scrollbar">
+                  {displayedCarnavals.map((c) => {
+                    const isSelected = selectedPastYear === c.year;
+                    return (
+                      <button
+                        key={c.year}
+                        onClick={() => {
+                          setSelectedPastYear(c.year);
+                          setExpandedSchoolId(null);
+                        }}
+                        className={`px-3 py-1.5 rounded-xl font-bold transition flex items-center justify-center cursor-pointer text-xs active:scale-95 min-w-[3.75rem] ${
+                          isSelected
+                            ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black shadow-md shadow-amber-500/25 ring-2 ring-amber-400 scale-[1.02]'
+                            : 'bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800'
+                        }`}
+                        title={c.isNoCarnaval ? `Carnaval ${c.year} (Sem desfile)` : `Carnaval ${c.year}: Campeã ${c.championNames.join(' & ')}`}
+                      >
+                        <span className="font-mono text-xs">{c.year}</span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
+
 
               {/* Ano sem Carnaval (ex: 2021 ou 1952) */}
               {currentPastCarnaval.isNoCarnaval ? (
@@ -542,8 +601,8 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                           {filteredPastCarnavalStandings.map((st, idx) => {
                             const isExpanded = expandedSchoolId === `${st.schoolId}_${idx}`;
                             const isUser = userSchool && (userSchool.id === st.schoolId || userSchool.name === st.schoolName);
-                            const historicalEnredo = getHistoricalEnredo(currentPastCarnaval.year, st.schoolId, st.schoolName);
                             const schoolObj = schools.find((s) => s.id === st.schoolId || s.name.toLowerCase() === st.schoolName.toLowerCase());
+                            const historicalEnredo = getHistoricalEnredo(currentPastCarnaval.year, st.schoolId, st.schoolName, schoolObj, inGameHistory);
 
                             return (
                               <React.Fragment key={`${st.schoolId}_${idx}`}>
