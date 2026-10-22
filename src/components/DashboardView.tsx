@@ -308,9 +308,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
                 <button
                   onClick={() => {
-                    if (!hasParadeResults) {
-                      onStartSimulation();
-                    }
+                    // A apuração nunca deve disparar a simulação de notas.
+                    // As notas já precisam existir porque foram geradas no encerramento de cada desfile.
                     onNavigateTab('apuracao');
                   }}
                   className={`px-4 sm:px-6 py-3 sm:py-3.5 rounded-xl font-black text-xs sm:text-sm transition shadow-lg flex items-center justify-center gap-2 cursor-pointer ${

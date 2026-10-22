@@ -220,16 +220,34 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
       ? bronzeScores
       : avaliacaoScores;
 
-  // Garante que 100% das escolas desta divisão possuam notas simuladas autênticas e válidas
-  // (corrige qualquer caso em que a escola criada ou comandada pelo jogador não estivesse no array de notas)
+  // IMPORTANTE: a apuração nunca cria notas.
+  // O resultado de uma escola só existe depois que o desfile dela foi concluído.
+  // Para manter a tipagem e a tabela estáveis antes do resultado existir, usamos apenas
+  // um registro vazio (zeros), sem chamar o SimulationEngine e sem gerar aleatoriedade.
   const paradeScores: SchoolParadeScores[] = React.useMemo(() => {
     const raw = rawParadeScores || [];
     const map = new Map(raw.map((s) => [s.schoolId, s]));
     return schools.map((school) => {
       const existing = map.get(school.id);
       if (existing && existing.scoresByQuesito) return existing;
-      const [generated] = SimulationEngine.simulateDivisionParades([school]);
-      return generated;
+      const emptyScores: [number, number, number, number] = [0, 0, 0, 0];
+      return {
+        schoolId: school.id,
+        scoresByQuesito: {
+          bateria: emptyScores,
+          comissaoDeFrente: emptyScores,
+          evolucao: emptyScores,
+          harmonia: emptyScores,
+          enredo: emptyScores,
+          fantasias: emptyScores,
+          alegorias: emptyScores,
+          sambaEnredo: emptyScores,
+          mestreSalaPortaBandeira: emptyScores
+        },
+        totalScore: 0,
+        penalties: 0,
+        finalScore: 0
+      };
     });
   }, [schools, rawParadeScores]);
 

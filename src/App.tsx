@@ -467,7 +467,12 @@ export default function App() {
         try {
           const parsed = JSON.parse(saved);
           if (Array.isArray(parsed.especialScores) && parsed.especialScores.length > 0) {
-            return parsed.especialScores;
+            const completedIds = Array.isArray(parsed.completedParadeSchoolIds)
+              ? new Set<string>(parsed.completedParadeSchoolIds)
+              : new Set<string>();
+            // Migração: saves antigos podiam conter notas pré-simuladas.
+            // Só restauramos notas de escolas cujo desfile já foi concluído.
+            return parsed.especialScores.filter((score: SchoolParadeScores) => completedIds.has(score.schoolId));
           }
         } catch {}
       }
@@ -482,7 +487,12 @@ export default function App() {
         try {
           const parsed = JSON.parse(saved);
           if (Array.isArray(parsed.ouroScores) && parsed.ouroScores.length > 0) {
-            return parsed.ouroScores;
+            const completedIds = Array.isArray(parsed.completedParadeSchoolIds)
+              ? new Set<string>(parsed.completedParadeSchoolIds)
+              : new Set<string>();
+            // Migração: saves antigos podiam conter notas pré-simuladas.
+            // Só restauramos notas de escolas cujo desfile já foi concluído.
+            return parsed.ouroScores.filter((score: SchoolParadeScores) => completedIds.has(score.schoolId));
           }
         } catch {}
       }
@@ -497,7 +507,12 @@ export default function App() {
         try {
           const parsed = JSON.parse(saved);
           if (Array.isArray(parsed.prataScores) && parsed.prataScores.length > 0) {
-            return parsed.prataScores;
+            const completedIds = Array.isArray(parsed.completedParadeSchoolIds)
+              ? new Set<string>(parsed.completedParadeSchoolIds)
+              : new Set<string>();
+            // Migração: saves antigos podiam conter notas pré-simuladas.
+            // Só restauramos notas de escolas cujo desfile já foi concluído.
+            return parsed.prataScores.filter((score: SchoolParadeScores) => completedIds.has(score.schoolId));
           }
         } catch {}
       }
@@ -512,7 +527,12 @@ export default function App() {
         try {
           const parsed = JSON.parse(saved);
           if (Array.isArray(parsed.bronzeScores) && parsed.bronzeScores.length > 0) {
-            return parsed.bronzeScores;
+            const completedIds = Array.isArray(parsed.completedParadeSchoolIds)
+              ? new Set<string>(parsed.completedParadeSchoolIds)
+              : new Set<string>();
+            // Migração: saves antigos podiam conter notas pré-simuladas.
+            // Só restauramos notas de escolas cujo desfile já foi concluído.
+            return parsed.bronzeScores.filter((score: SchoolParadeScores) => completedIds.has(score.schoolId));
           }
         } catch {}
       }
@@ -527,7 +547,12 @@ export default function App() {
         try {
           const parsed = JSON.parse(saved);
           if (Array.isArray(parsed.avaliacaoScores) && parsed.avaliacaoScores.length > 0) {
-            return parsed.avaliacaoScores;
+            const completedIds = Array.isArray(parsed.completedParadeSchoolIds)
+              ? new Set<string>(parsed.completedParadeSchoolIds)
+              : new Set<string>();
+            // Migração: saves antigos podiam conter notas pré-simuladas.
+            // Só restauramos notas de escolas cujo desfile já foi concluído.
+            return parsed.avaliacaoScores.filter((score: SchoolParadeScores) => completedIds.has(score.schoolId));
           }
         } catch {}
       }
@@ -713,33 +738,20 @@ export default function App() {
   const isSchoolActive = useCallback((s: School) => !s.isInactive && !s.inactive, []);
   const isSchoolInactive = useCallback((s: School) => Boolean(s.isInactive || s.inactive), []);
 
+  // Show Toast
+  const showToast = useCallback((text: string, type: 'info' | 'success' | 'warning' | 'alert' = 'info') => {
+    setToastMessage({ text, type });
+    setTimeout(() => {
+      setToastMessage(null);
+    }, 4500);
+  }, []);
+
+  // IMPORTANTE: não pré-simular notas aqui.
+  // As notas são criadas pelo handleRecordParadeTime(), no momento em que cada desfile termina.
+  // Esta função permanece somente por compatibilidade com a prop antiga da DashboardView.
   const generateScores = useCallback(() => {
-    const espSchools = schools.filter((s) => s.division === 'especial' && isSchoolActive(s));
-    const ourSchools = schools.filter((s) => s.division === 'ouro' && isSchoolActive(s));
-    const praSchools = schools.filter((s) => s.division === 'prata' && isSchoolActive(s));
-    const broSchools = schools.filter((s) => s.division === 'bronze' && isSchoolActive(s));
-    const avaSchools = schools.filter((s) => s.division === 'avaliacao' && isSchoolActive(s));
-
-    const espScores = SimulationEngine.simulateDivisionParades(espSchools, sorteio);
-    const ourScores = SimulationEngine.simulateDivisionParades(ourSchools, sorteio);
-    const praScores = SimulationEngine.simulateDivisionParades(praSchools, sorteio);
-    const broScores = SimulationEngine.simulateDivisionParades(broSchools, sorteio);
-    const avaScores = SimulationEngine.simulateDivisionParades(avaSchools, sorteio);
-
-    setEspecialScores(espScores);
-    setOuroScores(ourScores);
-    setPrataScores(praScores);
-    setBronzeScores(broScores);
-    setAvaliacaoScores(avaScores);
-    setHasParadeResults(true);
-  }, [schools, isSchoolActive, sorteio]);
-
-  // Pre-generate parade scores if none exist for current year
-  useEffect(() => {
-    if (!hasParadeResults && schools.length > 0) {
-      generateScores();
-    }
-  }, [hasParadeResults, schools.length, generateScores]);
+    showToast('As notas serão geradas individualmente quando os desfiles forem concluídos.', 'info');
+  }, [showToast]);
 
   // Save game state to localStorage
   useEffect(() => {
@@ -787,14 +799,6 @@ export default function App() {
     currentSeasonMonth
   ]);
 
-  // Show Toast
-  const showToast = useCallback((text: string, type: 'info' | 'success' | 'warning' | 'alert' = 'info') => {
-    setToastMessage({ text, type });
-    setTimeout(() => {
-      setToastMessage(null);
-    }, 4500);
-  }, []);
-
   const handleFinishParade = useCallback(() => {
     showToast('Desfile oficial concluído! As notas dos 36 jurados foram seladas!', 'success');
   }, [showToast]);
@@ -813,7 +817,7 @@ export default function App() {
         const exists = prev.some((s) => s.schoolId === schoolId);
 
         if (!exists && belongsToDiv && schoolObj) {
-          const [sim] = SimulationEngine.simulateDivisionParades([schoolObj]);
+          const [sim] = SimulationEngine.simulateDivisionParades([schoolObj], sorteio);
           const techPenalty = sim.technicalPenalty ?? 0;
           const totalPenalty = Math.round((penalty + techPenalty) * 10) / 10;
           const finalScore = Math.max(0, Math.round((sim.totalScore - totalPenalty) * 10) / 10);
@@ -855,8 +859,9 @@ export default function App() {
       setPrataScores((prev) => updateScores(prev, 'prata'));
       setBronzeScores((prev) => updateScores(prev, 'bronze'));
       setAvaliacaoScores((prev) => updateScores(prev, 'avaliacao'));
+      setHasParadeResults(true);
     },
-    [schools]
+    [schools, sorteio]
   );
 
   const handleCompleteParade = useCallback(
@@ -1070,12 +1075,6 @@ export default function App() {
       setIsGameStarted(true);
       setActiveTab('dashboard');
 
-      // Garante que o Grupo de Avaliação já contenha as notas simuladas da escola criada
-      const avaSchools = updatedSchools.filter((s) => s.division === 'avaliacao' && isSchoolActive(s));
-      const newAvaScores = SimulationEngine.simulateDivisionParades(avaSchools);
-      setAvaliacaoScores(newAvaScores);
-      setHasParadeResults(true);
-
       // Reinicia o sorteio da temporada para que o globo do Grupo de Avaliação inclua a nova agremiação
       const freshSorteio = SorteioEngine.createInitialSorteio(currentYear);
       setSorteio(freshSorteio);
@@ -1246,131 +1245,51 @@ export default function App() {
   };
 
   const handleFinalizeSeasonFromCampeas = useCallback(() => {
-    // Grupo Especial: garantir ordem oficial dos desfiles e notas completas
-    const espParadeOrdered = SorteioEngine.getDivisionOfficialParadeOrder(
-      'especial',
-      especialSchools,
-      sorteio,
-      currentYear,
-      history
-    ).map((i) => i.school);
-    const espScoresMap = new Map((especialScores || []).map((s) => [s.schoolId, s]));
-    const guaranteedEspScores = espParadeOrdered.map((school) => {
-      const existing = espScoresMap.get(school.id);
-      if (existing && existing.scoresByQuesito) return existing;
-      const [generated] = SimulationEngine.simulateDivisionParades([school], sorteio);
-      return generated;
-    });
-
     const espResult = SimulationEngine.finalizeSeasonDivision(
       'especial',
       currentYear,
-      espParadeOrdered,
-      guaranteedEspScores,
+      especialSchools,
+      especialScores,
       ouroSchools.length,
       prataSchools.length,
       bronzeSchools.length,
       SorteioEngine.getQuesitosOrderForDivision('especial', quesitosDraw)
     );
-
-    // Série Ouro
-    const ouroParadeOrdered = SorteioEngine.getDivisionOfficialParadeOrder(
-      'ouro',
-      ouroSchools,
-      sorteio,
-      currentYear,
-      history
-    ).map((i) => i.school);
-    const ouroScoresMap = new Map((ouroScores || []).map((s) => [s.schoolId, s]));
-    const guaranteedOuroScores = ouroParadeOrdered.map((school) => {
-      const existing = ouroScoresMap.get(school.id);
-      if (existing && existing.scoresByQuesito) return existing;
-      const [generated] = SimulationEngine.simulateDivisionParades([school], sorteio);
-      return generated;
-    });
     const ouroResult = SimulationEngine.finalizeSeasonDivision(
       'ouro',
       currentYear,
-      ouroParadeOrdered,
-      guaranteedOuroScores,
+      ouroSchools,
+      ouroScores,
       ouroSchools.length,
       prataSchools.length,
       bronzeSchools.length,
       SorteioEngine.getQuesitosOrderForDivision('ouro', quesitosDraw)
     );
-
-    // Série Prata
-    const prataParadeOrdered = SorteioEngine.getDivisionOfficialParadeOrder(
-      'prata',
-      prataSchools,
-      sorteio,
-      currentYear,
-      history
-    ).map((i) => i.school);
-    const prataScoresMap = new Map((prataScores || []).map((s) => [s.schoolId, s]));
-    const guaranteedPrataScores = prataParadeOrdered.map((school) => {
-      const existing = prataScoresMap.get(school.id);
-      if (existing && existing.scoresByQuesito) return existing;
-      const [generated] = SimulationEngine.simulateDivisionParades([school], sorteio);
-      return generated;
-    });
     const prataResult = SimulationEngine.finalizeSeasonDivision(
       'prata',
       currentYear,
-      prataParadeOrdered,
-      guaranteedPrataScores,
+      prataSchools,
+      prataScores,
       ouroSchools.length,
       prataSchools.length,
       bronzeSchools.length,
       SorteioEngine.getQuesitosOrderForDivision('prata', quesitosDraw)
     );
-
-    // Série Bronze
-    const bronzeParadeOrdered = SorteioEngine.getDivisionOfficialParadeOrder(
-      'bronze',
-      bronzeSchools,
-      sorteio,
-      currentYear,
-      history
-    ).map((i) => i.school);
-    const bronzeScoresMap = new Map((bronzeScores || []).map((s) => [s.schoolId, s]));
-    const guaranteedBronzeScores = bronzeParadeOrdered.map((school) => {
-      const existing = bronzeScoresMap.get(school.id);
-      if (existing && existing.scoresByQuesito) return existing;
-      const [generated] = SimulationEngine.simulateDivisionParades([school], sorteio);
-      return generated;
-    });
     const bronzeResult = SimulationEngine.finalizeSeasonDivision(
       'bronze',
       currentYear,
-      bronzeParadeOrdered,
-      guaranteedBronzeScores,
+      bronzeSchools,
+      bronzeScores,
       ouroSchools.length,
       prataSchools.length,
       bronzeSchools.length,
       SorteioEngine.getQuesitosOrderForDivision('bronze', quesitosDraw)
     );
-
-    // Grupo de Avaliação
-    const avaParadeOrdered = SorteioEngine.getDivisionOfficialParadeOrder(
-      'avaliacao',
-      avaliacaoSchools,
-      sorteio,
-      currentYear,
-      history
-    ).map((i) => i.school);
-    const avaScoresMap = new Map((avaliacaoScores || []).map((s) => [s.schoolId, s]));
-    const guaranteedAvaScores = avaParadeOrdered.map((school) => {
-      const existing = avaScoresMap.get(school.id);
-      if (existing && existing.scoresByQuesito) return existing;
-      const [generated] = SimulationEngine.simulateDivisionParades([school], sorteio);
-      return generated;
-    });
     const avaResult = SimulationEngine.finalizeSeasonDivision(
       'avaliacao',
       currentYear,
-      avaParadeOrdered,
-      guaranteedAvaScores,
+      avaliacaoSchools,
+      avaliacaoScores,
       ouroSchools.length,
       prataSchools.length,
       bronzeSchools.length,
@@ -1391,8 +1310,6 @@ export default function App() {
     avaliacaoSchools,
     avaliacaoScores,
     quesitosDraw,
-    sorteio,
-    history,
     handleAdvanceYear
   ]);
 
