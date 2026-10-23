@@ -1342,6 +1342,45 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     unidos_de_terra_nova: 'Brilho de Terra Nova',
     fiquei_firme: 'Firmeza no Samba',
     coracao_das_morenas: 'Coração Providência'
+  },
+  1948: {
+    imperio_serrano: 'Homenagem a Antônio Castro Alves',
+    tijuca: 'Assinatura da Lei Áurea',
+    portela: 'Exaltação à Redentora',
+    mangueira: 'Brasil, Tesouro Incomparável',
+    azul_e_branco_salgueiro: 'Reminiscências do Rio Antigo',
+    paz_e_amor: 'Glórias da Pátria',
+    imperio_da_tijuca: 'Homenagem aos Heróis de Laguna',
+    prazer_da_serrinha: 'Castro Alves, o Poeta dos Escravos',
+    unidos_de_turiacu: 'Primavera em Flor',
+    depois_eu_digo: 'Epopéia da Independência',
+    independentes_cordovil: 'Retalhos da História',
+    recreio_de_inhauma: 'Samba e Tradição',
+    aprendizes_de_lucas: 'Hino à Natureza',
+    paraiso_das_morenas: 'Lendas da Guanabara',
+    unidos_da_capela: 'Noites Cariocas',
+    irmaos_unidos_do_catete: 'Memórias do Catete',
+    vai_se_quiser: 'Vozes da Colina',
+    unidos_de_santo_amaro: 'Glória à Bahia',
+    estrela_de_ouro: 'Brilho Dourado',
+    cada_ano_sai_melhor: 'Festa no Terreiro',
+    unidos_do_salgueiro: 'História do Morro',
+    cabucu: 'Bandeirantes do Brasil',
+    coracoes_unidos_da_favela: 'União e Samba',
+    sem_voce_vivo_bem: 'Alegria de Viver',
+    unidos_de_bras_de_pina: 'Saudação à Leopoldina',
+    unidos_de_cavalcante: 'Tradições de Cavalcante',
+    unidos_de_tomas_coelho: 'Lembranças da Zona Norte',
+    mocidade_de_cachambi: 'Primavera no Cachambi',
+    unidos_do_morro_azul: 'Alvorada no Morro',
+    unidos_do_outeiro: 'Paz no Outeiro',
+    imperio_da_colina: 'Colina em Sol',
+    paraiso_do_grotao: 'Música e Poesia',
+    mocidade_de_um_paraiso: 'Sonho Paradisíaco',
+    inimigos_da_tristeza: 'Adeus Tristeza, Viva a Folia',
+    uniao_vaz_lobo: 'Canto a Vaz Lobo',
+    unidos_do_castelo: 'Memórias do Morro do Castelo',
+    unidos_da_lagoa: 'Águas de Guanabara'
   }
 };
 
@@ -1392,9 +1431,14 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('lucas')) return 'unidos_de_lucas';
   if (n.includes('lins')) return 'lins_imperial';
   if (n.includes('cima da hora')) return 'em_cima_da_hora';
+  if (n.includes('unidos de brás de pina') || n.includes('unidos de bras de pina')) return 'unidos_de_bras_de_pina';
   if (n.includes('união de brás de pina') || n.includes('uniao de bras de pina')) return 'uniao_de_bras_de_pina';
   if (n.includes('tupy') || n.includes('brás de pina') || n.includes('bras de pina')) return 'tupy_bras_de_pina';
   if (n.includes('império de campo grande') || n.includes('imperio de campo grande')) return 'imperio_de_campo_grande';
+  if (n.includes('cavalcante')) return 'unidos_de_cavalcante';
+  if (n.includes('cachambi')) return 'mocidade_de_cachambi';
+  if (n.includes('inimigos da tristeza') || n.includes('tristeza')) return 'inimigos_da_tristeza';
+  if (n.includes('castelo')) return 'unidos_do_castelo';
   return '';
 }
 

@@ -168,7 +168,12 @@ const INITIAL_INACTIVE_SCHOOL_IDS = new Set([
   'orgulho_de_cordovil',
   'imperio_da_colina',
   'paraiso_da_mocidade',
-  'unidos_do_engenho_velho'
+  'unidos_do_engenho_velho',
+  'unidos_de_bras_de_pina',
+  'unidos_de_cavalcante',
+  'mocidade_de_cachambi',
+  'inimigos_da_tristeza',
+  'unidos_do_castelo'
 ]);
 
 function sanitizeSchoolsData(loadedSchools: School[]): School[] {

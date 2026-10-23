@@ -80,6 +80,50 @@ export const CARNAVAL_1984_SUPERCAMPEONATO: LiesaStandingRecord[] = [
 ];
 
 /**
+ * Resultados específicos do desfile competitivo do Carnaval de 1948:
+ * Organizado de forma unificada pela Federação Brasileira de Escolas de Samba (FBES).
+ */
+export const CARNAVAL_1948_FBES: LiesaStandingRecord[] = [
+  { rank: 1, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', subgroup: 'fbes', league: 'FBES', statusDescription: 'Campeã FBES (+20 pts)' },
+  { rank: 2, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', subgroup: 'fbes', league: 'FBES', statusDescription: 'Vice-Campeã FBES (+15 pts)' },
+  { rank: 3, schoolId: 'portela', schoolName: 'Portela', subgroup: 'fbes', league: 'FBES', statusDescription: '3º Lugar FBES (+12 pts)' },
+  { rank: 4, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', subgroup: 'fbes', league: 'FBES', statusDescription: '4º Lugar FBES (+10 pts)' },
+  { rank: 5, schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro', subgroup: 'fbes', league: 'FBES', statusDescription: '5º Lugar FBES (+8 pts)' },
+  { rank: 6, schoolId: 'paz_e_amor', schoolName: 'Paz e Amor', subgroup: 'fbes', league: 'FBES', statusDescription: '6º Lugar FBES (+6 pts)' },
+  { rank: 7, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', subgroup: 'fbes', league: 'FBES', statusDescription: '7º Lugar FBES (+4 pts)' },
+  { rank: 8, schoolId: 'prazer_da_serrinha', schoolName: 'Prazer da Serrinha', subgroup: 'fbes', league: 'FBES', statusDescription: '8º Lugar FBES (+3 pts)' },
+  { rank: 9, schoolId: 'unidos_de_turiacu', schoolName: 'Unidos de Turiaçu', subgroup: 'fbes', league: 'FBES', statusDescription: '9º Lugar FBES (+2 pts)' },
+  { rank: 10, schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo', subgroup: 'fbes', league: 'FBES', statusDescription: '10º Lugar FBES (+1 pt)' },
+  { rank: 11, schoolId: 'independentes_cordovil', schoolName: 'Independentes do Leblon (Independentes de Cordovil)', subgroup: 'fbes', league: 'FBES', statusDescription: '11º Lugar FBES (0 pts)' },
+  { rank: 12, schoolId: 'recreio_de_inhauma', schoolName: 'Recreio de Inhaúma', subgroup: 'fbes', league: 'FBES', statusDescription: '12º Lugar FBES (0 pts)' },
+  { rank: 13, schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas', subgroup: 'fbes', league: 'FBES', statusDescription: '13º Lugar FBES (0 pts)' },
+  { rank: 14, schoolId: 'paraiso_das_morenas', schoolName: 'Paraíso das Morenas', subgroup: 'fbes', league: 'FBES', statusDescription: '14º Lugar FBES (0 pts)' },
+  { rank: 15, schoolId: 'unidos_da_capela', schoolName: 'Unidos da Capela', subgroup: 'fbes', league: 'FBES', statusDescription: '15º Lugar FBES (0 pts)' },
+  { rank: 16, schoolId: 'irmaos_unidos_do_catete', schoolName: 'Irmãos Unidos do Catete', subgroup: 'fbes', league: 'FBES', statusDescription: '16º Lugar FBES (0 pts)' },
+  { rank: 17, schoolId: 'vai_se_quiser', schoolName: 'Vai Se Quiser', subgroup: 'fbes', league: 'FBES', statusDescription: '17º Lugar FBES (0 pts)' },
+  { rank: 18, schoolId: 'unidos_de_santo_amaro', schoolName: 'Unidos de Santo Amaro', subgroup: 'fbes', league: 'FBES', statusDescription: '18º Lugar FBES (0 pts)' },
+  { rank: 19, schoolId: 'estrela_de_ouro', schoolName: 'Estrela de Ouro', subgroup: 'fbes', league: 'FBES', statusDescription: '19º Lugar FBES (0 pts)' },
+  { rank: 20, schoolId: 'cada_ano_sai_melhor', schoolName: 'Cada Ano Sai Melhor', subgroup: 'fbes', league: 'FBES', statusDescription: '20º Lugar FBES (0 pts)' },
+  { rank: 21, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', subgroup: 'fbes', league: 'FBES', statusDescription: '21º Lugar FBES (0 pts)' },
+  { rank: 22, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', subgroup: 'fbes', league: 'FBES', statusDescription: '22º Lugar FBES (0 pts)' },
+  { rank: 23, schoolId: 'coracoes_unidos_da_favela', schoolName: 'Corações Unidos da Favela', subgroup: 'fbes', league: 'FBES', statusDescription: '23º Lugar FBES (0 pts)' },
+  { rank: 24, schoolId: 'sem_voce_vivo_bem', schoolName: 'Sem Você Vivo Bem', subgroup: 'fbes', league: 'FBES', statusDescription: '24º Lugar FBES (0 pts)' },
+  { rank: 25, schoolId: 'unidos_de_bras_de_pina', schoolName: 'Unidos de Brás de Pina', subgroup: 'fbes', league: 'FBES', statusDescription: '25º Lugar FBES (0 pts)' },
+  { rank: 26, schoolId: 'unidos_de_cavalcante', schoolName: 'Unidos de Cavalcante', subgroup: 'fbes', league: 'FBES', statusDescription: '26º Lugar FBES (0 pts)' },
+  { rank: 27, schoolId: 'unidos_de_tomas_coelho', schoolName: 'Unidos de Tomás Coelho', subgroup: 'fbes', league: 'FBES', statusDescription: '27º Lugar FBES (0 pts)' },
+  { rank: 28, schoolId: 'mocidade_de_cachambi', schoolName: 'Mocidade de Cachambi', subgroup: 'fbes', league: 'FBES', statusDescription: '28º Lugar FBES empatada (0 pts)' },
+  { rank: 28, schoolId: 'unidos_do_morro_azul', schoolName: 'Unidos do Morro Azul', subgroup: 'fbes', league: 'FBES', statusDescription: '28º Lugar FBES empatada (0 pts)' },
+  { rank: 29, schoolId: 'unidos_do_outeiro', schoolName: 'Unidos do Outeiro', subgroup: 'fbes', league: 'FBES', statusDescription: '29º Lugar FBES (0 pts)' },
+  { rank: 30, schoolId: 'imperio_da_colina', schoolName: 'Império da Colina', subgroup: 'fbes', league: 'FBES', statusDescription: '30º Lugar FBES (0 pts)' },
+  { rank: 31, schoolId: 'paraiso_do_grotao', schoolName: 'Paraíso do Grotão', subgroup: 'fbes', league: 'FBES', statusDescription: '31º Lugar FBES (0 pts)' },
+  { rank: 32, schoolId: 'mocidade_de_um_paraiso', schoolName: 'Mocidade de Um Paraíso', subgroup: 'fbes', league: 'FBES', statusDescription: '32º Lugar FBES (0 pts)' },
+  { rank: 33, schoolId: 'inimigos_da_tristeza', schoolName: 'Inimigos da Tristeza', subgroup: 'fbes', league: 'FBES', statusDescription: '33º Lugar FBES (0 pts)' },
+  { rank: 34, schoolId: 'uniao_vaz_lobo', schoolName: 'União de Vaz Lobo', subgroup: 'fbes', league: 'FBES', statusDescription: '34º Lugar FBES empatada (0 pts)' },
+  { rank: 34, schoolId: 'unidos_do_castelo', schoolName: 'Unidos do Castelo', subgroup: 'fbes', league: 'FBES', statusDescription: '34º Lugar FBES empatada (0 pts)' },
+  { rank: 35, schoolId: 'unidos_da_lagoa', schoolName: 'Unidos da Lagoa', subgroup: 'fbes', league: 'FBES', statusDescription: '35º Lugar FBES (0 pts)' }
+];
+
+/**
  * Resultados específicos dos desfiles competitivos do Carnaval de 1949:
  * FBES (Federação Brasileira de Escolas de Samba) e UGESB (União Geral das Escolas de Samba do Brasil).
  */
@@ -348,8 +392,13 @@ export const CARNAVAL_1951_UGESB: LiesaStandingRecord[] = [
  *   - FBES: Império Serrano campeã e Azul e Branco do Salgueiro vice.
  *   - UGESB: Estação Primeira de Mangueira campeã e Portela vice.
  *   Não houve rebaixamento.
+ * Carnaval 1948: Desfile competitivo oficial unificado organizado pela FBES:
+ *   - Campeã: Império Serrano (com "Homenagem a Antônio Castro Alves")
+ *   - Vice-campeã: Unidos da Tijuca (com "Assinatura da Lei Áurea")
+ *   Não houve rebaixamento.
  */
 export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRecord[]> = {
+  1948: CARNAVAL_1948_FBES,
   1949: [
     // 1º Lugares (+20 pts)
     { rank: 1, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', subgroup: 'fbes', league: 'FBES', statusDescription: 'Campeã FBES (+20 pts)' },
@@ -1858,6 +1907,8 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('paraiso da mocidade') || nameNorm.includes('paraíso da mocidade')) return 'paraiso_da_mocidade';
   if (nameNorm.includes('prazer da mocidade')) return 'prazer_da_mocidade';
   if (nameNorm.includes('mocidade de um paraíso') || nameNorm.includes('mocidade de um paraiso')) return 'mocidade_de_um_paraiso';
+  if (nameNorm.includes('acadêmicos do cachambi') || nameNorm.includes('academicos do cachambi')) return 'academicos_do_cachambi';
+  if (nameNorm.includes('mocidade de cachambi') || nameNorm.includes('cachambi')) return 'mocidade_de_cachambi';
   if (nameNorm.includes('mocidade') && !nameNorm.includes('cidade de deus') && !nameNorm.includes('porto') && !nameNorm.includes('vicente')) return 'mocidade';
   if (nameNorm.includes('niterói') || nameNorm.includes('niteroi')) return 'niteroi';
   if (nameNorm.includes('porto da pedra')) return 'porto_da_pedra';
@@ -1894,6 +1945,7 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('unidos de cordovil')) return 'unidos_de_cordovil';
   if (nameNorm.includes('leblon') || nameNorm.includes('cordovil')) return 'independentes_cordovil';
   if (nameNorm.includes('lucas')) return 'unidos_de_lucas';
+  if (nameNorm.includes('unidos de brás de pina') || nameNorm.includes('unidos de bras de pina')) return 'unidos_de_bras_de_pina';
   if (nameNorm.includes('união de brás de pina') || nameNorm.includes('uniao de bras de pina')) return 'uniao_de_bras_de_pina';
   if (nameNorm.includes('tupy') || nameNorm.includes('brás de pina') || nameNorm.includes('bras de pina')) return 'tupy_bras_de_pina';
   if (nameNorm.includes('em cima da hora do catumbi') || nameNorm.includes('catumbi')) return 'em_cima_da_hora_catumbi';
@@ -1970,6 +2022,9 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('tomás coelho') || nameNorm.includes('tomas coelho')) return 'unidos_de_tomas_coelho';
   if (nameNorm.includes('irajá') || nameNorm.includes('iraja')) return 'unidos_do_iraja';
   if (nameNorm.includes('coração das morenas') || nameNorm.includes('coracao das morenas')) return 'coracao_das_morenas';
+  if (nameNorm.includes('cavalcante')) return 'unidos_de_cavalcante';
+  if (nameNorm.includes('inimigos da tristeza') || nameNorm.includes('inimigos_da_tristeza')) return 'inimigos_da_tristeza';
+  if (nameNorm.includes('unidos do castelo') || nameNorm.includes('castelo')) return 'unidos_do_castelo';
   return nameNorm.replace(/[^a-z0-9]/g, '_');
 }
 
@@ -2017,7 +2072,7 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     1974, 1973, 1972, 1971, 1970,
     1969, 1968, 1967, 1966, 1965,
     1964, 1963, 1962, 1961, 1960,
-    1959, 1958, 1957, 1956, 1955, 1954, 1953, 1952, 1951, 1950, 1949
+    1959, 1958, 1957, 1956, 1955, 1954, 1953, 1952, 1951, 1950, 1949, 1948
   ];
   officialYears.forEach((yr) => {
     const stands = OFFICIAL_LIESA_HISTORICAL_STANDINGS[yr] || [];
@@ -2192,6 +2247,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
       notes = 'Carnaval Histórico de 1950: Houve três competições oficiais de Escolas de Samba no Grupo Especial: o desfile da Federação Brasileira de Escolas de Samba (FBES), vencido pelo Império Serrano (+20 pts) com Aprendizes de Lucas vice-campeã (+15 pts); o desfile da União Cívica das Escolas de Samba (UCES), vencido pela Estação Primeira de Mangueira (+20 pts) com a Portela vice-campeã (+15 pts); e o desfile da União Geral das Escolas de Samba do Brasil (UGESB), com título dividido entre Prazer da Serrinha e Unidos da Capela (+20 pts cada) e cinco vices empatadas (Depois Eu Digo, Paz e Amor, Três Mosqueteiros, Unidos da Congonha e Unidos da Tamarineira, +15 pts cada). Não houve rebaixamento.';
     } else if (yr === 1949) {
       notes = 'Carnaval Histórico de 1949: Houve dois desfiles competitivos oficiais no Grupo Especial — o desfile da Federação Brasileira de Escolas de Samba (FBES), vencido pelo Império Serrano (+20 pts) com Azul e Branco do Salgueiro vice-campeã (+15 pts); e o desfile da União Geral das Escolas de Samba do Brasil (UGESB), vencido pela Estação Primeira de Mangueira (+20 pts) com Portela vice-campeã (+15 pts). Não houve rebaixamento.';
+    } else if (yr === 1948) {
+      notes = 'Carnaval Histórico de 1948: Desfile competitivo oficial unificado organizado pela Federação Brasileira de Escolas de Samba (FBES) com 35 agremiações participantes. O Império Serrano sagrou-se campeão com "Homenagem a Antônio Castro Alves" (+20 pts) e a Unidos da Tijuca foi a vice-campeã com "Assinatura da Lei Áurea" (+15 pts). A Portela alcançou a 3ª colocação (+12 pts) e a Estação Primeira de Mangueira a 4ª colocação (+10 pts). Não houve rebaixamento.';
     }
 
     result.push({
@@ -2211,6 +2268,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
         ? ['Império Serrano (Campeã FBES)', 'Estação Primeira de Mangueira (Campeã UCES)', 'Prazer da Serrinha (Campeã UGESB)', 'Unidos da Capela (Campeã UGESB)']
         : yr === 1949
         ? ['Império Serrano (Campeã FBES)', 'Estação Primeira de Mangueira (Campeã UGESB)']
+        : yr === 1948
+        ? ['Império Serrano (Campeã FBES)']
         : champs,
       viceChampionNames: yr === 1984
         ? ['Portela (Supervice)', 'Mocidade Independente (Vice Segunda)', 'Império Serrano (Vice Domingo)']
@@ -2224,6 +2283,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
         ? ['Aprendizes de Lucas (Vice FBES)', 'Portela (Vice UCES)', 'Depois Eu Digo (Vice UGESB)', 'Paz e Amor (Vice UGESB)', 'Três Mosqueteiros (Vice UGESB)', 'Unidos da Congonha (Vice UGESB)', 'Unidos da Tamarineira (Vice UGESB)']
         : yr === 1949
         ? ['Azul e Branco do Salgueiro (Vice FBES)', 'Portela (Vice UGESB)']
+        : yr === 1948
+        ? ['Unidos da Tijuca (Vice FBES)']
         : vices,
       totalSchools: stands.length,
       subgroups: yr === 1984 ? {
@@ -2240,6 +2301,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
       } : yr === 1949 ? {
         fbes: CARNAVAL_1949_FBES,
         ugesb: CARNAVAL_1949_UGESB
+      } : yr === 1948 ? {
+        fbes: CARNAVAL_1948_FBES
       } : undefined
     });
   });
@@ -2471,19 +2534,19 @@ export function computeHistoricalLiesaRanking(
     return historicalMap[sId];
   };
 
-  // 1. Processa todos os títulos e vices históricos da era pré-1949 a partir de HISTORICAL_CARNAVAL_RECORDS
-  // A partir de 1949 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA/AESCRJ/FBES/UCES/UGESB
+  // 1. Processa todos os títulos e vices históricos da era pré-1948 a partir de HISTORICAL_CARNAVAL_RECORDS
+  // A partir de 1948 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA/AESCRJ/FBES/UCES/UGESB
   Object.entries(HISTORICAL_CARNAVAL_RECORDS).forEach(([id, rec]) => {
     const sId = resolveSchoolId(id, undefined, schoolsMap);
     const entry = ensureEntry(sId);
 
-    const espYearsPre1949 = (rec.especialYears || []).filter((y) => y < 1949);
-    const espViceYearsPre1949 = (rec.especialRunnerUpYears || []).filter((y) => y < 1949);
+    const espYearsPre1948 = (rec.especialYears || []).filter((y) => y < 1948);
+    const espViceYearsPre1948 = (rec.especialRunnerUpYears || []).filter((y) => y < 1948);
 
-    const titlesPre1949 = espYearsPre1949.length;
-    const vicesPre1949 = espViceYearsPre1949.length;
+    const titlesPre1948 = espYearsPre1948.length;
+    const vicesPre1948 = espViceYearsPre1948.length;
 
-    espYearsPre1949.forEach((y) => {
+    espYearsPre1948.forEach((y) => {
       entry.participationsSet.add(y);
       entry.performancesDetailed[y] = {
         year: y,
@@ -2495,7 +2558,7 @@ export function computeHistoricalLiesaRanking(
       };
     });
 
-    espViceYearsPre1949.forEach((y) => {
+    espViceYearsPre1948.forEach((y) => {
       entry.participationsSet.add(y);
       entry.performancesDetailed[y] = {
         year: y,
@@ -2507,16 +2570,16 @@ export function computeHistoricalLiesaRanking(
       };
     });
 
-    entry.totalEspecialTitles += titlesPre1949;
-    entry.totalEspecialVices += vicesPre1949;
-    entry.titlePoints += titlesPre1949 * 20;
-    entry.vicePoints += vicesPre1949 * 15;
-    entry.pointsEraPre2015 += titlesPre1949 * 20 + vicesPre1949 * 15;
-    entry.totalPoints += titlesPre1949 * 20 + vicesPre1949 * 15;
-    entry.totalCarnavalesContados += titlesPre1949 + vicesPre1949;
+    entry.totalEspecialTitles += titlesPre1948;
+    entry.totalEspecialVices += vicesPre1948;
+    entry.titlePoints += titlesPre1948 * 20;
+    entry.vicePoints += vicesPre1948 * 15;
+    entry.pointsEraPre2015 += titlesPre1948 * 20 + vicesPre1948 * 15;
+    entry.totalPoints += titlesPre1948 * 20 + vicesPre1948 * 15;
+    entry.totalCarnavalesContados += titlesPre1948 + vicesPre1948;
   });
 
-  // 2. Processa anos de 1949 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
+  // 2. Processa anos de 1948 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
   Object.entries(OFFICIAL_LIESA_HISTORICAL_STANDINGS).forEach(([yrStr, list]) => {
     const yr = parseInt(yrStr, 10);
     if (yr === 2021 || yr === 1952 || !list || list.length === 0) {
