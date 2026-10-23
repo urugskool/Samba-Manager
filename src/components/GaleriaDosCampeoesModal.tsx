@@ -753,6 +753,22 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
         });
       }
 
+      // Carnaval Histórico de 1949: 2 Ligas Oficiais (FBES e UGESB)
+      yearMap.set(1949, {
+        year: 1949,
+        division: 'especial',
+        divisionLabel: 'Grupo Especial (FBES / UGESB)',
+        champions: [
+          { schoolId: 'imperio_serrano', schoolName: 'Império Serrano (Campeã FBES)', school: resolveSchool('imperio_serrano') },
+          { schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira (Campeã UGESB)', school: resolveSchool('mangueira') }
+        ],
+        runnerUps: [
+          { schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro (Vice FBES)', school: resolveSchool('azul_e_branco_salgueiro') },
+          { schoolId: 'portela', schoolName: 'Portela (Vice UGESB)', school: resolveSchool('portela') }
+        ],
+        note: 'Carnaval Histórico de 1949: Duas competições oficiais no Grupo Especial (FBES e UGESB)'
+      });
+
       // Carnaval Histórico de 1950: 3 Ligas Oficiais (FBES, UCES e UGESB) com as 7 vices oficiais
       yearMap.set(1950, {
         year: 1950,

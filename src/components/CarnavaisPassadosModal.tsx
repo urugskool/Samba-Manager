@@ -64,6 +64,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
   const [subgroup1984Tab, setSubgroup1984Tab] = useState<'supercampeonato' | 'domingo' | 'segunda' | 'geral'>('supercampeonato');
   const [subgroup1951Tab, setSubgroup1951Tab] = useState<'geral' | 'fbes' | 'ugesb'>('geral');
   const [subgroup1950Tab, setSubgroup1950Tab] = useState<'geral' | 'fbes' | 'uces' | 'ugesb'>('geral');
+  const [subgroup1949Tab, setSubgroup1949Tab] = useState<'geral' | 'fbes' | 'ugesb'>('geral');
 
   // Atualiza tab quando o modal é aberto
   useEffect(() => {
@@ -72,7 +73,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
     }
   }, [isOpen, initialTab]);
 
-  // Lista dos carnavais catalogados (1950 a 2026 + save)
+  // Lista dos carnavais catalogados (1949 a 2026 + save)
   const historicalCarnavals = useMemo(() => {
     return getHistoricalCarnavalsList(inGameHistory);
   }, [inGameHistory]);
@@ -91,6 +92,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
     if (selectedDecade === '1970s') return historicalCarnavals.filter((c) => c.year >= 1970 && c.year <= 1979);
     if (selectedDecade === '1960s') return historicalCarnavals.filter((c) => c.year >= 1960 && c.year <= 1969);
     if (selectedDecade === '1950s') return historicalCarnavals.filter((c) => c.year >= 1950 && c.year <= 1959);
+    if (selectedDecade === '1940s') return historicalCarnavals.filter((c) => c.year >= 1940 && c.year <= 1949);
     return historicalCarnavals;
   }, [historicalCarnavals, selectedDecade]);
 
@@ -144,12 +146,18 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
       } else if (subgroup1950Tab === 'ugesb' && currentPastCarnaval.subgroups.ugesb) {
         baseList = currentPastCarnaval.subgroups.ugesb;
       }
+    } else if (currentPastCarnaval.year === 1949 && currentPastCarnaval.subgroups) {
+      if (subgroup1949Tab === 'fbes' && currentPastCarnaval.subgroups.fbes) {
+        baseList = currentPastCarnaval.subgroups.fbes;
+      } else if (subgroup1949Tab === 'ugesb' && currentPastCarnaval.subgroups.ugesb) {
+        baseList = currentPastCarnaval.subgroups.ugesb;
+      }
     }
 
     const q = searchQuery.toLowerCase().trim();
     if (!q) return baseList;
     return baseList.filter((st) => st.schoolName.toLowerCase().includes(q));
-  }, [currentPastCarnaval, searchQuery, subgroup1984Tab, subgroup1951Tab, subgroup1950Tab]);
+  }, [currentPastCarnaval, searchQuery, subgroup1984Tab, subgroup1951Tab, subgroup1950Tab, subgroup1949Tab]);
 
   const isNoRelegationYear = currentPastCarnaval
     ? currentPastCarnaval.year <= 1952 ||
@@ -238,7 +246,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                   MEMÓRIA DO SAMBA
                 </span>
                 <span className="text-xs text-slate-400">
-                  Resultados Oficiais & Participações na Elite (1950 a {currentYear || 2026})
+                  Resultados Oficiais & Participações na Elite (1949 a {currentYear || 2026})
                 </span>
               </div>
               <h2 className="text-xl sm:text-2xl font-black text-white mt-0.5 flex items-center gap-2">
@@ -329,6 +337,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                       { id: '1970s', label: '1970s' },
                       { id: '1960s', label: '1960s' },
                       { id: '1950s', label: '1950s' },
+                      { id: '1940s', label: '1940s' },
                       { id: 'todos', label: 'Todos' }
                     ].map((d) => (
                       <button
@@ -426,6 +435,51 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                       )}
                     </div>
                   </div>
+
+                  {/* Sub-leagues selector for 1949 */}
+                  {currentPastCarnaval.year === 1949 && currentPastCarnaval.subgroups && (
+                    <div className="p-3.5 rounded-2xl bg-slate-950 border border-amber-500/30 space-y-2">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="font-bold text-amber-300">Competições Oficiais de 1949:</span>
+                        <span className="text-slate-400 text-[11px]">2 Ligas (FBES e UGESB) • Não houve rebaixamento</span>
+                      </div>
+                      <div className="grid grid-cols-3 gap-2">
+                        <button
+                          onClick={() => setSubgroup1949Tab('geral')}
+                          className={`p-2 rounded-xl text-left border transition cursor-pointer text-xs ${
+                            subgroup1949Tab === 'geral'
+                              ? 'bg-amber-500/20 border-amber-400 text-white'
+                              : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
+                          }`}
+                        >
+                          <div className="font-bold text-amber-400 text-[11px]">Geral Combinado</div>
+                          <div className="text-[10px] text-slate-300">FBES + UGESB</div>
+                        </button>
+                        <button
+                          onClick={() => setSubgroup1949Tab('fbes')}
+                          className={`p-2 rounded-xl text-left border transition cursor-pointer text-xs ${
+                            subgroup1949Tab === 'fbes'
+                              ? 'bg-emerald-500/20 border-emerald-400 text-white'
+                              : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
+                          }`}
+                        >
+                          <div className="font-bold text-emerald-400 text-[11px]">FBES (28 Escolas)</div>
+                          <div className="text-[10px] text-slate-300">Império Serrano Campeã</div>
+                        </button>
+                        <button
+                          onClick={() => setSubgroup1949Tab('ugesb')}
+                          className={`p-2 rounded-xl text-left border transition cursor-pointer text-xs ${
+                            subgroup1949Tab === 'ugesb'
+                              ? 'bg-blue-500/20 border-blue-400 text-white'
+                              : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
+                          }`}
+                        >
+                          <div className="font-bold text-blue-400 text-[11px]">UGESB (25 Escolas)</div>
+                          <div className="text-[10px] text-slate-300">Mangueira Campeã</div>
+                        </button>
+                      </div>
+                    </div>
+                  )}
 
                   {/* Sub-leagues selector for 1950 */}
                   {currentPastCarnaval.year === 1950 && currentPastCarnaval.subgroups && (

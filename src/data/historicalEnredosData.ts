@@ -1286,6 +1286,62 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     unidos_de_terra_nova: 'Brilho de Terra Nova',
     uniao_de_sampaio: 'Sampaio Histórico',
     fiquei_firme: 'Firmeza no Samba'
+  },
+  1949: {
+    // FBES
+    imperio_serrano: 'Exaltação a Tiradentes',
+    azul_e_branco_salgueiro: 'História do Rio Antigo',
+    unidos_do_salgueiro: 'Glórias da Cidade Nova',
+    floresta_do_andarai: 'Tradição do Andaraí',
+    unidos_do_outeiro: 'Colina Verde',
+    recreio_de_sao_carlos: 'Berço do Samba de São Carlos',
+    aprendizes_de_lucas: 'Paz e Harmonia',
+    independentes_cordovil: 'Sonho Carioca',
+    filhos_do_deserto: 'Noites do Oriente',
+    irmaos_unidos_do_catete: 'Glória ao Catete',
+    unidos_de_santo_amaro: 'Santo Amaro em Festa',
+    indios_do_acau: 'Guerreiros do Acaú',
+    vitoria_de_bento_ribeiro: 'Vitória Sambista',
+    flor_do_lins: 'Flor do Morro do Amor',
+    manda_quem_pode: 'Manda Quem Pode no Salgueiro',
+    paraiso_das_morenas: 'Paraíso em Flor',
+    uniao_de_bras_de_pina: 'Brás de Pina em Festa',
+    unidos_de_campo_grande: 'Orgulho de Campo Grande',
+    imperio_da_colina: 'Colina em Festa',
+    azul_e_branco_de_bonsucesso: 'Bonsucesso Tradicional',
+    uniao_primeira: 'União e Samba',
+    boemios_do_andarai: 'Noite de Boemia',
+    coracoes_unidos_da_favela: 'Favela em Harmonia',
+    orgulho_de_cordovil: 'Orgulho Suburbano',
+    uniao_dos_casados: 'Aliança Sambista',
+    cabucu: 'Glória aos Bandeirantes',
+    imperio_do_andarai: 'Andaraí Tradicional',
+    unidos_da_lagoa: 'Cisne das Margens',
+    // UGESB
+    mangueira: 'Apoteose aos Mestres',
+    portela: 'O Despertar do Gigante',
+    depois_eu_digo: 'Recordações da Praça Onze',
+    prazer_da_serrinha: 'Voz da Serrinha',
+    unidos_da_capela: 'Cântico à Natureza',
+    tijuca: 'Proclamação da República',
+    imperio_da_tijuca: 'Primavera em Flor',
+    vila_isabel: 'Iracema',
+    baianinhas_brasileiras: 'Riquezas da Bahia',
+    unidos_de_turiacu: 'Turiaçu dos Meus Amores',
+    coracoes_unidos_jacarepagua: 'Guanabara em Sol',
+    vai_se_quiser: 'Quem Canta Seus Males Espanta',
+    paz_e_amor: 'Paz e Amor em Romaria',
+    em_cima_da_hora_catumbi: 'Catumbi Tradicional',
+    unidos_de_tomas_coelho: 'Lembranças da Zona Norte',
+    recreio_de_inhauma: 'Achegas Históricas',
+    unidos_do_morro_azul: 'Alvorada do Morro',
+    uniao_do_realengo: 'Força de Realengo',
+    unidos_do_iraja: 'Flores de Irajá',
+    imperio_de_campo_grande: 'Voz da Zona Oeste',
+    nao_e_o_que_dizem: 'Verdade Sambista',
+    unidos_de_terra_nova: 'Brilho de Terra Nova',
+    fiquei_firme: 'Firmeza no Samba',
+    coracao_das_morenas: 'Coração Providência'
   }
 };
 
@@ -1295,6 +1351,7 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
 function normalizeId(rawId?: string, rawName?: string): string {
   if (rawId && rawId.trim()) {
     const id = rawId.trim().toLowerCase();
+    if (id.includes('recreio_de_sao_carlos')) return 'recreio_de_sao_carlos';
     if (id.includes('estacio') || id.includes('sao_carlos')) return 'estacio_de_sa';
     if (id.includes('padre_miguel') && id.includes('unidos')) return 'unidos_padre_miguel';
     if (id.includes('marica')) return 'marica';
@@ -1319,6 +1376,7 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('padre miguel') && n.includes('unidos')) return 'unidos_padre_miguel';
   if (n.includes('serrano')) return 'imperio_serrano';
   if (n.includes('império da tijuca') || n.includes('imperio da tijuca')) return 'imperio_da_tijuca';
+  if (n.includes('recreio de são carlos') || n.includes('recreio de sao carlos')) return 'recreio_de_sao_carlos';
   if (n.includes('estácio') || n.includes('são carlos') || n.includes('estacio')) return 'estacio_de_sa';
   if (n.includes('clemente')) return 'sao_clemente';
   if (n.includes('ilha')) return 'uniao_da_ilha';
@@ -1334,11 +1392,12 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('lucas')) return 'unidos_de_lucas';
   if (n.includes('lins')) return 'lins_imperial';
   if (n.includes('cima da hora')) return 'em_cima_da_hora';
+  if (n.includes('união de brás de pina') || n.includes('uniao de bras de pina')) return 'uniao_de_bras_de_pina';
   if (n.includes('tupy') || n.includes('brás de pina') || n.includes('bras de pina')) return 'tupy_bras_de_pina';
+  if (n.includes('império de campo grande') || n.includes('imperio de campo grande')) return 'imperio_de_campo_grande';
   return '';
 }
 
-/**
 /**
  * Retorna o título oficial do enredo de uma escola em um carnaval histórico específico,
  * considerando tanto os anos catalogados quanto os enredos utilizados durante o save.
