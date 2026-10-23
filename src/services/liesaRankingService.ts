@@ -80,6 +80,69 @@ export const CARNAVAL_1984_SUPERCAMPEONATO: LiesaStandingRecord[] = [
 ];
 
 /**
+ * Resultados específicos dos desfiles competitivos do Carnaval de 1949:
+ * FBES (Federação Brasileira de Escolas de Samba) e UGESB (União Geral das Escolas de Samba do Brasil).
+ */
+export const CARNAVAL_1949_FBES: LiesaStandingRecord[] = [
+  { rank: 1, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', subgroup: 'fbes', league: 'FBES', statusDescription: 'Campeã FBES (+20 pts)' },
+  { rank: 2, schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro', subgroup: 'fbes', league: 'FBES', statusDescription: 'Vice-Campeã FBES (+15 pts)' },
+  { rank: 3, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', subgroup: 'fbes', league: 'FBES', statusDescription: '3º Lugar FBES (+12 pts)' },
+  { rank: 4, schoolId: 'floresta_do_andarai', schoolName: 'Floresta do Andaraí', subgroup: 'fbes', league: 'FBES', statusDescription: '4º Lugar FBES (+10 pts)' },
+  { rank: 5, schoolId: 'unidos_do_outeiro', schoolName: 'Unidos do Outeiro', subgroup: 'fbes', league: 'FBES', statusDescription: '5º Lugar FBES (+8 pts)' },
+  { rank: 6, schoolId: 'recreio_de_sao_carlos', schoolName: 'Recreio de São Carlos', subgroup: 'fbes', league: 'FBES', statusDescription: '6º Lugar FBES (+6 pts)' },
+  { rank: 7, schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas', subgroup: 'fbes', league: 'FBES', statusDescription: '7º Lugar FBES (+4 pts)' },
+  { rank: 8, schoolId: 'independentes_cordovil', schoolName: 'Independentes do Leblon (Independentes de Cordovil)', subgroup: 'fbes', league: 'FBES', statusDescription: '8º Lugar FBES (+3 pts)' },
+  { rank: 9, schoolId: 'filhos_do_deserto', schoolName: 'Filhos do Deserto', subgroup: 'fbes', league: 'FBES', statusDescription: '9º Lugar FBES (+2 pts)' },
+  { rank: 10, schoolId: 'irmaos_unidos_do_catete', schoolName: 'Irmãos Unidos do Catete', subgroup: 'fbes', league: 'FBES', statusDescription: '10º Lugar FBES (+1 pt)' },
+  { rank: 11, schoolId: 'unidos_de_santo_amaro', schoolName: 'Unidos de Santo Amaro', subgroup: 'fbes', league: 'FBES', statusDescription: '11º Lugar FBES (0 pts)' },
+  { rank: 12, schoolId: 'indios_do_acau', schoolName: 'Índios do Acaú', subgroup: 'fbes', league: 'FBES', statusDescription: '12º Lugar FBES (0 pts)' },
+  { rank: 13, schoolId: 'vitoria_de_bento_ribeiro', schoolName: 'Vitória de Bento Ribeiro', subgroup: 'fbes', league: 'FBES', statusDescription: '13º Lugar FBES (0 pts)' },
+  { rank: 14, schoolId: 'flor_do_lins', schoolName: 'Flor do Lins', subgroup: 'fbes', league: 'FBES', statusDescription: '14º Lugar FBES (0 pts)' },
+  { rank: 15, schoolId: 'manda_quem_pode', schoolName: 'Manda Quem Pode', subgroup: 'fbes', league: 'FBES', statusDescription: '15º Lugar FBES (0 pts)' },
+  { rank: 16, schoolId: 'paraiso_das_morenas', schoolName: 'Paraíso das Morenas', subgroup: 'fbes', league: 'FBES', statusDescription: '16º Lugar FBES (0 pts)' },
+  { rank: 17, schoolId: 'uniao_de_bras_de_pina', schoolName: 'União de Brás de Pina', subgroup: 'fbes', league: 'FBES', statusDescription: '17º Lugar FBES (0 pts)' },
+  { rank: 18, schoolId: 'unidos_de_campo_grande', schoolName: 'Unidos de Campo Grande', subgroup: 'fbes', league: 'FBES', statusDescription: '18º Lugar FBES (0 pts)' },
+  { rank: 19, schoolId: 'imperio_da_colina', schoolName: 'Império da Colina', subgroup: 'fbes', league: 'FBES', statusDescription: '19º Lugar FBES (0 pts)' },
+  { rank: 20, schoolId: 'azul_e_branco_de_bonsucesso', schoolName: 'Azul e Branco de Bonsucesso', subgroup: 'fbes', league: 'FBES', statusDescription: '20º Lugar FBES (0 pts)' },
+  { rank: 21, schoolId: 'uniao_primeira', schoolName: 'União Primeira', subgroup: 'fbes', league: 'FBES', statusDescription: '21º Lugar FBES (0 pts)' },
+  { rank: 22, schoolId: 'boemios_do_andarai', schoolName: 'Boêmios do Andaraí', subgroup: 'fbes', league: 'FBES', statusDescription: '22º Lugar FBES empatada (0 pts)' },
+  { rank: 22, schoolId: 'coracoes_unidos_da_favela', schoolName: 'Corações Unidos da Favela', subgroup: 'fbes', league: 'FBES', statusDescription: '22º Lugar FBES empatada (0 pts)' },
+  { rank: 22, schoolId: 'orgulho_de_cordovil', schoolName: 'Orgulho de Cordovil', subgroup: 'fbes', league: 'FBES', statusDescription: '22º Lugar FBES empatada (0 pts)' },
+  { rank: 23, schoolId: 'uniao_dos_casados', schoolName: 'União dos Casados', subgroup: 'fbes', league: 'FBES', statusDescription: '23º Lugar FBES (0 pts)' },
+  { rank: 24, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', subgroup: 'fbes', league: 'FBES', statusDescription: '24º Lugar FBES (0 pts)' },
+  { rank: 25, schoolId: 'imperio_do_andarai', schoolName: 'Império do Andaraí', subgroup: 'fbes', league: 'FBES', statusDescription: '25º Lugar FBES (0 pts)' },
+  { rank: 26, schoolId: 'unidos_da_lagoa', schoolName: 'Unidos da Lagoa', subgroup: 'fbes', league: 'FBES', statusDescription: '26º Lugar FBES (0 pts)' }
+];
+
+export const CARNAVAL_1949_UGESB: LiesaStandingRecord[] = [
+  { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', subgroup: 'ugesb', league: 'UGESB', statusDescription: 'Campeã UGESB (+20 pts)' },
+  { rank: 2, schoolId: 'portela', schoolName: 'Portela', subgroup: 'ugesb', league: 'UGESB', statusDescription: 'Vice-Campeã UGESB (+15 pts)' },
+  { rank: 3, schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo', subgroup: 'ugesb', league: 'UGESB', statusDescription: '3º Lugar UGESB (+12 pts)' },
+  { rank: 4, schoolId: 'prazer_da_serrinha', schoolName: 'Prazer da Serrinha', subgroup: 'ugesb', league: 'UGESB', statusDescription: '4º Lugar UGESB (+10 pts)' },
+  { rank: 5, schoolId: 'unidos_da_capela', schoolName: 'Unidos da Capela', subgroup: 'ugesb', league: 'UGESB', statusDescription: '5º Lugar UGESB (+8 pts)' },
+  { rank: 6, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', subgroup: 'ugesb', league: 'UGESB', statusDescription: '6º Lugar UGESB (+6 pts)' },
+  { rank: 7, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', subgroup: 'ugesb', league: 'UGESB', statusDescription: '7º Lugar UGESB (+4 pts)' },
+  { rank: 8, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', subgroup: 'ugesb', league: 'UGESB', statusDescription: '8º Lugar UGESB (+3 pts)' },
+  { rank: 9, schoolId: 'baianinhas_brasileiras', schoolName: 'Baianinhas Brasileiras', subgroup: 'ugesb', league: 'UGESB', statusDescription: '9º Lugar UGESB (+2 pts)' },
+  { rank: 10, schoolId: 'unidos_de_turiacu', schoolName: 'Unidos de Turiaçu', subgroup: 'ugesb', league: 'UGESB', statusDescription: '10º Lugar UGESB (+1 pt)' },
+  { rank: 11, schoolId: 'coracoes_unidos_jacarepagua', schoolName: 'Corações Unidos de Jacarepaguá', subgroup: 'ugesb', league: 'UGESB', statusDescription: '11º Lugar UGESB (0 pts)' },
+  { rank: 12, schoolId: 'vai_se_quiser', schoolName: 'Vai Se Quiser', subgroup: 'ugesb', league: 'UGESB', statusDescription: '12º Lugar UGESB (0 pts)' },
+  { rank: 13, schoolId: 'paz_e_amor', schoolName: 'Paz e Amor', subgroup: 'ugesb', league: 'UGESB', statusDescription: '13º Lugar UGESB (0 pts)' },
+  { rank: 14, schoolId: 'em_cima_da_hora_catumbi', schoolName: 'Em Cima da Hora do Catumbi', subgroup: 'ugesb', league: 'UGESB', statusDescription: '14º Lugar UGESB (0 pts)' },
+  { rank: 15, schoolId: 'unidos_de_tomas_coelho', schoolName: 'Unidos de Tomás Coelho', subgroup: 'ugesb', league: 'UGESB', statusDescription: '15º Lugar UGESB (0 pts)' },
+  { rank: 16, schoolId: 'recreio_de_inhauma', schoolName: 'Recreio de Inhaúma', subgroup: 'ugesb', league: 'UGESB', statusDescription: '16º Lugar UGESB (0 pts)' },
+  { rank: 17, schoolId: 'unidos_do_morro_azul', schoolName: 'Unidos do Morro Azul', subgroup: 'ugesb', league: 'UGESB', statusDescription: '17º Lugar UGESB (0 pts)' },
+  { rank: 18, schoolId: 'paraiso_das_morenas', schoolName: 'Paraíso das Morenas', subgroup: 'ugesb', league: 'UGESB', statusDescription: '18º Lugar UGESB (0 pts)' },
+  { rank: 19, schoolId: 'uniao_do_realengo', schoolName: 'União do Realengo', subgroup: 'ugesb', league: 'UGESB', statusDescription: '19º Lugar UGESB (0 pts)' },
+  { rank: 20, schoolId: 'unidos_do_iraja', schoolName: 'Unidos do Irajá', subgroup: 'ugesb', league: 'UGESB', statusDescription: '20º Lugar UGESB (0 pts)' },
+  { rank: 21, schoolId: 'imperio_de_campo_grande', schoolName: 'Império de Campo Grande', subgroup: 'ugesb', league: 'UGESB', statusDescription: '21º Lugar UGESB (0 pts)' },
+  { rank: 22, schoolId: 'nao_e_o_que_dizem', schoolName: 'Não É O Que Dizem', subgroup: 'ugesb', league: 'UGESB', statusDescription: '22º Lugar UGESB (0 pts)' },
+  { rank: 23, schoolId: 'unidos_de_terra_nova', schoolName: 'Unidos de Terra Nova', subgroup: 'ugesb', league: 'UGESB', statusDescription: '23º Lugar UGESB (0 pts)' },
+  { rank: 24, schoolId: 'fiquei_firme', schoolName: 'Fiquei Firme', subgroup: 'ugesb', league: 'UGESB', statusDescription: '24º Lugar UGESB (0 pts)' },
+  { rank: 25, schoolId: 'coracao_das_morenas', schoolName: 'Coração das Morenas', subgroup: 'ugesb', league: 'UGESB', statusDescription: '25º Lugar UGESB (0 pts)' }
+];
+
+/**
  * Resultados específicos dos desfiles competitivos do Carnaval de 1950:
  * FBES (Federação Brasileira de Escolas de Samba), UCES (União Cívica das Escolas de Samba) e UGESB (União Geral das Escolas de Samba do Brasil).
  */
