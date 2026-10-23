@@ -28,7 +28,8 @@ import {
   Lock,
   Radio,
   Newspaper,
-  ArrowLeftRight
+  ArrowLeftRight,
+  HardDrive
 } from 'lucide-react';
 import { SeasonCycleService } from '../services/seasonCycleService';
 import { SeasonMonthId } from '../types/seasonCycle';
@@ -59,6 +60,7 @@ interface NavbarProps {
   onOpenLiesaRanking?: () => void;
   onOpenNewsPortal?: () => void;
   onOpenTransferHistory?: () => void;
+  onOpenSaveModal?: () => void;
 }
 
 interface NavbarTabItem {
@@ -95,7 +97,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   onBlockedTabClick,
   onOpenLiesaRanking,
   onOpenNewsPortal,
-  onOpenTransferHistory
+  onOpenTransferHistory,
+  onOpenSaveModal
 }) => {
   const [showResetConfirm, setShowResetConfirm] = useState<boolean>(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
@@ -370,6 +373,18 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Início</span>
             </button>
 
+            {/* Gerenciador de Saves (Dexie.js IndexedDB) */}
+            {onOpenSaveModal && (
+              <button
+                onClick={onOpenSaveModal}
+                title="Gerenciador de Saves • Salvar, Carregar, Exportar e Importar (IndexedDB)"
+                className="px-2.5 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 hover:text-white border border-emerald-500/40 transition flex items-center gap-1.5 text-xs font-bold cursor-pointer shadow-sm"
+              >
+                <HardDrive className="w-3.5 h-3.5 text-emerald-400" />
+                <span className="hidden sm:inline">Saves</span>
+              </button>
+            )}
+
             {/* Restart Game / Fresh Save Button */}
             {onRestartNewSave && (
               <button
@@ -560,6 +575,19 @@ export const Navbar: React.FC<NavbarProps> = ({
                 >
                   <ArrowLeftRight className="w-3.5 h-3.5 text-blue-400" />
                   <span>Histórico de Transferências (1976-2026+)</span>
+                </button>
+              )}
+
+              {onOpenSaveModal && (
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenSaveModal();
+                  }}
+                  className="w-full py-2 px-3 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-300 text-xs font-black flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
+                >
+                  <HardDrive className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Gerenciador de Saves (IndexedDB)</span>
                 </button>
               )}
 

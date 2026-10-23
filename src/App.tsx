@@ -53,6 +53,8 @@ import { NewsService } from './services/newsService';
 import { NewsArticle } from './types/news';
 import { TransferMarketService } from './services/transferMarketService';
 import { getCanonical2026Enredo } from './data/canonicalEnredosRegistry';
+import { SaveGameModal } from './components/SaveGameModal';
+import { saveManager } from './services/saveManager';
 
 import { Sparkles, Trophy, CheckCircle, AlertTriangle, Info, Dices, Lock, Calendar, ChevronRight } from 'lucide-react';
 
@@ -450,6 +452,7 @@ export default function App() {
   const [isNewGameModalOpen, setIsNewGameModalOpen] = useState<boolean>(false);
   const [isLiesaModalOpen, setIsLiesaModalOpen] = useState<boolean>(false);
   const [isTransferHistoryModalOpen, setIsTransferHistoryModalOpen] = useState<boolean>(false);
+  const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false);
 
   // Parade Scores & Apuração persistent states
   const DEFAULT_DIVISION_STATES: DivisionStatesMap = {
@@ -754,31 +757,27 @@ export default function App() {
   }, [showToast]);
 
   // Save game state to localStorage
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const dataToSave = {
-        schools,
-        currentYear,
-        userSchoolId,
-        isSpectatorMode,
-        managerName,
-        history,
-        completedParadeSchoolIds,
-        especialScores,
-        ouroScores,
-        prataScores,
-        bronzeScores,
-        avaliacaoScores,
-        hasParadeResults,
-        divisionStates,
-        campeasParadeResults,
-        sorteio,
-        quesitosDraw,
-        currentSeasonMonth
-      };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
-    }
-  }, [
+  // Serialização do estado global do jogo para persistência
+  const currentGameState = useMemo(() => ({
+    schools,
+    currentYear,
+    userSchoolId,
+    isSpectatorMode,
+    managerName,
+    history,
+    completedParadeSchoolIds,
+    especialScores,
+    ouroScores,
+    prataScores,
+    bronzeScores,
+    avaliacaoScores,
+    hasParadeResults,
+    divisionStates,
+    campeasParadeResults,
+    sorteio,
+    quesitosDraw,
+    currentSeasonMonth
+  }), [
     schools,
     currentYear,
     userSchoolId,
@@ -798,6 +797,99 @@ export default function App() {
     quesitosDraw,
     currentSeasonMonth
   ]);
+
+  // Metadados enriquecidos para identificação nos slots de save do Dexie.js
+  const currentSaveMetadata = useMemo(() => {
+    const userSchool = schools.find((s) => s.id === userSchoolId);
+    const periodName = SeasonCycleService.getPeriod(currentSeasonMonth)?.name || 'Temporada';
+    const schoolName = userSchool?.name || (isSpectatorMode ? 'Modo Observador' : 'Sem Agremiação');
+    const divisionName = userSchool
+      ? userSchool.division.toUpperCase()
+      : isSpectatorMode
+      ? 'OBSERVADOR'
+      : 'LIVRE';
+
+    return {
+      title: `${schoolName} • ${currentYear}`,
+      schoolName,
+      year: currentYear,
+      division: divisionName,
+      month: periodName,
+      summary: `${schoolName} (${divisionName}) • Temporada ${currentYear} [${periodName}]`
+    };
+  }, [schools, userSchoolId, isSpectatorMode, currentYear, currentSeasonMonth]);
+
+  // Persistência síncrona de fallback no localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(currentGameState));
+      } catch (err) {
+        console.warn('[LocalStorage warning]', err);
+      }
+    }
+  }, [currentGameState]);
+
+  // Persistência assíncrona automática no slot 'autosave' do Dexie.js (IndexedDB)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      saveManager.saveToSlot('autosave', currentGameState, {
+        ...currentSaveMetadata,
+        title: `Auto-save: ${currentSaveMetadata.title}`,
+        summary: `Salvamento automático: ${currentSaveMetadata.summary}`
+      }).catch((err) => {
+        console.warn('[Auto-save IndexedDB warning]', err);
+      });
+    }, 2500);
+
+    return () => clearTimeout(timer);
+  }, [currentGameState, currentSaveMetadata]);
+
+  // Manipulador de carregamento seguro de save (IndexedDB ou Importação JSON)
+  const handleLoadGameFromSave = useCallback((loadedState: any) => {
+    if (!loadedState || typeof loadedState !== 'object') {
+      showToast('Erro: dados de save inválidos ou corrompidos.', 'alert');
+      return;
+    }
+
+    try {
+      if (Array.isArray(loadedState.schools) && loadedState.schools.length > 0) {
+        setSchools(sanitizeSchoolsData(loadedState.schools));
+      }
+      if (typeof loadedState.currentYear === 'number') {
+        setCurrentYear(loadedState.currentYear);
+      }
+      setUserSchoolId(loadedState.userSchoolId ?? null);
+      setIsSpectatorMode(Boolean(loadedState.isSpectatorMode));
+      if (loadedState.managerName) {
+        setManagerName(loadedState.managerName);
+      }
+      if (Array.isArray(loadedState.history)) {
+        setHistory(sanitizeHistoryData(loadedState.history));
+      }
+      if (Array.isArray(loadedState.completedParadeSchoolIds)) {
+        setCompletedParadeSchoolIds(loadedState.completedParadeSchoolIds);
+      }
+      if (Array.isArray(loadedState.especialScores)) setEspecialScores(loadedState.especialScores);
+      if (Array.isArray(loadedState.ouroScores)) setOuroScores(loadedState.ouroScores);
+      if (Array.isArray(loadedState.prataScores)) setPrataScores(loadedState.prataScores);
+      if (Array.isArray(loadedState.bronzeScores)) setBronzeScores(loadedState.bronzeScores);
+      if (Array.isArray(loadedState.avaliacaoScores)) setAvaliacaoScores(loadedState.avaliacaoScores);
+      if (typeof loadedState.hasParadeResults === 'boolean') setHasParadeResults(loadedState.hasParadeResults);
+      if (loadedState.divisionStates) setDivisionStates(loadedState.divisionStates);
+      if (loadedState.campeasParadeResults) setCampeasParadeResults(loadedState.campeasParadeResults);
+      if (loadedState.sorteio) setSorteio(loadedState.sorteio);
+      if (loadedState.quesitosDraw) setQuesitosDraw(loadedState.quesitosDraw);
+      if (loadedState.currentSeasonMonth) setCurrentSeasonMonth(loadedState.currentSeasonMonth);
+
+      setIsGameStarted(true);
+      showToast('Save carregado com sucesso via IndexedDB!', 'success');
+      soundService.playLevelUp();
+    } catch (err: any) {
+      console.error('Falha ao restaurar save:', err);
+      showToast(`Falha ao restaurar save: ${err.message || 'Erro de leitura'}`, 'alert');
+    }
+  }, [showToast]);
 
   const handleFinishParade = useCallback(() => {
     showToast('Desfile oficial concluído! As notas dos 36 jurados foram seladas!', 'success');
@@ -1577,6 +1669,7 @@ export default function App() {
         onOpenLiesaRanking={() => setIsLiesaModalOpen(true)}
         onOpenNewsPortal={() => setIsNewsModalOpen(true)}
         onOpenTransferHistory={() => setIsTransferHistoryModalOpen(true)}
+        onOpenSaveModal={() => setIsSaveModalOpen(true)}
       />
 
       {/* Main Workspace */}
@@ -1958,6 +2051,15 @@ export default function App() {
         allSchools={schools}
         inGameTransfers={TransferMarketService.getTransferHistory()}
         currentYear={currentYear}
+      />
+
+      {/* Gerenciador de Saves Dexie.js (IndexedDB + Slots + JSON Import/Export) */}
+      <SaveGameModal
+        isOpen={isSaveModalOpen}
+        onClose={() => setIsSaveModalOpen(false)}
+        currentGameState={currentGameState}
+        currentMetadata={currentSaveMetadata}
+        onLoadGame={handleLoadGameFromSave}
       />
     </div>
   );
