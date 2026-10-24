@@ -1458,7 +1458,33 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     uniao_de_sampaio: 'Sampaio Histórico',
     tijuca: 'Festa Tradicional',
     unidos_do_salgueiro: 'Vida no Morro',
+    unidos_do_tuiuti: 'Tradições do Tuiuti',
     tuiuti: 'Tradições do Tuiuti',
+    vai_se_quiser: 'Vozes da Colina'
+  },
+  1942: {
+    portela: 'A Vida do Samba',
+    depois_eu_digo: 'Glórias da Pátria',
+    mangueira: 'No Terreiro de Mangueira',
+    paz_e_amor: 'Paz e Harmonia',
+    deixa_malhar: 'Malandros da Tijuca',
+    unidos_do_salgueiro: 'Origens do Salgueiro',
+    papagaio_linguarudo: 'Cantando e Falando no Terreiro',
+    cada_ano_sai_melhor: 'Tradições Cariocas',
+    azul_e_branco_salgueiro: 'Páginas do Samba',
+    fiquei_firme: 'Firmeza no Compasso',
+    uniao_de_sampaio: 'Exaltação ao Sampaio',
+    unidos_do_tuiuti: 'Tradições do Morro do Tuiuti',
+    nao_e_o_que_dizem: 'A Verdade do Samba',
+    mocidade_de_um_paraiso: 'Paraíso de Encantos',
+    tijuca: 'Guanabara Tradicional',
+    prazer_da_serrinha: 'Vozes da Serrinha',
+    mocidade_louca_sao_cristovao: 'Loucuras do Samba de São Cristóvão',
+    unidos_de_riachuelo: 'Riachuelo em Festa',
+    paraiso_de_anchieta: 'Anchieta em Folia',
+    uniao_de_colegio: 'União da Colina de Colégio',
+    paraiso_do_grotao: 'Primavera Carioca',
+    flor_da_infancia_bras_de_pina: 'Infância e Poesia',
     vai_se_quiser: 'Vozes da Colina'
   }
 };
@@ -1469,6 +1495,7 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
 function normalizeId(rawId?: string, rawName?: string): string {
   if (rawId && rawId.trim()) {
     const id = rawId.trim().toLowerCase();
+    if (id.includes('unidos_do_tuiuti')) return 'unidos_do_tuiuti';
     if (id.includes('recreio_de_sao_carlos')) return 'recreio_de_sao_carlos';
     if (id.includes('estacio') || id.includes('sao_carlos')) return 'estacio_de_sa';
     if (id.includes('padre_miguel') && id.includes('unidos')) return 'unidos_padre_miguel';
@@ -1487,6 +1514,7 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('mangueira')) return 'mangueira';
   if (n.includes('tijuca') && !n.includes('império')) return 'tijuca';
   if (n.includes('grande rio')) return 'grande_rio';
+  if (n.includes('unidos do tuiuti')) return 'unidos_do_tuiuti';
   if (n.includes('tuiuti')) return 'tuiuti';
   if (n.includes('portela')) return 'portela';
   if (n.includes('mocidade')) return 'mocidade';
@@ -1510,6 +1538,7 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('lucas')) return 'unidos_de_lucas';
   if (n.includes('lins')) return 'lins_imperial';
   if (n.includes('cima da hora')) return 'em_cima_da_hora';
+  if (n.includes('flor da infância') || n.includes('flor da infancia')) return 'flor_da_infancia_bras_de_pina';
   if (n.includes('unidos de brás de pina') || n.includes('unidos de bras de pina')) return 'unidos_de_bras_de_pina';
   if (n.includes('união de brás de pina') || n.includes('uniao de bras de pina')) return 'uniao_de_bras_de_pina';
   if (n.includes('tupy') || n.includes('brás de pina') || n.includes('bras de pina')) return 'tupy_bras_de_pina';
@@ -1518,6 +1547,10 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('cachambi')) return 'mocidade_de_cachambi';
   if (n.includes('inimigos da tristeza') || n.includes('tristeza')) return 'inimigos_da_tristeza';
   if (n.includes('castelo')) return 'unidos_do_castelo';
+  if (n.includes('papagaio')) return 'papagaio_linguarudo';
+  if (n.includes('anchieta')) return 'paraiso_de_anchieta';
+  if (n.includes('colégio') || n.includes('colegio')) return 'uniao_de_colegio';
+  if (n.includes('deixa malhar')) return 'deixa_malhar';
   return '';
 }
 

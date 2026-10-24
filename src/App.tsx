@@ -198,7 +198,12 @@ const INITIAL_INACTIVE_SCHOOL_IDS = new Set([
   'cenaculo_do_samba',
   'aprendizes_de_copacabana',
   'academicos_da_gavea',
-  'deixa_malhar'
+  'deixa_malhar',
+  'papagaio_linguarudo',
+  'unidos_do_tuiuti',
+  'paraiso_de_anchieta',
+  'uniao_de_colegio',
+  'flor_da_infancia_bras_de_pina'
 ]);
 
 function sanitizeSchoolsData(loadedSchools: School[]): School[] {

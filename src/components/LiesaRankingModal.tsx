@@ -263,7 +263,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
               }`}
             >
               <History className="w-3.5 h-3.5" />
-              <span>Ranking Histórico da LIESA (1943 a {currentYear || 2026})</span>
+              <span>Ranking Histórico da LIESA (1942 a {currentYear || 2026})</span>
             </button>
           </div>
 
