@@ -1381,6 +1381,35 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     uniao_vaz_lobo: 'Canto a Vaz Lobo',
     unidos_do_castelo: 'Memórias do Morro do Castelo',
     unidos_da_lagoa: 'Águas de Guanabara'
+  },
+  1947: {
+    portela: 'Honra ao Mérito (Glória à Justiça Real)',
+    mangueira: 'Brasil, Reino Unido de Portugal, Brasil e Algarves',
+    depois_eu_digo: 'Vultos Históricos da Pátria',
+    paz_e_amor: 'Glórias da Pátria',
+    azul_e_branco_salgueiro: 'Reminiscências do Passado',
+    lira_do_amor: 'Epopéia da Música e do Amor',
+    prazer_da_serrinha: 'Inconfidência Mineira',
+    unidos_da_capela: 'Exaltação à Pátria',
+    tijuca: 'Homenagem aos Santos',
+    paraiso_das_morenas: 'Lendas e Folclore',
+    filhos_do_deserto: 'Deserto em Flor',
+    cada_ano_sai_melhor: 'Festa Tradicional Carioca',
+    vila_isabel: 'Homenagem a Noel Rosa',
+    cabucu: 'Bandeirantes Paulistas',
+    unidos_do_salgueiro: 'Vida no Morro do Salgueiro',
+    recreio_de_inhauma: 'Lembranças do Subúrbio',
+    unidos_do_catete: 'Memórias da Zona Sul (Catete Velho)',
+    recreio_de_sao_carlos: 'Canto ao Berço do Samba',
+    paraiso_do_grotao: 'Primavera Carioca',
+    escalao_de_tupa: 'Tributo ao Deus do Trovão',
+    flor_do_lins: 'Flores de Madureira',
+    unidos_de_terra_nova: 'Saudação ao Progresso',
+    cenaculo_do_samba: 'Cálice da Poesia Sambista',
+    unidos_do_morro_azul: 'Luar no Morro Azul',
+    fiquei_firme: 'Firmeza no Compasso',
+    aprendizes_de_copacabana: 'Princesinha do Mar',
+    academicos_da_gavea: 'Pedra da Gávea e Seus Mistérios'
   }
 };
 

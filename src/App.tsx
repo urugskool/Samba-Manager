@@ -173,7 +173,31 @@ const INITIAL_INACTIVE_SCHOOL_IDS = new Set([
   'unidos_de_cavalcante',
   'mocidade_de_cachambi',
   'inimigos_da_tristeza',
-  'unidos_do_castelo'
+  'unidos_do_castelo',
+  'grbc_birita_mas_nao_cai',
+  'ccbc_vai_barrar_nunca',
+  'grbc_uniao_da_ponte',
+  'gres_renascer_de_vaz_lobo',
+  'grbc_imperio_do_gramacho',
+  'gres_unidos_dos_bandeirantes',
+  'grbc_bloco_do_barriga',
+  'grbc_novo_horizonte',
+  'grbc_cometas_do_bispo',
+  'grbc_unidos_do_alto_da_boa_vista',
+  'gres_independente_de_nova_america',
+  'bccr_raizes_da_tijuca',
+  'grbcc_resistentes_da_lapa',
+  'grbc_amigos_de_tingua',
+  'grbc_mocidade_unida_da_mineira',
+  'grbc_bloco_do_china',
+  'grbc_diamante',
+  'grbc_quilombo_da_baixada',
+  'lira_do_amor',
+  'unidos_do_catete',
+  'escalao_de_tupa',
+  'cenaculo_do_samba',
+  'aprendizes_de_copacabana',
+  'academicos_da_gavea'
 ]);
 
 function sanitizeSchoolsData(loadedSchools: School[]): School[] {
@@ -233,7 +257,12 @@ function sanitizeSchoolsData(loadedSchools: School[]): School[] {
             symbol: initialSchool.symbol,
             mascot: initialSchool.mascot,
             neighborhood: initialSchool.neighborhood,
-            city: initialSchool.city
+            city: initialSchool.city,
+            isBlocoCarnavalesco: initialSchool.isBlocoCarnavalesco,
+            blocoOriginalDenomination: initialSchool.blocoOriginalDenomination,
+            federation: initialSchool.federation,
+            paradeVenue: initialSchool.paradeVenue,
+            suspensionReason: initialSchool.suspensionReason
           }
         : {}),
       isInactive,
@@ -1091,12 +1120,42 @@ export default function App() {
   ]);
 
   const handleReactivateSchool = useCallback((schoolId: string) => {
+    let wasBloco = false;
+    let schoolConvertedName = '';
+
     setSchools((prev) =>
       prev.map((s) => {
         if (s.id === schoolId) {
           const novoEnredo = gerarEnredoAleatorio();
+          wasBloco = Boolean(s.isBlocoCarnavalesco || s.federation === 'FBCERJ' || (s.denomination && s.denomination !== 'G.R.E.S.'));
+          schoolConvertedName = s.name;
+
+          let newDenomination = s.denomination || 'G.R.E.S.';
+          let newCorporateName = s.corporateName || s.name;
+
+          // Ao se tornarem escolas de samba, mudam sua denominação para G.R.E.S.
+          // e ajustam a razão social trocando Bloco Carnavalesco por Escola de Samba
+          if (wasBloco) {
+            newDenomination = 'G.R.E.S.';
+            newCorporateName = newCorporateName
+              .replace(/Grêmio Recreativo Bloco Carnavalesco e Cultural/gi, 'Grêmio Recreativo Escola de Samba')
+              .replace(/Grêmio Recreativo Bloco Carnavalesco/gi, 'Grêmio Recreativo Escola de Samba')
+              .replace(/Centro Cultural Bloco Carnavalesco/gi, 'Grêmio Recreativo Escola de Samba')
+              .replace(/Bloco Carnavalesco Cultural e Recreativo/gi, 'Grêmio Recreativo Escola de Samba')
+              .replace(/^GRBCC\s+/gi, 'GRES ')
+              .replace(/^GRBC\s+/gi, 'GRES ')
+              .replace(/^CCBC\s+/gi, 'GRES ')
+              .replace(/^BCCR\s+/gi, 'GRES ');
+
+            if (!newCorporateName.startsWith('GRES') && !newCorporateName.startsWith('Grêmio Recreativo Escola de Samba')) {
+              newCorporateName = `Grêmio Recreativo Escola de Samba ${s.name}`;
+            }
+          }
+
           return {
             ...s,
+            denomination: newDenomination,
+            corporateName: newCorporateName,
             isInactive: false,
             inactive: false,
             division: 'avaliacao',
@@ -1117,7 +1176,12 @@ export default function App() {
         return s;
       })
     );
-    showToast('Agremiação reativada com sucesso! Agora disputa o Grupo de Avaliação pela Superliga com novo enredo.', 'success');
+
+    if (wasBloco) {
+      showToast(`${schoolConvertedName} agora é oficialmente uma Escola de Samba (G.R.E.S.) e disputa o Grupo de Avaliação pela Superliga!`, 'success');
+    } else {
+      showToast('Agremiação reativada com sucesso! Agora disputa o Grupo de Avaliação pela Superliga com novo enredo.', 'success');
+    }
   }, [showToast]);
 
   const totalSchoolsCount = activeSchools.length;

@@ -306,6 +306,10 @@ export interface School {
   inactiveSince?: number | string;
   inactiveReason?: string;
   suspensionReason?: string;
+  isBlocoCarnavalesco?: boolean;
+  blocoOriginalDenomination?: string;
+  federation?: 'FBCERJ' | 'LIESA' | 'LigaRJ' | 'Superliga' | 'LIVRES' | string;
+  paradeVenue?: string;
   honors: SchoolHonors;
   attributes: SchoolAttributes;
   staff: {

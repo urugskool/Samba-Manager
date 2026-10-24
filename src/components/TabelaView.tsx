@@ -41,6 +41,15 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
   const [selectedDivision, setSelectedDivision] = useState<DivisionId | 'inativas'>('especial');
   const [activeTab, setActiveTab] = useState<'current' | 'history'>('current');
   const [expandedSchoolId, setExpandedSchoolId] = useState<string | null>(null);
+  const [inactiveFilter, setInactiveFilter] = useState<'todas' | 'tradicionais' | 'blocos'>('todas');
+
+  const fbcerjBlocos = useMemo(() => {
+    return inactiveSchools.filter((s) => s.isBlocoCarnavalesco || s.federation === 'FBCERJ');
+  }, [inactiveSchools]);
+
+  const tradicionaisInactive = useMemo(() => {
+    return inactiveSchools.filter((s) => !s.isBlocoCarnavalesco && s.federation !== 'FBCERJ');
+  }, [inactiveSchools]);
 
   const allSchools = useMemo(() => {
     return [
@@ -234,6 +243,10 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
       ? bronzeSchools
       : selectedDivision === 'avaliacao'
       ? avaliacaoSchools
+      : inactiveFilter === 'blocos'
+      ? fbcerjBlocos
+      : inactiveFilter === 'tradicionais'
+      ? tradicionaisInactive
       : inactiveSchools;
 
   // Sort schools in order according to the result of the last carnival (and inativas alphabetically)
@@ -398,6 +411,51 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
               </button>
             </div>
 
+            {/* Subtópico / Filtro Exclusivo de Inativas e Blocos Carnavalescos */}
+            {selectedDivision === 'inativas' && (
+              <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-800/80">
+                <span className="text-[10px] font-black uppercase text-slate-400 px-1">
+                  Subtópicos:
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setInactiveFilter('todas')}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
+                    inactiveFilter === 'todas'
+                      ? 'bg-slate-700 text-white font-black ring-1 ring-slate-500'
+                      : 'text-slate-400 hover:text-white bg-slate-950 border border-slate-800'
+                  }`}
+                >
+                  Todas ({inactiveSchools.length})
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setInactiveFilter('tradicionais')}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
+                    inactiveFilter === 'tradicionais'
+                      ? 'bg-slate-700 text-white font-black ring-1 ring-slate-500'
+                      : 'text-slate-400 hover:text-white bg-slate-950 border border-slate-800'
+                  }`}
+                >
+                  Escolas Tradicionais / Afastadas ({tradicionaisInactive.length})
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setInactiveFilter('blocos')}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                    inactiveFilter === 'blocos'
+                      ? 'bg-amber-600 text-white font-black shadow ring-1 ring-amber-400'
+                      : 'text-amber-400 hover:text-amber-300 bg-amber-500/10 border border-amber-500/30'
+                  }`}
+                >
+                  <span>Blocos Carnavalescos (FBCERJ)</span>
+                  <span className="text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-300">
+                    {fbcerjBlocos.length}
+                  </span>
+                </button>
+              </div>
+            )}
+
             {/* League Administration Information Banner */}
             <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-xs text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
@@ -418,7 +476,15 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                 )}
                 {selectedDivision === 'inativas' && (
                   <span>
-                    <strong className="text-slate-300">Histórico do Carnaval</strong> • Agremiações temporariamente inativas ou afastadas com direito de retorno através da Superliga.
+                    {inactiveFilter === 'blocos' ? (
+                      <>
+                        <strong className="text-amber-400">Federação dos Blocos Carnavalescos do Estado do Rio de Janeiro (FBCERJ)</strong> • Agremiações que desfilam na Avenida Rio Branco e na Intendente Magalhães. Historicamente, blocos carnavalescos se tornam escolas de samba. Você pode transformar qualquer bloco em Escola de Samba (G.R.E.S.) para disputar o Grupo de Avaliação pela Superliga!
+                      </>
+                    ) : (
+                      <>
+                        <strong className="text-slate-300">Histórico do Carnaval</strong> • Agremiações temporariamente inativas ou afastadas com direito de retorno através da Superliga.
+                      </>
+                    )}
                   </span>
                 )}
               </div>
@@ -488,6 +554,11 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                           {isUser && (
                             <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-amber-500 text-slate-950">
                               Sua Escola
+                            </span>
+                          )}
+                          {(school.isBlocoCarnavalesco || school.federation === 'FBCERJ') && (
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                              FBCERJ • {school.isBlocoCarnavalesco ? 'Bloco' : 'Escola'}
                             </span>
                           )}
                         </div>
@@ -795,7 +866,15 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                       {(school.isInactive || (school as any).inactive) && onReactivateSchool && (
                         <div className="pt-2.5 mt-2 border-t border-slate-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5">
                           <div className="text-[11px] text-slate-300">
-                            Ficha oficial preservada na LIGA / Superliga com direito estatutário de retorno às disputas.
+                            {school.isBlocoCarnavalesco || school.federation === 'FBCERJ' ? (
+                              <span>
+                                <strong className="text-amber-300">FBCERJ</strong> • Desfile na Avenida Rio Branco e Intendente Magalhães. Ao ingressar na Superliga para disputar Avaliação, sua denominação será convertida estatutariamente para <strong className="text-white">Escola de Samba (G.R.E.S.)</strong>.
+                              </span>
+                            ) : (
+                              <span>
+                                Ficha oficial preservada na LIGA / Superliga com direito estatutário de retorno às disputas.
+                              </span>
+                            )}
                           </div>
                           <button
                             type="button"
@@ -803,10 +882,18 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                               e.stopPropagation();
                               onReactivateSchool(school.id);
                             }}
-                            className="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 transition cursor-pointer shadow-md shrink-0"
+                            className={`px-3.5 py-1.5 rounded-lg text-white font-bold text-xs flex items-center gap-1.5 transition cursor-pointer shadow-md shrink-0 ${
+                              school.isBlocoCarnavalesco
+                                ? 'bg-amber-600 hover:bg-amber-500'
+                                : 'bg-emerald-600 hover:bg-emerald-500'
+                            }`}
                           >
                             <RefreshCw className="w-3.5 h-3.5" />
-                            <span>Reativar Agremiação para Avaliação</span>
+                            <span>
+                              {school.isBlocoCarnavalesco
+                                ? 'Transformar em Escola de Samba & Disputar Avaliação'
+                                : 'Reativar Agremiação para Avaliação'}
+                            </span>
                           </button>
                         </div>
                       )}
