@@ -1410,6 +1410,27 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     fiquei_firme: 'Firmeza no Compasso',
     aprendizes_de_copacabana: 'Princesinha do Mar',
     academicos_da_gavea: 'Pedra da Gávea e Seus Mistérios'
+  },
+  1946: {
+    portela: 'Aljezur (Voando Para o Passado)',
+    mangueira: 'Carnaval',
+    depois_eu_digo: 'Glórias do Passado',
+    imperio_da_tijuca: 'Homenagem aos Heróis de Laguna',
+    azul_e_branco_salgueiro: 'Reminiscências Cariocas',
+    paz_e_amor: 'Glórias da Pátria',
+    lira_do_amor: 'Amor à Terra',
+    tijuca: 'Anchieta',
+    unidos_da_capela: 'Noites Cariocas',
+    filhos_do_deserto: 'Deserto e Amor',
+    prazer_da_serrinha: 'Castro Alves',
+    unidos_do_salgueiro: 'História do Morro',
+    coracoes_unidos_jacarepagua: 'Brasil de Ontem e de Hoje',
+    nao_e_o_que_dizem: 'A Verdade do Samba',
+    vai_se_quiser: 'Vozes da Colina',
+    cada_ano_sai_melhor: 'Tradições Cariocas',
+    uniao_primeira: 'União e Samba',
+    fiquei_firme: 'Firmeza no Compasso',
+    mocidade_louca_sao_cristovao: 'Loucuras do Samba de São Cristóvão'
   }
 };
 

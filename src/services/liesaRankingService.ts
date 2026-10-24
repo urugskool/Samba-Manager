@@ -80,6 +80,33 @@ export const CARNAVAL_1984_SUPERCAMPEONATO: LiesaStandingRecord[] = [
 ];
 
 /**
+ * Resultados específicos do desfile competitivo do Carnaval de 1946:
+ * Desfile oficial unificado das Escolas de Samba com 19 agremiações participantes.
+ * Portela consagrada campeã e Estação Primeira de Mangueira vice-campeã.
+ */
+export const CARNAVAL_1946_OFICIAL: LiesaStandingRecord[] = [
+  { rank: 1, schoolId: 'portela', schoolName: 'Portela', league: 'FBES', statusDescription: 'Campeã Oficial (+20 pts)' },
+  { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', league: 'FBES', statusDescription: 'Vice-Campeã Oficial (+15 pts)' },
+  { rank: 3, schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo', league: 'FBES', statusDescription: '3º Lugar (+12 pts)' },
+  { rank: 4, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', league: 'FBES', statusDescription: '4º Lugar (+10 pts)' },
+  { rank: 5, schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro', league: 'FBES', statusDescription: '5º Lugar (+8 pts)' },
+  { rank: 6, schoolId: 'paz_e_amor', schoolName: 'Paz e Amor', league: 'FBES', statusDescription: '6º Lugar (+6 pts)' },
+  { rank: 7, schoolId: 'lira_do_amor', schoolName: 'Lira do Amor', league: 'FBES', statusDescription: '7º Lugar (+4 pts)' },
+  { rank: 8, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', league: 'FBES', statusDescription: '8º Lugar (+3 pts)' },
+  { rank: 9, schoolId: 'unidos_da_capela', schoolName: 'Unidos da Capela', league: 'FBES', statusDescription: '9º Lugar (+2 pts)' },
+  { rank: 10, schoolId: 'filhos_do_deserto', schoolName: 'Filhos do Deserto', league: 'FBES', statusDescription: '10º Lugar (+1 pt)' },
+  { rank: 11, schoolId: 'prazer_da_serrinha', schoolName: 'Prazer da Serrinha', league: 'FBES', statusDescription: '11º Lugar (0 pts)' },
+  { rank: 12, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', league: 'FBES', statusDescription: '12º Lugar (0 pts)' },
+  { rank: 13, schoolId: 'coracoes_unidos_jacarepagua', schoolName: 'Corações Unidos de Jacarepaguá', league: 'FBES', statusDescription: '13º Lugar (0 pts)' },
+  { rank: 14, schoolId: 'nao_e_o_que_dizem', schoolName: 'Não é o Que Dizem', league: 'FBES', statusDescription: '14º Lugar (0 pts)' },
+  { rank: 15, schoolId: 'vai_se_quiser', schoolName: 'Vai Se Quiser', league: 'FBES', statusDescription: '15º Lugar (0 pts)' },
+  { rank: 16, schoolId: 'cada_ano_sai_melhor', schoolName: 'Cada Ano Sai Melhor', league: 'FBES', statusDescription: '16º Lugar (0 pts)' },
+  { rank: 17, schoolId: 'uniao_primeira', schoolName: 'União Primeira', league: 'FBES', statusDescription: '17º Lugar (0 pts)' },
+  { rank: 18, schoolId: 'fiquei_firme', schoolName: 'Fiquei Firme', league: 'FBES', statusDescription: '18º Lugar (0 pts)' },
+  { rank: 19, schoolId: 'mocidade_louca_sao_cristovao', schoolName: 'Mocidade Louca de São Cristóvão', league: 'FBES', statusDescription: '19º Lugar (0 pts)' }
+];
+
+/**
  * Resultados específicos do desfile competitivo do Carnaval de 1947:
  * Desfile oficial unificado das Escolas de Samba com 26 agremiações participantes.
  * Portela consagrada campeã e Estação Primeira de Mangueira vice-campeã.
@@ -427,6 +454,10 @@ export const CARNAVAL_1951_UGESB: LiesaStandingRecord[] = [
  *   - FBES: Império Serrano campeã e Azul e Branco do Salgueiro vice.
  *   - UGESB: Estação Primeira de Mangueira campeã e Portela vice.
  *   Não houve rebaixamento.
+ * Carnaval 1946: Desfile competitivo oficial unificado das Escolas de Samba:
+ *   - Campeã: Portela (hexacampeã com "Aljezur")
+ *   - Vice-campeã: Estação Primeira de Mangueira (com "Carnaval")
+ *   Não houve rebaixamento.
  * Carnaval 1947: Desfile competitivo oficial unificado das Escolas de Samba:
  *   - Campeã: Portela (heptacampeã com "Honra ao Mérito" / "Glória à Justiça Real")
  *   - Vice-campeã: Estação Primeira de Mangueira (com "Brasil, Reino Unido")
@@ -437,6 +468,7 @@ export const CARNAVAL_1951_UGESB: LiesaStandingRecord[] = [
  *   Não houve rebaixamento.
  */
 export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRecord[]> = {
+  1946: CARNAVAL_1946_OFICIAL,
   1947: CARNAVAL_1947_OFICIAL,
   1948: CARNAVAL_1948_FBES,
   1949: [
@@ -2071,6 +2103,7 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('cenáculo do samba') || nameNorm.includes('cenaculo do samba')) return 'cenaculo_do_samba';
   if (nameNorm.includes('aprendizes de copacabana')) return 'aprendizes_de_copacabana';
   if (nameNorm.includes('acadêmicos da gávea') || nameNorm.includes('academicos da gavea')) return 'academicos_da_gavea';
+  if (nameNorm.includes('mocidade louca')) return 'mocidade_louca_sao_cristovao';
   return nameNorm.replace(/[^a-z0-9]/g, '_');
 }
 
@@ -2118,7 +2151,7 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     1974, 1973, 1972, 1971, 1970,
     1969, 1968, 1967, 1966, 1965,
     1964, 1963, 1962, 1961, 1960,
-    1959, 1958, 1957, 1956, 1955, 1954, 1953, 1952, 1951, 1950, 1949, 1948, 1947
+    1959, 1958, 1957, 1956, 1955, 1954, 1953, 1952, 1951, 1950, 1949, 1948, 1947, 1946
   ];
   officialYears.forEach((yr) => {
     const stands = OFFICIAL_LIESA_HISTORICAL_STANDINGS[yr] || [];
@@ -2297,6 +2330,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
       notes = 'Carnaval Histórico de 1948: Desfile competitivo oficial unificado organizado pela Federação Brasileira de Escolas de Samba (FBES) com 35 agremiações participantes. O Império Serrano sagrou-se campeão com "Homenagem a Antônio Castro Alves" (+20 pts) e a Unidos da Tijuca foi a vice-campeã com "Assinatura da Lei Áurea" (+15 pts). A Portela alcançou a 3ª colocação (+12 pts) e a Estação Primeira de Mangueira a 4ª colocação (+10 pts). Não houve rebaixamento.';
     } else if (yr === 1947) {
       notes = 'Carnaval Histórico de 1947: Desfile oficial unificado das Escolas de Samba com 26 agremiações participantes. A Portela sagrou-se campeã (+20 pts) e a Estação Primeira de Mangueira foi vice-campeã (+15 pts). Depois Eu Digo ficou com a 3ª colocação (+12 pts), Paz e Amor em 4º (+10 pts), Azul e Branco do Salgueiro em 5º (+8 pts), e Lira do Amor empatada com Prazer da Serrinha em 6º (+6 pts cada). Não houve rebaixamento.';
+    } else if (yr === 1946) {
+      notes = 'Carnaval Histórico de 1946: Desfile oficial unificado das Escolas de Samba com 19 agremiações participantes. A Portela sagrou-se campeã (+20 pts) com "Aljezur", e a Estação Primeira de Mangueira foi vice-campeã (+15 pts) com "Carnaval". Depois Eu Digo alcançou a 3ª colocação (+12 pts), Império da Tijuca em 4º (+10 pts), Azul e Branco do Salgueiro em 5º (+8 pts), Paz e Amor em 6º (+6 pts), Lira do Amor em 7º (+4 pts), Unidos da Tijuca em 8º (+3 pts), Unidos da Capela em 9º (+2 pts) e Filhos do Deserto em 10º (+1 pt). Não houve rebaixamento.';
     }
 
     result.push({
@@ -2320,6 +2355,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
         ? ['Império Serrano (Campeã FBES)']
         : yr === 1947
         ? ['Portela (Campeã Oficial)']
+        : yr === 1946
+        ? ['Portela (Campeã Oficial)']
         : champs,
       viceChampionNames: yr === 1984
         ? ['Portela (Supervice)', 'Mocidade Independente (Vice Segunda)', 'Império Serrano (Vice Domingo)']
@@ -2336,6 +2373,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
         : yr === 1948
         ? ['Unidos da Tijuca (Vice FBES)']
         : yr === 1947
+        ? ['Estação Primeira de Mangueira (Vice-campeã Oficial)']
+        : yr === 1946
         ? ['Estação Primeira de Mangueira (Vice-campeã Oficial)']
         : vices,
       totalSchools: stands.length,
@@ -2357,6 +2396,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
         fbes: CARNAVAL_1948_FBES
       } : yr === 1947 ? {
         fbes: CARNAVAL_1947_OFICIAL
+      } : yr === 1946 ? {
+        fbes: CARNAVAL_1946_OFICIAL
       } : undefined
     });
   });
@@ -2588,19 +2629,19 @@ export function computeHistoricalLiesaRanking(
     return historicalMap[sId];
   };
 
-  // 1. Processa todos os títulos e vices históricos da era pré-1947 a partir de HISTORICAL_CARNAVAL_RECORDS
-  // A partir de 1947 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA/AESCRJ/FBES/UCES/UGESB
+  // 1. Processa todos os títulos e vices históricos da era pré-1946 a partir de HISTORICAL_CARNAVAL_RECORDS
+  // A partir de 1946 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA/AESCRJ/FBES/UCES/UGESB
   Object.entries(HISTORICAL_CARNAVAL_RECORDS).forEach(([id, rec]) => {
     const sId = resolveSchoolId(id, undefined, schoolsMap);
     const entry = ensureEntry(sId);
 
-    const espYearsPre1947 = (rec.especialYears || []).filter((y) => y < 1947);
-    const espViceYearsPre1947 = (rec.especialRunnerUpYears || []).filter((y) => y < 1947);
+    const espYearsPre1946 = (rec.especialYears || []).filter((y) => y < 1946);
+    const espViceYearsPre1946 = (rec.especialRunnerUpYears || []).filter((y) => y < 1946);
 
-    const titlesPre1947 = espYearsPre1947.length;
-    const vicesPre1947 = espViceYearsPre1947.length;
+    const titlesPre1946 = espYearsPre1946.length;
+    const vicesPre1946 = espViceYearsPre1946.length;
 
-    espYearsPre1947.forEach((y) => {
+    espYearsPre1946.forEach((y) => {
       entry.participationsSet.add(y);
       entry.performancesDetailed[y] = {
         year: y,
@@ -2612,7 +2653,7 @@ export function computeHistoricalLiesaRanking(
       };
     });
 
-    espViceYearsPre1947.forEach((y) => {
+    espViceYearsPre1946.forEach((y) => {
       entry.participationsSet.add(y);
       entry.performancesDetailed[y] = {
         year: y,
@@ -2624,16 +2665,16 @@ export function computeHistoricalLiesaRanking(
       };
     });
 
-    entry.totalEspecialTitles += titlesPre1947;
-    entry.totalEspecialVices += vicesPre1947;
-    entry.titlePoints += titlesPre1947 * 20;
-    entry.vicePoints += vicesPre1947 * 15;
-    entry.pointsEraPre2015 += titlesPre1947 * 20 + vicesPre1947 * 15;
-    entry.totalPoints += titlesPre1947 * 20 + vicesPre1947 * 15;
-    entry.totalCarnavalesContados += titlesPre1947 + vicesPre1947;
+    entry.totalEspecialTitles += titlesPre1946;
+    entry.totalEspecialVices += vicesPre1946;
+    entry.titlePoints += titlesPre1946 * 20;
+    entry.vicePoints += vicesPre1946 * 15;
+    entry.pointsEraPre2015 += titlesPre1946 * 20 + vicesPre1946 * 15;
+    entry.totalPoints += titlesPre1946 * 20 + vicesPre1946 * 15;
+    entry.totalCarnavalesContados += titlesPre1946 + vicesPre1946;
   });
 
-  // 2. Processa anos de 1947 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
+  // 2. Processa anos de 1946 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
   Object.entries(OFFICIAL_LIESA_HISTORICAL_STANDINGS).forEach(([yrStr, list]) => {
     const yr = parseInt(yrStr, 10);
     if (yr === 2021 || yr === 1952 || !list || list.length === 0) {
