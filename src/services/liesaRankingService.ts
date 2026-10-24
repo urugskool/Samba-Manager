@@ -80,6 +80,54 @@ export const CARNAVAL_1984_SUPERCAMPEONATO: LiesaStandingRecord[] = [
 ];
 
 /**
+ * Resultados específicos do desfile competitivo do Carnaval de 1943:
+ * Vinte e duas agremiações participaram. Apenas as 5 primeiras foram classificadas pelo júri oficial.
+ * Portela tricampeã consecutiva e Estação Primeira de Mangueira vice-campeã.
+ */
+export const CARNAVAL_1943_OFICIAL: LiesaStandingRecord[] = [
+  { rank: 1, schoolId: 'portela', schoolName: 'Portela', league: 'FBES', statusDescription: 'Campeã Oficial (+20 pts)' },
+  { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', league: 'FBES', statusDescription: 'Vice-Campeã Oficial (+15 pts)' },
+  { rank: 3, schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro', league: 'FBES', statusDescription: '3º Lugar (+12 pts)' },
+  { rank: 4, schoolId: 'deixa_malhar', schoolName: 'Deixa Malhar', league: 'FBES', statusDescription: '4º Lugar (+10 pts)' },
+  { rank: 5, schoolId: 'coracoes_unidos_jacarepagua', schoolName: 'Corações Unidos de Jacarepaguá', league: 'FBES', statusDescription: '5º Lugar (+8 pts)' },
+  // Agremiações participantes não classificadas (0 pts)
+  { rank: 6, schoolId: 'cada_ano_sai_melhor', schoolName: 'Cada Ano Sai Melhor', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou (Não classificada • 0 pts)' },
+  { rank: 6, schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou (Não classificada • 0 pts)' },
+  { rank: 6, schoolId: 'fiquei_firme', schoolName: 'Fiquei Firme', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou (Não classificada • 0 pts)' },
+  { rank: 6, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou (Não classificada • 0 pts)' },
+  { rank: 6, schoolId: 'lira_do_amor', schoolName: 'Lira do Amor', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou (Não classificada • 0 pts)' },
+  { rank: 6, schoolId: 'mocidade_louca_sao_cristovao', schoolName: 'Mocidade Louca de São Cristóvão', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou (Não classificada • 0 pts)' },
+  { rank: 6, schoolId: 'nao_e_o_que_dizem', schoolName: 'Não É o Que Dizem', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou (Não classificada • 0 pts)' },
+  { rank: 6, schoolId: 'paz_e_amor', schoolName: 'Paz e Amor', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou (Não classificada • 0 pts)' },
+  { rank: 6, schoolId: 'prazer_da_serrinha', schoolName: 'Prazer da Serrinha', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou (Não classificada • 0 pts)' },
+  { rank: 6, schoolId: 'uniao_de_sampaio', schoolName: 'União do Sampaio', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou (Não classificada • 0 pts)' },
+  { rank: 6, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou (Não classificada • 0 pts)' },
+  { rank: 6, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou (Não classificada • 0 pts)' },
+  { rank: 6, schoolId: 'tuiuti', schoolName: 'Unidos do Tuiuti', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou (Não classificada • 0 pts)' },
+  { rank: 6, schoolId: 'vai_se_quiser', schoolName: 'Vai Se Quiser', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou (Não classificada • 0 pts)' }
+];
+
+/**
+ * Resultados específicos do desfile competitivo do Carnaval de 1944:
+ * Nove escolas desfilaram no Carnaval Carioca; apenas campeã e vice oficializadas no julgamento.
+ * Portela tetracampeã consecutiva e Estação Primeira de Mangueira vice-campeã.
+ */
+export const CARNAVAL_1944_OFICIAL: LiesaStandingRecord[] = [
+  { rank: 1, schoolId: 'portela', schoolName: 'Portela', league: 'FBES', statusDescription: 'Campeã Oficial (+20 pts)' },
+  { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', league: 'FBES', statusDescription: 'Vice-Campeã Oficial (+15 pts)' }
+];
+
+/**
+ * Resultados específicos do desfile competitivo do Carnaval de 1945:
+ * Oito escolas desfilaram no Carnaval Carioca; apenas campeã e vice oficializadas no julgamento.
+ * Portela pentacampeã consecutiva e Estação Primeira de Mangueira vice-campeã.
+ */
+export const CARNAVAL_1945_OFICIAL: LiesaStandingRecord[] = [
+  { rank: 1, schoolId: 'portela', schoolName: 'Portela', league: 'FBES', statusDescription: 'Campeã Oficial (+20 pts)' },
+  { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', league: 'FBES', statusDescription: 'Vice-Campeã Oficial (+15 pts)' }
+];
+
+/**
  * Resultados específicos do desfile competitivo do Carnaval de 1946:
  * Desfile oficial unificado das Escolas de Samba com 19 agremiações participantes.
  * Portela consagrada campeã e Estação Primeira de Mangueira vice-campeã.
@@ -454,6 +502,18 @@ export const CARNAVAL_1951_UGESB: LiesaStandingRecord[] = [
  *   - FBES: Império Serrano campeã e Azul e Branco do Salgueiro vice.
  *   - UGESB: Estação Primeira de Mangueira campeã e Portela vice.
  *   Não houve rebaixamento.
+ * Carnaval 1943: Desfile competitivo oficial:
+ *   - Campeã: Portela (tricampeã com "Carnaval de Guerra")
+ *   - Vice-campeã: Estação Primeira de Mangueira
+ *   Não houve rebaixamento.
+ * Carnaval 1944: Desfile competitivo oficial:
+ *   - Campeã: Portela (tetracampeã com "Motivos Patrióticos")
+ *   - Vice-campeã: Estação Primeira de Mangueira (com "Glória ao Samba")
+ *   Não houve rebaixamento.
+ * Carnaval 1945: Desfile competitivo oficial:
+ *   - Campeã: Portela (pentacampeã com "Motivos Patrióticos")
+ *   - Vice-campeã: Estação Primeira de Mangueira (com "A Glória do Samba")
+ *   Não houve rebaixamento.
  * Carnaval 1946: Desfile competitivo oficial unificado das Escolas de Samba:
  *   - Campeã: Portela (hexacampeã com "Aljezur")
  *   - Vice-campeã: Estação Primeira de Mangueira (com "Carnaval")
@@ -468,6 +528,9 @@ export const CARNAVAL_1951_UGESB: LiesaStandingRecord[] = [
  *   Não houve rebaixamento.
  */
 export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRecord[]> = {
+  1943: CARNAVAL_1943_OFICIAL,
+  1944: CARNAVAL_1944_OFICIAL,
+  1945: CARNAVAL_1945_OFICIAL,
   1946: CARNAVAL_1946_OFICIAL,
   1947: CARNAVAL_1947_OFICIAL,
   1948: CARNAVAL_1948_FBES,
@@ -2104,6 +2167,7 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('aprendizes de copacabana')) return 'aprendizes_de_copacabana';
   if (nameNorm.includes('acadêmicos da gávea') || nameNorm.includes('academicos da gavea')) return 'academicos_da_gavea';
   if (nameNorm.includes('mocidade louca')) return 'mocidade_louca_sao_cristovao';
+  if (nameNorm.includes('deixa malhar')) return 'deixa_malhar';
   return nameNorm.replace(/[^a-z0-9]/g, '_');
 }
 
@@ -2151,7 +2215,7 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     1974, 1973, 1972, 1971, 1970,
     1969, 1968, 1967, 1966, 1965,
     1964, 1963, 1962, 1961, 1960,
-    1959, 1958, 1957, 1956, 1955, 1954, 1953, 1952, 1951, 1950, 1949, 1948, 1947, 1946
+    1959, 1958, 1957, 1956, 1955, 1954, 1953, 1952, 1951, 1950, 1949, 1948, 1947, 1946, 1945, 1944, 1943
   ];
   officialYears.forEach((yr) => {
     const stands = OFFICIAL_LIESA_HISTORICAL_STANDINGS[yr] || [];
@@ -2332,6 +2396,12 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
       notes = 'Carnaval Histórico de 1947: Desfile oficial unificado das Escolas de Samba com 26 agremiações participantes. A Portela sagrou-se campeã (+20 pts) e a Estação Primeira de Mangueira foi vice-campeã (+15 pts). Depois Eu Digo ficou com a 3ª colocação (+12 pts), Paz e Amor em 4º (+10 pts), Azul e Branco do Salgueiro em 5º (+8 pts), e Lira do Amor empatada com Prazer da Serrinha em 6º (+6 pts cada). Não houve rebaixamento.';
     } else if (yr === 1946) {
       notes = 'Carnaval Histórico de 1946: Desfile oficial unificado das Escolas de Samba com 19 agremiações participantes. A Portela sagrou-se campeã (+20 pts) com "Aljezur", e a Estação Primeira de Mangueira foi vice-campeã (+15 pts) com "Carnaval". Depois Eu Digo alcançou a 3ª colocação (+12 pts), Império da Tijuca em 4º (+10 pts), Azul e Branco do Salgueiro em 5º (+8 pts), Paz e Amor em 6º (+6 pts), Lira do Amor em 7º (+4 pts), Unidos da Tijuca em 8º (+3 pts), Unidos da Capela em 9º (+2 pts) e Filhos do Deserto em 10º (+1 pt). Não houve rebaixamento.';
+    } else if (yr === 1945) {
+      notes = 'Carnaval Histórico de 1945: Oito agremiações desfilaram no Carnaval Carioca. A Portela sagrou-se pentacampeã consecutiva (+20 pts) cantando "Motivos Patrióticos", e a Estação Primeira de Mangueira foi a vice-campeã (+15 pts) com "A Glória do Samba". Apenas campeã e vice foram oficializadas pelo júri.';
+    } else if (yr === 1944) {
+      notes = 'Carnaval Histórico de 1944: Nove agremiações desfilaram no Carnaval Carioca. A Portela sagrou-se tetracampeã consecutiva (+20 pts) com "Motivos Patrióticos", e a Estação Primeira de Mangueira foi vice-campeã (+15 pts) com "Glória ao Samba". Apenas campeã e vice foram oficializadas pelo júri.';
+    } else if (yr === 1943) {
+      notes = 'Carnaval Histórico de 1943: Vinte e duas agremiações participaram do desfile oficial. A Portela conquistou o tricampeonato consecutivo (+20 pts) com "Carnaval de Guerra", a Estação Primeira de Mangueira foi a vice-campeã (+15 pts), Azul e Branco do Salgueiro ficou em 3º (+12 pts), Deixa Malhar em 4º (+10 pts) e Corações Unidos de Jacarepaguá em 5º (+8 pts). Catorze agremiações adicionais desfilaram sem classificação final.';
     }
 
     result.push({
@@ -2357,6 +2427,12 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
         ? ['Portela (Campeã Oficial)']
         : yr === 1946
         ? ['Portela (Campeã Oficial)']
+        : yr === 1945
+        ? ['Portela (Campeã Oficial)']
+        : yr === 1944
+        ? ['Portela (Campeã Oficial)']
+        : yr === 1943
+        ? ['Portela (Campeã Oficial)']
         : champs,
       viceChampionNames: yr === 1984
         ? ['Portela (Supervice)', 'Mocidade Independente (Vice Segunda)', 'Império Serrano (Vice Domingo)']
@@ -2375,6 +2451,12 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
         : yr === 1947
         ? ['Estação Primeira de Mangueira (Vice-campeã Oficial)']
         : yr === 1946
+        ? ['Estação Primeira de Mangueira (Vice-campeã Oficial)']
+        : yr === 1945
+        ? ['Estação Primeira de Mangueira (Vice-campeã Oficial)']
+        : yr === 1944
+        ? ['Estação Primeira de Mangueira (Vice-campeã Oficial)']
+        : yr === 1943
         ? ['Estação Primeira de Mangueira (Vice-campeã Oficial)']
         : vices,
       totalSchools: stands.length,
@@ -2398,6 +2480,12 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
         fbes: CARNAVAL_1947_OFICIAL
       } : yr === 1946 ? {
         fbes: CARNAVAL_1946_OFICIAL
+      } : yr === 1945 ? {
+        fbes: CARNAVAL_1945_OFICIAL
+      } : yr === 1944 ? {
+        fbes: CARNAVAL_1944_OFICIAL
+      } : yr === 1943 ? {
+        fbes: CARNAVAL_1943_OFICIAL
       } : undefined
     });
   });
@@ -2629,19 +2717,19 @@ export function computeHistoricalLiesaRanking(
     return historicalMap[sId];
   };
 
-  // 1. Processa todos os títulos e vices históricos da era pré-1946 a partir de HISTORICAL_CARNAVAL_RECORDS
-  // A partir de 1946 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA/AESCRJ/FBES/UCES/UGESB
+  // 1. Processa todos os títulos e vices históricos da era pré-1943 a partir de HISTORICAL_CARNAVAL_RECORDS
+  // A partir de 1943 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA/AESCRJ/FBES/UCES/UGESB
   Object.entries(HISTORICAL_CARNAVAL_RECORDS).forEach(([id, rec]) => {
     const sId = resolveSchoolId(id, undefined, schoolsMap);
     const entry = ensureEntry(sId);
 
-    const espYearsPre1946 = (rec.especialYears || []).filter((y) => y < 1946);
-    const espViceYearsPre1946 = (rec.especialRunnerUpYears || []).filter((y) => y < 1946);
+    const espYearsPre1943 = (rec.especialYears || []).filter((y) => y < 1943);
+    const espViceYearsPre1943 = (rec.especialRunnerUpYears || []).filter((y) => y < 1943);
 
-    const titlesPre1946 = espYearsPre1946.length;
-    const vicesPre1946 = espViceYearsPre1946.length;
+    const titlesPre1943 = espYearsPre1943.length;
+    const vicesPre1943 = espViceYearsPre1943.length;
 
-    espYearsPre1946.forEach((y) => {
+    espYearsPre1943.forEach((y) => {
       entry.participationsSet.add(y);
       entry.performancesDetailed[y] = {
         year: y,
@@ -2653,7 +2741,7 @@ export function computeHistoricalLiesaRanking(
       };
     });
 
-    espViceYearsPre1946.forEach((y) => {
+    espViceYearsPre1943.forEach((y) => {
       entry.participationsSet.add(y);
       entry.performancesDetailed[y] = {
         year: y,
@@ -2665,16 +2753,16 @@ export function computeHistoricalLiesaRanking(
       };
     });
 
-    entry.totalEspecialTitles += titlesPre1946;
-    entry.totalEspecialVices += vicesPre1946;
-    entry.titlePoints += titlesPre1946 * 20;
-    entry.vicePoints += vicesPre1946 * 15;
-    entry.pointsEraPre2015 += titlesPre1946 * 20 + vicesPre1946 * 15;
-    entry.totalPoints += titlesPre1946 * 20 + vicesPre1946 * 15;
-    entry.totalCarnavalesContados += titlesPre1946 + vicesPre1946;
+    entry.totalEspecialTitles += titlesPre1943;
+    entry.totalEspecialVices += vicesPre1943;
+    entry.titlePoints += titlesPre1943 * 20;
+    entry.vicePoints += vicesPre1943 * 15;
+    entry.pointsEraPre2015 += titlesPre1943 * 20 + vicesPre1943 * 15;
+    entry.totalPoints += titlesPre1943 * 20 + vicesPre1943 * 15;
+    entry.totalCarnavalesContados += titlesPre1943 + vicesPre1943;
   });
 
-  // 2. Processa anos de 1946 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
+  // 2. Processa anos de 1943 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
   Object.entries(OFFICIAL_LIESA_HISTORICAL_STANDINGS).forEach(([yrStr, list]) => {
     const yr = parseInt(yrStr, 10);
     if (yr === 2021 || yr === 1952 || !list || list.length === 0) {

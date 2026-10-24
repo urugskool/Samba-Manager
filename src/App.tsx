@@ -197,7 +197,8 @@ const INITIAL_INACTIVE_SCHOOL_IDS = new Set([
   'escalao_de_tupa',
   'cenaculo_do_samba',
   'aprendizes_de_copacabana',
-  'academicos_da_gavea'
+  'academicos_da_gavea',
+  'deixa_malhar'
 ]);
 
 function sanitizeSchoolsData(loadedSchools: School[]): School[] {

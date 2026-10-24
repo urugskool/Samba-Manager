@@ -2653,6 +2653,24 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     bronzeYears: [],
     bronzeRunnerUpYears: []
   },
+  deixa_malhar: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    especialYears: [],
+    especialRunnerUpYears: [],
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    ouroYears: [],
+    ouroRunnerUpYears: [],
+    championshipsPrata: 0,
+    prataYears: [],
+    runnerUpsPrata: 0,
+    prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
+  },
   porto_da_pedra: {
 
     championshipsEspecial: 0,

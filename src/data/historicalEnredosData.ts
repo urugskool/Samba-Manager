@@ -1431,6 +1431,35 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     uniao_primeira: 'União e Samba',
     fiquei_firme: 'Firmeza no Compasso',
     mocidade_louca_sao_cristovao: 'Loucuras do Samba de São Cristóvão'
+  },
+  1945: {
+    portela: 'Motivos Patrióticos (Brasil Terra de Amor)',
+    mangueira: 'A Glória do Samba (Homenagem aos Pracinhas)'
+  },
+  1944: {
+    portela: 'Motivos Patrióticos',
+    mangueira: 'Glória ao Samba'
+  },
+  1943: {
+    portela: 'Carnaval de Guerra',
+    mangueira: 'Samba no Terreiro',
+    azul_e_branco_salgueiro: 'Reminiscências do Rio Antigo',
+    deixa_malhar: 'Malandros e Sambistas da Tijuca',
+    coracoes_unidos_jacarepagua: 'Guanabara em Sol',
+    cada_ano_sai_melhor: 'Tradições Cariocas',
+    depois_eu_digo: 'Páginas da História',
+    fiquei_firme: 'Firmeza no Compasso',
+    imperio_da_tijuca: 'Homenagem à Pátria',
+    lira_do_amor: 'Amor e Canção',
+    mocidade_louca_sao_cristovao: 'Loucuras de São Cristóvão',
+    nao_e_o_que_dizem: 'A Verdade do Samba',
+    paz_e_amor: 'Glórias da Pátria',
+    prazer_da_serrinha: 'Castro Alves',
+    uniao_de_sampaio: 'Sampaio Histórico',
+    tijuca: 'Festa Tradicional',
+    unidos_do_salgueiro: 'Vida no Morro',
+    tuiuti: 'Tradições do Tuiuti',
+    vai_se_quiser: 'Vozes da Colina'
   }
 };
 
