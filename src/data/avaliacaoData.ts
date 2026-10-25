@@ -10539,7 +10539,7 @@ export const INACTIVE_SCHOOLS_INITIAL: School[] = [
     isInactive: true,
     inactive: true,
     inactiveYearsCount: 5,
-    suspensionReason: 'Escola histórica extinta da Tijuca (4º Lugar no Carnaval de 1943) • Ficha preservada na aba Inativas com direito de retorno',
+    suspensionReason: 'Escola histórica extinta da Tijuca (4º Lugar no Carnaval de 1941 [+10 pts], 5º em 1942 e 4º em 1943) • Ficha preservada na aba Inativas com direito de retorno',
     honors: { historicalEspecialTitles: 0, historicalEspecialYears: [], historicalEspecialRunnerUps: 0, historicalEspecialRunnerUpYears: [], historicalOuroTitles: 0, historicalOuroYears: [], historicalOuroRunnerUps: 0, historicalOuroRunnerUpYears: [], inGameAchievements: [] },
     attributes: { bateria: 74, comissaoDeFrente: 73, evolucao: 73, harmonia: 74, enredo: 74, fantasias: 72, alegorias: 71, sambaEnredo: 74, mestreSalaPortaBandeira: 73 },
     staff: {
@@ -10635,7 +10635,7 @@ export const INACTIVE_SCHOOLS_INITIAL: School[] = [
     isInactive: true,
     inactive: true,
     inactiveYearsCount: 5,
-    suspensionReason: 'Escola histórica pioneira do Morro do Tuiuti (Cores Azul e Branco, 12º Lugar em 1942 e participante em 1943; precursora histórica do morro) • Ficha preservada na aba Inativas com direito de retorno',
+    suspensionReason: 'Escola histórica pioneira do Morro do Tuiuti (Cores Azul e Branco, 13º Lugar em 1941, 12º em 1942 e participante em 1943; precursora histórica do morro) • Ficha preservada na aba Inativas com direito de retorno',
     honors: { historicalEspecialTitles: 0, historicalEspecialYears: [], historicalEspecialRunnerUps: 0, historicalEspecialRunnerUpYears: [], historicalOuroTitles: 0, historicalOuroYears: [], historicalOuroRunnerUps: 0, historicalOuroRunnerUpYears: [], inGameAchievements: [] },
     attributes: { bateria: 74, comissaoDeFrente: 73, evolucao: 73, harmonia: 74, enredo: 74, fantasias: 72, alegorias: 71, sambaEnredo: 74, mestreSalaPortaBandeira: 73 },
     staff: {

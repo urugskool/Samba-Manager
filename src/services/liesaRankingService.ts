@@ -80,6 +80,31 @@ export const CARNAVAL_1984_SUPERCAMPEONATO: LiesaStandingRecord[] = [
 ];
 
 /**
+ * Resultados específicos do desfile competitivo do Carnaval de 1941:
+ * Desfile oficial unificado das Escolas de Samba com 17 agremiações participantes.
+ * Portela consagrada campeã e Estação Primeira de Mangueira vice-campeã.
+ */
+export const CARNAVAL_1941_OFICIAL: LiesaStandingRecord[] = [
+  { rank: 1, schoolId: 'portela', schoolName: 'Portela', league: 'FBES', statusDescription: 'Campeã Oficial (+20 pts)' },
+  { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', league: 'FBES', statusDescription: 'Vice-Campeã Oficial (+15 pts)' },
+  { rank: 3, schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo', league: 'FBES', statusDescription: '3º Lugar (+12 pts)' },
+  { rank: 4, schoolId: 'deixa_malhar', schoolName: 'Deixa Malhar', league: 'FBES', statusDescription: '4º Lugar (+10 pts)' },
+  { rank: 5, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', league: 'FBES', statusDescription: '5º Lugar (+8 pts)' },
+  { rank: 6, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', league: 'FBES', statusDescription: '6º Lugar (+6 pts)' },
+  { rank: 7, schoolId: 'paz_e_amor', schoolName: 'Paz e Amor', league: 'FBES', statusDescription: '7º Lugar (+4 pts)' },
+  { rank: 8, schoolId: 'lira_do_amor', schoolName: 'Lira do Amor', league: 'FBES', statusDescription: '8º Lugar (+3 pts)' },
+  { rank: 9, schoolId: 'mocidade_louca_sao_cristovao', schoolName: 'Mocidade Louca de São Cristóvão', league: 'FBES', statusDescription: '9º Lugar (+2 pts)' },
+  { rank: 10, schoolId: 'nao_e_o_que_dizem', schoolName: 'Não é o Que Dizem', league: 'FBES', statusDescription: '10º Lugar (+1 pt)' },
+  { rank: 11, schoolId: 'fiquei_firme', schoolName: 'Fiquei Firme', league: 'FBES', statusDescription: '11º Lugar empatada (0 pts)' },
+  { rank: 11, schoolId: 'prazer_da_serrinha', schoolName: 'Prazer da Serrinha', league: 'FBES', statusDescription: '11º Lugar empatada (0 pts)' },
+  { rank: 12, schoolId: 'cada_ano_sai_melhor', schoolName: 'Cada Ano Sai Melhor', league: 'FBES', statusDescription: '12º Lugar (0 pts)' },
+  { rank: 13, schoolId: 'unidos_do_tuiuti', schoolName: 'Unidos do Tuiuti', league: 'FBES', statusDescription: '13º Lugar (0 pts)' },
+  { rank: 14, schoolId: 'uniao_de_sampaio', schoolName: 'União do Sampaio', league: 'FBES', statusDescription: '14º Lugar (0 pts)' },
+  { rank: 15, schoolId: 'vai_se_quiser', schoolName: 'Vai Se Quiser', league: 'FBES', statusDescription: '15º Lugar (0 pts)' },
+  { rank: 16, schoolId: 'filhos_do_deserto', schoolName: 'Filhos do Deserto', league: 'FBES', statusDescription: '16º Lugar (0 pts)' }
+];
+
+/**
  * Resultados específicos do desfile competitivo do Carnaval de 1942:
  * Desfile oficial unificado das Escolas de Samba com 23 agremiações participantes.
  * Portela bicampeã consecutiva e Depois Eu Digo vice-campeã.
@@ -533,6 +558,10 @@ export const CARNAVAL_1951_UGESB: LiesaStandingRecord[] = [
  *   - FBES: Império Serrano campeã e Azul e Branco do Salgueiro vice.
  *   - UGESB: Estação Primeira de Mangueira campeã e Portela vice.
  *   Não houve rebaixamento.
+ * Carnaval 1941: Desfile oficial unificado das Escolas de Samba com 17 agremiações participantes:
+ *   - Campeã: Portela (campeã com "Dez Anos de Glória")
+ *   - Vice-campeã: Estação Primeira de Mangueira (com "Transformação do Samba")
+ *   Não houve rebaixamento.
  * Carnaval 1942: Desfile oficial unificado das Escolas de Samba com 23 agremiações participantes:
  *   - Campeã: Portela (bicampeã com "A Vida do Samba")
  *   - Vice-campeã: Depois Eu Digo (com "Glórias da Pátria")
@@ -563,6 +592,7 @@ export const CARNAVAL_1951_UGESB: LiesaStandingRecord[] = [
  *   Não houve rebaixamento.
  */
 export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRecord[]> = {
+  1941: CARNAVAL_1941_OFICIAL,
   1942: CARNAVAL_1942_OFICIAL,
   1943: CARNAVAL_1943_OFICIAL,
   1944: CARNAVAL_1944_OFICIAL,
@@ -2256,7 +2286,7 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     1974, 1973, 1972, 1971, 1970,
     1969, 1968, 1967, 1966, 1965,
     1964, 1963, 1962, 1961, 1960,
-    1959, 1958, 1957, 1956, 1955, 1954, 1953, 1952, 1951, 1950, 1949, 1948, 1947, 1946, 1945, 1944, 1943, 1942
+    1959, 1958, 1957, 1956, 1955, 1954, 1953, 1952, 1951, 1950, 1949, 1948, 1947, 1946, 1945, 1944, 1943, 1942, 1941
   ];
   officialYears.forEach((yr) => {
     const stands = OFFICIAL_LIESA_HISTORICAL_STANDINGS[yr] || [];
@@ -2445,6 +2475,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
       notes = 'Carnaval Histórico de 1943: Vinte e duas agremiações participaram do desfile oficial. A Portela conquistou o tricampeonato consecutivo (+20 pts) com "Carnaval de Guerra", a Estação Primeira de Mangueira foi a vice-campeã (+15 pts), Azul e Branco do Salgueiro ficou em 3º (+12 pts), Deixa Malhar em 4º (+10 pts) e Corações Unidos de Jacarepaguá em 5º (+8 pts). Catorze agremiações adicionais desfilaram sem classificação final.';
     } else if (yr === 1942) {
       notes = 'Carnaval Histórico de 1942: Desfile oficial unificado das Escolas de Samba com 23 agremiações participantes. A Portela sagrou-se bicampeã consecutiva (+20 pts) cantando "A Vida do Samba", e a agremiação Depois Eu Digo foi vice-campeã histórica (+15 pts). Estação Primeira de Mangueira ficou em 3º (+12 pts), Paz e Amor em 4º (+10 pts), Deixa Malhar em 5º (+8 pts), Unidos do Salgueiro em 6º (+6 pts), Papagaio Linguarudo em 7º (+4 pts), Cada Ano Sai Melhor em 8º (+3 pts), Azul e Branco do Salgueiro em 9º (+2 pts) e Fiquei Firme em 10º (+1 pt). Não houve rebaixamento.';
+    } else if (yr === 1941) {
+      notes = 'Carnaval Histórico de 1941: Desfile oficial unificado das Escolas de Samba com 17 agremiações participantes. A Portela sagrou-se campeã (+20 pts) cantando "Dez Anos de Glória", e a Estação Primeira de Mangueira foi a vice-campeã oficial (+15 pts) com "Transformação do Samba". Depois Eu Digo ficou em 3º (+12 pts), Deixa Malhar em 4º (+10 pts), Unidos da Tijuca em 5º (+8 pts), Unidos do Salgueiro em 6º (+6 pts), Paz e Amor em 7º (+4 pts), Lira do Amor em 8º (+3 pts), Mocidade Louca de São Cristóvão em 9º (+2 pts) e Não é o Que Dizem em 10º (+1 pt). Empatadas em 11º ficaram Fiquei Firme e Prazer da Serrinha (0 pts). Não houve rebaixamento.';
     }
 
     result.push({
@@ -2478,6 +2510,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
         ? ['Portela (Campeã Oficial)']
         : yr === 1942
         ? ['Portela (Campeã Oficial)']
+        : yr === 1941
+        ? ['Portela (Campeã Oficial)']
         : champs,
       viceChampionNames: yr === 1984
         ? ['Portela (Supervice)', 'Mocidade Independente (Vice Segunda)', 'Império Serrano (Vice Domingo)']
@@ -2505,6 +2539,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
         ? ['Estação Primeira de Mangueira (Vice-campeã Oficial)']
         : yr === 1942
         ? ['Depois Eu Digo (Vice-campeã Oficial)']
+        : yr === 1941
+        ? ['Estação Primeira de Mangueira (Vice-campeã Oficial)']
         : vices,
       totalSchools: stands.length,
       subgroups: yr === 1984 ? {
@@ -2535,6 +2571,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
         fbes: CARNAVAL_1943_OFICIAL
       } : yr === 1942 ? {
         fbes: CARNAVAL_1942_OFICIAL
+      } : yr === 1941 ? {
+        fbes: CARNAVAL_1941_OFICIAL
       } : undefined
     });
   });
@@ -2766,19 +2804,19 @@ export function computeHistoricalLiesaRanking(
     return historicalMap[sId];
   };
 
-  // 1. Processa todos os títulos e vices históricos da era pré-1942 a partir de HISTORICAL_CARNAVAL_RECORDS
-  // A partir de 1942 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA/AESCRJ/FBES/UCES/UGESB
+  // 1. Processa todos os títulos e vices históricos da era pré-1941 a partir de HISTORICAL_CARNAVAL_RECORDS
+  // A partir de 1941 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA/AESCRJ/FBES/UCES/UGESB
   Object.entries(HISTORICAL_CARNAVAL_RECORDS).forEach(([id, rec]) => {
     const sId = resolveSchoolId(id, undefined, schoolsMap);
     const entry = ensureEntry(sId);
 
-    const espYearsPre1942 = (rec.especialYears || []).filter((y) => y < 1942);
-    const espViceYearsPre1942 = (rec.especialRunnerUpYears || []).filter((y) => y < 1942);
+    const espYearsPre1941 = (rec.especialYears || []).filter((y) => y < 1941);
+    const espViceYearsPre1941 = (rec.especialRunnerUpYears || []).filter((y) => y < 1941);
 
-    const titlesPre1942 = espYearsPre1942.length;
-    const vicesPre1942 = espViceYearsPre1942.length;
+    const titlesPre1941 = espYearsPre1941.length;
+    const vicesPre1941 = espViceYearsPre1941.length;
 
-    espYearsPre1942.forEach((y) => {
+    espYearsPre1941.forEach((y) => {
       entry.participationsSet.add(y);
       entry.performancesDetailed[y] = {
         year: y,
@@ -2790,7 +2828,7 @@ export function computeHistoricalLiesaRanking(
       };
     });
 
-    espViceYearsPre1942.forEach((y) => {
+    espViceYearsPre1941.forEach((y) => {
       entry.participationsSet.add(y);
       entry.performancesDetailed[y] = {
         year: y,
@@ -2802,16 +2840,16 @@ export function computeHistoricalLiesaRanking(
       };
     });
 
-    entry.totalEspecialTitles += titlesPre1942;
-    entry.totalEspecialVices += vicesPre1942;
-    entry.titlePoints += titlesPre1942 * 20;
-    entry.vicePoints += vicesPre1942 * 15;
-    entry.pointsEraPre2015 += titlesPre1942 * 20 + vicesPre1942 * 15;
-    entry.totalPoints += titlesPre1942 * 20 + vicesPre1942 * 15;
-    entry.totalCarnavalesContados += titlesPre1942 + vicesPre1942;
+    entry.totalEspecialTitles += titlesPre1941;
+    entry.totalEspecialVices += vicesPre1941;
+    entry.titlePoints += titlesPre1941 * 20;
+    entry.vicePoints += vicesPre1941 * 15;
+    entry.pointsEraPre2015 += titlesPre1941 * 20 + vicesPre1941 * 15;
+    entry.totalPoints += titlesPre1941 * 20 + vicesPre1941 * 15;
+    entry.totalCarnavalesContados += titlesPre1941 + vicesPre1941;
   });
 
-  // 2. Processa anos de 1942 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
+  // 2. Processa anos de 1941 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
   Object.entries(OFFICIAL_LIESA_HISTORICAL_STANDINGS).forEach(([yrStr, list]) => {
     const yr = parseInt(yrStr, 10);
     if (yr === 2021 || yr === 1952 || !list || list.length === 0) {

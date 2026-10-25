@@ -1486,6 +1486,25 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     paraiso_do_grotao: 'Primavera Carioca',
     flor_da_infancia_bras_de_pina: 'Infância e Poesia',
     vai_se_quiser: 'Vozes da Colina'
+  },
+  1941: {
+    portela: 'Dez Anos de Glória',
+    mangueira: 'Transformação do Samba',
+    depois_eu_digo: 'Glória ao Samba',
+    deixa_malhar: 'O Samba e as Suas Tradições',
+    tijuca: 'Tradições do Rio de Janeiro',
+    unidos_do_salgueiro: 'O Morro do Salgueiro em Desfile',
+    paz_e_amor: 'Harmonia e Glória',
+    lira_do_amor: 'Páginas do Samba',
+    mocidade_louca_sao_cristovao: 'São Cristóvão Imperial',
+    nao_e_o_que_dizem: 'A Verdade do Samba',
+    fiquei_firme: 'Firmeza no Compasso',
+    prazer_da_serrinha: 'Aquarela da Serrinha',
+    cada_ano_sai_melhor: 'Evolução do Samba',
+    unidos_do_tuiuti: 'Lembranças do Morro do Tuiuti',
+    uniao_de_sampaio: 'Tradição do Sampaio',
+    vai_se_quiser: 'Vozes do Morro',
+    filhos_do_deserto: 'Maravilhas da Terra'
   }
 };
 
@@ -1551,6 +1570,17 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('anchieta')) return 'paraiso_de_anchieta';
   if (n.includes('colégio') || n.includes('colegio')) return 'uniao_de_colegio';
   if (n.includes('deixa malhar')) return 'deixa_malhar';
+  if (n.includes('depois eu digo')) return 'depois_eu_digo';
+  if (n.includes('paz e amor')) return 'paz_e_amor';
+  if (n.includes('lira do amor')) return 'lira_do_amor';
+  if (n.includes('filhos do deserto')) return 'filhos_do_deserto';
+  if (n.includes('mocidade louca')) return 'mocidade_louca_sao_cristovao';
+  if (n.includes('não é o que dizem') || n.includes('nao e o que dizem')) return 'nao_e_o_que_dizem';
+  if (n.includes('fiquei firme')) return 'fiquei_firme';
+  if (n.includes('prazer da serrinha')) return 'prazer_da_serrinha';
+  if (n.includes('cada ano sai melhor')) return 'cada_ano_sai_melhor';
+  if (n.includes('sampaio')) return 'uniao_de_sampaio';
+  if (n.includes('vai se quiser')) return 'vai_se_quiser';
   return '';
 }
 
