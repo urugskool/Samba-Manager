@@ -203,7 +203,21 @@ const INITIAL_INACTIVE_SCHOOL_IDS = new Set([
   'unidos_do_tuiuti',
   'paraiso_de_anchieta',
   'uniao_de_colegio',
-  'flor_da_infancia_bras_de_pina'
+  'flor_da_infancia_bras_de_pina',
+  'uniao_barao_da_gamboa',
+  'unidos_da_mangueira',
+  'ultima_hora',
+  'uniao_parada_de_lucas',
+  'uniao_da_mocidade',
+  'unidos_de_rocha_miranda',
+  'rainha_das_pretas',
+  'uniao_de_madureira',
+  'uniao_entre_nos',
+  'paraiso_de_campo_grande',
+  'na_hora_e_que_se_ve',
+  'mocidade_unidos_do_riachuelo',
+  'depois_te_explico',
+  'uniao_do_uruguai'
 ]);
 
 function sanitizeSchoolsData(loadedSchools: School[]): School[] {

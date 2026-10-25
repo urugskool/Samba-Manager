@@ -1505,6 +1505,158 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     uniao_de_sampaio: 'Tradição do Sampaio',
     vai_se_quiser: 'Vozes do Morro',
     filhos_do_deserto: 'Maravilhas da Terra'
+  },
+  1940: {
+    mangueira: 'Prélio Sambístico',
+    mocidade_louca_sao_cristovao: 'Epopéia do Samba em São Cristóvão',
+    azul_e_branco_salgueiro: 'Reminiscências do Salgueiro',
+    uniao_de_sampaio: 'Tradição do Sampaio',
+    portela: 'Homenagem à Justiça',
+    deixa_malhar: 'Malandragem da Tijuca',
+    cada_ano_sai_melhor: 'Tradições da Praça Onze',
+    paz_e_amor: 'Paz e Harmonia',
+    tijuca: 'Homenagem aos Heróis da Pátria',
+    fiquei_firme: 'Firmeza no Samba',
+    uniao_barao_da_gamboa: 'Epopéia da Gamboa',
+    depois_eu_digo: 'Glórias da Pátria',
+    unidos_da_mangueira: 'O Morro de Mangueira em Festa',
+    ultima_hora: 'Madureira em Desfile',
+    unidos_do_salgueiro: 'Origens do Salgueiro',
+    vai_se_quiser: 'Vozes do Morro',
+    lira_do_amor: 'Canto ao Amor',
+    nao_e_o_que_dizem: 'A Verdade do Samba',
+    filhos_do_deserto: 'Maravilhas do Deserto',
+    unidos_do_tuiuti: 'Lembranças do Tuiuti',
+    prazer_da_serrinha: 'Aquarela da Serrinha',
+    uniao_de_colegio: 'Alegria em Colégio',
+    coracoes_unidos_jacarepagua: 'Guanabara em Sol'
+  },
+  1939: {
+    portela: 'Teste ao Samba',
+    mangueira: 'Noções de Geografia',
+    unidos_do_tuiuti: 'Tradições do Morro',
+    depois_eu_digo: 'Exaltação à Música Brasileira',
+    unidos_da_mangueira: 'A Voz do Morro',
+    tijuca: 'Clássicos Nacionais',
+    azul_e_branco_salgueiro: 'Samba e Poesia',
+    uniao_de_sampaio: 'Minha Terra',
+    deixa_malhar: 'Noites Cariocas',
+    uniao_parada_de_lucas: 'Saudações de Lucas',
+    fiquei_firme: 'Firmeza e Ritmo',
+    uniao_barao_da_gamboa: 'Lembranças da Gamboa',
+    lira_do_amor: 'Canção de Amor',
+    unidos_da_capela: 'História do Samba',
+    unidos_do_salgueiro: 'Origens do Samba',
+    prazer_da_serrinha: 'Serrinha em Festa',
+    uniao_da_mocidade: 'Alegria da Mocidade',
+    mocidade_louca_sao_cristovao: 'Mocidade em Desfile',
+    filhos_do_deserto: 'Noites do Deserto',
+    unidos_de_rocha_miranda: 'Exaltação a Rocha Miranda',
+    recreio_de_ramos: 'Ramos Tradicional',
+    rainha_das_pretas: 'Homenagem à Rainha',
+    nao_e_o_que_dizem: 'A Razão do Samba',
+    cada_ano_sai_melhor: 'Passos da Folia',
+    paz_e_amor: 'Paz no Terreiro',
+    ultima_hora: 'Madureira Alerta',
+    papagaio_linguarudo: 'Trabalho e Harmonia',
+    uniao_de_madureira: 'Canto de Madureira',
+    vai_se_quiser: 'Lamento da Colina',
+    vizinha_faladeira: 'Sem Falar de Ninguém'
+  },
+  1938: {
+    azul_e_branco_salgueiro: 'O Samba no Salgueiro',
+    baianinhas_brasileiras: 'Bahia Tradicional',
+    cada_ano_sai_melhor: 'Alegrias do Povo',
+    coracoes_unidos_jacarepagua: 'Aquarela Suburbana',
+    deixa_malhar: 'Malandros da Tijuca',
+    depois_eu_digo: 'O Samba em Festa',
+    mangueira: 'Homenagem ao Morro',
+    filhos_do_deserto: 'Deserto em Flor',
+    fiquei_firme: 'Batuque Firme',
+    lira_do_amor: 'Amor ao Samba',
+    mocidade_louca_sao_cristovao: 'São Cristóvão em Folia',
+    mocidade_unidos_do_riachuelo: 'Riachuelo em Ritmo',
+    na_hora_e_que_se_ve: 'Na Hora da Batucada',
+    nao_e_o_que_dizem: 'A Voz do Povo',
+    papagaio_linguarudo: 'Cantos da Favela',
+    paraiso_de_campo_grande: 'Flores de Campo Grande',
+    paraiso_do_grotao: 'O Grotão em Canto',
+    paz_e_amor: 'Paz e Concórdia',
+    portela: 'Glórias da Portela',
+    prazer_da_serrinha: 'Melodias da Serrinha',
+    rainha_das_pretas: 'Canto da Rainha',
+    recreio_de_ramos: 'Recordações de Ramos',
+    ultima_hora: 'O Trem de Madureira',
+    uniao_barao_da_gamboa: 'Saudações da Gamboa',
+    uniao_da_mocidade: 'União e Samba',
+    uniao_de_madureira: 'Vozes de Madureira',
+    uniao_de_sampaio: 'Sampaio Tradicional',
+    uniao_de_colegio: 'A União de Colégio',
+    uniao_entre_nos: 'Entre Nós e o Samba',
+    uniao_parada_de_lucas: 'Parada de Lucas em Festa',
+    unidos_da_capela: 'Tradições da Capela',
+    unidos_da_mangueira: 'Mangueira em Canção',
+    tijuca: 'O Pavão no Asfalto',
+    unidos_de_cavalcante: 'Cavalcante em Samba',
+    unidos_do_salgueiro: 'Salgueiro Altaneiro',
+    unidos_do_tuiuti: 'Saudações do Tuiuti',
+    vizinha_faladeira: 'Histórias do Santo Cristo'
+  },
+  1937: {
+    vizinha_faladeira: 'Uma Só Família',
+    portela: 'O Tesouro das Ruínas',
+    depois_eu_digo: 'Tradição do Salgueiro',
+    unidos_da_mangueira: 'Samba e Amor',
+    unidos_do_tuiuti: 'Lendas do Tuiuti',
+    uniao_parada_de_lucas: 'O Canto de Lucas',
+    azul_e_branco_salgueiro: 'Tradições do Salgueiro',
+    papagaio_linguarudo: 'Cantos da Favela',
+    cada_ano_sai_melhor: 'Cada Ano Sai Melhor',
+    mocidade_louca_sao_cristovao: 'São Cristóvão em Flor',
+    unidos_de_cavalcante: 'Cavalcante no Asfalto',
+    uniao_barao_da_gamboa: 'Gamboa e Saúde',
+    paraiso_do_grotao: 'O Grotão em Canto',
+    unidos_do_salgueiro: 'Salgueiro Altaneiro',
+    fiquei_firme: 'Fiquei Firme',
+    filhos_do_deserto: 'Oásis do Samba'
+  },
+  1936: {
+    tijuca: 'Sonho das Ilusões',
+    mangueira: 'Não Faz Mal, a Mangueira É Maior',
+    portela: 'A Batalha do Riachuelo',
+    depois_eu_digo: 'Samba na Favela',
+    deixa_malhar: 'Deixa Malhar na Tijuca',
+    vizinha_faladeira: 'Pai João',
+    uniao_barao_da_gamboa: 'Saudações da Gamboa',
+    fiquei_firme: 'Samba Firme',
+    ultima_hora: 'Última Hora de Madureira',
+    azul_e_branco_salgueiro: 'Saudações Salgueirenses',
+    lira_do_amor: 'A Lira Canta'
+  },
+  1935: {
+    portela: 'O Samba Dominando o Mundo',
+    mangueira: 'O Romance do Samba',
+    prazer_da_serrinha: 'A Serrinha Canta',
+    vizinha_faladeira: 'Malandro Regenerado',
+    tijuca: 'O Pavão no Asfalto',
+    azul_e_branco_salgueiro: 'Salgueiro em Festa',
+    cada_ano_sai_melhor: 'Cada Ano Sai Melhor',
+    coracoes_unidos_da_favela: 'Corações Unidos na Favela',
+    deixa_malhar: 'Deixa Malhar no Samba',
+    depois_eu_digo: 'Depois Eu Digo',
+    depois_te_explico: 'Depois Te Explico no Terreiro',
+    em_cima_da_hora_catumbi: 'Catumbi em Folia',
+    fiquei_firme: 'Samba Firme',
+    lira_do_amor: 'A Lira Canta',
+    na_hora_e_que_se_ve: 'Na Hora É Que Se Vê',
+    paraiso_do_grotao: 'O Grotão em Canto',
+    paz_e_amor: 'Paz e Harmonia',
+    rainha_das_pretas: 'Canto da Rainha',
+    ultima_hora: 'O Apito do Trem',
+    uniao_barao_da_gamboa: 'Saudações da Gamboa',
+    uniao_do_uruguai: 'União da Tijuca na Rua Uruguai',
+    unidos_do_salgueiro: 'O Samba do Salgueiro',
+    unidos_do_tuiuti: 'Tradição do Tuiuti'
   }
 };
 
@@ -1514,7 +1666,23 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
 function normalizeId(rawId?: string, rawName?: string): string {
   if (rawId && rawId.trim()) {
     const id = rawId.trim().toLowerCase();
+    if (id.includes('unidos_da_mangueira')) return 'unidos_da_mangueira';
+    if (id.includes('uniao_barao_da_gamboa')) return 'uniao_barao_da_gamboa';
+    if (id.includes('ultima_hora')) return 'ultima_hora';
     if (id.includes('unidos_do_tuiuti')) return 'unidos_do_tuiuti';
+    if (id.includes('uniao_parada_de_lucas')) return 'uniao_parada_de_lucas';
+    if (id.includes('uniao_da_mocidade')) return 'uniao_da_mocidade';
+    if (id.includes('unidos_de_rocha_miranda')) return 'unidos_de_rocha_miranda';
+    if (id.includes('rainha_das_pretas')) return 'rainha_das_pretas';
+    if (id.includes('uniao_de_madureira')) return 'uniao_de_madureira';
+    if (id.includes('uniao_entre_nos')) return 'uniao_entre_nos';
+    if (id.includes('paraiso_de_campo_grande')) return 'paraiso_de_campo_grande';
+    if (id.includes('na_hora_e_que_se_ve')) return 'na_hora_e_que_se_ve';
+    if (id.includes('mocidade_unidos_do_riachuelo')) return 'mocidade_unidos_do_riachuelo';
+    if (id.includes('recreio_de_ramos')) return 'recreio_de_ramos';
+    if (id.includes('vizinha_faladeira')) return 'vizinha_faladeira';
+    if (id.includes('depois_te_explico')) return 'depois_te_explico';
+    if (id.includes('uniao_do_uruguai')) return 'uniao_do_uruguai';
     if (id.includes('recreio_de_sao_carlos')) return 'recreio_de_sao_carlos';
     if (id.includes('estacio') || id.includes('sao_carlos')) return 'estacio_de_sa';
     if (id.includes('padre_miguel') && id.includes('unidos')) return 'unidos_padre_miguel';
@@ -1530,6 +1698,7 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('azul e branco') && n.includes('salgueiro')) return 'azul_e_branco_salgueiro';
   if (n.includes('salgueiro')) return 'salgueiro';
   if (n.includes('imperatriz')) return 'imperatriz';
+  if (n.includes('unidos da mangueira') || n.includes('unidos_da_mangueira')) return 'unidos_da_mangueira';
   if (n.includes('mangueira')) return 'mangueira';
   if (n.includes('tijuca') && !n.includes('império')) return 'tijuca';
   if (n.includes('grande rio')) return 'grande_rio';
@@ -1581,6 +1750,22 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('cada ano sai melhor')) return 'cada_ano_sai_melhor';
   if (n.includes('sampaio')) return 'uniao_de_sampaio';
   if (n.includes('vai se quiser')) return 'vai_se_quiser';
+  if (n.includes('barão da gamboa') || n.includes('barao da gamboa') || n.includes('gamboa')) return 'uniao_barao_da_gamboa';
+  if (n.includes('última hora') || n.includes('ultima hora')) return 'ultima_hora';
+  if (n.includes('parada de lucas')) return 'uniao_parada_de_lucas';
+  if (n.includes('união da mocidade') || n.includes('uniao da mocidade')) return 'uniao_da_mocidade';
+  if (n.includes('modelo unidos do riachuelo') || n.includes('mocidade unidos do riachuelo')) return 'mocidade_unidos_do_riachuelo';
+  if (n.includes('paraíso de campo grande') || n.includes('paraiso de campo grande')) return 'paraiso_de_campo_grande';
+  if (n.includes('união de madureira') || n.includes('uniao de madureira')) return 'uniao_de_madureira';
+  if (n.includes('rocha miranda')) return 'unidos_de_rocha_miranda';
+  if (n.includes('rainha das pretas')) return 'rainha_das_pretas';
+  if (n.includes('entre nós') || n.includes('entre nos')) return 'uniao_entre_nos';
+  if (n.includes('na hora é que se vê') || n.includes('na hora e que se ve')) return 'na_hora_e_que_se_ve';
+  if (n.includes('recreio de ramos')) return 'recreio_de_ramos';
+  if (n.includes('vizinha faladeira') || n.includes('vizinha')) return 'vizinha_faladeira';
+  if (n.includes('depois te explico')) return 'depois_te_explico';
+  if (n.includes('uruguai') || n.includes('uruguay')) return 'uniao_do_uruguai';
+  if (n.includes('vai como pode')) return 'portela';
   return '';
 }
 

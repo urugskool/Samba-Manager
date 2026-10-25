@@ -80,10 +80,197 @@ export const CARNAVAL_1984_SUPERCAMPEONATO: LiesaStandingRecord[] = [
 ];
 
 /**
- * Resultados específicos do desfile competitivo do Carnaval de 1941:
- * Desfile oficial unificado das Escolas de Samba com 17 agremiações participantes.
- * Portela consagrada campeã e Estação Primeira de Mangueira vice-campeã.
+ * Resultados específicos do desfile competitivo do Carnaval de 1935:
+ * Primeiro desfile oficial unificado organizado pela UGES / Jornal A Nação.
+ * Apenas as 5 primeiras colocadas foram classificadas oficialmente com pontos.
+ * Vai Como Pode (atual Portela) consagrada campeã (+20 pts) e Estação Primeira de Mangueira vice-campeã (+15 pts).
+ * 18 agremiações desfilaram sem classificação final oficial atribuída (0 pts).
  */
+export const CARNAVAL_1935_OFICIAL: LiesaStandingRecord[] = [
+  { rank: 1, schoolId: 'portela', schoolName: 'Vai Como Pode (Portela)', league: 'UGESB', statusDescription: 'Campeã Oficial (+20 pts)' },
+  { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', league: 'UGESB', statusDescription: 'Vice-Campeã Oficial (+15 pts)' },
+  { rank: 3, schoolId: 'prazer_da_serrinha', schoolName: 'Prazer da Serrinha', league: 'UGESB', statusDescription: '3º Lugar (+12 pts)' },
+  { rank: 4, schoolId: 'vizinha_faladeira', schoolName: 'Vizinha Faladeira', league: 'UGESB', statusDescription: '4º Lugar (+10 pts)' },
+  { rank: 5, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', league: 'UGESB', statusDescription: '5º Lugar (+8 pts)' },
+  // Sem classificação oficial (0 pts)
+  { rank: 0, schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro', isHorsConcours: true, league: 'UGESB', statusDescription: 'Desfilou (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'cada_ano_sai_melhor', schoolName: 'Cada Ano Sai Melhor', isHorsConcours: true, league: 'UGESB', statusDescription: 'Desfilou (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'coracoes_unidos_da_favela', schoolName: 'Corações Unidos da Favela', isHorsConcours: true, league: 'UGESB', statusDescription: 'Desfilou (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'deixa_malhar', schoolName: 'Deixa Malhar', isHorsConcours: true, league: 'UGESB', statusDescription: 'Desfilou (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo', isHorsConcours: true, league: 'UGESB', statusDescription: 'Desfilou (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'depois_te_explico', schoolName: 'Depois Te Explico', isHorsConcours: true, league: 'UGESB', statusDescription: 'Desfilou (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'em_cima_da_hora_catumbi', schoolName: 'Em Cima da Hora do Catumbi', isHorsConcours: true, league: 'UGESB', statusDescription: 'Desfilou (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'fiquei_firme', schoolName: 'Fiquei Firme', isHorsConcours: true, league: 'UGESB', statusDescription: 'Desfilou (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'lira_do_amor', schoolName: 'Lira do Amor', isHorsConcours: true, league: 'UGESB', statusDescription: 'Desfilou (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'na_hora_e_que_se_ve', schoolName: 'Na Hora É Que Se Vê', isHorsConcours: true, league: 'UGESB', statusDescription: 'Desfilou (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'paraiso_do_grotao', schoolName: 'Paraíso do Grotão', isHorsConcours: true, league: 'UGESB', statusDescription: 'Desfilou (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'paz_e_amor', schoolName: 'Paz e Amor', isHorsConcours: true, league: 'UGESB', statusDescription: 'Desfilou (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'rainha_das_pretas', schoolName: 'Rainha das Pretas', isHorsConcours: true, league: 'UGESB', statusDescription: 'Desfilou (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'ultima_hora', schoolName: 'Última Hora', isHorsConcours: true, league: 'UGESB', statusDescription: 'Desfilou (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'uniao_barao_da_gamboa', schoolName: 'União Barão da Gamboa', isHorsConcours: true, league: 'UGESB', statusDescription: 'Desfilou (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'uniao_do_uruguai', schoolName: 'União do Uruguai', isHorsConcours: true, league: 'UGESB', statusDescription: 'Desfilou (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', isHorsConcours: true, league: 'UGESB', statusDescription: 'Desfilou (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'unidos_do_tuiuti', schoolName: 'Unidos do Tuiuti', isHorsConcours: true, league: 'UGESB', statusDescription: 'Desfilou (Sem classificação oficial • 0 pts)' }
+];
+
+/**
+ * Resultados específicos do desfile competitivo do Carnaval de 1936:
+ * Desfile oficial com 11 agremiações classificadas.
+ * Unidos da Tijuca consagrada campeã (+20 pts) e Estação Primeira de Mangueira vice-campeã (+15 pts).
+ */
+export const CARNAVAL_1936_OFICIAL: LiesaStandingRecord[] = [
+  { rank: 1, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', league: 'FBES', statusDescription: 'Campeã Oficial (+20 pts)' },
+  { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', league: 'FBES', statusDescription: 'Vice-Campeã Oficial (+15 pts)' },
+  { rank: 3, schoolId: 'portela', schoolName: 'Portela', league: 'FBES', statusDescription: '3º Lugar (+12 pts)' },
+  { rank: 4, schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo', league: 'FBES', statusDescription: '4º Lugar (+10 pts)' },
+  { rank: 5, schoolId: 'deixa_malhar', schoolName: 'Deixa Malhar', league: 'FBES', statusDescription: '5º Lugar (+8 pts)' },
+  { rank: 6, schoolId: 'vizinha_faladeira', schoolName: 'Vizinha Faladeira', league: 'FBES', statusDescription: '6º Lugar (+6 pts)' },
+  { rank: 7, schoolId: 'uniao_barao_da_gamboa', schoolName: 'União Barão da Gamboa', league: 'FBES', statusDescription: '7º Lugar (+4 pts)' },
+  { rank: 8, schoolId: 'fiquei_firme', schoolName: 'Fiquei Firme', league: 'FBES', statusDescription: '8º Lugar (+3 pts)' },
+  { rank: 9, schoolId: 'ultima_hora', schoolName: 'Última Hora', league: 'FBES', statusDescription: '9º Lugar (+2 pts)' },
+  { rank: 10, schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro', league: 'FBES', statusDescription: '10º Lugar (+1 pt)' },
+  { rank: 11, schoolId: 'lira_do_amor', schoolName: 'Lira do Amor', league: 'FBES', statusDescription: '11º Lugar (0 pts)' }
+];
+
+/**
+ * Resultados específicos do desfile competitivo do Carnaval de 1937:
+ * Desfile oficial com 15 agremiações classificadas (empate em 9º lugar).
+ * Vizinha Faladeira consagrada campeã (+20 pts) e Portela vice-campeã (+15 pts).
+ */
+export const CARNAVAL_1937_OFICIAL: LiesaStandingRecord[] = [
+  { rank: 1, schoolId: 'vizinha_faladeira', schoolName: 'Vizinha Faladeira', league: 'FBES', statusDescription: 'Campeã Oficial (+20 pts)' },
+  { rank: 2, schoolId: 'portela', schoolName: 'Portela', league: 'FBES', statusDescription: 'Vice-Campeã Oficial (+15 pts)' },
+  { rank: 3, schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo', league: 'FBES', statusDescription: '3º Lugar (+12 pts)' },
+  { rank: 4, schoolId: 'unidos_da_mangueira', schoolName: 'Unidos da Mangueira', league: 'FBES', statusDescription: '4º Lugar (+10 pts)' },
+  { rank: 5, schoolId: 'unidos_do_tuiuti', schoolName: 'Unidos do Tuiuti', league: 'FBES', statusDescription: '5º Lugar (+8 pts)' },
+  { rank: 6, schoolId: 'uniao_parada_de_lucas', schoolName: 'União Parada de Lucas', league: 'FBES', statusDescription: '6º Lugar (+6 pts)' },
+  { rank: 7, schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro', league: 'FBES', statusDescription: '7º Lugar (+4 pts)' },
+  { rank: 8, schoolId: 'papagaio_linguarudo', schoolName: 'Papagaio Linguarudo', league: 'FBES', statusDescription: '8º Lugar (+3 pts)' },
+  { rank: 9, schoolId: 'cada_ano_sai_melhor', schoolName: 'Cada Ano Sai Melhor', league: 'FBES', statusDescription: '9º Lugar empatada (+2 pts)' },
+  { rank: 9, schoolId: 'mocidade_louca_sao_cristovao', schoolName: 'Mocidade Louca de São Cristóvão', league: 'FBES', statusDescription: '9º Lugar empatada (+2 pts)' },
+  { rank: 10, schoolId: 'unidos_de_cavalcante', schoolName: 'Unidos de Cavalcante', league: 'FBES', statusDescription: '10º Lugar (+1 pt)' },
+  { rank: 11, schoolId: 'uniao_barao_da_gamboa', schoolName: 'União Barão da Gamboa', league: 'FBES', statusDescription: '11º Lugar (0 pts)' },
+  { rank: 12, schoolId: 'paraiso_do_grotao', schoolName: 'Paraíso do Grotão', league: 'FBES', statusDescription: '12º Lugar (0 pts)' },
+  { rank: 13, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', league: 'FBES', statusDescription: '13º Lugar (0 pts)' },
+  { rank: 14, schoolId: 'fiquei_firme', schoolName: 'Fiquei Firme', league: 'FBES', statusDescription: '14º Lugar (0 pts)' },
+  { rank: 15, schoolId: 'filhos_do_deserto', schoolName: 'Filhos do Deserto', league: 'FBES', statusDescription: '15º Lugar (0 pts)' }
+];
+
+/**
+ * Resultados específicos do Carnaval de 1938:
+ * Não houve apuração oficial em função do forte temporal e chuvas durante os desfiles na Praça Onze.
+ * 37 agremiações participaram do evento. Nenhum ponto atribuído por ausência de julgamento oficial.
+ */
+export const CARNAVAL_1938_OFICIAL: LiesaStandingRecord[] = [
+  { rank: 0, schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'baianinhas_brasileiras', schoolName: 'Baianinhas Brasileiras', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'cada_ano_sai_melhor', schoolName: 'Cada Ano Sai Melhor', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'coracoes_unidos_jacarepagua', schoolName: 'Corações Unidos de Jacarepaguá', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'deixa_malhar', schoolName: 'Deixa Malhar', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'filhos_do_deserto', schoolName: 'Filhos do Deserto', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'fiquei_firme', schoolName: 'Fiquei Firme', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'lira_do_amor', schoolName: 'Lira do Amor', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'mocidade_louca_sao_cristovao', schoolName: 'Mocidade Louca de São Cristóvão', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'mocidade_unidos_do_riachuelo', schoolName: 'Modelo Unidos do Riachuelo', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'na_hora_e_que_se_ve', schoolName: 'Na Hora é Que Se Vê', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'nao_e_o_que_dizem', schoolName: 'Não é o Que Dizem', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'papagaio_linguarudo', schoolName: 'Papagaio Linguarudo', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'paraiso_de_campo_grande', schoolName: 'Paraíso de Campo Grande', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'paraiso_do_grotao', schoolName: 'Paraíso do Grotão', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'paz_e_amor', schoolName: 'Paz e Amor', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'portela', schoolName: 'Portela', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'prazer_da_serrinha', schoolName: 'Prazer da Serrinha', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'rainha_das_pretas', schoolName: 'Rainha das Pretas', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'recreio_de_ramos', schoolName: 'Recreio de Ramos', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'ultima_hora', schoolName: 'Última Hora', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'uniao_barao_da_gamboa', schoolName: 'União Barão da Gamboa', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'uniao_da_mocidade', schoolName: 'União da Mocidade', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'uniao_de_madureira', schoolName: 'União de Madureira', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'uniao_de_sampaio', schoolName: 'União de Sampaio', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'uniao_de_colegio', schoolName: 'União do Colégio', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'uniao_entre_nos', schoolName: 'União Entre Nós', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'uniao_parada_de_lucas', schoolName: 'União Parada de Lucas', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'unidos_da_capela', schoolName: 'Unidos da Capela', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'unidos_da_mangueira', schoolName: 'Unidos da Mangueira', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'unidos_de_cavalcante', schoolName: 'Unidos de Cavalcante', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'unidos_do_tuiuti', schoolName: 'Unidos do Tuiuti', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' },
+  { rank: 0, schoolId: 'vizinha_faladeira', schoolName: 'Vizinha Faladeira', isHorsConcours: true, league: 'FBES', statusDescription: 'Desfilou sob chuva (Sem apuração oficial • 0 pts)' }
+];
+
+/**
+ * Resultados específicos do desfile competitivo do Carnaval de 1939:
+ * Desfile oficial com 26 agremiações classificadas e 4 desclassificadas.
+ * Portela consagrada campeã (+20 pts) e Estação Primeira de Mangueira vice-campeã (+15 pts).
+ */
+export const CARNAVAL_1939_OFICIAL: LiesaStandingRecord[] = [
+  { rank: 1, schoolId: 'portela', schoolName: 'Portela', league: 'FBES', statusDescription: 'Campeã Oficial (+20 pts)' },
+  { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', league: 'FBES', statusDescription: 'Vice-Campeã Oficial (+15 pts)' },
+  { rank: 3, schoolId: 'unidos_do_tuiuti', schoolName: 'Unidos do Tuiuti', league: 'FBES', statusDescription: '3º Lugar (+12 pts)' },
+  { rank: 4, schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo', league: 'FBES', statusDescription: '4º Lugar (+10 pts)' },
+  { rank: 5, schoolId: 'unidos_da_mangueira', schoolName: 'Unidos da Mangueira', league: 'FBES', statusDescription: '5º Lugar (+8 pts)' },
+  { rank: 6, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', league: 'FBES', statusDescription: '6º Lugar (+6 pts)' },
+  { rank: 7, schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro', league: 'FBES', statusDescription: '7º Lugar (+4 pts)' },
+  { rank: 8, schoolId: 'uniao_de_sampaio', schoolName: 'União do Sampaio', league: 'FBES', statusDescription: '8º Lugar (+3 pts)' },
+  { rank: 9, schoolId: 'deixa_malhar', schoolName: 'Deixa Malhar', league: 'FBES', statusDescription: '9º Lugar (+2 pts)' },
+  { rank: 10, schoolId: 'uniao_parada_de_lucas', schoolName: 'União Parada de Lucas', league: 'FBES', statusDescription: '10º Lugar (+1 pt)' },
+  { rank: 11, schoolId: 'fiquei_firme', schoolName: 'Fiquei Firme', league: 'FBES', statusDescription: '11º Lugar (0 pts)' },
+  { rank: 12, schoolId: 'uniao_barao_da_gamboa', schoolName: 'União Barão da Gamboa', league: 'FBES', statusDescription: '12º Lugar (0 pts)' },
+  { rank: 13, schoolId: 'lira_do_amor', schoolName: 'Lira do Amor', league: 'FBES', statusDescription: '13º Lugar (0 pts)' },
+  { rank: 14, schoolId: 'unidos_da_capela', schoolName: 'Unidos da Capela', league: 'FBES', statusDescription: '14º Lugar (0 pts)' },
+  { rank: 15, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', league: 'FBES', statusDescription: '15º Lugar (0 pts)' },
+  { rank: 16, schoolId: 'prazer_da_serrinha', schoolName: 'Prazer da Serrinha', league: 'FBES', statusDescription: '16º Lugar (0 pts)' },
+  { rank: 17, schoolId: 'uniao_da_mocidade', schoolName: 'União da Mocidade', league: 'FBES', statusDescription: '17º Lugar (0 pts)' },
+  { rank: 18, schoolId: 'mocidade_louca_sao_cristovao', schoolName: 'Mocidade Louca de São Cristóvão', league: 'FBES', statusDescription: '18º Lugar (0 pts)' },
+  { rank: 19, schoolId: 'filhos_do_deserto', schoolName: 'Filhos do Deserto', league: 'FBES', statusDescription: '19º Lugar (0 pts)' },
+  { rank: 20, schoolId: 'unidos_de_rocha_miranda', schoolName: 'Unidos de Rocha Miranda', league: 'FBES', statusDescription: '20º Lugar (0 pts)' },
+  { rank: 21, schoolId: 'recreio_de_ramos', schoolName: 'Recreio de Ramos', league: 'FBES', statusDescription: '21º Lugar (0 pts)' },
+  { rank: 22, schoolId: 'rainha_das_pretas', schoolName: 'Rainha das Pretas', league: 'FBES', statusDescription: '22º Lugar (0 pts)' },
+  { rank: 23, schoolId: 'nao_e_o_que_dizem', schoolName: 'Não É o Que Dizem', league: 'FBES', statusDescription: '23º Lugar (0 pts)' },
+  { rank: 24, schoolId: 'cada_ano_sai_melhor', schoolName: 'Cada Ano Sai Melhor', league: 'FBES', statusDescription: '24º Lugar (0 pts)' },
+  { rank: 25, schoolId: 'paz_e_amor', schoolName: 'Paz e Amor', league: 'FBES', statusDescription: '25º Lugar (0 pts)' },
+  { rank: 26, schoolId: 'ultima_hora', schoolName: 'Última Hora', league: 'FBES', statusDescription: '26º Lugar (0 pts)' },
+  // Desclassificadas (0 pts)
+  { rank: 0, schoolId: 'papagaio_linguarudo', schoolName: 'Papagaio Linguarudo', isHorsConcours: true, league: 'FBES', statusDescription: 'Desclassificada (0 pts)' },
+  { rank: 0, schoolId: 'uniao_de_madureira', schoolName: 'União de Madureira', isHorsConcours: true, league: 'FBES', statusDescription: 'Desclassificada (0 pts)' },
+  { rank: 0, schoolId: 'vai_se_quiser', schoolName: 'Vai Se Quiser', isHorsConcours: true, league: 'FBES', statusDescription: 'Desclassificada (0 pts)' },
+  { rank: 0, schoolId: 'vizinha_faladeira', schoolName: 'Vizinha Faladeira', isHorsConcours: true, league: 'FBES', statusDescription: 'Desclassificada (0 pts)' }
+];
+
+/**
+ * Resultados específicos do desfile competitivo do Carnaval de 1940:
+ * Desfile oficial unificado das Escolas de Samba com 23 agremiações participantes.
+ * Estação Primeira de Mangueira consagrada campeã e Mocidade Louca de São Cristóvão vice-campeã.
+ */
+export const CARNAVAL_1940_OFICIAL: LiesaStandingRecord[] = [
+  { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', league: 'FBES', statusDescription: 'Campeã Oficial (+20 pts)' },
+  { rank: 2, schoolId: 'mocidade_louca_sao_cristovao', schoolName: 'Mocidade Louca de São Cristóvão', league: 'FBES', statusDescription: 'Vice-Campeã Oficial (+15 pts)' },
+  { rank: 3, schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro', league: 'FBES', statusDescription: '3º Lugar (+12 pts)' },
+  { rank: 4, schoolId: 'uniao_de_sampaio', schoolName: 'União do Sampaio', league: 'FBES', statusDescription: '4º Lugar (+10 pts)' },
+  { rank: 5, schoolId: 'portela', schoolName: 'Portela', league: 'FBES', statusDescription: '5º Lugar (+8 pts)' },
+  { rank: 6, schoolId: 'deixa_malhar', schoolName: 'Deixa Malhar', league: 'FBES', statusDescription: '6º Lugar (+6 pts)' },
+  { rank: 7, schoolId: 'cada_ano_sai_melhor', schoolName: 'Cada Ano Sai Melhor', league: 'FBES', statusDescription: '7º Lugar empatada (+4 pts)' },
+  { rank: 7, schoolId: 'paz_e_amor', schoolName: 'Paz e Amor', league: 'FBES', statusDescription: '7º Lugar empatada (+4 pts)' },
+  { rank: 7, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', league: 'FBES', statusDescription: '7º Lugar empatada (+4 pts)' },
+  { rank: 8, schoolId: 'fiquei_firme', schoolName: 'Fiquei Firme', league: 'FBES', statusDescription: '8º Lugar (+3 pts)' },
+  { rank: 9, schoolId: 'uniao_barao_da_gamboa', schoolName: 'União Barão da Gamboa', league: 'FBES', statusDescription: '9º Lugar (+2 pts)' },
+  { rank: 10, schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo', league: 'FBES', statusDescription: '10º Lugar (+1 pt)' },
+  { rank: 11, schoolId: 'unidos_da_mangueira', schoolName: 'Unidos da Mangueira', league: 'FBES', statusDescription: '11º Lugar (0 pts)' },
+  { rank: 12, schoolId: 'ultima_hora', schoolName: 'Última Hora', league: 'FBES', statusDescription: '12º Lugar (0 pts)' },
+  { rank: 13, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', league: 'FBES', statusDescription: '13º Lugar empatada (0 pts)' },
+  { rank: 13, schoolId: 'vai_se_quiser', schoolName: 'Vai Se Quiser', league: 'FBES', statusDescription: '13º Lugar empatada (0 pts)' },
+  { rank: 14, schoolId: 'lira_do_amor', schoolName: 'Lira do Amor', league: 'FBES', statusDescription: '14º Lugar (0 pts)' },
+  { rank: 15, schoolId: 'nao_e_o_que_dizem', schoolName: 'Não é o Que Dizem', league: 'FBES', statusDescription: '15º Lugar (0 pts)' },
+  { rank: 16, schoolId: 'filhos_do_deserto', schoolName: 'Filhos do Deserto', league: 'FBES', statusDescription: '16º Lugar empatada (0 pts)' },
+  { rank: 16, schoolId: 'unidos_do_tuiuti', schoolName: 'Unidos do Tuiuti', league: 'FBES', statusDescription: '16º Lugar empatada (0 pts)' },
+  { rank: 17, schoolId: 'prazer_da_serrinha', schoolName: 'Prazer da Serrinha', league: 'FBES', statusDescription: '17º Lugar empatada (0 pts)' },
+  { rank: 17, schoolId: 'uniao_de_colegio', schoolName: 'União de Colégio', league: 'FBES', statusDescription: '17º Lugar empatada (0 pts)' },
+  { rank: 18, schoolId: 'coracoes_unidos_jacarepagua', schoolName: 'Corações Unidos de Jacarepaguá', league: 'FBES', statusDescription: '18º Lugar (0 pts)' }
+];
+
 export const CARNAVAL_1941_OFICIAL: LiesaStandingRecord[] = [
   { rank: 1, schoolId: 'portela', schoolName: 'Portela', league: 'FBES', statusDescription: 'Campeã Oficial (+20 pts)' },
   { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', league: 'FBES', statusDescription: 'Vice-Campeã Oficial (+15 pts)' },
@@ -558,6 +745,10 @@ export const CARNAVAL_1951_UGESB: LiesaStandingRecord[] = [
  *   - FBES: Império Serrano campeã e Azul e Branco do Salgueiro vice.
  *   - UGESB: Estação Primeira de Mangueira campeã e Portela vice.
  *   Não houve rebaixamento.
+ * Carnaval 1940: Desfile oficial unificado das Escolas de Samba com 23 agremiações participantes:
+ *   - Campeã: Estação Primeira de Mangueira (com "Prélio Sambístico")
+ *   - Vice-campeã: Mocidade Louca de São Cristóvão
+ *   Não houve rebaixamento.
  * Carnaval 1941: Desfile oficial unificado das Escolas de Samba com 17 agremiações participantes:
  *   - Campeã: Portela (campeã com "Dez Anos de Glória")
  *   - Vice-campeã: Estação Primeira de Mangueira (com "Transformação do Samba")
@@ -592,6 +783,12 @@ export const CARNAVAL_1951_UGESB: LiesaStandingRecord[] = [
  *   Não houve rebaixamento.
  */
 export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRecord[]> = {
+  1935: CARNAVAL_1935_OFICIAL,
+  1936: CARNAVAL_1936_OFICIAL,
+  1937: CARNAVAL_1937_OFICIAL,
+  1938: CARNAVAL_1938_OFICIAL,
+  1939: CARNAVAL_1939_OFICIAL,
+  1940: CARNAVAL_1940_OFICIAL,
   1941: CARNAVAL_1941_OFICIAL,
   1942: CARNAVAL_1942_OFICIAL,
   1943: CARNAVAL_1943_OFICIAL,
@@ -2100,6 +2297,7 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('unidos do salgueiro')) return 'unidos_do_salgueiro';
   if (nameNorm.includes('azul e branco') && nameNorm.includes('salgueiro')) return 'azul_e_branco_salgueiro';
   if (nameNorm.includes('salgueiro')) return 'salgueiro';
+  if (nameNorm.includes('unidos da mangueira') || nameNorm.includes('unidos_da_mangueira')) return 'unidos_da_mangueira';
   if (nameNorm.includes('mangueira')) return 'mangueira';
   if (nameNorm.includes('portela')) return 'portela';
   if (nameNorm.includes('império da tijuca') || nameNorm.includes('imperio da tijuca')) return 'imperio_da_tijuca';
@@ -2111,6 +2309,8 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('mocidade de um paraíso') || nameNorm.includes('mocidade de um paraiso')) return 'mocidade_de_um_paraiso';
   if (nameNorm.includes('acadêmicos do cachambi') || nameNorm.includes('academicos do cachambi')) return 'academicos_do_cachambi';
   if (nameNorm.includes('mocidade de cachambi') || nameNorm.includes('cachambi')) return 'mocidade_de_cachambi';
+  if (nameNorm.includes('união da mocidade') || nameNorm.includes('uniao da mocidade')) return 'uniao_da_mocidade';
+  if (nameNorm.includes('modelo unidos do riachuelo') || nameNorm.includes('mocidade unidos do riachuelo')) return 'mocidade_unidos_do_riachuelo';
   if (nameNorm.includes('mocidade') && !nameNorm.includes('cidade de deus') && !nameNorm.includes('porto') && !nameNorm.includes('vicente')) return 'mocidade';
   if (nameNorm.includes('niterói') || nameNorm.includes('niteroi')) return 'niteroi';
   if (nameNorm.includes('porto da pedra')) return 'porto_da_pedra';
@@ -2146,6 +2346,7 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('orgulho de cordovil')) return 'orgulho_de_cordovil';
   if (nameNorm.includes('unidos de cordovil')) return 'unidos_de_cordovil';
   if (nameNorm.includes('leblon') || nameNorm.includes('cordovil')) return 'independentes_cordovil';
+  if (nameNorm.includes('parada de lucas')) return 'uniao_parada_de_lucas';
   if (nameNorm.includes('lucas')) return 'unidos_de_lucas';
   if (nameNorm.includes('flor da infância') || nameNorm.includes('flor da infancia')) return 'flor_da_infancia_bras_de_pina';
   if (nameNorm.includes('unidos de brás de pina') || nameNorm.includes('unidos de bras de pina')) return 'unidos_de_bras_de_pina';
@@ -2193,6 +2394,7 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('trovadores')) return 'trovadores_do_maracana';
   if (nameNorm.includes('união dos casados') || nameNorm.includes('uniao dos casados')) return 'uniao_dos_casados';
   if (nameNorm.includes('império de campo grande') || nameNorm.includes('imperio de campo grande')) return 'imperio_de_campo_grande';
+  if (nameNorm.includes('paraíso de campo grande') || nameNorm.includes('paraiso de campo grande')) return 'paraiso_de_campo_grande';
   if (nameNorm.includes('campo grande')) return 'unidos_de_campo_grande';
   if (nameNorm.includes('recreio de inhaúma') || nameNorm.includes('recreio de inhauma') || nameNorm.includes('inhaúma') || nameNorm.includes('inhauma')) return 'recreio_de_inhauma';
   if (nameNorm.includes('morro azul')) return 'unidos_do_morro_azul';
@@ -2239,6 +2441,18 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('papagaio')) return 'papagaio_linguarudo';
   if (nameNorm.includes('anchieta')) return 'paraiso_de_anchieta';
   if (nameNorm.includes('colégio') || nameNorm.includes('colegio')) return 'uniao_de_colegio';
+  if (nameNorm.includes('barão da gamboa') || nameNorm.includes('barao da gamboa') || nameNorm.includes('gamboa')) return 'uniao_barao_da_gamboa';
+  if (nameNorm.includes('última hora') || nameNorm.includes('ultima hora')) return 'ultima_hora';
+  if (nameNorm.includes('união de madureira') || nameNorm.includes('uniao de madureira')) return 'uniao_de_madureira';
+  if (nameNorm.includes('rocha miranda')) return 'unidos_de_rocha_miranda';
+  if (nameNorm.includes('rainha das pretas')) return 'rainha_das_pretas';
+  if (nameNorm.includes('entre nós') || nameNorm.includes('entre nos')) return 'uniao_entre_nos';
+  if (nameNorm.includes('na hora é que se vê') || nameNorm.includes('na hora e que se ve')) return 'na_hora_e_que_se_ve';
+  if (nameNorm.includes('recreio de ramos')) return 'recreio_de_ramos';
+  if (nameNorm.includes('vizinha faladeira') || nameNorm.includes('vizinha')) return 'vizinha_faladeira';
+  if (nameNorm.includes('depois te explico')) return 'depois_te_explico';
+  if (nameNorm.includes('uruguai') || nameNorm.includes('uruguay')) return 'uniao_do_uruguai';
+  if (nameNorm.includes('vai como pode')) return 'portela';
   return nameNorm.replace(/[^a-z0-9]/g, '_');
 }
 
@@ -2286,7 +2500,7 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     1974, 1973, 1972, 1971, 1970,
     1969, 1968, 1967, 1966, 1965,
     1964, 1963, 1962, 1961, 1960,
-    1959, 1958, 1957, 1956, 1955, 1954, 1953, 1952, 1951, 1950, 1949, 1948, 1947, 1946, 1945, 1944, 1943, 1942, 1941
+    1959, 1958, 1957, 1956, 1955, 1954, 1953, 1952, 1951, 1950, 1949, 1948, 1947, 1946, 1945, 1944, 1943, 1942, 1941, 1940, 1939, 1938, 1937, 1936, 1935
   ];
   officialYears.forEach((yr) => {
     const stands = OFFICIAL_LIESA_HISTORICAL_STANDINGS[yr] || [];
@@ -2477,6 +2691,18 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
       notes = 'Carnaval Histórico de 1942: Desfile oficial unificado das Escolas de Samba com 23 agremiações participantes. A Portela sagrou-se bicampeã consecutiva (+20 pts) cantando "A Vida do Samba", e a agremiação Depois Eu Digo foi vice-campeã histórica (+15 pts). Estação Primeira de Mangueira ficou em 3º (+12 pts), Paz e Amor em 4º (+10 pts), Deixa Malhar em 5º (+8 pts), Unidos do Salgueiro em 6º (+6 pts), Papagaio Linguarudo em 7º (+4 pts), Cada Ano Sai Melhor em 8º (+3 pts), Azul e Branco do Salgueiro em 9º (+2 pts) e Fiquei Firme em 10º (+1 pt). Não houve rebaixamento.';
     } else if (yr === 1941) {
       notes = 'Carnaval Histórico de 1941: Desfile oficial unificado das Escolas de Samba com 17 agremiações participantes. A Portela sagrou-se campeã (+20 pts) cantando "Dez Anos de Glória", e a Estação Primeira de Mangueira foi a vice-campeã oficial (+15 pts) com "Transformação do Samba". Depois Eu Digo ficou em 3º (+12 pts), Deixa Malhar em 4º (+10 pts), Unidos da Tijuca em 5º (+8 pts), Unidos do Salgueiro em 6º (+6 pts), Paz e Amor em 7º (+4 pts), Lira do Amor em 8º (+3 pts), Mocidade Louca de São Cristóvão em 9º (+2 pts) e Não é o Que Dizem em 10º (+1 pt). Empatadas em 11º ficaram Fiquei Firme e Prazer da Serrinha (0 pts). Não houve rebaixamento.';
+    } else if (yr === 1940) {
+      notes = 'Carnaval Histórico de 1940: Desfile oficial unificado das Escolas de Samba com 23 agremiações participantes. A Estação Primeira de Mangueira sagrou-se campeã (+20 pts) cantando "Prélio Sambístico", e a agremiação Mocidade Louca de São Cristóvão foi a vice-campeã histórica (+15 pts). Azul e Branco do Salgueiro ficou em 3º (+12 pts), União do Sampaio em 4º (+10 pts), Portela em 5º (+8 pts), Deixa Malhar em 6º (+6 pts), Cada Ano Sai Melhor, Paz e Amor e Unidos da Tijuca empatadas em 7º (+4 pts cada), Fiquei Firme em 8º (+3 pts), União Barão da Gamboa em 9º (+2 pts) e Depois Eu Digo em 10º (+1 pt). Não houve rebaixamento.';
+    } else if (yr === 1939) {
+      notes = 'Carnaval Histórico de 1939: Desfile oficial unificado das Escolas de Samba com 26 agremiações classificadas e 4 agremiações desclassificadas. A Portela sagrou-se campeã (+20 pts) cantando "Teste ao Samba", e a Estação Primeira de Mangueira foi vice-campeã (+15 pts) com "Noções de Geografia". Unidos do Tuiuti ficou em 3º (+12 pts), Depois Eu Digo em 4º (+10 pts), Unidos da Mangueira em 5º (+8 pts), Unidos da Tijuca em 6º (+6 pts), Azul e Branco do Salgueiro em 7º (+4 pts), União do Sampaio em 8º (+3 pts), Deixa Malhar em 9º (+2 pts) e União Parada de Lucas em 10º (+1 pt). Desclassificadas: Papagaio Linguarudo, União de Madureira, Vai Se Quiser e Vizinha Faladeira.';
+    } else if (yr === 1938) {
+      notes = 'Carnaval Histórico de 1938: Não houve apuração oficial das notas em função do forte temporal e chuvas torrenciais durante os desfiles na Praça Onze. 37 agremiações participaram do evento. Nenhum ponto atribuído por ausência de julgamento oficial.';
+    } else if (yr === 1937) {
+      notes = 'Carnaval Histórico de 1937: Desfile oficial com 15 agremiações classificadas. Vizinha Faladeira sagrou-se campeã histórica (+20 pts) cantando "Uma Só Família", e a Portela foi vice-campeã (+15 pts) com "O Tesouro das Ruínas". Depois Eu Digo ficou em 3º (+12 pts), Unidos da Mangueira em 4º (+10 pts), Unidos do Tuiuti em 5º (+8 pts), União Parada de Lucas em 6º (+6 pts), Azul e Branco do Salgueiro em 7º (+4 pts), Papagaio Linguarudo em 8º (+3 pts), e Cada Ano Sai Melhor e Mocidade Louca de São Cristóvão empatadas em 9º (+2 pts cada). Unidos de Cavalcante em 10º (+1 pt). Não houve rebaixamento.';
+    } else if (yr === 1936) {
+      notes = 'Carnaval Histórico de 1936: Desfile oficial com 11 agremiações classificadas. A Unidos da Tijuca sagrou-se campeã histórica (+20 pts) cantando "Sonho das Ilusões", e a Estação Primeira de Mangueira foi vice-campeã (+15 pts) com "Não Faz Mal, a Mangueira É Maior". A Portela ficou em 3º (+12 pts), Depois Eu Digo em 4º (+10 pts), Deixa Malhar em 5º (+8 pts), Vizinha Faladeira em 6º (+6 pts), União Barão da Gamboa em 7º (+4 pts), Fiquei Firme em 8º (+3 pts), Última Hora em 9º (+2 pts) e Azul e Branco do Salgueiro em 10º (+1 pt). Lira do Amor em 11º (0 pts). Não houve rebaixamento.';
+    } else if (yr === 1935) {
+      notes = 'Carnaval Histórico de 1935 (Primeiro desfile oficial organizado pela UGES / Jornal A Nação na Praça Onze): Apenas as 5 primeiras colocadas foram classificadas oficialmente com pontos. Vai Como Pode (atual Portela) sagrou-se campeã histórica (+20 pts) cantando "O Samba Dominando o Mundo", Estação Primeira de Mangueira foi vice-campeã (+15 pts) com "O Romance do Samba", Prazer da Serrinha em 3º (+12 pts), Vizinha Faladeira em 4º (+10 pts) e Unidos da Tijuca em 5º (+8 pts). As demais 18 agremiações desfilaram sem classificação final atribuída pelo júri.';
     }
 
     result.push({
@@ -2512,6 +2738,18 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
         ? ['Portela (Campeã Oficial)']
         : yr === 1941
         ? ['Portela (Campeã Oficial)']
+        : yr === 1940
+        ? ['Estação Primeira de Mangueira (Campeã Oficial)']
+        : yr === 1939
+        ? ['Portela (Campeã Oficial)']
+        : yr === 1938
+        ? []
+        : yr === 1937
+        ? ['Vizinha Faladeira (Campeã Oficial)']
+        : yr === 1936
+        ? ['Unidos da Tijuca (Campeã Oficial)']
+        : yr === 1935
+        ? ['Vai Como Pode - Portela (Campeã Oficial)']
         : champs,
       viceChampionNames: yr === 1984
         ? ['Portela (Supervice)', 'Mocidade Independente (Vice Segunda)', 'Império Serrano (Vice Domingo)']
@@ -2540,6 +2778,18 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
         : yr === 1942
         ? ['Depois Eu Digo (Vice-campeã Oficial)']
         : yr === 1941
+        ? ['Estação Primeira de Mangueira (Vice-campeã Oficial)']
+        : yr === 1940
+        ? ['Mocidade Louca de São Cristóvão (Vice-campeã Oficial)']
+        : yr === 1939
+        ? ['Estação Primeira de Mangueira (Vice-campeã Oficial)']
+        : yr === 1938
+        ? []
+        : yr === 1937
+        ? ['Portela (Vice-campeã Oficial)']
+        : yr === 1936
+        ? ['Estação Primeira de Mangueira (Vice-campeã Oficial)']
+        : yr === 1935
         ? ['Estação Primeira de Mangueira (Vice-campeã Oficial)']
         : vices,
       totalSchools: stands.length,
@@ -2573,6 +2823,18 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
         fbes: CARNAVAL_1942_OFICIAL
       } : yr === 1941 ? {
         fbes: CARNAVAL_1941_OFICIAL
+      } : yr === 1940 ? {
+        fbes: CARNAVAL_1940_OFICIAL
+      } : yr === 1939 ? {
+        fbes: CARNAVAL_1939_OFICIAL
+      } : yr === 1938 ? {
+        fbes: CARNAVAL_1938_OFICIAL
+      } : yr === 1937 ? {
+        fbes: CARNAVAL_1937_OFICIAL
+      } : yr === 1936 ? {
+        fbes: CARNAVAL_1936_OFICIAL
+      } : yr === 1935 ? {
+        ugesb: CARNAVAL_1935_OFICIAL
       } : undefined
     });
   });
@@ -2804,19 +3066,19 @@ export function computeHistoricalLiesaRanking(
     return historicalMap[sId];
   };
 
-  // 1. Processa todos os títulos e vices históricos da era pré-1941 a partir de HISTORICAL_CARNAVAL_RECORDS
-  // A partir de 1941 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA/AESCRJ/FBES/UCES/UGESB
+  // 1. Processa todos os títulos e vices históricos da era pré-1935 a partir de HISTORICAL_CARNAVAL_RECORDS
+  // A partir de 1935 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA/AESCRJ/FBES/UCES/UGESB
   Object.entries(HISTORICAL_CARNAVAL_RECORDS).forEach(([id, rec]) => {
     const sId = resolveSchoolId(id, undefined, schoolsMap);
     const entry = ensureEntry(sId);
 
-    const espYearsPre1941 = (rec.especialYears || []).filter((y) => y < 1941);
-    const espViceYearsPre1941 = (rec.especialRunnerUpYears || []).filter((y) => y < 1941);
+    const espYearsPre1935 = (rec.especialYears || []).filter((y) => y < 1935);
+    const espViceYearsPre1935 = (rec.especialRunnerUpYears || []).filter((y) => y < 1935);
 
-    const titlesPre1941 = espYearsPre1941.length;
-    const vicesPre1941 = espViceYearsPre1941.length;
+    const titlesPre1935 = espYearsPre1935.length;
+    const vicesPre1935 = espViceYearsPre1935.length;
 
-    espYearsPre1941.forEach((y) => {
+    espYearsPre1935.forEach((y) => {
       entry.participationsSet.add(y);
       entry.performancesDetailed[y] = {
         year: y,
@@ -2828,7 +3090,7 @@ export function computeHistoricalLiesaRanking(
       };
     });
 
-    espViceYearsPre1941.forEach((y) => {
+    espViceYearsPre1935.forEach((y) => {
       entry.participationsSet.add(y);
       entry.performancesDetailed[y] = {
         year: y,
@@ -2840,16 +3102,16 @@ export function computeHistoricalLiesaRanking(
       };
     });
 
-    entry.totalEspecialTitles += titlesPre1941;
-    entry.totalEspecialVices += vicesPre1941;
-    entry.titlePoints += titlesPre1941 * 20;
-    entry.vicePoints += vicesPre1941 * 15;
-    entry.pointsEraPre2015 += titlesPre1941 * 20 + vicesPre1941 * 15;
-    entry.totalPoints += titlesPre1941 * 20 + vicesPre1941 * 15;
-    entry.totalCarnavalesContados += titlesPre1941 + vicesPre1941;
+    entry.totalEspecialTitles += titlesPre1935;
+    entry.totalEspecialVices += vicesPre1935;
+    entry.titlePoints += titlesPre1935 * 20;
+    entry.vicePoints += vicesPre1935 * 15;
+    entry.pointsEraPre2015 += titlesPre1935 * 20 + vicesPre1935 * 15;
+    entry.totalPoints += titlesPre1935 * 20 + vicesPre1935 * 15;
+    entry.totalCarnavalesContados += titlesPre1935 + vicesPre1935;
   });
 
-  // 2. Processa anos de 1941 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
+  // 2. Processa anos de 1935 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
   Object.entries(OFFICIAL_LIESA_HISTORICAL_STANDINGS).forEach(([yrStr, list]) => {
     const yr = parseInt(yrStr, 10);
     if (yr === 2021 || yr === 1952 || !list || list.length === 0) {
