@@ -254,7 +254,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                   MEMÓRIA DO SAMBA
                 </span>
                 <span className="text-xs text-slate-400">
-                  Resultados Oficiais & Participações na Elite (1949 a {currentYear || 2026})
+                  Resultados Oficiais & Participações na Elite (1933 a {currentYear || 2026})
                 </span>
               </div>
               <h2 className="text-xl sm:text-2xl font-black text-white mt-0.5 flex items-center gap-2">

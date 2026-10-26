@@ -224,7 +224,18 @@ const INITIAL_INACTIVE_SCHOOL_IDS = new Set([
   'uniao_do_sape',
   'unidos_da_saude',
   'filhos_de_ninguem',
-  'uniao_do_amor'
+  'uniao_do_amor',
+  'capricho_do_engenho_novo',
+  'e_assim_que_nos_queremos',
+  'e_o_que_se_ve',
+  'amizade_do_realengo',
+  'estrela_da_tijuca',
+  'nos_nao_somos_la_essas_coisas',
+  'podia_ser_pior',
+  'principes_da_floresta',
+  'sport_club_guarany',
+  'escola_tuiuti',
+  'segunda_linha_do_estacio'
 ]);
 
 function sanitizeSchoolsData(loadedSchools: School[]): School[] {

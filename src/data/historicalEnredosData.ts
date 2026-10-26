@@ -1154,6 +1154,33 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     azul_e_branco_salgueiro: 'Os Bandeirantes da História',
     imperio_da_tijuca: 'Glória a Caxias'
   },
+  1952: {
+    aprendizes_de_lucas: 'Três Épocas do Brasil',
+    azul_e_branco_salgueiro: 'Os Bandeirantes da História',
+    combinado_do_amor: 'Amor e Samba',
+    depois_eu_digo: 'Vultos Históricos',
+    mangueira: 'Homenagem a Gonçalves Dias',
+    filhos_do_deserto: 'Glória à Marinha do Brasil',
+    imperio_da_tijuca: 'Homenagem a Gonçalves Dias',
+    imperio_serrano: 'Homenagem à Medicina Brasileira',
+    independentes_cordovil: 'O Esplendor da Natureza',
+    paz_e_amor: 'Bandeirantes e Pioneiros',
+    portela: 'Brasil de Ontem',
+    tres_mosqueteiros: 'Achegas Históricas',
+    uniao_vaz_lobo: 'Vultos Ilustres da Pátria',
+    unidos_da_capela: 'Homenagem aos Heróis da Pátria',
+    unidos_da_tamarineira: 'Exaltação ao Samba',
+    tijuca: 'O Pavão no Asfalto',
+    unidos_do_catete: 'Memórias do Catete',
+    unidos_do_grajau: 'A Epopéia dos Bandeirantes',
+    unidos_do_pecado: 'Festa no Terreiro',
+    unidos_do_salgueiro: 'Episódios Históricos',
+    vai_se_quiser: 'Tradições do Rio Antigo',
+    aventureiros_da_matriz: 'Homenagem à Pátria',
+    coracoes_unidos_jacarepagua: 'Guanabara Histórica',
+    floresta_do_andarai: 'Tradições da Guanabara',
+    indios_do_acau: 'A Lenda da Vitória-Régia'
+  },
   1951: {
     // FBES
     imperio_serrano: 'Batalha do Riachuelo',
@@ -1685,6 +1712,47 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     uniao_de_madureira: 'Canto de Madureira',
     uniao_do_amor: 'Coração no Terreiro',
     uniao_do_sape: 'Raiz do Sapê'
+  },
+  1933: {
+    mangueira: 'Uma Segunda-Feira na Mangueira',
+    azul_e_branco_salgueiro: 'Salgueiro em Festa',
+    tijuca: 'O Pavão no Asfalto',
+    de_mim_ninguem_se_lembra: 'A Voz da Lembrança',
+    portela: 'Samba e Amor',
+    uniao_do_uruguai: 'União da Tijuca na Rua Uruguai',
+    aventureiros_da_matriz: 'Samba na Matriz',
+    capricho_do_engenho_novo: 'Capricho no Samba',
+    e_assim_que_nos_queremos: 'É Assim que Nós Queremos',
+    e_o_que_se_ve: 'É o Que Se Vê',
+    em_cima_da_hora_catumbi: 'Catumbi em Folia',
+    amizade_do_realengo: 'Amizade no Samba',
+    estrela_da_tijuca: 'Brilho da Tijuca',
+    filhos_de_ninguem: 'Irmãos no Samba',
+    fiquei_firme: 'Samba Firme',
+    inimigos_da_tristeza: 'Alegria no Morro',
+    lira_do_amor: 'A Lira Canta',
+    mocidade_louca_sao_cristovao: 'Mocidade em Desfile',
+    na_hora_e_que_se_ve: 'Na Hora é Que Se Vê',
+    nos_nao_somos_la_essas_coisas: 'Nós Não Somos Lá Essas Coisas',
+    paz_e_amor: 'Paz e Amor na Avenida',
+    podia_ser_pior: 'Podia Ser Pior',
+    prazer_da_serrinha: 'A Serrinha Canta',
+    principes_da_floresta: 'Príncipes da Floresta',
+    recreio_de_ramos: 'Glórias de Ramos',
+    sport_club_guarany: 'Guarany em Folia',
+    escola_tuiuti: 'O Morro do Tuiuti',
+    ultima_hora: 'O Apito do Trem',
+    uniao_barao_da_gamboa: 'Saudações da Gamboa',
+    uniao_do_amor: 'Coração no Terreiro',
+    unidos_do_salgueiro: 'O Samba do Salgueiro',
+    vizinha_faladeira: 'Malandro Regenerado'
+  },
+  1932: {
+    mangueira: 'Sorrindo (A Floresta)',
+    segunda_linha_do_estacio: 'O Berço do Samba no Estácio',
+    portela: 'O Carnaval Carioca',
+    para_o_ano_sai_melhor: 'Esperança e Alegria',
+    tijuca: 'O Pavão no Asfalto'
   }
 };
 
@@ -1719,6 +1787,16 @@ function normalizeId(rawId?: string, rawName?: string): string {
     if (id.includes('filhos_de_ninguem')) return 'filhos_de_ninguem';
     if (id.includes('uniao_do_amor')) return 'uniao_do_amor';
     if (id.includes('recreio_de_sao_carlos')) return 'recreio_de_sao_carlos';
+    if (id.includes('capricho_do_engenho_novo')) return 'capricho_do_engenho_novo';
+    if (id.includes('e_assim_que_nos_queremos')) return 'e_assim_que_nos_queremos';
+    if (id.includes('e_o_que_se_ve')) return 'e_o_que_se_ve';
+    if (id.includes('amizade_do_realengo')) return 'amizade_do_realengo';
+    if (id.includes('estrela_da_tijuca')) return 'estrela_da_tijuca';
+    if (id.includes('nos_nao_somos_la_essas_coisas')) return 'nos_nao_somos_la_essas_coisas';
+    if (id.includes('podia_ser_pior')) return 'podia_ser_pior';
+    if (id.includes('principes_da_floresta')) return 'principes_da_floresta';
+    if (id.includes('sport_club_guarany')) return 'sport_club_guarany';
+    if (id.includes('escola_tuiuti')) return 'escola_tuiuti';
     if (id.includes('estacio') || id.includes('sao_carlos')) return 'estacio_de_sa';
     if (id.includes('padre_miguel') && id.includes('unidos')) return 'unidos_padre_miguel';
     if (id.includes('marica')) return 'marica';
@@ -1726,6 +1804,9 @@ function normalizeId(rawId?: string, rawName?: string): string {
   }
   if (!rawName) return '';
   const n = rawName.toLowerCase();
+  if (n.includes('capricho do engenho novo')) return 'capricho_do_engenho_novo';
+  if (n.includes('estrela da tijuca')) return 'estrela_da_tijuca';
+  if (n === 'tuiuti' || n.includes('escola de samba tuiuti') || n.includes('escola tuiuti')) return 'escola_tuiuti';
   if (n.includes('viradouro')) return 'viradouro';
   if (n.includes('beija-flor') || n.includes('beija flor')) return 'beija_flor';
   if (n.includes('vila isabel')) return 'vila_isabel';
@@ -1807,6 +1888,13 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('saúde') || n.includes('saude')) return 'unidos_da_saude';
   if (n.includes('filhos de ninguém') || n.includes('filhos de ninguem')) return 'filhos_de_ninguem';
   if (n.includes('união do amor') || n.includes('uniao do amor')) return 'uniao_do_amor';
+  if (n.includes('é assim que nós queremos') || n.includes('e assim que nos queremos')) return 'e_assim_que_nos_queremos';
+  if (n.includes('é o que se vê') || n.includes('e o que se ve')) return 'e_o_que_se_ve';
+  if (n.includes('amizade do realengo')) return 'amizade_do_realengo';
+  if (n.includes('lá essas coisas') || n.includes('la essas coisas')) return 'nos_nao_somos_la_essas_coisas';
+  if (n.includes('podia ser pior')) return 'podia_ser_pior';
+  if (n.includes('príncipes da floresta') || n.includes('principes da floresta')) return 'principes_da_floresta';
+  if (n.includes('guarany') || n.includes('sport club') || n.includes('sport clube')) return 'sport_club_guarany';
   if (n.includes('vai como pode')) return 'portela';
   return '';
 }
