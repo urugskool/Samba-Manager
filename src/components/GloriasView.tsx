@@ -338,7 +338,7 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
           <button
             onClick={() => setIsCarnavaisPassadosModalOpen(true)}
             className="px-4 py-2.5 bg-gradient-to-r from-amber-500/20 to-amber-600/20 hover:from-amber-500/30 hover:to-amber-600/30 text-amber-300 hover:text-white border border-amber-500/40 font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-md cursor-pointer active:scale-95"
-            title="Abrir Carnavais Passados (Resultados 1950 a 2026+ & Participações no Grupo Especial)"
+            title="Abrir Carnavais Passados (Resultados 1932 a 2026+ & Participações no Grupo Especial)"
           >
             <Calendar className="w-4 h-4 text-amber-400" />
             <span>Carnavais Passados</span>
@@ -1364,7 +1364,7 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
         </div>
       </div>
 
-      {/* 1. Modal dos Carnavais Passados (Resultados 1950 a 2026+ & Participações no Grupo Especial dentro) */}
+      {/* 1. Modal dos Carnavais Passados (Resultados 1932 a 2026+ & Participações no Grupo Especial dentro) */}
       <CarnavaisPassadosModal
         isOpen={isCarnavaisPassadosModalOpen}
         onClose={() => setIsCarnavaisPassadosModalOpen(false)}

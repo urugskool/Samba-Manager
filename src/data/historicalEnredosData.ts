@@ -1912,7 +1912,7 @@ export function getHistoricalEnredo(
 ): string | undefined {
   const key = normalizeId(schoolId, schoolName);
 
-  // 1. Para todos os carnavais oficiais já catalogados (1950 a 2026),
+  // 1. Para todos os carnavais oficiais já catalogados (1932 a 2026),
   // o Catálogo Oficial Canônico é soberano e autoritativo em 100% dos locais
   if (year <= 2026) {
     const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[year];

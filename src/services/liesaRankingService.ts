@@ -889,7 +889,7 @@ export const CARNAVAL_1952_OFICIAL: LiesaStandingRecord[] = [
 ];
 
 /**
- * Resultados oficiais catalogados dos carnavais históricos (1980 a 2026).
+ * Resultados oficiais catalogados dos carnavais históricos (1932 a 2026).
  * Nota Histórica: A LIESA foi fundada em 24 de julho de 1984 para administrar o Grupo Especial
  * a partir do Carnaval de 1985. Até o Carnaval de 1984 a administração era de responsabilidade
  * da AESCRJ (Associação das Escolas de Samba do Rio de Janeiro).
@@ -2685,7 +2685,7 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
 }
 
 /**
- * Retorna lista de carnavais históricos com resultados oficiais catalogados (1952 a 2026 + save)
+ * Retorna lista de carnavais históricos com resultados oficiais catalogados (1932 a 2026 + save)
  */
 export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): HistoricalCarnavalInfo[] {
   const result: HistoricalCarnavalInfo[] = [];
@@ -2715,7 +2715,7 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     });
   });
 
-  // Anos oficiais catalogados (2026 descendo até 1933)
+  // Anos oficiais catalogados (2026 descendo até 1932)
   const officialYears = [
     2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017,
     2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007,
@@ -3490,7 +3490,7 @@ export function computeHistoricalLiesaRanking(
 
 /**
  * Calcula a lista de agremiações por ordem estritamente DECRESCENTE de participações
- * no Grupo Especial, computando todos os Carnavais Passados catalogados (1951 a 2026)
+ * no Grupo Especial, computando todos os Carnavais Passados catalogados (1932 a 2026)
  * somados dinamicamente aos anos decorridos no save (inGameHistory).
  */
 export function computeEspecialParticipationsList(
@@ -3527,7 +3527,7 @@ export function computeEspecialParticipationsList(
     return participationsMap.get(sId)!;
   };
 
-  // 1. Processa todos os anos catalogados oficiais dos Carnavais Passados (1951 a 2026)
+  // 1. Processa todos os anos catalogados oficiais dos Carnavais Passados (1932 a 2026)
   Object.entries(OFFICIAL_LIESA_HISTORICAL_STANDINGS).forEach(([yrStr, standings]) => {
     const yr = Number(yrStr);
     if (yr === 2021 || yr === 1952 || !standings || standings.length === 0) return;
