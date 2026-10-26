@@ -8,8 +8,8 @@ export interface LiesaStandingRecord {
   schoolName: string;
   totalScore?: number;
   isHorsConcours?: boolean;
-  subgroup?: 'domingo' | 'segunda' | 'supercampeonato' | 'fbes' | 'ugesb' | 'uces';
-  league?: 'FBES' | 'UGESB' | 'UCES' | 'AESCRJ' | 'LIESA';
+  subgroup?: 'domingo' | 'segunda' | 'supercampeonato' | 'fbes' | 'ugesb' | 'uces' | 'o_pais' | 'a_hora';
+  league?: 'FBES' | 'UGESB' | 'UCES' | 'AESCRJ' | 'LIESA' | 'O País' | 'A Hora';
   statusDescription?: string;
 }
 
@@ -77,6 +77,109 @@ export const CARNAVAL_1984_SUPERCAMPEONATO: LiesaStandingRecord[] = [
   { rank: 6, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', subgroup: 'supercampeonato', statusDescription: '6º Lugar no Supercampeonato' },
   { rank: 7, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', subgroup: 'supercampeonato', statusDescription: '7º Lugar (Campeã Grupo 1-B)' },
   { rank: 8, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz', subgroup: 'supercampeonato', statusDescription: '8º Lugar (Vice Grupo 1-B)' }
+];
+
+/**
+ * Resultados específicos do Carnaval de 1934 - Desfile organizado pelo jornal "O País":
+ * Houve 2 desfiles competitivos em 1934. Este foi organizado pelo tradicional periódico "O País".
+ * 1ª Mangueira (Campeã O País, +20 pts)
+ * 2ª Vai Como Pode - Portela (Vice-Campeã O País, +15 pts)
+ * 3ª Deixa Malhar (+12 pts)
+ * 13 agremiações desfilaram sem classificação final oficial atribuída (0 pts).
+ */
+export const CARNAVAL_1934_O_PAIS: LiesaStandingRecord[] = [
+  { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', subgroup: 'o_pais', league: 'O País', statusDescription: 'Campeã Jornal O País (+20 pts)' },
+  { rank: 2, schoolId: 'portela', schoolName: 'Vai Como Pode (Portela)', subgroup: 'o_pais', league: 'O País', statusDescription: 'Vice-Campeã Jornal O País (+15 pts)' },
+  { rank: 3, schoolId: 'deixa_malhar', schoolName: 'Deixa Malhar', subgroup: 'o_pais', league: 'O País', statusDescription: '3º Lugar Jornal O País (+12 pts)' },
+  // Sem classificação oficial (0 pts)
+  { rank: 0, schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro', isHorsConcours: true, subgroup: 'o_pais', league: 'O País', statusDescription: 'Desfilou O País (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'cada_ano_sai_melhor', schoolName: 'Cada Ano Sai Melhor', isHorsConcours: true, subgroup: 'o_pais', league: 'O País', statusDescription: 'Desfilou O País (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'de_mim_ninguem_se_lembra', schoolName: 'De Mim Ninguém Se Lembra', isHorsConcours: true, subgroup: 'o_pais', league: 'O País', statusDescription: 'Desfilou O País (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'depois_te_explico', schoolName: 'Depois Te Explico', isHorsConcours: true, subgroup: 'o_pais', league: 'O País', statusDescription: 'Desfilou O País (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'fale_quem_quizer', schoolName: 'Fale Quem Quizer', isHorsConcours: true, subgroup: 'o_pais', league: 'O País', statusDescription: 'Desfilou O País (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'lira_do_amor', schoolName: 'Lira do Amor', isHorsConcours: true, subgroup: 'o_pais', league: 'O País', statusDescription: 'Desfilou O País (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'para_o_ano_sai_melhor', schoolName: 'Para o Ano Sai Melhor', isHorsConcours: true, subgroup: 'o_pais', league: 'O País', statusDescription: 'Desfilou O País (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'paraiso_da_floresta', schoolName: 'Paraíso da Floresta', isHorsConcours: true, subgroup: 'o_pais', league: 'O País', statusDescription: 'Desfilou O País (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'paraiso_do_grotao', schoolName: 'Paraíso do Grotão', isHorsConcours: true, subgroup: 'o_pais', league: 'O País', statusDescription: 'Desfilou O País (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'prazer_da_serrinha', schoolName: 'Prazer da Serrinha', isHorsConcours: true, subgroup: 'o_pais', league: 'O País', statusDescription: 'Desfilou O País (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'ultima_hora', schoolName: 'Última Hora', isHorsConcours: true, subgroup: 'o_pais', league: 'O País', statusDescription: 'Desfilou O País (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'uniao_do_sape', schoolName: 'União do Sapê', isHorsConcours: true, subgroup: 'o_pais', league: 'O País', statusDescription: 'Desfilou O País (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'unidos_da_saude', schoolName: 'Unidos da Saúde', isHorsConcours: true, subgroup: 'o_pais', league: 'O País', statusDescription: 'Desfilou O País (Sem classificação oficial • 0 pts)' }
+];
+
+/**
+ * Resultados específicos do Carnaval de 1934 - Desfile organizado pelo jornal "A Hora":
+ * Houve 2 desfiles competitivos em 1934. Este foi organizado pelo periódico "A Hora".
+ * 1ª Recreio de Ramos (Campeã A Hora, +20 pts)
+ * 2ª Unidos da Tijuca (Vice-Campeã A Hora, +15 pts)
+ * 3ª Unidos da Saúde (+12 pts)
+ * 4ª Vizinha Faladeira (+10 pts)
+ * 5ª Para o Ano Sai Melhor (+8 pts)
+ * 6ª Azul e Branco do Salgueiro (+6 pts)
+ * 14 agremiações desfilaram sem classificação final oficial atribuída (0 pts).
+ */
+export const CARNAVAL_1934_A_HORA: LiesaStandingRecord[] = [
+  { rank: 1, schoolId: 'recreio_de_ramos', schoolName: 'Recreio de Ramos', subgroup: 'a_hora', league: 'A Hora', statusDescription: 'Campeã Jornal A Hora (+20 pts)' },
+  { rank: 2, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', subgroup: 'a_hora', league: 'A Hora', statusDescription: 'Vice-Campeã Jornal A Hora (+15 pts)' },
+  { rank: 3, schoolId: 'unidos_da_saude', schoolName: 'Unidos da Saúde', subgroup: 'a_hora', league: 'A Hora', statusDescription: '3º Lugar Jornal A Hora (+12 pts)' },
+  { rank: 4, schoolId: 'vizinha_faladeira', schoolName: 'Vizinha Faladeira', subgroup: 'a_hora', league: 'A Hora', statusDescription: '4º Lugar Jornal A Hora (+10 pts)' },
+  { rank: 5, schoolId: 'para_o_ano_sai_melhor', schoolName: 'Para o Ano Sai Melhor', subgroup: 'a_hora', league: 'A Hora', statusDescription: '5º Lugar Jornal A Hora (+8 pts)' },
+  { rank: 6, schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro', subgroup: 'a_hora', league: 'A Hora', statusDescription: '6º Lugar Jornal A Hora (+6 pts)' },
+  // Sem classificação oficial (0 pts)
+  { rank: 0, schoolId: 'cada_ano_sai_melhor', schoolName: 'Cada Ano Sai Melhor', isHorsConcours: true, subgroup: 'a_hora', league: 'A Hora', statusDescription: 'Desfilou A Hora (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'de_mim_ninguem_se_lembra', schoolName: 'De Mim Ninguém Se Lembra', isHorsConcours: true, subgroup: 'a_hora', league: 'A Hora', statusDescription: 'Desfilou A Hora (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'deixa_malhar', schoolName: 'Deixa Malhar', isHorsConcours: true, subgroup: 'a_hora', league: 'A Hora', statusDescription: 'Desfilou A Hora (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo', isHorsConcours: true, subgroup: 'a_hora', league: 'A Hora', statusDescription: 'Desfilou A Hora (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'em_cima_da_hora_catumbi', schoolName: 'Em Cima da Hora do Catumbi', isHorsConcours: true, subgroup: 'a_hora', league: 'A Hora', statusDescription: 'Desfilou A Hora (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'filhos_de_ninguem', schoolName: 'Filhos de Ninguém', isHorsConcours: true, subgroup: 'a_hora', league: 'A Hora', statusDescription: 'Desfilou A Hora (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'fiquei_firme', schoolName: 'Fiquei Firme', isHorsConcours: true, subgroup: 'a_hora', league: 'A Hora', statusDescription: 'Desfilou A Hora (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'lira_do_amor', schoolName: 'Lira do Amor', isHorsConcours: true, subgroup: 'a_hora', league: 'A Hora', statusDescription: 'Desfilou A Hora (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'paraiso_da_floresta', schoolName: 'Paraíso da Floresta', isHorsConcours: true, subgroup: 'a_hora', league: 'A Hora', statusDescription: 'Desfilou A Hora (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'paraiso_do_grotao', schoolName: 'Paraíso do Grotão', isHorsConcours: true, subgroup: 'a_hora', league: 'A Hora', statusDescription: 'Desfilou A Hora (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'prazer_da_serrinha', schoolName: 'Prazer da Serrinha', isHorsConcours: true, subgroup: 'a_hora', league: 'A Hora', statusDescription: 'Desfilou A Hora (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'uniao_barao_da_gamboa', schoolName: 'União Barão da Gamboa', isHorsConcours: true, subgroup: 'a_hora', league: 'A Hora', statusDescription: 'Desfilou A Hora (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'uniao_de_madureira', schoolName: 'União de Madureira', isHorsConcours: true, subgroup: 'a_hora', league: 'A Hora', statusDescription: 'Desfilou A Hora (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'uniao_do_amor', schoolName: 'União do Amor', isHorsConcours: true, subgroup: 'a_hora', league: 'A Hora', statusDescription: 'Desfilou A Hora (Sem classificação oficial • 0 pts)' }
+];
+
+/**
+ * Resultados consolidados do Carnaval de 1934 (Desfiles de O País e A Hora):
+ * Computa as colocações e pontuações de ambas as competições históricas.
+ */
+export const CARNAVAL_1934_OFICIAL: LiesaStandingRecord[] = [
+  // 1º Lugares (+20 pts)
+  { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', subgroup: 'o_pais', league: 'O País', statusDescription: 'Campeã Jornal O País (+20 pts)' },
+  { rank: 1, schoolId: 'recreio_de_ramos', schoolName: 'Recreio de Ramos', subgroup: 'a_hora', league: 'A Hora', statusDescription: 'Campeã Jornal A Hora (+20 pts)' },
+  // 2º Lugares (+15 pts)
+  { rank: 2, schoolId: 'portela', schoolName: 'Vai Como Pode (Portela)', subgroup: 'o_pais', league: 'O País', statusDescription: 'Vice-Campeã Jornal O País (+15 pts)' },
+  { rank: 2, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', subgroup: 'a_hora', league: 'A Hora', statusDescription: 'Vice-Campeã Jornal A Hora (+15 pts)' },
+  // 3º Lugares (+12 pts)
+  { rank: 3, schoolId: 'deixa_malhar', schoolName: 'Deixa Malhar', subgroup: 'o_pais', league: 'O País', statusDescription: '3º Lugar Jornal O País (+12 pts)' },
+  { rank: 3, schoolId: 'unidos_da_saude', schoolName: 'Unidos da Saúde', subgroup: 'a_hora', league: 'A Hora', statusDescription: '3º Lugar Jornal A Hora (+12 pts)' },
+  // 4º Lugar (+10 pts)
+  { rank: 4, schoolId: 'vizinha_faladeira', schoolName: 'Vizinha Faladeira', subgroup: 'a_hora', league: 'A Hora', statusDescription: '4º Lugar Jornal A Hora (+10 pts)' },
+  // 5º Lugar (+8 pts)
+  { rank: 5, schoolId: 'para_o_ano_sai_melhor', schoolName: 'Para o Ano Sai Melhor', subgroup: 'a_hora', league: 'A Hora', statusDescription: '5º Lugar Jornal A Hora (+8 pts)' },
+  // 6º Lugar (+6 pts)
+  { rank: 6, schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro', subgroup: 'a_hora', league: 'A Hora', statusDescription: '6º Lugar Jornal A Hora (+6 pts)' },
+  // Sem classificação oficial (0 pts)
+  { rank: 0, schoolId: 'cada_ano_sai_melhor', schoolName: 'Cada Ano Sai Melhor', isHorsConcours: true, statusDescription: 'Desfilou em 1934 (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'de_mim_ninguem_se_lembra', schoolName: 'De Mim Ninguém Se Lembra', isHorsConcours: true, statusDescription: 'Desfilou em 1934 (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo', isHorsConcours: true, statusDescription: 'Desfilou em A Hora (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'depois_te_explico', schoolName: 'Depois Te Explico', isHorsConcours: true, statusDescription: 'Desfilou em O País (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'em_cima_da_hora_catumbi', schoolName: 'Em Cima da Hora do Catumbi', isHorsConcours: true, statusDescription: 'Desfilou em A Hora (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'fale_quem_quizer', schoolName: 'Fale Quem Quizer', isHorsConcours: true, statusDescription: 'Desfilou em O País (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'filhos_de_ninguem', schoolName: 'Filhos de Ninguém', isHorsConcours: true, statusDescription: 'Desfilou em A Hora (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'fiquei_firme', schoolName: 'Fiquei Firme', isHorsConcours: true, statusDescription: 'Desfilou em A Hora (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'lira_do_amor', schoolName: 'Lira do Amor', isHorsConcours: true, statusDescription: 'Desfilou em 1934 (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'paraiso_da_floresta', schoolName: 'Paraíso da Floresta', isHorsConcours: true, statusDescription: 'Desfilou em 1934 (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'paraiso_do_grotao', schoolName: 'Paraíso do Grotão', isHorsConcours: true, statusDescription: 'Desfilou em 1934 (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'prazer_da_serrinha', schoolName: 'Prazer da Serrinha', isHorsConcours: true, statusDescription: 'Desfilou em 1934 (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'ultima_hora', schoolName: 'Última Hora', isHorsConcours: true, statusDescription: 'Desfilou em O País (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'uniao_barao_da_gamboa', schoolName: 'União Barão da Gamboa', isHorsConcours: true, statusDescription: 'Desfilou em A Hora (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'uniao_de_madureira', schoolName: 'União de Madureira', isHorsConcours: true, statusDescription: 'Desfilou em A Hora (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'uniao_do_amor', schoolName: 'União do Amor', isHorsConcours: true, statusDescription: 'Desfilou em A Hora (Sem classificação oficial • 0 pts)' },
+  { rank: 0, schoolId: 'uniao_do_sape', schoolName: 'União do Sapê', isHorsConcours: true, statusDescription: 'Desfilou em O País (Sem classificação oficial • 0 pts)' }
 ];
 
 /**
@@ -783,6 +886,7 @@ export const CARNAVAL_1951_UGESB: LiesaStandingRecord[] = [
  *   Não houve rebaixamento.
  */
 export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRecord[]> = {
+  1934: CARNAVAL_1934_OFICIAL,
   1935: CARNAVAL_1935_OFICIAL,
   1936: CARNAVAL_1936_OFICIAL,
   1937: CARNAVAL_1937_OFICIAL,
@@ -2275,6 +2379,8 @@ export interface HistoricalCarnavalInfo {
     fbes?: LiesaStandingRecord[];
     uces?: LiesaStandingRecord[];
     ugesb?: LiesaStandingRecord[];
+    o_pais?: LiesaStandingRecord[];
+    a_hora?: LiesaStandingRecord[];
   };
 }
 
@@ -2452,6 +2558,13 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('vizinha faladeira') || nameNorm.includes('vizinha')) return 'vizinha_faladeira';
   if (nameNorm.includes('depois te explico')) return 'depois_te_explico';
   if (nameNorm.includes('uruguai') || nameNorm.includes('uruguay')) return 'uniao_do_uruguai';
+  if (nameNorm.includes('ninguém se lembra') || nameNorm.includes('ninguem se lembra')) return 'de_mim_ninguem_se_lembra';
+  if (nameNorm.includes('para o ano sai melhor')) return 'para_o_ano_sai_melhor';
+  if (nameNorm.includes('fale quem quizer') || nameNorm.includes('fale quem quiser')) return 'fale_quem_quizer';
+  if (nameNorm.includes('sapê') || nameNorm.includes('sape')) return 'uniao_do_sape';
+  if (nameNorm.includes('saúde') || nameNorm.includes('saude')) return 'unidos_da_saude';
+  if (nameNorm.includes('filhos de ninguém') || nameNorm.includes('filhos de ninguem')) return 'filhos_de_ninguem';
+  if (nameNorm.includes('união do amor') || nameNorm.includes('uniao do amor')) return 'uniao_do_amor';
   if (nameNorm.includes('vai como pode')) return 'portela';
   return nameNorm.replace(/[^a-z0-9]/g, '_');
 }
@@ -2487,7 +2600,7 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     });
   });
 
-  // Anos oficiais catalogados (2026 descendo até 1952)
+  // Anos oficiais catalogados (2026 descendo até 1934)
   const officialYears = [
     2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017,
     2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007,
@@ -2500,7 +2613,7 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     1974, 1973, 1972, 1971, 1970,
     1969, 1968, 1967, 1966, 1965,
     1964, 1963, 1962, 1961, 1960,
-    1959, 1958, 1957, 1956, 1955, 1954, 1953, 1952, 1951, 1950, 1949, 1948, 1947, 1946, 1945, 1944, 1943, 1942, 1941, 1940, 1939, 1938, 1937, 1936, 1935
+    1959, 1958, 1957, 1956, 1955, 1954, 1953, 1952, 1951, 1950, 1949, 1948, 1947, 1946, 1945, 1944, 1943, 1942, 1941, 1940, 1939, 1938, 1937, 1936, 1935, 1934
   ];
   officialYears.forEach((yr) => {
     const stands = OFFICIAL_LIESA_HISTORICAL_STANDINGS[yr] || [];
@@ -2703,6 +2816,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
       notes = 'Carnaval Histórico de 1936: Desfile oficial com 11 agremiações classificadas. A Unidos da Tijuca sagrou-se campeã histórica (+20 pts) cantando "Sonho das Ilusões", e a Estação Primeira de Mangueira foi vice-campeã (+15 pts) com "Não Faz Mal, a Mangueira É Maior". A Portela ficou em 3º (+12 pts), Depois Eu Digo em 4º (+10 pts), Deixa Malhar em 5º (+8 pts), Vizinha Faladeira em 6º (+6 pts), União Barão da Gamboa em 7º (+4 pts), Fiquei Firme em 8º (+3 pts), Última Hora em 9º (+2 pts) e Azul e Branco do Salgueiro em 10º (+1 pt). Lira do Amor em 11º (0 pts). Não houve rebaixamento.';
     } else if (yr === 1935) {
       notes = 'Carnaval Histórico de 1935 (Primeiro desfile oficial organizado pela UGES / Jornal A Nação na Praça Onze): Apenas as 5 primeiras colocadas foram classificadas oficialmente com pontos. Vai Como Pode (atual Portela) sagrou-se campeã histórica (+20 pts) cantando "O Samba Dominando o Mundo", Estação Primeira de Mangueira foi vice-campeã (+15 pts) com "O Romance do Samba", Prazer da Serrinha em 3º (+12 pts), Vizinha Faladeira em 4º (+10 pts) e Unidos da Tijuca em 5º (+8 pts). As demais 18 agremiações desfilaram sem classificação final atribuída pelo júri.';
+    } else if (yr === 1934) {
+      notes = 'Carnaval Histórico de 1934: Houve 2 desfiles competitivos de grande repercussão na Praça Onze. No desfile organizado pelo jornal "O País", a Estação Primeira de Mangueira sagrou-se campeã (+20 pts), Vai Como Pode (Portela) foi vice-campeã (+15 pts), Deixa Malhar em 3º (+12 pts) e outras 13 agremiações desfilaram sem classificação oficial. No desfile organizado pelo jornal "A Hora", o Recreio de Ramos foi campeão (+20 pts), Unidos da Tijuca foi vice-campeã (+15 pts), Unidos da Saúde em 3º (+12 pts), Vizinha Faladeira em 4º (+10 pts), Para o Ano Sai Melhor em 5º (+8 pts) e Azul e Branco do Salgueiro em 6º (+6 pts), além de 14 agremiações sem classificação final oficial.';
     }
 
     result.push({
@@ -2750,6 +2865,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
         ? ['Unidos da Tijuca (Campeã Oficial)']
         : yr === 1935
         ? ['Vai Como Pode - Portela (Campeã Oficial)']
+        : yr === 1934
+        ? ['Estação Primeira de Mangueira (Campeã O País)', 'Recreio de Ramos (Campeã A Hora)']
         : champs,
       viceChampionNames: yr === 1984
         ? ['Portela (Supervice)', 'Mocidade Independente (Vice Segunda)', 'Império Serrano (Vice Domingo)']
@@ -2791,6 +2908,8 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
         ? ['Estação Primeira de Mangueira (Vice-campeã Oficial)']
         : yr === 1935
         ? ['Estação Primeira de Mangueira (Vice-campeã Oficial)']
+        : yr === 1934
+        ? ['Vai Como Pode - Portela (Vice O País)', 'Unidos da Tijuca (Vice A Hora)']
         : vices,
       totalSchools: stands.length,
       subgroups: yr === 1984 ? {
@@ -2835,6 +2954,9 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
         fbes: CARNAVAL_1936_OFICIAL
       } : yr === 1935 ? {
         ugesb: CARNAVAL_1935_OFICIAL
+      } : yr === 1934 ? {
+        o_pais: CARNAVAL_1934_O_PAIS,
+        a_hora: CARNAVAL_1934_A_HORA
       } : undefined
     });
   });
@@ -3066,19 +3188,19 @@ export function computeHistoricalLiesaRanking(
     return historicalMap[sId];
   };
 
-  // 1. Processa todos os títulos e vices históricos da era pré-1935 a partir de HISTORICAL_CARNAVAL_RECORDS
-  // A partir de 1935 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA/AESCRJ/FBES/UCES/UGESB
+  // 1. Processa todos os títulos e vices históricos da era pré-1934 a partir de HISTORICAL_CARNAVAL_RECORDS
+  // A partir de 1934 em diante, todas as colocações detalhadas vêm do catálogo oficial LIESA/AESCRJ/FBES/UCES/UGESB
   Object.entries(HISTORICAL_CARNAVAL_RECORDS).forEach(([id, rec]) => {
     const sId = resolveSchoolId(id, undefined, schoolsMap);
     const entry = ensureEntry(sId);
 
-    const espYearsPre1935 = (rec.especialYears || []).filter((y) => y < 1935);
-    const espViceYearsPre1935 = (rec.especialRunnerUpYears || []).filter((y) => y < 1935);
+    const espYearsPre1934 = (rec.especialYears || []).filter((y) => y < 1934);
+    const espViceYearsPre1934 = (rec.especialRunnerUpYears || []).filter((y) => y < 1934);
 
-    const titlesPre1935 = espYearsPre1935.length;
-    const vicesPre1935 = espViceYearsPre1935.length;
+    const titlesPre1934 = espYearsPre1934.length;
+    const vicesPre1934 = espViceYearsPre1934.length;
 
-    espYearsPre1935.forEach((y) => {
+    espYearsPre1934.forEach((y) => {
       entry.participationsSet.add(y);
       entry.performancesDetailed[y] = {
         year: y,
@@ -3090,7 +3212,7 @@ export function computeHistoricalLiesaRanking(
       };
     });
 
-    espViceYearsPre1935.forEach((y) => {
+    espViceYearsPre1934.forEach((y) => {
       entry.participationsSet.add(y);
       entry.performancesDetailed[y] = {
         year: y,
@@ -3102,16 +3224,16 @@ export function computeHistoricalLiesaRanking(
       };
     });
 
-    entry.totalEspecialTitles += titlesPre1935;
-    entry.totalEspecialVices += vicesPre1935;
-    entry.titlePoints += titlesPre1935 * 20;
-    entry.vicePoints += vicesPre1935 * 15;
-    entry.pointsEraPre2015 += titlesPre1935 * 20 + vicesPre1935 * 15;
-    entry.totalPoints += titlesPre1935 * 20 + vicesPre1935 * 15;
-    entry.totalCarnavalesContados += titlesPre1935 + vicesPre1935;
+    entry.totalEspecialTitles += titlesPre1934;
+    entry.totalEspecialVices += vicesPre1934;
+    entry.titlePoints += titlesPre1934 * 20;
+    entry.vicePoints += vicesPre1934 * 15;
+    entry.pointsEraPre2015 += titlesPre1934 * 20 + vicesPre1934 * 15;
+    entry.totalPoints += titlesPre1934 * 20 + vicesPre1934 * 15;
+    entry.totalCarnavalesContados += titlesPre1934 + vicesPre1934;
   });
 
-  // 2. Processa anos de 1935 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
+  // 2. Processa anos de 1934 a 2026 oficiais (com todas as colocações detalhadas catalogadas)
   Object.entries(OFFICIAL_LIESA_HISTORICAL_STANDINGS).forEach(([yrStr, list]) => {
     const yr = parseInt(yrStr, 10);
     if (yr === 2021 || yr === 1952 || !list || list.length === 0) {

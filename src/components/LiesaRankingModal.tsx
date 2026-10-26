@@ -263,7 +263,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
               }`}
             >
               <History className="w-3.5 h-3.5" />
-              <span>Ranking Histórico da LIESA (1935 a {currentYear || 2026})</span>
+              <span>Ranking Histórico da LIESA (1934 a {currentYear || 2026})</span>
             </button>
           </div>
 
@@ -589,7 +589,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
             <div className="space-y-4">
               <div className="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between text-xs text-slate-400 gap-2">
                 <span>
-                  Pontuação Oficial Histórica acumulada desde 1935 (20 pts campeã, 15 vice, 12 a 1 para colocações detalhadas).
+                  Pontuação Oficial Histórica acumulada desde 1934 (20 pts campeã, 15 vice, 12 a 1 para colocações detalhadas).
                 </span>
                 <span className="text-amber-300 font-medium">
                   {filteredHistoricalEntries.length} agremiações catalogadas

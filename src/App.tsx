@@ -217,7 +217,14 @@ const INITIAL_INACTIVE_SCHOOL_IDS = new Set([
   'na_hora_e_que_se_ve',
   'mocidade_unidos_do_riachuelo',
   'depois_te_explico',
-  'uniao_do_uruguai'
+  'uniao_do_uruguai',
+  'de_mim_ninguem_se_lembra',
+  'para_o_ano_sai_melhor',
+  'fale_quem_quizer',
+  'uniao_do_sape',
+  'unidos_da_saude',
+  'filhos_de_ninguem',
+  'uniao_do_amor'
 ]);
 
 function sanitizeSchoolsData(loadedSchools: School[]): School[] {

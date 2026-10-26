@@ -1657,6 +1657,34 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     uniao_do_uruguai: 'União da Tijuca na Rua Uruguai',
     unidos_do_salgueiro: 'O Samba do Salgueiro',
     unidos_do_tuiuti: 'Tradição do Tuiuti'
+  },
+  1934: {
+    mangueira: 'República do Samba',
+    recreio_de_ramos: 'Glórias de Ramos',
+    portela: 'Academia do Samba',
+    tijuca: 'O Pavão no Asfalto',
+    deixa_malhar: 'Malandros em Desfile',
+    unidos_da_saude: 'O Porto em Festa',
+    vizinha_faladeira: 'Malandro Regenerado',
+    para_o_ano_sai_melhor: 'Esperança da Folia',
+    azul_e_branco_salgueiro: 'Salgueiro em Festa',
+    cada_ano_sai_melhor: 'Cada Ano Sai Melhor',
+    de_mim_ninguem_se_lembra: 'A Voz da Lembrança',
+    depois_eu_digo: 'Depois Eu Digo',
+    depois_te_explico: 'Depois Te Explico no Terreiro',
+    em_cima_da_hora_catumbi: 'Catumbi em Folia',
+    fale_quem_quizer: 'Fale Quem Quiser',
+    filhos_de_ninguem: 'Irmãos no Samba',
+    fiquei_firme: 'Samba Firme',
+    lira_do_amor: 'A Lira Canta',
+    paraiso_da_floresta: 'Mata Verdejante',
+    paraiso_do_grotao: 'O Grotão em Canto',
+    prazer_da_serrinha: 'A Serrinha Canta',
+    ultima_hora: 'Última Hora de Madureira',
+    uniao_barao_da_gamboa: 'Saudações da Gamboa',
+    uniao_de_madureira: 'Canto de Madureira',
+    uniao_do_amor: 'Coração no Terreiro',
+    uniao_do_sape: 'Raiz do Sapê'
   }
 };
 
@@ -1683,6 +1711,13 @@ function normalizeId(rawId?: string, rawName?: string): string {
     if (id.includes('vizinha_faladeira')) return 'vizinha_faladeira';
     if (id.includes('depois_te_explico')) return 'depois_te_explico';
     if (id.includes('uniao_do_uruguai')) return 'uniao_do_uruguai';
+    if (id.includes('de_mim_ninguem_se_lembra')) return 'de_mim_ninguem_se_lembra';
+    if (id.includes('para_o_ano_sai_melhor')) return 'para_o_ano_sai_melhor';
+    if (id.includes('fale_quem_quizer')) return 'fale_quem_quizer';
+    if (id.includes('uniao_do_sape')) return 'uniao_do_sape';
+    if (id.includes('unidos_da_saude')) return 'unidos_da_saude';
+    if (id.includes('filhos_de_ninguem')) return 'filhos_de_ninguem';
+    if (id.includes('uniao_do_amor')) return 'uniao_do_amor';
     if (id.includes('recreio_de_sao_carlos')) return 'recreio_de_sao_carlos';
     if (id.includes('estacio') || id.includes('sao_carlos')) return 'estacio_de_sa';
     if (id.includes('padre_miguel') && id.includes('unidos')) return 'unidos_padre_miguel';
@@ -1765,6 +1800,13 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('vizinha faladeira') || n.includes('vizinha')) return 'vizinha_faladeira';
   if (n.includes('depois te explico')) return 'depois_te_explico';
   if (n.includes('uruguai') || n.includes('uruguay')) return 'uniao_do_uruguai';
+  if (n.includes('ninguém se lembra') || n.includes('ninguem se lembra')) return 'de_mim_ninguem_se_lembra';
+  if (n.includes('para o ano sai melhor')) return 'para_o_ano_sai_melhor';
+  if (n.includes('fale quem quizer') || n.includes('fale quem quiser')) return 'fale_quem_quizer';
+  if (n.includes('sapê') || n.includes('sape')) return 'uniao_do_sape';
+  if (n.includes('saúde') || n.includes('saude')) return 'unidos_da_saude';
+  if (n.includes('filhos de ninguém') || n.includes('filhos de ninguem')) return 'filhos_de_ninguem';
+  if (n.includes('união do amor') || n.includes('uniao do amor')) return 'uniao_do_amor';
   if (n.includes('vai como pode')) return 'portela';
   return '';
 }
