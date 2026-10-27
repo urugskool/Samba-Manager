@@ -89,101 +89,95 @@ export const CANONICAL_2026_ENREDOS: Record<string, CanonicalEnredoInfo> = {
   },
   marica: {
     schoolId: 'marica',
-    title: 'O Meu País é Meu Lugar',
-    themeType: 'Cultural',
-    synopsis: 'A celebração do pertencimento, da força popular de Maricá e das riquezas comunitárias do Brasil.'
+    title: 'Berenguendéns & Balangandãs',
+    themeType: 'Cultural & Afro-Brasileiro',
+    synopsis: 'Berenguendéns & Balangandãs: Os amuletos, o brilho, a ancestralidade e a história viva da cultura afro-brasileira.'
   },
 
   // SÉRIE OURO (2026)
   imperio_serrano: {
     schoolId: 'imperio_serrano',
-    title: 'O Que Vale É a Intenção',
-    themeType: 'Cultural',
-    synopsis: 'A sabedoria popular do Morro da Serrinha e as boas intenções que regem o samba e a vida.'
+    title: 'Ponciá Evaristo, Flor do Mulungu',
+    themeType: 'Homenagem & Literatura',
+    synopsis: 'Homenagem à escritora Conceição Evaristo e sua marcante escrevivência, da favela ao reconhecimento internacional.'
   },
   unidos_padre_miguel: {
     schoolId: 'unidos_padre_miguel',
-    title: 'Egbé Iyá Nassô',
-    themeType: 'Afro-Brasileiro',
-    synopsis: 'A liderança espiritual de Iyá Nassô e a fundação do Ilê Axé Iyá Nassô Oká (Terreiro da Casa Branca).'
-  },
-  porto_da_pedra: {
-    schoolId: 'porto_da_pedra',
-    title: 'Lunário Perpétuo: A Profética do Saber Popular',
-    themeType: 'Cultural',
-    synopsis: 'O saber empírico e poético do Lunário Perpétuo que iluminou os cantadores e o sertão brasileiro.'
+    title: 'Kunhã-Eté: O Sopro Sagrado da Jurema',
+    themeType: 'Indígena & Religioso',
+    synopsis: 'A força da mulher indígena, as rezadeiras da Jurema Sagrada e o sopro ancestral da cura e da floresta.'
   },
   uniao_da_ilha: {
     schoolId: 'uniao_da_ilha',
-    title: 'Dou-lhe uma, dou-lhe duas, dou-lhe três... Da Feira de São Cristóvão ao Rio de Janeiro',
-    themeType: 'Cultural',
-    synopsis: 'A efervescência nordestina, a culinária e o ritmo da Feira de São Cristóvão na Ilha do Governador.'
-  },
-  estacio_de_sa: {
-    schoolId: 'estacio_de_sa',
-    title: 'Chora, Cuíca! A Menina dos Olhos da Estácio',
-    themeType: 'Tradicional',
-    synopsis: 'A ancestralidade do berço do samba no Morro de São Carlos e a alma sonora da cuíca estaciana.'
+    title: 'Viva o hoje! O amanhã? Fica pra Depois',
+    themeType: 'Cultural & Filosófico',
+    synopsis: 'A celebração do momento presente, a alegria do viver carioca e a leveza insulana na Sapucaí.'
   },
   em_cima_da_hora: {
     schoolId: 'em_cima_da_hora',
-    title: 'A Nossa Luta Continua',
-    themeType: 'Social & Histórico',
-    synopsis: 'A crônica da resistência dos trabalhadores e das favelas cariocas pelo direito à dignidade.'
+    title: 'Salve Todas as Marias – Laroyê, Pombagiras!',
+    themeType: 'Afro-Brasileiro & Religioso',
+    synopsis: 'Homenagem e exaltação à força das Marias e Pombagiras na sabedoria da umbanda e da espiritualidade popular.'
   },
-  unidos_da_ponte: {
-    schoolId: 'unidos_da_ponte',
-    title: 'Tendadô',
-    themeType: 'Afro-Brasileiro',
-    synopsis: 'Os mistérios da cura, da fé e da pajelança ancestral sob a bênção dos orixás e caboclos.'
+  estacio_de_sa: {
+    schoolId: 'estacio_de_sa',
+    title: 'Tata Tancredo - O Papa Negro no Terreiro do Estácio',
+    themeType: 'Histórico & Religioso',
+    synopsis: 'A biografia de Tancredo da Silva Pinto, o Tata Tancredo, grande baluarte da umbanda e da tradição do Morro de São Carlos.'
   },
-  unidos_de_bangu: {
-    schoolId: 'unidos_de_bangu',
-    title: 'Jorge da Capadócia',
-    themeType: 'Religioso / Cultural',
-    synopsis: 'A devoção popular a São Jorge Guerreiro e Ogum nos trilhos da Zona Oeste carioca.'
-  },
-  arranco: {
-    schoolId: 'arranco',
-    title: 'As Manas do Brasil',
-    themeType: 'Social & Cultural',
-    synopsis: 'A representatividade, o afeto e a luta histórica das mulheres e identidades trans na sociedade brasileira.'
-  },
-  botafogo_samba_clube: {
-    schoolId: 'botafogo_samba_clube',
-    title: 'Uma Estrela Chamada Garrincha',
-    themeType: 'Homenagem',
-    synopsis: 'A ginga mágica das pernas tortas do Anjo das Pernas Tortas imortalizado no Botafogo e na Seleção.'
+  porto_da_pedra: {
+    schoolId: 'porto_da_pedra',
+    title: 'Das Mais Antigas da Vida, o Doce e Amargo Beijo da Noite',
+    themeType: 'Cultural & Boêmio',
+    synopsis: 'A sedução da boêmia, os encantos da madrugada, suas dores e poesias imortalizadas nas esquinas e no samba.'
   },
   parque_acari: {
     schoolId: 'parque_acari',
-    title: 'Ginga da Quebrada',
-    themeType: 'Cultural',
-    synopsis: 'A arte que floresce nos becos e vielas da periferia transformando sofrimento em poesia de passarela.'
+    title: 'Brasiliana',
+    themeType: 'Cultural & Histórico',
+    synopsis: 'Um mosaico visual e poético dos encantos, manifestações artísticas e raízes plurais que tecem o Brasil.'
   },
-  inocentes: {
-    schoolId: 'inocentes',
-    title: 'Debret Pintou, Camões Cantou: A Inocentes É Show',
-    themeType: 'Histórico & Artístico',
-    synopsis: 'O olhar dos viajantes históricos e cronistas sobre as belezas e contradições do Rio de Janeiro.'
-  },
-  santa_cruz: {
-    schoolId: 'santa_cruz',
-    title: 'Os Filhos da Noite',
-    themeType: 'Lúdico & Boêmio',
-    synopsis: 'Os encantos da boêmia carioca, os mistérios da noite e as lendas urbanas da Guanabara.'
+  botafogo_samba_clube: {
+    schoolId: 'botafogo_samba_clube',
+    title: 'O Brasil que Floresce em Arte',
+    themeType: 'Cultural & Artístico',
+    synopsis: 'As grandes expressões da arte brasileira, da pintura à música e poesia, celebrando o talento genuíno do povo.'
   },
   vigario_geral: {
     schoolId: 'vigario_geral',
-    title: 'Maracatu da Glória',
-    themeType: 'Cultural & Nordestino',
-    synopsis: 'O baque virado dos maracatus de Pernambuco unindo tambores e reisados à passarela do samba.'
+    title: 'Brasil Incógnito - O Que Os Seus Olhos Não Veem, A Minha Imaginação Reinventa',
+    themeType: 'Lúdico & Cultural',
+    synopsis: 'Os recantos misteriosos e fascinantes do Brasil profundo, reinventados pelo imaginário fantástico de passarela.'
+  },
+  unidos_da_ponte: {
+    schoolId: 'unidos_da_ponte',
+    title: 'Tamborzão – O Rio é Baile! O Poder é Black!',
+    themeType: 'Musical & Cultural',
+    synopsis: 'A potência sonora do tamborzão, a cultura dos bailes charme e funk cariocas e a afirmação do orgulho negro.'
+  },
+  unidos_de_bangu: {
+    schoolId: 'unidos_de_bangu',
+    title: 'As Coisas que Mamãe me Ensinou',
+    themeType: 'Afetivo & Cultural',
+    synopsis: 'A sabedoria matriarcal, os conselhos de mãe, as receitas e os valores transmitidos de geração em geração.'
+  },
+  arranco: {
+    schoolId: 'arranco',
+    title: 'A Gargalhada é o Xamego da Vida',
+    themeType: 'Lúdico & Cultural',
+    synopsis: 'A gargalhada que cura e resiste, o humor brasileiro e a alegria contagiante do samba que desafia a tristeza.'
+  },
+  inocentes: {
+    schoolId: 'inocentes',
+    title: 'O Sonho de um Tal Pagode Russo nos Frevos do meu Pernambuco',
+    themeType: 'Musical & Homenagem',
+    synopsis: 'O encontro do frevo pernambucano com o forró e a genialidade irreverente de Luiz Gonzaga no Carnaval.'
   },
   jacarezinho: {
     schoolId: 'jacarezinho',
-    title: 'Na Fé dos Meus Orixás',
-    themeType: 'Afro-Brasileiro',
-    synopsis: 'O respeito aos terreiros, as ervas sagradas e a espiritualidade negra que guia a comunidade.'
+    title: 'O ar que se respira agora inspira novos tempos',
+    themeType: 'Social & Poético',
+    synopsis: 'O recomeço, a esperança, os novos ares de renovação e a força da comunidade do Jacarezinho de cabeça erguida.'
   },
   sao_clemente: {
     schoolId: 'sao_clemente',
@@ -262,7 +256,8 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('niterói') || raw.includes('niteroi')) return 'niteroi';
   if (raw.includes('maricá') || raw.includes('marica')) return 'marica';
   if (raw.includes('imperio serrano') || raw.includes('império serrano') || raw.includes('serrano')) return 'imperio_serrano';
-  if (raw.includes('padre miguel') && raw.includes('unidos')) return 'unidos_padre_miguel';
+  if (raw.includes('padre miguel') && !raw.includes('mocidade')) return 'unidos_padre_miguel';
+  if (raw === 'upm' || raw.includes('padre_miguel')) return 'unidos_padre_miguel';
   if (raw.includes('porto da pedra') || raw.includes('pedra')) return 'porto_da_pedra';
   if (raw.includes('ilha do governador') || raw.includes('uniao da ilha') || raw.includes('união da ilha')) return 'uniao_da_ilha';
   if (raw.includes('estácio') || raw.includes('estacio') || raw.includes('são carlos')) return 'estacio_de_sa';

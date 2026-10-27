@@ -374,20 +374,38 @@ function sanitizeSchoolsData(loadedSchools: School[]): School[] {
       };
     }
 
-    const currentTitle = school.currentEnredo?.title || (school as any).enredo || (school as any).tituloEnredo;
+    const targetYear = (school as any).currentYear || 2026;
     const canonical = getCanonical2026Enredo(school.id, school.name);
-    const isCanonical2026 = Boolean(
-      canonical &&
-      currentTitle &&
-      currentTitle.toLowerCase().trim() === canonical.title.toLowerCase().trim()
-    );
+
+    // Se for o ano de 2026 e houver enredo canônico oficial catalogado, ele é a autoridade máxima
+    if (canonical && targetYear === 2026) {
+      usedTitlesThisSeason.add(canonical.title);
+      return {
+        ...school,
+        currentEnredo: {
+          id: `enr_${school.id}_2026`,
+          title: canonical.title,
+          synopsis: canonical.synopsis || school.currentEnredo?.synopsis || '',
+          themeType: canonical.themeType || school.currentEnredo?.themeType || 'Cultural',
+          qualityBoost: school.currentEnredo?.qualityBoost || 11,
+          cost: school.currentEnredo?.cost || 130000,
+          proponent: school.currentEnredo?.proponent || 'Carnavalesco'
+        },
+        enredo: canonical.title,
+        tituloEnredo: canonical.title,
+        temaEnredo: canonical.themeType || 'Cultural',
+        sinopseEnredo: canonical.synopsis || '',
+        complexidadeEnredo: 'Média'
+      } as any;
+    }
+
+    const currentTitle = school.currentEnredo?.title || (school as any).enredo || (school as any).tituloEnredo;
 
     const isSampleOrDuplicate =
       !currentTitle ||
       currentTitle.includes('SAMPLE') ||
       currentTitle.includes('O Império do Sol Nascente') ||
       currentTitle.includes('Os Mistérios de Tutancâmon') ||
-      isCanonical2026 ||
       usedTitlesThisSeason.has(currentTitle);
 
     if (!isSampleOrDuplicate && currentTitle && school.currentEnredo) {
@@ -395,7 +413,6 @@ function sanitizeSchoolsData(loadedSchools: School[]): School[] {
       return school;
     }
 
-    const targetYear = (school as any).currentYear || 2026;
     const freshEnredo = EnredoService.generateUniqueEnredoForSchool(school, targetYear, usedTitlesThisSeason);
     usedTitlesThisSeason.add(freshEnredo.title);
     return {
@@ -1581,11 +1598,24 @@ export default function App() {
           // Garante que cada escola tem um enredo autêntico sem duplicidades
           let currentEnredo = s.currentEnredo;
           if (!currentEnredo || currentEnredo.title.includes('SAMPLE') || currentEnredo.title.trim() === '') {
-            currentEnredo = EnredoService.generateUniqueEnredoForSchool(
-              s,
-              currentYear,
-              new Set<string>()
-            );
+            const canonical = currentYear === 2026 ? getCanonical2026Enredo(s.id, s.name) : undefined;
+            if (canonical) {
+              currentEnredo = {
+                id: `enr_${s.id}_2026`,
+                title: canonical.title,
+                synopsis: canonical.synopsis || '',
+                themeType: canonical.themeType || 'Cultural',
+                qualityBoost: 11,
+                cost: 130000,
+                proponent: 'Carnavalesco'
+              };
+            } else {
+              currentEnredo = EnredoService.generateUniqueEnredoForSchool(
+                s,
+                currentYear,
+                new Set<string>()
+              );
+            }
           }
 
           const sim = SeasonCycleService.simulateMonthProgress(s, currentSeasonMonth);
@@ -1666,11 +1696,24 @@ export default function App() {
         if (s.isInactive || (s as any).inactive) return s;
         let schoolEnredo = s.currentEnredo;
         if (!schoolEnredo || schoolEnredo.title.includes('SAMPLE') || schoolEnredo.title.trim() === '') {
-          schoolEnredo = EnredoService.generateUniqueEnredoForSchool(
-            s,
-            currentYear,
-            new Set<string>()
-          );
+          const canonical = currentYear === 2026 ? getCanonical2026Enredo(s.id, s.name) : undefined;
+          if (canonical) {
+            schoolEnredo = {
+              id: `enr_${s.id}_2026`,
+              title: canonical.title,
+              synopsis: canonical.synopsis || '',
+              themeType: canonical.themeType || 'Cultural',
+              qualityBoost: 11,
+              cost: 130000,
+              proponent: 'Carnavalesco'
+            };
+          } else {
+            schoolEnredo = EnredoService.generateUniqueEnredoForSchool(
+              s,
+              currentYear,
+              new Set<string>()
+            );
+          }
         }
 
         const finalBarracao = Math.min(100, Math.max(90, 88 + Math.floor(Math.random() * 12)));

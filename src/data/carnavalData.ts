@@ -2,6 +2,7 @@ import { QuesitoConfig, School, Enredo, StaffMember, InGameAchievement, YearHist
 import { AVALIACAO_SCHOOLS_INITIAL, INACTIVE_SCHOOLS_INITIAL, generateRandomCarnavalSchool } from './avaliacaoData';
 import { OFFICIAL_AVALIACAO_RECORDS_BY_SCHOOL } from './avaliacaoChampionsData';
 import { OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL } from './grupoEChampionsData';
+import { getCanonical2026Enredo } from './canonicalEnredosRegistry';
 
 export const QUESITOS: QuesitoConfig[] = [
   {
@@ -6656,7 +6657,15 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
       interprete: { id: 'upm_i', name: 'Bruno Ribas', role: 'interprete', roleName: 'Intérprete Oficial', rating: 92, salary: 85000, reputation: 'Voz Consagrada' },
       coreografo: { id: 'upm_cf', name: 'David Lima', role: 'coreografo', roleName: 'Coreógrafo Comissão', rating: 90, salary: 65000, reputation: 'Impacto Visual' }
     },
-    currentEnredo: SAMPLE_ENREDOS[2],
+    currentEnredo: {
+      id: 'enr_upm_2026',
+      title: 'Kunhã-Eté: O Sopro Sagrado da Jurema',
+      themeType: 'Indígena & Religioso',
+      synopsis: 'A força da mulher indígena, as rezadeiras da Jurema Sagrada e o sopro ancestral da cura e da floresta.',
+      qualityBoost: 12,
+      cost: 140000,
+      proponent: 'Carnavalesco'
+    },
     rehearsalLevel: 82,
     barracaoProgress: 82,
     technicalParadeDone: false
@@ -8830,18 +8839,18 @@ export const RESULTS_2026: Record<string, InGameAchievement> = {
   marica: { year: 2026, division: 'ouro', placement: 1, titleName: 'Campeã da Série Ouro & Acesso ao Especial 2026', badgeType: 'champion_ouro', totalScore: 269.9 },
   imperio_serrano: { year: 2026, division: 'ouro', placement: 2, titleName: 'Vice-Campeã da Série Ouro 2026', badgeType: 'vice_ouro', totalScore: 269.8 },
   unidos_padre_miguel: { year: 2026, division: 'ouro', placement: 3, titleName: '3º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 269.7 },
-  estacio_de_sa: { year: 2026, division: 'ouro', placement: 4, titleName: '4º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 269.5 },
-  uniao_da_ilha: { year: 2026, division: 'ouro', placement: 5, titleName: '5º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 269.4 },
-  inocentes: { year: 2026, division: 'ouro', placement: 6, titleName: '6º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 269.2 },
-  botafogo_samba_clube: { year: 2026, division: 'ouro', placement: 7, titleName: '7º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 269.0 },
-  unidos_de_bangu: { year: 2026, division: 'ouro', placement: 8, titleName: '8º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 268.8 },
-  em_cima_da_hora: { year: 2026, division: 'ouro', placement: 9, titleName: '9º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 268.7 },
-  unidos_da_ponte: { year: 2026, division: 'ouro', placement: 10, titleName: '10º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 268.5 },
-  arranco: { year: 2026, division: 'ouro', placement: 11, titleName: '11º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 268.4 },
-  vigario_geral: { year: 2026, division: 'ouro', placement: 12, titleName: '12º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 268.2 },
-  parque_acari: { year: 2026, division: 'ouro', placement: 13, titleName: '13º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 268.0 },
-  jacarezinho: { year: 2026, division: 'ouro', placement: 14, titleName: '14º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 267.8 },
-  porto_da_pedra: { year: 2026, division: 'ouro', placement: 15, titleName: '15º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 267.6 },
+  uniao_da_ilha: { year: 2026, division: 'ouro', placement: 4, titleName: '4º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 269.5 },
+  em_cima_da_hora: { year: 2026, division: 'ouro', placement: 5, titleName: '5º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 269.4 },
+  estacio_de_sa: { year: 2026, division: 'ouro', placement: 6, titleName: '6º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 269.2 },
+  porto_da_pedra: { year: 2026, division: 'ouro', placement: 7, titleName: '7º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 269.0 },
+  parque_acari: { year: 2026, division: 'ouro', placement: 8, titleName: '8º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 268.8 },
+  botafogo_samba_clube: { year: 2026, division: 'ouro', placement: 9, titleName: '9º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 268.7 },
+  vigario_geral: { year: 2026, division: 'ouro', placement: 10, titleName: '10º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 268.5 },
+  unidos_da_ponte: { year: 2026, division: 'ouro', placement: 11, titleName: '11º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 268.4 },
+  unidos_de_bangu: { year: 2026, division: 'ouro', placement: 12, titleName: '12º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 268.2 },
+  arranco: { year: 2026, division: 'ouro', placement: 13, titleName: '13º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 268.0 },
+  inocentes: { year: 2026, division: 'ouro', placement: 14, titleName: '14º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 267.8 },
+  jacarezinho: { year: 2026, division: 'ouro', placement: 15, titleName: '15º Lugar na Série Ouro 2026', badgeType: 'regular', totalScore: 267.6 },
 
   // Série Prata 2026
   santa_cruz: { year: 2026, division: 'prata', placement: 1, titleName: 'Campeã da Série Prata & Promovida para a Série Ouro (2026)', badgeType: 'champion_prata', totalScore: 269.9 },
@@ -9260,10 +9269,22 @@ export const INITIAL_SCHOOLS: School[] = [
     };
 
     const consolidated = getSchoolConsolidatedStats(tempSchool);
+    const canonical = getCanonical2026Enredo(tempSchool.id, tempSchool.name);
+    const resolvedEnredo: Enredo | undefined = canonical
+      ? {
+          id: `enr_${tempSchool.id}_2026`,
+          title: canonical.title,
+          synopsis: canonical.synopsis || tempSchool.currentEnredo?.synopsis || '',
+          themeType: canonical.themeType || tempSchool.currentEnredo?.themeType || 'Cultural',
+          qualityBoost: tempSchool.currentEnredo?.qualityBoost || 11,
+          cost: tempSchool.currentEnredo?.cost || 130000,
+          proponent: tempSchool.currentEnredo?.proponent || 'Carnavalesco'
+        }
+      : tempSchool.currentEnredo;
 
     return {
       ...tempSchool,
-      currentEnredo: tempSchool.currentEnredo,
+      currentEnredo: resolvedEnredo,
       championshipsEspecial: consolidated.totalEspecialTitles,
       runnerUpsEspecial: consolidated.totalEspecialVices,
       championshipsOuro: consolidated.totalOuroTitles,
@@ -9451,22 +9472,22 @@ export const INITIAL_HISTORY: YearHistory[] = [
       portela: 'O Mistério do Príncipe do Bará - A Oração do Negrinho e a Ressurreição de Sua Coroa sob o Céu Aberto do Rio Grande',
       mocidade: 'Rita Lee, a Padroeira da Liberdade',
       niteroi: 'Do alto do Mulungu surge a esperança: Lula, o operário do Brasil',
-      marica: 'O Meu País é Meu Lugar',
-      imperio_serrano: 'O Que Vale É a Intenção',
-      unidos_padre_miguel: 'Egbé Iyá Nassô',
-      porto_da_pedra: 'Lunário Perpétuo: A Profética do Saber Popular',
-      uniao_da_ilha: 'Dou-lhe uma, dou-lhe duas, dou-lhe três... Da Feira de São Cristóvão ao Rio de Janeiro',
-      estacio_de_sa: 'Chora, Cuíca! A Menina dos Olhos da Estácio',
-      em_cima_da_hora: 'A Nossa Luta Continua',
-      unidos_da_ponte: 'Tendadô',
-      unidos_de_bangu: 'Jorge da Capadócia',
-      arranco: 'As Manas do Brasil',
-      botafogo_samba_clube: 'Uma Estrela Chamada Garrincha',
-      parque_acari: 'Ginga da Quebrada',
-      inocentes: 'Debret Pintou, Camões Cantou: A Inocentes É Show',
+      marica: 'Berenguendéns & Balangandãs',
+      imperio_serrano: 'Ponciá Evaristo, Flor do Mulungu',
+      unidos_padre_miguel: 'Kunhã-Eté: O Sopro Sagrado da Jurema',
+      uniao_da_ilha: 'Viva o hoje! O amanhã? Fica pra Depois',
+      em_cima_da_hora: 'Salve Todas as Marias – Laroyê, Pombagiras!',
+      estacio_de_sa: 'Tata Tancredo - O Papa Negro no Terreiro do Estácio',
+      porto_da_pedra: 'Das Mais Antigas da Vida, o Doce e Amargo Beijo da Noite',
+      parque_acari: 'Brasiliana',
+      botafogo_samba_clube: 'O Brasil que Floresce em Arte',
+      vigario_geral: 'Brasil Incógnito - O Que Os Seus Olhos Não Veem, A Minha Imaginação Reinventa',
+      unidos_da_ponte: 'Tamborzão – O Rio é Baile! O Poder é Black!',
+      unidos_de_bangu: 'As Coisas que Mamãe me Ensinou',
+      arranco: 'A Gargalhada é o Xamego da Vida',
+      inocentes: 'O Sonho de um Tal Pagode Russo nos Frevos do meu Pernambuco',
+      jacarezinho: 'O ar que se respira agora inspira novos tempos',
       santa_cruz: 'Os Filhos da Noite',
-      vigario_geral: 'Maracatu da Glória',
-      jacarezinho: 'Na Fé dos Meus Orixás',
       sao_clemente: 'Quem Avisa Amigo É'
     },
     especialStandings: [
@@ -9487,18 +9508,18 @@ export const INITIAL_HISTORY: YearHistory[] = [
       { rank: 1, schoolId: 'marica', schoolName: 'União de Maricá', totalScore: 269.9 },
       { rank: 2, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', totalScore: 269.8 },
       { rank: 3, schoolId: 'unidos_padre_miguel', schoolName: 'Unidos de Padre Miguel', totalScore: 269.7 },
-      { rank: 4, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', totalScore: 269.5 },
-      { rank: 5, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', totalScore: 269.4 },
-      { rank: 6, schoolId: 'inocentes', schoolName: 'Inocentes de Belford Roxo', totalScore: 269.2 },
-      { rank: 7, schoolId: 'botafogo_samba_clube', schoolName: 'Botafogo Samba Clube', totalScore: 269.0 },
-      { rank: 8, schoolId: 'unidos_de_bangu', schoolName: 'Unidos de Bangu', totalScore: 268.8 },
-      { rank: 9, schoolId: 'em_cima_da_hora', schoolName: 'Em Cima da Hora', totalScore: 268.7 },
-      { rank: 10, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte', totalScore: 268.5 },
-      { rank: 11, schoolId: 'arranco', schoolName: 'Arranco', totalScore: 268.4 },
-      { rank: 12, schoolId: 'vigario_geral', schoolName: 'Acadêmicos de Vigário Geral', totalScore: 268.2 },
-      { rank: 13, schoolId: 'parque_acari', schoolName: 'União do Parque Acari', totalScore: 268.0 },
-      { rank: 14, schoolId: 'jacarezinho', schoolName: 'Unidos do Jacarezinho', totalScore: 267.8 },
-      { rank: 15, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra', totalScore: 267.6 }
+      { rank: 4, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', totalScore: 269.5 },
+      { rank: 5, schoolId: 'em_cima_da_hora', schoolName: 'Em Cima da Hora', totalScore: 269.4 },
+      { rank: 6, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', totalScore: 269.2 },
+      { rank: 7, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra', totalScore: 269.0 },
+      { rank: 8, schoolId: 'parque_acari', schoolName: 'União do Parque Acari', totalScore: 268.8 },
+      { rank: 9, schoolId: 'botafogo_samba_clube', schoolName: 'Botafogo Samba Clube', totalScore: 268.7 },
+      { rank: 10, schoolId: 'vigario_geral', schoolName: 'Acadêmicos de Vigário Geral', totalScore: 268.5 },
+      { rank: 11, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte', totalScore: 268.4 },
+      { rank: 12, schoolId: 'unidos_de_bangu', schoolName: 'Unidos de Bangu', totalScore: 268.2 },
+      { rank: 13, schoolId: 'arranco', schoolName: 'Arranco do Engenho de Dentro', totalScore: 268.0 },
+      { rank: 14, schoolId: 'inocentes', schoolName: 'Inocentes de Belford Roxo', totalScore: 267.8 },
+      { rank: 15, schoolId: 'jacarezinho', schoolName: 'Unidos do Jacarezinho', totalScore: 267.6 }
     ],
     prataStandings: [
       { rank: 1, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz', totalScore: 269.9 },

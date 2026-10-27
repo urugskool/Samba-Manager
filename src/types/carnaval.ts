@@ -51,7 +51,8 @@ export type EnredoThemeType =
   | 'Lúdico'
   | 'Ciência e Tecnologia'
   | 'Ciência & Tecnologia'
-  | 'Surrealista';
+  | 'Surrealista'
+  | (string & {});
 
 export interface Enredo {
   id: string;

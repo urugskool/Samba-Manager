@@ -1,7 +1,7 @@
 import type { School, YearHistory } from '../types/carnaval';
-import { CANONICAL_2026_ENREDOS, getCanonical2026Enredo } from './canonicalEnredosRegistry';
+import { CANONICAL_2026_ENREDOS, getCanonical2026Enredo, normalizeCanonicalSchoolId } from './canonicalEnredosRegistry';
 
-export { CANONICAL_2026_ENREDOS, getCanonical2026Enredo };
+export { CANONICAL_2026_ENREDOS, getCanonical2026Enredo, normalizeCanonicalSchoolId };
 
 export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> = {
   2026: {
@@ -17,22 +17,25 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     portela: 'O Mistério do Príncipe do Bará - A Oração do Negrinho e a Ressurreição de Sua Coroa sob o Céu Aberto do Rio Grande',
     mocidade: 'Rita Lee, a Padroeira da Liberdade',
     niteroi: 'Do alto do Mulungu surge a esperança: Lula, o operário do Brasil',
-    marica: 'O Meu País é Meu Lugar',
-    imperio_serrano: 'O Que Vale É a Intenção',
-    unidos_padre_miguel: 'Egbé Iyá Nassô',
-    porto_da_pedra: 'Lunário Perpétuo: A Profética do Saber Popular',
-    uniao_da_ilha: 'Dou-lhe uma, dou-lhe duas, dou-lhe três... Da Feira de São Cristóvão ao Rio de Janeiro',
-    estacio_de_sa: 'Chora, Cuíca! A Menina dos Olhos da Estácio',
-    em_cima_da_hora: 'A Nossa Luta Continua',
-    unidos_da_ponte: 'Tendadô',
-    unidos_de_bangu: 'Jorge da Capadócia',
-    arranco: 'As Manas do Brasil',
-    botafogo_samba_clube: 'Uma Estrela Chamada Garrincha',
-    parque_acari: 'Ginga da Quebrada',
-    inocentes: 'Debret Pintou, Camões Cantou: A Inocentes É Show',
+    marica: 'Berenguendéns & Balangandãs',
+    imperio_serrano: 'Ponciá Evaristo, Flor do Mulungu',
+    unidos_padre_miguel: 'Kunhã-Eté: O Sopro Sagrado da Jurema',
+    padre_miguel: 'Kunhã-Eté: O Sopro Sagrado da Jurema',
+    porto_da_pedra: 'Das Mais Antigas da Vida, o Doce e Amargo Beijo da Noite',
+    uniao_da_ilha: 'Viva o hoje! O amanhã? Fica pra Depois',
+    estacio_de_sa: 'Tata Tancredo - O Papa Negro no Terreiro do Estácio',
+    em_cima_da_hora: 'Salve Todas as Marias – Laroyê, Pombagiras!',
+    unidos_da_ponte: 'Tamborzão – O Rio é Baile! O Poder é Black!',
+    unidos_de_bangu: 'As Coisas que Mamãe me Ensinou',
+    arranco: 'A Gargalhada é o Xamego da Vida',
+    arranco_do_engenho_de_dentro: 'A Gargalhada é o Xamego da Vida',
+    botafogo_samba_clube: 'O Brasil que Floresce em Arte',
+    parque_acari: 'Brasiliana',
+    uniao_do_parque_acari: 'Brasiliana',
+    inocentes: 'O Sonho de um Tal Pagode Russo nos Frevos do meu Pernambuco',
     santa_cruz: 'Os Filhos da Noite',
-    vigario_geral: 'Maracatu da Glória',
-    jacarezinho: 'Na Fé dos Meus Orixás',
+    vigario_geral: 'Brasil Incógnito - O Que Os Seus Olhos Não Veem, A Minha Imaginação Reinventa',
+    jacarezinho: 'O ar que se respira agora inspira novos tempos',
     sao_clemente: 'Quem Avisa Amigo É',
     caprichosos_de_pilares: 'Caprichando no Samba',
     tradicao: 'Tradição É Tradição',
@@ -1801,7 +1804,7 @@ function normalizeId(rawId?: string, rawName?: string): string {
     if (id.includes('sport_club_guarany')) return 'sport_club_guarany';
     if (id.includes('escola_tuiuti')) return 'escola_tuiuti';
     if (id.includes('estacio') || id.includes('sao_carlos')) return 'estacio_de_sa';
-    if (id.includes('padre_miguel') && id.includes('unidos')) return 'unidos_padre_miguel';
+    if ((id.includes('padre_miguel') || id === 'upm') && !id.includes('mocidade')) return 'unidos_padre_miguel';
     if (id.includes('marica')) return 'marica';
     return id;
   }
@@ -1826,7 +1829,7 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('portela')) return 'portela';
   if (n.includes('mocidade')) return 'mocidade';
   if (n.includes('maricá') || n.includes('marica')) return 'marica';
-  if (n.includes('padre miguel') && n.includes('unidos')) return 'unidos_padre_miguel';
+  if ((n.includes('padre miguel') || n === 'upm') && !n.includes('mocidade')) return 'unidos_padre_miguel';
   if (n.includes('serrano')) return 'imperio_serrano';
   if (n.includes('império da tijuca') || n.includes('imperio da tijuca')) return 'imperio_da_tijuca';
   if (n.includes('recreio de são carlos') || n.includes('recreio de sao carlos')) return 'recreio_de_sao_carlos';
@@ -1914,19 +1917,22 @@ export function getHistoricalEnredo(
   inGameHistory?: YearHistory[]
 ): string | undefined {
   const key = normalizeId(schoolId, schoolName);
+  const canonKey = normalizeCanonicalSchoolId(schoolId, schoolName);
 
   // 1. Para todos os carnavais oficiais já catalogados (1932 a 2026),
   // o Catálogo Oficial Canônico é soberano e autoritativo em 100% dos locais
   if (year <= 2026) {
-    const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[year];
-    if (yearRecords) {
-      if (key && yearRecords[key]) return yearRecords[key];
-      if (schoolId && yearRecords[schoolId]) return yearRecords[schoolId];
-    }
-
     if (year === 2026) {
       const canonical = getCanonical2026Enredo(schoolId, schoolName);
       if (canonical?.title) return canonical.title;
+    }
+
+    const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[year];
+    if (yearRecords) {
+      if (key && yearRecords[key]) return yearRecords[key];
+      if (canonKey && yearRecords[canonKey]) return yearRecords[canonKey];
+      if (schoolId && yearRecords[schoolId]) return yearRecords[schoolId];
+      if (schoolName && yearRecords[schoolName.toLowerCase()]) return yearRecords[schoolName.toLowerCase()];
     }
   }
 
@@ -1937,7 +1943,8 @@ export function getHistoricalEnredo(
       const match =
         (schoolId && histYear.schoolEnredos[schoolId]) ||
         (schoolName && histYear.schoolEnredos[schoolName]) ||
-        (key && histYear.schoolEnredos[key]);
+        (key && histYear.schoolEnredos[key]) ||
+        (canonKey && histYear.schoolEnredos[canonKey]);
       if (match) return match;
     }
   }
@@ -1950,7 +1957,7 @@ export function getHistoricalEnredo(
     }
   }
 
-  // 4. Histórico gravado na própria escola no save
+  // 4. Histórico gravado na própria agremiação no save
   if (schoolObj?.enredoHistory && schoolObj.enredoHistory.length > 0) {
     const match = schoolObj.enredoHistory.find((h) => h.year === year);
     if (match?.enredo) return match.enredo;
@@ -1960,6 +1967,7 @@ export function getHistoricalEnredo(
   const fallbackRecords = HISTORICAL_ENREDOS_BY_YEAR[year];
   if (fallbackRecords) {
     if (key && fallbackRecords[key]) return fallbackRecords[key];
+    if (canonKey && fallbackRecords[canonKey]) return fallbackRecords[canonKey];
     if (schoolId && fallbackRecords[schoolId]) return fallbackRecords[schoolId];
   }
 
@@ -1978,27 +1986,46 @@ export function getSchoolHistoricalEnredosList(
   currentYear?: number
 ): { year: number; enredo: string }[] {
   const key = normalizeId(schoolId, schoolName);
+  const canonKey = normalizeCanonicalSchoolId(schoolId, schoolName);
   const enredosMap = new Map<number, string>();
 
-  // 1. Catálogo histórico oficial (1970 a 2026)
+  // 1. Catálogo histórico oficial (1932 a 2026)
   const years = Object.keys(HISTORICAL_ENREDOS_BY_YEAR).map(Number).sort((a, b) => b - a);
   years.forEach((yr) => {
-    const enredo = HISTORICAL_ENREDOS_BY_YEAR[yr]?.[key];
+    let enredo = HISTORICAL_ENREDOS_BY_YEAR[yr]?.[key];
+    if (!enredo && canonKey) {
+      enredo = HISTORICAL_ENREDOS_BY_YEAR[yr]?.[canonKey];
+    }
+    if (!enredo && schoolId) {
+      enredo = HISTORICAL_ENREDOS_BY_YEAR[yr]?.[schoolId];
+    }
+    if (!enredo && schoolName) {
+      enredo = HISTORICAL_ENREDOS_BY_YEAR[yr]?.[schoolName.toLowerCase()];
+    }
     if (enredo) {
       enredosMap.set(yr, enredo);
     }
   });
 
-  // 2. Histórico de enredos gravado no save (inGameHistory)
+  // Garante que o enredo canônico oficial de 2026 seja registrado de forma autoritativa
+  const can2026 = getCanonical2026Enredo(schoolId, schoolName);
+  if (can2026?.title) {
+    enredosMap.set(2026, can2026.title);
+  }
+
+  // 2. Histórico de enredos gravado no save (inGameHistory para anos > 2026 ou sem registro)
   if (inGameHistory && inGameHistory.length > 0) {
     inGameHistory.forEach((h) => {
       if (h.schoolEnredos) {
         const found =
           (schoolId && h.schoolEnredos[schoolId]) ||
           (schoolName && h.schoolEnredos[schoolName]) ||
-          (key && h.schoolEnredos[key]);
+          (key && h.schoolEnredos[key]) ||
+          (canonKey && h.schoolEnredos[canonKey]);
         if (found) {
-          enredosMap.set(h.year, found);
+          if (h.year > 2026 || !enredosMap.has(h.year)) {
+            enredosMap.set(h.year, found);
+          }
         }
       }
     });
@@ -2008,15 +2035,19 @@ export function getSchoolHistoricalEnredosList(
   if (schoolObj?.enredoHistory && schoolObj.enredoHistory.length > 0) {
     schoolObj.enredoHistory.forEach((item) => {
       if (item.year && item.enredo) {
-        enredosMap.set(item.year, item.enredo);
+        if (item.year > 2026 || !enredosMap.has(item.year)) {
+          enredosMap.set(item.year, item.enredo);
+        }
       }
     });
   }
 
-  // 4. Enredo atual da escola na temporada em andamento
+  // 4. Enredo atual da escola na temporada em andamento (apenas para anos futuros > 2026 ou se não houver enredo oficial catalogado)
   if (schoolObj?.currentEnredo?.title) {
     const activeYr = currentYear || (schoolObj as any).currentYear || 2026;
-    enredosMap.set(activeYr, schoolObj.currentEnredo.title);
+    if (activeYr > 2026 || !enredosMap.has(activeYr)) {
+      enredosMap.set(activeYr, schoolObj.currentEnredo.title);
+    }
   }
 
   // Ordena decrescente por ano

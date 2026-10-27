@@ -823,9 +823,9 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                             <div className="flex items-center justify-between text-xs text-amber-300 font-bold uppercase tracking-wider">
                               <div className="flex items-center gap-1.5">
                                 <BookOpen className="w-3.5 h-3.5 text-amber-400" />
-                                <span>Histórico de Enredos no Grupo Especial ({enredos.length} Edições)</span>
+                                <span>Histórico Oficial de Enredos ({enredos.length} Edições)</span>
                               </div>
-                              <span className="text-[11px] text-slate-400 font-mono font-normal">1970 a {currentYear || 2026}</span>
+                              <span className="text-[11px] text-slate-400 font-mono font-normal">1932 a {currentYear || 2026}</span>
                             </div>
                             <div className="max-h-48 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
                               {enredos.map((item) => (
