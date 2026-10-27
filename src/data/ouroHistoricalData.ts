@@ -16,6 +16,7 @@ export interface OuroStandingRecord {
   enredo?: string;
   promoted?: boolean; // Subiu ao Grupo Especial
   relegated?: boolean; // Rebaixada para Série Prata
+  isHorsConcours?: boolean; // Desfilou sem julgamento
   statusDescription?: string;
 }
 
@@ -157,6 +158,139 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       totalScore: 267.6,
       statusDescription: '15º Lugar'
     }
+  ],
+  2025: [
+    {
+      rank: 1,
+      schoolId: 'niteroi',
+      schoolName: 'Acadêmicos de Niterói',
+      enredo: 'Vixe Maria',
+      totalScore: 269.8,
+      promoted: true,
+      statusDescription: 'Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Estácio de Sá',
+      enredo: 'O Leão se Engerou em Encantado Amazônico',
+      totalScore: 269.6,
+      statusDescription: 'Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'porto_da_pedra',
+      schoolName: 'Unidos do Porto da Pedra',
+      enredo: 'A História que a Borracha do Tempo não Apagou!',
+      totalScore: 269.5,
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'uniao_da_ilha',
+      schoolName: 'União da Ilha do Governador',
+      enredo: 'BA-DER-NA! Maria do Povo',
+      totalScore: 269.3,
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'marica',
+      schoolName: 'União de Maricá',
+      enredo: 'O Cavalo de Santíssimo e a Coroa do Seu 7',
+      totalScore: 269.2,
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'vigario_geral',
+      schoolName: 'Acadêmicos de Vigário Geral',
+      enredo: 'Ecos de um Vagalume',
+      totalScore: 269.0,
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'arranco',
+      schoolName: 'Arranco do Engenho de Dentro',
+      enredo: 'Mães que Alimentam o Sagrado',
+      totalScore: 268.8,
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'parque_acari',
+      schoolName: 'União do Parque Acari',
+      enredo: 'Cordas de Prata, o Retrato Musical do Povo',
+      totalScore: 268.6,
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Ópera dos Terreiros - O Canto do Encanto da Alma Brasileira',
+      totalScore: 268.5,
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'inocentes',
+      schoolName: 'Inocentes de Belford Roxo',
+      enredo: 'Ewe, a Cura vem da Floresta',
+      totalScore: 268.4,
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'botafogo_samba_clube',
+      schoolName: 'Botafogo Samba Clube',
+      enredo: 'Uma Gloriosa História em Preto e Branco',
+      totalScore: 268.2,
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'A São Clemente dá Voz a quem não tem',
+      totalScore: 267.9,
+      relegated: true,
+      statusDescription: '12º Lugar • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 13,
+      schoolId: 'tradicao',
+      schoolName: 'Tradição',
+      enredo: 'Reza',
+      totalScore: 267.7,
+      relegated: true,
+      statusDescription: '13º Lugar • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 0,
+      schoolId: 'imperio_serrano',
+      schoolName: 'Império Serrano',
+      enredo: 'O que Espanta Miséria é Festa',
+      isHorsConcours: true,
+      statusDescription: 'Não julgada - hors concours'
+    },
+    {
+      rank: 0,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Antropoceno',
+      isHorsConcours: true,
+      statusDescription: 'Não julgada - hors concours'
+    },
+    {
+      rank: 0,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: "Maraka' Anandê: Resistência Ancestral",
+      isHorsConcours: true,
+      statusDescription: 'Não julgada - hors concours'
+    }
   ]
 };
 
@@ -164,7 +298,8 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
  * Notas históricas por edição da Série Ouro
  */
 export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
-  2026: 'Carnaval de 2026: (Não Houve Rebaixamento) • União de Maricá Campeã e promovida ao Grupo Especial.'
+  2026: 'Carnaval de 2026: (Não Houve Rebaixamento) • União de Maricá Campeã e promovida ao Grupo Especial.',
+  2025: 'Carnaval de 2025: Acadêmicos de Niterói Campeã e promovida ao Grupo Especial. São Clemente e Tradição rebaixadas para a Série Prata. Três escolas desfilaram como Hors concours (não julgadas): Império Serrano, Unidos da Ponte e Unidos de Bangu.'
 };
 
 /**

@@ -965,7 +965,9 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                   >
                                     <td className="py-3 px-4 whitespace-nowrap">
                                       <span className={`inline-flex items-center justify-center px-2.5 py-1 rounded-lg text-xs font-black ${
-                                        st.rank === 1
+                                        st.isHorsConcours || st.rank === 0
+                                          ? 'bg-purple-950/80 text-purple-300 border border-purple-700/50 font-bold text-[10px]'
+                                          : st.rank === 1
                                           ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
                                           : st.rank === 2
                                           ? 'bg-slate-300 text-slate-950 font-bold'
@@ -973,7 +975,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                           ? 'bg-amber-700/60 text-amber-200 border border-amber-600/40'
                                           : 'bg-slate-900 text-slate-300 border border-slate-800 font-mono'
                                       }`}>
-                                        {st.rank}ª
+                                        {st.isHorsConcours || st.rank === 0 ? 'HC' : `${st.rank}ª`}
                                       </span>
                                     </td>
 
@@ -999,7 +1001,12 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                     </td>
 
                                     <td className="py-3 px-4 text-center whitespace-nowrap">
-                                      {st.promoted || st.rank === 1 ? (
+                                      {st.isHorsConcours || st.rank === 0 ? (
+                                        <span className="px-2.5 py-1 rounded-lg bg-purple-500/20 text-purple-300 border border-purple-500/40 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
+                                          <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+                                          <span>Hors concours (Não julgada)</span>
+                                        </span>
+                                      ) : st.promoted || st.rank === 1 ? (
                                         <span className="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
                                           <ArrowUpCircle className="w-3.5 h-3.5 text-emerald-400" />
                                           <span>Subiu (Grupo Especial)</span>
@@ -1059,13 +1066,13 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                     </div>
                     <h3 className="text-lg font-black text-white">Série Ouro em Catalogação</h3>
                     <p className="text-xs text-slate-400 max-w-md mx-auto">
-                      Os resultados da Série Ouro para o Carnaval de {selectedPastYear} ainda não foram inseridos no catálogo histórico. Os registros oficiais estão disponíveis a partir de 2026.
+                      Os resultados da Série Ouro para o Carnaval de {selectedPastYear} ainda não foram inseridos no catálogo histórico. Os registros oficiais estão disponíveis a partir de 2025.
                     </p>
                     <button
-                      onClick={() => setSelectedPastYear(2026)}
+                      onClick={() => setSelectedPastYear(2025)}
                       className="px-4 py-2 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-slate-950 text-xs font-black transition cursor-pointer"
                     >
-                      Ver Carnaval 2026 (Série Ouro)
+                      Ver Carnaval 2025 (Série Ouro)
                     </button>
                   </div>
                 )

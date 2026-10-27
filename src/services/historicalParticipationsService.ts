@@ -173,9 +173,10 @@ export function computeDivisionParticipationsList(
       const yr = Number(yrStr);
       standings.forEach((st) => {
         const item = getOrCreate(st.schoolId, st.schoolName);
+        const alreadyHadYear = item.years.has(yr);
         item.years.add(yr);
-        if (st.rank === 1 && !item.years.has(yr)) item.titlesCount++;
-        else if (st.rank === 2 && !item.years.has(yr)) item.vicesCount++;
+        if (st.rank === 1 && !alreadyHadYear && !st.isHorsConcours) item.titlesCount++;
+        else if (st.rank === 2 && !alreadyHadYear && !st.isHorsConcours) item.vicesCount++;
       });
     });
 
