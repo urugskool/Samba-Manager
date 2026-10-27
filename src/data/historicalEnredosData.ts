@@ -44,18 +44,21 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     casa_de_malandro: 'No Compasso da Boêmia'
   },
   2025: {
-    beija_flor: 'Laíla de Todos os Santos, Laíla de Todos os Sambas',
-    grande_rio: 'Pororocas Parawaras: As Águas dos Meus Encantos nas Contas do Meu Rosário',
-    imperatriz: 'Ómi Tútú ao Rei do Terreiro de Mina',
-    viradouro: 'Malunguinho: O Mensageiro de Três Mundos',
-    portela: 'Cantar Será Buscar o Céu que Mora em Mim',
-    mangueira: 'À Flor da Terra - No Rio da Vida, Quem Tem Sede Bebe Choro',
+    beija_flor: 'Laíla de todos os Santos, Laíla de todos os Sambas',
+    grande_rio: 'Pororocas Parawaras: As águas dos meus encantos nas contas dos curimbós',
+    imperatriz: 'Ómi Tútú ao Olúfon - Água Fresca para o Senhor de Ifón',
+    viradouro: 'Malunguinho - o Mensageiro de Três Mundos',
+    portela: 'Cantar Será Buscar o caminho que vai dar no Sol - Uma homenagem a Milton Nascimento',
+    mangueira: 'À Flor da Terra – No Rio da Negritude entre Dores e Paixões',
     salgueiro: 'Salgueiro de Corpo Fechado',
-    vila_isabel: 'Quanto Mais Eu Rezo, Mais Assombração Me Aparece',
-    tijuca: 'Logun-Edé: Santo Menino Que Velho Respeita',
-    tuiuti: 'Quem Tem Medo de Xica Manicongo?',
-    mocidade: 'Voltando Para o Futuro - Não Há Limites Para Sonhar',
-    unidos_padre_miguel: 'Egbé Iyá Nassô'
+    vila_isabel: 'Quanto mais eu Rezo, mais Assombração aparece!',
+    tijuca: 'Logun-Edé - Santo Menino que Velho Respeita',
+    tuiuti: 'Quem tem medo de Xica Manicongo?',
+    paraiso_do_tuiuti: 'Quem tem medo de Xica Manicongo?',
+    mocidade: 'Voltando para o Futuro - Não há Limites pra Sonhar',
+    mocidade_independente: 'Voltando para o Futuro - Não há Limites pra Sonhar',
+    unidos_padre_miguel: 'Egbé Iyá Nassô',
+    padre_miguel: 'Egbé Iyá Nassô'
   },
   2024: {
     viradouro: 'Arroboboi, Dangbé',
