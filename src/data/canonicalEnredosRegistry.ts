@@ -278,6 +278,7 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('cubango')) return 'cubango';
   if (raw.includes('rocinha')) return 'rocinha';
   if (raw.includes('lins imperial') || raw.includes('lins')) return 'lins_imperial';
+  if (raw.includes('sossego')) return 'academicos_do_sossego';
   if (raw.includes('sereno')) return 'sereno_campo_grande';
   if (raw.includes('leão da zona oeste') || raw.includes('leao da zona oeste')) return 'leao_zona_oeste';
   if (raw.includes('casa de malandro')) return 'casa_de_malandro';
@@ -598,5 +599,155 @@ export function getCanonical2023Enredo(schoolId?: string, schoolName?: string): 
   const normId = normalizeCanonicalSchoolId(schoolId, schoolName);
   return CANONICAL_2023_ENREDOS[normId];
 }
+
+export const CANONICAL_2022_ENREDOS: Record<string, CanonicalEnredoInfo> = {
+  // GRUPO ESPECIAL 2022
+  grande_rio: {
+    schoolId: 'grande_rio',
+    title: 'Fala, Majeté! Sete Chaves de Exu',
+    themeType: 'Afro-Brasileiro'
+  },
+  beija_flor: {
+    schoolId: 'beija_flor',
+    title: 'Empretecer o Pensamento é Ouvir a Voz da Beija-Flor',
+    themeType: 'Afro-Brasileiro & Crítica Social'
+  },
+  viradouro: {
+    schoolId: 'viradouro',
+    title: 'Não há Tristeza que possa Suportar tanta Alegria',
+    themeType: 'Histórico & Carnaval'
+  },
+  vila_isabel: {
+    schoolId: 'vila_isabel',
+    title: 'Canta, canta, minha gente! A Vila é de Martinho!',
+    themeType: 'Homenagem & Samba'
+  },
+  portela: {
+    schoolId: 'portela',
+    title: 'Igi Osè Baobá',
+    themeType: 'Afro-Brasileiro & Natureza'
+  },
+  salgueiro: {
+    schoolId: 'salgueiro',
+    title: 'Resistência',
+    themeType: 'Afro-Brasileiro & Resistência'
+  },
+  mangueira: {
+    schoolId: 'mangueira',
+    title: 'Angenor, José & Laurindo',
+    themeType: 'Homenagem & Baluartes'
+  },
+  mocidade: {
+    schoolId: 'mocidade',
+    title: 'Batuque ao Caçador',
+    themeType: 'Afro-Brasileiro & Oxóssi'
+  },
+  tijuca: {
+    schoolId: 'tijuca',
+    title: 'Waranã - A Reexistência Vermelha',
+    themeType: 'Indígena & Lenda'
+  },
+  imperatriz: {
+    schoolId: 'imperatriz',
+    title: 'Meninos, eu vivi... Onde canta o sabiá, onde cantam Dalva e Lamartine',
+    themeType: 'Homenagem & Memória'
+  },
+  tuiuti: {
+    schoolId: 'tuiuti',
+    title: 'Ka Ríba Tí Ye - Que Nossos Caminhos se Abram',
+    themeType: 'Afro-Brasileiro'
+  },
+  sao_clemente: {
+    schoolId: 'sao_clemente',
+    title: 'Minha Vida é uma Peça',
+    themeType: 'Homenagem'
+  },
+
+  // SÉRIE OURO 2022
+  imperio_serrano: {
+    schoolId: 'imperio_serrano',
+    title: 'Mangangá',
+    themeType: 'Afro-Brasileiro & Capoeira'
+  },
+  porto_da_pedra: {
+    schoolId: 'porto_da_pedra',
+    title: 'O Caçador que traz Alegrias',
+    themeType: 'Afro-Brasileiro'
+  },
+  uniao_da_ilha: {
+    schoolId: 'uniao_da_ilha',
+    title: 'O Vendedor de Orações',
+    themeType: 'Religioso & Homenagem'
+  },
+  inocentes: {
+    schoolId: 'inocentes',
+    title: 'A Meia-Noite dos Tambores Silenciosos',
+    themeType: 'Afro-Brasileiro & Maracatu'
+  },
+  unidos_padre_miguel: {
+    schoolId: 'unidos_padre_miguel',
+    title: 'Iroko - É Tempo de Xirê',
+    themeType: 'Afro-Brasileiro'
+  },
+  academicos_do_sossego: {
+    schoolId: 'academicos_do_sossego',
+    title: 'Visões Xamânicas',
+    themeType: 'Indígena & Espiritual'
+  },
+  unidos_de_bangu: {
+    schoolId: 'unidos_de_bangu',
+    title: 'Deu Castor na Cabeça',
+    themeType: 'Homenagem & Cultura Popular'
+  },
+  estacio_de_sa: {
+    schoolId: 'estacio_de_sa',
+    title: 'Cobra Coral, Papagaio-Vintém. #VESTIRUBRONEGRO não tem pra ninguém',
+    themeType: 'Homenagem & Flamengo'
+  },
+  imperio_da_tijuca: {
+    schoolId: 'imperio_da_tijuca',
+    title: 'Samba de Quilombo - A Resistência pela Raiz',
+    themeType: 'Afro-Brasileiro & Quilombo'
+  },
+  vigario_geral: {
+    schoolId: 'vigario_geral',
+    title: 'Pequena África: da Escravidão ao Pertencimento - Camadas de Memórias entre o Mar e o Morro',
+    themeType: 'Histórico & Afro-Brasileiro'
+  },
+  unidos_da_ponte: {
+    schoolId: 'unidos_da_ponte',
+    title: 'Santa Dulce dos Pobres - O Anjo Bom da Bahia',
+    themeType: 'Religioso & Homenagem'
+  },
+  lins_imperial: {
+    schoolId: 'lins_imperial',
+    title: 'Mussum Pra Sempris - Traga o Mé que hoje com a Lins vai ter muito samba no pé!',
+    themeType: 'Homenagem & Humor'
+  },
+  em_cima_da_hora: {
+    schoolId: 'em_cima_da_hora',
+    title: '33 - Destino Dom Pedro II',
+    themeType: 'Histórico & Ferrovia'
+  },
+  santa_cruz: {
+    schoolId: 'santa_cruz',
+    title: 'Axé! Milton Gonçalves no Catupé da Santa Cruz',
+    themeType: 'Homenagem & Afro-Brasileiro'
+  },
+  cubango: {
+    schoolId: 'cubango',
+    title: 'O Amor Preto Cura: Chica Xavier, a Mãe Baiana do Brasil',
+    themeType: 'Homenagem & Afro-Brasileiro'
+  }
+};
+
+/**
+ * Retorna o enredo oficial original de 2022 para uma agremiação
+ */
+export function getCanonical2022Enredo(schoolId?: string, schoolName?: string): CanonicalEnredoInfo | undefined {
+  const normId = normalizeCanonicalSchoolId(schoolId, schoolName);
+  return CANONICAL_2022_ENREDOS[normId];
+}
+
 
 

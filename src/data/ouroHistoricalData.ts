@@ -549,6 +549,131 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  2022: [
+    {
+      rank: 1,
+      schoolId: 'imperio_serrano',
+      schoolName: 'Império Serrano',
+      enredo: 'Mangangá',
+      totalScore: 269.9,
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Promovida ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'porto_da_pedra',
+      schoolName: 'Unidos do Porto da Pedra',
+      enredo: 'O Caçador que traz Alegrias',
+      totalScore: 269.5,
+      statusDescription: '2º Lugar • Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'uniao_da_ilha',
+      schoolName: 'União da Ilha do Governador',
+      enredo: 'O Vendedor de Orações',
+      totalScore: 269.4,
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'inocentes',
+      schoolName: 'Inocentes de Belford Roxo',
+      enredo: 'A Meia-Noite dos Tambores Silenciosos',
+      totalScore: 269.4,
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'Iroko - É Tempo de Xirê',
+      totalScore: 269.3,
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'academicos_do_sossego',
+      schoolName: 'Acadêmicos do Sossego',
+      enredo: 'Visões Xamânicas',
+      totalScore: 268.6,
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: 'Deu Castor na Cabeça',
+      totalScore: 268.5,
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Estácio de Sá',
+      enredo: 'Cobra Coral, Papagaio-Vintém. #VESTIRUBRONEGRO não tem pra ninguém',
+      totalScore: 268.4,
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Samba de Quilombo - A Resistência pela Raiz',
+      totalScore: 268.2,
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'vigario_geral',
+      schoolName: 'Acadêmicos de Vigário Geral',
+      enredo: 'Pequena África: da Escravidão ao Pertencimento - Camadas de Memórias entre o Mar e o Morro',
+      totalScore: 268.1,
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Santa Dulce dos Pobres - O Anjo Bom da Bahia',
+      totalScore: 268.0,
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Mussum Pra Sempris - Traga o Mé que hoje com a Lins vai ter muito samba no pé!',
+      totalScore: 267.8,
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: '33 - Destino Dom Pedro II',
+      totalScore: 267.5,
+      statusDescription: '13º Lugar'
+    },
+    {
+      rank: 14,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Axé! Milton Gonçalves no Catupé da Santa Cruz',
+      totalScore: 267.3,
+      relegated: true,
+      statusDescription: '14ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 15,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'O Amor Preto Cura: Chica Xavier, a Mãe Baiana do Brasil',
+      totalScore: 266.6,
+      relegated: true,
+      statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -559,7 +684,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   2026: 'Carnaval de 2026: (Não Houve Rebaixamento) • União de Maricá Campeã e promovida ao Grupo Especial.',
   2025: 'Carnaval de 2025: Acadêmicos de Niterói Campeã e promovida ao Grupo Especial. São Clemente e Tradição rebaixadas para a Série Prata. Três escolas desfilaram como Hors concours (não julgadas): Império Serrano, Unidos da Ponte e Unidos de Bangu.',
   2024: 'Carnaval de 2024: Unidos de Padre Miguel Campeã e promovida ao Grupo Especial (com nota máxima). Império da Tijuca e Sereno de Campo Grande rebaixadas para a Série Prata.',
-  2023: 'Carnaval de 2023: Unidos do Porto da Pedra Campeã e promovida ao Grupo Especial. Lins Imperial e União de Jacarepaguá rebaixadas para a Série Prata.'
+  2023: 'Carnaval de 2023: Unidos do Porto da Pedra Campeã e promovida ao Grupo Especial. Lins Imperial e União de Jacarepaguá rebaixadas para a Série Prata.',
+  2022: 'Carnaval de 2022: Império Serrano Campeã e promovida ao Grupo Especial com o enredo "Mangangá". Acadêmicos de Santa Cruz e Acadêmicos do Cubango rebaixadas para a Série Prata.'
 };
 
 /**

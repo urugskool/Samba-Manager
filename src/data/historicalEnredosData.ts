@@ -6,6 +6,8 @@ import {
   getCanonical2024Enredo,
   CANONICAL_2023_ENREDOS,
   getCanonical2023Enredo,
+  CANONICAL_2022_ENREDOS,
+  getCanonical2022Enredo,
   normalizeCanonicalSchoolId
 } from './canonicalEnredosRegistry';
 
@@ -16,6 +18,8 @@ export {
   getCanonical2024Enredo,
   CANONICAL_2023_ENREDOS,
   getCanonical2023Enredo,
+  CANONICAL_2022_ENREDOS,
+  getCanonical2022Enredo,
   normalizeCanonicalSchoolId
 };
 
@@ -220,18 +224,59 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     jacarepagua: 'Manoel Congo, Mariana Crioula - Heróis da Liberdade no Vale do Café'
   },
   2022: {
+    // Grupo Especial 2022
     grande_rio: 'Fala, Majeté! Sete Chaves de Exu',
-    beija_flor: 'Empretecer o Pensamento É Ouvir a Voz da Beija-Flor',
-    viradouro: 'Não Dá Mais Pra Segurar, Explode Coração',
-    vila_isabel: 'Canta, Canta, Minha Gente! A Vila É de Martinho',
+    academicos_do_grande_rio: 'Fala, Majeté! Sete Chaves de Exu',
+    beija_flor: 'Empretecer o Pensamento é Ouvir a Voz da Beija-Flor',
+    beija_flor_de_nilopolis: 'Empretecer o Pensamento é Ouvir a Voz da Beija-Flor',
+    viradouro: 'Não há Tristeza que possa Suportar tanta Alegria',
+    unidos_do_viradouro: 'Não há Tristeza que possa Suportar tanta Alegria',
+    vila_isabel: 'Canta, canta, minha gente! A Vila é de Martinho!',
+    unidos_de_vila_isabel: 'Canta, canta, minha gente! A Vila é de Martinho!',
     portela: 'Igi Osè Baobá',
     salgueiro: 'Resistência',
+    academicos_do_salgueiro: 'Resistência',
     mangueira: 'Angenor, José & Laurindo',
+    estacao_primeira_de_mangueira: 'Angenor, José & Laurindo',
     mocidade: 'Batuque ao Caçador',
+    mocidade_independente: 'Batuque ao Caçador',
+    mocidade_independente_de_padre_miguel: 'Batuque ao Caçador',
     tijuca: 'Waranã - A Reexistência Vermelha',
-    imperatriz: 'Meninos Eu Vidi... O Mundo Se Encantou Demais!',
-    tuiuti: 'Ka Ríba Tí É - Que Nossos Caminhos Se Abram',
-    sao_clemente: 'Minha Vida É uma Peça (Homenagem a Paulo Gustavo)'
+    unidos_da_tijuca: 'Waranã - A Reexistência Vermelha',
+    imperatriz: 'Meninos, eu vivi... Onde canta o sabiá, onde cantam Dalva e Lamartine',
+    imperatriz_leopoldinense: 'Meninos, eu vivi... Onde canta o sabiá, onde cantam Dalva e Lamartine',
+    tuiuti: 'Ka Ríba Tí Ye - Que Nossos Caminhos se Abram',
+    paraiso_do_tuiuti: 'Ka Ríba Tí Ye - Que Nossos Caminhos se Abram',
+    sao_clemente: 'Minha Vida é uma Peça',
+
+    // Série Ouro 2022
+    imperio_serrano: 'Mangangá',
+    porto_da_pedra: 'O Caçador que traz Alegrias',
+    unidos_do_porto_da_pedra: 'O Caçador que traz Alegrias',
+    uniao_da_ilha: 'O Vendedor de Orações',
+    ilha: 'O Vendedor de Orações',
+    inocentes: 'A Meia-Noite dos Tambores Silenciosos',
+    inocentes_de_belford_roxo: 'A Meia-Noite dos Tambores Silenciosos',
+    unidos_padre_miguel: 'Iroko - É Tempo de Xirê',
+    padre_miguel: 'Iroko - É Tempo de Xirê',
+    academicos_do_sossego: 'Visões Xamânicas',
+    sossego: 'Visões Xamânicas',
+    unidos_de_bangu: 'Deu Castor na Cabeça',
+    bangu: 'Deu Castor na Cabeça',
+    estacio_de_sa: 'Cobra Coral, Papagaio-Vintém. #VESTIRUBRONEGRO não tem pra ninguém',
+    estacio: 'Cobra Coral, Papagaio-Vintém. #VESTIRUBRONEGRO não tem pra ninguém',
+    imperio_da_tijuca: 'Samba de Quilombo - A Resistência pela Raiz',
+    vigario_geral: 'Pequena África: da Escravidão ao Pertencimento - Camadas de Memórias entre o Mar e o Morro',
+    academicos_de_vigario_geral: 'Pequena África: da Escravidão ao Pertencimento - Camadas de Memórias entre o Mar e o Morro',
+    unidos_da_ponte: 'Santa Dulce dos Pobres - O Anjo Bom da Bahia',
+    ponte: 'Santa Dulce dos Pobres - O Anjo Bom da Bahia',
+    lins_imperial: 'Mussum Pra Sempris - Traga o Mé que hoje com a Lins vai ter muito samba no pé!',
+    lins: 'Mussum Pra Sempris - Traga o Mé que hoje com a Lins vai ter muito samba no pé!',
+    em_cima_da_hora: '33 - Destino Dom Pedro II',
+    santa_cruz: 'Axé! Milton Gonçalves no Catupé da Santa Cruz',
+    academicos_de_santa_cruz: 'Axé! Milton Gonçalves no Catupé da Santa Cruz',
+    cubango: 'O Amor Preto Cura: Chica Xavier, a Mãe Baiana do Brasil',
+    academicos_do_cubango: 'O Amor Preto Cura: Chica Xavier, a Mãe Baiana do Brasil'
   },
   2020: {
     viradouro: 'Viradouro de Alma Lavada',
@@ -2062,6 +2107,10 @@ export function getHistoricalEnredo(
       const canonical = getCanonical2023Enredo(schoolId, schoolName);
       if (canonical?.title) return canonical.title;
     }
+    if (year === 2022) {
+      const canonical = getCanonical2022Enredo(schoolId, schoolName);
+      if (canonical?.title) return canonical.title;
+    }
 
     const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[year];
     if (yearRecords) {
@@ -2159,6 +2208,12 @@ export function getSchoolHistoricalEnredosList(
   const can2023 = getCanonical2023Enredo(schoolId, schoolName);
   if (can2023?.title) {
     enredosMap.set(2023, can2023.title);
+  }
+
+  // Garante que o enredo canônico oficial de 2022 seja registrado de forma autoritativa
+  const can2022 = getCanonical2022Enredo(schoolId, schoolName);
+  if (can2022?.title) {
+    enredosMap.set(2022, can2022.title);
   }
 
   // 2. Histórico de enredos gravado no save (inGameHistory para anos > 2026 ou sem registro)
