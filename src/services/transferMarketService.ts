@@ -7,8 +7,8 @@ import { NewsArticle } from '../types/news';
 import { SeasonMonthId } from '../types/seasonCycle';
 
 export class TransferMarketService {
-  private static STORAGE_KEY = 'samba_manager_professionals_db_v2';
-  private static HISTORY_STORAGE_KEY = 'samba_manager_transfers_history_v1';
+  private static STORAGE_KEY = 'samba_manager_professionals_db_v4';
+  private static HISTORY_STORAGE_KEY = 'samba_manager_transfers_history_v2';
 
   /**
    * Meses oficiais em que a janela de transferências está aberta na pré-temporada
@@ -78,7 +78,7 @@ export class TransferMarketService {
       return {
         ...p,
         buyoutClause: buyout,
-        contractYearsLeft: p.status === 'em_escola' ? 1 : 0,
+        contractYearsLeft: 1, // Todos os contratos valem por um ano conforme regulamento
         loyaltyLevel: p.loyaltyLevel || Math.floor(60 + Math.random() * 35)
       };
     });
@@ -131,6 +131,9 @@ export class TransferMarketService {
   /**
    * Sincroniza agremiações com profissionais contratados
    */
+  /**
+   * Sincroniza agremiações com profissionais contratados
+   */
   private static syncSchoolsWithProfessionals(
     professionals: CarnavalProfessional[],
     schools: School[]
@@ -139,23 +142,124 @@ export class TransferMarketService {
       const staff = school.staff;
       if (!staff) return;
 
-      Object.entries(staff).forEach(([roleKey, member]: [string, StaffMember]) => {
+      Object.entries(staff).forEach(([roleKey, member]: [string, StaffMember | undefined]) => {
         if (!member) return;
         const found = professionals.find(
           (p) => p.id === member.id || p.name.toLowerCase() === member.name.toLowerCase()
         );
         if (found) {
-          found.currentSchoolId = school.id;
-          found.currentSchoolName = cleanSchoolName(school);
-          found.status = 'em_escola';
-          found.rating = member.rating;
-          found.salary = member.salary;
-          if (!found.buyoutClause) {
-            found.buyoutClause = Math.floor(member.salary * 1.5);
+          if (!found.currentSchoolId || found.currentSchoolId === school.id) {
+            found.currentSchoolId = school.id;
+            found.currentSchoolName = cleanSchoolName(school);
+            found.currentSchoolDivision = school.division;
+            found.status = 'em_escola';
+            found.contractYearsLeft = 1;
+            found.rating = member.rating;
+            found.salary = member.salary;
+            if (!found.buyoutClause) {
+              found.buyoutClause = Math.floor(member.salary * 1.5);
+            }
+          } else if (found.currentSchoolDivision !== school.division) {
+            // Dupla atuação autorizada em grupos diferentes (exclusividade de 1 agremiação por grupo)
+            found.secondarySchoolId = school.id;
+            found.secondarySchoolName = cleanSchoolName(school);
+            found.secondarySchoolDivision = school.division;
           }
         }
       });
     });
+  }
+
+  /**
+   * Regulamento Oficial de Contratos (LIESA / LIGA-RJ / Superliga):
+   * 1. Exclusividade por Grupo: Nenhum profissional pode trabalhar ou ter função em mais de uma escola no mesmo Grupo.
+   * 2. Multigrupo Permitido: Podem trabalhar em escolas de grupos separados (ex: Especial + Série Ouro), mantendo 1 escola por grupo.
+   * 3. Anualidade: Todos os contratos valem por 1 ano e são refeitos a cada início de projeto de carnaval.
+   */
+  public static checkExclusivityRule(
+    professional: CarnavalProfessional,
+    targetSchool: School,
+    allSchools: School[] = []
+  ): {
+    canSign: boolean;
+    violatesSameGroup: boolean;
+    sameGroupSchoolName?: string;
+    isDualGroupAllowed: boolean;
+    message: string;
+    requiresBuyout: boolean;
+  } {
+    // Se o profissional já está na própria agremiação
+    if (professional.currentSchoolId === targetSchool.id || professional.secondarySchoolId === targetSchool.id) {
+      return {
+        canSign: true,
+        violatesSameGroup: false,
+        isDualGroupAllowed: false,
+        message: `${professional.name} já possui contrato ativo na ${cleanSchoolName(targetSchool)}.`,
+        requiresBuyout: false
+      };
+    }
+
+    // Se é Free Agent ou não tem agremiação atual
+    if (!professional.currentSchoolId || professional.status !== 'em_escola') {
+      return {
+        canSign: true,
+        violatesSameGroup: false,
+        isDualGroupAllowed: false,
+        message: `${professional.name} é Agente Livre e está 100% elegível para contrato anual na ${cleanSchoolName(targetSchool)}.`,
+        requiresBuyout: false
+      };
+    }
+
+    const currentSchool = allSchools.find((s) => s.id === professional.currentSchoolId);
+    const currentDivision = currentSchool?.division || professional.currentSchoolDivision;
+
+    // Se pertence ao MESMO grupo/divisão:
+    // Não pode atuar em duas agremiações do mesmo grupo simultaneamente!
+    // Apenas pode vir transferido rompendo o contrato anterior (com pagamento de multa rescisória).
+    if (currentDivision === targetSchool.division) {
+      return {
+        canSign: true,
+        violatesSameGroup: true,
+        sameGroupSchoolName: professional.currentSchoolName || currentSchool?.name,
+        isDualGroupAllowed: false,
+        message: `Exclusividade por Grupo Obrigatória: ${professional.name} já atua na ${professional.currentSchoolName} neste mesmo grupo (${targetSchool.division.toUpperCase()}). O regulamento veda atuar em 2 agremiações na mesma divisão. A assinatura exigirá rescisão e pagamento de multa rescisória para assumir exclusivamente na ${cleanSchoolName(targetSchool)}.`,
+        requiresBuyout: true
+      };
+    }
+
+    // Se pertence a grupo DIFERENTE (ex: Especial e Série Ouro):
+    // Permitido atuar em ambas!
+    return {
+      canSign: true,
+      violatesSameGroup: false,
+      isDualGroupAllowed: true,
+      message: `Dupla Atuação Permitida: ${professional.name} atua na ${professional.currentSchoolName} (${(currentDivision || 'acesso').toUpperCase()}). O regulamento autoriza atuação concomitante por pertencerem a grupos separados, assegurando exclusividade de 1 agremiação por grupo.`,
+      requiresBuyout: false
+    };
+  }
+
+  /**
+   * Refaz ou renova contrato anual de um profissional para a temporada
+   */
+  public static renewStaffContract(
+    school: School,
+    roleKey: keyof School['staff']
+  ): School {
+    const member = school.staff[roleKey];
+    if (!member) return school;
+
+    return {
+      ...school,
+      staff: {
+        ...school.staff,
+        [roleKey]: {
+          ...member,
+          reputation: member.reputation.includes('Contrato Renovado')
+            ? member.reputation
+            : `${member.reputation} · Contrato Renovado 2026`
+        }
+      }
+    };
   }
 
   /**

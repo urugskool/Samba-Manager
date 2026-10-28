@@ -4,7 +4,8 @@ export type ProfessionalRole =
   | 'interprete'
   | 'mestreSalaPortaBandeira'
   | 'coreografo'
-  | 'harmonia';
+  | 'harmonia'
+  | 'direcaoCarnaval';
 
 export type ProfessionalStatus =
   | 'em_escola'
@@ -25,6 +26,10 @@ export interface CarnavalProfessional {
   status: ProfessionalStatus;
   currentSchoolId?: string;
   currentSchoolName?: string;
+  currentSchoolDivision?: string; // Divisão atual (ex: 'especial', 'ouro') para verificar exclusividade por grupo
+  secondarySchoolId?: string; // Agremiação secundária em divisão diferente permitida pelas regras
+  secondarySchoolName?: string;
+  secondarySchoolDivision?: string;
   originCity: string;
   isDupla: boolean;
   partnerName?: string;

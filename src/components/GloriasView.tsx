@@ -1122,7 +1122,7 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
                 <Users className="w-3.5 h-3.5 text-amber-400" />
                 <span>Profissionais e Comissão de Carnaval</span>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
+              <div className={`grid grid-cols-2 sm:grid-cols-3 ${selectedSchool.staff.direcaoCarnaval ? 'md:grid-cols-7' : 'md:grid-cols-6'} gap-2`}>
                 <div className="p-2.5 rounded-lg bg-slate-950/40 border border-slate-800/60">
                   <div className="text-[9px] text-slate-500 uppercase">Carnavalesco</div>
                   <div className="text-xs font-bold text-white truncate">{selectedSchool.staff.carnavalesco?.name || 'A definir'}</div>
@@ -1147,6 +1147,12 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
                   <div className="text-[9px] text-slate-500 uppercase">Comissão de Frente</div>
                   <div className="text-xs font-bold text-white truncate">{selectedSchool.staff.coreografo?.name || 'A definir'}</div>
                 </div>
+                {selectedSchool.staff.direcaoCarnaval && (
+                  <div className="p-2.5 rounded-lg bg-slate-950/40 border border-slate-800/60">
+                    <div className="text-[9px] text-slate-500 uppercase">Dir. Carnaval</div>
+                    <div className="text-xs font-bold text-white truncate">{selectedSchool.staff.direcaoCarnaval.name}</div>
+                  </div>
+                )}
               </div>
             </div>
           )}

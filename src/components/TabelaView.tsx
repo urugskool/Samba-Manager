@@ -779,7 +779,7 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                           <div className="text-[10px] font-bold text-slate-400 uppercase">
                             Corpo Técnico & Profissionais Oficiais
                           </div>
-                          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 text-[11px]">
+                          <div className={`grid grid-cols-2 sm:grid-cols-3 ${school.staff.direcaoCarnaval ? 'md:grid-cols-7' : 'md:grid-cols-6'} gap-2 text-[11px]`}>
                             <div>
                               <span className="text-slate-500 text-[10px] block">Carnavalesco</span>
                               <strong className="text-white truncate block">{school.staff.carnavalesco?.name || 'A definir'}</strong>
@@ -804,6 +804,12 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                               <span className="text-slate-500 text-[10px] block">Comissão Frente</span>
                               <strong className="text-white truncate block">{school.staff.coreografo?.name || 'A definir'}</strong>
                             </div>
+                            {school.staff.direcaoCarnaval && (
+                              <div>
+                                <span className="text-slate-500 text-[10px] block">Dir. Carnaval</span>
+                                <strong className="text-white truncate block">{school.staff.direcaoCarnaval.name}</strong>
+                              </div>
+                            )}
                           </div>
                         </div>
                       )}

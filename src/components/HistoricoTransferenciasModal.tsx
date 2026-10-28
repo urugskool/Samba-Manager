@@ -50,7 +50,8 @@ const ROLE_LABELS: Record<ProfessionalRole | 'all', string> = {
   interprete: 'Intérpretes Oficiais',
   mestreSalaPortaBandeira: '1º Casal MS e PB',
   coreografo: 'Coreógrafos de Comissão',
-  harmonia: 'Diretores de Harmonia'
+  harmonia: 'Diretores de Harmonia',
+  direcaoCarnaval: 'Direção de Carnaval'
 };
 
 const ROLE_COLORS: Record<ProfessionalRole, { bg: string; text: string; border: string }> = {
@@ -83,6 +84,11 @@ const ROLE_COLORS: Record<ProfessionalRole, { bg: string; text: string; border: 
     bg: 'bg-orange-500/15',
     text: 'text-orange-300',
     border: 'border-orange-500/30'
+  },
+  direcaoCarnaval: {
+    bg: 'bg-indigo-500/15',
+    text: 'text-indigo-300',
+    border: 'border-indigo-500/30'
   }
 };
 

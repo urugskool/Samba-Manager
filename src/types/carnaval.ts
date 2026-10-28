@@ -23,7 +23,7 @@ export interface QuesitoConfig {
 export interface StaffMember {
   id: string;
   name: string;
-  role: 'carnavalesco' | 'mestreBateria' | 'harmonia' | 'mestreSalaPortaBandeira' | 'interprete' | 'coreografo';
+  role: 'carnavalesco' | 'mestreBateria' | 'harmonia' | 'mestreSalaPortaBandeira' | 'interprete' | 'coreografo' | 'direcaoCarnaval';
   roleName: string;
   rating: number; // 50 - 99
   salary: number; // R$ per year
@@ -320,6 +320,7 @@ export interface School {
     mestreSalaPortaBandeira: StaffMember;
     interprete: StaffMember;
     coreografo: StaffMember;
+    direcaoCarnaval?: StaffMember;
   };
   currentEnredo?: Enredo;
   customParadeScript?: any;

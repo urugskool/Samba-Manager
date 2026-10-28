@@ -134,11 +134,19 @@ export const EquipeView: React.FC<EquipeViewProps> = ({
     },
     {
       key: 'harmonia',
-      label: 'Diretor de Harmonia',
+      label: 'Direção de Harmonia',
       member: school.staff.harmonia,
       boostInfo: 'Evolução & Harmonia',
-      allowDupla: false,
+      allowDupla: true,
       description: 'Cronometra a pista, alinha alas e evita buracos ou correrias na Sapucaí.'
+    },
+    {
+      key: 'direcaoCarnaval',
+      label: 'Direção de Carnaval',
+      member: school.staff.direcaoCarnaval,
+      boostInfo: 'Planejamento Geral & Barracão',
+      allowDupla: true,
+      description: 'Coordena logística, montagem de barracão, cronograma e execução estratégica do desfile.'
     }
   ];
 
@@ -295,6 +303,24 @@ export const EquipeView: React.FC<EquipeViewProps> = ({
     onShowMessage(
       `Contrato rescindido com ${result.releasedProfessionalName}. O profissional agora é um Free Agent no mercado.`,
       'info'
+    );
+  };
+
+  // Renovar contrato anual com membro da equipe
+  const handleRenewContract = (roleKey: keyof typeof school.staff) => {
+    const member = school.staff[roleKey];
+    if (!member) return;
+
+    soundService.playLevelUp();
+    const updatedSchool = TransferMarketService.renewStaffContract(school, roleKey);
+    onUpdateSchool(updatedSchool);
+    if (onUpdateAllSchools && allSchools.length > 0) {
+      const updatedAll = allSchools.map((s) => (s.id === school.id ? updatedSchool : s));
+      onUpdateAllSchools(updatedAll);
+    }
+    onShowMessage(
+      `Contrato anual renovado! ${member.name} firmou contrato de 1 ano para o projeto do Carnaval de ${currentYear}.`,
+      'success'
     );
   };
 
@@ -515,20 +541,46 @@ export const EquipeView: React.FC<EquipeViewProps> = ({
             <div>
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
                 <Star className="w-5 h-5 text-amber-400" />
-                <span>Comissão Técnica Atual da {cleanSchoolName(school)}</span>
+                <span>Comissão Técnica & Ficha Oficial da {cleanSchoolName(school)}</span>
               </h3>
               <p className="text-xs text-slate-400 mt-0.5">
-                Gerencie os contratos dos seus 6 segmentos estratégicos. Você pode rescindir contratos ou desmembrar duplas.
+                Gerencie os contratos dos seus segmentos estratégicos. Todos os contratos valem por 1 ano de projeto.
               </p>
             </div>
             <span className="text-xs text-emerald-400 font-bold bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 rounded-lg">
-              6 de 6 cargos preenchidos
+              {staffRoles.filter((r) => Boolean(r.member)).length} de {staffRoles.length} segmentos preenchidos
             </span>
+          </div>
+
+          {/* BANNER REGULAMENTAR DE CONTRATOS */}
+          <div className="p-3.5 rounded-xl bg-slate-950/80 border border-amber-500/30 flex items-start gap-3">
+            <ShieldAlert className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+            <div className="text-xs space-y-1">
+              <span className="font-bold text-amber-300 block">
+                Regulamento Oficial de Contratos (LIESA & LigaRJ)
+              </span>
+              <p className="text-slate-300 leading-relaxed">
+                • <strong className="text-white">Exclusividade por Grupo:</strong> Nenhum profissional pode trabalhar ou exercer função em mais de uma agremiação na mesma divisão. É autorizada a atuação em escolas de grupos separados (ex: trabalhar no Grupo Especial e em uma da Série Ouro), assegurando estrita exclusividade de 1 agremiação por grupo.
+              </p>
+              <p className="text-slate-300 leading-relaxed">
+                • <strong className="text-white">Duração e Renovação Anual:</strong> Todos os contratos são refeitos no início de cada projeto de carnaval e possuem vigência de 1 ano, sendo necessário as agremiações contratarem ou renovarem seus profissionais a cada início de temporada.
+              </p>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {staffRoles.map((role) => {
-              const isDupla = role.member.isDupla || role.member.name.includes('&');
+              const member: StaffMember = role.member || {
+                id: `placeholder_${role.key}`,
+                name: 'A definir',
+                role: role.key as any,
+                roleName: role.label,
+                rating: 80,
+                salary: 80000,
+                reputation: 'Cargo em aberto para contratação',
+                isDupla: false
+              };
+              const isDupla = member.isDupla || member.name.includes('&') || member.name.includes(' e ');
 
               return (
                 <div
@@ -543,20 +595,20 @@ export const EquipeView: React.FC<EquipeViewProps> = ({
                         </span>
                         {isDupla && (
                           <span className="text-[9px] px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 border border-purple-500/40 font-bold uppercase">
-                            Dupla
+                            Parceria / Coletivo
                           </span>
                         )}
                       </div>
                       <span className="text-xs font-black px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30 font-mono">
-                        Nota {role.member.rating}
+                        Nota {member.rating}
                       </span>
                     </div>
 
                     <h4 className="text-base font-bold text-white leading-tight">
-                      {role.member.name}
+                      {member.name}
                     </h4>
                     <p className="text-[11px] text-slate-400 italic">
-                      "{role.member.reputation}"
+                      "{member.reputation}"
                     </p>
                     <p className="text-[10px] text-slate-500">
                       Impacto: <strong className="text-slate-300">{role.boostInfo}</strong>
@@ -564,32 +616,46 @@ export const EquipeView: React.FC<EquipeViewProps> = ({
                     <p className="text-[10px] text-slate-400 leading-relaxed">
                       {role.description}
                     </p>
+
+                    <div className="pt-1 flex items-center justify-between text-[10px] text-slate-400 bg-slate-900/50 px-2 py-1 rounded border border-slate-800/80">
+                      <span>Vigência Contratual:</span>
+                      <strong className="text-emerald-400 font-mono">1 Ano (Temporada {currentYear})</strong>
+                    </div>
                   </div>
 
                   <div className="pt-3 border-t border-slate-800/80 space-y-2">
                     <div className="flex items-center justify-between text-xs text-slate-400">
                       <span>Salário Anual:</span>
                       <span className="font-bold text-white font-mono">
-                        R$ {role.member.salary.toLocaleString('pt-BR')}
+                        R$ {member.salary.toLocaleString('pt-BR')}
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-2 pt-1">
+                    <div className="flex items-center gap-2 pt-1 flex-wrap">
+                      <button
+                        onClick={() => handleRenewContract(role.key as keyof typeof school.staff)}
+                        className="flex-1 py-1.5 px-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold transition flex items-center justify-center gap-1 cursor-pointer"
+                        title="Renovar contrato para a temporada (vigência de 1 ano)"
+                      >
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                        <span>Renovar (1 Ano)</span>
+                      </button>
+
                       {isDupla && role.allowDupla && (
                         <button
                           onClick={() => handleSplitDupla(role.key as keyof typeof school.staff)}
-                          className="flex-1 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold transition flex items-center justify-center gap-1 cursor-pointer"
+                          className="py-1.5 px-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold transition flex items-center justify-center gap-1 cursor-pointer"
                           title="Desfazer parceria para deixar o profissional em voo solo"
                         >
                           <Split className="w-3.5 h-3.5 text-amber-400" />
-                          <span>Voo Solo</span>
+                          <span>Solo</span>
                         </button>
                       )}
 
                       <button
                         onClick={() => handleReleaseMember(role.key as keyof typeof school.staff)}
                         disabled={!windowStatus.isOpen}
-                        className="flex-1 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 text-xs font-bold transition flex items-center justify-center gap-1 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                        className="py-1.5 px-2 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 text-xs font-bold transition flex items-center justify-center gap-1 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
                         title={
                           windowStatus.isOpen
                             ? 'Rescindir contrato amigavelmente com custo de 25% da folha'
@@ -645,8 +711,9 @@ export const EquipeView: React.FC<EquipeViewProps> = ({
               { id: 'mestreBateria', label: 'Mestres de Bateria' },
               { id: 'interprete', label: 'Intérpretes' },
               { id: 'mestreSalaPortaBandeira', label: 'Casais MS & PB' },
-              { id: 'coreografo', label: 'Coreógrafos' },
-              { id: 'harmonia', label: 'Diretores Harmonia' }
+              { id: 'coreografo', label: 'Comissão de Frente' },
+              { id: 'harmonia', label: 'Direção de Harmonia' },
+              { id: 'direcaoCarnaval', label: 'Direção de Carnaval' }
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -765,15 +832,36 @@ export const EquipeView: React.FC<EquipeViewProps> = ({
                         </p>
                       )}
 
-                      {prof.currentSchoolName && prof.status === 'em_escola' && (
-                        <div className="flex items-center gap-1 text-[11px] text-slate-300 bg-slate-900/60 px-2 py-1 rounded border border-slate-800">
-                          <span className="text-slate-500">Agremiação Atual:</span>
-                          <strong className="text-amber-300">{prof.currentSchoolName}</strong>
-                        </div>
-                      )}
+                      {prof.currentSchoolName && prof.status === 'em_escola' && (() => {
+                        const exclusivity = TransferMarketService.checkExclusivityRule(prof, school, allSchools);
+                        return (
+                          <div className="flex flex-col gap-1 text-[11px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800">
+                            <div className="flex items-center justify-between">
+                              <span className="text-slate-500">Agremiação Atual:</span>
+                              <strong className="text-amber-300">{prof.currentSchoolName}</strong>
+                            </div>
+                            {exclusivity.violatesSameGroup ? (
+                              <span className="text-[10px] text-amber-300 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded flex items-center gap-1 font-semibold">
+                                <AlertTriangle className="w-3 h-3 shrink-0" />
+                                Mesma Divisão: Rescisão obrigatória (exclusividade 1 por grupo)
+                              </span>
+                            ) : exclusivity.isDualGroupAllowed ? (
+                              <span className="text-[10px] text-cyan-300 bg-cyan-500/10 border border-cyan-500/20 px-1.5 py-0.5 rounded flex items-center gap-1 font-semibold">
+                                <Sparkles className="w-3 h-3 shrink-0" />
+                                Divisão Diferente: Dupla atuação autorizada pelas regras
+                              </span>
+                            ) : null}
+                          </div>
+                        );
+                      })()}
+
+                      <div className="flex items-center justify-between text-[10px] text-slate-400 bg-slate-900/40 px-2 py-1 rounded border border-slate-800/60">
+                        <span>Vigência Contratual:</span>
+                        <strong className="text-emerald-400 font-mono">1 Ano (Temporada {currentYear})</strong>
+                      </div>
 
                       {prof.specialties && prof.specialties.length > 0 && (
-                        <div className="flex flex-wrap gap-1 pt-1">
+                        <div className="flex flex-wrap gap-1 pt-0.5">
                           {prof.specialties.slice(0, 2).map((spec, i) => (
                             <span
                               key={i}

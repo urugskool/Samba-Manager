@@ -5942,12 +5942,13 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
       mestreSalaPortaBandeira: 94
     },
     staff: {
-      carnavalesco: { id: 'v_c', name: 'Tarcísio Zanon', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 95, salary: 140000, reputation: 'Campeão Atual' },
-      mestreBateria: { id: 'v_b', name: 'Mestre Ciça', role: 'mestreBateria', roleName: 'Mestre de Bateria', rating: 96, salary: 110000, reputation: 'Lenda Viva' },
-      harmonia: { id: 'v_h', name: 'Marcos Mendes', role: 'harmonia', roleName: 'Diretor de Harmonia', rating: 93, salary: 80000, reputation: 'Rigor Técnico' },
-      mestreSalaPortaBandeira: { id: 'v_m', name: 'Julinho & Rute Alves', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 94, salary: 105000, reputation: 'Giros Nobres' },
-      interprete: { id: 'v_i', name: 'Wander Pires', role: 'interprete', roleName: 'Intérprete Oficial', rating: 94, salary: 115000, reputation: 'Voz Marcante' },
-      coreografo: { id: 'v_cf', name: 'Priscilla Mota & Rodrigo Negri', role: 'coreografo', roleName: 'Coreógrafo Comissão', rating: 96, salary: 115000, reputation: 'Mágicos da Sapucaí' }
+      carnavalesco: { id: 'v_c', name: 'Tarcísio Zanon', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 96, salary: 140000, reputation: 'Campeão Atual' },
+      mestreBateria: { id: 'v_b', name: 'Moacyr da Silva Pinto (Ciça)', role: 'mestreBateria', roleName: 'Mestre de Bateria', rating: 96, salary: 110000, reputation: 'Lenda Viva' },
+      harmonia: { id: 'v_h', name: 'Jefferson Coutinho e Marcos Mendes', role: 'harmonia', roleName: 'Direção de Harmonia', rating: 94, salary: 85000, reputation: 'Rigor Técnico' },
+      mestreSalaPortaBandeira: { id: 'v_m', name: 'Phelipe Lemos e Marcella Alves', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 96, salary: 115000, reputation: 'Referência Mundial' },
+      interprete: { id: 'v_i', name: 'Wander Pires', role: 'interprete', roleName: 'Intérprete Oficial', rating: 95, salary: 120000, reputation: 'Voz Marcante' },
+      coreografo: { id: 'v_cf', name: 'Priscilla Mota e Rodrigo Negri', role: 'coreografo', roleName: 'Comissão de Frente', rating: 96, salary: 120000, reputation: 'Mágicos da Sapucaí' },
+      direcaoCarnaval: { id: 'v_dc', name: 'Alex Fab', role: 'direcaoCarnaval', roleName: 'Direção de Carnaval', rating: 95, salary: 100000, reputation: 'Gestão Vencedora' }
     },
     currentEnredo: SAMPLE_ENREDOS[0],
     rehearsalLevel: 85,
@@ -5996,12 +5997,13 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
       mestreSalaPortaBandeira: 96
     },
     staff: {
-      carnavalesco: { id: 'bf_c', name: 'João Vitor Araújo', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 92, salary: 130000, reputation: 'Inovador Plástico' },
-      mestreBateria: { id: 'bf_b', name: 'Mestre Rodney & Plínio', role: 'mestreBateria', roleName: 'Mestre de Bateria', rating: 93, salary: 90000, reputation: 'Soberana de Nilópolis' },
-      harmonia: { id: 'bf_h', name: 'Válber Frutuoso', role: 'harmonia', roleName: 'Diretor de Harmonia', rating: 95, salary: 90000, reputation: 'Comunidade Afinada' },
-      mestreSalaPortaBandeira: { id: 'bf_m', name: 'Claudinho & Selminha Sorriso', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 96, salary: 120000, reputation: 'Ícones Históricos' },
-      interprete: { id: 'bf_i', name: 'Neguinho da Beija-Flor', role: 'interprete', roleName: 'Intérprete Oficial', rating: 97, salary: 140000, reputation: 'A Voz Eterna' },
-      coreografo: { id: 'bf_cf', name: 'Jorge Texeira & Saulo Finelon', role: 'coreografo', roleName: 'Coreógrafo Comissão', rating: 91, salary: 85000, reputation: 'Tradição Cênica' }
+      carnavalesco: { id: 'bf_c', name: 'João Vitor de Araújo', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 93, salary: 130000, reputation: 'Inovador Plástico' },
+      mestreBateria: { id: 'bf_b', name: 'Plínio e Rodney', role: 'mestreBateria', roleName: 'Mestres de Bateria', rating: 94, salary: 95000, reputation: 'Soberana de Nilópolis' },
+      harmonia: { id: 'bf_h', name: 'Michel Oliveira, Simone Sant’Ana, Shirleise Colins e Zé Carlos', role: 'harmonia', roleName: 'Direção de Harmonia', rating: 95, salary: 90000, reputation: 'Comunidade Afinada' },
+      mestreSalaPortaBandeira: { id: 'bf_m', name: 'Claudinho e Selminha Sorriso', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 97, salary: 130000, reputation: 'Ícones Históricos' },
+      interprete: { id: 'bf_i', name: 'Nino do Milênio e Jessica Martin', role: 'interprete', roleName: 'Intérpretes', rating: 93, salary: 110000, reputation: 'Nova Era Azul e Branca' },
+      coreografo: { id: 'bf_cf', name: 'Jorge Teixeira e Saulo Finelon', role: 'coreografo', roleName: 'Comissão de Frente', rating: 93, salary: 90000, reputation: 'Tradição Cênica' },
+      direcaoCarnaval: { id: 'bf_dc', name: 'Marco Antônio Marino', role: 'direcaoCarnaval', roleName: 'Direção de Carnaval', rating: 94, salary: 95000, reputation: 'Experiência Nilopolitana' }
     },
     currentEnredo: SAMPLE_ENREDOS[1],
     rehearsalLevel: 80,
@@ -6050,12 +6052,13 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
       mestreSalaPortaBandeira: 93
     },
     staff: {
-      carnavalesco: { id: 'vi_c', name: 'Paulo Barros', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 93, salary: 145000, reputation: 'Mago dos Efeitos' },
-      mestreBateria: { id: 'vi_b', name: 'Mestre Macaco Branco', role: 'mestreBateria', roleName: 'Mestre de Bateria', rating: 92, salary: 85000, reputation: 'Swingueira Pura' },
-      harmonia: { id: 'vi_h', name: 'Marcelinho Emoção', role: 'harmonia', roleName: 'Diretor de Harmonia', rating: 91, salary: 75000, reputation: 'Voz da Vila' },
-      mestreSalaPortaBandeira: { id: 'vi_m', name: 'Marcinho Siqueira & Cristiane Caldas', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 92, salary: 85000, reputation: 'Graciosidade' },
-      interprete: { id: 'vi_i', name: 'Tinga', role: 'interprete', roleName: 'Intérprete Oficial', rating: 93, salary: 105000, reputation: 'Grito Inconfundível' },
-      coreografo: { id: 'vi_cf', name: 'Alex Neoral', role: 'coreografo', roleName: 'Coreógrafo Comissão', rating: 90, salary: 80000, reputation: 'Dança Contemporânea' }
+      carnavalesco: { id: 'vi_c', name: 'Gabriel Haddad e Leonardo Bora', role: 'carnavalesco', roleName: 'Carnavalescos', rating: 95, salary: 150000, reputation: 'Vanguarda & Campeões' },
+      mestreBateria: { id: 'vi_b', name: 'Macaco Branco', role: 'mestreBateria', roleName: 'Mestre de Bateria', rating: 94, salary: 90000, reputation: 'Swingueira Pura' },
+      harmonia: { id: 'vi_h', name: 'Chico Branco, Diego Mendes, Joelma Veiga, Nanduco Vila e Yuri Maia', role: 'harmonia', roleName: 'Direção de Harmonia', rating: 93, salary: 85000, reputation: 'Força de Vila Isabel' },
+      mestreSalaPortaBandeira: { id: 'vi_m', name: 'Raphael Rodrigues e Dandara Ventapane', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 95, salary: 110000, reputation: 'Dança Ancestral & Soberania' },
+      interprete: { id: 'vi_i', name: 'Anderson Antônio dos Santos (Tinga)', role: 'interprete', roleName: 'Intérprete Oficial', rating: 95, salary: 115000, reputation: 'Grito Inconfundível' },
+      coreografo: { id: 'vi_cf', name: 'Alex Neoral e Márcio Jahú', role: 'coreografo', roleName: 'Comissão de Frente', rating: 93, salary: 90000, reputation: 'Dança Cênica Contemporânea' },
+      direcaoCarnaval: { id: 'vi_dc', name: 'Moisés Carvalho', role: 'direcaoCarnaval', roleName: 'Direção de Carnaval', rating: 94, salary: 95000, reputation: 'Liderança Azul e Branco' }
     },
     currentEnredo: SAMPLE_ENREDOS[2],
     rehearsalLevel: 82,
@@ -6105,12 +6108,13 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
       mestreSalaPortaBandeira: 93
     },
     staff: {
-      carnavalesco: { id: 's_c', name: 'Jorge Silveira', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 91, salary: 115000, reputation: 'Visual Marcante' },
-      mestreBateria: { id: 's_b', name: 'Mestres Guilherme & Gustavo', role: 'mestreBateria', roleName: 'Mestre de Bateria', rating: 96, salary: 110000, reputation: 'Furiosa do Salgueiro' },
-      harmonia: { id: 's_h', name: 'Wilsinho Alves', role: 'harmonia', roleName: 'Diretor de Harmonia', rating: 92, salary: 80000, reputation: 'Pressão da Quadra' },
-      mestreSalaPortaBandeira: { id: 's_m', name: 'Sidclei Santos & Marcella Alves', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 95, salary: 115000, reputation: 'Referência Mundial' },
-      interprete: { id: 's_i', name: 'Emerson Dias', role: 'interprete', roleName: 'Intérprete Oficial', rating: 92, salary: 95000, reputation: 'Gogó Poderoso' },
-      coreografo: { id: 's_cf', name: 'Patrick Carvalho', role: 'coreografo', roleName: 'Coreógrafo Comissão', rating: 95, salary: 110000, reputation: 'Dramaturgia Pura' }
+      carnavalesco: { id: 's_c', name: 'Jorge Silveira', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 93, salary: 125000, reputation: 'Visual Marcante' },
+      mestreBateria: { id: 's_b', name: 'Guilherme e Gustavo', role: 'mestreBateria', roleName: 'Mestre de Bateria', rating: 96, salary: 115000, reputation: 'Furiosa do Salgueiro' },
+      harmonia: { id: 's_h', name: 'Diego Pedroso, Paulo Dimitri e Paulinho Evangelista', role: 'harmonia', roleName: 'Direção de Harmonia', rating: 93, salary: 85000, reputation: 'Pressão da Quadra' },
+      mestreSalaPortaBandeira: { id: 's_m', name: 'Sidclei Santos e Laryssa Victória', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 95, salary: 110000, reputation: 'Tradição e Sangue Vermelho' },
+      interprete: { id: 's_i', name: 'Igor Sorriso', role: 'interprete', roleName: 'Intérprete Oficial', rating: 94, salary: 110000, reputation: 'Voz da Raça Salgueirense' },
+      coreografo: { id: 's_cf', name: 'Paulo Pinna', role: 'coreografo', roleName: 'Comissão de Frente', rating: 93, salary: 90000, reputation: 'Impacto Teatral' },
+      direcaoCarnaval: { id: 's_dc', name: 'Wilsinho Alves', role: 'direcaoCarnaval', roleName: 'Direção de Carnaval', rating: 95, salary: 105000, reputation: 'Estrategista Vencedor' }
     },
     currentEnredo: SAMPLE_ENREDOS[3],
     rehearsalLevel: 84,
@@ -6159,12 +6163,13 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
       mestreSalaPortaBandeira: 95
     },
     staff: {
-      carnavalesco: { id: 'imp_c', name: 'Leandro Vieira', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 96, salary: 155000, reputation: 'Mestre da Cultura Popular' },
-      mestreBateria: { id: 'imp_b', name: 'Mestre Lolo', role: 'mestreBateria', roleName: 'Mestre de Bateria', rating: 94, salary: 90000, reputation: 'Swing de Ramos' },
-      harmonia: { id: 'imp_h', name: 'André Bonatte', role: 'harmonia', roleName: 'Diretor de Harmonia', rating: 94, salary: 85000, reputation: 'Precisão Imperial' },
-      mestreSalaPortaBandeira: { id: 'imp_m', name: 'Phelipe Lemos & Rafaela Theodoro', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 95, salary: 110000, reputation: 'Soberania' },
-      interprete: { id: 'imp_i', name: 'Pitty de Menezes', role: 'interprete', roleName: 'Intérprete Oficial', rating: 93, salary: 95000, reputation: 'Talento da Nova Geração' },
-      coreografo: { id: 'imp_cf', name: 'Marcelo Misailidis', role: 'coreografo', roleName: 'Coreógrafo Comissão', rating: 93, salary: 90000, reputation: 'Coreografia Clássica' }
+      carnavalesco: { id: 'imp_c', name: 'Leandro Vieira', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 97, salary: 165000, reputation: 'Mestre da Cultura Popular' },
+      mestreBateria: { id: 'imp_b', name: 'Lolo', role: 'mestreBateria', roleName: 'Mestre de Bateria', rating: 95, salary: 95000, reputation: 'Swing de Ramos' },
+      harmonia: { id: 'imp_h', name: 'Thiago Santos', role: 'harmonia', roleName: 'Direção de Harmonia', rating: 94, salary: 85000, reputation: 'Precisão Imperial' },
+      mestreSalaPortaBandeira: { id: 'imp_m', name: 'Matheus Miranda e Bruna Santos', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 95, salary: 105000, reputation: 'Jovens Prodígios' },
+      interprete: { id: 'imp_i', name: 'Pitty de Menezes', role: 'interprete', roleName: 'Intérprete Oficial', rating: 94, salary: 105000, reputation: 'Talento da Nova Geração' },
+      coreografo: { id: 'imp_cf', name: 'Ana Gregório, Fagner Santos, Márcio Dellawegah e Sabrina Sant\'Ana', role: 'coreografo', roleName: 'Comissão de Frente', rating: 94, salary: 95000, reputation: 'Coletivo Cênico de Excelência' },
+      direcaoCarnaval: { id: 'imp_dc', name: 'André Bonatte e Pedro Henrique Leite', role: 'direcaoCarnaval', roleName: 'Direção de Carnaval', rating: 95, salary: 100000, reputation: 'Planejamento de Campeã' }
     },
     currentEnredo: SAMPLE_ENREDOS[4],
     rehearsalLevel: 86,
@@ -6213,12 +6218,13 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
       mestreSalaPortaBandeira: 95
     },
     staff: {
-      carnavalesco: { id: 'mng_c', name: 'Sidnei França', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 92, salary: 125000, reputation: 'Emoção e Tradição' },
-      mestreBateria: { id: 'mng_b', name: 'Mestre Taranta Neto', role: 'mestreBateria', roleName: 'Mestre de Bateria', rating: 95, salary: 100000, reputation: 'O Surdo Um Inconfundível' },
-      harmonia: { id: 'mng_h', name: 'Dimas Cordeiro', role: 'harmonia', roleName: 'Diretor de Harmonia', rating: 92, salary: 80000, reputation: 'Canto do Morro' },
-      mestreSalaPortaBandeira: { id: 'mng_m', name: 'Matheus Olivério & Cintia Ribeiro', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 95, salary: 110000, reputation: 'Baluartes da Dança' },
-      interprete: { id: 'mng_i', name: 'Marquinho Art\'Samba & Dowglas Diniz', role: 'interprete', roleName: 'Intérprete Oficial', rating: 93, salary: 100000, reputation: 'Voz da Estação' },
-      coreografo: { id: 'mng_cf', name: 'Lucas Maciel & Karina Dias', role: 'coreografo', roleName: 'Coreógrafo Comissão', rating: 91, salary: 85000, reputation: 'Ancestralidade em Movimento' }
+      carnavalesco: { id: 'mng_c', name: 'Sidnei França', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 93, salary: 130000, reputation: 'Emoção e Tradição' },
+      mestreBateria: { id: 'mng_b', name: 'Rodrigo Explosão e Taranta Neto', role: 'mestreBateria', roleName: 'Mestres de Bateria', rating: 96, salary: 110000, reputation: 'O Surdo Um Inconfundível' },
+      harmonia: { id: 'mng_h', name: 'Alexandre Rouge, Arídio Oliveira, Fábio de Souza, Izadora Neves, Léo Assis, Vinicius Araújo e Valber Frutuoso', role: 'harmonia', roleName: 'Direção de Harmonia', rating: 95, salary: 95000, reputation: 'Canto do Morro Verde e Rosa' },
+      mestreSalaPortaBandeira: { id: 'mng_m', name: 'Matheus Olivério e Cintya Santos', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 96, salary: 120000, reputation: 'Baluartes da Dança' },
+      interprete: { id: 'mng_i', name: 'Dowglas Diniz', role: 'interprete', roleName: 'Intérprete Oficial', rating: 94, salary: 105000, reputation: 'Voz da Estação Primeira' },
+      coreografo: { id: 'mng_cf', name: 'Lucas Maciel e Karina Dias', role: 'coreografo', roleName: 'Comissão de Frente', rating: 93, salary: 90000, reputation: 'Ancestralidade em Movimento' },
+      direcaoCarnaval: { id: 'mng_dc', name: 'Dudu Azevedo', role: 'direcaoCarnaval', roleName: 'Direção de Carnaval', rating: 95, salary: 105000, reputation: 'Liderança Consagrada' }
     },
     currentEnredo: SAMPLE_ENREDOS[5],
     rehearsalLevel: 85,
@@ -6266,12 +6272,13 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
       mestreSalaPortaBandeira: 92
     },
     staff: {
-      carnavalesco: { id: 'ut_c', name: 'Edson Pereira', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 91, salary: 115000, reputation: 'Estética Suntuosa' },
-      mestreBateria: { id: 'ut_b', name: 'Mestre Casagrande', role: 'mestreBateria', roleName: 'Mestre de Bateria', rating: 94, salary: 95000, reputation: 'Pura Cadência' },
-      harmonia: { id: 'ut_h', name: 'Fernando Costa', role: 'harmonia', roleName: 'Diretor de Harmonia', rating: 90, salary: 75000, reputation: 'Harmonia Borel' },
-      mestreSalaPortaBandeira: { id: 'ut_m', name: 'Lucinha Nobre & Matheus', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 93, salary: 95000, reputation: 'Elegância e Carisma' },
-      interprete: { id: 'ut_i', name: 'Ito Melodia', role: 'interprete', roleName: 'Intérprete Oficial', rating: 93, salary: 105000, reputation: 'Voz da Emoção' },
-      coreografo: { id: 'ut_cf', name: 'Sérgio Lobato', role: 'coreografo', roleName: 'Coreógrafo Comissão', rating: 92, salary: 85000, reputation: 'Narrativas Visuais' }
+      carnavalesco: { id: 'ut_c', name: 'Lucas Milato', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 92, salary: 120000, reputation: 'Nova Geração de Estetas' },
+      mestreBateria: { id: 'ut_b', name: 'Casagrande', role: 'mestreBateria', roleName: 'Mestre de Bateria', rating: 95, salary: 100000, reputation: 'Pura Cadência do Borel' },
+      harmonia: { id: 'ut_h', name: 'Allan Guimarães, Rodrigo Soares e João Vieira', role: 'harmonia', roleName: 'Direção de Harmonia', rating: 92, salary: 80000, reputation: 'Harmonia Borel' },
+      mestreSalaPortaBandeira: { id: 'ut_m', name: 'Marcinho Siqueira e Cris Caldas', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 94, salary: 100000, reputation: 'Elegância e Carisma' },
+      interprete: { id: 'ut_i', name: 'Marquinhos Art\'Samba', role: 'interprete', roleName: 'Intérprete Oficial', rating: 94, salary: 110000, reputation: 'Voz Marcante e Experiente' },
+      coreografo: { id: 'ut_cf', name: 'Ariadne Lax e Bruna Lopes', role: 'coreografo', roleName: 'Comissão de Frente', rating: 92, salary: 85000, reputation: 'Criatividade e Teatralidade' },
+      direcaoCarnaval: { id: 'ut_dc', name: 'André Gonçalves e Gabriel Mello', role: 'direcaoCarnaval', roleName: 'Direção de Carnaval', rating: 93, salary: 90000, reputation: 'Gestão Eficiente' }
     },
     currentEnredo: SAMPLE_ENREDOS[0],
     rehearsalLevel: 80,
@@ -6320,12 +6327,13 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
       mestreSalaPortaBandeira: 93
     },
     staff: {
-      carnavalesco: { id: 'gr_c', name: 'Gabriel Haddad & Leonardo Bora', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 95, salary: 150000, reputation: 'Cosmogonia e Pesquisa' },
-      mestreBateria: { id: 'gr_b', name: 'Mestre Fafá', role: 'mestreBateria', roleName: 'Mestre de Bateria', rating: 95, salary: 100000, reputation: 'Invocada de Caxias' },
-      harmonia: { id: 'gr_h', name: 'Cacá & Fabrício', role: 'harmonia', roleName: 'Diretor de Harmonia', rating: 93, salary: 85000, reputation: 'Garra da Baixada' },
-      mestreSalaPortaBandeira: { id: 'gr_m', name: 'Daniel Werneck & Taciana Couto', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 93, salary: 90000, reputation: 'Dança Técnica' },
-      interprete: { id: 'gr_i', name: 'Evandro Malandro', role: 'interprete', roleName: 'Intérprete Oficial', rating: 94, salary: 110000, reputation: 'Potência e Swing' },
-      coreografo: { id: 'gr_cf', name: 'Hélio Bejani & Beth Bejani', role: 'coreografo', roleName: 'Coreógrafo Comissão', rating: 95, salary: 110000, reputation: 'Espetáculo Cênico' }
+      carnavalesco: { id: 'gr_c', name: 'Antônio Gonzaga', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 94, salary: 135000, reputation: 'Pesquisa e Arte Popular' },
+      mestreBateria: { id: 'gr_b', name: 'Fabrício Machado (Fafá)', role: 'mestreBateria', roleName: 'Mestre de Bateria', rating: 96, salary: 110000, reputation: 'Invocada de Caxias' },
+      harmonia: { id: 'gr_h', name: 'Andrezinho, Cacá Santos, Clayton Bola e Jefferson Guimarães', role: 'harmonia', roleName: 'Direção de Harmonia', rating: 94, salary: 88000, reputation: 'Garra da Baixada' },
+      mestreSalaPortaBandeira: { id: 'gr_m', name: 'Daniel Werneck e Taciana Couto', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 94, salary: 95000, reputation: 'Dança Técnica e Sincronia' },
+      interprete: { id: 'gr_i', name: 'Ito Melodia', role: 'interprete', roleName: 'Intérprete Oficial', rating: 95, salary: 120000, reputation: 'A Voz da Emoção da Baixada' },
+      coreografo: { id: 'gr_cf', name: 'Hélio Bejani e Beth Bejani', role: 'coreografo', roleName: 'Comissão de Frente', rating: 96, salary: 120000, reputation: 'Espetáculo Cênico Monumental' },
+      direcaoCarnaval: { id: 'gr_dc', name: 'Thiago Monteiro', role: 'direcaoCarnaval', roleName: 'Direção de Carnaval', rating: 95, salary: 100000, reputation: 'Comando Firme' }
     },
     currentEnredo: SAMPLE_ENREDOS[1],
     rehearsalLevel: 85,
@@ -6374,12 +6382,13 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
       mestreSalaPortaBandeira: 91
     },
     staff: {
-      carnavalesco: { id: 'pt_c', name: 'Jack Vasconcelos', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 93, salary: 120000, reputation: 'Crítica Mordaz e Enredo Forte' },
-      mestreBateria: { id: 'pt_b', name: 'Mestre Marcão', role: 'mestreBateria', roleName: 'Mestre de Bateria', rating: 93, salary: 85000, reputation: 'Experiência & Cadência' },
-      harmonia: { id: 'pt_h', name: 'Rodrigo', role: 'harmonia', roleName: 'Diretor de Harmonia', rating: 89, salary: 65000, reputation: 'Firmeza' },
-      mestreSalaPortaBandeira: { id: 'pt_m', name: 'Raphael Rodrigues & Dandara Ventapane', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 92, salary: 85000, reputation: 'Ancestralidade' },
-      interprete: { id: 'pt_i', name: 'Pixulé', role: 'interprete', roleName: 'Intérprete Oficial', rating: 91, salary: 85000, reputation: 'Voz Autêntica' },
-      coreografo: { id: 'pt_cf', name: 'Lucas Maciel', role: 'coreografo', roleName: 'Coreógrafo Comissão', rating: 91, salary: 80000, reputation: 'Dança Africana' }
+      carnavalesco: { id: 'pt_c', name: 'Renato Lage', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 95, salary: 145000, reputation: 'Mestre Histórico do Carnaval' },
+      mestreBateria: { id: 'pt_b', name: 'Marcão', role: 'mestreBateria', roleName: 'Mestre de Bateria', rating: 94, salary: 90000, reputation: 'Experiência & Cadência' },
+      harmonia: { id: 'pt_h', name: 'Marcelinho Emoção', role: 'harmonia', roleName: 'Direção de Harmonia', rating: 92, salary: 78000, reputation: 'Voz da Experiência' },
+      mestreSalaPortaBandeira: { id: 'pt_m', name: 'Vinícius Antunes e Rebeca Tito', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 93, salary: 88000, reputation: 'Elegância e Nobreza' },
+      interprete: { id: 'pt_i', name: 'Roosevelt Martins Gomes da Cunha (Pixulé)', role: 'interprete', roleName: 'Intérprete Oficial', rating: 93, salary: 95000, reputation: 'Grito Autêntico do Quilombo' },
+      coreografo: { id: 'pt_cf', name: 'Marlon Cruz', role: 'coreografo', roleName: 'Comissão de Frente', rating: 92, salary: 82000, reputation: 'Expressão Corporal Africana' },
+      direcaoCarnaval: { id: 'pt_dc', name: 'Ronnan Marins e Júlio Cézar Garcia', role: 'direcaoCarnaval', roleName: 'Direção de Carnaval', rating: 92, salary: 85000, reputation: 'Comando do Morro' }
     },
     currentEnredo: SAMPLE_ENREDOS[2],
     rehearsalLevel: 81,
@@ -6428,12 +6437,13 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
       mestreSalaPortaBandeira: 94
     },
     staff: {
-      carnavalesco: { id: 'por_c', name: 'André Rodrigues & Antônio Gonzaga', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 93, salary: 125000, reputation: 'Pesquisa e Identidade Azul' },
-      mestreBateria: { id: 'por_b', name: 'Mestre Nilo Sérgio', role: 'mestreBateria', roleName: 'Mestre de Bateria', rating: 95, salary: 105000, reputation: 'Tabajara do Samba' },
-      harmonia: { id: 'por_h', name: 'Jeronymo Portela', role: 'harmonia', roleName: 'Diretor de Harmonia', rating: 92, salary: 80000, reputation: 'Tradição Centenária' },
-      mestreSalaPortaBandeira: { id: 'por_m', name: 'Marlon Lamar & Squel Jorgea', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 94, salary: 100000, reputation: 'Porte Imperial' },
-      interprete: { id: 'por_i', name: 'Gilsinho', role: 'interprete', roleName: 'Intérprete Oficial', rating: 95, salary: 120000, reputation: 'Timbre Lírico' },
-      coreografo: { id: 'por_cf', name: 'Leo Senna', role: 'coreografo', roleName: 'Coreógrafo Comissão', rating: 91, salary: 80000, reputation: 'Expressão Corporal' }
+      carnavalesco: { id: 'por_c', name: 'Paulo Barros', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 95, salary: 160000, reputation: 'Mago dos Efeitos' },
+      mestreBateria: { id: 'por_b', name: 'Vitinho', role: 'mestreBateria', roleName: 'Mestre de Bateria', rating: 94, salary: 95000, reputation: 'Tabajara do Samba' },
+      harmonia: { id: 'por_h', name: 'Dudu Falcão, Almir de Souza, Marcelo Jacob e Vitor Leite', role: 'harmonia', roleName: 'Direção de Harmonia', rating: 94, salary: 88000, reputation: 'Tradição Centenária Portelense' },
+      mestreSalaPortaBandeira: { id: 'por_m', name: 'Marlon Lamar e Squel Jorgea', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 96, salary: 120000, reputation: 'Porte Imperial e Soberania' },
+      interprete: { id: 'por_i', name: 'Bruno Ribas', role: 'interprete', roleName: 'Intérprete Oficial', rating: 95, salary: 115000, reputation: 'Timbre Potente e Raça' },
+      coreografo: { id: 'por_cf', name: 'Patrícia Salgado e Sérgio Lobato', role: 'coreografo', roleName: 'Comissão de Frente', rating: 93, salary: 90000, reputation: 'Narrativas Visuais Majestosas' },
+      direcaoCarnaval: { id: 'por_dc', name: 'Dudu Falcão, Elisa Fernandes e Camarão Netto', role: 'direcaoCarnaval', roleName: 'Direção de Carnaval', rating: 94, salary: 95000, reputation: 'Liderança Madureira' }
     },
     currentEnredo: SAMPLE_ENREDOS[3],
     rehearsalLevel: 84,
@@ -6483,12 +6493,13 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
       mestreSalaPortaBandeira: 92
     },
     staff: {
-      carnavalesco: { id: 'moc_c', name: 'Marcus Ferreira', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 92, salary: 120000, reputation: 'Traço Popular e Colorido' },
-      mestreBateria: { id: 'moc_b', name: 'Mestre Dudu', role: 'mestreBateria', roleName: 'Mestre de Bateria', rating: 97, salary: 120000, reputation: 'Não Existe Mais Quente' },
-      harmonia: { id: 'moc_h', name: 'Wallace Capoeira', role: 'harmonia', roleName: 'Diretor de Harmonia', rating: 90, salary: 75000, reputation: 'Comunidade Apaixonada' },
-      mestreSalaPortaBandeira: { id: 'moc_m', name: 'Diogo Jesus & Bruna Santos', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 92, salary: 85000, reputation: 'Sincronia Forte' },
-      interprete: { id: 'moc_i', name: 'Zé Paulo Sierra', role: 'interprete', roleName: 'Intérprete Oficial', rating: 94, salary: 110000, reputation: 'Energia Incendiária' },
-      coreografo: { id: 'moc_cf', name: 'Paulo Pinna', role: 'coreografo', roleName: 'Coreógrafo Comissão', rating: 90, salary: 75000, reputation: 'Originalidade Zona Oeste' }
+      carnavalesco: { id: 'moc_c', name: 'Jack Vasconcelos', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 94, salary: 130000, reputation: 'Crítica Mordaz e Enredo Forte' },
+      mestreBateria: { id: 'moc_b', name: 'Dudu', role: 'mestreBateria', roleName: 'Mestre de Bateria', rating: 97, salary: 125000, reputation: 'Não Existe Mais Quente' },
+      harmonia: { id: 'moc_h', name: 'Sandro Menezes, Marcos Paulo Carvalho e Cássio Vieira', role: 'harmonia', roleName: 'Direção de Harmonia', rating: 93, salary: 85000, reputation: 'Comunidade Apaixonada de Padre Miguel' },
+      mestreSalaPortaBandeira: { id: 'moc_m', name: 'Diogo Jesus e Rafaela Theodoro', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 95, salary: 110000, reputation: 'Sincronia Forte e Elegância' },
+      interprete: { id: 'moc_i', name: 'Evandro Malandro', role: 'interprete', roleName: 'Intérprete Oficial', rating: 95, salary: 115000, reputation: 'Potência e Swing da Zona Oeste' },
+      coreografo: { id: 'moc_cf', name: 'Marcelo Misailidis', role: 'coreografo', roleName: 'Comissão de Frente', rating: 94, salary: 95000, reputation: 'Coreografia Clássica e Impacto' },
+      direcaoCarnaval: { id: 'moc_dc', name: 'Marcelo Plácido', role: 'direcaoCarnaval', roleName: 'Direção de Carnaval', rating: 93, salary: 90000, reputation: 'Organização da Estrela Guia' }
     },
     currentEnredo: SAMPLE_ENREDOS[4],
     rehearsalLevel: 82,
@@ -6537,12 +6548,13 @@ const RAW_INITIAL_SCHOOLS: Omit<School, 'runnerUpsEspecial' | 'runnerUpsOuro' | 
       mestreSalaPortaBandeira: 91
     },
     staff: {
-      carnavalesco: { id: 'um_c', name: 'Celso Villela', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 90, salary: 100000, reputation: 'Cenógrafo de Destaque' },
-      mestreBateria: { id: 'um_b', name: 'Mestre Paulinho Steves', role: 'mestreBateria', roleName: 'Mestre de Bateria', rating: 91, salary: 80000, reputation: 'Batucada Maricaense' },
-      harmonia: { id: 'um_h', name: 'Jansen', role: 'harmonia', roleName: 'Diretor de Harmonia', rating: 89, salary: 65000, reputation: 'Organização' },
-      mestreSalaPortaBandeira: { id: 'um_m', name: 'Fabrício Pires & Giovanna Justo', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 91, salary: 80000, reputation: 'Tradição e Sangue Bom' },
-      interprete: { id: 'um_i', name: 'Matheus Gaúcho', role: 'interprete', roleName: 'Intérprete Oficial', rating: 90, salary: 80000, reputation: 'Timbre Potente' },
-      coreografo: { id: 'um_cf', name: 'Patrick Carvalho Jr.', role: 'coreografo', roleName: 'Coreógrafo Comissão', rating: 91, salary: 80000, reputation: 'Impacto Teatral' }
+      carnavalesco: { id: 'um_c', name: 'Edson Pereira', role: 'carnavalesco', roleName: 'Carnavalesco', rating: 94, salary: 130000, reputation: 'Estética Suntuosa e Gigantismo' },
+      mestreBateria: { id: 'um_b', name: 'Paulinho Steves e Nilo Sérgio', role: 'mestreBateria', roleName: 'Mestres de Bateria', rating: 95, salary: 105000, reputation: 'Batucada Maricaense & Tabajara' },
+      harmonia: { id: 'um_h', name: 'Mauro Amorim e Helton Dias', role: 'harmonia', roleName: 'Direção de Harmonia', rating: 93, salary: 85000, reputation: 'Harmonia Vitoriosa' },
+      mestreSalaPortaBandeira: { id: 'um_m', name: 'Julinho Nascimento e Rute Alves', role: 'mestreSalaPortaBandeira', roleName: '1º Casal MS e PB', rating: 96, salary: 120000, reputation: 'Giros Nobres e Consagrados' },
+      interprete: { id: 'um_i', name: 'Zé Paulo Sierra', role: 'interprete', roleName: 'Intérprete Oficial', rating: 95, salary: 120000, reputation: 'Energia Incendiária e Emoção' },
+      coreografo: { id: 'um_cf', name: 'Patrick Carvalho', role: 'coreografo', roleName: 'Comissão de Frente', rating: 96, salary: 120000, reputation: 'Dramaturgia Pura e Campeã' },
+      direcaoCarnaval: { id: 'um_dc', name: 'Mauro Amorim', role: 'direcaoCarnaval', roleName: 'Direção de Carnaval', rating: 94, salary: 95000, reputation: 'Liderança do Litoral' }
     },
     currentEnredo: SAMPLE_ENREDOS[5],
     rehearsalLevel: 81,
