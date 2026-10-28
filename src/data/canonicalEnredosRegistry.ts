@@ -295,3 +295,75 @@ export function getCanonical2026Enredo(schoolId?: string, schoolName?: string): 
   const normId = normalizeCanonicalSchoolId(schoolId, schoolName);
   return CANONICAL_2026_ENREDOS[normId];
 }
+
+export const CANONICAL_2024_ENREDOS: Record<string, CanonicalEnredoInfo> = {
+  viradouro: {
+    schoolId: 'viradouro',
+    title: 'Arroboboi, Dangbé',
+    themeType: 'Afro-Brasileiro'
+  },
+  imperatriz: {
+    schoolId: 'imperatriz',
+    title: 'Com a sorte virada pra lua segundo o testamento da cigana Esmeralda',
+    themeType: 'Cultural'
+  },
+  grande_rio: {
+    schoolId: 'grande_rio',
+    title: 'Nosso destino é ser onça!',
+    themeType: 'Mítico & Indígena'
+  },
+  salgueiro: {
+    schoolId: 'salgueiro',
+    title: 'Hutukara',
+    themeType: 'Indígena & Crítica Social'
+  },
+  portela: {
+    schoolId: 'portela',
+    title: 'Um defeito de cor',
+    themeType: 'Histórico & Literatura'
+  },
+  vila_isabel: {
+    schoolId: 'vila_isabel',
+    title: 'Gbalá - Viagem ao templo da criação!',
+    themeType: 'Afro-Brasileiro'
+  },
+  mangueira: {
+    schoolId: 'mangueira',
+    title: 'A Negra Voz do Amanhã',
+    themeType: 'Homenagem'
+  },
+  beija_flor: {
+    schoolId: 'beija_flor',
+    title: 'Um delírio de Carnaval na Maceió de Rás Gonguila',
+    themeType: 'Cultural'
+  },
+  tuiuti: {
+    schoolId: 'tuiuti',
+    title: 'Glória ao Almirante Negro',
+    themeType: 'Histórico & Crítica Social'
+  },
+  mocidade: {
+    schoolId: 'mocidade',
+    title: 'Pede caju que dou... Pé de caju que dá!',
+    themeType: 'Cultural & Lúdico'
+  },
+  tijuca: {
+    schoolId: 'tijuca',
+    title: 'O conto de fados',
+    themeType: 'Histórico & Cultural'
+  },
+  porto_da_pedra: {
+    schoolId: 'porto_da_pedra',
+    title: 'Lunário Perpétuo: A profética do saber popular',
+    themeType: 'Cultural'
+  }
+};
+
+/**
+ * Retorna o enredo oficial original de 2024 para uma agremiação
+ */
+export function getCanonical2024Enredo(schoolId?: string, schoolName?: string): CanonicalEnredoInfo | undefined {
+  const normId = normalizeCanonicalSchoolId(schoolId, schoolName);
+  return CANONICAL_2024_ENREDOS[normId];
+}
+

@@ -1,7 +1,19 @@
 import type { School, YearHistory } from '../types/carnaval';
-import { CANONICAL_2026_ENREDOS, getCanonical2026Enredo, normalizeCanonicalSchoolId } from './canonicalEnredosRegistry';
+import {
+  CANONICAL_2026_ENREDOS,
+  getCanonical2026Enredo,
+  CANONICAL_2024_ENREDOS,
+  getCanonical2024Enredo,
+  normalizeCanonicalSchoolId
+} from './canonicalEnredosRegistry';
 
-export { CANONICAL_2026_ENREDOS, getCanonical2026Enredo, normalizeCanonicalSchoolId };
+export {
+  CANONICAL_2026_ENREDOS,
+  getCanonical2026Enredo,
+  CANONICAL_2024_ENREDOS,
+  getCanonical2024Enredo,
+  normalizeCanonicalSchoolId
+};
 
 export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> = {
   2026: {
@@ -95,17 +107,29 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
   },
   2024: {
     viradouro: 'Arroboboi, Dangbé',
-    imperatriz: 'Com a Sorte Virada pra Lua Segundo o Testamento da Cigana Esmeralda',
-    grande_rio: 'Nosso Destino É Ser Onça',
+    unidos_do_viradouro: 'Arroboboi, Dangbé',
+    imperatriz: 'Com a sorte virada pra lua segundo o testamento da cigana Esmeralda',
+    imperatriz_leopoldinense: 'Com a sorte virada pra lua segundo o testamento da cigana Esmeralda',
+    grande_rio: 'Nosso destino é ser onça!',
+    academicos_do_grande_rio: 'Nosso destino é ser onça!',
     salgueiro: 'Hutukara',
-    portela: 'Um Defeito de Cor',
-    vila_isabel: 'Gbalá - Viagem ao Templo da Criação',
-    mangueira: 'A Negra Voz do Amanhã (Homenagem a Alcione)',
-    beija_flor: 'Um Delírio de Carnaval na Maceió de Rás Gonguila',
-    tuiuti: 'Glória ao Almirante Negro!',
-    mocidade: 'Pede Caju que Dou... Pé de Caju que Dá!',
-    tijuca: 'O Conto de Fados',
-    porto_da_pedra: 'Lunário Perpétuo: A Profética do Saber Popular'
+    academicos_do_salgueiro: 'Hutukara',
+    portela: 'Um defeito de cor',
+    vila_isabel: 'Gbalá - Viagem ao templo da criação!',
+    unidos_de_vila_isabel: 'Gbalá - Viagem ao templo da criação!',
+    mangueira: 'A Negra Voz do Amanhã',
+    estacao_primeira_de_mangueira: 'A Negra Voz do Amanhã',
+    beija_flor: 'Um delírio de Carnaval na Maceió de Rás Gonguila',
+    beija_flor_de_nilopolis: 'Um delírio de Carnaval na Maceió de Rás Gonguila',
+    tuiuti: 'Glória ao Almirante Negro',
+    paraiso_do_tuiuti: 'Glória ao Almirante Negro',
+    mocidade: 'Pede caju que dou... Pé de caju que dá!',
+    mocidade_independente: 'Pede caju que dou... Pé de caju que dá!',
+    mocidade_independente_de_padre_miguel: 'Pede caju que dou... Pé de caju que dá!',
+    tijuca: 'O conto de fados',
+    unidos_da_tijuca: 'O conto de fados',
+    porto_da_pedra: 'Lunário Perpétuo: A profética do saber popular',
+    unidos_do_porto_da_pedra: 'Lunário Perpétuo: A profética do saber popular'
   },
   2023: {
     imperatriz: 'O Aperreio do Cabra que o Excomungado Tratou com Má-querença e o Santíssimo Não Deu Abrigo',
@@ -1956,6 +1980,10 @@ export function getHistoricalEnredo(
       const canonical = getCanonical2026Enredo(schoolId, schoolName);
       if (canonical?.title) return canonical.title;
     }
+    if (year === 2024) {
+      const canonical = getCanonical2024Enredo(schoolId, schoolName);
+      if (canonical?.title) return canonical.title;
+    }
 
     const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[year];
     if (yearRecords) {
@@ -2041,6 +2069,12 @@ export function getSchoolHistoricalEnredosList(
   const can2026 = getCanonical2026Enredo(schoolId, schoolName);
   if (can2026?.title) {
     enredosMap.set(2026, can2026.title);
+  }
+
+  // Garante que o enredo canônico oficial de 2024 seja registrado de forma autoritativa
+  const can2024 = getCanonical2024Enredo(schoolId, schoolName);
+  if (can2024?.title) {
+    enredosMap.set(2024, can2024.title);
   }
 
   // 2. Histórico de enredos gravado no save (inGameHistory para anos > 2026 ou sem registro)
