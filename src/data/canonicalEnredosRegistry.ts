@@ -248,6 +248,7 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('salgueiro')) return 'salgueiro';
   if (raw.includes('imperatriz')) return 'imperatriz';
   if (raw.includes('mangueira')) return 'mangueira';
+  if (raw.includes('império da tijuca') || raw.includes('imperio da tijuca') || raw.includes('imperio_da_tijuca')) return 'imperio_da_tijuca';
   if (raw.includes('tijuca') && !raw.includes('império da tijuca') && !raw.includes('imperio da tijuca') && !raw.includes('barra')) return 'tijuca';
   if (raw.includes('grande rio')) return 'grande_rio';
   if (raw.includes('tuiuti')) return 'tuiuti';
@@ -285,6 +286,7 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('unidos de lucas') || raw.includes('lucas')) return 'unidos_de_lucas';
   if (raw.includes('olaria')) return 'independentes_olaria';
   if (raw.includes('arrastão') || raw.includes('arrastao')) return 'arrastao_cascadura';
+  if (raw.includes('união de jacarepaguá') || raw.includes('uniao de jacarepagua') || raw.includes('jacarepaguá') || raw.includes('jacarepagua')) return 'uniao_de_jacarepagua';
   return (schoolId || '').toLowerCase().trim();
 }
 
@@ -356,6 +358,87 @@ export const CANONICAL_2024_ENREDOS: Record<string, CanonicalEnredoInfo> = {
     schoolId: 'porto_da_pedra',
     title: 'Lunário Perpétuo: A profética do saber popular',
     themeType: 'Cultural'
+  },
+  // SÉRIE OURO 2024
+  unidos_padre_miguel: {
+    schoolId: 'unidos_padre_miguel',
+    title: 'O Redentor do Sertão',
+    themeType: 'Regional & Religioso'
+  },
+  imperio_serrano: {
+    schoolId: 'imperio_serrano',
+    title: 'Ilú-ọba Ọ̀yọ́: a gira dos ancestrais',
+    themeType: 'Afro-Brasileiro'
+  },
+  estacio_de_sa: {
+    schoolId: 'estacio_de_sa',
+    title: 'Chão de devoção: orgulho ancestral',
+    themeType: 'Afro-Brasileiro'
+  },
+  marica: {
+    schoolId: 'marica',
+    title: 'O esperançar do poeta',
+    themeType: 'Homenagem & Poesia'
+  },
+  sao_clemente: {
+    schoolId: 'sao_clemente',
+    title: 'Que grande destino reservam pra você!',
+    themeType: 'Homenagem'
+  },
+  inocentes: {
+    schoolId: 'inocentes',
+    title: 'Debret pintou, camelô gritou: compre 2 leve 3! Tudo para agradar o freguês!',
+    themeType: 'Cultural & Crítica Social'
+  },
+  uniao_da_ilha: {
+    schoolId: 'uniao_da_ilha',
+    title: 'Doum e Amora: crianças para transformar o mundo!',
+    themeType: 'Lúdico & Social'
+  },
+  niteroi: {
+    schoolId: 'niteroi',
+    title: 'Catopês – Um céu de fitas',
+    themeType: 'Folclore & Regional'
+  },
+  vigario_geral: {
+    schoolId: 'vigario_geral',
+    title: 'Maracanaú: Bem-vindos ao maior São João do Planeta!',
+    themeType: 'Regional'
+  },
+  unidos_de_bangu: {
+    schoolId: 'unidos_de_bangu',
+    title: 'Jorge da Capadócia',
+    themeType: 'Religioso & Mítico'
+  },
+  unidos_da_ponte: {
+    schoolId: 'unidos_da_ponte',
+    title: 'Tendendém - O axé do epô pupá',
+    themeType: 'Afro-Brasileiro'
+  },
+  em_cima_da_hora: {
+    schoolId: 'em_cima_da_hora',
+    title: 'A nossa luta continua',
+    themeType: 'Crítica Social'
+  },
+  parque_acari: {
+    schoolId: 'parque_acari',
+    title: 'Ilê Aiyê, 50 anos de luta e de resistência',
+    themeType: 'Afro-Brasileiro'
+  },
+  arranco: {
+    schoolId: 'arranco',
+    title: 'Nise - Reimaginação da Loucura',
+    themeType: 'Homenagem & Ciência'
+  },
+  imperio_da_tijuca: {
+    schoolId: 'imperio_da_tijuca',
+    title: 'Sou Lia de Itamaracá cirandando a vida na beira do mar',
+    themeType: 'Homenagem & Folclore'
+  },
+  sereno_campo_grande: {
+    schoolId: 'sereno_campo_grande',
+    title: '4 de dezembro',
+    themeType: 'Religioso'
   }
 };
 
@@ -366,4 +449,154 @@ export function getCanonical2024Enredo(schoolId?: string, schoolName?: string): 
   const normId = normalizeCanonicalSchoolId(schoolId, schoolName);
   return CANONICAL_2024_ENREDOS[normId];
 }
+
+export const CANONICAL_2023_ENREDOS: Record<string, CanonicalEnredoInfo> = {
+  // GRUPO ESPECIAL 2023
+  imperatriz: {
+    schoolId: 'imperatriz',
+    title: 'O Aperreio do Cabra que o Excomungado Tratou com Má-Querença e o Santíssimo não Deu Guarida',
+    themeType: 'Regional & Cordel'
+  },
+  viradouro: {
+    schoolId: 'viradouro',
+    title: 'Rosa Maria Egipcíaca',
+    themeType: 'Histórico & Religioso'
+  },
+  vila_isabel: {
+    schoolId: 'vila_isabel',
+    title: 'Nessa Festa, Eu Levo Fé!',
+    themeType: 'Cultural & Religioso'
+  },
+  beija_flor: {
+    schoolId: 'beija_flor',
+    title: 'Brava Gente! O Grito dos Excluídos no Bicentenário da Independência',
+    themeType: 'Histórico & Crítica Social'
+  },
+  mangueira: {
+    schoolId: 'mangueira',
+    title: 'As Áfricas que a Bahia Canta',
+    themeType: 'Afro-Brasileiro'
+  },
+  grande_rio: {
+    schoolId: 'grande_rio',
+    title: 'Ô Zeca, o Pagode Onde É que É? Andei Descalço, Carroça e Trem, Procurando por Xerém, Pra Te Ver, Pra Te Abraçar, Pra Beber e Batucar!',
+    themeType: 'Homenagem & Música'
+  },
+  salgueiro: {
+    schoolId: 'salgueiro',
+    title: 'Delírios de Um Paraíso Vermelho',
+    themeType: 'Cultural & Crítica Social'
+  },
+  tuiuti: {
+    schoolId: 'tuiuti',
+    title: 'Mogangueiro da Cara Preta',
+    themeType: 'Regional & Folclore'
+  },
+  tijuca: {
+    schoolId: 'tijuca',
+    title: 'É Onda Que Vai... É Onda que Vem... Serei a Baía de Todos os Santos a Se Mirar no Samba da Minha Terra',
+    themeType: 'Regional & Cultural'
+  },
+  portela: {
+    schoolId: 'portela',
+    title: 'O Azul que Vem do Infinito',
+    themeType: 'Histórico & Centenário'
+  },
+  mocidade: {
+    schoolId: 'mocidade',
+    title: 'Terra de Meu Céu, Estrelas de Meu Chão',
+    themeType: 'Regional & Artesanato'
+  },
+  imperio_serrano: {
+    schoolId: 'imperio_serrano',
+    title: 'Lugares de Arlindo',
+    themeType: 'Homenagem & Samba'
+  },
+
+  // SÉRIE OURO 2023
+  porto_da_pedra: {
+    schoolId: 'porto_da_pedra',
+    title: 'A Invenção da Amazônia',
+    themeType: 'Regional & Cultural'
+  },
+  unidos_padre_miguel: {
+    schoolId: 'unidos_padre_miguel',
+    title: 'Baião de Mouros',
+    themeType: 'Regional & Histórico'
+  },
+  inocentes: {
+    schoolId: 'inocentes',
+    title: 'Mulheres de Barro',
+    themeType: 'Regional & Artesanato'
+  },
+  imperio_da_tijuca: {
+    schoolId: 'imperio_da_tijuca',
+    title: 'Cores do Axé',
+    themeType: 'Afro-Brasileiro'
+  },
+  niteroi: {
+    schoolId: 'niteroi',
+    title: 'O Carnaval da Vitória',
+    themeType: 'Histórico & Cultural'
+  },
+  uniao_da_ilha: {
+    schoolId: 'uniao_da_ilha',
+    title: 'O Encontro das Águias no Templo de Momo',
+    themeType: 'Homenagem & Centenário'
+  },
+  sao_clemente: {
+    schoolId: 'sao_clemente',
+    title: 'O Achamento do Velho Mundo',
+    themeType: 'Crítica Social & Irreverência'
+  },
+  estacio_de_sa: {
+    schoolId: 'estacio_de_sa',
+    title: 'São João, São Luís, Maranhão! Acende a Fogueira do Meu Coração!',
+    themeType: 'Regional & Folclore'
+  },
+  unidos_de_bangu: {
+    schoolId: 'unidos_de_bangu',
+    title: 'Aganjú - A Visão do Fogo, A Voz do Trovão no Reino de Oyó',
+    themeType: 'Afro-Brasileiro'
+  },
+  vigario_geral: {
+    schoolId: 'vigario_geral',
+    title: 'A Fantástica Fábrica da Alegria',
+    themeType: 'Lúdico'
+  },
+  unidos_da_ponte: {
+    schoolId: 'unidos_da_ponte',
+    title: 'Liberte Nosso Sagrado: O Legado Ancestral de Mãe Meninazinha de Oxum',
+    themeType: 'Afro-Brasileiro'
+  },
+  arranco: {
+    schoolId: 'arranco',
+    title: 'Zé Espinguela - Chão do Meu Terreiro',
+    themeType: 'Histórico & Samba'
+  },
+  em_cima_da_hora: {
+    schoolId: 'em_cima_da_hora',
+    title: 'Esperança, Presente!',
+    themeType: 'Crítica Social'
+  },
+  lins_imperial: {
+    schoolId: 'lins_imperial',
+    title: 'Madame Satã: Resistir Para Existir',
+    themeType: 'Histórico & Biográfico'
+  },
+  uniao_de_jacarepagua: {
+    schoolId: 'uniao_de_jacarepagua',
+    title: 'Manoel Congo, Mariana Crioula - Heróis da Liberdade no Vale do Café',
+    themeType: 'Histórico & Afro-Brasileiro'
+  }
+};
+
+/**
+ * Retorna o enredo oficial original de 2023 para uma agremiação
+ */
+export function getCanonical2023Enredo(schoolId?: string, schoolName?: string): CanonicalEnredoInfo | undefined {
+  const normId = normalizeCanonicalSchoolId(schoolId, schoolName);
+  return CANONICAL_2023_ENREDOS[normId];
+}
+
 

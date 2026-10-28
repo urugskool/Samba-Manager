@@ -4,6 +4,8 @@ import {
   getCanonical2026Enredo,
   CANONICAL_2024_ENREDOS,
   getCanonical2024Enredo,
+  CANONICAL_2023_ENREDOS,
+  getCanonical2023Enredo,
   normalizeCanonicalSchoolId
 } from './canonicalEnredosRegistry';
 
@@ -12,6 +14,8 @@ export {
   getCanonical2026Enredo,
   CANONICAL_2024_ENREDOS,
   getCanonical2024Enredo,
+  CANONICAL_2023_ENREDOS,
+  getCanonical2023Enredo,
   normalizeCanonicalSchoolId
 };
 
@@ -129,21 +133,91 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     tijuca: 'O conto de fados',
     unidos_da_tijuca: 'O conto de fados',
     porto_da_pedra: 'Lunário Perpétuo: A profética do saber popular',
-    unidos_do_porto_da_pedra: 'Lunário Perpétuo: A profética do saber popular'
+    unidos_do_porto_da_pedra: 'Lunário Perpétuo: A profética do saber popular',
+    // Série Ouro 2024
+    unidos_padre_miguel: 'O Redentor do Sertão',
+    padre_miguel: 'O Redentor do Sertão',
+    imperio_serrano: 'Ilú-ọba Ọ̀yọ́: a gira dos ancestrais',
+    estacio_de_sa: 'Chão de devoção: orgulho ancestral',
+    estacio: 'Chão de devoção: orgulho ancestral',
+    marica: 'O esperançar do poeta',
+    uniao_de_marica: 'O esperançar do poeta',
+    sao_clemente: 'Que grande destino reservam pra você!',
+    inocentes: 'Debret pintou, camelô gritou: compre 2 leve 3! Tudo para agradar o freguês!',
+    inocentes_de_belford_roxo: 'Debret pintou, camelô gritou: compre 2 leve 3! Tudo para agradar o freguês!',
+    uniao_da_ilha: 'Doum e Amora: crianças para transformar o mundo!',
+    ilha: 'Doum e Amora: crianças para transformar o mundo!',
+    niteroi: 'Catopês – Um céu de fitas',
+    academicos_de_niteroi: 'Catopês – Um céu de fitas',
+    vigario_geral: 'Maracanaú: Bem-vindos ao maior São João do Planeta!',
+    academicos_de_vigario_geral: 'Maracanaú: Bem-vindos ao maior São João do Planeta!',
+    unidos_de_bangu: 'Jorge da Capadócia',
+    bangu: 'Jorge da Capadócia',
+    unidos_da_ponte: 'Tendendém - O axé do epô pupá',
+    ponte: 'Tendendém - O axé do epô pupá',
+    em_cima_da_hora: 'A nossa luta continua',
+    parque_acari: 'Ilê Aiyê, 50 anos de luta e de resistência',
+    uniao_do_parque_acari: 'Ilê Aiyê, 50 anos de luta e de resistência',
+    arranco: 'Nise - Reimaginação da Loucura',
+    arranco_do_engenho_de_dentro: 'Nise - Reimaginação da Loucura',
+    imperio_da_tijuca: 'Sou Lia de Itamaracá cirandando a vida na beira do mar',
+    sereno_campo_grande: '4 de dezembro',
+    sereno: '4 de dezembro'
   },
   2023: {
-    imperatriz: 'O Aperreio do Cabra que o Excomungado Tratou com Má-querença e o Santíssimo Não Deu Abrigo',
+    // Grupo Especial 2023
+    imperatriz: 'O Aperreio do Cabra que o Excomungado Tratou com Má-Querença e o Santíssimo não Deu Guarida',
+    imperatriz_leopoldinense: 'O Aperreio do Cabra que o Excomungado Tratou com Má-Querença e o Santíssimo não Deu Guarida',
     viradouro: 'Rosa Maria Egipcíaca',
+    unidos_do_viradouro: 'Rosa Maria Egipcíaca',
     vila_isabel: 'Nessa Festa, Eu Levo Fé!',
+    unidos_de_vila_isabel: 'Nessa Festa, Eu Levo Fé!',
     beija_flor: 'Brava Gente! O Grito dos Excluídos no Bicentenário da Independência',
+    beija_flor_de_nilopolis: 'Brava Gente! O Grito dos Excluídos no Bicentenário da Independência',
     mangueira: 'As Áfricas que a Bahia Canta',
-    grande_rio: 'Ô Zeca, o Pagode Onde É Que É? Andar com Fé Eu Vou!',
-    salgueiro: 'Delírios de um Paraíso Vermelho',
+    estacao_primeira_de_mangueira: 'As Áfricas que a Bahia Canta',
+    grande_rio: 'Ô Zeca, o Pagode Onde É que É? Andei Descalço, Carroça e Trem, Procurando por Xerém, Pra Te Ver, Pra Te Abraçar, Pra Beber e Batucar!',
+    academicos_do_grande_rio: 'Ô Zeca, o Pagode Onde É que É? Andei Descalço, Carroça e Trem, Procurando por Xerém, Pra Te Ver, Pra Te Abraçar, Pra Beber e Batucar!',
+    salgueiro: 'Delírios de Um Paraíso Vermelho',
+    academicos_do_salgueiro: 'Delírios de Um Paraíso Vermelho',
     tuiuti: 'Mogangueiro da Cara Preta',
-    tijuca: 'É Onda que Vai... É Onda que Vem... Serei a Baía de Todos os Santos a Te Abraçar',
-    portela: 'O Azul que Vem do Infinito (Centenário da Portela)',
+    paraiso_do_tuiuti: 'Mogangueiro da Cara Preta',
+    tijuca: 'É Onda Que Vai... É Onda que Vem... Serei a Baía de Todos os Santos a Se Mirar no Samba da Minha Terra',
+    unidos_da_tijuca: 'É Onda Que Vai... É Onda que Vem... Serei a Baía de Todos os Santos a Se Mirar no Samba da Minha Terra',
+    portela: 'O Azul que Vem do Infinito',
     mocidade: 'Terra de Meu Céu, Estrelas de Meu Chão',
-    imperio_serrano: 'Lugares de Arlindo'
+    mocidade_independente: 'Terra de Meu Céu, Estrelas de Meu Chão',
+    mocidade_independente_de_padre_miguel: 'Terra de Meu Céu, Estrelas de Meu Chão',
+    imperio_serrano: 'Lugares de Arlindo',
+
+    // Série Ouro 2023
+    porto_da_pedra: 'A Invenção da Amazônia',
+    unidos_do_porto_da_pedra: 'A Invenção da Amazônia',
+    unidos_padre_miguel: 'Baião de Mouros',
+    padre_miguel: 'Baião de Mouros',
+    inocentes: 'Mulheres de Barro',
+    inocentes_de_belford_roxo: 'Mulheres de Barro',
+    imperio_da_tijuca: 'Cores do Axé',
+    niteroi: 'O Carnaval da Vitória',
+    academicos_de_niteroi: 'O Carnaval da Vitória',
+    uniao_da_ilha: 'O Encontro das Águias no Templo de Momo',
+    ilha: 'O Encontro das Águias no Templo de Momo',
+    sao_clemente: 'O Achamento do Velho Mundo',
+    estacio_de_sa: 'São João, São Luís, Maranhão! Acende a Fogueira do Meu Coração!',
+    estacio: 'São João, São Luís, Maranhão! Acende a Fogueira do Meu Coração!',
+    unidos_de_bangu: 'Aganjú - A Visão do Fogo, A Voz do Trovão no Reino de Oyó',
+    bangu: 'Aganjú - A Visão do Fogo, A Voz do Trovão no Reino de Oyó',
+    vigario_geral: 'A Fantástica Fábrica da Alegria',
+    academicos_de_vigario_geral: 'A Fantástica Fábrica da Alegria',
+    unidos_da_ponte: 'Liberte Nosso Sagrado: O Legado Ancestral de Mãe Meninazinha de Oxum',
+    ponte: 'Liberte Nosso Sagrado: O Legado Ancestral de Mãe Meninazinha de Oxum',
+    arranco: 'Zé Espinguela - Chão do Meu Terreiro',
+    arranco_do_engenho_de_dentro: 'Zé Espinguela - Chão do Meu Terreiro',
+    em_cima_da_hora: 'Esperança, Presente!',
+    lins_imperial: 'Madame Satã: Resistir Para Existir',
+    lins: 'Madame Satã: Resistir Para Existir',
+    uniao_de_jacarepagua: 'Manoel Congo, Mariana Crioula - Heróis da Liberdade no Vale do Café',
+    jacarepagua: 'Manoel Congo, Mariana Crioula - Heróis da Liberdade no Vale do Café'
   },
   2022: {
     grande_rio: 'Fala, Majeté! Sete Chaves de Exu',
@@ -1984,6 +2058,10 @@ export function getHistoricalEnredo(
       const canonical = getCanonical2024Enredo(schoolId, schoolName);
       if (canonical?.title) return canonical.title;
     }
+    if (year === 2023) {
+      const canonical = getCanonical2023Enredo(schoolId, schoolName);
+      if (canonical?.title) return canonical.title;
+    }
 
     const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[year];
     if (yearRecords) {
@@ -2075,6 +2153,12 @@ export function getSchoolHistoricalEnredosList(
   const can2024 = getCanonical2024Enredo(schoolId, schoolName);
   if (can2024?.title) {
     enredosMap.set(2024, can2024.title);
+  }
+
+  // Garante que o enredo canônico oficial de 2023 seja registrado de forma autoritativa
+  const can2023 = getCanonical2023Enredo(schoolId, schoolName);
+  if (can2023?.title) {
+    enredosMap.set(2023, can2023.title);
   }
 
   // 2. Histórico de enredos gravado no save (inGameHistory para anos > 2026 ou sem registro)
