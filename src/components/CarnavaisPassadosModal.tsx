@@ -889,9 +889,20 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
               {/* SÉRIE OURO VIEW */}
               {pastDivision === 'ouro' && (
                 currentPastOuroCarnaval ? (
-                  <>
-                    {/* Summary Card Série Ouro */}
-                    <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-yellow-950/30 border border-yellow-500/30 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+                  currentPastOuroCarnaval.isNoCarnaval ? (
+                    <div className="p-8 rounded-2xl bg-slate-950/60 border border-dashed border-slate-800 text-center space-y-3">
+                      <div className="w-12 h-12 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500 mx-auto">
+                        <AlertTriangle className="w-6 h-6 text-yellow-400" />
+                      </div>
+                      <h3 className="text-lg font-black text-white">Não houve desfiles em {currentPastOuroCarnaval.year}</h3>
+                      <p className="text-xs text-slate-400 max-w-lg mx-auto">
+                        {currentPastOuroCarnaval.notes}
+                      </p>
+                    </div>
+                  ) : (
+                    <>
+                      {/* Summary Card Série Ouro */}
+                      <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-yellow-950/30 border border-yellow-500/30 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
                       <div className="space-y-1.5">
                         <div className="flex flex-wrap items-center gap-2">
                           <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-300 border border-yellow-500/40">
@@ -1059,6 +1070,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                       </div>
                     </div>
                   </>
+                  )
                 ) : (
                   <div className="p-8 rounded-2xl bg-slate-950/60 border border-dashed border-slate-800 text-center space-y-3">
                     <div className="w-12 h-12 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500 mx-auto">
@@ -1066,13 +1078,13 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                     </div>
                     <h3 className="text-lg font-black text-white">Série Ouro em Catalogação</h3>
                     <p className="text-xs text-slate-400 max-w-md mx-auto">
-                      Os resultados da Série Ouro para o Carnaval de {selectedPastYear} ainda não foram inseridos no catálogo histórico. Os registros oficiais estão disponíveis a partir de 2025.
+                      Os resultados da Série Ouro para o Carnaval de {selectedPastYear} ainda não foram inseridos no catálogo histórico. Os registros oficiais estão disponíveis a partir de 2021.
                     </p>
                     <button
-                      onClick={() => setSelectedPastYear(2025)}
+                      onClick={() => setSelectedPastYear(2026)}
                       className="px-4 py-2 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-slate-950 text-xs font-black transition cursor-pointer"
                     >
-                      Ver Carnaval 2025 (Série Ouro)
+                      Ver Carnaval 2026 (Série Ouro)
                     </button>
                   </div>
                 )

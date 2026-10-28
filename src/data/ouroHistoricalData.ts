@@ -674,7 +674,8 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
     }
-  ]
+  ],
+  2021: []
 };
 
 /**
@@ -685,7 +686,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   2025: 'Carnaval de 2025: Acadêmicos de Niterói Campeã e promovida ao Grupo Especial. São Clemente e Tradição rebaixadas para a Série Prata. Três escolas desfilaram como Hors concours (não julgadas): Império Serrano, Unidos da Ponte e Unidos de Bangu.',
   2024: 'Carnaval de 2024: Unidos de Padre Miguel Campeã e promovida ao Grupo Especial (com nota máxima). Império da Tijuca e Sereno de Campo Grande rebaixadas para a Série Prata.',
   2023: 'Carnaval de 2023: Unidos do Porto da Pedra Campeã e promovida ao Grupo Especial. Lins Imperial e União de Jacarepaguá rebaixadas para a Série Prata.',
-  2022: 'Carnaval de 2022: Império Serrano Campeã e promovida ao Grupo Especial com o enredo "Mangangá". Acadêmicos de Santa Cruz e Acadêmicos do Cubango rebaixadas para a Série Prata.'
+  2022: 'Carnaval de 2022: Império Serrano Campeã e promovida ao Grupo Especial com o enredo "Mangangá". Acadêmicos de Santa Cruz e Acadêmicos do Cubango rebaixadas para a Série Prata.',
+  2021: 'Carnaval de 2021: Não houve desfiles da Série Ouro no Sambódromo da Marquês de Sapucaí em virtude da pandemia de COVID-19.'
 };
 
 /**
@@ -739,6 +741,22 @@ export function getHistoricalOuroCarnavalsList(inGameHistory: YearHistory[] = []
 
   catalogedYears.forEach((yr) => {
     const stands = OFFICIAL_OURO_HISTORICAL_STANDINGS[yr] || [];
+
+    if (yr === 2021) {
+      result.push({
+        year: 2021,
+        standings: [],
+        notes: OFFICIAL_OURO_NOTES_BY_YEAR[2021] || 'Carnaval de 2021: Não houve desfiles em 2021.',
+        championNames: [],
+        viceChampionNames: [],
+        promotedNames: [],
+        relegatedNames: [],
+        totalSchools: 0,
+        isNoCarnaval: true
+      });
+      return;
+    }
+
     const champs = stands.filter((s) => s.rank === 1).map((s) => s.schoolName);
     const vices = stands.filter((s) => s.rank === 2).map((s) => s.schoolName);
     const promoted = stands.filter((s) => s.promoted).map((s) => s.schoolName);
