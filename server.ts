@@ -3,6 +3,7 @@ import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
 import path from 'path';
+import { generateProceduralLabEnredo } from './src/services/laboratorioEnredoService';
 
 dotenv.config();
 
@@ -243,7 +244,7 @@ Retorne APENAS um objeto JSON válido, pronto para o motor do jogo, seguindo est
 }`;
 
       const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-3.8-flash',
         contents: prompt,
         config: {
           responseMimeType: 'application/json'
@@ -263,6 +264,120 @@ Retorne APENAS um objeto JSON válido, pronto para o motor do jogo, seguindo est
   }
 
   res.status(204).end();
+});
+
+/**
+ * Endpoint do Laboratório de Enredo: Geração e ajuste de parâmetros com IA Gemini
+ */
+app.post('/api/enredo/laboratorio-gerar', async (req: Request, res: Response) => {
+  const {
+    themeType = 'Cultural',
+    complexity = 3,
+    tone = 'Poético & Lírico',
+    customKeywords = '',
+    schoolName = 'Escola de Samba',
+    division = 'especial',
+    colors = ['Verde', 'Rosa']
+  } = req.body;
+
+  if (process.env.GEMINI_API_KEY) {
+    try {
+      const complexityDesc =
+        complexity === 1
+          ? 'Nível 1 (Leve): narrativa festiva e direta, leitura visual transparente, refrões populares'
+          : complexity === 2
+          ? 'Nível 2 (Acessível): enredo comunicativo, imagens claras e forte empatia com o público'
+          : complexity === 3
+          ? 'Nível 3 (Equilibrada): pesquisa histórica bem delineada, metáforas sólidas e dramaturgia bem estruturada'
+          : complexity === 4
+          ? 'Nível 4 (Densa): rigor bibliográfico, passagens místicas, simbologias profundas e iconografia rica'
+          : 'Nível 5 (Monumental): epopeia lírica monumental, camadas conceituais complexas, ápice de ambição plástica e poética';
+
+      const prompt = `Você é um consagrado carnavalesco e enredista premiado do Carnaval do Rio de Janeiro (padrão LIESA / Série Ouro na Marquês de Sapucaí).
+Sua missão no "Laboratório de Enredo" é conceber uma sinopse e estrutura de enredo totalmente original, lírica e cativante para a agremiação:
+- Escola de Samba: ${schoolName}
+- Divisão Atual: ${division}
+- Cores Oficiais: ${Array.isArray(colors) ? colors.join(' e ') : colors}
+
+PARÂMETROS DEFINIDOS PELO JOGADOR:
+- Vertente Temática: "${themeType}"
+- Grau de Complexidade Narrativa: ${complexity}/5 (${complexityDesc})
+- Tom e Atmosfera da Proposta: "${tone}"
+- Motivo Central / Inspiração / Palavras-chave do Jogador: "${customKeywords || 'Inovação poética conectada à tradição e ao pulsar da comunidade'}"
+
+DIRETRIZES DA REDAÇÃO:
+1. TÍTULO: Um título oficial autêntico de escola de samba, poético e musical.
+2. SUBTÍTULO: Epígrafe ou subtítulo lírico de 1 a 2 linhas.
+3. SINOPSE: Redija entre 3 e 4 parágrafos densos, fluídos e poéticos no padrão dos cadernos oficiais da LIESA. Use linguagem rica em metáforas carnavalescas (o alvorecer, a travessia, os saberes e a apoteose na passarela).
+4. SETORIZAÇÃO: Liste exatamente ${complexity >= 4 ? 5 : 4} setores numerados com título poético e resumo da função narrativa na avenida.
+5. DESTAQUES VISUAIS: Descreva brevemente a ideia para a Comissão de Frente, Carro Abre-Alas e a fantasia da Bateria.
+6. JUSTIFICATIVA: Defesa concisa do enredo perante a comissão de jurados da LIESA.
+
+Retorne EXCLUSIVAMENTE um objeto JSON válido (sem tags markdown ou texto fora do JSON):
+{
+  "title": "Título Oficial do Enredo",
+  "subTitle": "Subtítulo / Epígrafe lírica",
+  "themeType": "${themeType}",
+  "complexity": ${complexity},
+  "complexityLabel": "${
+    complexity === 1 ? 'Leve (Nível 1)' :
+    complexity === 2 ? 'Acessível (Nível 2)' :
+    complexity === 3 ? 'Equilibrada (Nível 3)' :
+    complexity === 4 ? 'Densa (Nível 4)' : 'Monumental (Nível 5)'
+  }",
+  "tone": "${tone}",
+  "synopsis": "Texto completo da sinopse em 3 a 4 parágrafos separados por duas quebras de linha...",
+  "justificativa": "Texto de defesa para os jurados da LIESA...",
+  "qualityBoost": ${Math.min(15, 8 + Math.floor(complexity * 1.4))},
+  "cost": ${Math.max(60000, complexity * 32000)},
+  "suggestedSectors": [
+    { "sector": 1, "title": "Título do Setor 1", "description": "Resumo do que o setor narra" },
+    { "sector": 2, "title": "Título do Setor 2", "description": "Resumo do que o setor narra" },
+    { "sector": 3, "title": "Título do Setor 3", "description": "Resumo do que o setor narra" },
+    { "sector": 4, "title": "Título do Setor 4", "description": "Resumo do que o setor narra" }
+  ],
+  "visualHighlights": {
+    "comissaoDeFrente": "Descrição da comissão de frente",
+    "abreAlas": "Descrição cenográfica do abre-alas",
+    "bateria": "Descrição da indumentária e bossas"
+  }
+}`;
+
+      const response = await ai.models.generateContent({
+        model: 'gemini-3.8-flash',
+        contents: prompt,
+        config: {
+          responseMimeType: 'application/json'
+        }
+      });
+
+      if (response.text) {
+        const parsed = JSON.parse(response.text);
+        if (parsed && parsed.title && parsed.synopsis) {
+          res.json({
+            ...parsed,
+            id: `enr_gemini_${Date.now()}`,
+            generatedWithAI: true
+          });
+          return;
+        }
+      }
+    } catch (err) {
+      console.warn('Erro ao chamar Gemini no Laboratório de Enredo, acionando fallback:', err);
+    }
+  }
+
+  // Fallback procedural garantido
+  const fallback = generateProceduralLabEnredo({
+    themeType,
+    complexity,
+    tone,
+    customKeywords,
+    schoolName,
+    division,
+    colors
+  });
+  res.json(fallback);
 });
 
 // Inicialização do Vite middleware (dev) ou arquivos estáticos (prod)

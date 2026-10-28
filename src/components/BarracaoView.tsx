@@ -23,7 +23,8 @@ import {
   DollarSign,
   Building2,
   TrendingUp,
-  Award
+  Award,
+  FlaskConical
 } from 'lucide-react';
 import {
   DIVISION_REGULATIONS,
@@ -33,6 +34,7 @@ import {
 import { RegulamentoObrigatoriedadesModal } from './RegulamentoObrigatoriedadesModal';
 import { RoteiroDesfileModal } from './RoteiroDesfileModal';
 import { EnredoCreatorModal } from './EnredoCreatorModal';
+import { LaboratorioEnredoModal } from './LaboratorioEnredoModal';
 import { ParadeScriptService, ParadeScript } from '../services/paradeScriptService';
 import { GestaoFinanceiraEscola, TipoBarracao } from '../types/financasFM';
 
@@ -52,6 +54,7 @@ export const BarracaoView: React.FC<BarracaoViewProps> = ({
   const [showRegulamentoModal, setShowRegulamentoModal] = useState<boolean>(false);
   const [showRoteiroModal, setShowRoteiroModal] = useState<boolean>(false);
   const [showEnredoCreatorModal, setShowEnredoCreatorModal] = useState<boolean>(false);
+  const [showLaboratorioModal, setShowLaboratorioModal] = useState<boolean>(false);
 
   const handleSaveCustomEnredo = (newEnredo: Enredo, script: ParadeScript) => {
     const updated: School = {
@@ -257,6 +260,28 @@ export const BarracaoView: React.FC<BarracaoViewProps> = ({
     );
   };
 
+  const handleApplyLabEnredo = (labEnredo: Enredo) => {
+    const cost = labEnredo.cost || 0;
+    const newBudget = school.budget >= cost ? school.budget - cost : school.budget;
+
+    const updated: School = {
+      ...school,
+      budget: newBudget,
+      currentEnredo: labEnredo,
+      attributes: {
+        ...school.attributes,
+        enredo: Math.min(99, Math.max(school.attributes.enredo, 82) + Math.floor((labEnredo.qualityBoost || 10) / 2))
+      }
+    };
+
+    onUpdateSchool(updated);
+    ParadeScriptService.clearCache(school.id);
+    onShowMessage(
+      `🧪 Sinopse do Laboratório oficializada com sucesso! "${labEnredo.title}" agora rege todo o barracão e o desfile da ${cleanSchoolName(school)}!`,
+      'success'
+    );
+  };
+
   const handleInvestBarracao = (type: 'alegorias' | 'fantasias', cost: number, boost: number) => {
     if (school.budget < cost) {
       onShowMessage('Orçamento insuficiente na tesouraria!', 'warning');
@@ -358,6 +383,15 @@ export const BarracaoView: React.FC<BarracaoViewProps> = ({
 
           <div className="flex flex-wrap items-center gap-2">
             <button
+              onClick={() => setShowLaboratorioModal(true)}
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-purple-500 hover:via-indigo-500 hover:to-purple-600 text-white font-black text-xs flex items-center gap-2 shadow-lg shadow-purple-600/30 transition cursor-pointer border border-purple-400/40"
+              title="Laboratório de Enredo: Ajuste parâmetros de temática, complexidade narrativa e tom lírico para conceber sinopses originais!"
+            >
+              <FlaskConical className="w-4 h-4 text-purple-200" />
+              <span>Laboratório de Enredo</span>
+            </button>
+
+            <button
               onClick={() => setShowEnredoCreatorModal(true)}
               className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs flex items-center gap-2 shadow-lg shadow-amber-500/20 transition cursor-pointer"
               title="Crie sua sinopse autoral ou utilize a pesquisa integrada do jogo; com a sinopse pronta, o roteiro oficial é montado segundo o regulamento vigente!"
@@ -385,6 +419,11 @@ export const BarracaoView: React.FC<BarracaoViewProps> = ({
                 <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
                   Vertente: {school.currentEnredo.themeType}
                 </span>
+                {school.currentEnredo.proponent?.includes('Laboratório') && (
+                  <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/40 flex items-center gap-1">
+                    <FlaskConical className="w-3 h-3 text-purple-400" /> {school.currentEnredo.proponent}
+                  </span>
+                )}
                 {school.customParadeScript && (
                   <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/40 flex items-center gap-1">
                     <Sparkles className="w-3 h-3 text-purple-400" /> Enredo Autoral da Comunidade
@@ -952,6 +991,14 @@ export const BarracaoView: React.FC<BarracaoViewProps> = ({
           onClose={() => setShowEnredoCreatorModal(false)}
         />
       )}
+
+      {/* Laboratório de Enredo Modal (Gemini AI) */}
+      <LaboratorioEnredoModal
+        isOpen={showLaboratorioModal}
+        onClose={() => setShowLaboratorioModal(false)}
+        school={school}
+        onApplyEnredo={handleApplyLabEnredo}
+      />
     </div>
   );
 };
