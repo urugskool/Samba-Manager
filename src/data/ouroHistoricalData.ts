@@ -900,6 +900,113 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '13ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  2018: [
+    {
+      rank: 1,
+      schoolId: 'viradouro',
+      schoolName: 'Unidos do Viradouro',
+      enredo: 'Vira a Cabeça, pira o Coração. Loucos Gênios da Criação',
+      totalScore: 269.7,
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã e Promovida ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'O Eldorado Submerso - Delírio Tupi-Parintintin',
+      totalScore: 269.4,
+      statusDescription: 'Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'porto_da_pedra',
+      schoolName: 'Unidos do Porto da Pedra',
+      enredo: 'Rainhas do Rádio - Nas Ondas da Emoção, o Tigre Coroa as Divas da Canção!',
+      totalScore: 269.0,
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'inocentes',
+      schoolName: 'Inocentes de Belford Roxo',
+      enredo: 'Mojú, Magé, Mojubá - Sinfonias e Batuques',
+      totalScore: 268.4,
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'O Rei que Bordou o Mundo',
+      totalScore: 268.0,
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Estácio de Sá',
+      enredo: 'No Pregão da Folia sou Comerciante da Alegria e com a Estácio Boto Banca na Avenida',
+      totalScore: 267.8,
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Olubajé – Um Banquete para o Rei',
+      totalScore: 267.7,
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'alegria_da_zona_sul',
+      schoolName: 'Alegria da Zona Sul',
+      enredo: 'Bravos Malês! A Saga de Luiza Mahin',
+      totalScore: 267.7,
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'renascer_jacarepagua',
+      schoolName: 'Renascer de Jacarepaguá',
+      enredo: 'Renascer de Flechas e de Lobos',
+      totalScore: 267.4,
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'No Vôo Mágico da Esperança, quem Acredita sempre Alcança',
+      totalScore: 267.1,
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: 'Madeira Matriz',
+      totalScore: 267.1,
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: 'A Travessia da Calunga Grande e a Nobreza Negra no Brasil',
+      totalScore: 266.7,
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'academicos_do_sossego',
+      schoolName: 'Acadêmicos do Sossego',
+      enredo: 'Ritualis',
+      totalScore: 265.9,
+      statusDescription: '13º Lugar'
+    }
   ]
 };
 
@@ -914,7 +1021,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   2022: 'Carnaval de 2022: Império Serrano Campeã e promovida ao Grupo Especial com o enredo "Mangangá". Acadêmicos de Santa Cruz e Acadêmicos do Cubango rebaixadas para a Série Prata.',
   2021: 'Carnaval de 2021: Não houve desfiles da Série Ouro no Sambódromo da Marquês de Sapucaí em virtude da pandemia de COVID-19.',
   2020: 'Carnaval de 2020: Imperatriz Leopoldinense Campeã com nota máxima e promovida ao Grupo Especial com o enredo "Só dá Lalá". Renascer de Jacarepaguá e Acadêmicos da Rocinha rebaixadas para a Série Prata.',
-  2019: 'Carnaval de 2019: Estácio de Sá Campeã com nota máxima e promovida ao Grupo Especial com o enredo "A Fé que Emerge das Águas". Alegria da Zona Sul rebaixada para a Série Prata.'
+  2019: 'Carnaval de 2019: Estácio de Sá Campeã com nota máxima e promovida ao Grupo Especial com o enredo "A Fé que Emerge das Águas". Alegria da Zona Sul rebaixada para a Série Prata.',
+  2018: 'Carnaval de 2018: (Não houve rebaixamento) • Unidos do Viradouro Campeã e promovida ao Grupo Especial com o enredo "Vira a Cabeça, pira o Coração. Loucos Gênios da Criação".'
 };
 
 /**

@@ -1054,6 +1054,151 @@ export function getCanonical2019Enredo(schoolId?: string, schoolName?: string): 
   return CANONICAL_2019_ENREDOS[normId];
 }
 
+export const CANONICAL_2018_ENREDOS: Record<string, CanonicalEnredoInfo> = {
+  // GRUPO ESPECIAL 2018
+  beija_flor: {
+    schoolId: 'beija_flor',
+    title: 'Monstro é Aquele que não sabe Amar. Os Filhos Abandonados da Pátria que os pariu',
+    themeType: 'Crítica Social & Fábulas'
+  },
+  tuiuti: {
+    schoolId: 'tuiuti',
+    title: 'Meu Deus, meu Deus, está Extinta a Escravidão?',
+    themeType: 'Histórico & Crítica Social'
+  },
+  salgueiro: {
+    schoolId: 'salgueiro',
+    title: 'Senhoras do Ventre do Mundo',
+    themeType: 'Afro-Brasileiro & Feminino'
+  },
+  portela: {
+    schoolId: 'portela',
+    title: 'De Repente de Lá Pra Cá e Dirrepente de Cá Pra Lá',
+    themeType: 'Regional & Migração'
+  },
+  mangueira: {
+    schoolId: 'mangueira',
+    title: 'Com Dinheiro ou sem Dinheiro, eu Brinco!',
+    themeType: 'Carnaval & Crítica Social'
+  },
+  mocidade: {
+    schoolId: 'mocidade',
+    title: 'Namastê: a Estrela que habita em mim saúda a que existe em você',
+    themeType: 'Cultural & Espiritualidade'
+  },
+  tijuca: {
+    schoolId: 'tijuca',
+    title: 'Um Coração Urbano: Miguel, o Arcanjo das Artes, saúda o povo e pede passagem',
+    themeType: 'Homenagem & Teatro'
+  },
+  imperatriz: {
+    schoolId: 'imperatriz',
+    title: 'Uma Noite Real no Museu Nacional',
+    themeType: 'Histórico & Museu'
+  },
+  vila_isabel: {
+    schoolId: 'vila_isabel',
+    title: 'Corra que o Futuro vem aí!',
+    themeType: 'Futurista & Ciência'
+  },
+  uniao_da_ilha: {
+    schoolId: 'uniao_da_ilha',
+    title: 'Brasil Bom de Boca',
+    themeType: 'Gastronomia & Cultura'
+  },
+  sao_clemente: {
+    schoolId: 'sao_clemente',
+    title: 'Academicamente Popular',
+    themeType: 'Homenagem & Carnaval'
+  },
+  grande_rio: {
+    schoolId: 'grande_rio',
+    title: 'Vai para o Trono ou não Vai?',
+    themeType: 'Homenagem & Televisão'
+  },
+  imperio_serrano: {
+    schoolId: 'imperio_serrano',
+    title: 'O Império do Samba na Rota da China',
+    themeType: 'Cultural & Internacional'
+  },
+
+  // SÉRIE OURO 2018
+  viradouro: {
+    schoolId: 'viradouro',
+    title: 'Vira a Cabeça, pira o Coração. Loucos Gênios da Criação',
+    themeType: 'Cultural & Genialidade'
+  },
+  unidos_padre_miguel: {
+    schoolId: 'unidos_padre_miguel',
+    title: 'O Eldorado Submerso - Delírio Tupi-Parintintin',
+    themeType: 'Indígena & Folclore'
+  },
+  porto_da_pedra: {
+    schoolId: 'porto_da_pedra',
+    title: 'Rainhas do Rádio - Nas Ondas da Emoção, o Tigre Coroa as Divas da Canção!',
+    themeType: 'Homenagem & Rádio'
+  },
+  inocentes: {
+    schoolId: 'inocentes',
+    title: 'Mojú, Magé, Mojubá - Sinfonias e Batuques',
+    themeType: 'Afro-Brasileiro & Religioso'
+  },
+  cubango: {
+    schoolId: 'cubango',
+    title: 'O Rei que Bordou o Mundo',
+    themeType: 'Homenagem & Arte Popular'
+  },
+  estacio_de_sa: {
+    schoolId: 'estacio_de_sa',
+    title: 'No Pregão da Folia sou Comerciante da Alegria e com a Estácio Boto Banca na Avenida',
+    themeType: 'Comércio & Carnaval'
+  },
+  imperio_da_tijuca: {
+    schoolId: 'imperio_da_tijuca',
+    title: 'Olubajé – Um Banquete para o Rei',
+    themeType: 'Afro-Brasileiro & Religioso'
+  },
+  alegria_da_zona_sul: {
+    schoolId: 'alegria_da_zona_sul',
+    title: 'Bravos Malês! A Saga de Luiza Mahin',
+    themeType: 'Afro-Brasileiro & Resistência'
+  },
+  renascer_jacarepagua: {
+    schoolId: 'renascer_jacarepagua',
+    title: 'Renascer de Flechas e de Lobos',
+    themeType: 'Literatura & Mítico'
+  },
+  santa_cruz: {
+    schoolId: 'santa_cruz',
+    title: 'No Vôo Mágico da Esperança, quem Acredita sempre Alcança',
+    themeType: 'Lúdico & Esperança'
+  },
+  rocinha: {
+    schoolId: 'rocinha',
+    title: 'Madeira Matriz',
+    themeType: 'Artesanato & Xilogravura'
+  },
+  unidos_de_bangu: {
+    schoolId: 'unidos_de_bangu',
+    title: 'A Travessia da Calunga Grande e a Nobreza Negra no Brasil',
+    themeType: 'Afro-Brasileiro & Histórico'
+  },
+  academicos_do_sossego: {
+    schoolId: 'academicos_do_sossego',
+    title: 'Ritualis',
+    themeType: 'Antropológico & Rituais'
+  }
+};
+
+/**
+ * Retorna o enredo oficial original de 2018 para uma agremiação
+ */
+export function getCanonical2018Enredo(schoolId?: string, schoolName?: string): CanonicalEnredoInfo | undefined {
+  const normId = normalizeCanonicalSchoolId(schoolId, schoolName);
+  return CANONICAL_2018_ENREDOS[normId];
+}
+
+
 
 
 

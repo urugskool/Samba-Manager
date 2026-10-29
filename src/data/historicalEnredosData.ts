@@ -12,6 +12,8 @@ import {
   getCanonical2020Enredo,
   CANONICAL_2019_ENREDOS,
   getCanonical2019Enredo,
+  CANONICAL_2018_ENREDOS,
+  getCanonical2018Enredo,
   normalizeCanonicalSchoolId
 } from './canonicalEnredosRegistry';
 
@@ -28,6 +30,8 @@ export {
   getCanonical2020Enredo,
   CANONICAL_2019_ENREDOS,
   getCanonical2019Enredo,
+  CANONICAL_2018_ENREDOS,
+  getCanonical2018Enredo,
   normalizeCanonicalSchoolId
 };
 
@@ -401,19 +405,59 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     alegria: 'Saravá, Umbanda!'
   },
   2018: {
-    beija_flor: 'Monstro É Aquele que Não Sabe Amar (Os Filhos Abandonados da Pátria que os Pariu)',
-    tuiuti: 'Meu Deus, Meu Deus, Está Extinta a Escravidão?',
+    // Grupo Especial 2018
+    beija_flor: 'Monstro é Aquele que não sabe Amar. Os Filhos Abandonados da Pátria que os pariu',
+    beija_flor_de_nilopolis: 'Monstro é Aquele que não sabe Amar. Os Filhos Abandonados da Pátria que os pariu',
+    tuiuti: 'Meu Deus, meu Deus, está Extinta a Escravidão?',
+    paraiso_do_tuiuti: 'Meu Deus, meu Deus, está Extinta a Escravidão?',
     salgueiro: 'Senhoras do Ventre do Mundo',
+    academicos_do_salgueiro: 'Senhoras do Ventre do Mundo',
     portela: 'De Repente de Lá Pra Cá e Dirrepente de Cá Pra Lá',
-    mangueira: 'Com Dinheiro ou Sem Dinheiro, Eu Brinco',
-    mocidade: 'Namastê: A Estrela que Habita em Mim Saúda a Estrela que Habita em Você',
-    tijuca: 'Um Coração Urbano: Miguel Falabella, a Pátria que o Pariu',
+    mangueira: 'Com Dinheiro ou sem Dinheiro, eu Brinco!',
+    estacao_primeira_de_mangueira: 'Com Dinheiro ou sem Dinheiro, eu Brinco!',
+    mocidade: 'Namastê: a Estrela que habita em mim saúda a que existe em você',
+    mocidade_independente: 'Namastê: a Estrela que habita em mim saúda a que existe em você',
+    mocidade_independente_de_padre_miguel: 'Namastê: a Estrela que habita em mim saúda a que existe em você',
+    tijuca: 'Um Coração Urbano: Miguel, o Arcanjo das Artes, saúda o povo e pede passagem',
+    unidos_da_tijuca: 'Um Coração Urbano: Miguel, o Arcanjo das Artes, saúda o povo e pede passagem',
     imperatriz: 'Uma Noite Real no Museu Nacional',
-    vila_isabel: 'Corra que o Futuro Vem Aí!',
+    imperatriz_leopoldinense: 'Uma Noite Real no Museu Nacional',
+    vila_isabel: 'Corra que o Futuro vem aí!',
+    unidos_de_vila_isabel: 'Corra que o Futuro vem aí!',
     uniao_da_ilha: 'Brasil Bom de Boca',
+    ilha: 'Brasil Bom de Boca',
     sao_clemente: 'Academicamente Popular',
-    grande_rio: 'Vai Para o Trono ou Não Vai? (Homenagem ao Chacrinha)',
-    imperio_serrano: 'O Império do Samba na Rota da Seda'
+    grande_rio: 'Vai para o Trono ou não Vai?',
+    academicos_do_grande_rio: 'Vai para o Trono ou não Vai?',
+    imperio_serrano: 'O Império do Samba na Rota da China',
+
+    // Série Ouro 2018
+    viradouro: 'Vira a Cabeça, pira o Coração. Loucos Gênios da Criação',
+    unidos_do_viradouro: 'Vira a Cabeça, pira o Coração. Loucos Gênios da Criação',
+    unidos_padre_miguel: 'O Eldorado Submerso - Delírio Tupi-Parintintin',
+    padre_miguel: 'O Eldorado Submerso - Delírio Tupi-Parintintin',
+    porto_da_pedra: 'Rainhas do Rádio - Nas Ondas da Emoção, o Tigre Coroa as Divas da Canção!',
+    unidos_do_porto_da_pedra: 'Rainhas do Rádio - Nas Ondas da Emoção, o Tigre Coroa as Divas da Canção!',
+    inocentes: 'Mojú, Magé, Mojubá - Sinfonias e Batuques',
+    inocentes_de_belford_roxo: 'Mojú, Magé, Mojubá - Sinfonias e Batuques',
+    cubango: 'O Rei que Bordou o Mundo',
+    academicos_do_cubango: 'O Rei que Bordou o Mundo',
+    estacio_de_sa: 'No Pregão da Folia sou Comerciante da Alegria e com a Estácio Boto Banca na Avenida',
+    estacio: 'No Pregão da Folia sou Comerciante da Alegria e com a Estácio Boto Banca na Avenida',
+    imperio_da_tijuca: 'Olubajé – Um Banquete para o Rei',
+    alegria_da_zona_sul: 'Bravos Malês! A Saga de Luiza Mahin',
+    alegria: 'Bravos Malês! A Saga de Luiza Mahin',
+    renascer_jacarepagua: 'Renascer de Flechas e de Lobos',
+    renascer_de_jacarepagua: 'Renascer de Flechas e de Lobos',
+    renascer: 'Renascer de Flechas e de Lobos',
+    santa_cruz: 'No Vôo Mágico da Esperança, quem Acredita sempre Alcança',
+    academicos_de_santa_cruz: 'No Vôo Mágico da Esperança, quem Acredita sempre Alcança',
+    rocinha: 'Madeira Matriz',
+    academicos_da_rocinha: 'Madeira Matriz',
+    unidos_de_bangu: 'A Travessia da Calunga Grande e a Nobreza Negra no Brasil',
+    bangu: 'A Travessia da Calunga Grande e a Nobreza Negra no Brasil',
+    academicos_do_sossego: 'Ritualis',
+    sossego: 'Ritualis'
   },
   2017: {
     portela: 'Quem Nunca Sentiu o Corpo Arrepiar ao Ver Esse Rio Passar?',
@@ -2210,6 +2254,10 @@ export function getHistoricalEnredo(
       const canonical = getCanonical2019Enredo(schoolId, schoolName);
       if (canonical?.title) return canonical.title;
     }
+    if (year === 2018) {
+      const canonical = getCanonical2018Enredo(schoolId, schoolName);
+      if (canonical?.title) return canonical.title;
+    }
 
     const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[year];
     if (yearRecords) {
@@ -2325,6 +2373,12 @@ export function getSchoolHistoricalEnredosList(
   const can2019 = getCanonical2019Enredo(schoolId, schoolName);
   if (can2019?.title) {
     enredosMap.set(2019, can2019.title);
+  }
+
+  // Garante que o enredo canônico oficial de 2018 seja registrado de forma autoritativa
+  const can2018 = getCanonical2018Enredo(schoolId, schoolName);
+  if (can2018?.title) {
+    enredosMap.set(2018, can2018.title);
   }
 
   // 2. Histórico de enredos gravado no save (inGameHistory para anos > 2026 ou sem registro)
