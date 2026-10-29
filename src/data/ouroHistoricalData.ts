@@ -1007,6 +1007,122 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       totalScore: 265.9,
       statusDescription: '13º Lugar'
     }
+  ],
+  2017: [
+    {
+      rank: 1,
+      schoolId: 'imperio_serrano',
+      schoolName: 'Império Serrano',
+      enredo: 'Meu quintal é maior do que o mundo',
+      totalScore: 269.8,
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã e Promovida ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'viradouro',
+      schoolName: 'Unidos do Viradouro',
+      enredo: 'E todo menino é um Rei',
+      totalScore: 269.7,
+      statusDescription: 'Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Estácio de Sá',
+      enredo: 'É! O moleque desceu o São Carlos, pegou um sonho e partiu com a Estácio!',
+      totalScore: 269.1,
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'Ossaim: o poder da cura',
+      totalScore: 268.9,
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'porto_da_pedra',
+      schoolName: 'Unidos do Porto da Pedra',
+      enredo: 'O Abre-alas que as Marchinhas vão passar! Porto da Pedra é quem vai ganhar... seu coração!',
+      totalScore: 268.2,
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: 'No saçarico do Marquês, tem mais um freguês. Viriato Ferreira',
+      totalScore: 266.6,
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'O Último dos Profetas',
+      totalScore: 266.3,
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'Versando Nogueira nos cem anos do ritmo que é nó na madeira!',
+      totalScore: 265.6,
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'inocentes',
+      schoolName: 'Inocentes de Belford Roxo',
+      enredo: 'Vilões - o verso do inverso',
+      totalScore: 265.2,
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'renascer_jacarepagua',
+      schoolName: 'Renascer de Jacarepaguá',
+      enredo: 'O Papel e o Mar',
+      totalScore: 265.1,
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'academicos_do_sossego',
+      schoolName: 'Acadêmicos do Sossego',
+      enredo: 'Zezé Motta - A deusa de ébano!',
+      totalScore: 264.5,
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Vou levar somente o que couber no bolso e no coração... uma viagem de sabedoria além da imaginação',
+      totalScore: 264.2,
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'alegria_da_zona_sul',
+      schoolName: 'Alegria da Zona Sul',
+      enredo: 'Vou festejar com Beth Carvalho, a Madrinha do Samba',
+      totalScore: 263.3,
+      statusDescription: '13º Lugar'
+    },
+    {
+      rank: 14,
+      schoolId: 'curicica',
+      schoolName: 'União do Parque Curicica',
+      enredo: 'O importante é ser feliz e mais nada!',
+      totalScore: 262.1,
+      relegated: true,
+      statusDescription: '14ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -1022,7 +1138,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   2021: 'Carnaval de 2021: Não houve desfiles da Série Ouro no Sambódromo da Marquês de Sapucaí em virtude da pandemia de COVID-19.',
   2020: 'Carnaval de 2020: Imperatriz Leopoldinense Campeã com nota máxima e promovida ao Grupo Especial com o enredo "Só dá Lalá". Renascer de Jacarepaguá e Acadêmicos da Rocinha rebaixadas para a Série Prata.',
   2019: 'Carnaval de 2019: Estácio de Sá Campeã com nota máxima e promovida ao Grupo Especial com o enredo "A Fé que Emerge das Águas". Alegria da Zona Sul rebaixada para a Série Prata.',
-  2018: 'Carnaval de 2018: (Não houve rebaixamento) • Unidos do Viradouro Campeã e promovida ao Grupo Especial com o enredo "Vira a Cabeça, pira o Coração. Loucos Gênios da Criação".'
+  2018: 'Carnaval de 2018: (Não houve rebaixamento) • Unidos do Viradouro Campeã e promovida ao Grupo Especial com o enredo "Vira a Cabeça, pira o Coração. Loucos Gênios da Criação".',
+  2017: 'Carnaval de 2017: Império Serrano Campeã e promovida ao Grupo Especial com o enredo "Meu quintal é maior do que o mundo". União do Parque Curicica rebaixada para a Série Prata.'
 };
 
 /**

@@ -1198,6 +1198,151 @@ export function getCanonical2018Enredo(schoolId?: string, schoolName?: string): 
   return CANONICAL_2018_ENREDOS[normId];
 }
 
+export const CANONICAL_2017_ENREDOS: Record<string, CanonicalEnredoInfo> = {
+  // GRUPO ESPECIAL 2017
+  portela: {
+    schoolId: 'portela',
+    title: 'Quem nunca sentiu o corpo arrepiar ao ver esse Rio passar...',
+    themeType: 'Poético & Rio de Janeiro / Rio Doce'
+  },
+  mocidade: {
+    schoolId: 'mocidade',
+    title: 'As mil e uma noites de uma ‘Mocidade’ prá lá de Marrakesh',
+    themeType: 'Marrocos & Árabe'
+  },
+  salgueiro: {
+    schoolId: 'salgueiro',
+    title: 'A Divina Comédia do Carnaval',
+    themeType: 'Literatura & Carnaval'
+  },
+  mangueira: {
+    schoolId: 'mangueira',
+    title: 'Só com a Ajuda do Santo',
+    themeType: 'Fé & Religiosidade Popular'
+  },
+  grande_rio: {
+    schoolId: 'grande_rio',
+    title: 'Ivete do rio ao Rio!',
+    themeType: 'Homenagem & Música'
+  },
+  beija_flor: {
+    schoolId: 'beija_flor',
+    title: 'A Virgem dos Lábios de Mel - Iracema',
+    themeType: 'Literatura & Indígena'
+  },
+  imperatriz: {
+    schoolId: 'imperatriz',
+    title: 'Xingu, o clamor que vem da floresta!',
+    themeType: 'Indígena & Preservação'
+  },
+  uniao_da_ilha: {
+    schoolId: 'uniao_da_ilha',
+    title: 'Nzara Ndembu - Glória ao Senhor Tempo',
+    themeType: 'Afro-Brasileiro & Candomblé de Angola'
+  },
+  sao_clemente: {
+    schoolId: 'sao_clemente',
+    title: 'Onisuáquimalipanse (Envergonhe-se quem pensar mal disso)',
+    themeType: 'Sátira & História'
+  },
+  vila_isabel: {
+    schoolId: 'vila_isabel',
+    title: 'O Som da Cor',
+    themeType: 'Música Negra & Afro'
+  },
+  tijuca: {
+    schoolId: 'tijuca',
+    title: 'Música na alma, inspiração de uma nação',
+    themeType: 'Música & Homenagem'
+  },
+  tuiuti: {
+    schoolId: 'tuiuti',
+    title: 'Carnavaleidoscópio Tropifágico',
+    themeType: 'Tropicália & Movimento Modernista'
+  },
+
+  // SÉRIE OURO 2017
+  imperio_serrano: {
+    schoolId: 'imperio_serrano',
+    title: 'Meu quintal é maior do que o mundo',
+    themeType: 'Literatura & Manoel de Barros'
+  },
+  viradouro: {
+    schoolId: 'viradouro',
+    title: 'E todo menino é um Rei',
+    themeType: 'Infância & Fantasia'
+  },
+  estacio_de_sa: {
+    schoolId: 'estacio_de_sa',
+    title: 'É! O moleque desceu o São Carlos, pegou um sonho e partiu com a Estácio!',
+    themeType: 'Homenagem & Gonzaguinha'
+  },
+  unidos_padre_miguel: {
+    schoolId: 'unidos_padre_miguel',
+    title: 'Ossaim: o poder da cura',
+    themeType: 'Afro-Brasileiro & Orixás'
+  },
+  porto_da_pedra: {
+    schoolId: 'porto_da_pedra',
+    title: 'O Abre-alas que as Marchinhas vão passar! Porto da Pedra é quem vai ganhar... seu coração!',
+    themeType: 'Marchinhas & Carnaval Tradicional'
+  },
+  rocinha: {
+    schoolId: 'rocinha',
+    title: 'No saçarico do Marquês, tem mais um freguês. Viriato Ferreira',
+    themeType: 'Homenagem & Carnavalesco'
+  },
+  imperio_da_tijuca: {
+    schoolId: 'imperio_da_tijuca',
+    title: 'O Último dos Profetas',
+    themeType: 'Arte Barroca & Aleijadinho'
+  },
+  cubango: {
+    schoolId: 'cubango',
+    title: 'Versando Nogueira nos cem anos do ritmo que é nó na madeira!',
+    themeType: 'Homenagem & João Nogueira'
+  },
+  inocentes: {
+    schoolId: 'inocentes',
+    title: 'Vilões - o verso do inverso',
+    themeType: 'Cultura Pop & Vilões'
+  },
+  renascer_jacarepagua: {
+    schoolId: 'renascer_jacarepagua',
+    title: 'O Papel e o Mar',
+    themeType: 'Histórico & Literatura'
+  },
+  academicos_do_sossego: {
+    schoolId: 'academicos_do_sossego',
+    title: 'Zezé Motta - A deusa de ébano!',
+    themeType: 'Homenagem & Atriz'
+  },
+  santa_cruz: {
+    schoolId: 'santa_cruz',
+    title: 'Vou levar somente o que couber no bolso e no coração... uma viagem de sabedoria além da imaginação',
+    themeType: 'Contos & Fantasia'
+  },
+  alegria_da_zona_sul: {
+    schoolId: 'alegria_da_zona_sul',
+    title: 'Vou festejar com Beth Carvalho, a Madrinha do Samba',
+    themeType: 'Homenagem & Beth Carvalho'
+  },
+  curicica: {
+    schoolId: 'curicica',
+    title: 'O importante é ser feliz e mais nada!',
+    themeType: 'Felicidade & Cultura Popular'
+  }
+};
+
+/**
+ * Retorna o enredo oficial original de 2017 para uma agremiação
+ */
+export function getCanonical2017Enredo(schoolId?: string, schoolName?: string): CanonicalEnredoInfo | undefined {
+  const normId = normalizeCanonicalSchoolId(schoolId, schoolName);
+  return CANONICAL_2017_ENREDOS[normId];
+}
+
+
 
 
 

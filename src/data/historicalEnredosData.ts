@@ -14,6 +14,8 @@ import {
   getCanonical2019Enredo,
   CANONICAL_2018_ENREDOS,
   getCanonical2018Enredo,
+  CANONICAL_2017_ENREDOS,
+  getCanonical2017Enredo,
   normalizeCanonicalSchoolId
 } from './canonicalEnredosRegistry';
 
@@ -32,6 +34,8 @@ export {
   getCanonical2019Enredo,
   CANONICAL_2018_ENREDOS,
   getCanonical2018Enredo,
+  CANONICAL_2017_ENREDOS,
+  getCanonical2017Enredo,
   normalizeCanonicalSchoolId
 };
 
@@ -460,18 +464,60 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     sossego: 'Ritualis'
   },
   2017: {
-    portela: 'Quem Nunca Sentiu o Corpo Arrepiar ao Ver Esse Rio Passar?',
-    mocidade: 'As Mil e Uma Noites de uma ' + 'Mocidade pra Lá de Marrakesh',
+    // Grupo Especial 2017
+    portela: 'Quem nunca sentiu o corpo arrepiar ao ver esse Rio passar...',
+    mocidade: 'As mil e uma noites de uma ‘Mocidade’ prá lá de Marrakesh',
+    mocidade_independente: 'As mil e uma noites de uma ‘Mocidade’ prá lá de Marrakesh',
+    mocidade_independente_de_padre_miguel: 'As mil e uma noites de uma ‘Mocidade’ prá lá de Marrakesh',
     salgueiro: 'A Divina Comédia do Carnaval',
+    academicos_do_salgueiro: 'A Divina Comédia do Carnaval',
     mangueira: 'Só com a Ajuda do Santo',
-    grande_rio: 'Hoje É Dia de Ivete!',
+    estacao_primeira_de_mangueira: 'Só com a Ajuda do Santo',
+    grande_rio: 'Ivete do rio ao Rio!',
+    academicos_do_grande_rio: 'Ivete do rio ao Rio!',
     beija_flor: 'A Virgem dos Lábios de Mel - Iracema',
-    imperatriz: 'Xingu, o Clamor que Vem da Floresta',
-    uniao_da_ilha: 'Nzambi',
-    sao_clemente: 'Onisuáquiti',
+    beija_flor_de_nilopolis: 'A Virgem dos Lábios de Mel - Iracema',
+    imperatriz: 'Xingu, o clamor que vem da floresta!',
+    imperatriz_leopoldinense: 'Xingu, o clamor que vem da floresta!',
+    uniao_da_ilha: 'Nzara Ndembu - Glória ao Senhor Tempo',
+    ilha: 'Nzara Ndembu - Glória ao Senhor Tempo',
+    sao_clemente: 'Onisuáquimalipanse (Envergonhe-se quem pensar mal disso)',
     vila_isabel: 'O Som da Cor',
-    tijuca: 'Música na Alma, Inspiração de uma Nação',
-    tuiuti: 'Carnavaleidoscópio Fabuloso'
+    unidos_de_vila_isabel: 'O Som da Cor',
+    tijuca: 'Música na alma, inspiração de uma nação',
+    unidos_da_tijuca: 'Música na alma, inspiração de uma nação',
+    tuiuti: 'Carnavaleidoscópio Tropifágico',
+    paraiso_do_tuiuti: 'Carnavaleidoscópio Tropifágico',
+
+    // Série Ouro 2017
+    imperio_serrano: 'Meu quintal é maior do que o mundo',
+    viradouro: 'E todo menino é um Rei',
+    unidos_do_viradouro: 'E todo menino é um Rei',
+    estacio_de_sa: 'É! O moleque desceu o São Carlos, pegou um sonho e partiu com a Estácio!',
+    estacio: 'É! O moleque desceu o São Carlos, pegou um sonho e partiu com a Estácio!',
+    unidos_padre_miguel: 'Ossaim: o poder da cura',
+    padre_miguel: 'Ossaim: o poder da cura',
+    porto_da_pedra: 'O Abre-alas que as Marchinhas vão passar! Porto da Pedra é quem vai ganhar... seu coração!',
+    unidos_do_porto_da_pedra: 'O Abre-alas que as Marchinhas vão passar! Porto da Pedra é quem vai ganhar... seu coração!',
+    rocinha: 'No saçarico do Marquês, tem mais um freguês. Viriato Ferreira',
+    academicos_da_rocinha: 'No saçarico do Marquês, tem mais um freguês. Viriato Ferreira',
+    imperio_da_tijuca: 'O Último dos Profetas',
+    cubango: 'Versando Nogueira nos cem anos do ritmo que é nó na madeira!',
+    academicos_do_cubango: 'Versando Nogueira nos cem anos do ritmo que é nó na madeira!',
+    inocentes: 'Vilões - o verso do inverso',
+    inocentes_de_belford_roxo: 'Vilões - o verso do inverso',
+    renascer_jacarepagua: 'O Papel e o Mar',
+    renascer_de_jacarepagua: 'O Papel e o Mar',
+    renascer: 'O Papel e o Mar',
+    academicos_do_sossego: 'Zezé Motta - A deusa de ébano!',
+    sossego: 'Zezé Motta - A deusa de ébano!',
+    santa_cruz: 'Vou levar somente o que couber no bolso e no coração... uma viagem de sabedoria além da imaginação',
+    academicos_de_santa_cruz: 'Vou levar somente o que couber no bolso e no coração... uma viagem de sabedoria além da imaginação',
+    alegria_da_zona_sul: 'Vou festejar com Beth Carvalho, a Madrinha do Samba',
+    alegria: 'Vou festejar com Beth Carvalho, a Madrinha do Samba',
+    curicica: 'O importante é ser feliz e mais nada!',
+    parque_curicica: 'O importante é ser feliz e mais nada!',
+    uniao_do_parque_curicica: 'O importante é ser feliz e mais nada!'
   },
   2016: {
     mangueira: 'Maria Bethânia: A Menina dos Olhos de Oyá',
@@ -2258,6 +2304,10 @@ export function getHistoricalEnredo(
       const canonical = getCanonical2018Enredo(schoolId, schoolName);
       if (canonical?.title) return canonical.title;
     }
+    if (year === 2017) {
+      const canonical = getCanonical2017Enredo(schoolId, schoolName);
+      if (canonical?.title) return canonical.title;
+    }
 
     const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[year];
     if (yearRecords) {
@@ -2379,6 +2429,12 @@ export function getSchoolHistoricalEnredosList(
   const can2018 = getCanonical2018Enredo(schoolId, schoolName);
   if (can2018?.title) {
     enredosMap.set(2018, can2018.title);
+  }
+
+  // Garante que o enredo canônico oficial de 2017 seja registrado de forma autoritativa
+  const can2017 = getCanonical2017Enredo(schoolId, schoolName);
+  if (can2017?.title) {
+    enredosMap.set(2017, can2017.title);
   }
 
   // 2. Histórico de enredos gravado no save (inGameHistory para anos > 2026 ou sem registro)
