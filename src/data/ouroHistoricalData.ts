@@ -792,6 +792,114 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '14ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  2019: [
+    {
+      rank: 1,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Estácio de Sá',
+      enredo: 'A Fé que Emerge das Águas',
+      totalScore: 270.0,
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã e Promovida ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'Igbá Cubango - A Alma das Coisas e a Arte dos Milagres',
+      totalScore: 269.3,
+      statusDescription: 'Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'porto_da_pedra',
+      schoolName: 'Unidos do Porto da Pedra',
+      enredo: 'Antônio Pitanga - Um Negro em Movimento',
+      totalScore: 269.0,
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Império do Café, o Vale da Esperança',
+      totalScore: 269.0,
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Ruth de Souza – Senhora Liberdade, Abre as Asas sobre Nós',
+      totalScore: 268.8,
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'Qualquer Semelhança não terá sido mera Coincidência',
+      totalScore: 268.8,
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'renascer_jacarepagua',
+      schoolName: 'Renascer de Jacarepaguá',
+      enredo: 'Dois de Fevereiro, no Rio Vermelho',
+      totalScore: 268.6,
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: 'Do Ventre da Terra, Raízes para o Mundo',
+      totalScore: 268.6,
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'inocentes',
+      schoolName: 'Inocentes de Belford Roxo',
+      enredo: 'O Frasco do Bandoleiro',
+      totalScore: 268.4,
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Oferendas',
+      totalScore: 267.7,
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: 'Bananas para o Preconceito',
+      totalScore: 267.3,
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'academicos_do_sossego',
+      schoolName: 'Acadêmicos do Sossego',
+      enredo: 'Não se meta com minha fé, acredito em quem quiser',
+      totalScore: 267.3,
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'alegria_da_zona_sul',
+      schoolName: 'Alegria da Zona Sul',
+      enredo: 'Saravá, Umbanda!',
+      totalScore: 265.3,
+      relegated: true,
+      statusDescription: '13ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -805,7 +913,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   2023: 'Carnaval de 2023: Unidos do Porto da Pedra Campeã e promovida ao Grupo Especial. Lins Imperial e União de Jacarepaguá rebaixadas para a Série Prata.',
   2022: 'Carnaval de 2022: Império Serrano Campeã e promovida ao Grupo Especial com o enredo "Mangangá". Acadêmicos de Santa Cruz e Acadêmicos do Cubango rebaixadas para a Série Prata.',
   2021: 'Carnaval de 2021: Não houve desfiles da Série Ouro no Sambódromo da Marquês de Sapucaí em virtude da pandemia de COVID-19.',
-  2020: 'Carnaval de 2020: Imperatriz Leopoldinense Campeã com nota máxima e promovida ao Grupo Especial com o enredo "Só dá Lalá". Renascer de Jacarepaguá e Acadêmicos da Rocinha rebaixadas para a Série Prata.'
+  2020: 'Carnaval de 2020: Imperatriz Leopoldinense Campeã com nota máxima e promovida ao Grupo Especial com o enredo "Só dá Lalá". Renascer de Jacarepaguá e Acadêmicos da Rocinha rebaixadas para a Série Prata.',
+  2019: 'Carnaval de 2019: Estácio de Sá Campeã com nota máxima e promovida ao Grupo Especial com o enredo "A Fé que Emerge das Águas". Alegria da Zona Sul rebaixada para a Série Prata.'
 };
 
 /**

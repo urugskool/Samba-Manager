@@ -287,6 +287,7 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('unidos de lucas') || raw.includes('lucas')) return 'unidos_de_lucas';
   if (raw.includes('olaria')) return 'independentes_olaria';
   if (raw.includes('arrastão') || raw.includes('arrastao')) return 'arrastao_cascadura';
+  if (raw.includes('alegria da zona sul') || raw.includes('alegria_da_zona_sul')) return 'alegria_da_zona_sul';
   if (raw.includes('renascer') && !raw.includes('nova iguaçu') && !raw.includes('nova iguacu') && !raw.includes('vaz lobo')) return 'renascer_jacarepagua';
   if (raw.includes('união de jacarepaguá') || raw.includes('uniao de jacarepagua') || raw.includes('jacarepaguá') || raw.includes('jacarepagua')) return 'uniao_de_jacarepagua';
   return (schoolId || '').toLowerCase().trim();
@@ -903,6 +904,156 @@ export function getCanonical2020Enredo(schoolId?: string, schoolName?: string): 
   const normId = normalizeCanonicalSchoolId(schoolId, schoolName);
   return CANONICAL_2020_ENREDOS[normId];
 }
+
+export const CANONICAL_2019_ENREDOS: Record<string, CanonicalEnredoInfo> = {
+  // GRUPO ESPECIAL 2019
+  mangueira: {
+    schoolId: 'mangueira',
+    title: 'História pra Ninar Gente Grande',
+    themeType: 'Histórico & Crítica Social'
+  },
+  viradouro: {
+    schoolId: 'viradouro',
+    title: 'Viraviradouro!',
+    themeType: 'Mítico & Lúdico'
+  },
+  vila_isabel: {
+    schoolId: 'vila_isabel',
+    title: 'Em Nome do Pai, do Filho e dos Santos, a Vila canta a Cidade de Pedro',
+    themeType: 'Histórico & Cidade'
+  },
+  portela: {
+    schoolId: 'portela',
+    title: 'Na Madureira Moderníssima, Hei Sempre de Ouvir Cantar uma Sabiá',
+    themeType: 'Homenagem & Música'
+  },
+  salgueiro: {
+    schoolId: 'salgueiro',
+    title: 'Xangô',
+    themeType: 'Afro-Brasileiro & Religioso'
+  },
+  mocidade: {
+    schoolId: 'mocidade',
+    title: 'Eu sou o Tempo. Tempo é Vida',
+    themeType: 'Filosófico & Mítico'
+  },
+  tijuca: {
+    schoolId: 'tijuca',
+    title: 'Cada Macaco no seu Galho. Ó, meu Pai! Me dê o Pão que eu não Morro de Fome!',
+    themeType: 'Crítica Social & Fábulas'
+  },
+  tuiuti: {
+    schoolId: 'tuiuti',
+    title: 'O Salvador da Pátria',
+    themeType: 'Crítica Social & Humor'
+  },
+  grande_rio: {
+    schoolId: 'grande_rio',
+    title: 'Quem Nunca...? Que Atire a Primeira Pedra',
+    themeType: 'Crítica Social & Comportamento'
+  },
+  uniao_da_ilha: {
+    schoolId: 'uniao_da_ilha',
+    title: 'A Peleja Poética entre Rachel e Alencar no Avarandado do Céu',
+    themeType: 'Literatura & Homenagem'
+  },
+  beija_flor: {
+    schoolId: 'beija_flor',
+    title: 'Quem não viu, vai ver... As Fábulas do Beija-Flor',
+    themeType: 'Retrospectiva & Fábulas'
+  },
+  sao_clemente: {
+    schoolId: 'sao_clemente',
+    title: 'E o Samba Sambou...',
+    themeType: 'Crítica & Carnaval'
+  },
+  imperatriz: {
+    schoolId: 'imperatriz',
+    title: 'Me dá um Dinheiro aí',
+    themeType: 'Crítica Social & Humor'
+  },
+  imperio_serrano: {
+    schoolId: 'imperio_serrano',
+    title: 'O que é, o que é?',
+    themeType: 'Música & Homenagem'
+  },
+
+  // SÉRIE OURO 2019
+  estacio_de_sa: {
+    schoolId: 'estacio_de_sa',
+    title: 'A Fé que Emerge das Águas',
+    themeType: 'Religioso & Mítico'
+  },
+  cubango: {
+    schoolId: 'cubango',
+    title: 'Igbá Cubango - A Alma das Coisas e a Arte dos Milagres',
+    themeType: 'Afro-Brasileiro & Arte'
+  },
+  porto_da_pedra: {
+    schoolId: 'porto_da_pedra',
+    title: 'Antônio Pitanga - Um Negro em Movimento',
+    themeType: 'Homenagem & Cinema'
+  },
+  imperio_da_tijuca: {
+    schoolId: 'imperio_da_tijuca',
+    title: 'Império do Café, o Vale da Esperança',
+    themeType: 'Histórico & Regional'
+  },
+  santa_cruz: {
+    schoolId: 'santa_cruz',
+    title: 'Ruth de Souza – Senhora Liberdade, Abre as Asas sobre Nós',
+    themeType: 'Homenagem & Teatro'
+  },
+  unidos_padre_miguel: {
+    schoolId: 'unidos_padre_miguel',
+    title: 'Qualquer Semelhança não terá sido mera Coincidência',
+    themeType: 'Crítica Social & Literatura'
+  },
+  renascer_jacarepagua: {
+    schoolId: 'renascer_jacarepagua',
+    title: 'Dois de Fevereiro, no Rio Vermelho',
+    themeType: 'Afro-Brasileiro & Religioso'
+  },
+  unidos_de_bangu: {
+    schoolId: 'unidos_de_bangu',
+    title: 'Do Ventre da Terra, Raízes para o Mundo',
+    themeType: 'Afro-Brasileiro & Gastronomia'
+  },
+  inocentes: {
+    schoolId: 'inocentes',
+    title: 'O Frasco do Bandoleiro',
+    themeType: 'Regional & Cordel'
+  },
+  unidos_da_ponte: {
+    schoolId: 'unidos_da_ponte',
+    title: 'Oferendas',
+    themeType: 'Afro-Brasileiro & Religioso'
+  },
+  rocinha: {
+    schoolId: 'rocinha',
+    title: 'Bananas para o Preconceito',
+    themeType: 'Crítica Social & Cultural'
+  },
+  academicos_do_sossego: {
+    schoolId: 'academicos_do_sossego',
+    title: 'Não se meta com minha fé, acredito em quem quiser',
+    themeType: 'Religioso & Tolerância'
+  },
+  alegria_da_zona_sul: {
+    schoolId: 'alegria_da_zona_sul',
+    title: 'Saravá, Umbanda!',
+    themeType: 'Afro-Brasileiro & Religioso'
+  }
+};
+
+/**
+ * Retorna o enredo oficial original de 2019 para uma agremiação
+ */
+export function getCanonical2019Enredo(schoolId?: string, schoolName?: string): CanonicalEnredoInfo | undefined {
+  const normId = normalizeCanonicalSchoolId(schoolId, schoolName);
+  return CANONICAL_2019_ENREDOS[normId];
+}
+
 
 
 

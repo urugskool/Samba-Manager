@@ -1078,7 +1078,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                     </div>
                     <h3 className="text-lg font-black text-white">Série Ouro em Catalogação</h3>
                     <p className="text-xs text-slate-400 max-w-md mx-auto">
-                      Os resultados da Série Ouro para o Carnaval de {selectedPastYear} ainda não foram inseridos no catálogo histórico. Os registros oficiais estão disponíveis a partir de 2020.
+                      Os resultados da Série Ouro para o Carnaval de {selectedPastYear} ainda não foram inseridos no catálogo histórico. Os registros oficiais estão disponíveis a partir de 2019.
                     </p>
                     <button
                       onClick={() => setSelectedPastYear(2026)}

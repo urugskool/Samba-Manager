@@ -78,6 +78,7 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('renascer de nova iguaçu') || name.includes('renascer de nova iguacu')) return 'renascer_de_nova_iguacu';
   if (name.includes('renascer de vaz lobo')) return 'gres_renascer_de_vaz_lobo';
   if (name.includes('renascer')) return 'renascer_jacarepagua';
+  if (name.includes('alegria da zona sul') || clean.includes('alegria_da_zona_sul')) return 'alegria_da_zona_sul';
   if (name.includes('caprichosos')) return 'caprichosos_de_pilares';
   if (name.includes('lucas')) return 'unidos_de_lucas';
 

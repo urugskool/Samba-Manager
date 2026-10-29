@@ -10,6 +10,8 @@ import {
   getCanonical2022Enredo,
   CANONICAL_2020_ENREDOS,
   getCanonical2020Enredo,
+  CANONICAL_2019_ENREDOS,
+  getCanonical2019Enredo,
   normalizeCanonicalSchoolId
 } from './canonicalEnredosRegistry';
 
@@ -24,6 +26,8 @@ export {
   getCanonical2022Enredo,
   CANONICAL_2020_ENREDOS,
   getCanonical2020Enredo,
+  CANONICAL_2019_ENREDOS,
+  getCanonical2019Enredo,
   normalizeCanonicalSchoolId
 };
 
@@ -340,20 +344,61 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     academicos_da_rocinha: 'A Guerreira Negra que Dominou Dois Mundos'
   },
   2019: {
+    // Grupo Especial 2019
     mangueira: 'História pra Ninar Gente Grande',
+    estacao_primeira_de_mangueira: 'História pra Ninar Gente Grande',
     viradouro: 'Viraviradouro!',
-    vila_isabel: 'Em Nome do Pai, do Filho e dos Santos - A Vila Canta a Cidade de Pedro',
-    portela: 'Na Madureira Moderníssima, Hei de Ouvir Cantar uma Sabiá (Clara Nunes)',
+    unidos_do_viradouro: 'Viraviradouro!',
+    vila_isabel: 'Em Nome do Pai, do Filho e dos Santos, a Vila canta a Cidade de Pedro',
+    unidos_de_vila_isabel: 'Em Nome do Pai, do Filho e dos Santos, a Vila canta a Cidade de Pedro',
+    portela: 'Na Madureira Moderníssima, Hei Sempre de Ouvir Cantar uma Sabiá',
     salgueiro: 'Xangô',
-    mocidade: 'Eu Sou o Tempo. Tempo É Vida!',
-    tijuca: 'Cada Macaco no Seu Galho. Ó, Meu Pai, Me Dê o Pão que Eu Não Morro de Fome',
+    academicos_do_salgueiro: 'Xangô',
+    mocidade: 'Eu sou o Tempo. Tempo é Vida',
+    mocidade_independente: 'Eu sou o Tempo. Tempo é Vida',
+    mocidade_independente_de_padre_miguel: 'Eu sou o Tempo. Tempo é Vida',
+    tijuca: 'Cada Macaco no seu Galho. Ó, meu Pai! Me dê o Pão que eu não Morro de Fome!',
+    unidos_da_tijuca: 'Cada Macaco no seu Galho. Ó, meu Pai! Me dê o Pão que eu não Morro de Fome!',
     tuiuti: 'O Salvador da Pátria',
-    grande_rio: 'Quem Nunca...? Que Atire a Primeira Pedra!',
-    uniao_da_ilha: 'A Peleja Poética Entre Rachel e Alencar no Asfalto de Ceará e Rio',
-    beija_flor: 'Quem Não Viu Vai Ver... As Fábulas do Beija-Flor',
-    sao_clemente: 'E o Samba Sambou',
-    imperatriz: 'Me Dá um Dinheiro Aí',
-    imperio_serrano: 'O Que É, O Que É?'
+    paraiso_do_tuiuti: 'O Salvador da Pátria',
+    grande_rio: 'Quem Nunca...? Que Atire a Primeira Pedra',
+    academicos_do_grande_rio: 'Quem Nunca...? Que Atire a Primeira Pedra',
+    uniao_da_ilha: 'A Peleja Poética entre Rachel e Alencar no Avarandado do Céu',
+    ilha: 'A Peleja Poética entre Rachel e Alencar no Avarandado do Céu',
+    beija_flor: 'Quem não viu, vai ver... As Fábulas do Beija-Flor',
+    beija_flor_de_nilopolis: 'Quem não viu, vai ver... As Fábulas do Beija-Flor',
+    sao_clemente: 'E o Samba Sambou...',
+    imperatriz: 'Me dá um Dinheiro aí',
+    imperatriz_leopoldinense: 'Me dá um Dinheiro aí',
+    imperio_serrano: 'O que é, o que é?',
+
+    // Série Ouro 2019
+    estacio_de_sa: 'A Fé que Emerge das Águas',
+    estacio: 'A Fé que Emerge das Águas',
+    cubango: 'Igbá Cubango - A Alma das Coisas e a Arte dos Milagres',
+    academicos_do_cubango: 'Igbá Cubango - A Alma das Coisas e a Arte dos Milagres',
+    porto_da_pedra: 'Antônio Pitanga - Um Negro em Movimento',
+    unidos_do_porto_da_pedra: 'Antônio Pitanga - Um Negro em Movimento',
+    imperio_da_tijuca: 'Império do Café, o Vale da Esperança',
+    santa_cruz: 'Ruth de Souza – Senhora Liberdade, Abre as Asas sobre Nós',
+    academicos_de_santa_cruz: 'Ruth de Souza – Senhora Liberdade, Abre as Asas sobre Nós',
+    unidos_padre_miguel: 'Qualquer Semelhança não terá sido mera Coincidência',
+    padre_miguel: 'Qualquer Semelhança não terá sido mera Coincidência',
+    renascer_jacarepagua: 'Dois de Fevereiro, no Rio Vermelho',
+    renascer_de_jacarepagua: 'Dois de Fevereiro, no Rio Vermelho',
+    renascer: 'Dois de Fevereiro, no Rio Vermelho',
+    unidos_de_bangu: 'Do Ventre da Terra, Raízes para o Mundo',
+    bangu: 'Do Ventre da Terra, Raízes para o Mundo',
+    inocentes: 'O Frasco do Bandoleiro',
+    inocentes_de_belford_roxo: 'O Frasco do Bandoleiro',
+    unidos_da_ponte: 'Oferendas',
+    ponte: 'Oferendas',
+    rocinha: 'Bananas para o Preconceito',
+    academicos_da_rocinha: 'Bananas para o Preconceito',
+    academicos_do_sossego: 'Não se meta com minha fé, acredito em quem quiser',
+    sossego: 'Não se meta com minha fé, acredito em quem quiser',
+    alegria_da_zona_sul: 'Saravá, Umbanda!',
+    alegria: 'Saravá, Umbanda!'
   },
   2018: {
     beija_flor: 'Monstro É Aquele que Não Sabe Amar (Os Filhos Abandonados da Pátria que os Pariu)',
@@ -2161,6 +2206,10 @@ export function getHistoricalEnredo(
       const canonical = getCanonical2020Enredo(schoolId, schoolName);
       if (canonical?.title) return canonical.title;
     }
+    if (year === 2019) {
+      const canonical = getCanonical2019Enredo(schoolId, schoolName);
+      if (canonical?.title) return canonical.title;
+    }
 
     const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[year];
     if (yearRecords) {
@@ -2270,6 +2319,12 @@ export function getSchoolHistoricalEnredosList(
   const can2020 = getCanonical2020Enredo(schoolId, schoolName);
   if (can2020?.title) {
     enredosMap.set(2020, can2020.title);
+  }
+
+  // Garante que o enredo canônico oficial de 2019 seja registrado de forma autoritativa
+  const can2019 = getCanonical2019Enredo(schoolId, schoolName);
+  if (can2019?.title) {
+    enredosMap.set(2019, can2019.title);
   }
 
   // 2. Histórico de enredos gravado no save (inGameHistory para anos > 2026 ou sem registro)
