@@ -287,6 +287,7 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('unidos de lucas') || raw.includes('lucas')) return 'unidos_de_lucas';
   if (raw.includes('olaria')) return 'independentes_olaria';
   if (raw.includes('arrastão') || raw.includes('arrastao')) return 'arrastao_cascadura';
+  if (raw.includes('renascer') && !raw.includes('nova iguaçu') && !raw.includes('nova iguacu') && !raw.includes('vaz lobo')) return 'renascer_jacarepagua';
   if (raw.includes('união de jacarepaguá') || raw.includes('uniao de jacarepagua') || raw.includes('jacarepaguá') || raw.includes('jacarepagua')) return 'uniao_de_jacarepagua';
   return (schoolId || '').toLowerCase().trim();
 }
@@ -748,6 +749,161 @@ export function getCanonical2022Enredo(schoolId?: string, schoolName?: string): 
   const normId = normalizeCanonicalSchoolId(schoolId, schoolName);
   return CANONICAL_2022_ENREDOS[normId];
 }
+
+export const CANONICAL_2020_ENREDOS: Record<string, CanonicalEnredoInfo> = {
+  // GRUPO ESPECIAL 2020
+  viradouro: {
+    schoolId: 'viradouro',
+    title: 'Viradouro de Alma Lavada',
+    themeType: 'Afro-Brasileiro & Religioso'
+  },
+  grande_rio: {
+    schoolId: 'grande_rio',
+    title: 'Tata Londirá: o Canto do Caboclo no Quilombo de Caxias',
+    themeType: 'Afro-Brasileiro & Religioso'
+  },
+  mocidade: {
+    schoolId: 'mocidade',
+    title: 'Elza Deusa Soares',
+    themeType: 'Homenagem & Música'
+  },
+  beija_flor: {
+    schoolId: 'beija_flor',
+    title: 'Se Essa Rua Fosse Minha',
+    themeType: 'Cultural & Poético'
+  },
+  salgueiro: {
+    schoolId: 'salgueiro',
+    title: 'O Rei Negro do Picadeiro',
+    themeType: 'Homenagem & Circo'
+  },
+  mangueira: {
+    schoolId: 'mangueira',
+    title: 'A Verdade vos fará Livre',
+    themeType: 'Crítica Social & Religioso'
+  },
+  portela: {
+    schoolId: 'portela',
+    title: 'Guajupiá - Terra sem Males',
+    themeType: 'Indígena & Mítico'
+  },
+  vila_isabel: {
+    schoolId: 'vila_isabel',
+    title: 'Gigante pela própria Natureza: Jaçanã e um Índio chamado Brasil',
+    themeType: 'Indígena & Histórico'
+  },
+  tijuca: {
+    schoolId: 'tijuca',
+    title: 'Onde Moram os Sonhos',
+    themeType: 'Cultural & Arquitetura'
+  },
+  sao_clemente: {
+    schoolId: 'sao_clemente',
+    title: 'O Conto do Vigário',
+    themeType: 'Crítica Social & Humor'
+  },
+  tuiuti: {
+    schoolId: 'tuiuti',
+    title: 'O Santo e o Rei: Encantarias de Sebastião',
+    themeType: 'Religioso & Folclore'
+  },
+  estacio_de_sa: {
+    schoolId: 'estacio_de_sa',
+    title: 'Pedra',
+    themeType: 'Cultural & Histórico'
+  },
+  uniao_da_ilha: {
+    schoolId: 'uniao_da_ilha',
+    title: 'Nas Encruzilhadas da Vida, entre becos, ruas e vielas, a Sorte está Lançada: Salvem-se quem puder!',
+    themeType: 'Crítica Social'
+  },
+
+  // SÉRIE OURO 2020
+  imperatriz: {
+    schoolId: 'imperatriz',
+    title: 'Só dá Lalá',
+    themeType: 'Homenagem & Carnaval'
+  },
+  unidos_padre_miguel: {
+    schoolId: 'unidos_padre_miguel',
+    title: 'Ginga',
+    themeType: 'Afro-Brasileiro & Capoeira'
+  },
+  porto_da_pedra: {
+    schoolId: 'porto_da_pedra',
+    title: 'O que é que a Baiana tem? Do Bonfim à Sapucaí',
+    themeType: 'Regional & Homenagem'
+  },
+  inocentes: {
+    schoolId: 'inocentes',
+    title: 'Marta do Brasil - Chorar no Começo para Sorrir no Fim',
+    themeType: 'Homenagem & Esporte'
+  },
+  cubango: {
+    schoolId: 'cubango',
+    title: 'A Voz da Liberdade',
+    themeType: 'Afro-Brasileiro & Histórico'
+  },
+  imperio_da_tijuca: {
+    schoolId: 'imperio_da_tijuca',
+    title: 'Quimeras de um Eterno Aprendiz',
+    themeType: 'Cultural & Educação'
+  },
+  santa_cruz: {
+    schoolId: 'santa_cruz',
+    title: 'Santa Cruz de Barbalha - Um conto popular no Cariri Cearense',
+    themeType: 'Regional & Folclore'
+  },
+  academicos_do_sossego: {
+    schoolId: 'academicos_do_sossego',
+    title: 'Os Tambores de Olokun',
+    themeType: 'Afro-Brasileiro & Religioso'
+  },
+  imperio_serrano: {
+    schoolId: 'imperio_serrano',
+    title: 'Lugar de Mulher é onde ela Quiser!',
+    themeType: 'Social & Feminismo'
+  },
+  unidos_de_bangu: {
+    schoolId: 'unidos_de_bangu',
+    title: 'Memórias de um Griô: a Diáspora Africana numa Idade nada Moderna e muito menos Contemporânea',
+    themeType: 'Afro-Brasileiro & Histórico'
+  },
+  vigario_geral: {
+    schoolId: 'vigario_geral',
+    title: 'O Conto do Vigário',
+    themeType: 'Crítica Social & Humor'
+  },
+  unidos_da_ponte: {
+    schoolId: 'unidos_da_ponte',
+    title: 'Elos da Eternidade',
+    themeType: 'Filosófico & Religioso'
+  },
+  renascer_jacarepagua: {
+    schoolId: 'renascer_jacarepagua',
+    title: 'Eu que te Benzo, Deus que te Cura',
+    themeType: 'Religioso & Folclore'
+  },
+  renascer_de_jacarepagua: {
+    schoolId: 'renascer_jacarepagua',
+    title: 'Eu que te Benzo, Deus que te Cura',
+    themeType: 'Religioso & Folclore'
+  },
+  rocinha: {
+    schoolId: 'rocinha',
+    title: 'A Guerreira Negra que Dominou Dois Mundos',
+    themeType: 'Afro-Brasileiro & Histórico'
+  }
+};
+
+/**
+ * Retorna o enredo oficial original de 2020 para uma agremiação
+ */
+export function getCanonical2020Enredo(schoolId?: string, schoolName?: string): CanonicalEnredoInfo | undefined {
+  const normId = normalizeCanonicalSchoolId(schoolId, schoolName);
+  return CANONICAL_2020_ENREDOS[normId];
+}
+
 
 
 

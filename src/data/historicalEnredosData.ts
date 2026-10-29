@@ -8,6 +8,8 @@ import {
   getCanonical2023Enredo,
   CANONICAL_2022_ENREDOS,
   getCanonical2022Enredo,
+  CANONICAL_2020_ENREDOS,
+  getCanonical2020Enredo,
   normalizeCanonicalSchoolId
 } from './canonicalEnredosRegistry';
 
@@ -20,6 +22,8 @@ export {
   getCanonical2023Enredo,
   CANONICAL_2022_ENREDOS,
   getCanonical2022Enredo,
+  CANONICAL_2020_ENREDOS,
+  getCanonical2020Enredo,
   normalizeCanonicalSchoolId
 };
 
@@ -279,19 +283,61 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     academicos_do_cubango: 'O Amor Preto Cura: Chica Xavier, a Mãe Baiana do Brasil'
   },
   2020: {
+    // Grupo Especial 2020
     viradouro: 'Viradouro de Alma Lavada',
-    grande_rio: 'Tata Londirá: O Canto do Caboclo no Quilombo de Caxias',
+    unidos_do_viradouro: 'Viradouro de Alma Lavada',
+    grande_rio: 'Tata Londirá: o Canto do Caboclo no Quilombo de Caxias',
+    academicos_do_grande_rio: 'Tata Londirá: o Canto do Caboclo no Quilombo de Caxias',
     mocidade: 'Elza Deusa Soares',
-    beija_flor: 'Guajupiá, Terra Sem Males',
+    mocidade_independente: 'Elza Deusa Soares',
+    mocidade_independente_de_padre_miguel: 'Elza Deusa Soares',
+    beija_flor: 'Se Essa Rua Fosse Minha',
+    beija_flor_de_nilopolis: 'Se Essa Rua Fosse Minha',
     salgueiro: 'O Rei Negro do Picadeiro',
-    mangueira: 'A Verdade Vos Fará Livre',
-    portela: 'Guajajara de Todos os Santos',
-    vila_isabel: 'Gigante Pela Própria Natureza: Jaçanã e a Força da Floresta',
+    academicos_do_salgueiro: 'O Rei Negro do Picadeiro',
+    mangueira: 'A Verdade vos fará Livre',
+    estacao_primeira_de_mangueira: 'A Verdade vos fará Livre',
+    portela: 'Guajupiá - Terra sem Males',
+    vila_isabel: 'Gigante pela própria Natureza: Jaçanã e um Índio chamado Brasil',
+    unidos_de_vila_isabel: 'Gigante pela própria Natureza: Jaçanã e um Índio chamado Brasil',
     tijuca: 'Onde Moram os Sonhos',
+    unidos_da_tijuca: 'Onde Moram os Sonhos',
     sao_clemente: 'O Conto do Vigário',
-    tuiuti: 'O Santo dos Pobres',
-    estacio_de_sa: 'Pedra: O Segredo do Saber',
-    uniao_da_ilha: 'Nas Encruzilhadas da Vida, Entre Becos, Ruas e Vielas'
+    tuiuti: 'O Santo e o Rei: Encantarias de Sebastião',
+    paraiso_do_tuiuti: 'O Santo e o Rei: Encantarias de Sebastião',
+    estacio_de_sa: 'Pedra',
+    estacio: 'Pedra',
+    uniao_da_ilha: 'Nas Encruzilhadas da Vida, entre becos, ruas e vielas, a Sorte está Lançada: Salvem-se quem puder!',
+    ilha: 'Nas Encruzilhadas da Vida, entre becos, ruas e vielas, a Sorte está Lançada: Salvem-se quem puder!',
+
+    // Série Ouro 2020
+    imperatriz: 'Só dá Lalá',
+    imperatriz_leopoldinense: 'Só dá Lalá',
+    unidos_padre_miguel: 'Ginga',
+    padre_miguel: 'Ginga',
+    porto_da_pedra: 'O que é que a Baiana tem? Do Bonfim à Sapucaí',
+    unidos_do_porto_da_pedra: 'O que é que a Baiana tem? Do Bonfim à Sapucaí',
+    inocentes: 'Marta do Brasil - Chorar no Começo para Sorrir no Fim',
+    inocentes_de_belford_roxo: 'Marta do Brasil - Chorar no Começo para Sorrir no Fim',
+    cubango: 'A Voz da Liberdade',
+    academicos_do_cubango: 'A Voz da Liberdade',
+    imperio_da_tijuca: 'Quimeras de um Eterno Aprendiz',
+    santa_cruz: 'Santa Cruz de Barbalha - Um conto popular no Cariri Cearense',
+    academicos_de_santa_cruz: 'Santa Cruz de Barbalha - Um conto popular no Cariri Cearense',
+    academicos_do_sossego: 'Os Tambores de Olokun',
+    sossego: 'Os Tambores de Olokun',
+    imperio_serrano: 'Lugar de Mulher é onde ela Quiser!',
+    unidos_de_bangu: 'Memórias de um Griô: a Diáspora Africana numa Idade nada Moderna e muito menos Contemporânea',
+    bangu: 'Memórias de um Griô: a Diáspora Africana numa Idade nada Moderna e muito menos Contemporânea',
+    vigario_geral: 'O Conto do Vigário',
+    academicos_de_vigario_geral: 'O Conto do Vigário',
+    unidos_da_ponte: 'Elos da Eternidade',
+    ponte: 'Elos da Eternidade',
+    renascer_jacarepagua: 'Eu que te Benzo, Deus que te Cura',
+    renascer_de_jacarepagua: 'Eu que te Benzo, Deus que te Cura',
+    renascer: 'Eu que te Benzo, Deus que te Cura',
+    rocinha: 'A Guerreira Negra que Dominou Dois Mundos',
+    academicos_da_rocinha: 'A Guerreira Negra que Dominou Dois Mundos'
   },
   2019: {
     mangueira: 'História pra Ninar Gente Grande',
@@ -2111,6 +2157,10 @@ export function getHistoricalEnredo(
       const canonical = getCanonical2022Enredo(schoolId, schoolName);
       if (canonical?.title) return canonical.title;
     }
+    if (year === 2020) {
+      const canonical = getCanonical2020Enredo(schoolId, schoolName);
+      if (canonical?.title) return canonical.title;
+    }
 
     const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[year];
     if (yearRecords) {
@@ -2214,6 +2264,12 @@ export function getSchoolHistoricalEnredosList(
   const can2022 = getCanonical2022Enredo(schoolId, schoolName);
   if (can2022?.title) {
     enredosMap.set(2022, can2022.title);
+  }
+
+  // Garante que o enredo canônico oficial de 2020 seja registrado de forma autoritativa
+  const can2020 = getCanonical2020Enredo(schoolId, schoolName);
+  if (can2020?.title) {
+    enredosMap.set(2020, can2020.title);
   }
 
   // 2. Histórico de enredos gravado no save (inGameHistory para anos > 2026 ou sem registro)

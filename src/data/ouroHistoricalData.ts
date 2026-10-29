@@ -675,7 +675,124 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
     }
   ],
-  2021: []
+  2021: [],
+  2020: [
+    {
+      rank: 1,
+      schoolId: 'imperatriz',
+      schoolName: 'Imperatriz Leopoldinense',
+      enredo: 'Só dá Lalá',
+      totalScore: 270.0,
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã e Promovida ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'Ginga',
+      totalScore: 269.6,
+      statusDescription: 'Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'porto_da_pedra',
+      schoolName: 'Unidos do Porto da Pedra',
+      enredo: 'O que é que a Baiana tem? Do Bonfim à Sapucaí',
+      totalScore: 269.2,
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'inocentes',
+      schoolName: 'Inocentes de Belford Roxo',
+      enredo: 'Marta do Brasil - Chorar no Começo para Sorrir no Fim',
+      totalScore: 268.8,
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'A Voz da Liberdade',
+      totalScore: 268.8,
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Quimeras de um Eterno Aprendiz',
+      totalScore: 268.6,
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Santa Cruz de Barbalha - Um conto popular no Cariri Cearense',
+      totalScore: 268.5,
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'academicos_do_sossego',
+      schoolName: 'Acadêmicos do Sossego',
+      enredo: 'Os Tambores de Olokun',
+      totalScore: 268.1,
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'imperio_serrano',
+      schoolName: 'Império Serrano',
+      enredo: 'Lugar de Mulher é onde ela Quiser!',
+      totalScore: 268.1,
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: 'Memórias de um Griô: a Diáspora Africana numa Idade nada Moderna e muito menos Contemporânea',
+      totalScore: 268.1,
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'vigario_geral',
+      schoolName: 'Acadêmicos de Vigário Geral',
+      enredo: 'O Conto do Vigário',
+      totalScore: 267.8,
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Elos da Eternidade',
+      totalScore: 267.2,
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'renascer_jacarepagua',
+      schoolName: 'Renascer de Jacarepaguá',
+      enredo: 'Eu que te Benzo, Deus que te Cura',
+      totalScore: 266.1,
+      relegated: true,
+      statusDescription: '13ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 14,
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: 'A Guerreira Negra que Dominou Dois Mundos',
+      totalScore: 265.4,
+      relegated: true,
+      statusDescription: '14ª (rebaixada) • Rebaixada para a Série Prata'
+    }
+  ]
 };
 
 /**
@@ -687,7 +804,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   2024: 'Carnaval de 2024: Unidos de Padre Miguel Campeã e promovida ao Grupo Especial (com nota máxima). Império da Tijuca e Sereno de Campo Grande rebaixadas para a Série Prata.',
   2023: 'Carnaval de 2023: Unidos do Porto da Pedra Campeã e promovida ao Grupo Especial. Lins Imperial e União de Jacarepaguá rebaixadas para a Série Prata.',
   2022: 'Carnaval de 2022: Império Serrano Campeã e promovida ao Grupo Especial com o enredo "Mangangá". Acadêmicos de Santa Cruz e Acadêmicos do Cubango rebaixadas para a Série Prata.',
-  2021: 'Carnaval de 2021: Não houve desfiles da Série Ouro no Sambódromo da Marquês de Sapucaí em virtude da pandemia de COVID-19.'
+  2021: 'Carnaval de 2021: Não houve desfiles da Série Ouro no Sambódromo da Marquês de Sapucaí em virtude da pandemia de COVID-19.',
+  2020: 'Carnaval de 2020: Imperatriz Leopoldinense Campeã com nota máxima e promovida ao Grupo Especial com o enredo "Só dá Lalá". Renascer de Jacarepaguá e Acadêmicos da Rocinha rebaixadas para a Série Prata.'
 };
 
 /**

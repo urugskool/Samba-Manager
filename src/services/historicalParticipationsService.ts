@@ -37,6 +37,7 @@ export interface GroupParticipationRecord {
  */
 function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<string, School>): string {
   const clean = (rawId || '').toLowerCase().trim();
+  if (clean === 'renascer_de_jacarepagua' || clean === 'renascer_jacarepagua') return 'renascer_jacarepagua';
   if (clean && schoolsMap?.has(clean)) return clean;
 
   const name = (rawName || '').toLowerCase().trim();
@@ -73,6 +74,10 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('cubango')) return 'cubango';
   if (name.includes('rocinha')) return 'rocinha';
   if (name.includes('lins')) return 'lins_imperial';
+  if (name.includes('sossego')) return 'academicos_do_sossego';
+  if (name.includes('renascer de nova iguaçu') || name.includes('renascer de nova iguacu')) return 'renascer_de_nova_iguacu';
+  if (name.includes('renascer de vaz lobo')) return 'gres_renascer_de_vaz_lobo';
+  if (name.includes('renascer')) return 'renascer_jacarepagua';
   if (name.includes('caprichosos')) return 'caprichosos_de_pilares';
   if (name.includes('lucas')) return 'unidos_de_lucas';
 
