@@ -2149,7 +2149,7 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 9, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
     { rank: 10, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
     { rank: 11, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra' },
-    { rank: 12, schoolId: 'sao_clemente', schoolName: 'São Clemente' }
+    { rank: 12, schoolId: 'sao_clemente', schoolName: 'São Clemente', statusDescription: '12ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   2009: [
     { rank: 1, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },
