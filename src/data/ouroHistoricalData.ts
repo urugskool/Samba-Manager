@@ -1474,6 +1474,293 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '17ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  2013: [
+    {
+      rank: 1,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Negra, pérola mulher',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'viradouro',
+      schoolName: 'Unidos do Viradouro',
+      enredo: 'Nem melhor nem pior, que não sai da minha mente. Inspiração para o meu samba, eu também sou diferente!',
+      statusDescription: '2ª Colocada • Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'imperio_serrano',
+      schoolName: 'Império Serrano',
+      enredo: 'Caxambu - O milagre das águas na fonte do samba',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Estácio de Sá',
+      enredo: 'Rildo Hora: A ópera de um menino... O toque do realejo rege o seu destino!',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: 'Mistura de sabores e raças: uma feijoada à brasileira',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'Fanatismo... Enigma da mente humana',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'O reencontro entre o céu e a terra no reino de Aláàfin Óyo',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'renascer_jacarepagua',
+      schoolName: 'Renascer de Jacarepaguá',
+      enredo: 'Rio, uma viagem alucinante',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'porto_da_pedra',
+      schoolName: 'Unidos do Porto da Pedra',
+      enredo: 'Me digas o que calças e eu te direis quem és!',
+      statusDescription: '9ª Colocada'
+    },
+    {
+      rank: 10,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'O dragão do mar e a lenda do Ceará',
+      statusDescription: '10ª Colocada'
+    },
+    {
+      rank: 11,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'Teimosias da imaginação',
+      statusDescription: '11ª Colocada'
+    },
+    {
+      rank: 12,
+      schoolId: 'curicica',
+      schoolName: 'União do Parque Curicica',
+      enredo: 'Quando o samba era samba',
+      statusDescription: '12ª Colocada'
+    },
+    {
+      rank: 13,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Ao mestre do riso com carinho: as caras do Brasil',
+      statusDescription: '13ª Colocada'
+    },
+    {
+      rank: 14,
+      schoolId: 'alegria_da_zona_sul',
+      schoolName: 'Alegria da Zona Sul',
+      enredo: 'Quem não chora, não mama...',
+      statusDescription: '14ª Colocada'
+    },
+    {
+      rank: 15,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Dos Barões do café à cidade universitária. Vassouras, ouro verde do Brasil!',
+      statusDescription: '15ª Colocada'
+    },
+    {
+      rank: 16,
+      schoolId: 'tradicao',
+      schoolName: 'Tradição',
+      enredo: 'Das maravilhas do mar, fez-se o esplendor de uma noite',
+      statusDescription: '16ª Colocada'
+    },
+    {
+      rank: 17,
+      schoolId: 'sereno_campo_grande',
+      schoolName: 'Sereno de Campo Grande',
+      enredo: 'Na busca da paz, equilíbrio e harmonia. Bem aventurados sejam os que ouvem a voz de Deus!',
+      relegated: true,
+      statusDescription: '17ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 18,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Puxador, não. Intérprete! Por Mestre Jamelão!',
+      relegated: true,
+      statusDescription: '18ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 19,
+      schoolId: 'vila_santa_tereza',
+      schoolName: 'Unidos da Vila Santa Tereza',
+      enredo: 'Axé - No caminho das águas sagradas',
+      relegated: true,
+      statusDescription: '19ª (rebaixada) • Rebaixada para a Série Prata'
+    }
+  ],
+  2012: [
+    {
+      rank: 1,
+      schoolId: 'inocentes',
+      schoolName: 'Inocentes de Belford Roxo',
+      enredo: 'Corumbá – Ópera Tupi Guaikuru',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'imperio_serrano',
+      schoolName: 'Império Serrano',
+      enredo: 'Dona Ivone Lara: O enredo do meu samba',
+      statusDescription: '2ª Colocada • Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Utopias - viagens aos confins da imaginação',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'Barão de Mauá — Sonho de um Brasil moderno',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'viradouro',
+      schoolName: 'Unidos do Viradouro',
+      enredo: 'A vida como ela é, bonitinha, mas ordinária... Assim falou Nelson Rodrigues',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Nas ondas do rádio... Acorda Brasil para escutar! O show do Antônio Carlos está no ar!',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Estácio de Sá',
+      enredo: 'Luma de Oliveira: coração de um país em festa!',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: 'Vou colocar teu nome na praça',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Clara Nunes - A tal mineira',
+      statusDescription: '9ª Colocada'
+    }
+  ],
+  2011: [
+    {
+      rank: 1,
+      schoolId: 'renascer_jacarepagua',
+      schoolName: 'Renascer de Jacarepaguá',
+      enredo: 'Águas de Março',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'viradouro',
+      schoolName: 'Unidos do Viradouro',
+      enredo: 'Quem sou eu sem você?',
+      statusDescription: '2ª Colocada • Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Estácio de Sá',
+      enredo: 'Rosas',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'A emoção está no ar!',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Paz e amor, o sonho não acabou...',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'imperio_serrano',
+      schoolName: 'Império Serrano',
+      enredo: 'A Benção, Vinícius',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'O Mundo em Carnaval - Um olhar sobre a cultura dos povos',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'inocentes',
+      schoolName: 'Inocentes de Belford Roxo',
+      enredo: 'De Guarulhos para o palco da folia, sonhos, irreverência e alegria. Mamonas para sempre!',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: 'Rocinha! Estou Vidrado em Você',
+      statusDescription: '9ª Colocada'
+    },
+    {
+      rank: 10,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'Gente Humilde',
+      relegated: true,
+      statusDescription: '10ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 11,
+      schoolId: 'alegria_da_zona_sul',
+      schoolName: 'Alegria da Zona Sul',
+      enredo: 'Os Doze Obás de Xangô',
+      relegated: true,
+      statusDescription: '11ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -1493,7 +1780,10 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   2017: 'Carnaval de 2017: Império Serrano Campeã e promovida ao Grupo Especial com o enredo "Meu quintal é maior do que o mundo". União do Parque Curicica rebaixada para a Série Prata.',
   2016: 'Carnaval de 2016: Paraíso do Tuiuti Campeã e promovida ao Grupo Especial com o enredo "A Farra do Boi". Caprichosos de Pilares rebaixada para a Série Prata.',
   2015: 'Carnaval de 2015: Estácio de Sá Campeã e promovida ao Grupo Especial com o enredo "De braços abertos, de janeiro à janeiro. Sorrio, sou Rio, sou Estácio de Sá!". Unidos de Bangu e Em Cima da Hora rebaixadas para a Série Prata.',
-  2014: 'Carnaval de 2014: Unidos do Viradouro Campeã e promovida ao Grupo Especial com o enredo "Sou a terra de Ismael. Guanabaran vou cruzar, para você tiro o chapéu, Rio eu vim te abraçar". União de Jacarepaguá, Acadêmicos da Rocinha e Tradição rebaixadas para a Série Prata.'
+  2014: 'Carnaval de 2014: Unidos do Viradouro Campeã e promovida ao Grupo Especial com o enredo "Sou a terra de Ismael. Guanabaran vou cruzar, para você tiro o chapéu, Rio eu vim te abraçar". União de Jacarepaguá, Acadêmicos da Rocinha e Tradição rebaixadas para a Série Prata.',
+  2013: 'Carnaval de 2013: Império da Tijuca Campeã e promovida ao Grupo Especial com o enredo "Negra, pérola mulher". Sereno de Campo Grande, Unidos do Jacarezinho e Unidos da Vila Santa Tereza rebaixadas para a Série Prata.',
+  2012: 'Carnaval de 2012: (Não houve rebaixamento) • Inocentes de Belford Roxo Campeã e promovida ao Grupo Especial com o enredo "Corumbá – Ópera Tupi Guaikuru".',
+  2011: 'Carnaval de 2011: Renascer de Jacarepaguá Campeã e promovida ao Grupo Especial com o enredo "Águas de Março". Caprichosos de Pilares e Alegria da Zona Sul rebaixadas para a Série Prata.'
 };
 
 /**

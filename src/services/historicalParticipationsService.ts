@@ -82,6 +82,8 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('curicica') || clean.includes('curicica')) return 'curicica';
   if (name.includes('caprichosos')) return 'caprichosos_de_pilares';
   if (name.includes('lucas')) return 'unidos_de_lucas';
+  if (name.includes('sereno') || clean.includes('sereno')) return 'sereno_campo_grande';
+  if (name.includes('santa tereza') || name.includes('santa teresa') || clean.includes('santa_tereza')) return 'vila_santa_tereza';
 
   return clean || name.replace(/\s+/g, '_');
 }

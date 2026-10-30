@@ -2205,8 +2205,8 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 9, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
     { rank: 10, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
     { rank: 11, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
-    { rank: 12, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra' },
-    { rank: 13, schoolId: 'renascer_jacarepagua', schoolName: 'Renascer de Jacarepaguá' }
+    { rank: 12, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra', statusDescription: '12ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true },
+    { rank: 13, schoolId: 'renascer_jacarepagua', schoolName: 'Renascer de Jacarepaguá', statusDescription: '13ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   2013: [
     { rank: 1, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
@@ -2220,7 +2220,7 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 9, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
     { rank: 10, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
     { rank: 11, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
-    { rank: 12, schoolId: 'inocentes', schoolName: 'Inocentes de Belford Roxo' }
+    { rank: 12, schoolId: 'inocentes', schoolName: 'Inocentes de Belford Roxo', statusDescription: '12ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   2014: [
     { rank: 1, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
