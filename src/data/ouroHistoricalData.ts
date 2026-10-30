@@ -1761,6 +1761,95 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '11ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  2010: [
+    {
+      rank: 1,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'Choque de Ordem na folia',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'inocentes',
+      schoolName: 'Inocentes de Belford Roxo',
+      enredo: 'Água para prover a vida',
+      statusDescription: '2ª Colocada • Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Estácio de Sá',
+      enredo: 'Deixa falar. A Estácio é isso ai! Eu visto esse manto e vou por ai...',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Nos passos do compasso',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Suprema Jinga - Senhora do trono Brazngola',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'imperio_serrano',
+      schoolName: 'Império Serrano',
+      enredo: 'João das ruas do Rio',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'E por falar em saudade',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'renascer_jacarepagua',
+      schoolName: 'Renascer de Jacarepaguá',
+      enredo: 'Aquaticópolis',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'Os loucos da praia chamada saudade',
+      statusDescription: '9ª Colocada'
+    },
+    {
+      rank: 10,
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: 'Ykamiabas',
+      statusDescription: '10ª Colocada'
+    },
+    {
+      rank: 11,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'Aço – Universo presente na riqueza da Terra – O futuro a ti pertence!',
+      relegated: true,
+      statusDescription: '11ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 12,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Eneida, o pierrôt está de volta!',
+      relegated: true,
+      statusDescription: '12ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -1783,7 +1872,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   2014: 'Carnaval de 2014: Unidos do Viradouro Campeã e promovida ao Grupo Especial com o enredo "Sou a terra de Ismael. Guanabaran vou cruzar, para você tiro o chapéu, Rio eu vim te abraçar". União de Jacarepaguá, Acadêmicos da Rocinha e Tradição rebaixadas para a Série Prata.',
   2013: 'Carnaval de 2013: Império da Tijuca Campeã e promovida ao Grupo Especial com o enredo "Negra, pérola mulher". Sereno de Campo Grande, Unidos do Jacarezinho e Unidos da Vila Santa Tereza rebaixadas para a Série Prata.',
   2012: 'Carnaval de 2012: (Não houve rebaixamento) • Inocentes de Belford Roxo Campeã e promovida ao Grupo Especial com o enredo "Corumbá – Ópera Tupi Guaikuru".',
-  2011: 'Carnaval de 2011: Renascer de Jacarepaguá Campeã e promovida ao Grupo Especial com o enredo "Águas de Março". Caprichosos de Pilares e Alegria da Zona Sul rebaixadas para a Série Prata.'
+  2011: 'Carnaval de 2011: Renascer de Jacarepaguá Campeã e promovida ao Grupo Especial com o enredo "Águas de Março". Caprichosos de Pilares e Alegria da Zona Sul rebaixadas para a Série Prata.',
+  2010: 'Carnaval de 2010: São Clemente Campeã e promovida ao Grupo Especial com o enredo "Choque de Ordem na folia". Unidos de Padre Miguel e Paraíso do Tuiuti rebaixadas para a Série Prata.'
 };
 
 /**

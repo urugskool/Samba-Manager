@@ -2177,7 +2177,7 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 9, schoolId: 'portela', schoolName: 'Portela' },
     { rank: 10, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra' },
     { rank: 11, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
-    { rank: 12, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro' }
+    { rank: 12, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro', statusDescription: '12ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   2011: [
     { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
