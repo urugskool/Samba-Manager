@@ -235,13 +235,16 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
 
   const isNoRelegationYear = currentPastCarnaval
     ? currentPastCarnaval.year <= 1952 ||
-      [1971, 1974, 1975, 1979, 1981, 1983, 1988, 1993, 1994, 2011, 2017, 2018].includes(currentPastCarnaval.year)
+      [1971, 1974, 1975, 1979, 1981, 1983, 1988, 1993, 1994, 2011, 2017, 2018, 2021].includes(currentPastCarnaval.year)
     : false;
 
   const pastCarnavalRelegations = useMemo(() => {
     if (!currentPastCarnaval || currentPastCarnaval.isNoCarnaval || isNoRelegationYear) return [];
-    const relegated = currentPastCarnaval.standings.filter((s) =>
-      s.statusDescription?.toLowerCase().includes('rebaixada')
+    if (currentPastCarnaval.relegatedNames && currentPastCarnaval.relegatedNames.length > 0) {
+      return currentPastCarnaval.relegatedNames;
+    }
+    const relegated = currentPastCarnaval.standings.filter(
+      (s) => s.relegated || s.statusDescription?.toLowerCase().includes('rebaixada')
     );
     if (relegated.length > 0) {
       return Array.from(new Set(relegated.map((s) => s.schoolName)));
@@ -259,11 +262,17 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
     setExpandedPartSchoolId((prev) => (prev === schoolId ? null : schoolId));
   };
 
-  const getRankBadge = (rank: number, statusDescription?: string) => {
-    if (statusDescription?.toLowerCase().includes('rebaixada')) {
+  const getRankBadge = (
+    rank: number,
+    statusDescription?: string,
+    isRelegated?: boolean,
+    isHorsConcours?: boolean
+  ) => {
+    const relegated = isRelegated || statusDescription?.toLowerCase().includes('rebaixada');
+    if (isHorsConcours || rank === 0) {
       return (
-        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 text-xs font-bold">
-          {rank}º Rebaixada
+        <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-purple-500/20 text-purple-300 border border-purple-500/40 text-xs font-bold">
+          HC
         </span>
       );
     }
@@ -288,6 +297,14 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-amber-700/25 text-amber-400 border border-amber-600/40 font-bold text-xs">
           <Medal className="w-3 h-3 text-amber-500" />
           3º Lugar
+        </span>
+      );
+    }
+    if (relegated) {
+      return (
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/40 text-xs font-bold shadow-sm">
+          <ArrowDownCircle className="w-3.5 h-3.5 text-rose-400" />
+          {rank}º Rebaixada
         </span>
       );
     }
@@ -533,6 +550,18 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                             <span className="text-slate-200 font-bold">{currentPastCarnaval.viceChampionNames.join(' & ')}</span>
                           </div>
                         )}
+                        {pastCarnavalRelegations.length > 0 ? (
+                          <div className="flex items-center gap-1.5">
+                            <ArrowDownCircle className="w-3.5 h-3.5 text-rose-400" />
+                            <span className="text-slate-400">Rebaixada(s) para a Série Ouro:</span>
+                            <span className="text-rose-300 font-bold">{pastCarnavalRelegations.join(', ')}</span>
+                          </div>
+                        ) : isNoRelegationYear ? (
+                          <div className="flex items-center gap-1.5 text-slate-400 italic">
+                            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                            <span>(Não houve rebaixamento neste ano)</span>
+                          </div>
+                        ) : null}
                       </div>
 
                       {currentPastCarnaval.notes && (
@@ -799,8 +828,9 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                             <th className="py-3 px-4 w-28">Colocação</th>
                             <th className="py-3 px-4">Agremiação</th>
                             <th className="py-3 px-4 hidden md:table-cell">Enredo Histórico</th>
+                            <th className="py-3 px-4 text-center">Situação / Status</th>
                             <th className="py-3 px-4 text-center w-24">Pontos</th>
-                            <th className="py-3 px-3 text-right w-16"></th>
+                            <th className="py-3 px-3 text-right w-14"></th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-800/60 font-medium">
@@ -819,7 +849,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                   }`}
                                 >
                                   <td className="py-2.5 px-4 whitespace-nowrap">
-                                    {getRankBadge(st.rank, st.statusDescription)}
+                                    {getRankBadge(st.rank, st.statusDescription, st.relegated, st.isHorsConcours)}
                                   </td>
                                   <td className="py-2.5 px-4 font-bold text-white">
                                     <div className="flex items-center gap-2">
@@ -842,6 +872,38 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                   <td className="py-2.5 px-4 text-slate-300 hidden md:table-cell italic truncate max-w-xs">
                                     {historicalEnredo ? `"${historicalEnredo}"` : '—'}
                                   </td>
+                                  <td className="py-2.5 px-4 text-center whitespace-nowrap">
+                                    {st.isHorsConcours || st.rank === 0 ? (
+                                      <span className="px-2.5 py-1 rounded-lg bg-purple-500/20 text-purple-300 border border-purple-500/40 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
+                                        <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+                                        <span>Hors concours</span>
+                                      </span>
+                                    ) : st.rank === 1 ? (
+                                      <span className="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-400/50 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
+                                        <Crown className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                                        <span>Campeã Oficial</span>
+                                      </span>
+                                    ) : st.rank === 2 ? (
+                                      <span className="px-2.5 py-1 rounded-lg bg-slate-300/20 text-slate-200 border border-slate-300/40 text-[10px] font-bold uppercase tracking-wider inline-flex items-center gap-1.5">
+                                        <Medal className="w-3.5 h-3.5 text-slate-300" />
+                                        <span>Vice-Campeã</span>
+                                      </span>
+                                    ) : (st.relegated || st.statusDescription?.toLowerCase().includes('rebaixada')) ? (
+                                      <span className="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/40 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
+                                        <ArrowDownCircle className="w-3.5 h-3.5 text-rose-400" />
+                                        <span>Rebaixada (Série Ouro)</span>
+                                      </span>
+                                    ) : st.rank <= 6 ? (
+                                      <span className="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold uppercase tracking-wider inline-flex items-center gap-1.5">
+                                        <Award className="w-3.5 h-3.5 text-emerald-400" />
+                                        <span>Desfile das Campeãs (G6)</span>
+                                      </span>
+                                    ) : (
+                                      <span className="px-2 py-0.5 rounded-md bg-slate-900 text-slate-400 border border-slate-800 text-[10px] font-medium">
+                                        Permanece no Especial
+                                      </span>
+                                    )}
+                                  </td>
                                   <td className="py-2.5 px-4 text-center font-mono font-bold text-amber-300">
                                     {st.totalScore !== undefined
                                       ? st.totalScore.toFixed(1)
@@ -858,7 +920,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
 
                                 {isExpanded && (
                                   <tr className="bg-slate-900/80">
-                                    <td colSpan={5} className="p-4 border-t border-slate-800 space-y-2">
+                                    <td colSpan={6} className="p-4 border-t border-slate-800 space-y-2">
                                       <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-2">
                                         <div>
                                           <span className="text-slate-400">Enredo em {currentPastCarnaval.year}: </span>
@@ -936,6 +998,18 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                               <span className="text-emerald-300 font-bold">{currentPastOuroCarnaval.promotedNames.join(', ')}</span>
                             </div>
                           )}
+                          {currentPastOuroCarnaval.relegatedNames && currentPastOuroCarnaval.relegatedNames.length > 0 ? (
+                            <div className="flex items-center gap-1.5">
+                              <ArrowDownCircle className="w-3.5 h-3.5 text-rose-400" />
+                              <span className="text-slate-400">Rebaixada(s) para a Série Prata:</span>
+                              <span className="text-rose-300 font-bold">{currentPastOuroCarnaval.relegatedNames.join(', ')}</span>
+                            </div>
+                          ) : (currentPastOuroCarnaval.year === 2018 || currentPastOuroCarnaval.year === 2026) ? (
+                            <div className="flex items-center gap-1.5 text-slate-400 italic">
+                              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                              <span>(Não houve rebaixamento neste ano)</span>
+                            </div>
+                          ) : null}
                         </div>
 
                         {currentPastOuroCarnaval.notes && (
@@ -975,17 +1049,21 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                     }`}
                                   >
                                     <td className="py-3 px-4 whitespace-nowrap">
-                                      <span className={`inline-flex items-center justify-center px-2.5 py-1 rounded-lg text-xs font-black ${
+                                      <span className={`inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-lg text-xs font-black ${
                                         st.isHorsConcours || st.rank === 0
                                           ? 'bg-purple-950/80 text-purple-300 border border-purple-700/50 font-bold text-[10px]'
-                                          : st.rank === 1
+                                          : st.promoted || st.rank === 1
                                           ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
                                           : st.rank === 2
                                           ? 'bg-slate-300 text-slate-950 font-bold'
                                           : st.rank === 3
                                           ? 'bg-amber-700/60 text-amber-200 border border-amber-600/40'
+                                          : st.relegated
+                                          ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40 font-bold'
                                           : 'bg-slate-900 text-slate-300 border border-slate-800 font-mono'
                                       }`}>
+                                        {st.relegated && <ArrowDownCircle className="w-3.5 h-3.5 text-rose-400" />}
+                                        {st.promoted && st.rank === 1 && <Crown className="w-3.5 h-3.5 text-slate-950 fill-slate-950" />}
                                         {st.isHorsConcours || st.rank === 0 ? 'HC' : `${st.rank}ª`}
                                       </span>
                                     </td>
@@ -1025,7 +1103,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                       ) : st.relegated ? (
                                         <span className="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/40 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
                                           <ArrowDownCircle className="w-3.5 h-3.5 text-rose-400" />
-                                          <span>Rebaixada</span>
+                                          <span>Rebaixada (Série Prata)</span>
                                         </span>
                                       ) : (
                                         <span className="px-2 py-0.5 rounded-md bg-slate-900 text-slate-400 border border-slate-800 text-[10px] font-medium">
@@ -1078,7 +1156,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                     </div>
                     <h3 className="text-lg font-black text-white">Série Ouro em Catalogação</h3>
                     <p className="text-xs text-slate-400 max-w-md mx-auto">
-                      Os resultados da Série Ouro para o Carnaval de {selectedPastYear} ainda não foram inseridos no catálogo histórico. Os registros oficiais estão disponíveis a partir de 2017.
+                      Os resultados da Série Ouro para o Carnaval de {selectedPastYear} ainda não foram inseridos no catálogo histórico. Os registros oficiais estão disponíveis a partir de 2014.
                     </p>
                     <button
                       onClick={() => setSelectedPastYear(2026)}

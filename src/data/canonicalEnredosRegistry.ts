@@ -1342,6 +1342,151 @@ export function getCanonical2017Enredo(schoolId?: string, schoolName?: string): 
   return CANONICAL_2017_ENREDOS[normId];
 }
 
+export const CANONICAL_2016_ENREDOS: Record<string, CanonicalEnredoInfo> = {
+  // GRUPO ESPECIAL 2016
+  mangueira: {
+    schoolId: 'mangueira',
+    title: 'Maria Bethânia: a menina dos olhos de Oyá',
+    themeType: 'Homenagem & Música Popular'
+  },
+  tijuca: {
+    schoolId: 'tijuca',
+    title: 'Semeando sorriso, a Tijuca festeja o solo sagrado!',
+    themeType: 'Agricultura & Brasil'
+  },
+  portela: {
+    schoolId: 'portela',
+    title: 'No voo da Águia, uma viagem sem fim...',
+    themeType: 'Viagens & Desbravadores'
+  },
+  salgueiro: {
+    schoolId: 'salgueiro',
+    title: 'A Ópera dos Malandros',
+    themeType: 'Malandragem & Teatro Musical'
+  },
+  beija_flor: {
+    schoolId: 'beija_flor',
+    title: 'Mineirinho genial! Nova Lima - Cidade natal. Marquês de Sapucaí, o poeta imortal!',
+    themeType: 'Homenagem & Literatura'
+  },
+  imperatriz: {
+    schoolId: 'imperatriz',
+    title: '"É o amor, que mexe com a minha cabeça e me deixa assim". Do sonho de um caipira, nascem os filhos do Brasil',
+    themeType: 'Homenagem & Sertanejo'
+  },
+  grande_rio: {
+    schoolId: 'grande_rio',
+    title: 'Fui no Itororó beber água, não achei. Mas achei a bela Santos, e por ela me apaixonei...',
+    themeType: 'Cidades & Santos'
+  },
+  vila_isabel: {
+    schoolId: 'vila_isabel',
+    title: "Memórias do 'Pai Arraia' - um sonho pernambucano, um legado brasileiro!",
+    themeType: 'Homenagem & Miguel Arraes'
+  },
+  sao_clemente: {
+    schoolId: 'sao_clemente',
+    title: 'Mais de mil palhaços no salão!',
+    themeType: 'Circo & Humor'
+  },
+  mocidade: {
+    schoolId: 'mocidade',
+    title: 'O Brasil de La Mancha: sou Miguel, Padre Miguel. Sou Cervantes, sou Quixote cavaleiro, Pixote brasileiro',
+    themeType: 'Literatura & Dom Quixote'
+  },
+  uniao_da_ilha: {
+    schoolId: 'uniao_da_ilha',
+    title: 'Olímpico por natureza, todo mundo se encontra no Rio!',
+    themeType: 'Olimpíadas & Rio 2016'
+  },
+  estacio_de_sa: {
+    schoolId: 'estacio_de_sa',
+    title: 'Salve Jorge! O guerreiro na fé',
+    themeType: 'Fé & São Jorge'
+  },
+
+  // SÉRIE OURO 2016
+  tuiuti: {
+    schoolId: 'tuiuti',
+    title: 'A Farra do Boi',
+    themeType: 'Folclore & Bumba Meu Boi'
+  },
+  unidos_padre_miguel: {
+    schoolId: 'unidos_padre_miguel',
+    title: 'O Quinto dos Infernos!',
+    themeType: 'Histórico & Ouro do Brasil'
+  },
+  viradouro: {
+    schoolId: 'viradouro',
+    title: 'O Alabê de Jerusalém, a saga de Ogundana!',
+    themeType: 'Musical & Épico Religioso'
+  },
+  imperio_serrano: {
+    schoolId: 'imperio_serrano',
+    title: 'Silas canta Serrinha!',
+    themeType: 'Homenagem & Silas de Oliveira'
+  },
+  porto_da_pedra: {
+    schoolId: 'porto_da_pedra',
+    title: 'Palhaço Carequinha, paixão e orgulho de São Gonçalo. Tá certo ou não tá?',
+    themeType: 'Homenagem & Circo'
+  },
+  cubango: {
+    schoolId: 'cubango',
+    title: 'Um banho de mar à fantasia',
+    themeType: 'Carnaval Antigo & Fantasia'
+  },
+  imperio_da_tijuca: {
+    schoolId: 'imperio_da_tijuca',
+    title: 'O tempo ruge, A Sapucaí é grande e o Império aplaude o Felomenal!',
+    themeType: 'Homenagem & Giovanni Improtta'
+  },
+  renascer_jacarepagua: {
+    schoolId: 'renascer_jacarepagua',
+    title: 'Ibejís - Nas brincadeiras de criança: os orixás que viraram santos no Brasil',
+    themeType: 'Afro-Brasileiro & Cosme e Damião'
+  },
+  inocentes: {
+    schoolId: 'inocentes',
+    title: 'Cacá Diegues - Retratos de um Brasil em cena!',
+    themeType: 'Homenagem & Cinema Novo'
+  },
+  alegria_da_zona_sul: {
+    schoolId: 'alegria_da_zona_sul',
+    title: 'Ogum',
+    themeType: 'Afro-Brasileiro & Orixás'
+  },
+  curicica: {
+    schoolId: 'curicica',
+    title: 'Corações Mamulengos',
+    themeType: 'Teatro de Bonecos & Folclore'
+  },
+  santa_cruz: {
+    schoolId: 'santa_cruz',
+    title: 'Diz mata! Digo verde. A natureza veste a incerteza. E o amanhã?',
+    themeType: 'Ecológico & Preservação'
+  },
+  rocinha: {
+    schoolId: 'rocinha',
+    title: 'Nova Roma é Brasil, Brasil é Rocinha!',
+    themeType: 'Antropologia & Darcy Ribeiro'
+  },
+  caprichosos_de_pilares: {
+    schoolId: 'caprichosos_de_pilares',
+    title: 'Tem gringo no samba!',
+    themeType: 'Sátira & Turismo / Estrangeiros'
+  }
+};
+
+/**
+ * Retorna o enredo oficial original de 2016 para uma agremiação
+ */
+export function getCanonical2016Enredo(schoolId?: string, schoolName?: string): CanonicalEnredoInfo | undefined {
+  const normId = normalizeCanonicalSchoolId(schoolId, schoolName);
+  return CANONICAL_2016_ENREDOS[normId];
+}
+
+
 
 
 

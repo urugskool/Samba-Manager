@@ -11,6 +11,8 @@ export interface LiesaStandingRecord {
   subgroup?: 'domingo' | 'segunda' | 'supercampeonato' | 'fbes' | 'ugesb' | 'uces' | 'o_pais' | 'a_hora';
   league?: 'FBES' | 'UGESB' | 'UCES' | 'AESCRJ' | 'LIESA' | 'O País' | 'A Hora' | 'Mundo Sportivo';
   statusDescription?: string;
+  relegated?: boolean;
+  promoted?: boolean;
 }
 
 /**
@@ -2232,7 +2234,7 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 9, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
     { rank: 10, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
     { rank: 11, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
-    { rank: 12, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca' }
+    { rank: 12, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', statusDescription: '12ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   2015: [
     { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
@@ -2246,7 +2248,7 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 9, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
     { rank: 10, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
     { rank: 11, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
-    { rank: 12, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro' }
+    { rank: 12, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro', statusDescription: '12ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   2016: [
     { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
@@ -2260,7 +2262,7 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 9, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
     { rank: 10, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
     { rank: 11, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
-    { rank: 12, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá' }
+    { rank: 12, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', statusDescription: '12ª (rebaixada) • Rebaixada para a Série Ouro' }
   ],
   2017: [
     { rank: 1, schoolId: 'portela', schoolName: 'Portela' },
@@ -2304,8 +2306,8 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 10, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
     { rank: 11, schoolId: 'beija_flor', schoolName: 'Beija-Flor de Nilópolis' },
     { rank: 12, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
-    { rank: 13, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
-    { rank: 14, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' }
+    { rank: 13, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', statusDescription: '13ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true },
+    { rank: 14, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', statusDescription: '14ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   2020: [
     { rank: 1, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro' },
@@ -2319,8 +2321,8 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 9, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
     { rank: 10, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
     { rank: 11, schoolId: 'tuiuti', schoolName: 'Paraíso do Tuiuti' },
-    { rank: 12, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá' },
-    { rank: 13, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' }
+    { rank: 12, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', statusDescription: '12ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true },
+    { rank: 13, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', statusDescription: '13ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   2021: [], // Não Houve Carnaval
   2022: [
@@ -2335,7 +2337,7 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 9, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
     { rank: 10, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
     { rank: 11, schoolId: 'tuiuti', schoolName: 'Paraíso do Tuiuti' },
-    { rank: 12, schoolId: 'sao_clemente', schoolName: 'São Clemente' }
+    { rank: 12, schoolId: 'sao_clemente', schoolName: 'São Clemente', statusDescription: '12ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   2023: [
     { rank: 1, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
@@ -2349,7 +2351,7 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 9, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
     { rank: 10, schoolId: 'portela', schoolName: 'Portela' },
     { rank: 11, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
-    { rank: 12, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' }
+    { rank: 12, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', statusDescription: '12ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   2024: [
     { rank: 1, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro' },
@@ -2363,7 +2365,7 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 9, schoolId: 'tuiuti', schoolName: 'Paraíso do Tuiuti' },
     { rank: 10, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
     { rank: 11, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
-    { rank: 12, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra' }
+    { rank: 12, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra', statusDescription: '12ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   2025: [
     { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor de Nilópolis' },
@@ -2377,7 +2379,7 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 9, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
     { rank: 10, schoolId: 'tuiuti', schoolName: 'Paraíso do Tuiuti' },
     { rank: 11, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
-    { rank: 12, schoolId: 'unidos_padre_miguel', schoolName: 'Unidos de Padre Miguel' }
+    { rank: 12, schoolId: 'unidos_padre_miguel', schoolName: 'Unidos de Padre Miguel', statusDescription: '12ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   2026: [
     { rank: 1, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro' },
@@ -2391,7 +2393,7 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 9, schoolId: 'tuiuti', schoolName: 'Paraíso do Tuiuti' },
     { rank: 10, schoolId: 'portela', schoolName: 'Portela' },
     { rank: 11, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
-    { rank: 12, schoolId: 'niteroi', schoolName: 'Acadêmicos de Niterói' }
+    { rank: 12, schoolId: 'niteroi', schoolName: 'Acadêmicos de Niterói', statusDescription: '12ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ]
 };
 
@@ -2472,6 +2474,8 @@ export interface HistoricalCarnavalInfo {
   notes?: string;
   championNames: string[];
   viceChampionNames: string[];
+  relegatedNames: string[];
+  promotedNames?: string[];
   totalSchools: number;
   subgroups?: {
     domingo?: LiesaStandingRecord[];
@@ -2484,6 +2488,86 @@ export interface HistoricalCarnavalInfo {
     a_hora?: LiesaStandingRecord[];
   };
 }
+
+/**
+ * Catálogo cronológico oficial de rebaixamentos do Grupo Especial por ano
+ */
+export const OFFICIAL_ESPECIAL_RELEGATIONS_BY_YEAR: Record<number, string[]> = {
+  2026: ['niteroi'],
+  2025: ['unidos_padre_miguel'],
+  2024: ['porto_da_pedra'],
+  2023: ['imperio_serrano'],
+  2022: ['sao_clemente'],
+  2021: [], // Não houve carnaval
+  2020: ['estacio_de_sa', 'uniao_da_ilha'],
+  2019: ['imperatriz', 'imperio_serrano'],
+  2018: [], // Não houve rebaixamento
+  2017: [], // Não houve rebaixamento
+  2016: ['estacio_de_sa'],
+  2015: ['viradouro'],
+  2014: ['imperio_da_tijuca'],
+  2013: ['inocentes'],
+  2012: ['porto_da_pedra', 'renascer', 'renascer_jacarepagua'],
+  2011: [], // Não houve rebaixamento
+  2010: ['viradouro'],
+  2009: ['imperio_serrano'],
+  2008: ['sao_clemente'],
+  2007: ['imperio_serrano', 'estacio_de_sa'],
+  2006: ['caprichosos_de_pilares', 'rocinha'],
+  2005: ['tradicao'],
+  2004: ['sao_clemente'],
+  2003: ['santa_cruz'],
+  2002: ['sao_clemente'],
+  2001: ['uniao_da_ilha', 'tuiuti'],
+  2000: ['vila_isabel', 'porto_da_pedra'],
+  1999: ['imperio_serrano', 'sao_clemente'],
+  1998: ['tijuca', 'porto_da_pedra'],
+  1997: ['estacio_de_sa', 'santa_cruz', 'imperio_serrano', 'rocinha'],
+  1996: ['caprichosos_de_pilares', 'tradicao', 'imperio_da_tijuca', 'unidos_da_ponte'],
+  1995: ['sao_clemente', 'villa_rica'],
+  1994: [],
+  1993: [],
+  1992: ['leao_de_nova_iguacu', 'tradicao', 'santa_cruz'],
+  1991: ['sao_clemente', 'lins_imperial', 'imperio_serrano', 'grande_rio'],
+  1990: ['santa_cruz', 'cabucu'],
+  1989: ['unidos_da_ponte', 'tradicao', 'arranco', 'jacarezinho'],
+  1988: [],
+  1987: ['jacarezinho', 'imperio_da_tijuca'],
+  1986: ['tijuca', 'unidos_da_ponte'],
+  1985: ['em_cima_da_hora', 'santa_cruz'],
+  1984: ['tijuca', 'unidos_da_ponte'],
+  1983: [],
+  1982: ['imperio_da_tijuca', 'estacio_de_sa'],
+  1981: [],
+  1980: ['estacio_de_sa'],
+  1979: [],
+  1978: ['imperio_serrano', 'vila_isabel', 'arrastao_cascadura', 'arranco'],
+  1977: ['imperatriz', 'estacio_de_sa', 'imperio_da_tijuca', 'cabucu'],
+  1976: ['lins_imperial', 'unidos_de_lucas', 'em_cima_da_hora', 'tupy_bras_de_pina'],
+  1975: [],
+  1974: [],
+  1973: ['tupy_bras_de_pina', 'jacarezinho'],
+  1972: ['estacio_de_sa', 'imperio_da_tijuca', 'unidos_de_lucas', 'unidos_padre_miguel'],
+  1971: [],
+  1970: ['jacarezinho', 'santa_cruz'],
+  1969: ['unidos_de_lucas', 'em_cima_da_hora'],
+  1968: ['independentes_cordovil', 'imperio_da_tijuca'],
+  1967: ['imperatriz', 'sao_clemente'],
+  1966: ['unidos_da_capela', 'santa_cruz'],
+  1965: ['uniao_de_jacarepagua', 'imperatriz'],
+  1964: ['unidos_padre_miguel', 'cabucu'],
+  1963: ['unidos_de_bangu', 'beija_flor'],
+  1962: ['unidos_da_capela', 'tupy_bras_de_pina'],
+  1961: ['caprichosos_de_pilares', 'unidos_padre_miguel', 'academicos_bento_ribeiro'],
+  1960: ['beija_flor', 'aprendizes_boca_do_mato', 'unidos_de_bangu'],
+  1959: ['caprichosos_de_pilares', 'cartolinhas_de_caxias', 'uniao_do_centenario', 'tupy_bras_de_pina', 'cabucu', 'tuiuti', 'tijuca', 'unidos_do_salgueiro'],
+  1958: ['unidos_bento_ribeiro', 'flor_do_lins', 'filhos_do_deserto'],
+  1957: ['vila_isabel', 'tuiuti', 'paz_e_amor'],
+  1956: ['unidos_da_congonha', 'unidos_do_indaia', 'unidos_do_salgueiro'],
+  1955: ['indios_do_acau', 'imperio_da_tijuca', 'uniao_do_catete'],
+  1954: ['engenho_da_rainha', 'aventureiros_da_matriz', 'paz_e_amor', 'unidos_da_tamarineira', 'independentes_do_rio', 'independentes_cordovil', 'uniao_vaz_lobo'],
+  1953: ['vai_se_quiser', 'cada_ano_sai_melhor', 'aventureiros_da_matriz', 'azul_e_branco_salgueiro']
+};
 
 /**
  * Normaliza o ID da escola para garantir casamento exato em históricos
@@ -2699,18 +2783,25 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     const stands = h.especialStandings || [];
     const champs = stands.filter((s) => s.rank === 1).map((s) => s.schoolName);
     const vices = stands.filter((s) => s.rank === 2).map((s) => s.schoolName);
+    const relegated = h.especialRelegated || [];
     result.push({
       year: h.year,
-      standings: stands.map((s) => ({
-        rank: s.rank,
-        schoolId: resolveSchoolId(s.schoolId, s.schoolName),
-        schoolName: s.schoolName,
-        totalScore: s.totalScore
-      })),
+      standings: stands.map((s) => {
+        const isRelegated = relegated.includes(s.schoolName) || (!!s.schoolId && relegated.includes(s.schoolId));
+        return {
+          rank: s.rank,
+          schoolId: resolveSchoolId(s.schoolId, s.schoolName),
+          schoolName: s.schoolName,
+          totalScore: s.totalScore,
+          relegated: isRelegated,
+          statusDescription: isRelegated ? `${s.rank}ª (rebaixada) • Rebaixada para a Série Ouro` : undefined
+        };
+      }),
       isNoCarnaval: false,
       notes: `Carnaval simulado durante o save (Ano ${h.year}).`,
       championNames: champs,
       viceChampionNames: vices,
+      relegatedNames: relegated,
       totalSchools: stands.length
     });
   });
@@ -2740,6 +2831,7 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
         notes: 'Não Houve Desfile de Carnaval no Sambódromo da Marquês de Sapucaí em razão da pandemia de COVID-19. Nenhum ponto atribuído.',
         championNames: [],
         viceChampionNames: [],
+        relegatedNames: [],
         totalSchools: 0
       });
       return;
@@ -2748,8 +2840,35 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     const champs = stands.filter((s) => s.rank === 1 && !s.isHorsConcours).map((s) => s.schoolName);
     const vices = stands.filter((s) => s.rank === 2 && !s.isHorsConcours).map((s) => s.schoolName);
 
+    const relsForYear = OFFICIAL_ESPECIAL_RELEGATIONS_BY_YEAR[yr] || [];
+    const standsWithStatus = stands.map((s) => {
+      const isRelegated =
+        s.relegated === true ||
+        relsForYear.includes(s.schoolId) ||
+        (s.statusDescription && s.statusDescription.toLowerCase().includes('rebaixada')) ||
+        false;
+      return {
+        ...s,
+        relegated: isRelegated,
+        statusDescription: isRelegated
+          ? (s.statusDescription || `${s.rank}ª (rebaixada) • Rebaixada para a Série Ouro`)
+          : s.statusDescription
+      };
+    });
+    const relNames = standsWithStatus.filter((s) => s.relegated).map((s) => s.schoolName);
+
     let notes: string | undefined;
-    if (yr === 2017) {
+    if (yr === 2026) {
+      notes = 'Carnaval 2026: Unidos do Viradouro conquistou o campeonato com 20 pontos e Beija-Flor foi vice-campeã com 15 pontos. Acadêmicos de Niterói rebaixada para a Série Ouro.';
+    } else if (yr === 2025) {
+      notes = 'Carnaval 2025: Beija-Flor de Nilópolis conquistou o campeonato com 20 pontos e Grande Rio foi vice-campeã com 15 pontos. Unidos de Padre Miguel rebaixada para a Série Ouro.';
+    } else if (yr === 2024) {
+      notes = 'Carnaval 2024: Unidos do Viradouro sagrou-se campeã com 20 pontos e Imperatriz Leopoldinense vice com 15 pontos. Unidos do Porto da Pedra rebaixada para a Série Ouro.';
+    } else if (yr === 2023) {
+      notes = 'Carnaval 2023: Imperatriz Leopoldinense conquistou o campeonato com 20 pontos e Viradouro vice com 15 pontos. Império Serrano rebaixada para a Série Ouro.';
+    } else if (yr === 2022) {
+      notes = 'Carnaval 2022: Acadêmicos do Grande Rio sagrou-se campeã inédita com 20 pontos e Beija-Flor vice com 15 pontos. São Clemente rebaixada para a Série Ouro.';
+    } else if (yr === 2017) {
       notes = 'Carnaval histórico com duas campeãs oficiais pela LIESA: Portela e Mocidade Independente de Padre Miguel dividiram o título (ambas pontuando 20 pontos de campeã). Devido aos acidentes graves com carros alegóricos na pista, a plenária da LIESA decidiu por unanimidade que NÃO houve rebaixamento em 2017 (Paraíso do Tuiuti manteve-se no Grupo Especial).';
     } else if (yr === 2020) {
       notes = 'Carnaval 2020: Unidos do Viradouro conquistou o campeonato com 20 pontos, e Grande Rio foi a vice-campeã com 15 pontos. Estácio de Sá e União da Ilha foram rebaixadas para a Série Ouro.';
@@ -2758,9 +2877,9 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     } else if (yr === 2018) {
       notes = 'Carnaval 2018: Beija-Flor de Nilópolis foi campeã com 20 pontos e Paraíso do Tuiuti vice-campeã histórica com 15 pontos. Em plenária extraordinária da LIESA, foi decidido que NÃO houve rebaixamento em 2018 (Acadêmicos do Grande Rio e Império Serrano permaneceram no Grupo Especial, ampliando o grupo para 14 escolas em 2019).';
     } else if (yr === 2016) {
-      notes = 'Carnaval 2016: Estação Primeira de Mangueira foi campeã com 20 pontos e Unidos da Tijuca vice com 15 pontos.';
+      notes = 'Carnaval 2016: Estação Primeira de Mangueira foi campeã com 20 pontos e Unidos da Tijuca vice com 15 pontos. Estácio de Sá foi rebaixada para a Série Ouro.';
     } else if (yr === 2015) {
-      notes = 'Carnaval 2015: Beija-Flor de Nilópolis foi campeã com 20 pontos e Acadêmicos do Salgueiro vice com 15 pontos.';
+      notes = 'Carnaval 2015: Beija-Flor de Nilópolis foi campeã com 20 pontos e Acadêmicos do Salgueiro vice com 15 pontos. Unidos do Viradouro rebaixada para a Série Ouro.';
     } else if (yr === 2014) {
       notes = 'Carnaval 2014: Unidos da Tijuca foi campeã com o enredo histórico "Acelera, Tijuca!" em tributo a Ayrton Senna (+20 pts) e Acadêmicos do Salgueiro vice-campeã com "Gaia" (+15 pts). Império da Tijuca rebaixada.';
     } else if (yr === 2013) {
@@ -2931,9 +3050,10 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
 
     result.push({
       year: yr,
-      standings: stands,
+      standings: standsWithStatus,
       isNoCarnaval: false,
       notes,
+      relegatedNames: relNames,
       championNames: yr === 1984
         ? ['Estação Primeira de Mangueira (Supercampeã)', 'Portela (Campeã de Domingo)']
         : yr === 1980

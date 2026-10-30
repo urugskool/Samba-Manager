@@ -1123,6 +1123,357 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '14ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  2016: [
+    {
+      rank: 1,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'A Farra do Boi',
+      totalScore: 269.9,
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã e Promovida ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'O Quinto dos Infernos!',
+      totalScore: 269.2,
+      statusDescription: 'Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'viradouro',
+      schoolName: 'Unidos do Viradouro',
+      enredo: 'O Alabê de Jerusalém, a saga de Ogundana!',
+      totalScore: 269.0,
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'imperio_serrano',
+      schoolName: 'Império Serrano',
+      enredo: 'Silas canta Serrinha!',
+      totalScore: 268.4,
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'porto_da_pedra',
+      schoolName: 'Unidos do Porto da Pedra',
+      enredo: 'Palhaço Carequinha, paixão e orgulho de São Gonçalo. Tá certo ou não tá?',
+      totalScore: 267.9,
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'Um banho de mar à fantasia',
+      totalScore: 267.8,
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'O tempo ruge, A Sapucaí é grande e o Império aplaude o Felomenal!',
+      totalScore: 267.7,
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'renascer_jacarepagua',
+      schoolName: 'Renascer de Jacarepaguá',
+      enredo: 'Ibejís - Nas brincadeiras de criança: os orixás que viraram santos no Brasil',
+      totalScore: 266.5,
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'inocentes',
+      schoolName: 'Inocentes de Belford Roxo',
+      enredo: 'Cacá Diegues - Retratos de um Brasil em cena!',
+      totalScore: 266.1,
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'alegria_da_zona_sul',
+      schoolName: 'Alegria da Zona Sul',
+      enredo: 'Ogum',
+      totalScore: 265.9,
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'curicica',
+      schoolName: 'União do Parque Curicica',
+      enredo: 'Corações Mamulengos',
+      totalScore: 265.6,
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Diz mata! Digo verde. A natureza veste a incerteza. E o amanhã?',
+      totalScore: 265.3,
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: 'Nova Roma é Brasil, Brasil é Rocinha!',
+      totalScore: 263.5,
+      statusDescription: '13º Lugar'
+    },
+    {
+      rank: 14,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'Tem gringo no samba!',
+      totalScore: 262.0,
+      relegated: true,
+      statusDescription: '14ª (rebaixada) • Rebaixada para a Série Prata'
+    }
+  ],
+  2015: [
+    {
+      rank: 1,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Estácio de Sá',
+      enredo: 'De braços abertos, de janeiro à janeiro. Sorrio, sou Rio, sou Estácio de Sá!',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'O cavaleiro armorial mandacariza o Carnaval',
+      statusDescription: '2ª Colocada • Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'imperio_serrano',
+      schoolName: 'Império Serrano',
+      enredo: 'Poema aos peregrinos da fé!',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'Cubango, a realeza africana de Niterói!',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Curumim chama Cunhantã que eu vou contar...',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'O Império nas águas doces de Oxum',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'Na minha mão é mais barato!',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'inocentes',
+      schoolName: 'Inocentes de Belford Roxo',
+      enredo: 'Nelson Sargento - Samba, inocente pé no chão!',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'renascer_jacarepagua',
+      schoolName: 'Renascer de Jacarepaguá',
+      enredo: 'Candeia! Manifesto ao povo em forma de arte!',
+      statusDescription: '9ª Colocada'
+    },
+    {
+      rank: 10,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Um pequeno menino se tonou um Grande Otelo!',
+      statusDescription: '10ª Colocada'
+    },
+    {
+      rank: 11,
+      schoolId: 'porto_da_pedra',
+      schoolName: 'Unidos do Porto da Pedra',
+      enredo: 'Há uma luz que nunca se apaga!',
+      statusDescription: '11ª Colocada'
+    },
+    {
+      rank: 12,
+      schoolId: 'curicica',
+      schoolName: 'União do Parque Curicica',
+      enredo: 'Os três tenores... do samba!',
+      statusDescription: '12ª Colocada'
+    },
+    {
+      rank: 13,
+      schoolId: 'alegria_da_zona_sul',
+      schoolName: 'Alegria da Zona Sul',
+      enredo: 'Kari’Oka',
+      statusDescription: '13ª Colocada'
+    },
+    {
+      rank: 14,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: 'Imperium',
+      relegated: true,
+      statusDescription: '14ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 15,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'No coração da cidade, uma história das Mil e Uma Noites: O Rio das Arábias',
+      relegated: true,
+      statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
+    }
+  ],
+  2014: [
+    {
+      rank: 1,
+      schoolId: 'viradouro',
+      schoolName: 'Unidos do Viradouro',
+      enredo: 'Sou a terra de Ismael. Guanabaran vou cruzar, para você tiro o chapéu, Rio eu vim te abraçar',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Estácio de Sá',
+      enredo: 'Um Rio à beira-mar: ventos do passado em direção ao futuro!',
+      statusDescription: '2ª Colocada • Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'Decifra-me ou te devoro: enigmas da vida!',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'porto_da_pedra',
+      schoolName: 'Unidos do Porto da Pedra',
+      enredo: 'Majestades do Samba: os defensores do meu pavilhão!',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'Continente Negro - uma epopeia africana',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'imperio_serrano',
+      schoolName: 'Império Serrano',
+      enredo: 'Angra com os Reis',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'curicica',
+      schoolName: 'União do Parque Curicica',
+      enredo: 'Na garrafa, no barril, salve a cachaça, patrimônio cultural do Brasil',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Kizomba - A festa da raça',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'Dos malandros e das madames: Lapa, a estrela da noite carioca',
+      statusDescription: '9ª Colocada'
+    },
+    {
+      rank: 10,
+      schoolId: 'inocentes',
+      schoolName: 'Inocentes de Belford Roxo',
+      enredo: 'O triunfo da América - o canto lírico de Joaquina Lapinha',
+      statusDescription: '10ª Colocada'
+    },
+    {
+      rank: 11,
+      schoolId: 'renascer_jacarepagua',
+      schoolName: 'Renascer de Jacarepaguá',
+      enredo: 'Olhar caricato. Simplesmente, Lan!',
+      statusDescription: '11ª Colocada'
+    },
+    {
+      rank: 12,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Do toque do criador à cidade saudável do Brasil – Jundiaí, uma referência nacional',
+      statusDescription: '12ª Colocada'
+    },
+    {
+      rank: 13,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Os Sertões',
+      statusDescription: '13ª Colocada'
+    },
+    {
+      rank: 14,
+      schoolId: 'alegria_da_zona_sul',
+      schoolName: 'Alegria da Zona Sul',
+      enredo: 'Sacopenapã',
+      statusDescription: '14ª Colocada'
+    },
+    {
+      rank: 15,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Os Iorubás - A história do povo nagô',
+      relegated: true,
+      statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 16,
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: 'Do paraíso sonhado um sonho realizado...',
+      relegated: true,
+      statusDescription: '16ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 17,
+      schoolId: 'tradicao',
+      schoolName: 'Tradição',
+      enredo: 'Sonhar com Rei dá Leão!',
+      relegated: true,
+      statusDescription: '17ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -1139,7 +1490,10 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   2020: 'Carnaval de 2020: Imperatriz Leopoldinense Campeã com nota máxima e promovida ao Grupo Especial com o enredo "Só dá Lalá". Renascer de Jacarepaguá e Acadêmicos da Rocinha rebaixadas para a Série Prata.',
   2019: 'Carnaval de 2019: Estácio de Sá Campeã com nota máxima e promovida ao Grupo Especial com o enredo "A Fé que Emerge das Águas". Alegria da Zona Sul rebaixada para a Série Prata.',
   2018: 'Carnaval de 2018: (Não houve rebaixamento) • Unidos do Viradouro Campeã e promovida ao Grupo Especial com o enredo "Vira a Cabeça, pira o Coração. Loucos Gênios da Criação".',
-  2017: 'Carnaval de 2017: Império Serrano Campeã e promovida ao Grupo Especial com o enredo "Meu quintal é maior do que o mundo". União do Parque Curicica rebaixada para a Série Prata.'
+  2017: 'Carnaval de 2017: Império Serrano Campeã e promovida ao Grupo Especial com o enredo "Meu quintal é maior do que o mundo". União do Parque Curicica rebaixada para a Série Prata.',
+  2016: 'Carnaval de 2016: Paraíso do Tuiuti Campeã e promovida ao Grupo Especial com o enredo "A Farra do Boi". Caprichosos de Pilares rebaixada para a Série Prata.',
+  2015: 'Carnaval de 2015: Estácio de Sá Campeã e promovida ao Grupo Especial com o enredo "De braços abertos, de janeiro à janeiro. Sorrio, sou Rio, sou Estácio de Sá!". Unidos de Bangu e Em Cima da Hora rebaixadas para a Série Prata.',
+  2014: 'Carnaval de 2014: Unidos do Viradouro Campeã e promovida ao Grupo Especial com o enredo "Sou a terra de Ismael. Guanabaran vou cruzar, para você tiro o chapéu, Rio eu vim te abraçar". União de Jacarepaguá, Acadêmicos da Rocinha e Tradição rebaixadas para a Série Prata.'
 };
 
 /**

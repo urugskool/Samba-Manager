@@ -16,6 +16,8 @@ import {
   getCanonical2018Enredo,
   CANONICAL_2017_ENREDOS,
   getCanonical2017Enredo,
+  CANONICAL_2016_ENREDOS,
+  getCanonical2016Enredo,
   normalizeCanonicalSchoolId
 } from './canonicalEnredosRegistry';
 
@@ -36,6 +38,8 @@ export {
   getCanonical2018Enredo,
   CANONICAL_2017_ENREDOS,
   getCanonical2017Enredo,
+  CANONICAL_2016_ENREDOS,
+  getCanonical2016Enredo,
   normalizeCanonicalSchoolId
 };
 
@@ -520,46 +524,177 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     uniao_do_parque_curicica: 'O importante é ser feliz e mais nada!'
   },
   2016: {
-    mangueira: 'Maria Bethânia: A Menina dos Olhos de Oyá',
-    tijuca: 'Semeando Sorrisos, a Tijuca Celebra a Terra do Pão',
-    portela: 'No Voo da Águia, uma Viagem Sem Fim...',
+    // Grupo Especial 2016
+    mangueira: 'Maria Bethânia: a menina dos olhos de Oyá',
+    estacao_primeira_de_mangueira: 'Maria Bethânia: a menina dos olhos de Oyá',
+    tijuca: 'Semeando sorriso, a Tijuca festeja o solo sagrado!',
+    unidos_da_tijuca: 'Semeando sorriso, a Tijuca festeja o solo sagrado!',
+    portela: 'No voo da Águia, uma viagem sem fim...',
     salgueiro: 'A Ópera dos Malandros',
-    beija_flor: 'Mineirinho Genial! Nova Lima - Cidade Natal (Marquês de Sapucaí)',
-    imperatriz: 'É o Amor... Que Mexe com Minha Cabeça e Me Deixa Assim (Zezé & Luciano)',
-    grande_rio: 'Fui no Itororó Beber Água, Não Achei: Mas Achei a Bela Santos',
-    vila_isabel: 'Memórias do Pai Arraia - Um Sonho de Liberdade',
-    sao_clemente: 'Mais de Mil Palhaços no Salão',
-    mocidade: 'O Brasil de Lá Pra Cá',
-    uniao_da_ilha: 'Olímpico Por Natureza',
-    estacio_de_sa: 'Salve Jorge! O Guerreiro na Fé'
+    academicos_do_salgueiro: 'A Ópera dos Malandros',
+    beija_flor: 'Mineirinho genial! Nova Lima - Cidade natal. Marquês de Sapucaí, o poeta imortal!',
+    beija_flor_de_nilopolis: 'Mineirinho genial! Nova Lima - Cidade natal. Marquês de Sapucaí, o poeta imortal!',
+    imperatriz: '"É o amor, que mexe com a minha cabeça e me deixa assim". Do sonho de um caipira, nascem os filhos do Brasil',
+    imperatriz_leopoldinense: '"É o amor, que mexe com a minha cabeça e me deixa assim". Do sonho de um caipira, nascem os filhos do Brasil',
+    grande_rio: 'Fui no Itororó beber água, não achei. Mas achei a bela Santos, e por ela me apaixonei...',
+    academicos_do_grande_rio: 'Fui no Itororó beber água, não achei. Mas achei a bela Santos, e por ela me apaixonei...',
+    vila_isabel: "Memórias do 'Pai Arraia' - um sonho pernambucano, um legado brasileiro!",
+    unidos_de_vila_isabel: "Memórias do 'Pai Arraia' - um sonho pernambucano, um legado brasileiro!",
+    sao_clemente: 'Mais de mil palhaços no salão!',
+    mocidade: 'O Brasil de La Mancha: sou Miguel, Padre Miguel. Sou Cervantes, sou Quixote cavaleiro, Pixote brasileiro',
+    mocidade_independente: 'O Brasil de La Mancha: sou Miguel, Padre Miguel. Sou Cervantes, sou Quixote cavaleiro, Pixote brasileiro',
+    mocidade_independente_de_padre_miguel: 'O Brasil de La Mancha: sou Miguel, Padre Miguel. Sou Cervantes, sou Quixote cavaleiro, Pixote brasileiro',
+    uniao_da_ilha: 'Olímpico por natureza, todo mundo se encontra no Rio!',
+    ilha: 'Olímpico por natureza, todo mundo se encontra no Rio!',
+    estacio_de_sa: 'Salve Jorge! O guerreiro na fé',
+    estacio: 'Salve Jorge! O guerreiro na fé',
+
+    // Série Ouro 2016
+    tuiuti: 'A Farra do Boi',
+    paraiso_do_tuiuti: 'A Farra do Boi',
+    unidos_padre_miguel: 'O Quinto dos Infernos!',
+    padre_miguel: 'O Quinto dos Infernos!',
+    viradouro: 'O Alabê de Jerusalém, a saga de Ogundana!',
+    unidos_do_viradouro: 'O Alabê de Jerusalém, a saga de Ogundana!',
+    imperio_serrano: 'Silas canta Serrinha!',
+    porto_da_pedra: 'Palhaço Carequinha, paixão e orgulho de São Gonçalo. Tá certo ou não tá?',
+    unidos_do_porto_da_pedra: 'Palhaço Carequinha, paixão e orgulho de São Gonçalo. Tá certo ou não tá?',
+    cubango: 'Um banho de mar à fantasia',
+    academicos_do_cubango: 'Um banho de mar à fantasia',
+    imperio_da_tijuca: 'O tempo ruge, A Sapucaí é grande e o Império aplaude o Felomenal!',
+    renascer_jacarepagua: 'Ibejís - Nas brincadeiras de criança: os orixás que viraram santos no Brasil',
+    renascer_de_jacarepagua: 'Ibejís - Nas brincadeiras de criança: os orixás que viraram santos no Brasil',
+    renascer: 'Ibejís - Nas brincadeiras de criança: os orixás que viraram santos no Brasil',
+    inocentes: 'Cacá Diegues - Retratos de um Brasil em cena!',
+    inocentes_de_belford_roxo: 'Cacá Diegues - Retratos de um Brasil em cena!',
+    alegria_da_zona_sul: 'Ogum',
+    alegria: 'Ogum',
+    curicica: 'Corações Mamulengos',
+    parque_curicica: 'Corações Mamulengos',
+    uniao_do_parque_curicica: 'Corações Mamulengos',
+    santa_cruz: 'Diz mata! Digo verde. A natureza veste a incerteza. E o amanhã?',
+    academicos_de_santa_cruz: 'Diz mata! Digo verde. A natureza veste a incerteza. E o amanhã?',
+    rocinha: 'Nova Roma é Brasil, Brasil é Rocinha!',
+    academicos_da_rocinha: 'Nova Roma é Brasil, Brasil é Rocinha!',
+    caprichosos_de_pilares: 'Tem gringo no samba!',
+    caprichosos: 'Tem gringo no samba!'
   },
   2015: {
-    beija_flor: 'Um Griô Conta a História: Um Olhar Sobre a África e o Despontar da Guiné Equatorial',
-    salgueiro: 'Do Fundo do Quintal, Saberes e Sabores na Sapucaí',
-    grande_rio: 'A Grande Rio É do Baralho!',
-    tijuca: 'Um Conto Marcado no Tempo, o Olhar Suíço de Clóvis Bornay',
-    portela: 'Imagina-Rio, 450 Janeiros de uma Cidade Surreal',
-    imperatriz: 'Axé, Nikiti! Duas Praias, uma Cidade',
-    mocidade: 'Se o Mundo Fosse Acabar, Me Diz o Que Você Faria se Só Te Restasse um Dia?',
-    sao_clemente: 'A Incrível História do Homem que Não Sabia Contar Mentira',
-    uniao_da_ilha: 'Beleza Pura?',
-    mangueira: 'Agora Chegou a Vez, Vou Cantar: Mulher de Mangueira, Mulher Brasileira',
-    vila_isabel: 'O Maestro Brasileiro Está na Terra de Noel',
-    viradouro: 'Nas Veias do Brasil, É Fogo Cruzado em Amarelo, Vermelho e Branco'
+    // Grupo Especial 2015
+    beija_flor: 'Um Griô conta a história: um olhar sobre a África e o despontar da Guiné Equatorial. Caminhemos sobre a trilha de nossa felicidade',
+    beija_flor_de_nilopolis: 'Um Griô conta a história: um olhar sobre a África e o despontar da Guiné Equatorial. Caminhemos sobre a trilha de nossa felicidade',
+    salgueiro: 'Do fundo do quintal, sabores e saberes na Sapucaí',
+    academicos_do_salgueiro: 'Do fundo do quintal, sabores e saberes na Sapucaí',
+    grande_rio: 'A Grande Rio é do Baralho!',
+    academicos_do_grande_rio: 'A Grande Rio é do Baralho!',
+    tijuca: 'Um conto marcado no tempo - O olhar suíço de Clóvis Bornay',
+    unidos_da_tijuca: 'Um conto marcado no tempo - O olhar suíço de Clóvis Bornay',
+    portela: 'ImaginaRio, 450 janeiros de uma cidade surreal',
+    imperatriz: 'Axé Nkenda – Um ritual de liberdade – E que voz da liberdade seja sempre a nossa voz',
+    imperatriz_leopoldinense: 'Axé Nkenda – Um ritual de liberdade – E que voz da liberdade seja sempre a nossa voz',
+    mocidade: 'Se o mundo fosse acabar, me diz o que você faria se só lhe restasse um dia?',
+    mocidade_independente: 'Se o mundo fosse acabar, me diz o que você faria se só lhe restasse um dia?',
+    mocidade_independente_de_padre_miguel: 'Se o mundo fosse acabar, me diz o que você faria se só lhe restasse um dia?',
+    sao_clemente: 'A incrível história do homem que só tinha medo da Matinta Pereira, da Tocandira e da Onça Pé de Boi!',
+    uniao_da_ilha: 'Beleza pura?',
+    ilha: 'Beleza pura?',
+    mangueira: 'Agora chegou a vez vou cantar: mulher de Mangueira, mulher brasileira em primeiro lugar!',
+    estacao_primeira_de_mangueira: 'Agora chegou a vez vou cantar: mulher de Mangueira, mulher brasileira em primeiro lugar!',
+    vila_isabel: 'O maestro brasileiro está na terra de Noel, a partitura é azul e branco, da nossa Vila Isabel',
+    unidos_de_vila_isabel: 'O maestro brasileiro está na terra de Noel, a partitura é azul e branco, da nossa Vila Isabel',
+    viradouro: 'Nas veias do Brasil, é a Viradouro em um dia de graça!',
+    unidos_do_viradouro: 'Nas veias do Brasil, é a Viradouro em um dia de graça!',
+
+    // Série Ouro 2015
+    estacio_de_sa: 'De braços abertos, de janeiro à janeiro. Sorrio, sou Rio, sou Estácio de Sá!',
+    estacio: 'De braços abertos, de janeiro à janeiro. Sorrio, sou Rio, sou Estácio de Sá!',
+    unidos_padre_miguel: 'O cavaleiro armorial mandacariza o Carnaval',
+    padre_miguel: 'O cavaleiro armorial mandacariza o Carnaval',
+    imperio_serrano: 'Poema aos peregrinos da fé!',
+    cubango: 'Cubango, a realeza africana de Niterói!',
+    academicos_do_cubango: 'Cubango, a realeza africana de Niterói!',
+    tuiuti: 'Curumim chama Cunhantã que eu vou contar...',
+    paraiso_do_tuiuti: 'Curumim chama Cunhantã que eu vou contar...',
+    imperio_da_tijuca: 'O Império nas águas doces de Oxum',
+    caprichosos_de_pilares: 'Na minha mão é mais barato!',
+    caprichosos: 'Na minha mão é mais barato!',
+    inocentes: 'Nelson Sargento - Samba, inocente pé no chão!',
+    inocentes_de_belford_roxo: 'Nelson Sargento - Samba, inocente pé no chão!',
+    renascer_jacarepagua: 'Candeia! Manifesto ao povo em forma de arte!',
+    renascer_de_jacarepagua: 'Candeia! Manifesto ao povo em forma de arte!',
+    renascer: 'Candeia! Manifesto ao povo em forma de arte!',
+    santa_cruz: 'Um pequeno menino se tonou um Grande Otelo!',
+    academicos_de_santa_cruz: 'Um pequeno menino se tonou um Grande Otelo!',
+    porto_da_pedra: 'Há uma luz que nunca se apaga!',
+    unidos_do_porto_da_pedra: 'Há uma luz que nunca se apaga!',
+    curicica: 'Os três tenores... do samba!',
+    parque_curicica: 'Os três tenores... do samba!',
+    uniao_do_parque_curicica: 'Os três tenores... do samba!',
+    alegria_da_zona_sul: 'Kari’Oka',
+    alegria: 'Kari’Oka',
+    unidos_de_bangu: 'Imperium',
+    bangu: 'Imperium',
+    em_cima_da_hora: 'No coração da cidade, uma história das Mil e Uma Noites: O Rio das Arábias'
   },
   2014: {
-    tijuca: 'Acelera, Tijuca! (Homenagem a Ayrton Senna)',
-    salgueiro: 'Gaia - A Vida em Nossas Mãos',
-    portela: 'Um Rio de Mar a Mar: Do Valongo à Glória de São Sebastião',
-    uniao_da_ilha: 'É Brinquedo, É Brincadeira: A Ilha Vai Levantar Poeira!',
-    imperatriz: 'Arthur X - O Reino do Galinho de Ouro na Corte da Rainha (Zico)',
-    grande_rio: 'Verdes Olhos de Maysa Sobre o Mar, no Caminho de Maricá',
-    beija_flor: 'O Astro Iluminado da Comunicação Brasileira (Homenagem a Boni)',
-    mangueira: 'A Festa da Catuçaba',
+    // Grupo Especial 2014
+    tijuca: 'Acelera, Tijuca',
+    unidos_da_tijuca: 'Acelera, Tijuca',
+    salgueiro: 'Gaia - A vida em nossas mãos',
+    academicos_do_salgueiro: 'Gaia - A vida em nossas mãos',
+    portela: 'Um Rio de mar a mar: do Valongo à Glória de São Sebastião',
+    uniao_da_ilha: 'É brinquedo, é brincadeira: a Ilha vai levantar poeira!',
+    ilha: 'É brinquedo, é brincadeira: a Ilha vai levantar poeira!',
+    imperatriz: 'Arthur X - O reino do Galinho de Ouro na corte da Imperatriz',
+    imperatriz_leopoldinense: 'Arthur X - O reino do Galinho de Ouro na corte da Imperatriz',
+    grande_rio: 'Verdes olhos de Maysa sobre o mar, no caminho: Maricá',
+    academicos_do_grande_rio: 'Verdes olhos de Maysa sobre o mar, no caminho: Maricá',
+    beija_flor: 'O astro iluminado da comunicação brasileira',
+    beija_flor_de_nilopolis: 'O astro iluminado da comunicação brasileira',
+    mangueira: 'A festança brasileira cai no samba da Mangueira',
+    estacao_primeira_de_mangueira: 'A festança brasileira cai no samba da Mangueira',
     mocidade: 'Pernambucópolis',
-    vila_isabel: 'Retratos de um Brasil Plural',
+    mocidade_independente: 'Pernambucópolis',
+    mocidade_independente_de_padre_miguel: 'Pernambucópolis',
+    vila_isabel: 'Retratos de um Brasil plural',
+    unidos_de_vila_isabel: 'Retratos de um Brasil plural',
     sao_clemente: 'Favela',
-    imperio_da_tijuca: 'Batuk'
+    imperio_da_tijuca: 'Batuk',
+
+    // Série Ouro 2014
+    viradouro: 'Sou a terra de Ismael. Guanabaran vou cruzar, para você tiro o chapéu, Rio eu vim te abraçar',
+    unidos_do_viradouro: 'Sou a terra de Ismael. Guanabaran vou cruzar, para você tiro o chapéu, Rio eu vim te abraçar',
+    estacio_de_sa: 'Um Rio à beira-mar: ventos do passado em direção ao futuro!',
+    estacio: 'Um Rio à beira-mar: ventos do passado em direção ao futuro!',
+    unidos_padre_miguel: 'Decifra-me ou te devoro: enigmas da vida!',
+    padre_miguel: 'Decifra-me ou te devoro: enigmas da vida!',
+    porto_da_pedra: 'Majestades do Samba: os defensores do meu pavilhão!',
+    unidos_do_porto_da_pedra: 'Majestades do Samba: os defensores do meu pavilhão!',
+    cubango: 'Continente Negro - uma epopeia africana',
+    academicos_do_cubango: 'Continente Negro - uma epopeia africana',
+    imperio_serrano: 'Angra com os Reis',
+    curicica: 'Na garrafa, no barril, salve a cachaça, patrimônio cultural do Brasil',
+    parque_curicica: 'Na garrafa, no barril, salve a cachaça, patrimônio cultural do Brasil',
+    uniao_do_parque_curicica: 'Na garrafa, no barril, salve a cachaça, patrimônio cultural do Brasil',
+    tuiuti: 'Kizomba - A festa da raça',
+    paraiso_do_tuiuti: 'Kizomba - A festa da raça',
+    caprichosos_de_pilares: 'Dos malandros e das madames: Lapa, a estrela da noite carioca',
+    caprichosos: 'Dos malandros e das madames: Lapa, a estrela da noite carioca',
+    inocentes: 'O triunfo da América - o canto lírico de Joaquina Lapinha',
+    inocentes_de_belford_roxo: 'O triunfo da América - o canto lírico de Joaquina Lapinha',
+    renascer_jacarepagua: 'Olhar caricato. Simplesmente, Lan!',
+    renascer_de_jacarepagua: 'Olhar caricato. Simplesmente, Lan!',
+    renascer: 'Olhar caricato. Simplesmente, Lan!',
+    santa_cruz: 'Do toque do criador à cidade saudável do Brasil – Jundiaí, uma referência nacional',
+    academicos_de_santa_cruz: 'Do toque do criador à cidade saudável do Brasil – Jundiaí, uma referência nacional',
+    em_cima_da_hora: 'Os Sertões',
+    alegria_da_zona_sul: 'Sacopenapã',
+    alegria: 'Sacopenapã',
+    uniao_de_jacarepagua: 'Os Iorubás - A história do povo nagô',
+    jacarepagua: 'Os Iorubás - A história do povo nagô',
+    rocinha: 'Do paraíso sonhado um sonho realizado...',
+    academicos_da_rocinha: 'Do paraíso sonhado um sonho realizado...',
+    tradicao: 'Sonhar com Rei dá Leão!'
   },
   2013: {
     vila_isabel: 'A Vila Canta o Brasil Celeiro do Mundo - Água no Feijão que Chegou Mais Um',
@@ -2308,6 +2443,10 @@ export function getHistoricalEnredo(
       const canonical = getCanonical2017Enredo(schoolId, schoolName);
       if (canonical?.title) return canonical.title;
     }
+    if (year === 2016) {
+      const canonical = getCanonical2016Enredo(schoolId, schoolName);
+      if (canonical?.title) return canonical.title;
+    }
 
     const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[year];
     if (yearRecords) {
@@ -2435,6 +2574,12 @@ export function getSchoolHistoricalEnredosList(
   const can2017 = getCanonical2017Enredo(schoolId, schoolName);
   if (can2017?.title) {
     enredosMap.set(2017, can2017.title);
+  }
+
+  // Garante que o enredo canônico oficial de 2016 seja registrado de forma autoritativa
+  const can2016 = getCanonical2016Enredo(schoolId, schoolName);
+  if (can2016?.title) {
+    enredosMap.set(2016, can2016.title);
   }
 
   // 2. Histórico de enredos gravado no save (inGameHistory para anos > 2026 ou sem registro)
