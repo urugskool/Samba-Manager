@@ -2163,7 +2163,7 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 9, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
     { rank: 10, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra' },
     { rank: 11, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
-    { rank: 12, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' }
+    { rank: 12, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', statusDescription: '12ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   2010: [
     { rank: 1, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },

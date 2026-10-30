@@ -1850,6 +1850,79 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '12ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  2009: [
+    {
+      rank: 1,
+      schoolId: 'uniao_da_ilha',
+      schoolName: 'União da Ilha do Governador',
+      enredo: 'Viajar é Preciso - Extraordinárias Através de Mundos Conhecidos e Desconhecidos',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'renascer_jacarepagua',
+      schoolName: 'Renascer de Jacarepaguá',
+      enredo: 'Como vai, vai bem? Veio a pé ou de trem?',
+      statusDescription: '2ª Colocada • Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: 'Tem Francesinha no Salão... O Rio no meu Coração',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'O Beijo Moleque da São Clemente',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Estácio de Sá',
+      enredo: 'Que Chita Bacana',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'S.O.S Planeta Terra - Santuário da Vida',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'O Cassino da Urca',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'O Mundo de Barro de Mestre Vitalino',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'inocentes',
+      schoolName: 'Inocentes de Belford Roxo',
+      enredo: 'Do Rio Grande do Sul ao Rio de Janeiro, a Inocentes canta Brizola, a voz do povo brasileiro',
+      statusDescription: '9ª Colocada'
+    },
+    {
+      rank: 10,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'No transporte da alegria... Me leva Caprichosos a caminho da folia',
+      statusDescription: '10ª Colocada'
+    }
   ]
 };
 
@@ -1873,7 +1946,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   2013: 'Carnaval de 2013: Império da Tijuca Campeã e promovida ao Grupo Especial com o enredo "Negra, pérola mulher". Sereno de Campo Grande, Unidos do Jacarezinho e Unidos da Vila Santa Tereza rebaixadas para a Série Prata.',
   2012: 'Carnaval de 2012: (Não houve rebaixamento) • Inocentes de Belford Roxo Campeã e promovida ao Grupo Especial com o enredo "Corumbá – Ópera Tupi Guaikuru".',
   2011: 'Carnaval de 2011: Renascer de Jacarepaguá Campeã e promovida ao Grupo Especial com o enredo "Águas de Março". Caprichosos de Pilares e Alegria da Zona Sul rebaixadas para a Série Prata.',
-  2010: 'Carnaval de 2010: São Clemente Campeã e promovida ao Grupo Especial com o enredo "Choque de Ordem na folia". Unidos de Padre Miguel e Paraíso do Tuiuti rebaixadas para a Série Prata.'
+  2010: 'Carnaval de 2010: São Clemente Campeã e promovida ao Grupo Especial com o enredo "Choque de Ordem na folia". Unidos de Padre Miguel e Paraíso do Tuiuti rebaixadas para a Série Prata.',
+  2009: 'Carnaval de 2009: (Não houve rebaixamento) • União da Ilha do Governador Campeã e promovida ao Grupo Especial com o enredo "Viajar é Preciso - Extraordinárias Através de Mundos Conhecidos e Desconhecidos".'
 };
 
 /**
