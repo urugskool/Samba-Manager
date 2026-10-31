@@ -44,6 +44,7 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('maricá') || name.includes('marica')) return 'marica';
   if (name.includes('imperio serrano') || name.includes('império serrano')) return 'imperio_serrano';
   if (name.includes('padre miguel') && name.includes('unidos')) return 'unidos_padre_miguel';
+  if (name.includes('boi da ilha') || clean.includes('boi_da_ilha')) return 'boi_da_ilha';
   if (name.includes('ilha do governador') || (name.includes('união') && name.includes('ilha'))) return 'uniao_da_ilha';
   if (name.includes('cima da hora')) return 'em_cima_da_hora';
   if (name.includes('estácio') || name.includes('estacio')) return 'estacio_de_sa';

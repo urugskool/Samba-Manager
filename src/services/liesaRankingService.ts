@@ -2072,7 +2072,7 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 11, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra' },
     { rank: 12, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' },
     { rank: 13, schoolId: 'tradicao', schoolName: 'Tradição' },
-    { rank: 14, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz' }
+    { rank: 14, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz', statusDescription: '14ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   2004: [
     { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
