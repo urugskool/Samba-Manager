@@ -2674,6 +2674,89 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '12ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1999: [
+    {
+      rank: 1,
+      schoolId: 'tijuca',
+      schoolName: 'Unidos da Tijuca',
+      enredo: 'O dono da terra',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'porto_da_pedra',
+      schoolName: 'Unidos do Porto da Pedra',
+      enredo: 'E na farofa do confete, tem limão, tem serpentina',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Estácio de Sá',
+      enredo: 'No passo do Compasso, a Estácio no Sapatinho',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Abraham Medina em noite de gala',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Jacarezinho canta e se encanta com os mistérios do Senhor da Luz',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Horas... Eras de glórias... E outras histórias...',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'O meu cabelo não nega',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'Tempero, uma pitada na história',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'No palco da alegria, Molejão é rei nesta folia',
+      statusDescription: '9ª Colocada'
+    },
+    {
+      rank: 10,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'O Samba é a Minha Voz',
+      relegated: true,
+      statusDescription: '10ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 11,
+      schoolId: 'villa_rica',
+      schoolName: 'Unidos da Villa Rica',
+      enredo: 'Sargentelli, Lenda Viva do Ziriguidum',
+      relegated: true,
+      statusDescription: '11ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -2707,7 +2790,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   2003: 'Carnaval de 2003: São Clemente Campeã e promovida ao Grupo Especial com o enredo "Mangaratiba, uma História de Lutas para todos que Amam a Terra e a Liberdade". Unidos da Ponte e Boi da Ilha do Governador rebaixadas para a Série Prata.',
   2002: 'Carnaval de 2002: Acadêmicos de Santa Cruz Campeã e promovida ao Grupo Especial com o enredo "Papel - Das Origens à Folia - História, Arte e Magia". Unidos da Villa Rica e Império da Tijuca rebaixadas para a Série Prata.',
   2001: 'Carnaval de 2001: Unidos do Porto da Pedra (Campeã) e São Clemente (Vice-Campeã) promovidas ao Grupo Especial. Inocentes de Belford Roxo e Em Cima da Hora rebaixadas para a Série Prata.',
-  2000: 'Carnaval de 2000: Império Serrano (Campeã) e Paraíso do Tuiuti (Vice-Campeã) promovidas ao Grupo Especial. Acadêmicos da Rocinha, Unidos do Jacarezinho, Acadêmicos do Cubango e Unidos do Cabuçu rebaixadas para a Série Prata.'
+  2000: 'Carnaval de 2000: Império Serrano (Campeã) e Paraíso do Tuiuti (Vice-Campeã) promovidas ao Grupo Especial. Acadêmicos da Rocinha, Unidos do Jacarezinho, Acadêmicos do Cubango e Unidos do Cabuçu rebaixadas para a Série Prata.',
+  1999: 'Carnaval de 1999: Unidos da Tijuca (Campeã) e Unidos do Porto da Pedra (Vice-Campeã) promovidas ao Grupo Especial. Unidos da Ponte e Unidos da Villa Rica rebaixadas para a Série Prata.'
 };
 
 /**

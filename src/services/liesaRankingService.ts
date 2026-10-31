@@ -2007,8 +2007,8 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 10, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
     { rank: 11, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
     { rank: 12, schoolId: 'tradicao', schoolName: 'Tradição' },
-    { rank: 13, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' },
-    { rank: 14, schoolId: 'sao_clemente', schoolName: 'São Clemente' }
+    { rank: 13, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', statusDescription: '13ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true },
+    { rank: 14, schoolId: 'sao_clemente', schoolName: 'São Clemente', statusDescription: '14ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   2000: [
     { rank: 1, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
