@@ -2134,8 +2134,8 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 9, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
     { rank: 10, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra' },
     { rank: 11, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
-    { rank: 12, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' },
-    { rank: 13, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá' }
+    { rank: 12, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', statusDescription: '12ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true },
+    { rank: 13, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', statusDescription: '13ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   2008: [
     { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
