@@ -3136,6 +3136,122 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '19ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1994: [
+    {
+      rank: 1,
+      schoolId: 'villa_rica',
+      schoolName: 'Unidos da Villa Rica',
+      enredo: 'Copacabana, meu amor',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'Uma andorinha só não faz verão ou Aonde vai a corda vai a caçamba',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: 'Humor pra dar e vender',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Nélson Rodrigues, um beijo na Sapucaí',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Brajiru, meu Japão brasileiro',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'leao_de_nova_iguacu',
+      schoolName: 'Leão de Nova Iguaçu',
+      enredo: 'Da França tropical a Orfeu do Carnaval',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'A rota dos mercadores',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'E agora eu, ao vivo e a cores',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Sapucaia Oroca',
+      statusDescription: '9ª Colocada'
+    },
+    {
+      rank: 10,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'Entre festas e fitas',
+      statusDescription: '10ª Colocada'
+    },
+    {
+      rank: 11,
+      schoolId: 'canarios_laranjeiras',
+      schoolName: 'Canários das Laranjeiras',
+      enredo: 'Quem é bom já nasce feito',
+      statusDescription: '11ª Colocada'
+    },
+    {
+      rank: 12,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Conservatória, cidade serenata sambando na Sapucaí',
+      statusDescription: '12ª Colocada'
+    },
+    {
+      rank: 13,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Magos da oitava maravilha',
+      statusDescription: '13ª Colocada'
+    },
+    {
+      rank: 14,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes de Cordovil',
+      enredo: 'Garotinho vem... Sacudindo a Sapucaí',
+      statusDescription: '14ª Colocada'
+    },
+    {
+      rank: 15,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'Ao mestre com carinho (Homenagem a Fernando Pamplona)',
+      statusDescription: '15ª Colocada'
+    },
+    {
+      rank: 16,
+      schoolId: 'arrastao_cascadura',
+      schoolName: 'Arrastão de Cascadura',
+      enredo: 'Assim caminha a humanidade',
+      statusDescription: '16ª Colocada'
+    }
   ]
 };
 
@@ -3174,7 +3290,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1998: 'Carnaval de 1998: Império Serrano (Campeã) e São Clemente (Vice-Campeã) promovidas ao Grupo Especial. Acadêmicos da Rocinha e Lins Imperial rebaixadas para a Série Prata.',
   1997: 'Carnaval de 1997: Tradição (Campeã) e Caprichosos de Pilares (Vice-Campeã) promovidas ao Grupo Especial. Unidos do Cabuçu, Arranco, Acadêmicos do Dendê e Vizinha Faladeira rebaixadas para a Série Prata.',
   1996: 'Carnaval de 1996: Acadêmicos de Santa Cruz (Campeã) e Acadêmicos da Rocinha (Vice-Campeã) promovidas ao Grupo Especial. Arrastão de Cascadura, Acadêmicos do Engenho da Rainha, Acadêmicos do Cubango e Unidos da Villa Rica rebaixadas para a Série Prata (a Unidos da Villa Rica não desfilou).',
-  1995: 'Carnaval de 1995: Unidos do Porto da Pedra (Campeã) e Império da Tijuca (Vice-Campeã) promovidas ao Grupo Especial. Nove escolas rebaixadas para a Série Prata: Unidos do Jacarezinho, Difícil é o Nome, Leão de Nova Iguaçu, Unidos de Lucas, Lins Imperial, Arranco, Independentes de Cordovil, Mocidade Unida da Cidade de Deus e Canários das Laranjeiras.'
+  1995: 'Carnaval de 1995: Unidos do Porto da Pedra (Campeã) e Império da Tijuca (Vice-Campeã) promovidas ao Grupo Especial. Nove escolas rebaixadas para a Série Prata: Unidos do Jacarezinho, Difícil é o Nome, Leão de Nova Iguaçu, Unidos de Lucas, Lins Imperial, Arranco, Independentes de Cordovil, Mocidade Unida da Cidade de Deus e Canários das Laranjeiras.',
+  1994: 'Carnaval de 1994: (Não Houve Rebaixamento) • Unidos da Villa Rica (Campeã) e São Clemente (Vice-Campeã) promovidas ao Grupo Especial.'
 };
 
 /**
