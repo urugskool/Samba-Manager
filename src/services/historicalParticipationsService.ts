@@ -67,6 +67,7 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('tijuca') && !name.includes('império')) return 'tijuca';
   if (name.includes('grande rio')) return 'grande_rio';
   if (name.includes('tuiuti')) return 'tuiuti';
+  if (name.includes('cidade de deus') || clean.includes('cidade_de_deus')) return 'mocidade_cidade_de_deus';
   if (name.includes('mocidade') && !name.includes('santa marta')) return 'mocidade';
   if (name.includes('niterói') || name.includes('niteroi')) return 'niteroi';
   if (name.includes('santa cruz')) return 'santa_cruz';
@@ -91,6 +92,14 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('império da tijuca') || name.includes('imperio da tijuca') || clean.includes('imperio_da_tijuca')) return 'imperio_da_tijuca';
   if (name.includes('villa rica') || name.includes('vila rica') || clean.includes('villa_rica') || clean.includes('vila_rica')) return 'villa_rica';
   if (name.includes('cabuçu') || name.includes('cabucu') || clean.includes('cabucu')) return 'cabucu';
+  if (name.includes('dendê') || name.includes('dende') || clean.includes('dende')) return 'academicos_do_dende';
+  if (name.includes('arrastão') || name.includes('arrastao') || clean.includes('arrastao')) return 'arrastao_cascadura';
+  if (name.includes('engenho da rainha') || clean.includes('engenho_da_rainha')) return 'engenho_da_rainha';
+  if (name.includes('difícil') || name.includes('dificil') || clean.includes('dificil')) return 'dificil_e_o_nome';
+  if (name.includes('orgulho de cordovil') || clean.includes('orgulho_de_cordovil')) return 'orgulho_de_cordovil';
+  if (name.includes('unidos de cordovil') || clean.includes('unidos_de_cordovil')) return 'unidos_de_cordovil';
+  if (name.includes('cordovil') || clean.includes('cordovil')) return 'independentes_cordovil';
+  if (name.includes('canários') || name.includes('canarios') || clean.includes('canarios')) return 'canarios_laranjeiras';
 
   return clean || name.replace(/\s+/g, '_');
 }

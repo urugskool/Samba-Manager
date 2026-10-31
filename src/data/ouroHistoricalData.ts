@@ -2757,6 +2757,385 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '11ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1998: [
+    {
+      rank: 1,
+      schoolId: 'imperio_serrano',
+      schoolName: 'Império Serrano',
+      enredo: 'Sou o ouro negro da Mãe África',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'Maiores são os Poderes do Povo ! Se Liga na São Clemente !',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'O exagerado Cazuza nas terras de Santa Cruz',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'Nausicaa - A odisséia Cubanga nos verdes mares',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Elymar superpopular',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Quem Pode, Pode, no Pagode se Sacode',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Quem é você, Zuzu Angel? Um anjo feito mulher',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Estácio de Sá',
+      enredo: 'Cem Anos de Cultura - Academia Brasileira de Letras',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: 'Tá... Na ponta da língua',
+      relegated: true,
+      statusDescription: '9ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 10,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Búzios : o Paraíso da Humanidade',
+      relegated: true,
+      statusDescription: '10ª (rebaixada) • Rebaixada para a Série Prata'
+    }
+  ],
+  1997: [
+    {
+      rank: 1,
+      schoolId: 'tradicao',
+      schoolName: 'Tradição',
+      enredo: 'Os balagandãs',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'Do tambor ao computador',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'A São Clemente Botafogo na Sapucaí',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'A coroa do perdão na terra de Oyó',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Sérgio Cabral, a cara do Rio',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Da lata de lixo ao luxo da lata',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Todas as Marias de nossa terra',
+      relegated: true,
+      statusDescription: '7ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 8,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Chico Anísio, 50 anos de Humor',
+      relegated: true,
+      statusDescription: '8ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 9,
+      schoolId: 'academicos_do_dende',
+      schoolName: 'Acadêmicos do Dendê',
+      enredo: 'Do pasto, fantasia, do gado, alegoria',
+      relegated: true,
+      statusDescription: '9ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 10,
+      schoolId: 'vizinha_faladeira',
+      schoolName: 'Vizinha Faladeira',
+      enredo: 'Lan, a cara alegre e colorida do Rio',
+      relegated: true,
+      statusDescription: '10ª (rebaixada) • Rebaixada para a Série Prata'
+    }
+  ],
+  1996: [
+    {
+      rank: 1,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Ribalta - Luz, Sonho e Ilusão',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: 'Bahia com muito amor',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'Se a Canoa não Virar, a São Clemente Chega Lá',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'vizinha_faladeira',
+      schoolName: 'Vizinha Faladeira',
+      enredo: 'Elba Popular Brasileira',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Do reclame ao merchandising, a história da propaganda no Brasil',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Yara cigana, canta, dança e toca, é Rio, é rua, é Carioca',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'arrastao_cascadura',
+      schoolName: 'Arrastão de Cascadura',
+      enredo: 'As Icamiabas',
+      relegated: true,
+      statusDescription: '7ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 8,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'Anjo azul',
+      relegated: true,
+      statusDescription: '8ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 9,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'Dos brasões do reino de Portugal, ao esplendor da bandeira nacional',
+      relegated: true,
+      statusDescription: '9ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 10,
+      schoolId: 'villa_rica',
+      schoolName: 'Unidos da Villa Rica',
+      enredo: 'A Lavagem do Bonfim',
+      relegated: true,
+      statusDescription: '10ª (rebaixada) • Não desfilou • Rebaixada para a Série Prata'
+    }
+  ],
+  1995: [
+    {
+      rank: 1,
+      schoolId: 'porto_da_pedra',
+      schoolName: 'Unidos do Porto da Pedra',
+      enredo: 'Campo Cidade em Busca da Felicidade',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'No Sassarico da Colombo',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'arrastao_cascadura',
+      schoolName: 'Arrastão de Cascadura',
+      enredo: 'Frevança',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: 'Sem Medo de ser Feliz',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Deuses e Costumes nas Terras de Santa Cruz',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'vizinha_faladeira',
+      schoolName: 'Vizinha Faladeira',
+      enredo: 'O Relicário do Samba',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'Da Aldeia de São Lourenço a Niterói, a Cidade Sorriso',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Um Abraço à Cinelândia, 60 anos de Teatro Rival',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'Yolhesman Crisbeles, a República de Ipanema é um Desbunde',
+      statusDescription: '9ª Colocada'
+    },
+    {
+      rank: 10,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'No Reflexo do Espelho, a Arte de Dançar (Homenagem à Carlinhos de Jesus)',
+      statusDescription: '10ª Colocada'
+    },
+    {
+      rank: 11,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'E o Jacarezinho Descobriu a Atlântida, a Tela Perdida',
+      relegated: true,
+      statusDescription: '11ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 12,
+      schoolId: 'dificil_e_o_nome',
+      schoolName: 'Difícil é o Nome',
+      enredo: 'A Grande Estrela, o Sol',
+      relegated: true,
+      statusDescription: '12ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 13,
+      schoolId: 'leao_de_nova_iguacu',
+      schoolName: 'Leão de Nova Iguaçu',
+      enredo: 'Arautos do Brasil Mulato',
+      relegated: true,
+      statusDescription: '13ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 14,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Os Quindins de Yayá',
+      relegated: true,
+      statusDescription: '14ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 15,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Uma Festa em Verde e Rosa',
+      totalScore: 266.0,
+      relegated: true,
+      statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 16,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Ria ... Se Puder',
+      relegated: true,
+      statusDescription: '16ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 17,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes de Cordovil',
+      enredo: 'Retratos e Canções',
+      relegated: true,
+      statusDescription: '17ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 18,
+      schoolId: 'mocidade_cidade_de_deus',
+      schoolName: 'Mocidade Unida da Cidade de Deus',
+      enredo: 'Domingo é Dia de Quinta',
+      relegated: true,
+      statusDescription: '18ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 19,
+      schoolId: 'canarios_laranjeiras',
+      schoolName: 'Canários das Laranjeiras',
+      enredo: 'Seu Conductor, Din Din Seu Condutor',
+      relegated: true,
+      statusDescription: '19ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -2791,7 +3170,11 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   2002: 'Carnaval de 2002: Acadêmicos de Santa Cruz Campeã e promovida ao Grupo Especial com o enredo "Papel - Das Origens à Folia - História, Arte e Magia". Unidos da Villa Rica e Império da Tijuca rebaixadas para a Série Prata.',
   2001: 'Carnaval de 2001: Unidos do Porto da Pedra (Campeã) e São Clemente (Vice-Campeã) promovidas ao Grupo Especial. Inocentes de Belford Roxo e Em Cima da Hora rebaixadas para a Série Prata.',
   2000: 'Carnaval de 2000: Império Serrano (Campeã) e Paraíso do Tuiuti (Vice-Campeã) promovidas ao Grupo Especial. Acadêmicos da Rocinha, Unidos do Jacarezinho, Acadêmicos do Cubango e Unidos do Cabuçu rebaixadas para a Série Prata.',
-  1999: 'Carnaval de 1999: Unidos da Tijuca (Campeã) e Unidos do Porto da Pedra (Vice-Campeã) promovidas ao Grupo Especial. Unidos da Ponte e Unidos da Villa Rica rebaixadas para a Série Prata.'
+  1999: 'Carnaval de 1999: Unidos da Tijuca (Campeã) e Unidos do Porto da Pedra (Vice-Campeã) promovidas ao Grupo Especial. Unidos da Ponte e Unidos da Villa Rica rebaixadas para a Série Prata.',
+  1998: 'Carnaval de 1998: Império Serrano (Campeã) e São Clemente (Vice-Campeã) promovidas ao Grupo Especial. Acadêmicos da Rocinha e Lins Imperial rebaixadas para a Série Prata.',
+  1997: 'Carnaval de 1997: Tradição (Campeã) e Caprichosos de Pilares (Vice-Campeã) promovidas ao Grupo Especial. Unidos do Cabuçu, Arranco, Acadêmicos do Dendê e Vizinha Faladeira rebaixadas para a Série Prata.',
+  1996: 'Carnaval de 1996: Acadêmicos de Santa Cruz (Campeã) e Acadêmicos da Rocinha (Vice-Campeã) promovidas ao Grupo Especial. Arrastão de Cascadura, Acadêmicos do Engenho da Rainha, Acadêmicos do Cubango e Unidos da Villa Rica rebaixadas para a Série Prata (a Unidos da Villa Rica não desfilou).',
+  1995: 'Carnaval de 1995: Unidos do Porto da Pedra (Campeã) e Império da Tijuca (Vice-Campeã) promovidas ao Grupo Especial. Nove escolas rebaixadas para a Série Prata: Unidos do Jacarezinho, Difícil é o Nome, Leão de Nova Iguaçu, Unidos de Lucas, Lins Imperial, Arranco, Independentes de Cordovil, Mocidade Unida da Cidade de Deus e Canários das Laranjeiras.'
 };
 
 /**

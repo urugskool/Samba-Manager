@@ -1937,8 +1937,8 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 14, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte' },
     { rank: 15, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' },
     { rank: 16, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio' },
-    { rank: 17, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
-    { rank: 18, schoolId: 'villa_rica', schoolName: 'Unidos da Villa Rica' }
+    { rank: 17, schoolId: 'sao_clemente', schoolName: 'São Clemente', statusDescription: '17ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true },
+    { rank: 18, schoolId: 'villa_rica', schoolName: 'Unidos da Villa Rica', statusDescription: '18ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   1996: [
     { rank: 1, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
@@ -1955,10 +1955,10 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 12, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
     { rank: 13, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro' },
     { rank: 14, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
-    { rank: 15, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
-    { rank: 16, schoolId: 'tradicao', schoolName: 'Tradição' },
-    { rank: 17, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca' },
-    { rank: 18, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte' }
+    { rank: 15, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', statusDescription: '15ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true },
+    { rank: 16, schoolId: 'tradicao', schoolName: 'Tradição', statusDescription: '16ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true },
+    { rank: 17, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', statusDescription: '17ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true },
+    { rank: 18, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte', statusDescription: '18ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   1997: [
     { rank: 1, schoolId: 'viradouro', schoolName: 'Unidos do Viradouro' },
@@ -1973,10 +1973,10 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 10, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio' },
     { rank: 11, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
     { rank: 12, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
-    { rank: 13, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá' },
-    { rank: 14, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz' },
-    { rank: 15, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' },
-    { rank: 16, schoolId: 'rocinha', schoolName: 'Acadêmicos da Rocinha' }
+    { rank: 13, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', statusDescription: '13ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true },
+    { rank: 14, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz', statusDescription: '14ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true },
+    { rank: 15, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', statusDescription: '15ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true },
+    { rank: 16, schoolId: 'rocinha', schoolName: 'Acadêmicos da Rocinha', statusDescription: '16ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   1998: [
     { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },
@@ -1991,8 +1991,8 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 10, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
     { rank: 11, schoolId: 'tradicao', schoolName: 'Tradição' },
     { rank: 12, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
-    { rank: 13, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
-    { rank: 14, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra' }
+    { rank: 13, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', statusDescription: '13ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true },
+    { rank: 14, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra', statusDescription: '14ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   1999: [
     { rank: 1, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },
@@ -2605,6 +2605,7 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('mocidade de cachambi') || nameNorm.includes('cachambi')) return 'mocidade_de_cachambi';
   if (nameNorm.includes('união da mocidade') || nameNorm.includes('uniao da mocidade')) return 'uniao_da_mocidade';
   if (nameNorm.includes('modelo unidos do riachuelo') || nameNorm.includes('mocidade unidos do riachuelo')) return 'mocidade_unidos_do_riachuelo';
+  if (nameNorm.includes('cidade de deus')) return 'mocidade_cidade_de_deus';
   if (nameNorm.includes('mocidade') && !nameNorm.includes('cidade de deus') && !nameNorm.includes('porto') && !nameNorm.includes('vicente')) return 'mocidade';
   if (nameNorm.includes('niterói') || nameNorm.includes('niteroi')) return 'niteroi';
   if (nameNorm.includes('porto da pedra')) return 'porto_da_pedra';

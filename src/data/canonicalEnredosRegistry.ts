@@ -253,7 +253,8 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('grande rio')) return 'grande_rio';
   if (raw.includes('tuiuti')) return 'tuiuti';
   if (raw.includes('portela')) return 'portela';
-  if (raw.includes('mocidade') && !raw.includes('santa marta') && !raw.includes('vicente')) return 'mocidade';
+  if (raw.includes('cidade de deus')) return 'mocidade_cidade_de_deus';
+  if (raw.includes('mocidade') && !raw.includes('santa marta') && !raw.includes('vicente') && !raw.includes('cidade de deus')) return 'mocidade';
   if (raw.includes('niterói') || raw.includes('niteroi')) return 'niteroi';
   if (raw.includes('maricá') || raw.includes('marica')) return 'marica';
   if (raw.includes('imperio serrano') || raw.includes('império serrano') || raw.includes('serrano')) return 'imperio_serrano';
