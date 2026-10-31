@@ -2039,8 +2039,8 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 10, schoolId: 'portela', schoolName: 'Portela' },
     { rank: 11, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' },
     { rank: 12, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
-    { rank: 13, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
-    { rank: 14, schoolId: 'tuiuti', schoolName: 'Paraíso do Tuiuti' }
+    { rank: 13, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', statusDescription: '13ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true },
+    { rank: 14, schoolId: 'tuiuti', schoolName: 'Paraíso do Tuiuti', statusDescription: '14ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   2002: [
     { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
