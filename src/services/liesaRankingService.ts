@@ -2088,7 +2088,7 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 11, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra' },
     { rank: 12, schoolId: 'tradicao', schoolName: 'Tradição' },
     { rank: 13, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
-    { rank: 14, schoolId: 'sao_clemente', schoolName: 'São Clemente' }
+    { rank: 14, schoolId: 'sao_clemente', schoolName: 'São Clemente', statusDescription: '14ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   2005: [
     { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor' },

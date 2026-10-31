@@ -86,6 +86,7 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('santa tereza') || name.includes('santa teresa') || clean.includes('santa_tereza')) return 'vila_santa_tereza';
   if (name.includes('vizinha') || clean.includes('vizinha')) return 'vizinha_faladeira';
   if (name.includes('união de jacarepaguá') || name.includes('uniao de jacarepagua') || clean.includes('uniao_de_jacarepagua') || clean.includes('uniao_jacarepagua')) return 'uniao_de_jacarepagua';
+  if (name.includes('leão de nova iguaçu') || name.includes('leao de nova iguacu') || clean.includes('leao_de_nova_iguacu') || clean.includes('leao_nova_iguacu')) return 'leao_de_nova_iguacu';
 
   return clean || name.replace(/\s+/g, '_');
 }
