@@ -2023,8 +2023,8 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 10, schoolId: 'portela', schoolName: 'Portela' },
     { rank: 11, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
     { rank: 12, schoolId: 'tradicao', schoolName: 'Tradição' },
-    { rank: 13, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
-    { rank: 14, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra' }
+    { rank: 13, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', statusDescription: '13ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true },
+    { rank: 14, schoolId: 'porto_da_pedra', schoolName: 'Unidos do Porto da Pedra', statusDescription: '14ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   2001: [
     { rank: 1, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },

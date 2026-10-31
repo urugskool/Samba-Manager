@@ -90,6 +90,7 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('leão de nova iguaçu') || name.includes('leao de nova iguacu') || clean.includes('leao_de_nova_iguacu') || clean.includes('leao_nova_iguacu')) return 'leao_de_nova_iguacu';
   if (name.includes('império da tijuca') || name.includes('imperio da tijuca') || clean.includes('imperio_da_tijuca')) return 'imperio_da_tijuca';
   if (name.includes('villa rica') || name.includes('vila rica') || clean.includes('villa_rica') || clean.includes('vila_rica')) return 'villa_rica';
+  if (name.includes('cabuçu') || name.includes('cabucu') || clean.includes('cabucu')) return 'cabucu';
 
   return clean || name.replace(/\s+/g, '_');
 }

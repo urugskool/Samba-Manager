@@ -2582,6 +2582,98 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '12ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  2000: [
+    {
+      rank: 1,
+      schoolId: 'imperio_serrano',
+      schoolName: 'Império Serrano',
+      enredo: 'Os canhões de Guararapes',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Um Monarca na Fuzarca',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Oswaldo Cruz, a saga de um herói brasileiro',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'No ano 2000, a São Clemente é Tupi com Sergipe na Sapucaí',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'inocentes',
+      schoolName: 'Inocentes de Belford Roxo',
+      enredo: 'Petrópolis, roxo de amor por você',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Brasil, do extrativismo à reciclagem, 500 anos de riqueza',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'O ouro vermelho de Pati do Alferes',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Estácio de Sá',
+      enredo: 'Envergo, Mas Não Quebro',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: 'O sonho da França Antártica de Villegagnon',
+      relegated: true,
+      statusDescription: '9ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 10,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Do Barão à fundação, 100 anos a serviço da nação',
+      relegated: true,
+      statusDescription: '10ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 11,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'Por uma independência de fato',
+      relegated: true,
+      statusDescription: '11ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 12,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Brasil 500... Ano 2000, Cabral faz a festa no Brasil',
+      relegated: true,
+      statusDescription: '12ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -2614,7 +2706,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   2004: 'Carnaval de 2004: Unidos de Vila Isabel Campeã e promovida ao Grupo Especial com o enredo "A Vila É Para Ti...". Estácio de Sá, Inocentes da Baixada, Leão de Nova Iguaçu e Lins Imperial rebaixadas para a Série Prata.',
   2003: 'Carnaval de 2003: São Clemente Campeã e promovida ao Grupo Especial com o enredo "Mangaratiba, uma História de Lutas para todos que Amam a Terra e a Liberdade". Unidos da Ponte e Boi da Ilha do Governador rebaixadas para a Série Prata.',
   2002: 'Carnaval de 2002: Acadêmicos de Santa Cruz Campeã e promovida ao Grupo Especial com o enredo "Papel - Das Origens à Folia - História, Arte e Magia". Unidos da Villa Rica e Império da Tijuca rebaixadas para a Série Prata.',
-  2001: 'Carnaval de 2001: Unidos do Porto da Pedra (Campeã) e São Clemente (Vice-Campeã) promovidas ao Grupo Especial. Inocentes de Belford Roxo e Em Cima da Hora rebaixadas para a Série Prata.'
+  2001: 'Carnaval de 2001: Unidos do Porto da Pedra (Campeã) e São Clemente (Vice-Campeã) promovidas ao Grupo Especial. Inocentes de Belford Roxo e Em Cima da Hora rebaixadas para a Série Prata.',
+  2000: 'Carnaval de 2000: Império Serrano (Campeã) e Paraíso do Tuiuti (Vice-Campeã) promovidas ao Grupo Especial. Acadêmicos da Rocinha, Unidos do Jacarezinho, Acadêmicos do Cubango e Unidos do Cabuçu rebaixadas para a Série Prata.'
 };
 
 /**
