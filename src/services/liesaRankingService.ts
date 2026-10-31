@@ -1848,8 +1848,8 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 12, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
     { rank: 13, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
     { rank: 14, schoolId: 'lins_imperial', schoolName: 'Lins Imperial' },
-    { rank: 15, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz' },
-    { rank: 16, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu' }
+    { rank: 15, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz', relegated: true, statusDescription: '15ª (rebaixada) • Rebaixada para a Série Ouro' },
+    { rank: 16, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', relegated: true, statusDescription: '16ª (rebaixada) • Rebaixada para a Série Ouro' }
   ],
   1991: [
     { rank: 1, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },

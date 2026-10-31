@@ -3564,6 +3564,80 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       promoted: true,
       statusDescription: 'Hors concours • Subiu ao Grupo Especial'
     }
+  ],
+  1990: [
+    {
+      rank: 1,
+      schoolId: 'viradouro',
+      schoolName: 'Unidos do Viradouro',
+      enredo: 'Só vale o que está escrito',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'grande_rio',
+      schoolName: 'Acadêmicos do Grande Rio',
+      enredo: 'Porque sou carioca?',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Robauto, uma ova',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'tradicao',
+      schoolName: 'Tradição',
+      enredo: 'A coroação',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Jurupari, a voz da mata',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'Dan, a serpente encantada do arco-íris',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Do leite de cabra ao silicone',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'O magnífico Niemeyer',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Eneida, o pierrô está de volta',
+      statusDescription: '9ª Colocada'
+    },
+    {
+      rank: 10,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes de Cordovil',
+      enredo: 'Cantares ao meu povo, Solano Trindade',
+      statusDescription: '10ª Colocada'
+    }
   ]
 };
 
@@ -3606,7 +3680,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1994: 'Carnaval de 1994: (Não Houve Rebaixamento) • Unidos da Villa Rica (Campeã) e São Clemente (Vice-Campeã) promovidas ao Grupo Especial.',
   1993: 'Carnaval de 1993: Tradição (Campeã) e Império Serrano (Vice-Campeã) promovidas ao Grupo Especial. Mocidade Unida da Cidade de Deus rebaixada para a Série Prata.',
   1992: 'Carnaval de 1992: Acadêmicos do Grande Rio (Campeã) e Unidos da Ponte (Vice-Campeã) promovidas ao Grupo Especial. Independentes de Cordovil e Unidos do Campinho rebaixadas para a Série Prata.',
-  1991: 'Carnaval de 1991: Tradição (Campeã) e Leão de Nova Iguaçu (Vice-Campeã) promovidas ao Grupo Especial. A Acadêmicos de Santa Cruz desfilou como Hors concours após uma queda de energia no Sambódromo durante seu desfile e ganhou o direito de desfilar no Grupo Especial em 1992. Paraíso do Tuiuti rebaixada para a Série Prata.'
+  1991: 'Carnaval de 1991: Tradição (Campeã) e Leão de Nova Iguaçu (Vice-Campeã) promovidas ao Grupo Especial. A Acadêmicos de Santa Cruz desfilou como Hors concours após uma queda de energia no Sambódromo durante seu desfile e ganhou o direito de desfilar no Grupo Especial em 1992. Paraíso do Tuiuti rebaixada para a Série Prata.',
+  1990: 'Carnaval de 1990: (Não Houve Rebaixamento) • Unidos do Viradouro (Campeã) e Acadêmicos do Grande Rio (Vice-Campeã) promovidas ao Grupo Especial.'
 };
 
 /**
