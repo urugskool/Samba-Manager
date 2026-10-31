@@ -2403,6 +2403,95 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '12ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  2002: [
+    {
+      rank: 1,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Papel - Das Origens à Folia - História, Arte e Magia',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'vila_isabel',
+      schoolName: 'Unidos de Vila Isabel',
+      enredo: 'O glorioso Nilton Santos... Sua bola, sua vida, nossa Vila...',
+      statusDescription: '2ª Colocada • Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'uniao_da_ilha',
+      schoolName: 'União da Ilha do Governador',
+      enredo: 'Folias de Caxias: de João a João... É o carnaval da União',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Arlindo, Arlequins e Querubins: Um Carnaval no Paraíso',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'leao_de_nova_iguacu',
+      schoolName: 'Leão de Nova Iguaçu',
+      enredo: 'Do Esplendor Diamantino aos Sonhos Dourados de Juscelino',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'boi_da_ilha',
+      schoolName: 'Boi da Ilha do Governador',
+      enredo: 'Boi da Ilha é Holambra, a Tulipa Brasileira',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: 'Na Rocinha, o povo é sempre notícia',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Estácio de Sá',
+      enredo: 'Nos Braços do Povo, na Passarela do Samba... Cinqüenta Anos de O Dia',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Asas: sonho de muitos, privilégio de poucos, tecnologia de todos',
+      statusDescription: '9ª Colocada'
+    },
+    {
+      rank: 10,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'De Minas para o Brasil, o Mártir da Nova República',
+      statusDescription: '10ª Colocada'
+    },
+    {
+      rank: 11,
+      schoolId: 'villa_rica',
+      schoolName: 'Unidos da Villa Rica',
+      enredo: 'Sou Rio, sou Grande, sou Villa Rica do Norte',
+      relegated: true,
+      statusDescription: '11ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 12,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Vossa excelência: feijão com arroz',
+      relegated: true,
+      statusDescription: '12ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -2433,7 +2522,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   2006: 'Carnaval de 2006: Estácio de Sá Campeã e promovida ao Grupo Especial com o enredo "Quem é você?". Vizinha Faladeira e Alegria da Zona Sul rebaixadas para a Série Prata.',
   2005: 'Carnaval de 2005: Acadêmicos da Rocinha Campeã e promovida ao Grupo Especial com o enredo "Um Mundo sem Fronteiras". Paraíso do Tuiuti e União de Jacarepaguá rebaixadas para a Série Prata.',
   2004: 'Carnaval de 2004: Unidos de Vila Isabel Campeã e promovida ao Grupo Especial com o enredo "A Vila É Para Ti...". Estácio de Sá, Inocentes da Baixada, Leão de Nova Iguaçu e Lins Imperial rebaixadas para a Série Prata.',
-  2003: 'Carnaval de 2003: São Clemente Campeã e promovida ao Grupo Especial com o enredo "Mangaratiba, uma História de Lutas para todos que Amam a Terra e a Liberdade". Unidos da Ponte e Boi da Ilha do Governador rebaixadas para a Série Prata.'
+  2003: 'Carnaval de 2003: São Clemente Campeã e promovida ao Grupo Especial com o enredo "Mangaratiba, uma História de Lutas para todos que Amam a Terra e a Liberdade". Unidos da Ponte e Boi da Ilha do Governador rebaixadas para a Série Prata.',
+  2002: 'Carnaval de 2002: Acadêmicos de Santa Cruz Campeã e promovida ao Grupo Especial com o enredo "Papel - Das Origens à Folia - História, Arte e Magia". Unidos da Villa Rica e Império da Tijuca rebaixadas para a Série Prata.'
 };
 
 /**

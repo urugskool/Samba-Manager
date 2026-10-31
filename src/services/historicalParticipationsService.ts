@@ -88,6 +88,8 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('vizinha') || clean.includes('vizinha')) return 'vizinha_faladeira';
   if (name.includes('união de jacarepaguá') || name.includes('uniao de jacarepagua') || clean.includes('uniao_de_jacarepagua') || clean.includes('uniao_jacarepagua')) return 'uniao_de_jacarepagua';
   if (name.includes('leão de nova iguaçu') || name.includes('leao de nova iguacu') || clean.includes('leao_de_nova_iguacu') || clean.includes('leao_nova_iguacu')) return 'leao_de_nova_iguacu';
+  if (name.includes('império da tijuca') || name.includes('imperio da tijuca') || clean.includes('imperio_da_tijuca')) return 'imperio_da_tijuca';
+  if (name.includes('villa rica') || name.includes('vila rica') || clean.includes('villa_rica') || clean.includes('vila_rica')) return 'villa_rica';
 
   return clean || name.replace(/\s+/g, '_');
 }
