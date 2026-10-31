@@ -2104,7 +2104,7 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 11, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
     { rank: 12, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' },
     { rank: 13, schoolId: 'portela', schoolName: 'Portela' },
-    { rank: 14, schoolId: 'tradicao', schoolName: 'Tradição' }
+    { rank: 14, schoolId: 'tradicao', schoolName: 'Tradição', statusDescription: '14ª (rebaixada) • Rebaixada para a Série Ouro', relegated: true }
   ],
   2006: [
     { rank: 1, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
