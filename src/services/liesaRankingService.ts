@@ -1864,10 +1864,10 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 10, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
     { rank: 11, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
     { rank: 12, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },
-    { rank: 13, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
-    { rank: 14, schoolId: 'lins_imperial', schoolName: 'Lins Imperial' },
-    { rank: 15, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' },
-    { rank: 16, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio' }
+    { rank: 13, schoolId: 'sao_clemente', schoolName: 'São Clemente', relegated: true, statusDescription: '13ª (rebaixada) • Rebaixada para a Série Ouro' },
+    { rank: 14, schoolId: 'lins_imperial', schoolName: 'Lins Imperial', relegated: true, statusDescription: '14ª (rebaixada) • Rebaixada para a Série Ouro' },
+    { rank: 15, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', relegated: true, statusDescription: '15ª (rebaixada) • Rebaixada para a Série Ouro' },
+    { rank: 16, schoolId: 'grande_rio', schoolName: 'Acadêmicos do Grande Rio', relegated: true, statusDescription: '16ª (rebaixada) • Rebaixada para a Série Ouro' }
   ],
   1992: [
     { rank: 1, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá' },
@@ -1882,9 +1882,9 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 10, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
     { rank: 11, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
     { rank: 12, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel' },
-    { rank: 13, schoolId: 'leao_de_nova_iguacu', schoolName: 'Leão de Nova Iguaçu' },
-    { rank: 14, schoolId: 'tradicao', schoolName: 'Tradição' },
-    { rank: 15, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz' }
+    { rank: 13, schoolId: 'leao_de_nova_iguacu', schoolName: 'Leão de Nova Iguaçu', relegated: true, statusDescription: '13ª (rebaixada) • Rebaixada para a Série Ouro' },
+    { rank: 14, schoolId: 'tradicao', schoolName: 'Tradição', relegated: true, statusDescription: '14ª (rebaixada) • Rebaixada para a Série Ouro' },
+    { rank: 15, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz', relegated: true, statusDescription: '15ª (rebaixada) • Rebaixada para a Série Ouro' }
   ],
   1993: [
     { rank: 1, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro' },

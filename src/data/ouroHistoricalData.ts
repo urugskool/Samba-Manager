@@ -3369,6 +3369,201 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '16ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1992: [
+    {
+      rank: 1,
+      schoolId: 'grande_rio',
+      schoolName: 'Acadêmicos do Grande Rio',
+      enredo: 'Águas claras para um rei negro',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Da cor do pecado',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'imperio_serrano',
+      schoolName: 'Império Serrano',
+      enredo: 'Fala Serrinha, a voz do samba sou eu mesmo, sim senhor',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Mandacaru, fruta-flor do querer',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: 'Para não dizer que não falei das flores',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'A visita do Jacarezinho ao reino encantado de Maria Clara Machado',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'E o salário Ó ...',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Xuxa, a realidade vira sonho no xou da Cabuçu',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Baía com I',
+      statusDescription: '9ª Colocada'
+    },
+    {
+      rank: 10,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Um mistério chamado Brasil (Homenagem a Sinval Silva)',
+      statusDescription: '10ª Colocada'
+    },
+    {
+      rank: 11,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Rio - Eco 92',
+      statusDescription: '11ª Colocada'
+    },
+    {
+      rank: 12,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'Mãe Terra: e o homem refez a criação. O mito do Engenho da Rainha',
+      statusDescription: '12ª Colocada'
+    },
+    {
+      rank: 13,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes de Cordovil',
+      enredo: 'Um negro chamado felicidade, Neguinho da Beija-Flor',
+      relegated: true,
+      statusDescription: '13ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 14,
+      schoolId: 'unidos_do_campinho',
+      schoolName: 'Unidos do Campinho',
+      enredo: 'Passa, passa o tempo',
+      relegated: true,
+      statusDescription: '14ª (rebaixada) • Rebaixada para a Série Prata'
+    }
+  ],
+  1991: [
+    {
+      rank: 1,
+      schoolId: 'tradicao',
+      schoolName: 'Tradição',
+      enredo: 'De geração à geração nas asas da Tradição',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'leao_de_nova_iguacu',
+      schoolName: 'Leão de Nova Iguaçu',
+      enredo: 'Quem te viu, quem TV',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Sou negro, sou raça, sou gente',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Aconteceu, virou Manchete',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Pare a big bang-bang, nem todo amarelo é ouro, nem todo vermelho é sangue',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'Meu padrinho padre Cícero do Juazeiro do Norte, olhai pelo Cariri',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Barracão, pregos, panos e paetês',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Canaã, a terra prometida Brasil',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Quando o Rio ria',
+      statusDescription: '9ª Colocada'
+    },
+    {
+      rank: 10,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes de Cordovil',
+      enredo: 'Ela, ele e eles, possuidores da noite',
+      statusDescription: '10ª Colocada'
+    },
+    {
+      rank: 11,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Asa branca',
+      relegated: true,
+      statusDescription: '11ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 0,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'O Boca do Inferno',
+      isHorsConcours: true,
+      promoted: true,
+      statusDescription: 'Hors concours • Subiu ao Grupo Especial'
+    }
   ]
 };
 
@@ -3409,7 +3604,9 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1996: 'Carnaval de 1996: Acadêmicos de Santa Cruz (Campeã) e Acadêmicos da Rocinha (Vice-Campeã) promovidas ao Grupo Especial. Arrastão de Cascadura, Acadêmicos do Engenho da Rainha, Acadêmicos do Cubango e Unidos da Villa Rica rebaixadas para a Série Prata (a Unidos da Villa Rica não desfilou).',
   1995: 'Carnaval de 1995: Unidos do Porto da Pedra (Campeã) e Império da Tijuca (Vice-Campeã) promovidas ao Grupo Especial. Nove escolas rebaixadas para a Série Prata: Unidos do Jacarezinho, Difícil é o Nome, Leão de Nova Iguaçu, Unidos de Lucas, Lins Imperial, Arranco, Independentes de Cordovil, Mocidade Unida da Cidade de Deus e Canários das Laranjeiras.',
   1994: 'Carnaval de 1994: (Não Houve Rebaixamento) • Unidos da Villa Rica (Campeã) e São Clemente (Vice-Campeã) promovidas ao Grupo Especial.',
-  1993: 'Carnaval de 1993: Tradição (Campeã) e Império Serrano (Vice-Campeã) promovidas ao Grupo Especial. Mocidade Unida da Cidade de Deus rebaixada para a Série Prata.'
+  1993: 'Carnaval de 1993: Tradição (Campeã) e Império Serrano (Vice-Campeã) promovidas ao Grupo Especial. Mocidade Unida da Cidade de Deus rebaixada para a Série Prata.',
+  1992: 'Carnaval de 1992: Acadêmicos do Grande Rio (Campeã) e Unidos da Ponte (Vice-Campeã) promovidas ao Grupo Especial. Independentes de Cordovil e Unidos do Campinho rebaixadas para a Série Prata.',
+  1991: 'Carnaval de 1991: Tradição (Campeã) e Leão de Nova Iguaçu (Vice-Campeã) promovidas ao Grupo Especial. A Acadêmicos de Santa Cruz desfilou como Hors concours após uma queda de energia no Sambódromo durante seu desfile e ganhou o direito de desfilar no Grupo Especial em 1992. Paraíso do Tuiuti rebaixada para a Série Prata.'
 };
 
 /**

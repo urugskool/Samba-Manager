@@ -1091,10 +1091,17 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
 
                                     <td className="py-3 px-4 text-center whitespace-nowrap">
                                       {st.isHorsConcours || st.rank === 0 ? (
-                                        <span className="px-2.5 py-1 rounded-lg bg-purple-500/20 text-purple-300 border border-purple-500/40 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
-                                          <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-                                          <span>Hors concours (Não julgada)</span>
-                                        </span>
+                                        st.promoted ? (
+                                          <span className="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
+                                            <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+                                            <span>Hors concours (Subiu)</span>
+                                          </span>
+                                        ) : (
+                                          <span className="px-2.5 py-1 rounded-lg bg-purple-500/20 text-purple-300 border border-purple-500/40 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
+                                            <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+                                            <span>Hors concours (Não julgada)</span>
+                                          </span>
+                                        )
                                       ) : st.promoted || st.rank === 1 ? (
                                         <span className="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
                                           <ArrowUpCircle className="w-3.5 h-3.5 text-emerald-400" />
@@ -1156,7 +1163,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                     </div>
                     <h3 className="text-lg font-black text-white">Série Ouro em Catalogação</h3>
                     <p className="text-xs text-slate-400 max-w-md mx-auto">
-                      Os resultados da Série Ouro para o Carnaval de {selectedPastYear} ainda não foram inseridos no catálogo histórico. Os registros oficiais estão disponíveis a partir de 1993.
+                      Os resultados da Série Ouro para o Carnaval de {selectedPastYear} ainda não foram inseridos no catálogo histórico. Os registros oficiais estão disponíveis a partir de 1991.
                     </p>
                     <button
                       onClick={() => setSelectedPastYear(2026)}
