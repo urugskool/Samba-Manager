@@ -2073,6 +2073,81 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '10ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  2006: [
+    {
+      rank: 1,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Estácio de Sá',
+      enredo: 'Quem é você?',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'De Gonzagão a Gonzaquinha: em vida de viajante',
+      statusDescription: '2ª Colocada • Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'uniao_da_ilha',
+      schoolName: 'União da Ilha do Governador',
+      enredo: 'As minas Del Rei São João',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'tradicao',
+      schoolName: 'Tradição',
+      enredo: 'Bahia de todos os deuses',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'renascer_jacarepagua',
+      schoolName: 'Renascer de Jacarepaguá',
+      enredo: 'A divina comédia brasileira',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Liberdade, igualdade e fraternidade - Um sonho chamado França',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Guelédés, o retrato das almas',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'Na magia da escrita, a viagem do saber',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'vizinha_faladeira',
+      schoolName: 'Vizinha Faladeira',
+      enredo: 'Adorável loucura na cidade do encantamento',
+      relegated: true,
+      statusDescription: '9ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 10,
+      schoolId: 'alegria_da_zona_sul',
+      schoolName: 'Alegria da Zona Sul',
+      enredo: 'A Alegria é show de bola',
+      relegated: true,
+      statusDescription: '10ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -2099,7 +2174,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   2010: 'Carnaval de 2010: São Clemente Campeã e promovida ao Grupo Especial com o enredo "Choque de Ordem na folia". Unidos de Padre Miguel e Paraíso do Tuiuti rebaixadas para a Série Prata.',
   2009: 'Carnaval de 2009: (Não houve rebaixamento) • União da Ilha do Governador Campeã e promovida ao Grupo Especial com o enredo "Viajar é Preciso - Extraordinárias Através de Mundos Conhecidos e Desconhecidos".',
   2008: 'Carnaval de 2008: Império Serrano Campeã e promovida ao Grupo Especial com o enredo "Taí, eu fiz tudo pra você gostar de mim". Acadêmicos do Cubango e Lins Imperial rebaixadas para a Série Prata.',
-  2007: 'Carnaval de 2007: São Clemente Campeã e promovida ao Grupo Especial com o enredo "Barrados no Baile". Tradição e Arranco rebaixadas para a Série Prata.'
+  2007: 'Carnaval de 2007: São Clemente Campeã e promovida ao Grupo Especial com o enredo "Barrados no Baile". Tradição e Arranco rebaixadas para a Série Prata.',
+  2006: 'Carnaval de 2006: Estácio de Sá Campeã e promovida ao Grupo Especial com o enredo "Quem é você?". Vizinha Faladeira e Alegria da Zona Sul rebaixadas para a Série Prata.'
 };
 
 /**
