@@ -1776,7 +1776,7 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 12, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca' },
     { rank: 13, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu' },
     { rank: 14, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte' },
-    { rank: 15, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' }
+    { rank: 15, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', relegated: true, statusDescription: '15ª (rebaixada) • Rebaixada para a Série Ouro' }
   ],
   1987: [
     { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },

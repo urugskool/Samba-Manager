@@ -3856,6 +3856,74 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '9ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1986: [
+    {
+      rank: 1,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Candeia, luz de inspiração',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'Pouca saúde, muita saúva, os males do Brasil são',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes de Cordovil',
+      enredo: 'Quem não discute, tem que engolir',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'Ganga Zumba, raiz da liberdade',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Terra Brasilis',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Sai mais uma',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'No ano da copa, bota no meio',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'E você, o que é que dá?',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'No cheiro, no trago, no mastigo ou de baforada',
+      relegated: true,
+      statusDescription: '9ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -3902,7 +3970,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1990: 'Carnaval de 1990: (Não Houve Rebaixamento) • Unidos do Viradouro (Campeã) e Acadêmicos do Grande Rio (Vice-Campeã) promovidas ao Grupo Especial.',
   1989: 'Carnaval de 1989: Acadêmicos de Santa Cruz (Campeã) e Lins Imperial (Vice-Campeã) promovidas ao Grupo Especial. Em Cima da Hora e Tupy de Brás de Pina rebaixadas para a Série Prata.',
   1988: 'Carnaval de 1988: (Não Houve Rebaixamento) • Arranco (Campeã) e Unidos do Jacarezinho (Vice-Campeã) promovidas ao Grupo Especial.',
-  1987: 'Carnaval de 1987: Unidos da Tijuca (Campeã) e Tradição (Vice-Campeã) promovidas ao Grupo Especial. Em Cima da Hora rebaixada para a Série Prata.'
+  1987: 'Carnaval de 1987: Unidos da Tijuca (Campeã) e Tradição (Vice-Campeã) promovidas ao Grupo Especial. Em Cima da Hora rebaixada para a Série Prata.',
+  1986: 'Carnaval de 1986: Unidos do Jacarezinho (Campeã) e São Clemente (Vice-Campeã) promovidas ao Grupo Especial. União de Jacarepaguá rebaixada para a Série Prata.'
 };
 
 /**
