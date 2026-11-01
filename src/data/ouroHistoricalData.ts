@@ -3788,6 +3788,74 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       enredo: 'E agora, José?',
       statusDescription: '10ª Colocada'
     }
+  ],
+  1987: [
+    {
+      rank: 1,
+      schoolId: 'tijuca',
+      schoolName: 'Unidos da Tijuca',
+      enredo: 'As Três Faces da Moeda',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'tradicao',
+      schoolName: 'Tradição',
+      enredo: 'Sonhos de Natal',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Olha que Coisa mais Linda, mais Cheia de Graça',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Quem Espera só se Cansa',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Tradição de uma Raça',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'E o Rio Amanheceu Cantando',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes de Cordovil',
+      enredo: 'Amado, Jorge, Amante',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Tenda dos Milagres',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Kid Morangueira da Silva, o Embaixador dos Morros',
+      relegated: true,
+      statusDescription: '9ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -3833,7 +3901,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1991: 'Carnaval de 1991: Tradição (Campeã) e Leão de Nova Iguaçu (Vice-Campeã) promovidas ao Grupo Especial. A Acadêmicos de Santa Cruz desfilou como Hors concours após uma queda de energia no Sambódromo durante seu desfile e ganhou o direito de desfilar no Grupo Especial em 1992. Paraíso do Tuiuti rebaixada para a Série Prata.',
   1990: 'Carnaval de 1990: (Não Houve Rebaixamento) • Unidos do Viradouro (Campeã) e Acadêmicos do Grande Rio (Vice-Campeã) promovidas ao Grupo Especial.',
   1989: 'Carnaval de 1989: Acadêmicos de Santa Cruz (Campeã) e Lins Imperial (Vice-Campeã) promovidas ao Grupo Especial. Em Cima da Hora e Tupy de Brás de Pina rebaixadas para a Série Prata.',
-  1988: 'Carnaval de 1988: (Não Houve Rebaixamento) • Arranco (Campeã) e Unidos do Jacarezinho (Vice-Campeã) promovidas ao Grupo Especial.'
+  1988: 'Carnaval de 1988: (Não Houve Rebaixamento) • Arranco (Campeã) e Unidos do Jacarezinho (Vice-Campeã) promovidas ao Grupo Especial.',
+  1987: 'Carnaval de 1987: Unidos da Tijuca (Campeã) e Tradição (Vice-Campeã) promovidas ao Grupo Especial. Em Cima da Hora rebaixada para a Série Prata.'
 };
 
 /**
