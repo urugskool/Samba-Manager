@@ -3714,6 +3714,80 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '10ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1988: [
+    {
+      rank: 1,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Pra ver a banda passar',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Parabéns pra Vocês',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Na Ginga do Samba, aí vem Ataulfo',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Nosso Sinhô, rei do samba',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Como se bebe nesta terra',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Filho de Branco é Menino, Filho de Negro é Moleque. Moleque taí, Moleque vem cá, vem cá Apanhar',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Primavera é tempo de saudade, tributo a Zinco e Caxambu',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'De sete em sete, pintando o sete',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes de Cordovil',
+      enredo: 'Burle Marx',
+      statusDescription: '9ª Colocada'
+    },
+    {
+      rank: 10,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'E agora, José?',
+      statusDescription: '10ª Colocada'
+    }
   ]
 };
 
@@ -3758,7 +3832,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1992: 'Carnaval de 1992: Acadêmicos do Grande Rio (Campeã) e Unidos da Ponte (Vice-Campeã) promovidas ao Grupo Especial. Independentes de Cordovil e Unidos do Campinho rebaixadas para a Série Prata.',
   1991: 'Carnaval de 1991: Tradição (Campeã) e Leão de Nova Iguaçu (Vice-Campeã) promovidas ao Grupo Especial. A Acadêmicos de Santa Cruz desfilou como Hors concours após uma queda de energia no Sambódromo durante seu desfile e ganhou o direito de desfilar no Grupo Especial em 1992. Paraíso do Tuiuti rebaixada para a Série Prata.',
   1990: 'Carnaval de 1990: (Não Houve Rebaixamento) • Unidos do Viradouro (Campeã) e Acadêmicos do Grande Rio (Vice-Campeã) promovidas ao Grupo Especial.',
-  1989: 'Carnaval de 1989: Acadêmicos de Santa Cruz (Campeã) e Lins Imperial (Vice-Campeã) promovidas ao Grupo Especial. Em Cima da Hora e Tupy de Brás de Pina rebaixadas para a Série Prata.'
+  1989: 'Carnaval de 1989: Acadêmicos de Santa Cruz (Campeã) e Lins Imperial (Vice-Campeã) promovidas ao Grupo Especial. Em Cima da Hora e Tupy de Brás de Pina rebaixadas para a Série Prata.',
+  1988: 'Carnaval de 1988: (Não Houve Rebaixamento) • Arranco (Campeã) e Unidos do Jacarezinho (Vice-Campeã) promovidas ao Grupo Especial.'
 };
 
 /**

@@ -1804,14 +1804,14 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 6, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
     { rank: 7, schoolId: 'imperio_serrano', schoolName: 'Império Serrano' },
     { rank: 8, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
-    { rank: 8, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
-    { rank: 8, schoolId: 'tradicao', schoolName: 'Tradição' },
-    { rank: 9, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá' },
-    { rank: 10, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
-    { rank: 11, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
-    { rank: 12, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte' },
-    { rank: 13, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu' },
-    { rank: 14, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' }
+    { rank: 9, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
+    { rank: 10, schoolId: 'tradicao', schoolName: 'Tradição' },
+    { rank: 11, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá' },
+    { rank: 12, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
+    { rank: 13, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca' },
+    { rank: 14, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte' },
+    { rank: 15, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu' },
+    { rank: 16, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' }
   ],
   1989: [
     { rank: 1, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense' },

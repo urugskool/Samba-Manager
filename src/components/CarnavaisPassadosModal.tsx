@@ -1004,7 +1004,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                               <span className="text-slate-400">Rebaixada(s) para a Série Prata:</span>
                               <span className="text-rose-300 font-bold">{currentPastOuroCarnaval.relegatedNames.join(', ')}</span>
                             </div>
-                          ) : (currentPastOuroCarnaval.year === 2018 || currentPastOuroCarnaval.year === 2026 || currentPastOuroCarnaval.year === 1994 || currentPastOuroCarnaval.year === 1990) ? (
+                          ) : (currentPastOuroCarnaval.year === 2018 || currentPastOuroCarnaval.year === 2026 || currentPastOuroCarnaval.year === 1994 || currentPastOuroCarnaval.year === 1990 || currentPastOuroCarnaval.year === 1988) ? (
                             <div className="flex items-center gap-1.5 text-slate-400 italic">
                               <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                               <span>(Não houve rebaixamento neste ano)</span>
@@ -1163,7 +1163,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                     </div>
                     <h3 className="text-lg font-black text-white">Série Ouro em Catalogação</h3>
                     <p className="text-xs text-slate-400 max-w-md mx-auto">
-                      Os resultados da Série Ouro para o Carnaval de {selectedPastYear} ainda não foram inseridos no catálogo histórico. Os registros oficiais estão disponíveis a partir de 1989.
+                      Os resultados da Série Ouro para o Carnaval de {selectedPastYear} ainda não foram inseridos no catálogo histórico. Os registros oficiais estão disponíveis a partir de 1988.
                     </p>
                     <button
                       onClick={() => setSelectedPastYear(2026)}
