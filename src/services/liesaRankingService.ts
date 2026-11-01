@@ -1828,10 +1828,10 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 12, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares' },
     { rank: 13, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
     { rank: 14, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu' },
-    { rank: 15, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte' },
-    { rank: 16, schoolId: 'tradicao', schoolName: 'Tradição' },
-    { rank: 17, schoolId: 'arranco', schoolName: 'Arranco' },
-    { rank: 18, schoolId: 'jacarezinho', schoolName: 'Unidos do Jacarezinho' }
+    { rank: 15, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte', relegated: true, statusDescription: '15ª (rebaixada) • Rebaixada para a Série Ouro' },
+    { rank: 16, schoolId: 'tradicao', schoolName: 'Tradição', relegated: true, statusDescription: '16ª (rebaixada) • Rebaixada para a Série Ouro' },
+    { rank: 17, schoolId: 'arranco', schoolName: 'Arranco', relegated: true, statusDescription: '17ª (rebaixada) • Rebaixada para a Série Ouro' },
+    { rank: 18, schoolId: 'jacarezinho', schoolName: 'Unidos do Jacarezinho', relegated: true, statusDescription: '18ª (rebaixada) • Rebaixada para a Série Ouro' }
   ],
   1990: [
     { rank: 1, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },

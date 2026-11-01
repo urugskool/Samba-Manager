@@ -3638,6 +3638,82 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       enredo: 'Cantares ao meu povo, Solano Trindade',
       statusDescription: '10ª Colocada'
     }
+  ],
+  1989: [
+    {
+      rank: 1,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Stanislaw, uma história sem final',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Gênios da ilusão',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Estrelas Solitárias, Linda e Dircinha Batista',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'Canta Brasil',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes de Cordovil',
+      enredo: 'Marrom som Brasil',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Folclore, Tradição Popular',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Rio, samba e carnaval',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'arrastao_cascadura',
+      schoolName: 'Arrastão de Cascadura',
+      enredo: 'Zezé, um canto de amor e raça',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Num passe de mágica',
+      relegated: true,
+      statusDescription: '9ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 10,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'Rio Boa Praça',
+      relegated: true,
+      statusDescription: '10ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -3681,7 +3757,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1993: 'Carnaval de 1993: Tradição (Campeã) e Império Serrano (Vice-Campeã) promovidas ao Grupo Especial. Mocidade Unida da Cidade de Deus rebaixada para a Série Prata.',
   1992: 'Carnaval de 1992: Acadêmicos do Grande Rio (Campeã) e Unidos da Ponte (Vice-Campeã) promovidas ao Grupo Especial. Independentes de Cordovil e Unidos do Campinho rebaixadas para a Série Prata.',
   1991: 'Carnaval de 1991: Tradição (Campeã) e Leão de Nova Iguaçu (Vice-Campeã) promovidas ao Grupo Especial. A Acadêmicos de Santa Cruz desfilou como Hors concours após uma queda de energia no Sambódromo durante seu desfile e ganhou o direito de desfilar no Grupo Especial em 1992. Paraíso do Tuiuti rebaixada para a Série Prata.',
-  1990: 'Carnaval de 1990: (Não Houve Rebaixamento) • Unidos do Viradouro (Campeã) e Acadêmicos do Grande Rio (Vice-Campeã) promovidas ao Grupo Especial.'
+  1990: 'Carnaval de 1990: (Não Houve Rebaixamento) • Unidos do Viradouro (Campeã) e Acadêmicos do Grande Rio (Vice-Campeã) promovidas ao Grupo Especial.',
+  1989: 'Carnaval de 1989: Acadêmicos de Santa Cruz (Campeã) e Lins Imperial (Vice-Campeã) promovidas ao Grupo Especial. Em Cima da Hora e Tupy de Brás de Pina rebaixadas para a Série Prata.'
 };
 
 /**

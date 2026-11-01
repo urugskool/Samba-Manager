@@ -101,6 +101,7 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('cordovil') || clean.includes('cordovil')) return 'independentes_cordovil';
   if (name.includes('canários') || name.includes('canarios') || clean.includes('canarios')) return 'canarios_laranjeiras';
   if (name.includes('campinho') || clean.includes('campinho')) return 'unidos_do_campinho';
+  if (name.includes('tupy') || name.includes('bras de pina') || name.includes('brás de pina')) return 'tupy_bras_de_pina';
 
   return clean || name.replace(/\s+/g, '_');
 }
