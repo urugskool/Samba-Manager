@@ -1757,9 +1757,9 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 11, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca' },
     { rank: 12, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador' },
     { rank: 13, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu' },
-    { rank: 14, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz' },
-    { rank: 15, schoolId: 'sao_clemente', schoolName: 'São Clemente' },
-    { rank: 16, schoolId: 'em_cima_da_hora', schoolName: 'Em Cima da Hora' }
+    { rank: 14, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz', relegated: true, statusDescription: '14ª (rebaixada) • Rebaixada para a Série Ouro' },
+    { rank: 15, schoolId: 'sao_clemente', schoolName: 'São Clemente', relegated: true, statusDescription: '15ª (rebaixada) • Rebaixada para a Série Ouro' },
+    { rank: 16, schoolId: 'em_cima_da_hora', schoolName: 'Em Cima da Hora', relegated: true, statusDescription: '16ª (rebaixada) • Rebaixada para a Série Ouro' }
   ],
   1986: [
     { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira' },

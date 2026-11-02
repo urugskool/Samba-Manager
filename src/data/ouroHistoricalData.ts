@@ -3924,6 +3924,84 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '9ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1985: [
+    {
+      rank: 1,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Dez, nota dez',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'tijuca',
+      schoolName: 'Unidos da Tijuca',
+      enredo: 'Mas o que foi que aconteceu?',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Chuê, chuá, moronguetá cruz credo',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'Não existe pecado do lado de baixo do Equador',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Essa gente brasileira',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Do batuque à apoteose, o samba pede passagem',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: 'É hoje só, amanhã não tem mais',
+      relegated: true,
+      statusDescription: '7ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 8,
+      schoolId: 'arrastao_de_cascadura',
+      schoolName: 'Arrastão de Cascadura',
+      enredo: 'Depois do mal feito, chorar não é proveito',
+      relegated: true,
+      statusDescription: '8ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 9,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Feliz por um dia',
+      relegated: true,
+      statusDescription: '9ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 10,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'Folia, amor e fantasia',
+      relegated: true,
+      statusDescription: '10ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -3971,7 +4049,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1989: 'Carnaval de 1989: Acadêmicos de Santa Cruz (Campeã) e Lins Imperial (Vice-Campeã) promovidas ao Grupo Especial. Em Cima da Hora e Tupy de Brás de Pina rebaixadas para a Série Prata.',
   1988: 'Carnaval de 1988: (Não Houve Rebaixamento) • Arranco (Campeã) e Unidos do Jacarezinho (Vice-Campeã) promovidas ao Grupo Especial.',
   1987: 'Carnaval de 1987: Unidos da Tijuca (Campeã) e Tradição (Vice-Campeã) promovidas ao Grupo Especial. Em Cima da Hora rebaixada para a Série Prata.',
-  1986: 'Carnaval de 1986: Unidos do Jacarezinho (Campeã) e São Clemente (Vice-Campeã) promovidas ao Grupo Especial. União de Jacarepaguá rebaixada para a Série Prata.'
+  1986: 'Carnaval de 1986: Unidos do Jacarezinho (Campeã) e São Clemente (Vice-Campeã) promovidas ao Grupo Especial. União de Jacarepaguá rebaixada para a Série Prata.',
+  1985: 'Carnaval de 1985: Unidos da Ponte (Campeã) e Unidos da Tijuca (Vice-Campeã) promovidas ao Grupo Especial. Quatro agremiações rebaixadas para a Série Prata: Unidos de Bangu, Arrastão de Cascadura, Lins Imperial e Unidos de Padre Miguel.'
 };
 
 /**
