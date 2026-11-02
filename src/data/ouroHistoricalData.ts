@@ -4449,6 +4449,66 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '10ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1979: [
+    {
+      rank: 1,
+      schoolId: 'vila_isabel',
+      schoolName: 'Unidos de Vila Isabel',
+      enredo: 'Os Dourados Anos de Carlos Machado',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'imperio_serrano',
+      schoolName: 'Império Serrano',
+      enredo: 'Municipal maravilhoso, 70 anos de glória',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'arrastao_de_cascadura',
+      schoolName: 'Arrastão de Cascadura',
+      enredo: 'Da Lapinha ao coreto, um folguedo popular',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Quem conta um conto aumenta um ponto',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'O Rio de Janeiro em Tempo de Debret',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'Uruçumirim, paraíso tupinambá',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Gigante negro da Abolição à República',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Sonho da vovó',
+      statusDescription: '8ª Colocada'
+    }
   ]
 };
 
@@ -4502,7 +4562,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1983: 'Carnaval de 1983: (Não Houve Rebaixamento) • Unidos de São Carlos (Estácio de Sá) Campeã e Império da Tijuca Vice-Campeã promovidas ao Grupo Especial.',
   1982: 'Carnaval de 1982: Caprichosos de Pilares (Campeã) e Unidos da Ponte (Vice-Campeã) promovidas ao Grupo Especial. Arranco e União de Jacarepaguá rebaixadas para a Série Prata.',
   1981: 'Carnaval de 1981: (Não Houve Rebaixamento) • Unidos de São Carlos (Estácio de Sá) Campeã e Império da Tijuca Vice-Campeã promovidas ao Grupo Especial.',
-  1980: 'Carnaval de 1980: Unidos da Tijuca Campeã e promovida ao Grupo Especial. São Clemente e Unidos da Ponte rebaixadas para a Série Prata.'
+  1980: 'Carnaval de 1980: Unidos da Tijuca Campeã e promovida ao Grupo Especial. São Clemente e Unidos da Ponte rebaixadas para a Série Prata.',
+  1979: 'Carnaval de 1979: (Não Houve Rebaixamento) • Unidos de Vila Isabel Campeã e Império Serrano Vice-Campeã promovidas ao Grupo Especial.'
 };
 
 /**
