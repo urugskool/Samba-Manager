@@ -4094,6 +4094,94 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '12ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1983: [
+    {
+      rank: 1,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Unidos de São Carlos (Estácio de Sá)',
+      enredo: 'Orfeu do Carnaval',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Santos e Pecadores',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Uma Andorinha Só não Faz Verão',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'A Visita de Ony de Ifé ao Obá de Oió',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: 'Obrigado, Brasil',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Senta que o Leão É Manso',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'O Dragão da Maldade Contra o Santo Guerreiro',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Vamos Falar de Amor',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Quente como Inferno, Negro como Noite, Doce como Amor',
+      statusDescription: '9ª Colocada'
+    },
+    {
+      rank: 10,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Enredo sem Enredo',
+      statusDescription: '10ª Colocada'
+    },
+    {
+      rank: 11,
+      schoolId: 'arrastao_de_cascadura',
+      schoolName: 'Arrastão de Cascadura',
+      enredo: 'Barravilhosa',
+      statusDescription: '11ª Colocada'
+    },
+    {
+      rank: 12,
+      schoolId: 'imperio_do_maranga',
+      schoolName: 'Império do Marangá',
+      enredo: 'A Coroa do Rei não É de Ouro, nem de Prata',
+      statusDescription: '12ª Colocada'
+    }
   ]
 };
 
@@ -4143,7 +4231,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1987: 'Carnaval de 1987: Unidos da Tijuca (Campeã) e Tradição (Vice-Campeã) promovidas ao Grupo Especial. Em Cima da Hora rebaixada para a Série Prata.',
   1986: 'Carnaval de 1986: Unidos do Jacarezinho (Campeã) e São Clemente (Vice-Campeã) promovidas ao Grupo Especial. União de Jacarepaguá rebaixada para a Série Prata.',
   1985: 'Carnaval de 1985: Unidos da Ponte (Campeã) e Unidos da Tijuca (Vice-Campeã) promovidas ao Grupo Especial. Quatro agremiações rebaixadas para a Série Prata: Unidos de Bangu, Arrastão de Cascadura, Lins Imperial e Unidos de Padre Miguel.',
-  1984: 'Carnaval de 1984: Unidos do Cabuçu (Campeã), Acadêmicos de Santa Cruz (Vice-Campeã), Em Cima da Hora (3ª) e São Clemente (4ª) promovidas ao Grupo Especial. Cabuçu e Santa Cruz receberam o direito de disputar o Supercampeonato do Sambódromo. Paraíso do Tuiuti e Império do Marangá rebaixadas para a Série Prata.'
+  1984: 'Carnaval de 1984: Unidos do Cabuçu (Campeã), Acadêmicos de Santa Cruz (Vice-Campeã), Em Cima da Hora (3ª) e São Clemente (4ª) promovidas ao Grupo Especial. Cabuçu e Santa Cruz receberam o direito de disputar o Supercampeonato do Sambódromo. Paraíso do Tuiuti e Império do Marangá rebaixadas para a Série Prata.',
+  1983: 'Carnaval de 1983: (Não Houve Rebaixamento) • Unidos de São Carlos (Estácio de Sá) Campeã e Império da Tijuca Vice-Campeã promovidas ao Grupo Especial.'
 };
 
 /**
