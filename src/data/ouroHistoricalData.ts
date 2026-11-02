@@ -4360,6 +4360,95 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       enredo: 'Amor, Sublime Amor',
       statusDescription: '12ª Colocada'
     }
+  ],
+  1980: [
+    {
+      rank: 1,
+      schoolId: 'tijuca',
+      schoolName: 'Unidos da Tijuca',
+      enredo: 'Delmiro Gouveia',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'O Guarani - José de Alencar',
+      statusDescription: '2ª Colocada'
+    },
+    {
+      rank: 3,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Guarda Velha, Velha Guarda',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'De Sacristão a Barão de Ouro',
+      statusDescription: '4ª Colocada (empatada)'
+    },
+    {
+      rank: 4,
+      schoolId: 'arrastao_de_cascadura',
+      schoolName: 'Arrastão de Cascadura',
+      enredo: 'Mambembes e Mamulengos',
+      statusDescription: '4ª Colocada (empatada)'
+    },
+    {
+      rank: 5,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'É a Maior - Emilinha Borba',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: 'A Lenda de Juparanã, a Lagoa Encantada',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Tua obra não nega, Lalá',
+      statusDescription: '7ª Colocada (empatada)'
+    },
+    {
+      rank: 7,
+      schoolId: 'imperio_do_maranga',
+      schoolName: 'Império do Marangá',
+      enredo: 'Brasil, Terra do Amor',
+      statusDescription: '7ª Colocada (empatada)'
+    },
+    {
+      rank: 8,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'França, bumba e assombrações no Maranhão',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'A Doce Ilusão do Sambista',
+      relegated: true,
+      statusDescription: '9ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 10,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Maravilhosa Marajó',
+      relegated: true,
+      statusDescription: '10ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -4412,7 +4501,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1984: 'Carnaval de 1984: Unidos do Cabuçu (Campeã), Acadêmicos de Santa Cruz (Vice-Campeã), Em Cima da Hora (3ª) e São Clemente (4ª) promovidas ao Grupo Especial. Cabuçu e Santa Cruz receberam o direito de disputar o Supercampeonato do Sambódromo. Paraíso do Tuiuti e Império do Marangá rebaixadas para a Série Prata.',
   1983: 'Carnaval de 1983: (Não Houve Rebaixamento) • Unidos de São Carlos (Estácio de Sá) Campeã e Império da Tijuca Vice-Campeã promovidas ao Grupo Especial.',
   1982: 'Carnaval de 1982: Caprichosos de Pilares (Campeã) e Unidos da Ponte (Vice-Campeã) promovidas ao Grupo Especial. Arranco e União de Jacarepaguá rebaixadas para a Série Prata.',
-  1981: 'Carnaval de 1981: (Não Houve Rebaixamento) • Unidos de São Carlos (Estácio de Sá) Campeã e Império da Tijuca Vice-Campeã promovidas ao Grupo Especial.'
+  1981: 'Carnaval de 1981: (Não Houve Rebaixamento) • Unidos de São Carlos (Estácio de Sá) Campeã e Império da Tijuca Vice-Campeã promovidas ao Grupo Especial.',
+  1980: 'Carnaval de 1980: Unidos da Tijuca Campeã e promovida ao Grupo Especial. São Clemente e Unidos da Ponte rebaixadas para a Série Prata.'
 };
 
 /**

@@ -1683,7 +1683,7 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 3, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', statusDescription: '3º Lugar (+12 pts)' },
     { rank: 4, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', statusDescription: '4º Lugar (+10 pts)' },
     { rank: 5, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', statusDescription: '5º Lugar (+8 pts)' },
-    { rank: 6, schoolId: 'estacio_de_sa', schoolName: 'Unidos de São Carlos (Estácio de Sá)', statusDescription: '6º Lugar (Rebaixada)' }
+    { rank: 6, schoolId: 'estacio_de_sa', schoolName: 'Unidos de São Carlos (Estácio de Sá)', relegated: true, statusDescription: '6º Lugar (Rebaixada para a Série Ouro)' }
   ],
   1981: [
     { rank: 1, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', statusDescription: 'Campeã Oficial (+20 pts)' },
