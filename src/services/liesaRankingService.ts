@@ -1708,8 +1708,8 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 8, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', statusDescription: '8º Lugar (+3 pts)' },
     { rank: 9, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', statusDescription: '9º Lugar (+2 pts)' },
     { rank: 10, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', statusDescription: '10º Lugar (+1 pt)' },
-    { rank: 11, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', statusDescription: '11º Lugar (Rebaixada)' },
-    { rank: 12, schoolId: 'estacio_de_sa', schoolName: 'Unidos de São Carlos (Estácio de Sá)', statusDescription: '12º Lugar (Rebaixada)' }
+    { rank: 11, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', relegated: true, statusDescription: '11ª (rebaixada) • Rebaixada para a Série Ouro' },
+    { rank: 12, schoolId: 'estacio_de_sa', schoolName: 'Unidos de São Carlos (Estácio de Sá)', relegated: true, statusDescription: '12ª (rebaixada) • Rebaixada para a Série Ouro' }
   ],
   1983: [
     { rank: 1, schoolId: 'beija_flor', schoolName: 'Beija-Flor', statusDescription: 'Campeã Oficial (+20 pts)' },
