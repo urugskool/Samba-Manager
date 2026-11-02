@@ -4002,6 +4002,98 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '10ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1984: [
+    {
+      rank: 1,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Beth Carvalho, a enamorada do samba',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Disputou Supercampeonato e Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Acima da Coroa de um Rei, só um Deus',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Disputou Supercampeonato e Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: '33, Destino D. Pedro II',
+      promoted: true,
+      statusDescription: '3ª (subiu) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 4,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'Não Corra, não Mate, não Morra - O Diabo está Solto no Asfalto',
+      promoted: true,
+      statusDescription: '4ª (subiu) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 5,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'O Tucá Juê',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: 'Atrás do Trio Elétrico',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'arrastao_de_cascadura',
+      schoolName: 'Arrastão de Cascadura',
+      enredo: 'O Conto Lendário de Marabá',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Dança Brasil',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Só Vale Quem tem Dinheiro',
+      statusDescription: '9ª Colocada'
+    },
+    {
+      rank: 10,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Ziguezagueando no Zum Zum da Fantasia',
+      statusDescription: '10ª Colocada'
+    },
+    {
+      rank: 11,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: '1984 - um Ano de Otimismo',
+      relegated: true,
+      statusDescription: '11ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 12,
+      schoolId: 'imperio_do_maranga',
+      schoolName: 'Império do Marangá',
+      enredo: 'Águas Lendárias',
+      relegated: true,
+      statusDescription: '12ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -4050,7 +4142,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1988: 'Carnaval de 1988: (Não Houve Rebaixamento) • Arranco (Campeã) e Unidos do Jacarezinho (Vice-Campeã) promovidas ao Grupo Especial.',
   1987: 'Carnaval de 1987: Unidos da Tijuca (Campeã) e Tradição (Vice-Campeã) promovidas ao Grupo Especial. Em Cima da Hora rebaixada para a Série Prata.',
   1986: 'Carnaval de 1986: Unidos do Jacarezinho (Campeã) e São Clemente (Vice-Campeã) promovidas ao Grupo Especial. União de Jacarepaguá rebaixada para a Série Prata.',
-  1985: 'Carnaval de 1985: Unidos da Ponte (Campeã) e Unidos da Tijuca (Vice-Campeã) promovidas ao Grupo Especial. Quatro agremiações rebaixadas para a Série Prata: Unidos de Bangu, Arrastão de Cascadura, Lins Imperial e Unidos de Padre Miguel.'
+  1985: 'Carnaval de 1985: Unidos da Ponte (Campeã) e Unidos da Tijuca (Vice-Campeã) promovidas ao Grupo Especial. Quatro agremiações rebaixadas para a Série Prata: Unidos de Bangu, Arrastão de Cascadura, Lins Imperial e Unidos de Padre Miguel.',
+  1984: 'Carnaval de 1984: Unidos do Cabuçu (Campeã), Acadêmicos de Santa Cruz (Vice-Campeã), Em Cima da Hora (3ª) e São Clemente (4ª) promovidas ao Grupo Especial. Cabuçu e Santa Cruz receberam o direito de disputar o Supercampeonato do Sambódromo. Paraíso do Tuiuti e Império do Marangá rebaixadas para a Série Prata.'
 };
 
 /**

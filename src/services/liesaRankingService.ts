@@ -57,7 +57,7 @@ export const CARNAVAL_1984_DOMINGO: LiesaStandingRecord[] = [
   { rank: 4, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', subgroup: 'domingo', statusDescription: '4º Lugar' },
   { rank: 5, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', subgroup: 'domingo', statusDescription: '5º Lugar' },
   { rank: 6, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', subgroup: 'domingo', statusDescription: '6º Lugar' },
-  { rank: 7, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', subgroup: 'domingo', statusDescription: '7º Lugar (Rebaixada)' }
+  { rank: 7, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', subgroup: 'domingo', relegated: true, statusDescription: '7º Lugar Domingo (Rebaixada para a Série Ouro)' }
 ];
 
 export const CARNAVAL_1984_SEGUNDA: LiesaStandingRecord[] = [
@@ -67,7 +67,7 @@ export const CARNAVAL_1984_SEGUNDA: LiesaStandingRecord[] = [
   { rank: 4, schoolId: 'imperatriz', schoolName: 'Imperatriz Leopoldinense', subgroup: 'segunda', statusDescription: '4º Lugar' },
   { rank: 5, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', subgroup: 'segunda', statusDescription: '5º Lugar' },
   { rank: 6, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', subgroup: 'segunda', statusDescription: '6º Lugar' },
-  { rank: 7, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte', subgroup: 'segunda', statusDescription: '7º Lugar (Rebaixada)' }
+  { rank: 7, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte', subgroup: 'segunda', relegated: true, statusDescription: '7º Lugar Segunda (Rebaixada para a Série Ouro)' }
 ];
 
 export const CARNAVAL_1984_SUPERCAMPEONATO: LiesaStandingRecord[] = [
@@ -1740,8 +1740,8 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 6, schoolId: 'estacio_de_sa', schoolName: 'Estácio de Sá', statusDescription: '6º Lugar Segunda (+6 pts)' },
     { rank: 7, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', statusDescription: '7º Lugar no Supercampeonato (+4 pts)' },
     { rank: 8, schoolId: 'santa_cruz', schoolName: 'Acadêmicos de Santa Cruz', statusDescription: '8º Lugar no Supercampeonato (+3 pts)' },
-    { rank: 15, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', statusDescription: '7º Lugar Domingo (Rebaixada)' },
-    { rank: 16, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte', statusDescription: '7º Lugar Segunda (Rebaixada)' }
+    { rank: 15, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', relegated: true, statusDescription: '7º Lugar Domingo (Rebaixada para a Série Ouro)' },
+    { rank: 16, schoolId: 'unidos_da_ponte', schoolName: 'Unidos da Ponte', relegated: true, statusDescription: '7º Lugar Segunda (Rebaixada para a Série Ouro)' }
   ],
   1985: [
     { rank: 1, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel' },
