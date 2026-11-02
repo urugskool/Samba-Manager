@@ -4272,6 +4272,94 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '12ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1981: [
+    {
+      rank: 1,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Unidos de São Carlos (Estácio de Sá)',
+      enredo: 'Quem Diria, da Monarquia à Boemia ao Esplendor da Praça Tiradentes',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Cataratas do Iguaçu',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'O Imperador de Parada de Lucas',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Meu Padim Pade Ciço',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'De Daomé a São Luis, a Pureza Mina Jêje',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Amazonas, Verde que Te Quero Verde',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: 'É Hoje, a História do Carnaval',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Ou Isto ou Aquilo',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'arrastao_de_cascadura',
+      schoolName: 'Arrastão de Cascadura',
+      enredo: 'Rudá, o Deus do Amor',
+      statusDescription: '9ª Colocada'
+    },
+    {
+      rank: 10,
+      schoolId: 'imperio_do_maranga',
+      schoolName: 'Império do Marangá',
+      enredo: 'Dos Balões aos Aviões',
+      statusDescription: '10ª Colocada'
+    },
+    {
+      rank: 11,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Mauricéia em Noite de Festa',
+      statusDescription: '11ª Colocada'
+    },
+    {
+      rank: 12,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'Amor, Sublime Amor',
+      statusDescription: '12ª Colocada'
+    }
   ]
 };
 
@@ -4323,7 +4411,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1985: 'Carnaval de 1985: Unidos da Ponte (Campeã) e Unidos da Tijuca (Vice-Campeã) promovidas ao Grupo Especial. Quatro agremiações rebaixadas para a Série Prata: Unidos de Bangu, Arrastão de Cascadura, Lins Imperial e Unidos de Padre Miguel.',
   1984: 'Carnaval de 1984: Unidos do Cabuçu (Campeã), Acadêmicos de Santa Cruz (Vice-Campeã), Em Cima da Hora (3ª) e São Clemente (4ª) promovidas ao Grupo Especial. Cabuçu e Santa Cruz receberam o direito de disputar o Supercampeonato do Sambódromo. Paraíso do Tuiuti e Império do Marangá rebaixadas para a Série Prata.',
   1983: 'Carnaval de 1983: (Não Houve Rebaixamento) • Unidos de São Carlos (Estácio de Sá) Campeã e Império da Tijuca Vice-Campeã promovidas ao Grupo Especial.',
-  1982: 'Carnaval de 1982: Caprichosos de Pilares (Campeã) e Unidos da Ponte (Vice-Campeã) promovidas ao Grupo Especial. Arranco e União de Jacarepaguá rebaixadas para a Série Prata.'
+  1982: 'Carnaval de 1982: Caprichosos de Pilares (Campeã) e Unidos da Ponte (Vice-Campeã) promovidas ao Grupo Especial. Arranco e União de Jacarepaguá rebaixadas para a Série Prata.',
+  1981: 'Carnaval de 1981: (Não Houve Rebaixamento) • Unidos de São Carlos (Estácio de Sá) Campeã e Império da Tijuca Vice-Campeã promovidas ao Grupo Especial.'
 };
 
 /**
