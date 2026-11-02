@@ -4509,6 +4509,132 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       enredo: 'Sonho da vovó',
       statusDescription: '8ª Colocada'
     }
+  ],
+  1978: [
+    {
+      rank: 1,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Unidos de São Carlos (Estácio de Sá)',
+      enredo: 'Céu de Orestes no chão de estrelas',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'imperatriz',
+      schoolName: 'Imperatriz Leopoldinense',
+      enredo: 'Vamos Brincar de ser Criança',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Exaltação às pedras preciosas do Brasil',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Preta, Preta, Pretinha',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Festa de Olubajé',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'Festa da Uva no Rio Grande do Sul',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'imperio_do_maranga',
+      schoolName: 'Império do Marangá',
+      enredo: 'Salamanca do Jarau',
+      relegated: true,
+      statusDescription: '7ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 8,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Viagem Encantada do Tio Benjamim do Vale da Esperança',
+      relegated: true,
+      statusDescription: '8ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 9,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'Apoteose ao Teatro de Revista',
+      relegated: true,
+      statusDescription: '9ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 10,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Todas as Rosas do meu Rio',
+      relegated: true,
+      statusDescription: '10ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 11,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Calendário do Rio',
+      relegated: true,
+      statusDescription: '11ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 12,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Cor, Ação e Samba',
+      relegated: true,
+      statusDescription: '12ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 13,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'Manôa, um sonho dourado',
+      relegated: true,
+      statusDescription: '13ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 14,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'Criação do Mundo, Segundo os Carajás',
+      relegated: true,
+      statusDescription: '14ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 15,
+      schoolId: 'tijuca',
+      schoolName: 'Unidos da Tijuca',
+      enredo: 'A Praça dos Sonhos, Amor, Alegria e Fantasia',
+      relegated: true,
+      statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 16,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'O Mestre da Musicologia Nacional',
+      relegated: true,
+      statusDescription: '16ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -4563,7 +4689,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1982: 'Carnaval de 1982: Caprichosos de Pilares (Campeã) e Unidos da Ponte (Vice-Campeã) promovidas ao Grupo Especial. Arranco e União de Jacarepaguá rebaixadas para a Série Prata.',
   1981: 'Carnaval de 1981: (Não Houve Rebaixamento) • Unidos de São Carlos (Estácio de Sá) Campeã e Império da Tijuca Vice-Campeã promovidas ao Grupo Especial.',
   1980: 'Carnaval de 1980: Unidos da Tijuca Campeã e promovida ao Grupo Especial. São Clemente e Unidos da Ponte rebaixadas para a Série Prata.',
-  1979: 'Carnaval de 1979: (Não Houve Rebaixamento) • Unidos de Vila Isabel Campeã e Império Serrano Vice-Campeã promovidas ao Grupo Especial.'
+  1979: 'Carnaval de 1979: (Não Houve Rebaixamento) • Unidos de Vila Isabel Campeã e Império Serrano Vice-Campeã promovidas ao Grupo Especial.',
+  1978: 'Carnaval de 1978: Unidos de São Carlos (Campeã) e Imperatriz Leopoldinense (Vice-Campeã) promovidas ao Grupo Especial. Rebaixamento da 7ª à 16ª colocada para a Série Prata (Grupo 2A/Grupo 3) em virtude da reestruturação dos grupos para a criação do Grupo 1-A e 1-B em 1979.'
 };
 
 /**

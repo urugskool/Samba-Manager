@@ -1658,10 +1658,10 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 4, schoolId: 'uniao_da_ilha', schoolName: 'União da Ilha do Governador', statusDescription: '4º Lugar (+10 pts)' },
     { rank: 5, schoolId: 'portela', schoolName: 'Portela', statusDescription: '5º Lugar (+8 pts)' },
     { rank: 6, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', statusDescription: '6º Lugar (+6 pts)' },
-    { rank: 7, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', statusDescription: '7º Lugar (+4 pts • Rebaixada)' },
-    { rank: 8, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', statusDescription: '8º Lugar (+3 pts • Rebaixada)' },
-    { rank: 9, schoolId: 'arrastao_cascadura', schoolName: 'Arrastão de Cascadura', statusDescription: '9º Lugar (+2 pts • Rebaixada)' },
-    { rank: 10, schoolId: 'arranco', schoolName: 'Arranco', statusDescription: '10º Lugar (+1 pt • Rebaixada)' }
+    { rank: 7, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', relegated: true, statusDescription: '7º Lugar (+4 pts • Rebaixada para a Série Ouro)' },
+    { rank: 8, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', relegated: true, statusDescription: '8º Lugar (+3 pts • Rebaixada para a Série Ouro)' },
+    { rank: 9, schoolId: 'arrastao_cascadura', schoolName: 'Arrastão de Cascadura', relegated: true, statusDescription: '9º Lugar (+2 pts • Rebaixada para a Série Ouro)' },
+    { rank: 10, schoolId: 'arranco', schoolName: 'Arranco', relegated: true, statusDescription: '10º Lugar (+1 pt • Rebaixada para a Série Ouro)' }
   ],
   1979: [
     { rank: 1, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', statusDescription: 'Campeã Oficial (+20 pts)' },
