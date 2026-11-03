@@ -4635,6 +4635,144 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '16ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1977: [
+    {
+      rank: 1,
+      schoolId: 'arrastao_cascadura',
+      schoolName: 'Arrastão de Cascadura',
+      enredo: 'Um talismã para Iaiá',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Logum, o príncipe de Efan',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Cruz credo, eta diabo',
+      statusDescription: '3ª Colocada'
+    },
+    {
+      rank: 4,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Insurreição do Queimado',
+      statusDescription: '4ª Colocada'
+    },
+    {
+      rank: 5,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Banzo',
+      statusDescription: '5ª Colocada'
+    },
+    {
+      rank: 6,
+      schoolId: 'imperio_do_maranga',
+      schoolName: 'Império do Marangá',
+      enredo: 'Lenda do Arco-Íris',
+      statusDescription: '6ª Colocada'
+    },
+    {
+      rank: 7,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'Um sonho colorido',
+      statusDescription: '7ª Colocada'
+    },
+    {
+      rank: 8,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'A glória dos quilombos ou Congoleses, sudaneses, angoleses, bantus e os ciclos da mineração, açúcar e café',
+      statusDescription: '8ª Colocada'
+    },
+    {
+      rank: 9,
+      schoolId: 'tijuca',
+      schoolName: 'Unidos da Tijuca',
+      enredo: 'Paraíso dos Sonhos',
+      statusDescription: '9ª Colocada'
+    },
+    {
+      rank: 10,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'Acredite se quiser',
+      statusDescription: '10ª Colocada'
+    },
+    {
+      rank: 11,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Heitor dos Prazeres, um artista carioca',
+      relegated: true,
+      statusDescription: '11ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 12,
+      schoolId: 'folioes_de_botafogo',
+      schoolName: 'Foliões de Botafogo',
+      enredo: 'O cortiço',
+      relegated: true,
+      statusDescription: '12ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 13,
+      schoolId: 'unidos_de_nilopolis',
+      schoolName: 'Unidos de Nilópolis',
+      enredo: 'Império negro, um sonho de liberdade',
+      relegated: true,
+      statusDescription: '13ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 14,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes de Cordovil',
+      enredo: 'Manjares do céu e da terra',
+      relegated: true,
+      statusDescription: '14ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 15,
+      schoolId: 'grande_rio_antiga',
+      schoolName: 'G.R.E.S. Grande Rio (antiga)',
+      enredo: 'Os precursores',
+      relegated: true,
+      statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 16,
+      schoolId: 'mocidade_unida_da_cidade_de_deus',
+      schoolName: 'Mocidade Unida da Cidade de Deus',
+      enredo: 'Baronesa da Taquara',
+      relegated: true,
+      statusDescription: '16ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 17,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Brasil caboclo',
+      relegated: true,
+      statusDescription: '17ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 18,
+      schoolId: 'unidos_de_manguinhos',
+      schoolName: 'Unidos de Manguinhos',
+      enredo: 'O tesouro maldito',
+      relegated: true,
+      statusDescription: '18ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -4690,7 +4828,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1981: 'Carnaval de 1981: (Não Houve Rebaixamento) • Unidos de São Carlos (Estácio de Sá) Campeã e Império da Tijuca Vice-Campeã promovidas ao Grupo Especial.',
   1980: 'Carnaval de 1980: Unidos da Tijuca Campeã e promovida ao Grupo Especial. São Clemente e Unidos da Ponte rebaixadas para a Série Prata.',
   1979: 'Carnaval de 1979: (Não Houve Rebaixamento) • Unidos de Vila Isabel Campeã e Império Serrano Vice-Campeã promovidas ao Grupo Especial.',
-  1978: 'Carnaval de 1978: Unidos de São Carlos (Campeã) e Imperatriz Leopoldinense (Vice-Campeã) promovidas ao Grupo Especial. Rebaixamento da 7ª à 16ª colocada para a Série Prata (Grupo 2A/Grupo 3) em virtude da reestruturação dos grupos para a criação do Grupo 1-A e 1-B em 1979.'
+  1978: 'Carnaval de 1978: Unidos de São Carlos (Campeã) e Imperatriz Leopoldinense (Vice-Campeã) promovidas ao Grupo Especial. Rebaixamento da 7ª à 16ª colocada para a Série Prata (Grupo 2A/Grupo 3) em virtude da reestruturação dos grupos para a criação do Grupo 1-A e 1-B em 1979.',
+  1977: 'Carnaval de 1977: Arrastão de Cascadura (Campeã) e Arranco (Vice-Campeã) promovidas ao Grupo Especial. Oito escolas rebaixadas para a Série Prata (Grupo 3): Em Cima da Hora, Foliões de Botafogo, Unidos de Nilópolis, Independentes de Cordovil, G.R.E.S. Grande Rio (antiga agremiação de Duque de Caxias, anterior à fundação da Acadêmicos do Grande Rio em 1988), Mocidade Unida da Cidade de Deus, Paraíso do Tuiuti e Unidos de Manguinhos.'
 };
 
 /**

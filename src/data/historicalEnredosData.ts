@@ -2607,18 +2607,72 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     academicos_de_santa_cruz: 'O Mestre da Musicologia Nacional'
   },
   1977: {
-    beija_flor: 'Vovó e o Rei da Saturnália na Corte de Tutankamon',
-    portela: 'Festa da Aclamação',
+    // Grupo Especial 1977
+    beija_flor: 'Vovó e o rei da saturnália na corte egipciana',
+    beija_flor_de_nilopolis: 'Vovó e o rei da saturnália na corte egipciana',
+    portela: 'Festa da aclamação',
     uniao_da_ilha: 'Domingo',
-    salgueiro: 'Do Caboclo ao Negro',
-    vila_isabel: 'Ai Que Saudades Que Eu Tenho',
-    imperio_serrano: 'Brasil, Berço dos Imigrantes',
-    mangueira: 'Panapaná, o Segredo do Amor',
-    mocidade: 'Samba, Marca Registrada do Brasil',
-    imperatriz: 'Viagem Fantástica às Terras de Ibirapitanga',
-    estacio_de_sa: 'Alô, Alô, Brasil, 40 Anos de Rádio Nacional',
-    imperio_da_tijuca: 'O Mundo de Barro de Mestre Vitalino',
-    cabucu: 'Sete Povos das Missões'
+    uniao_da_ilha_do_governador: 'Domingo',
+    ilha: 'Domingo',
+    salgueiro: 'Do cauim ao efó, com moça branca, branquinha',
+    academicos_do_salgueiro: 'Do cauim ao efó, com moça branca, branquinha',
+    vila_isabel: 'Ai que saudades que eu tenho',
+    unidos_de_vila_isabel: 'Ai que saudades que eu tenho',
+    imperio_serrano: 'Brasil, berço dos imigrantes',
+    mangueira: 'Parapanã, o segredo do amor',
+    estacao_primeira_de_mangueira: 'Parapanã, o segredo do amor',
+    mocidade: 'Samba marca registrada',
+    mocidade_independente: 'Samba marca registrada',
+    mocidade_independente_de_padre_miguel: 'Samba marca registrada',
+    imperatriz: 'Viagens fantásticas às terras de Ibirapitanga',
+    imperatriz_leopoldinense: 'Viagens fantásticas às terras de Ibirapitanga',
+    estacio_de_sa: 'Alô, alô, Brasil, 40 anos de Rádio Nacional',
+    estacio: 'Alô, alô, Brasil, 40 anos de Rádio Nacional',
+    sao_carlos: 'Alô, alô, Brasil, 40 anos de Rádio Nacional',
+    unidos_de_sao_carlos: 'Alô, alô, Brasil, 40 anos de Rádio Nacional',
+    imperio_da_tijuca: 'O mundo de barro de Mestre Vitalino',
+    cabucu: 'Os sete povos das missões',
+    unidos_do_cabucu: 'Os sete povos das missões',
+
+    // Série Ouro 1977
+    arrastao_cascadura: 'Um talismã para Iaiá',
+    arrastao_de_cascadura: 'Um talismã para Iaiá',
+    arrastao: 'Um talismã para Iaiá',
+    arranco: 'Logum, o príncipe de Efan',
+    arranco_do_engenho_de_dentro: 'Logum, o príncipe de Efan',
+    lins_imperial: 'Cruz credo, eta diabo',
+    lins: 'Cruz credo, eta diabo',
+    unidos_de_lucas: 'Insurreição do Queimado',
+    lucas: 'Insurreição do Queimado',
+    uniao_de_jacarepagua: 'Banzo',
+    jacarepagua: 'Banzo',
+    imperio_do_maranga: 'Lenda do Arco-Íris',
+    maranga: 'Lenda do Arco-Íris',
+    tupy_bras_de_pina: 'Um sonho colorido',
+    tupy_de_bras_de_pina: 'Um sonho colorido',
+    tupy: 'Um sonho colorido',
+    jacarezinho: 'A glória dos quilombos ou Congoleses, sudaneses, angoleses, bantus e os ciclos da mineração, açúcar e café',
+    unidos_do_jacarezinho: 'A glória dos quilombos ou Congoleses, sudaneses, angoleses, bantus e os ciclos da mineração, açúcar e café',
+    tijuca: 'Paraíso dos Sonhos',
+    unidos_da_tijuca: 'Paraíso dos Sonhos',
+    sao_clemente: 'Acredite se quiser',
+    em_cima_da_hora: 'Heitor dos Prazeres, um artista carioca',
+    folioes_de_botafogo: 'O cortiço',
+    folioes: 'O cortiço',
+    unidos_de_nilopolis: 'Império negro, um sonho de liberdade',
+    nilopolis: 'Império negro, um sonho de liberdade',
+    independentes_cordovil: 'Manjares do céu e da terra',
+    independentes_de_cordovil: 'Manjares do céu e da terra',
+    cordovil: 'Manjares do céu e da terra',
+    grande_rio_antiga: 'Os precursores',
+    gres_grande_rio_antiga: 'Os precursores',
+    gres_grande_rio: 'Os precursores',
+    mocidade_unida_da_cidade_de_deus: 'Baronesa da Taquara',
+    cidade_de_deus: 'Baronesa da Taquara',
+    tuiuti: 'Brasil caboclo',
+    paraiso_do_tuiuti: 'Brasil caboclo',
+    unidos_de_manguinhos: 'O tesouro maldito',
+    manguinhos: 'O tesouro maldito'
   },
   1976: {
     beija_flor: 'Sonhar com Rei Dá Leão',
@@ -3596,6 +3650,7 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
 function normalizeId(rawId?: string, rawName?: string): string {
   if (rawId && rawId.trim()) {
     const id = rawId.trim().toLowerCase();
+    if (id === 'grande_rio_antiga' || id.includes('grande_rio_antiga') || id === 'gres_grande_rio') return 'grande_rio_antiga';
     if (id.includes('unidos_da_mangueira')) return 'unidos_da_mangueira';
     if (id.includes('uniao_barao_da_gamboa')) return 'uniao_barao_da_gamboa';
     if (id.includes('ultima_hora')) return 'ultima_hora';
@@ -3649,9 +3704,16 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('azul e branco') && n.includes('salgueiro')) return 'azul_e_branco_salgueiro';
   if (n.includes('salgueiro')) return 'salgueiro';
   if (n.includes('imperatriz')) return 'imperatriz';
-  if (n.includes('unidos da mangueira') || n.includes('unidos_da_mangueira')) return 'unidos_da_mangueira';
   if (n.includes('mangueira')) return 'mangueira';
   if (n.includes('tijuca') && !n.includes('império')) return 'tijuca';
+  if (
+    n.includes('grande rio (antiga)') ||
+    n.includes('grande rio antiga') ||
+    n.includes('gres grande rio') ||
+    (n.includes('grande rio') && !n.includes('acadêmicos') && !n.includes('academicos') && rawId !== 'grande_rio')
+  ) {
+    return 'grande_rio_antiga';
+  }
   if (n.includes('grande rio')) return 'grande_rio';
   if (n.includes('unidos do tuiuti')) return 'unidos_do_tuiuti';
   if (n.includes('tuiuti')) return 'tuiuti';
@@ -3959,6 +4021,25 @@ export function getSchoolHistoricalEnredosList(
     if (activeYr > 2026 || !enredosMap.has(activeYr)) {
       enredosMap.set(activeYr, schoolObj.currentEnredo.title);
     }
+  }
+
+  // Se for a G.R.E.S. Grande Rio antiga (1955-1988, anterior à fundação da Acadêmicos do Grande Rio),
+  // seu histórico compreende estritamente anos anteriores à fundação da Acadêmicos do Grande Rio (<= 1988),
+  // garantindo que NUNCA exiba os enredos da atual Acadêmicos do Grande Rio (1989 em diante).
+  if (key === 'grande_rio_antiga' || schoolId === 'grande_rio_antiga' || canonKey === 'grande_rio_antiga') {
+    return Array.from(enredosMap.entries())
+      .filter(([yr]) => yr <= 1988)
+      .map(([yr, enredo]) => ({ year: yr, enredo }))
+      .sort((a, b) => b.year - a.year);
+  }
+
+  // Se for a Acadêmicos do Grande Rio atual (fundada em 22/09/1988),
+  // seu histórico oficial compreende estritamente a partir de 1989.
+  if (key === 'grande_rio' || schoolId === 'grande_rio' || canonKey === 'grande_rio') {
+    return Array.from(enredosMap.entries())
+      .filter(([yr]) => yr >= 1989)
+      .map(([yr, enredo]) => ({ year: yr, enredo }))
+      .sort((a, b) => b.year - a.year);
   }
 
   // Ordena decrescente por ano

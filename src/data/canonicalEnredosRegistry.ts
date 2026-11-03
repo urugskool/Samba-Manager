@@ -250,6 +250,7 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('mangueira')) return 'mangueira';
   if (raw.includes('império da tijuca') || raw.includes('imperio da tijuca') || raw.includes('imperio_da_tijuca')) return 'imperio_da_tijuca';
   if (raw.includes('tijuca') && !raw.includes('império da tijuca') && !raw.includes('imperio da tijuca') && !raw.includes('barra')) return 'tijuca';
+  if (raw.includes('grande_rio_antiga') || raw.includes('grande rio (antiga)') || raw.includes('grande rio antiga') || raw.includes('gres grande rio')) return 'grande_rio_antiga';
   if (raw.includes('grande rio')) return 'grande_rio';
   if (raw.includes('tuiuti')) return 'tuiuti';
   if (raw.includes('portela')) return 'portela';

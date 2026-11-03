@@ -65,6 +65,7 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('vila isabel')) return 'vila_isabel';
   if (name.includes('imperatriz')) return 'imperatriz';
   if (name.includes('tijuca') && !name.includes('império')) return 'tijuca';
+  if (name.includes('grande rio (antiga)') || clean.includes('grande_rio_antiga') || name.includes('gres grande rio') || name.includes('grande rio antiga')) return 'grande_rio_antiga';
   if (name.includes('grande rio')) return 'grande_rio';
   if (name.includes('tuiuti')) return 'tuiuti';
   if (name.includes('cidade de deus') || clean.includes('cidade_de_deus')) return 'mocidade_cidade_de_deus';
