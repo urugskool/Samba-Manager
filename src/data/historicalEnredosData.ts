@@ -2676,20 +2676,66 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     manguinhos: 'O tesouro maldito'
   },
   1976: {
-    beija_flor: 'Sonhar com Rei Dá Leão',
-    mangueira: 'No Reino da Mãe do Ouro',
-    mocidade: 'Mãe Menininha do Gantois',
-    portela: 'Homem do Rio, os Meus Bens Você Levou',
+    // Grupo Especial 1976
+    beija_flor: 'Sonhar com rei dá leão',
+    mangueira: 'No reino da Mãe do Ouro',
+    mocidade: 'Mãe menininha do Gantois',
+    portela: 'O Homem do Pacoval',
     salgueiro: 'Valongo',
     vila_isabel: 'Invenção de Orfeu',
-    imperio_serrano: 'A Lenda das Sereias, Rainhas do Mar',
-    imperatriz: 'Por Mares Nunca Dantes Navegados',
-    uniao_da_ilha: 'Poemas de Vinicius de Moraes',
-    estacio_de_sa: 'Arte Negra na Legendária Bahia',
-    lins_imperial: 'Festa da Uva no Rio Grande do Sul',
-    unidos_de_lucas: 'Mar Baiano em Noite de Gala',
-    em_cima_da_hora: 'Os Sertões',
-    tupy_bras_de_pina: 'Riquezas do Mar'
+    imperio_serrano: 'A lenda das sereias, rainhas do mar',
+    imperatriz: 'Por mares nunca dantes navegados',
+    uniao_da_ilha: 'Poemas de máscaras e sonhos',
+    estacio_de_sa: 'Arte negra na legendária Bahia',
+    sao_carlos: 'Arte negra na legendária Bahia',
+    lins_imperial: 'Folia de reis',
+    lins: 'Folia de reis',
+    unidos_de_lucas: 'Mar baiano em noite de gala',
+    lucas: 'Mar baiano em noite de gala',
+    em_cima_da_hora: 'Os sertões',
+    tupy_bras_de_pina: 'Riquezas áureas de nossa bandeira',
+    tupy: 'Riquezas áureas de nossa bandeira',
+
+    // Série Ouro (Grupo 2) 1976
+    imperio_da_tijuca: 'Guerreiro das Alagoas',
+    cabucu: 'Reisado da terra das Alagoas',
+    unidos_do_cabucu: 'Reisado da terra das Alagoas',
+    uniao_de_jacarepagua: 'Acalanto para Uiara',
+    jacarepagua: 'Acalanto para Uiara',
+    tijuca: 'No mundo encantado dos deuses afro-brasileiros',
+    unidos_da_tijuca: 'No mundo encantado dos deuses afro-brasileiros',
+    arranco: 'Piaburú, o caminho da montanha do sol',
+    arranco_do_engenho_de_dentro: 'Piaburú, o caminho da montanha do sol',
+    imperio_do_maranga: 'Glórias do Teatro Municipal',
+    maranga: 'Glórias do Teatro Municipal',
+    jacarezinho: 'Canudos, sua história, sua gente',
+    unidos_do_jacarezinho: 'Canudos, sua história, sua gente',
+    tuiuti: 'Cobra Norato',
+    paraiso_do_tuiuti: 'Cobra Norato',
+    unidos_de_nilopolis: 'Maranhão em tempo de bumba-meu-boi',
+    nilopolis: 'Maranhão em tempo de bumba-meu-boi',
+    sao_clemente: 'Recife, nosso amor distante',
+    independentes_cordovil: 'Recordar é viver, o passado manda lembrança',
+    independentes_de_cordovil: 'Recordar é viver, o passado manda lembrança',
+    cordovil: 'Recordar é viver, o passado manda lembrança',
+    folioes_de_botafogo: 'Festa do Bonfim',
+    folioes: 'Festa do Bonfim',
+    caprichosos_de_pilares: 'Sonho de pierrot',
+    caprichosos: 'Sonho de pierrot',
+    independentes_do_zumbi: 'Símbolos e cenários do carnaval carioca',
+    zumbi: 'Símbolos e cenários do carnaval carioca',
+    engenho_da_rainha: 'Mar em tempo de carnaval',
+    academicos_do_engenho_da_rainha: 'Mar em tempo de carnaval',
+    unidos_de_bangu: 'Festas e tradições de nossa gente',
+    bangu: 'Festas e tradições de nossa gente',
+    santa_cruz: 'Brasília, sonho imperial, realidade nacional',
+    academicos_de_santa_cruz: 'Brasília, sonho imperial, realidade nacional',
+    unidos_padre_miguel: 'Ajuricaba, um herói amazonense',
+    padre_miguel: 'Ajuricaba, um herói amazonense',
+    unidos_da_ponte: 'O negro em três tempos',
+    ponte: 'O negro em três tempos',
+    vila_santa_tereza: 'Ídolos do rádio brasileiro',
+    unidos_da_vila_santa_tereza: 'Ídolos do rádio brasileiro'
   },
   1975: {
     salgueiro: 'O Segredo das Minas do Rei Salomão',
@@ -3663,6 +3709,7 @@ function normalizeId(rawId?: string, rawName?: string): string {
     }
     if (id === 'folioes_de_botafogo' || id.includes('folioes')) return 'folioes_de_botafogo';
     if (id === 'botafogo_samba_clube' || id.includes('botafogo_samba_clube')) return 'botafogo_samba_clube';
+    if (id === 'independentes_do_zumbi' || id.includes('zumbi')) return 'independentes_do_zumbi';
     if (id.includes('unidos_da_mangueira')) return 'unidos_da_mangueira';
     if (id.includes('uniao_barao_da_gamboa')) return 'uniao_barao_da_gamboa';
     if (id.includes('ultima_hora')) return 'ultima_hora';
@@ -3731,6 +3778,7 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('grande rio')) return 'grande_rio';
   if (n.includes('foliões') || n.includes('folioes')) return 'folioes_de_botafogo';
   if (n.includes('botafogo samba clube') || (n.includes('botafogo') && !n.includes('foliões') && !n.includes('folioes'))) return 'botafogo_samba_clube';
+  if (n.includes('zumbi')) return 'independentes_do_zumbi';
   if (n.includes('unidos do tuiuti')) return 'unidos_do_tuiuti';
   if (n.includes('tuiuti')) return 'tuiuti';
   if (n.includes('portela')) return 'portela';
@@ -3972,7 +4020,7 @@ export function getSchoolHistoricalEnredosList(
   }
 
   // Foliões de Botafogo (fundada em 1950, inativa): agremiação histórica independente e sem vínculo com a Botafogo Samba Clube (fundada em 2018).
-  // Seu histórico catalogado compreende exclusivamente seu desfile oficial de 1977 ("O cortiço") e jamais enredos da Botafogo Samba Clube.
+  // Seu histórico catalogado compreende exclusivamente seus desfiles oficiais históricos (ex: 1977 "O cortiço", 1976 "Festa do Bonfim") e jamais enredos da Botafogo Samba Clube.
   const isFolioesDeBotafogo =
     key === 'folioes_de_botafogo' ||
     key === 'folioes' ||
