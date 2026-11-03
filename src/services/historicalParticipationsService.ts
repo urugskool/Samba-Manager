@@ -50,6 +50,7 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('estácio') || name.includes('estacio')) return 'estacio_de_sa';
   if (name.includes('porto da pedra')) return 'porto_da_pedra';
   if (name.includes('parque acari')) return 'parque_acari';
+  if (name.includes('foliões') || name.includes('folioes') || clean.includes('folioes')) return 'folioes_de_botafogo';
   if (name.includes('botafogo')) return 'botafogo_samba_clube';
   if (name.includes('vigário') || name.includes('vigario')) return 'vigario_geral';
   if (name.includes('ponte')) return 'unidos_da_ponte';
@@ -65,7 +66,19 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('vila isabel')) return 'vila_isabel';
   if (name.includes('imperatriz')) return 'imperatriz';
   if (name.includes('tijuca') && !name.includes('império')) return 'tijuca';
-  if (name.includes('grande rio (antiga)') || clean.includes('grande_rio_antiga') || name.includes('gres grande rio') || name.includes('grande rio antiga')) return 'grande_rio_antiga';
+  if (
+    clean === 'grande_rio_duque_de_caxias' ||
+    clean.includes('grande_rio_duque_de_caxias') ||
+    clean === 'grande_rio_antiga' ||
+    clean.includes('grande_rio_antiga') ||
+    name.includes('grande rio (antiga)') ||
+    name.includes('gres grande rio') ||
+    name.includes('grande rio antiga') ||
+    name.includes('duque de caxias') ||
+    (name.includes('grande rio') && !name.includes('acadêmicos') && !name.includes('academicos') && clean !== 'grande_rio')
+  ) {
+    return 'grande_rio_duque_de_caxias';
+  }
   if (name.includes('grande rio')) return 'grande_rio';
   if (name.includes('tuiuti')) return 'tuiuti';
   if (name.includes('cidade de deus') || clean.includes('cidade_de_deus')) return 'mocidade_cidade_de_deus';

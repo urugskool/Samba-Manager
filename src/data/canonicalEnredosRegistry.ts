@@ -249,8 +249,17 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('imperatriz')) return 'imperatriz';
   if (raw.includes('mangueira')) return 'mangueira';
   if (raw.includes('império da tijuca') || raw.includes('imperio da tijuca') || raw.includes('imperio_da_tijuca')) return 'imperio_da_tijuca';
-  if (raw.includes('tijuca') && !raw.includes('império da tijuca') && !raw.includes('imperio da tijuca') && !raw.includes('barra')) return 'tijuca';
-  if (raw.includes('grande_rio_antiga') || raw.includes('grande rio (antiga)') || raw.includes('grande rio antiga') || raw.includes('gres grande rio')) return 'grande_rio_antiga';
+  // Distinção fundamental: G.R.E.S. Grande Rio antiga (1971-1988) vs Acadêmicos do Grande Rio (1988-presente)
+  if (
+    raw.includes('grande_rio_duque_de_caxias') ||
+    raw.includes('grande_rio_antiga') ||
+    raw.includes('grande rio (antiga)') ||
+    raw.includes('grande rio antiga') ||
+    raw.includes('gres grande rio') ||
+    (raw.includes('grande rio') && !raw.includes('acadêmicos') && !raw.includes('academicos') && !raw.includes('academicos do grande rio'))
+  ) {
+    return 'grande_rio_duque_de_caxias';
+  }
   if (raw.includes('grande rio')) return 'grande_rio';
   if (raw.includes('tuiuti')) return 'tuiuti';
   if (raw.includes('portela')) return 'portela';
@@ -268,6 +277,7 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('unidos da ponte') || raw.includes('ponte')) return 'unidos_da_ponte';
   if (raw.includes('bangu')) return 'unidos_de_bangu';
   if (raw.includes('arranco')) return 'arranco';
+  if (raw.includes('foliões') || raw.includes('folioes')) return 'folioes_de_botafogo';
   if (raw.includes('botafogo')) return 'botafogo_samba_clube';
   if (raw.includes('acari')) return 'parque_acari';
   if (raw.includes('inocentes') || raw.includes('belford')) return 'inocentes';

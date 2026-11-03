@@ -2586,6 +2586,15 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm === 'tuiuti' || nameNorm.includes('escola de samba tuiuti') || nameNorm.includes('escola tuiuti')) return 'escola_tuiuti';
   if (nameNorm.includes('viradouro')) return 'viradouro';
   if (nameNorm.includes('beija-flor') || nameNorm.includes('beija flor') || nameNorm.includes('beija_flor')) return 'beija_flor';
+  if (
+    nameNorm.includes('grande rio (antiga)') ||
+    nameNorm.includes('grande rio antiga') ||
+    nameNorm.includes('gres grande rio') ||
+    nameNorm.includes('duque de caxias') ||
+    (nameNorm.includes('grande rio') && !nameNorm.includes('acadêmicos') && !nameNorm.includes('academicos'))
+  ) {
+    return 'grande_rio_duque_de_caxias';
+  }
   if (nameNorm.includes('grande rio')) return 'grande_rio';
   if (nameNorm.includes('imperatriz')) return 'imperatriz';
   if (nameNorm.includes('vila isabel')) return 'vila_isabel';

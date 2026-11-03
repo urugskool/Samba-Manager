@@ -2664,6 +2664,7 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     independentes_cordovil: 'Manjares do céu e da terra',
     independentes_de_cordovil: 'Manjares do céu e da terra',
     cordovil: 'Manjares do céu e da terra',
+    grande_rio_duque_de_caxias: 'Os precursores',
     grande_rio_antiga: 'Os precursores',
     gres_grande_rio_antiga: 'Os precursores',
     gres_grande_rio: 'Os precursores',
@@ -3650,7 +3651,18 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
 function normalizeId(rawId?: string, rawName?: string): string {
   if (rawId && rawId.trim()) {
     const id = rawId.trim().toLowerCase();
-    if (id === 'grande_rio_antiga' || id.includes('grande_rio_antiga') || id === 'gres_grande_rio') return 'grande_rio_antiga';
+    if (
+      id === 'grande_rio_duque_de_caxias' ||
+      id.includes('grande_rio_duque_de_caxias') ||
+      id === 'grande_rio_antiga' ||
+      id.includes('grande_rio_antiga') ||
+      id === 'gres_grande_rio' ||
+      id.includes('gres_grande_rio')
+    ) {
+      return 'grande_rio_duque_de_caxias';
+    }
+    if (id === 'folioes_de_botafogo' || id.includes('folioes')) return 'folioes_de_botafogo';
+    if (id === 'botafogo_samba_clube' || id.includes('botafogo_samba_clube')) return 'botafogo_samba_clube';
     if (id.includes('unidos_da_mangueira')) return 'unidos_da_mangueira';
     if (id.includes('uniao_barao_da_gamboa')) return 'uniao_barao_da_gamboa';
     if (id.includes('ultima_hora')) return 'ultima_hora';
@@ -3707,14 +3719,18 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('mangueira')) return 'mangueira';
   if (n.includes('tijuca') && !n.includes('império')) return 'tijuca';
   if (
+    n.includes('grande_rio_duque_de_caxias') ||
     n.includes('grande rio (antiga)') ||
     n.includes('grande rio antiga') ||
     n.includes('gres grande rio') ||
+    n.includes('duque de caxias') ||
     (n.includes('grande rio') && !n.includes('acadêmicos') && !n.includes('academicos') && rawId !== 'grande_rio')
   ) {
-    return 'grande_rio_antiga';
+    return 'grande_rio_duque_de_caxias';
   }
   if (n.includes('grande rio')) return 'grande_rio';
+  if (n.includes('foliões') || n.includes('folioes')) return 'folioes_de_botafogo';
+  if (n.includes('botafogo samba clube') || (n.includes('botafogo') && !n.includes('foliões') && !n.includes('folioes'))) return 'botafogo_samba_clube';
   if (n.includes('unidos do tuiuti')) return 'unidos_do_tuiuti';
   if (n.includes('tuiuti')) return 'tuiuti';
   if (n.includes('portela')) return 'portela';
@@ -3912,6 +3928,84 @@ export function getSchoolHistoricalEnredosList(
 ): { year: number; enredo: string }[] {
   const key = normalizeId(schoolId, schoolName);
   const canonKey = normalizeCanonicalSchoolId(schoolId, schoolName);
+
+  // Distinção fundamental: G.R.E.S. Grande Rio antiga (1971-1988, extinta antes da fundação da Acadêmicos do Grande Rio)
+  // Seu catálogo compreende estritamente anos anteriores a 1989 (ex: 1977: "Os precursores"),
+  // garantindo de forma absoluta que nunca exiba os enredos da atual Acadêmicos do Grande Rio (1990 em diante).
+  const isOldGrandeRio =
+    key === 'grande_rio_antiga' ||
+    key === 'grande_rio_duque_de_caxias' ||
+    schoolId === 'grande_rio_antiga' ||
+    schoolId === 'grande_rio_duque_de_caxias' ||
+    canonKey === 'grande_rio_antiga' ||
+    canonKey === 'grande_rio_duque_de_caxias' ||
+    (schoolName &&
+      schoolName.toLowerCase().includes('grande rio') &&
+      !schoolName.toLowerCase().includes('acadêmicos') &&
+      !schoolName.toLowerCase().includes('academicos') &&
+      schoolId !== 'grande_rio');
+
+  if (isOldGrandeRio) {
+    const oldEnredos: { year: number; enredo: string }[] = [];
+    const years = Object.keys(HISTORICAL_ENREDOS_BY_YEAR)
+      .map(Number)
+      .sort((a, b) => b - a);
+
+    years.forEach((yr) => {
+      if (yr <= 1988) {
+        const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[yr];
+        if (yearRecords) {
+          const enredo =
+            yearRecords['grande_rio_duque_de_caxias'] ||
+            yearRecords['grande_rio_antiga'] ||
+            yearRecords['gres_grande_rio'] ||
+            yearRecords[schoolId] ||
+            (schoolName && yearRecords[schoolName.toLowerCase()]);
+          if (enredo) {
+            oldEnredos.push({ year: yr, enredo });
+          }
+        }
+      }
+    });
+
+    return oldEnredos;
+  }
+
+  // Foliões de Botafogo (fundada em 1950, inativa): agremiação histórica independente e sem vínculo com a Botafogo Samba Clube (fundada em 2018).
+  // Seu histórico catalogado compreende exclusivamente seu desfile oficial de 1977 ("O cortiço") e jamais enredos da Botafogo Samba Clube.
+  const isFolioesDeBotafogo =
+    key === 'folioes_de_botafogo' ||
+    key === 'folioes' ||
+    schoolId === 'folioes_de_botafogo' ||
+    schoolId === 'folioes' ||
+    canonKey === 'folioes_de_botafogo' ||
+    (schoolName && (schoolName.toLowerCase().includes('foliões') || schoolName.toLowerCase().includes('folioes')));
+
+  if (isFolioesDeBotafogo) {
+    const folioesEnredos: { year: number; enredo: string }[] = [];
+    const years = Object.keys(HISTORICAL_ENREDOS_BY_YEAR)
+      .map(Number)
+      .sort((a, b) => b - a);
+
+    years.forEach((yr) => {
+      if (yr < 2018) {
+        const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[yr];
+        if (yearRecords) {
+          const enredo =
+            yearRecords['folioes_de_botafogo'] ||
+            yearRecords['folioes'] ||
+            yearRecords[schoolId] ||
+            (schoolName && yearRecords[schoolName.toLowerCase()]);
+          if (enredo) {
+            folioesEnredos.push({ year: yr, enredo });
+          }
+        }
+      }
+    });
+
+    return folioesEnredos;
+  }
+
   const enredosMap = new Map<number, string>();
 
   // 1. Catálogo histórico oficial (1932 a 2026)

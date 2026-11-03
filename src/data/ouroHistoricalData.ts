@@ -4743,8 +4743,8 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
     },
     {
       rank: 15,
-      schoolId: 'grande_rio_antiga',
-      schoolName: 'G.R.E.S. Grande Rio (antiga)',
+      schoolId: 'grande_rio_duque_de_caxias',
+      schoolName: 'Grande Rio',
       enredo: 'Os precursores',
       relegated: true,
       statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
