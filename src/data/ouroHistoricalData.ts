@@ -4925,6 +4925,137 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '20ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1975: [
+    {
+      rank: 1,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Dona Flor e seus dois maridos',
+      promoted: true,
+      statusDescription: '1ª (Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'Brasil, Glória e Integração',
+      promoted: true,
+      statusDescription: '2ª (Vice-Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Muiraquitã, o amuleto do amor',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'folioes_de_botafogo',
+      schoolName: 'Foliões de Botafogo',
+      enredo: 'Glória em pedra-sabão',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'Quem Quebrou meu Violão - Tra-Lá-Lá',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'tijuca',
+      schoolName: 'Unidos da Tijuca',
+      enredo: 'Magia africana no Brasil e seus mistérios',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Obra e Vida de Cecília Meireles',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Uiara a Deusa da Terra Grande',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Bahia de São Salvador, Tenda dos Milagres',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'Congada do Rei David',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: 'Emília no país da gramática',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Catarina Mina',
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Reais pessoas - chegada de D. João VI',
+      statusDescription: '13º Lugar'
+    },
+    {
+      rank: 14,
+      schoolId: 'vila_santa_tereza',
+      schoolName: 'Unidos da Vila Santa Tereza',
+      enredo: 'Acaiaca, Esplendor do Tijuco',
+      statusDescription: '14º Lugar'
+    },
+    {
+      rank: 15,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes de Cordovil',
+      enredo: 'O mestiço predestinado',
+      statusDescription: '15º Lugar'
+    },
+    {
+      rank: 16,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'O Folclore Carioca',
+      statusDescription: '16º Lugar'
+    },
+    {
+      rank: 17,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'Resplendor de um Grande Festival',
+      statusDescription: '17º Lugar'
+    },
+    {
+      rank: 0,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Eleição e coroação da Boneca do Café',
+      isHorsConcours: true,
+      statusDescription: 'Não desfilou'
+    }
   ]
 };
 
@@ -4982,7 +5113,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1979: 'Carnaval de 1979: (Não Houve Rebaixamento) • Unidos de Vila Isabel Campeã e Império Serrano Vice-Campeã promovidas ao Grupo Especial.',
   1978: 'Carnaval de 1978: Unidos de São Carlos (Campeã) e Imperatriz Leopoldinense (Vice-Campeã) promovidas ao Grupo Especial. Rebaixamento da 7ª à 16ª colocada para a Série Prata (Grupo 2A/Grupo 3) em virtude da reestruturação dos grupos para a criação do Grupo 1-A e 1-B em 1979.',
   1977: 'Carnaval de 1977: Arrastão de Cascadura (Campeã) e Arranco (Vice-Campeã) promovidas ao Grupo Especial. Oito escolas rebaixadas para a Série Prata (Grupo 3): Em Cima da Hora, Foliões de Botafogo, Unidos de Nilópolis, Independentes de Cordovil, G.R.E.S. Grande Rio (antiga agremiação de Duque de Caxias, anterior à fundação da Acadêmicos do Grande Rio em 1988), Mocidade Unida da Cidade de Deus, Paraíso do Tuiuti e Unidos de Manguinhos.',
-  1976: 'Carnaval de 1976: Império da Tijuca (Campeã) e Unidos do Cabuçu (Vice-Campeã) promovidas ao Grupo Especial. Oito agremiações foram rebaixadas para a Série Prata (Grupo 3): Caprichosos de Pilares, Independentes do Zumbi, Acadêmicos do Engenho da Rainha, Unidos de Bangu, Acadêmicos de Santa Cruz, Unidos de Padre Miguel, Unidos da Ponte e Unidos da Vila Santa Tereza.'
+  1976: 'Carnaval de 1976: Império da Tijuca (Campeã) e Unidos do Cabuçu (Vice-Campeã) promovidas ao Grupo Especial. Oito agremiações foram rebaixadas para a Série Prata (Grupo 3): Caprichosos de Pilares, Independentes do Zumbi, Acadêmicos do Engenho da Rainha, Unidos de Bangu, Acadêmicos de Santa Cruz, Unidos de Padre Miguel, Unidos da Ponte e Unidos da Vila Santa Tereza.',
+  1975: 'Carnaval de 1975: (Não houve rebaixamento) • Lins Imperial (Campeã) e Tupy de Brás de Pina (Vice-Campeã) promovidas ao Grupo Especial. A Unidos da Ponte não desfilou.'
 };
 
 /**
