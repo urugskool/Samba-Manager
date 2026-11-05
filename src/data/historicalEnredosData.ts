@@ -2950,16 +2950,57 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     bangu: 'Um dos motivos da Independência do Brasil'
   },
   1971: {
-    salgueiro: 'Festa para um Rei Negro (Pega no Ganzê)',
+    // Grupo Especial 1971
+    salgueiro: 'Festa para um Rei Negro',
     portela: 'Lapa em Três Tempos',
-    imperio_serrano: 'Nordeste: Seu Povo, Seu Canto, Sua Glória',
+    imperio_serrano: 'Nordeste, Seu Povo, Seu Canto, Sua Gente',
     mangueira: 'Os Modernos Bandeirantes',
-    vila_isabel: 'O Quatrocentos Anos de Mem de Sá',
-    estacio_de_sa: 'Festa do Divino Salvador',
-    imperatriz: 'Barra do Ouro, Riqueza do Brasil',
-    imperio_da_tijuca: 'O Poeta dos Orixás',
-    mocidade: 'O Sol Amigo',
-    unidos_padre_miguel: 'O Samba do Crioulo Doido'
+    vila_isabel: 'Ouro Mascavo',
+    estacio_de_sa: 'Brasil Turístico',
+    unidos_de_sao_carlos: 'Brasil Turístico',
+    sao_carlos: 'Brasil Turístico',
+    imperatriz: 'Barra de Ouro, Barra de Rio, Barra de Saia',
+    imperio_da_tijuca: 'O Misticismo da África ao Brasil',
+    mocidade: 'Rapsódia de Saudade',
+    unidos_padre_miguel: 'Samba do Crioulo Doido',
+    padre_miguel: 'Samba do Crioulo Doido',
+    upm: 'Samba do Crioulo Doido',
+
+    // Série Ouro (Grupo 2) 1971
+    em_cima_da_hora: 'Este Rio que Eu Amo',
+    unidos_de_lucas: 'Tributo às Raízes, Pixinguinha, Donga e João da Baiana',
+    lucas: 'Tributo às Raízes, Pixinguinha, Donga e João da Baiana',
+    lins_imperial: 'Casa-Grande e Senzala',
+    lins: 'Casa-Grande e Senzala',
+    tupy_bras_de_pina: 'São Francisco a Caminho do Sertão',
+    tupi_de_bras_de_pina: 'São Francisco a Caminho do Sertão',
+    tupy: 'São Francisco a Caminho do Sertão',
+    sao_clemente: 'O Beijo de Três Saudades',
+    tuiuti: 'Rio, Carnaval e Batucada',
+    paraiso_do_tuiuti: 'Rio, Carnaval e Batucada',
+    beija_flor: 'Carnaval, Sublime Ilusão',
+    jacarezinho: 'Bahia de Ontem, de Hoje e de Sempre',
+    unidos_do_jacarezinho: 'Bahia de Ontem, de Hoje e de Sempre',
+    santa_cruz: 'Três Fases da Poesia',
+    academicos_de_santa_cruz: 'Três Fases da Poesia',
+    tijuca: 'Quiva e Iaiá',
+    unidos_da_tijuca: 'Quiva e Iaiá',
+    uniao_de_jacarepagua: 'Marília de Dirceu',
+    unidos_de_jacarepagua: 'Marília de Dirceu',
+    jacarepagua: 'Marília de Dirceu',
+    independentes_cordovil: 'Baile das Rosas',
+    independentes_de_cordovil: 'Baile das Rosas',
+    cordovil: 'Baile das Rosas',
+    independentes_do_leblon: 'Baile das Rosas',
+    leblon: 'Baile das Rosas',
+    cabucu: 'Ninguém Segura este País',
+    unidos_do_cabucu: 'Ninguém Segura este País',
+    uniao_da_ilha: 'Ritual Afro-Brasileiro',
+    ilha: 'Ritual Afro-Brasileiro',
+    unidos_de_manguinhos: 'Ouro Verde',
+    manguinhos: 'Ouro Verde',
+    cartolinhas_de_caxias: 'Viagem ao Norte e Nordeste Brasileiro',
+    cartolinhas: 'Viagem ao Norte e Nordeste Brasileiro'
   },
   1970: {
     portela: 'Lendas e Mistérios da Amazônia',
@@ -3909,6 +3950,8 @@ function normalizeId(rawId?: string, rawName?: string): string {
     if ((id.includes('padre_miguel') || id === 'upm') && !id.includes('mocidade')) return 'unidos_padre_miguel';
     if (id.includes('marica')) return 'marica';
     if (id.includes('cidade_de_deus') || id.includes('cidade de deus')) return 'mocidade_cidade_de_deus';
+    if (id.includes('cordovil') || id.includes('leblon')) return 'independentes_cordovil';
+    if (id.includes('cartolinhas')) return 'cartolinhas_de_caxias';
     return id;
   }
   if (!rawName) return '';
@@ -4019,6 +4062,8 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('príncipes da floresta') || n.includes('principes da floresta')) return 'principes_da_floresta';
   if (n.includes('guarany') || n.includes('sport club') || n.includes('sport clube')) return 'sport_club_guarany';
   if (n.includes('vai como pode')) return 'portela';
+  if (n.includes('cordovil') || n.includes('leblon')) return 'independentes_cordovil';
+  if (n.includes('cartolinhas')) return 'cartolinhas_de_caxias';
   return '';
 }
 

@@ -5422,6 +5422,122 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       isHorsConcours: true,
       statusDescription: 'Não desfilou (Rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1971: [
+    {
+      rank: 1,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Este Rio que Eu Amo',
+      promoted: true,
+      statusDescription: '1ª (Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Tributo às Raízes, Pixinguinha, Donga e João da Baiana',
+      promoted: true,
+      statusDescription: '2ª (Vice-Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Casa-Grande e Senzala',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'São Francisco a Caminho do Sertão',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'O Beijo de Três Saudades',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Rio, Carnaval e Batucada',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'beija_flor',
+      schoolName: 'Beija-Flor de Nilópolis',
+      enredo: 'Carnaval, Sublime Ilusão',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Bahia de Ontem, de Hoje e de Sempre',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Três Fases da Poesia',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'tijuca',
+      schoolName: 'Unidos da Tijuca',
+      enredo: 'Quiva e Iaiá',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Marília de Dirceu',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes do Leblon (Independentes de Cordovil)',
+      enredo: 'Baile das Rosas',
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Ninguém Segura este País',
+      statusDescription: '13º Lugar'
+    },
+    {
+      rank: 14,
+      schoolId: 'uniao_da_ilha',
+      schoolName: 'União da Ilha do Governador',
+      enredo: 'Ritual Afro-Brasileiro',
+      statusDescription: '14º Lugar'
+    },
+    {
+      rank: 15,
+      schoolId: 'unidos_de_manguinhos',
+      schoolName: 'Unidos de Manguinhos',
+      enredo: 'Ouro Verde',
+      statusDescription: '15º Lugar'
+    },
+    {
+      rank: 16,
+      schoolId: 'cartolinhas_de_caxias',
+      schoolName: 'Cartolinhas de Caxias',
+      enredo: 'Viagem ao Norte e Nordeste Brasileiro',
+      statusDescription: '16º Lugar'
+    }
   ]
 };
 
@@ -5483,7 +5599,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1975: 'Carnaval de 1975: (Não houve rebaixamento) • Lins Imperial (Campeã) e Tupy de Brás de Pina (Vice-Campeã) promovidas ao Grupo Especial. A Unidos da Ponte não desfilou.',
   1974: 'Carnaval de 1974: (Não houve rebaixamento) • União da Ilha do Governador (Campeã) e Unidos de Lucas (Vice-Campeã) promovidas ao Grupo Especial.',
   1973: 'Carnaval de 1973: Unidos de São Carlos (Campeã) e Beija-Flor de Nilópolis (Vice-Campeã) promovidas ao Grupo Especial. Quatro agremiações foram rebaixadas para a Série Prata (Grupo 3): Caprichosos de Pilares, Império do Marangá, Império de Campo Grande e Unidos de Padre Miguel.',
-  1972: 'Carnaval de 1972: Tupy de Brás de Pina (Campeã) e Unidos do Jacarezinho (Vice-Campeã) promovidas ao Grupo Especial. Seis agremiações foram rebaixadas para a Série Prata (Grupo 3): Acadêmicos de Santa Cruz, Unidos de Manguinhos, G.R.E.S. Grande Rio (antiga agremiação de Duque de Caxias), Unidos do Cabuçu, Unidos da Vila Santa Tereza e Unidos de Bangu (não desfilou).'
+  1972: 'Carnaval de 1972: Tupy de Brás de Pina (Campeã) e Unidos do Jacarezinho (Vice-Campeã) promovidas ao Grupo Especial. Seis agremiações foram rebaixadas para a Série Prata (Grupo 3): Acadêmicos de Santa Cruz, Unidos de Manguinhos, G.R.E.S. Grande Rio (antiga agremiação de Duque de Caxias), Unidos do Cabuçu, Unidos da Vila Santa Tereza e Unidos de Bangu (não desfilou).',
+  1971: 'Carnaval de 1971: (Não houve rebaixamento) • Em Cima da Hora (Campeã) e Unidos de Lucas (Vice-Campeã) promovidas ao Grupo Especial.'
 };
 
 /**
