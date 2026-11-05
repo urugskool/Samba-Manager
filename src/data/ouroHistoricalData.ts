@@ -5292,6 +5292,136 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '16ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1972: [
+    {
+      rank: 1,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'Chiquinha Gonzaga, alma cantante do Brasil',
+      promoted: true,
+      statusDescription: '1ª (Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Banzo Ayê',
+      promoted: true,
+      statusDescription: '2ª (Vice-Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Sempre Brasil (Brasil de ponta a ponta)',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Salve, salve Independência',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'Dança de um Povo Livre',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'beija_flor',
+      schoolName: 'Beija-Flor de Nilópolis',
+      enredo: 'Bahia dos meus amores',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'A Festa da Independência',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'uniao_da_ilha',
+      schoolName: 'União da Ilha do Governador',
+      enredo: 'A Festa da Cavalhada',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes de Cordovil',
+      enredo: 'Datas, personagens e fatos históricos',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'tijuca',
+      schoolName: 'Unidos da Tijuca',
+      enredo: 'Ganga Zumba',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'Brasil, a flor que desabrocha',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Brasil folclórico',
+      relegated: true,
+      statusDescription: '12ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 13,
+      schoolId: 'unidos_de_manguinhos',
+      schoolName: 'Unidos de Manguinhos',
+      enredo: 'Zumbi dos Palmares',
+      relegated: true,
+      statusDescription: '13ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 14,
+      schoolId: 'grande_rio_duque_de_caxias',
+      schoolName: 'Grande Rio',
+      enredo: 'A outra força do Brasil',
+      relegated: true,
+      statusDescription: '14ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 15,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Laços de amizade',
+      relegated: true,
+      statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 16,
+      schoolId: 'vila_santa_tereza',
+      schoolName: 'Unidos da Vila Santa Tereza',
+      enredo: 'Heróis da Liberdade',
+      relegated: true,
+      statusDescription: '16ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 0,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: 'Um dos motivos da Independência do Brasil',
+      relegated: true,
+      isHorsConcours: true,
+      statusDescription: 'Não desfilou (Rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -5352,7 +5482,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1976: 'Carnaval de 1976: Império da Tijuca (Campeã) e Unidos do Cabuçu (Vice-Campeã) promovidas ao Grupo Especial. Oito agremiações foram rebaixadas para a Série Prata (Grupo 3): Caprichosos de Pilares, Independentes do Zumbi, Acadêmicos do Engenho da Rainha, Unidos de Bangu, Acadêmicos de Santa Cruz, Unidos de Padre Miguel, Unidos da Ponte e Unidos da Vila Santa Tereza.',
   1975: 'Carnaval de 1975: (Não houve rebaixamento) • Lins Imperial (Campeã) e Tupy de Brás de Pina (Vice-Campeã) promovidas ao Grupo Especial. A Unidos da Ponte não desfilou.',
   1974: 'Carnaval de 1974: (Não houve rebaixamento) • União da Ilha do Governador (Campeã) e Unidos de Lucas (Vice-Campeã) promovidas ao Grupo Especial.',
-  1973: 'Carnaval de 1973: Unidos de São Carlos (Campeã) e Beija-Flor de Nilópolis (Vice-Campeã) promovidas ao Grupo Especial. Quatro agremiações foram rebaixadas para a Série Prata (Grupo 3): Caprichosos de Pilares, Império do Marangá, Império de Campo Grande e Unidos de Padre Miguel.'
+  1973: 'Carnaval de 1973: Unidos de São Carlos (Campeã) e Beija-Flor de Nilópolis (Vice-Campeã) promovidas ao Grupo Especial. Quatro agremiações foram rebaixadas para a Série Prata (Grupo 3): Caprichosos de Pilares, Império do Marangá, Império de Campo Grande e Unidos de Padre Miguel.',
+  1972: 'Carnaval de 1972: Tupy de Brás de Pina (Campeã) e Unidos do Jacarezinho (Vice-Campeã) promovidas ao Grupo Especial. Seis agremiações foram rebaixadas para a Série Prata (Grupo 3): Acadêmicos de Santa Cruz, Unidos de Manguinhos, G.R.E.S. Grande Rio (antiga agremiação de Duque de Caxias), Unidos do Cabuçu, Unidos da Vila Santa Tereza e Unidos de Bangu (não desfilou).'
 };
 
 /**

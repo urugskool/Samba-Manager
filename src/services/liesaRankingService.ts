@@ -2976,7 +2976,7 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     } else if (yr === 1973) {
       notes = 'Carnaval Histórico de 1973 (Administrado pela AESCRJ): Estação Primeira de Mangueira conquistou o campeonato com o antológico "Lendas do Abaeté" (+20 pts) e Império Serrano foi o vice-campeão com "Viagem encantada Pindorama adentro" (+15 pts). Duas agremiações foram rebaixadas: Tupy de Brás de Pina e Unidos do Jacarezinho.';
     } else if (yr === 1972) {
-      notes = 'Carnaval Histórico de 1972 (Administrado pela AESCRJ): Império Serrano conquistou o título com "Alô, Alô, Ta-Hí, Cem Anos de Carmen Miranda" de Fernando Pinto (+20 pts) e Estação Primeira de Mangueira foi vice-campeã com "Rio, Carnaval dos Carnavais" (+15 pts). Quatro agremiações foram rebaixadas: Unidos de São Carlos (atual Estácio de Sá), Império da Tijuca, Unidos de Lucas e Unidos de Padre Miguel.';
+      notes = 'Carnaval Histórico de 1972 (Administrado pela AESCRJ): Império Serrano conquistou o título com "Alô, alô, taí Carmem Miranda" de Fernando Pinto (+20 pts) e Estação Primeira de Mangueira foi vice-campeã com "Carnaval dos carnavais" (+15 pts). Quatro agremiações foram rebaixadas: Unidos de São Carlos (atual Estácio de Sá), Império da Tijuca, Unidos de Lucas e Unidos de Padre Miguel.';
     } else if (yr === 1971) {
       notes = 'Carnaval Histórico de 1971 (Administrado pela AESCRJ): Acadêmicos do Salgueiro sagrou-se campeã com o imortal "Festa para um Rei Negro (Pega no Ganzê)" de Fernando Pamplona (+20 pts) e Portela foi vice-campeã com "Lapa em Três Tempos" (+15 pts). Não houve rebaixamento neste ano por deliberação da AESCRJ.';
     } else if (yr === 1970) {

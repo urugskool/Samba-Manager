@@ -1066,7 +1066,9 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                     <td className="py-3 px-4 whitespace-nowrap">
                                       <span className={`inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-lg text-xs font-black ${
                                         st.isHorsConcours || st.rank === 0
-                                          ? (st.statusDescription?.toLowerCase().includes('não desfilou')
+                                          ? (st.relegated
+                                              ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40 font-bold text-[10px]'
+                                              : st.statusDescription?.toLowerCase().includes('não desfilou')
                                               ? 'bg-slate-900 text-slate-400 border border-slate-700 font-bold text-[10px]'
                                               : 'bg-purple-950/80 text-purple-300 border border-purple-700/50 font-bold text-[10px]')
                                           : st.promoted || st.rank === 1
@@ -1112,6 +1114,11 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                           <span className="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
                                             <Sparkles className="w-3.5 h-3.5 text-purple-400" />
                                             <span>Hors concours (Subiu)</span>
+                                          </span>
+                                        ) : st.relegated ? (
+                                          <span className="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/40 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
+                                            <ArrowDownCircle className="w-3.5 h-3.5 text-rose-400" />
+                                            <span>Não Desfilou (Rebaixada)</span>
                                           </span>
                                         ) : st.statusDescription?.toLowerCase().includes('não desfilou') ? (
                                           <span className="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 border border-slate-700 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
@@ -1184,7 +1191,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                     </div>
                     <h3 className="text-lg font-black text-white">Série Ouro em Catalogação</h3>
                     <p className="text-xs text-slate-400 max-w-md mx-auto">
-                      Os resultados da Série Ouro para o Carnaval de {selectedPastYear} ainda não foram inseridos no catálogo histórico. Os registros oficiais estão disponíveis a partir de 1973.
+                      Os resultados da Série Ouro para o Carnaval de {selectedPastYear} ainda não foram inseridos no catálogo histórico. Os registros oficiais estão disponíveis a partir de 1972.
                     </p>
                     <button
                       onClick={() => setSelectedPastYear(2026)}
