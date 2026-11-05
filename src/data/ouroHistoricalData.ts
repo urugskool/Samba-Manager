@@ -5056,6 +5056,242 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       isHorsConcours: true,
       statusDescription: 'Não desfilou'
     }
+  ],
+  1974: [
+    {
+      rank: 1,
+      schoolId: 'uniao_da_ilha',
+      schoolName: 'União da Ilha do Governador',
+      enredo: 'Lendas e festas das Yabás',
+      promoted: true,
+      statusDescription: '1ª (Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Mulata maior',
+      promoted: true,
+      statusDescription: '2ª (Vice-Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Minas de prata',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Devaneios de um poeta',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes de Cordovil',
+      enredo: 'Festas tradicionais da Bahia',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Cobra Norato',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'Essa nega Fulô',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'O rouxinol da canção brasileira',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Bandeira Branca - Homenagem a Dalva de Oliveira',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Duduca Lunga, a maravilhosa arte negra',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'Sonhos fascinantes de um jovem adolescente',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Olimpíadas, festa de um povo',
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Rio em festa - tradição e folclore',
+      statusDescription: '13º Lugar'
+    },
+    {
+      rank: 14,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: 'Rio, pé de moleque',
+      statusDescription: '14º Lugar'
+    },
+    {
+      rank: 15,
+      schoolId: 'tijuca',
+      schoolName: 'Unidos da Tijuca',
+      enredo: 'Petrópolis, nossa flor serrana',
+      statusDescription: '15º Lugar'
+    },
+    {
+      rank: 16,
+      schoolId: 'vila_santa_tereza',
+      schoolName: 'Unidos da Vila Santa Tereza',
+      enredo: 'Primavera, estação das flores',
+      statusDescription: '16º Lugar'
+    }
+  ],
+  1973: [
+    {
+      rank: 1,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Unidos de São Carlos (Estácio de Sá)',
+      enredo: 'Trá, lá, lá, um hino ao carnaval brasileiro de Lamartine Babo',
+      promoted: true,
+      statusDescription: '1ª (Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'beija_flor',
+      schoolName: 'Beija-Flor de Nilópolis',
+      enredo: 'Educação para o desenvolvimento',
+      promoted: true,
+      statusDescription: '2ª (Vice-Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Bahia de Jorge Amado',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Brasil, explosão do progresso',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Os imortais da música brasileira',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Estórias que ouvimos na infância',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'Momentos inesquecíveis de Tapoagipe',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'tijuca',
+      schoolName: 'Unidos da Tijuca',
+      enredo: 'Bom dia, café!',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'uniao_da_ilha',
+      schoolName: 'União da Ilha do Governador',
+      enredo: 'Y-Juca Pirama',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes de Cordovil',
+      enredo: 'Festival do cinema brasileiro',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Samba, dança para os orixás',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'As sete portas da Bahia de Carybé',
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'Aclamação e coroação de D. Pedro I',
+      relegated: true,
+      statusDescription: '13ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 14,
+      schoolId: 'imperio_do_maranga',
+      schoolName: 'Império do Marangá',
+      enredo: 'Os Imortais da Música - Aquarela do Brasil',
+      relegated: true,
+      statusDescription: '14ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 15,
+      schoolId: 'imperio_de_campo_grande',
+      schoolName: 'Império de Campo Grande',
+      enredo: 'Casa grande e senzala',
+      relegated: true,
+      statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 16,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'Cazuza',
+      relegated: true,
+      statusDescription: '16ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -5114,7 +5350,9 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1978: 'Carnaval de 1978: Unidos de São Carlos (Campeã) e Imperatriz Leopoldinense (Vice-Campeã) promovidas ao Grupo Especial. Rebaixamento da 7ª à 16ª colocada para a Série Prata (Grupo 2A/Grupo 3) em virtude da reestruturação dos grupos para a criação do Grupo 1-A e 1-B em 1979.',
   1977: 'Carnaval de 1977: Arrastão de Cascadura (Campeã) e Arranco (Vice-Campeã) promovidas ao Grupo Especial. Oito escolas rebaixadas para a Série Prata (Grupo 3): Em Cima da Hora, Foliões de Botafogo, Unidos de Nilópolis, Independentes de Cordovil, G.R.E.S. Grande Rio (antiga agremiação de Duque de Caxias, anterior à fundação da Acadêmicos do Grande Rio em 1988), Mocidade Unida da Cidade de Deus, Paraíso do Tuiuti e Unidos de Manguinhos.',
   1976: 'Carnaval de 1976: Império da Tijuca (Campeã) e Unidos do Cabuçu (Vice-Campeã) promovidas ao Grupo Especial. Oito agremiações foram rebaixadas para a Série Prata (Grupo 3): Caprichosos de Pilares, Independentes do Zumbi, Acadêmicos do Engenho da Rainha, Unidos de Bangu, Acadêmicos de Santa Cruz, Unidos de Padre Miguel, Unidos da Ponte e Unidos da Vila Santa Tereza.',
-  1975: 'Carnaval de 1975: (Não houve rebaixamento) • Lins Imperial (Campeã) e Tupy de Brás de Pina (Vice-Campeã) promovidas ao Grupo Especial. A Unidos da Ponte não desfilou.'
+  1975: 'Carnaval de 1975: (Não houve rebaixamento) • Lins Imperial (Campeã) e Tupy de Brás de Pina (Vice-Campeã) promovidas ao Grupo Especial. A Unidos da Ponte não desfilou.',
+  1974: 'Carnaval de 1974: (Não houve rebaixamento) • União da Ilha do Governador (Campeã) e Unidos de Lucas (Vice-Campeã) promovidas ao Grupo Especial.',
+  1973: 'Carnaval de 1973: Unidos de São Carlos (Campeã) e Beija-Flor de Nilópolis (Vice-Campeã) promovidas ao Grupo Especial. Quatro agremiações foram rebaixadas para a Série Prata (Grupo 3): Caprichosos de Pilares, Império do Marangá, Império de Campo Grande e Unidos de Padre Miguel.'
 };
 
 /**

@@ -1167,6 +1167,7 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
               currentYear
             );
             if (enredos.length === 0) return null;
+            const latestEnredoYear = enredos[0]?.year || 2026;
             return (
               <div className="pt-3 border-t border-slate-800/80 space-y-2">
                 <div className="flex items-center justify-between text-xs text-amber-300 font-bold uppercase tracking-wider">
@@ -1174,7 +1175,7 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
                     <BookOpen className="w-3.5 h-3.5 text-amber-400" />
                     <span>Histórico Oficial de Enredos ({enredos.length} Edições)</span>
                   </div>
-                  <span className="text-[11px] text-slate-400 font-mono font-normal">1932 a {currentYear || 2026}</span>
+                  <span className="text-[11px] text-slate-400 font-mono font-normal">1932 a {latestEnredoYear}</span>
                 </div>
                 <div className="max-h-56 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
                   {enredos.map((item) => (

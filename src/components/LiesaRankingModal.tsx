@@ -3,6 +3,7 @@ import { School, YearHistory } from '../types/carnaval';
 import {
   computeLiesa5YearRanking,
   computeHistoricalLiesaRanking,
+  getLatestCompletedCarnavalYear,
   LiesaRankingEntry,
   HistoricalLiesaEntry,
   LIESA_POINTS_BY_RANK
@@ -71,6 +72,11 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
   const historicalLiesaData = useMemo(() => {
     return computeHistoricalLiesaRanking(schools, inGameHistory);
   }, [schools, inGameHistory]);
+
+  // Determina dinamicamente o último ano concluído (2026 oficial ou anos simulados in-game a partir de 2027)
+  const latestCompletedYear = useMemo(() => {
+    return getLatestCompletedCarnavalYear(inGameHistory, currentYear);
+  }, [inGameHistory, currentYear]);
 
   const filtered5YearEntries = useMemo(() => {
     const q = searchQuery.toLowerCase().trim();
@@ -263,7 +269,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
               }`}
             >
               <History className="w-3.5 h-3.5" />
-              <span>Ranking Histórico da LIESA (1932 a {currentYear || 2026})</span>
+              <span>Ranking Histórico da LIESA (1932 a {latestCompletedYear})</span>
             </button>
           </div>
 
@@ -589,7 +595,7 @@ export const LiesaRankingModal: React.FC<LiesaRankingModalProps> = ({
             <div className="space-y-4">
               <div className="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between text-xs text-slate-400 gap-2">
                 <span>
-                  Pontuação Oficial Histórica acumulada desde 1932 (20 pts campeã, 15 vice, 12 a 1 para colocações detalhadas).
+                  Pontuação Oficial Histórica acumulada de 1932 a {latestCompletedYear} (20 pts campeã, 15 vice, 12 a 1 para colocações detalhadas).
                 </span>
                 <span className="text-amber-300 font-medium">
                   {filteredHistoricalEntries.length} agremiações catalogadas

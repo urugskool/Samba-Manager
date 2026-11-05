@@ -2974,7 +2974,7 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     } else if (yr === 1974) {
       notes = 'Carnaval Histórico de 1974 (Administrado pela AESCRJ): Acadêmicos do Salgueiro sagrou-se campeã com "O Rei de França na Ilha da Assombração" de Joãosinho Trinta (+20 pts) e Portela foi a vice-campeã com "O Mundo Melhor de Pixinguinha" (+15 pts). Não houve rebaixamento neste ano por deliberação da AESCRJ.';
     } else if (yr === 1973) {
-      notes = 'Carnaval Histórico de 1973 (Administrado pela AESCRJ): Estação Primeira de Mangueira conquistou o campeonato com o antológico "Lendas do Abaeté" (+20 pts) e Império Serrano foi o vice-campeão com "Viagem Encantada Pelo Mar das Esmeraldas" (+15 pts). Duas agremiações foram rebaixadas: Tupy de Brás de Pina e Unidos do Jacarezinho.';
+      notes = 'Carnaval Histórico de 1973 (Administrado pela AESCRJ): Estação Primeira de Mangueira conquistou o campeonato com o antológico "Lendas do Abaeté" (+20 pts) e Império Serrano foi o vice-campeão com "Viagem encantada Pindorama adentro" (+15 pts). Duas agremiações foram rebaixadas: Tupy de Brás de Pina e Unidos do Jacarezinho.';
     } else if (yr === 1972) {
       notes = 'Carnaval Histórico de 1972 (Administrado pela AESCRJ): Império Serrano conquistou o título com "Alô, Alô, Ta-Hí, Cem Anos de Carmen Miranda" de Fernando Pinto (+20 pts) e Estação Primeira de Mangueira foi vice-campeã com "Rio, Carnaval dos Carnavais" (+15 pts). Quatro agremiações foram rebaixadas: Unidos de São Carlos (atual Estácio de Sá), Império da Tijuca, Unidos de Lucas e Unidos de Padre Miguel.';
     } else if (yr === 1971) {
@@ -3216,6 +3216,21 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
   });
 
   return result;
+}
+
+/**
+ * Retorna o último ano de carnaval oficialmente concluído.
+ * Para o início de um save em 2027 (quando 2027 ainda está em andamento/preparação e não foi apurado), retorna 2026.
+ * Conforme as apurações forem sendo concluídas in-game no save (2027, 2028, etc.), atualiza dinamicamente.
+ */
+export function getLatestCompletedCarnavalYear(inGameHistory: YearHistory[] = [], currentYear?: number): number {
+  if (currentYear && inGameHistory.some((h) => h.year === currentYear && h.especialStandings && h.especialStandings.length > 0)) {
+    return currentYear;
+  }
+  const simulated = inGameHistory
+    .filter((h) => h.year > 2026 && ((h.especialStandings && h.especialStandings.length > 0) || (h.ouroStandings && h.ouroStandings.length > 0)))
+    .map((h) => h.year);
+  return simulated.length > 0 ? Math.max(...simulated) : 2026;
 }
 
 /**

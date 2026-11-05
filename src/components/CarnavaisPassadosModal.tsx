@@ -100,6 +100,12 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
     return getHistoricalCarnavalsList(inGameHistory);
   }, [inGameHistory]);
 
+  const latestPastYear = useMemo(() => {
+    return historicalCarnavals && historicalCarnavals.length > 0
+      ? historicalCarnavals[0].year
+      : 2026;
+  }, [historicalCarnavals]);
+
   const currentPastCarnaval = useMemo(() => {
     return historicalCarnavals.find((c) => c.year === selectedPastYear) || historicalCarnavals[0];
   }, [historicalCarnavals, selectedPastYear]);
@@ -340,7 +346,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                   MEMÓRIA DO SAMBA
                 </span>
                 <span className="text-xs text-slate-400">
-                  Resultados Oficiais & Participações na Elite (1932 a {currentYear || 2026})
+                  Resultados Oficiais & Participações na Elite (1932 a {latestPastYear})
                 </span>
               </div>
               <h2 className="text-xl sm:text-2xl font-black text-white mt-0.5 flex items-center gap-2">
@@ -1178,7 +1184,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                     </div>
                     <h3 className="text-lg font-black text-white">Série Ouro em Catalogação</h3>
                     <p className="text-xs text-slate-400 max-w-md mx-auto">
-                      Os resultados da Série Ouro para o Carnaval de {selectedPastYear} ainda não foram inseridos no catálogo histórico. Os registros oficiais estão disponíveis a partir de 1975.
+                      Os resultados da Série Ouro para o Carnaval de {selectedPastYear} ainda não foram inseridos no catálogo histórico. Os registros oficiais estão disponíveis a partir de 1973.
                     </p>
                     <button
                       onClick={() => setSelectedPastYear(2026)}
