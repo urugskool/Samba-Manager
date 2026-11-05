@@ -238,7 +238,7 @@ const INITIAL_INACTIVE_SCHOOL_IDS = new Set([
   'segunda_linha_do_estacio'
 ]);
 
-function sanitizeSchoolsData(loadedSchools: School[]): School[] {
+function sanitizeSchoolsData(loadedSchools: School[], activeUserSchoolId?: string | null): School[] {
   const loadedIds = new Set(loadedSchools.map((s) => s.id));
   const missingFromInitial = INITIAL_SCHOOLS.filter((s) => !loadedIds.has(s.id));
   const fullSchoolList = [...loadedSchools, ...missingFromInitial];
@@ -276,8 +276,17 @@ function sanitizeSchoolsData(loadedSchools: School[]): School[] {
     const avaRecord = OFFICIAL_AVALIACAO_RECORDS_BY_SCHOOL[s.id];
     const grupoERecord = OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL[s.id];
 
+    const initialStaff = initialSchool?.staff;
+    const isPlayerSchool = activeUserSchoolId ? s.id === activeUserSchoolId : false;
+    const finalStaff = initialStaff
+      ? isPlayerSchool
+        ? { ...initialStaff, ...s.staff }
+        : { ...initialStaff }
+      : s.staff;
+
     const updatedSchool: School = {
       ...s,
+      staff: finalStaff,
       ...(initialSchool
         ? {
             name: initialSchool.name,
@@ -455,7 +464,7 @@ export default function App() {
         try {
           const parsed = JSON.parse(saved);
           if (parsed.schools && parsed.schools.length > 0) {
-            return sanitizeSchoolsData(parsed.schools);
+            return sanitizeSchoolsData(parsed.schools, parsed.userSchoolId);
           }
         } catch {}
       }
@@ -943,7 +952,7 @@ export default function App() {
 
     try {
       if (Array.isArray(loadedState.schools) && loadedState.schools.length > 0) {
-        setSchools(sanitizeSchoolsData(loadedState.schools));
+        setSchools(sanitizeSchoolsData(loadedState.schools, loadedState.userSchoolId));
       }
       if (typeof loadedState.currentYear === 'number') {
         setCurrentYear(loadedState.currentYear);

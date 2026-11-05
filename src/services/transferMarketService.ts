@@ -7,7 +7,7 @@ import { NewsArticle } from '../types/news';
 import { SeasonMonthId } from '../types/seasonCycle';
 
 export class TransferMarketService {
-  private static STORAGE_KEY = 'samba_manager_professionals_db_v4';
+  private static STORAGE_KEY = 'samba_manager_professionals_db_v5';
   private static HISTORY_STORAGE_KEY = 'samba_manager_transfers_history_v2';
 
   /**
