@@ -303,6 +303,12 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('alegria da zona sul') || raw.includes('alegria_da_zona_sul')) return 'alegria_da_zona_sul';
   if (raw.includes('renascer') && !raw.includes('nova iguaçu') && !raw.includes('nova iguacu') && !raw.includes('vaz lobo')) return 'renascer_jacarepagua';
   if (raw.includes('união de jacarepaguá') || raw.includes('uniao de jacarepagua') || raw.includes('jacarepaguá') || raw.includes('jacarepagua')) return 'uniao_de_jacarepagua';
+  if (raw.includes('cordovil') || raw.includes('leblon')) return 'independentes_cordovil';
+  if (raw.includes('cabuçu') || raw.includes('cabucu')) return 'cabucu';
+  if (raw.includes('tupy') || raw.includes('bras de pina') || raw.includes('brás de pina')) return 'tupy_bras_de_pina';
+  if (raw.includes('aprendizes da gávea') || raw.includes('aprendizes da gavea') || raw.includes('gavea') || raw.includes('gávea')) return 'aprendizes_da_gavea';
+  if (raw.includes('manguinhos')) return 'unidos_de_manguinhos';
+  if (raw.includes('jardim')) return 'unidos_do_jardim';
   return (schoolId || '').toLowerCase().trim();
 }
 

@@ -4988,7 +4988,7 @@ export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
     runnerUp: 'Império Serrano',
     third: 'Acadêmicos do Salgueiro',
     relegated: ['Imperatriz Leopoldinense', 'São Clemente'],
-    notes: 'Mangueira campeã com O Mundo Encantado de Monteiro Lobato. 2 rebaixadas.',
+    notes: 'Mangueira campeã com O mundo encantado de Monteiro Lobato de Júlio Mattos. Império Serrano vice-campeã com São Paulo, chapadão de glórias. Rebaixadas: Imperatriz Leopoldinense e São Clemente.',
     standings: [
       { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'campea' },
       { rank: 2, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'vice' },

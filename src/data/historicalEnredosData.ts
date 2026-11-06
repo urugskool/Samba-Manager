@@ -3158,16 +3158,60 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     unidos_do_cabucu: 'A primazia da Bahia'
   },
   1967: {
-    mangueira: 'O Mundo Encantado de Monteiro Lobato',
-    imperio_serrano: 'São Paulo, Chapadão de Glórias',
-    salgueiro: 'História do Carnaval Carioca - E o Samba Sambou',
-    vila_isabel: 'Carnaval das Ilusões',
-    unidos_de_lucas: 'Festas Tradicionais do Brasil',
-    portela: 'Ressurreição das Coroas',
-    mocidade: 'A Musa de Ataulfo Alves',
-    imperio_da_tijuca: 'O Ouro de Ouro Preto',
-    imperatriz: 'A Volta da Corte Real',
-    sao_clemente: 'Festas de Santo Antônio'
+    // Grupo Especial 1967
+    mangueira: 'O mundo encantado de Monteiro Lobato',
+    estacao_primeira_de_mangueira: 'O mundo encantado de Monteiro Lobato',
+    imperio_serrano: 'São Paulo, chapadão de glórias',
+    salgueiro: 'História da liberdade no Brasil',
+    academicos_do_salgueiro: 'História da liberdade no Brasil',
+    vila_isabel: 'Carnaval das ilusões',
+    unidos_de_vila_isabel: 'Carnaval das ilusões',
+    unidos_de_lucas: 'Festas tradicionais do Rio de Janeiro',
+    lucas: 'Festas tradicionais do Rio de Janeiro',
+    portela: 'Tal dia é o batizado',
+    mocidade: 'O teatro brasileiro através dos tempos',
+    mocidade_independente: 'O teatro brasileiro através dos tempos',
+    mocidade_independente_de_padre_miguel: 'O teatro brasileiro através dos tempos',
+    imperio_da_tijuca: 'O reino encantado de Vicente Guimarães',
+    imperatriz: 'A vida poética de Olavo Bilac',
+    imperatriz_leopoldinense: 'A vida poética de Olavo Bilac',
+    sao_clemente: 'Festas e tradições populares do Brasil',
+
+    // Série Ouro (Grupo 2) 1967
+    estacio_de_sa: 'Lendas e costumes do Brasil',
+    unidos_de_sao_carlos: 'Lendas e costumes do Brasil',
+    sao_carlos: 'Lendas e costumes do Brasil',
+    estacio: 'Lendas e costumes do Brasil',
+    independentes_cordovil: 'Último baile da Ilha Fiscal',
+    independentes_de_cordovil: 'Último baile da Ilha Fiscal',
+    independentes_do_leblon: 'Último baile da Ilha Fiscal',
+    cordovil: 'Último baile da Ilha Fiscal',
+    leblon: 'Último baile da Ilha Fiscal',
+    em_cima_da_hora: 'Vida e amores de Beja',
+    unidos_padre_miguel: 'O penacho do capitão-mor',
+    padre_miguel: 'O penacho do capitão-mor',
+    upm: 'O penacho do capitão-mor',
+    santa_cruz: 'Núpcias Imperiais',
+    academicos_de_santa_cruz: 'Núpcias Imperiais',
+    tupy_bras_de_pina: 'O homem que não quis ser rei',
+    tupi_de_bras_de_pina: 'O homem que não quis ser rei',
+    tupy: 'O homem que não quis ser rei',
+    uniao_de_jacarepagua: 'Contratadores de diamantes',
+    unidos_de_jacarepagua: 'Contratadores de diamantes',
+    jacarepagua: 'Contratadores de diamantes',
+    cabucu: 'Bandeiras e brasões na história do Brasil',
+    unidos_do_cabucu: 'Bandeiras e brasões na história do Brasil',
+    aprendizes_da_gavea: 'Dorotéia de Vila Rica',
+    aprendizes_gavea: 'Dorotéia de Vila Rica',
+    gavea: 'Dorotéia de Vila Rica',
+    lins_imperial: 'A Condessa de Barral',
+    lins: 'A Condessa de Barral',
+    caprichosos_de_pilares: 'O Brasil através de sua música',
+    caprichosos: 'O Brasil através de sua música',
+    unidos_de_manguinhos: 'Espumas flutuantes - Homenagem a Castro Alves',
+    manguinhos: 'Espumas flutuantes - Homenagem a Castro Alves',
+    unidos_do_jardim: 'Brasil, reino, império',
+    jardim: 'Brasil, reino, império'
   },
   1966: {
     portela: 'Memórias de um Sargento de Milícias',
@@ -4071,6 +4115,8 @@ function normalizeId(rawId?: string, rawName?: string): string {
     if (id.includes('cidade_de_deus') || id.includes('cidade de deus')) return 'mocidade_cidade_de_deus';
     if (id.includes('cordovil') || id.includes('leblon')) return 'independentes_cordovil';
     if (id.includes('cartolinhas')) return 'cartolinhas_de_caxias';
+    if (id.includes('manguinhos')) return 'unidos_de_manguinhos';
+    if (id.includes('jardim')) return 'unidos_do_jardim';
     return id;
   }
   if (!rawName) return '';
@@ -4186,6 +4232,8 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('vaz lobo')) return 'uniao_vaz_lobo';
   if (n.includes('cordovil') || n.includes('leblon')) return 'independentes_cordovil';
   if (n.includes('cartolinhas')) return 'cartolinhas_de_caxias';
+  if (n.includes('manguinhos')) return 'unidos_de_manguinhos';
+  if (n.includes('jardim')) return 'unidos_do_jardim';
   return '';
 }
 

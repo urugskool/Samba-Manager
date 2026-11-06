@@ -5870,6 +5870,103 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '14ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1967: [
+    {
+      rank: 1,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Unidos de São Carlos (Estácio de Sá)',
+      enredo: 'Lendas e costumes do Brasil',
+      promoted: true,
+      statusDescription: '1ª (Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes do Leblon (Independentes de Cordovil)',
+      enredo: 'Último baile da Ilha Fiscal',
+      promoted: true,
+      statusDescription: '2ª (Vice-Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Vida e amores de Beja',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'O penacho do capitão-mor',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Núpcias Imperiais',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'O homem que não quis ser rei',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Contratadores de diamantes',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Bandeiras e brasões na história do Brasil',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'aprendizes_da_gavea',
+      schoolName: 'Aprendizes da Gávea',
+      enredo: 'Dorotéia de Vila Rica',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'A Condessa de Barral',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'O Brasil através de sua música',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'unidos_de_manguinhos',
+      schoolName: 'Unidos de Manguinhos',
+      enredo: 'Espumas flutuantes - Homenagem a Castro Alves',
+      relegated: true,
+      statusDescription: '12ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 13,
+      schoolId: 'unidos_do_jardim',
+      schoolName: 'Unidos do Jardim',
+      enredo: 'Brasil, reino, império',
+      relegated: true,
+      statusDescription: '13ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -5935,7 +6032,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1971: 'Carnaval de 1971: (Não houve rebaixamento) • Em Cima da Hora (Campeã) e Unidos de Lucas (Vice-Campeã) promovidas ao Grupo Especial.',
   1970: 'Carnaval de 1970: Império da Tijuca (Campeã) e Unidos de Padre Miguel (Vice-Campeã) promovidas ao Grupo Especial. Quatro agremiações foram rebaixadas para a Série Prata: Aprendizes da Gávea, União do Centenário, Independentes do Leblon (não desfilou) e União de Vaz Lobo (não desfilou).',
   1969: 'Carnaval de 1969: (Não houve rebaixamento) • Acadêmicos de Santa Cruz (Campeã) e Unidos do Jacarezinho (Vice-Campeã) promovidas ao Grupo Especial. Quatro agremiações (Império da Tijuca, Independentes do Leblon, São Clemente e Tupy de Brás de Pina) não conseguiram desfilar devido a problemas técnicos no sistema de som da avenida e não participaram da apuração.',
-  1968: 'Carnaval de 1968: Em Cima da Hora (Campeã) e Imperatriz Leopoldinense (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: Caprichosos de Pilares e Unidos do Cabuçu.'
+  1968: 'Carnaval de 1968: Em Cima da Hora (Campeã) e Imperatriz Leopoldinense (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: Caprichosos de Pilares e Unidos do Cabuçu.',
+  1967: 'Carnaval de 1967: Unidos de São Carlos (Campeã) e Independentes do Leblon (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: Unidos de Manguinhos e Unidos do Jardim.'
 };
 
 /**
