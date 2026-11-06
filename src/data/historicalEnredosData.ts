@@ -3003,16 +3003,59 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     cartolinhas: 'Viagem ao Norte e Nordeste Brasileiro'
   },
   1970: {
-    portela: 'Lendas e Mistérios da Amazônia',
-    salgueiro: 'Praça Onze, Carioca da Gema',
-    mangueira: 'Um Cântico à Natureza',
-    mocidade: 'O Meu Pé de Laranja Lima',
-    vila_isabel: 'Glórias Gaúchas',
-    imperatriz: 'Ode a Castro Alves',
+    // Grupo Especial 1970
+    portela: 'Lendas e mistérios da Amazônia',
+    salgueiro: 'Praça Onze, carioca da gema',
+    mangueira: 'Um cântico à natureza',
+    mocidade: 'O meu pé de laranja lima',
+    vila_isabel: 'Glórias gaúchas',
+    imperatriz: 'Oropa, França e Bahia',
     estacio_de_sa: 'Terra de Caruaru',
-    imperio_serrano: 'Arte em Tom Maior',
-    jacarezinho: 'Ginga, Samba e Cor',
-    santa_cruz: 'Braz de Pina, Ontem e Hoje'
+    unidos_de_sao_carlos: 'Terra de Caruaru',
+    sao_carlos: 'Terra de Caruaru',
+    imperio_serrano: 'Arte em tom maior',
+    jacarezinho: 'O fabuloso mundo do circo',
+    unidos_do_jacarezinho: 'O fabuloso mundo do circo',
+    santa_cruz: 'Bravura, Amor e Beleza da Mulher Brasileira',
+    academicos_de_santa_cruz: 'Bravura, Amor e Beleza da Mulher Brasileira',
+
+    // Série Ouro (Grupo 2) 1970
+    imperio_da_tijuca: 'Segredos e encantos da Bahia',
+    unidos_padre_miguel: 'Primavera',
+    padre_miguel: 'Primavera',
+    upm: 'Primavera',
+    tupy_bras_de_pina: 'Praça XI, Berço do Samba',
+    tupi_de_bras_de_pina: 'Praça XI, Berço do Samba',
+    tupy: 'Praça XI, Berço do Samba',
+    lins_imperial: 'Memórias da rua do Ouvidor',
+    lins: 'Memórias da rua do Ouvidor',
+    uniao_de_jacarepagua: 'Salões e damas imperiais',
+    unidos_de_jacarepagua: 'Salões e damas imperiais',
+    jacarepagua: 'Salões e damas imperiais',
+    beija_flor: 'Rio, quatro séculos de glórias',
+    tuiuti: 'Alencar, Patriarca da Literatura Brasileira',
+    paraiso_do_tuiuti: 'Alencar, Patriarca da Literatura Brasileira',
+    em_cima_da_hora: 'O mundo maravilhoso de Debret',
+    sao_clemente: 'Histórias fantásticas',
+    unidos_de_lucas: 'Arte barroca',
+    lucas: 'Arte barroca',
+    cabucu: 'As musas de Chico Buarque de Holanda',
+    unidos_do_cabucu: 'As musas de Chico Buarque de Holanda',
+    tijuca: 'Festas da Bahia',
+    unidos_da_tijuca: 'Festas da Bahia',
+    aprendizes_da_gavea: 'Evolução dos transportes na terra carioca',
+    aprendizes_gavea: 'Evolução dos transportes na terra carioca',
+    gavea: 'Evolução dos transportes na terra carioca',
+    uniao_do_centenario: 'Brasil, berço de riquezas',
+    centenario: 'Brasil, berço de riquezas',
+    independentes_cordovil: 'Não desfilou',
+    independentes_de_cordovil: 'Não desfilou',
+    independentes_do_leblon: 'Não desfilou',
+    cordovil: 'Não desfilou',
+    leblon: 'Não desfilou',
+    uniao_vaz_lobo: 'Iracema, a virgem Tupã',
+    uniao_de_vaz_lobo: 'Iracema, a virgem Tupã',
+    vaz_lobo: 'Iracema, a virgem Tupã'
   },
   1969: {
     salgueiro: 'Bahia de Todos os Deuses',
@@ -4062,6 +4105,9 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('príncipes da floresta') || n.includes('principes da floresta')) return 'principes_da_floresta';
   if (n.includes('guarany') || n.includes('sport club') || n.includes('sport clube')) return 'sport_club_guarany';
   if (n.includes('vai como pode')) return 'portela';
+  if (n.includes('aprendizes da gávea') || n.includes('aprendizes da gavea') || n.includes('aprendizes de copacabana')) return 'aprendizes_da_gavea';
+  if (n.includes('centenário') || n.includes('centenario')) return 'uniao_do_centenario';
+  if (n.includes('vaz lobo')) return 'uniao_vaz_lobo';
   if (n.includes('cordovil') || n.includes('leblon')) return 'independentes_cordovil';
   if (n.includes('cartolinhas')) return 'cartolinhas_de_caxias';
   return '';

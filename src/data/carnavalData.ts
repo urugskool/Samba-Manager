@@ -5045,7 +5045,7 @@ export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
     runnerUp: 'Acadêmicos do Salgueiro',
     third: 'Estação Primeira de Mangueira',
     relegated: ['Unidos do Jacarezinho', 'Acadêmicos de Santa Cruz'],
-    notes: 'Portela campeã com Lendas e Mistérios da Amazônia. 2 rebaixadas.',
+    notes: 'Portela campeã com Lendas e mistérios da Amazônia. Acadêmicos do Salgueiro vice-campeã com Praça Onze, carioca da gema. Rebaixadas: Unidos do Jacarezinho e Acadêmicos de Santa Cruz.',
     standings: [
       { rank: 1, schoolId: 'portela', schoolName: 'Portela', status: 'campea' },
       { rank: 2, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'vice' },
