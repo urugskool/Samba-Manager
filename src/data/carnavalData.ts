@@ -5026,7 +5026,7 @@ export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
     runnerUp: 'Estação Primeira de Mangueira',
     third: 'Portela',
     relegated: ['Unidos de Lucas', 'Em Cima da Hora'],
-    notes: 'Salgueiro campeã com o revolucionário Bahia de Todos os Deuses. 2 rebaixadas.',
+    notes: 'Salgueiro campeã com o revolucionário Bahia de Todos os Deuses de Fernando Pamplona e Arlindo Rodrigues. Mangueira vice-campeã com Mercadores e suas Tradições. Rebaixadas: Unidos de Lucas e Em Cima da Hora.',
     standings: [
       { rank: 1, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'campea' },
       { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'vice' },

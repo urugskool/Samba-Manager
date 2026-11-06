@@ -5660,6 +5660,112 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       isHorsConcours: true,
       statusDescription: 'Não desfilou (Rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1969: [
+    {
+      rank: 1,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'O Rio dos Vice-Reis',
+      promoted: true,
+      statusDescription: '1ª (Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Vila Rica do Pilar',
+      promoted: true,
+      statusDescription: '2ª (Vice-Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'paraiso_do_tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'O Mundo da Poesia de Olavo Bilac',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Memórias Históricas do Primeiro Império',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'aprendizes_da_gavea',
+      schoolName: 'Aprendizes da Gávea',
+      enredo: 'Último Baile Imperial',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Imperatriz das Rosas',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'Três Lendas de Amor',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'tijuca',
+      schoolName: 'Unidos da Tijuca',
+      enredo: 'Tijuca Sempre Jovem',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'beija_flor',
+      schoolName: 'Beija-Flor de Nilópolis',
+      enredo: 'O Paquete do Exílio',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'uniao_do_centenario',
+      schoolName: 'União do Centenário',
+      enredo: 'Barão de Mauá',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 0,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'O negro na civilização brasileira',
+      isHorsConcours: true,
+      statusDescription: 'Não desfilou • Problemas com o som da avenida'
+    },
+    {
+      rank: 0,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes do Leblon (Independentes de Cordovil)',
+      enredo: 'Baile das Rosas',
+      isHorsConcours: true,
+      statusDescription: 'Não desfilou • Problemas com o som da avenida'
+    },
+    {
+      rank: 0,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'Assim dança o Brasil',
+      isHorsConcours: true,
+      statusDescription: 'Não desfilou • Problemas com o som da avenida'
+    },
+    {
+      rank: 0,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'Senzala em festa',
+      isHorsConcours: true,
+      statusDescription: 'Não desfilou • Problemas com o som da avenida'
+    }
   ]
 };
 
@@ -5723,7 +5829,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1973: 'Carnaval de 1973: Unidos de São Carlos (Campeã) e Beija-Flor de Nilópolis (Vice-Campeã) promovidas ao Grupo Especial. Quatro agremiações foram rebaixadas para a Série Prata (Grupo 3): Caprichosos de Pilares, Império do Marangá, Império de Campo Grande e Unidos de Padre Miguel.',
   1972: 'Carnaval de 1972: Tupy de Brás de Pina (Campeã) e Unidos do Jacarezinho (Vice-Campeã) promovidas ao Grupo Especial. Seis agremiações foram rebaixadas para a Série Prata (Grupo 3): Acadêmicos de Santa Cruz, Unidos de Manguinhos, G.R.E.S. Grande Rio (antiga agremiação de Duque de Caxias), Unidos do Cabuçu, Unidos da Vila Santa Tereza e Unidos de Bangu (não desfilou).',
   1971: 'Carnaval de 1971: (Não houve rebaixamento) • Em Cima da Hora (Campeã) e Unidos de Lucas (Vice-Campeã) promovidas ao Grupo Especial.',
-  1970: 'Carnaval de 1970: Império da Tijuca (Campeã) e Unidos de Padre Miguel (Vice-Campeã) promovidas ao Grupo Especial. Quatro agremiações foram rebaixadas para a Série Prata: Aprendizes da Gávea, União do Centenário, Independentes do Leblon (não desfilou) e União de Vaz Lobo (não desfilou).'
+  1970: 'Carnaval de 1970: Império da Tijuca (Campeã) e Unidos de Padre Miguel (Vice-Campeã) promovidas ao Grupo Especial. Quatro agremiações foram rebaixadas para a Série Prata: Aprendizes da Gávea, União do Centenário, Independentes do Leblon (não desfilou) e União de Vaz Lobo (não desfilou).',
+  1969: 'Carnaval de 1969: (Não houve rebaixamento) • Acadêmicos de Santa Cruz (Campeã) e Unidos do Jacarezinho (Vice-Campeã) promovidas ao Grupo Especial. Quatro agremiações (Império da Tijuca, Independentes do Leblon, São Clemente e Tupy de Brás de Pina) não conseguiram desfilar devido a problemas técnicos no sistema de som da avenida e não participaram da apuração.'
 };
 
 /**

@@ -2982,7 +2982,7 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     } else if (yr === 1970) {
       notes = 'Carnaval Histórico de 1970 (Administrado pela AESCRJ): Portela sagrou-se campeã com "Lendas e Mistérios da Amazônia" (+20 pts) e Acadêmicos do Salgueiro foi a vice-campeã com "Praça Onze, Carioca da Gema" (+15 pts). Duas agremiações foram rebaixadas: Unidos do Jacarezinho e Acadêmicos de Santa Cruz.';
     } else if (yr === 1969) {
-      notes = 'Carnaval Histórico de 1969 (Administrado pela AESCRJ): Acadêmicos do Salgueiro sagrou-se campeã com a obra histórica "Bahia de Todos os Deuses" de Fernando Pamplona e Arlindo Rodrigues (+20 pts) e Estação Primeira de Mangueira foi vice-campeã com "Mercadores e Suas Mercadorias" (+15 pts). Rebaixadas: Unidos de Lucas e Em Cima da Hora.';
+      notes = 'Carnaval Histórico de 1969 (Administrado pela AESCRJ): Acadêmicos do Salgueiro sagrou-se campeã com a obra histórica "Bahia de Todos os Deuses" de Fernando Pamplona e Arlindo Rodrigues (+20 pts) e Estação Primeira de Mangueira foi vice-campeã com "Mercadores e suas Tradições" (+15 pts). Rebaixadas: Unidos de Lucas e Em Cima da Hora.';
     } else if (yr === 1968) {
       notes = 'Carnaval Histórico de 1968 (Administrado pela AESCRJ): Estação Primeira de Mangueira sagrou-se campeã com "Samba, Festa de um Povo" de Júlio Mattos (+20 pts) e Império Serrano foi a vice-campeã com "Pernambuco, Leão do Norte" (+15 pts). Rebaixadas: Independentes do Leblon (Independentes de Cordovil) e Império da Tijuca.';
     } else if (yr === 1967) {
