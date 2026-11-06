@@ -5766,6 +5766,110 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       isHorsConcours: true,
       statusDescription: 'Não desfilou • Problemas com o som da avenida'
     }
+  ],
+  1968: [
+    {
+      rank: 1,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Anita Garibaldi, amor e revolução',
+      promoted: true,
+      statusDescription: '1ª (Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'imperatriz',
+      schoolName: 'Imperatriz Leopoldinense',
+      enredo: 'Bahia em festa',
+      promoted: true,
+      statusDescription: '2ª (Vice-Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'tijuca',
+      schoolName: 'Unidos da Tijuca',
+      enredo: 'Danças do Brasil',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Promulgação da lei áurea',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Moedas e medalhas do Brasil',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'Bodas Imperiais',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'Vultos da cultura imperial',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'Salões e damas do Segundo Império',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'beija_flor',
+      schoolName: 'Beija-Flor de Nilópolis',
+      enredo: 'Exaltação a José de Alencar',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Exaltação à cultura nacional',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'aprendizes_da_gavea',
+      schoolName: 'Aprendizes da Gávea',
+      enredo: 'Dragão do mar ou Jangadeiro da abolição',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Exaltação às façanhas heróicas dos bravos bandeirantes',
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'Brasil em plena primavera',
+      relegated: true,
+      statusDescription: '13ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 14,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'A primazia da Bahia',
+      relegated: true,
+      statusDescription: '14ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -5830,7 +5934,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1972: 'Carnaval de 1972: Tupy de Brás de Pina (Campeã) e Unidos do Jacarezinho (Vice-Campeã) promovidas ao Grupo Especial. Seis agremiações foram rebaixadas para a Série Prata (Grupo 3): Acadêmicos de Santa Cruz, Unidos de Manguinhos, G.R.E.S. Grande Rio (antiga agremiação de Duque de Caxias), Unidos do Cabuçu, Unidos da Vila Santa Tereza e Unidos de Bangu (não desfilou).',
   1971: 'Carnaval de 1971: (Não houve rebaixamento) • Em Cima da Hora (Campeã) e Unidos de Lucas (Vice-Campeã) promovidas ao Grupo Especial.',
   1970: 'Carnaval de 1970: Império da Tijuca (Campeã) e Unidos de Padre Miguel (Vice-Campeã) promovidas ao Grupo Especial. Quatro agremiações foram rebaixadas para a Série Prata: Aprendizes da Gávea, União do Centenário, Independentes do Leblon (não desfilou) e União de Vaz Lobo (não desfilou).',
-  1969: 'Carnaval de 1969: (Não houve rebaixamento) • Acadêmicos de Santa Cruz (Campeã) e Unidos do Jacarezinho (Vice-Campeã) promovidas ao Grupo Especial. Quatro agremiações (Império da Tijuca, Independentes do Leblon, São Clemente e Tupy de Brás de Pina) não conseguiram desfilar devido a problemas técnicos no sistema de som da avenida e não participaram da apuração.'
+  1969: 'Carnaval de 1969: (Não houve rebaixamento) • Acadêmicos de Santa Cruz (Campeã) e Unidos do Jacarezinho (Vice-Campeã) promovidas ao Grupo Especial. Quatro agremiações (Império da Tijuca, Independentes do Leblon, São Clemente e Tupy de Brás de Pina) não conseguiram desfilar devido a problemas técnicos no sistema de som da avenida e não participaram da apuração.',
+  1968: 'Carnaval de 1968: Em Cima da Hora (Campeã) e Imperatriz Leopoldinense (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: Caprichosos de Pilares e Unidos do Cabuçu.'
 };
 
 /**

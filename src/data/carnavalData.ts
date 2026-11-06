@@ -5007,7 +5007,7 @@ export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
     runnerUp: 'Império Serrano',
     third: 'Acadêmicos do Salgueiro',
     relegated: ['Independentes do Leblon (Independentes de Cordovil)', 'Império da Tijuca'],
-    notes: 'Mangueira campeã com Samba, Festa de um Povo. 2 rebaixadas.',
+    notes: 'Mangueira campeã com Samba, festa de um povo de Júlio Mattos. Império Serrano vice-campeã com Pernambuco, Leão do Norte. Rebaixadas: Independentes do Leblon (Independentes de Cordovil) e Império da Tijuca.',
     standings: [
       { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'campea' },
       { rank: 2, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'vice' },
