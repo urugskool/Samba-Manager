@@ -3214,28 +3214,109 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     jardim: 'Brasil, reino, império'
   },
   1966: {
-    portela: 'Memórias de um Sargento de Milícias',
+    // Grupo Especial 1966
+    portela: 'Memórias de um sargento de milícias',
     mangueira: 'Exaltação a Villa-Lobos',
-    imperio_serrano: 'Glórias e Graças da Bahia',
-    vila_isabel: 'Três Acontecimentos Históricos',
-    salgueiro: 'Os Amores Célebres do Brasil',
-    mocidade: 'Exaltação ao Engenho de Dentro',
-    aprendizes_de_lucas: 'História de um Povo',
-    unidos_da_capela: 'No Reino da Alegria',
-    santa_cruz: 'O Homem na Lua',
-    imperio_da_tijuca: 'Glória Histórica de Ouro Preto'
+    estacao_primeira_de_mangueira: 'Exaltação a Villa-Lobos',
+    imperio_serrano: 'Glória e graças da Bahia',
+    vila_isabel: 'Três Épocas do Brasil',
+    unidos_de_vila_isabel: 'Três Épocas do Brasil',
+    salgueiro: 'Os amores célebres do Brasil',
+    academicos_do_salgueiro: 'Os amores célebres do Brasil',
+    mocidade: 'Exaltação à Academia Brasileira de Letras',
+    mocidade_independente: 'Exaltação à Academia Brasileira de Letras',
+    mocidade_independente_de_padre_miguel: 'Exaltação à Academia Brasileira de Letras',
+    aprendizes_de_lucas: 'A semente de um grande império',
+    unidos_da_capela: 'Oitenta e oito anos de samba',
+    santa_cruz: 'Epopéia de uma raça',
+    academicos_de_santa_cruz: 'Epopéia de uma raça',
+    imperio_da_tijuca: 'A história do teatro nacional',
+
+    // Série Ouro (Grupo 2) 1966
+    sao_clemente: 'Apoteose ao Folclore Brasileiro',
+    imperatriz: 'Monarquia e esplendor da história',
+    imperatriz_leopoldinense: 'Monarquia e esplendor da história',
+    estacio_de_sa: 'História da Escola Nacional de Belas Artes',
+    unidos_de_sao_carlos: 'História da Escola Nacional de Belas Artes',
+    sao_carlos: 'História da Escola Nacional de Belas Artes',
+    estacio: 'História da Escola Nacional de Belas Artes',
+    aprendizes_da_gavea: 'A Vida em Flor de Dona Beja',
+    aprendizes_gavea: 'A Vida em Flor de Dona Beja',
+    gavea: 'A Vida em Flor de Dona Beja',
+    independentes_cordovil: 'D. Beja, a feiticeira de Araxá',
+    independentes_de_cordovil: 'D. Beja, a feiticeira de Araxá',
+    independentes_do_leblon: 'D. Beja, a feiticeira de Araxá',
+    cordovil: 'D. Beja, a feiticeira de Araxá',
+    leblon: 'D. Beja, a feiticeira de Araxá',
+    uniao_de_jacarepagua: 'Galeria de vultos imperiais',
+    unidos_de_jacarepagua: 'Galeria de vultos imperiais',
+    jacarepagua: 'Galeria de vultos imperiais',
+    unidos_padre_miguel: 'Conquista de Araci',
+    padre_miguel: 'Conquista de Araci',
+    upm: 'Conquista de Araci',
+    lins_imperial: 'Chiquinha Gonzaga e sua época',
+    lins: 'Chiquinha Gonzaga e sua época',
+    tupy_bras_de_pina: 'Exaltação à Bahia',
+    tupi_de_bras_de_pina: 'Exaltação à Bahia',
+    tupy: 'Exaltação à Bahia',
+    cabucu: 'Apoteose ao trabalho',
+    unidos_do_cabucu: 'Apoteose ao trabalho',
+    tijuca: 'O Império em Três Atos',
+    unidos_da_tijuca: 'O Império em Três Atos',
+    caprichosos_de_pilares: 'Vida e obra de D. João VI',
+    caprichosos: 'Vida e obra de D. João VI',
+    unidos_do_jardim: 'Os Três Acontecimentos Históricos',
+    jardim: 'Os Três Acontecimentos Históricos',
+    uniao_do_centenario: 'Sua Majestade, o Carnaval',
+    centenario: 'Sua Majestade, o Carnaval',
+    tuiuti: 'Sonho de uma Noite de Carnaval',
+    paraiso_do_tuiuti: 'Sonho de uma Noite de Carnaval'
   },
   1965: {
-    salgueiro: 'História do Carnaval Carioca',
-    imperio_serrano: 'Cinco Bailes Tradicionais na História do Rio',
-    portela: 'Histórias do Rio Antigo',
-    mangueira: 'Rio Através dos Séculos',
-    unidos_da_capela: 'Rio de Ontem, de Hoje e de Sempre',
-    mocidade: 'Parabéns para Você, Rio',
-    aprendizes_de_lucas: 'Rio de Quatrocentos Janeiros',
-    imperio_da_tijuca: 'Quatro Séculos de Glórias',
-    uniao_de_jacarepagua: 'O Rio e Suas Belezas',
-    imperatriz: 'Homenagem ao IV Centenário do Rio'
+    // Grupo Especial 1965
+    salgueiro: 'História do Carnaval Carioca - Eneida',
+    academicos_do_salgueiro: 'História do Carnaval Carioca - Eneida',
+    imperio_serrano: 'Cinco bailes tradicionais na história do Rio',
+    portela: 'Histórias e tradições do Rio quatrocentão, do morro Cara de Cão à Praça Onze',
+    mangueira: 'Rio através dos séculos',
+    estacao_primeira_de_mangueira: 'Rio através dos séculos',
+    unidos_da_capela: 'Rio de Ontem e de Hoje',
+    capela: 'Rio de Ontem e de Hoje',
+    mocidade: 'Parabéns pra Você, Rio (4º Centenário)',
+    mocidade_independente: 'Parabéns pra Você, Rio (4º Centenário)',
+    mocidade_independente_de_padre_miguel: 'Parabéns pra Você, Rio (4º Centenário)',
+    aprendizes_de_lucas: 'Progresso e tradições do Rio',
+    imperio_da_tijuca: 'Apoteose ao Rio de Janeiro',
+    uniao_de_jacarepagua: 'Carnaval, alegria do Rio',
+    unidos_de_jacarepagua: 'Carnaval, alegria do Rio',
+    jacarepagua: 'Carnaval, alegria do Rio',
+    imperatriz: 'Homenagem ao Brasil no IV Centenário do Rio de Janeiro',
+    imperatriz_leopoldinense: 'Homenagem ao Brasil no IV Centenário do Rio de Janeiro',
+
+    // Série Ouro (Grupo 2) 1965
+    santa_cruz: 'Rio, quatro séculos de glórias',
+    academicos_de_santa_cruz: 'Rio, quatro séculos de glórias',
+    vila_isabel: 'Epopéia do Teatro Municipal',
+    unidos_de_vila_isabel: 'Epopéia do Teatro Municipal',
+    sao_clemente: 'Relíquias e Memórias do Rio',
+    lins_imperial: 'Rio através da história',
+    lins: 'Rio através da história',
+    tuiuti: 'Quatro séculos de glória',
+    paraiso_do_tuiuti: 'Quatro séculos de glória',
+    tupy_bras_de_pina: 'Outros carnavais',
+    tupi_de_bras_de_pina: 'Outros carnavais',
+    tupy: 'Outros carnavais',
+    cabucu: 'Rio de 400 janeiros',
+    unidos_do_cabucu: 'Rio de 400 janeiros',
+    caprichosos_de_pilares: 'O IV centenário do Rio de Janeiro',
+    caprichosos: 'O IV centenário do Rio de Janeiro',
+    unidos_padre_miguel: 'Viagem através do Rio',
+    padre_miguel: 'Viagem através do Rio',
+    upm: 'Viagem através do Rio',
+    imperio_do_maranga: 'Exaltação ao IV centenário do Rio de Janeiro',
+    maranga: 'Exaltação ao IV centenário do Rio de Janeiro',
+    vila_santa_tereza: 'Rio Antigo',
+    unidos_da_vila_santa_tereza: 'Rio Antigo'
   },
   1964: {
     portela: 'O Segundo Casamento de D. Pedro I',
@@ -4117,6 +4198,11 @@ function normalizeId(rawId?: string, rawName?: string): string {
     if (id.includes('cartolinhas')) return 'cartolinhas_de_caxias';
     if (id.includes('manguinhos')) return 'unidos_de_manguinhos';
     if (id.includes('jardim')) return 'unidos_do_jardim';
+    if (id.includes('aprendizes_de_lucas')) return 'aprendizes_de_lucas';
+    if (id.includes('capela')) return 'unidos_da_capela';
+    if (id.includes('centenario')) return 'uniao_do_centenario';
+    if (id.includes('maranga')) return 'imperio_do_maranga';
+    if (id.includes('santa_tereza') || id.includes('santa_theresa')) return 'vila_santa_tereza';
     return id;
   }
   if (!rawName) return '';
@@ -4170,6 +4256,8 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('niterói') || n.includes('niteroi')) return 'niteroi';
   if (n.includes('arrastão') || n.includes('arrastao')) return 'arrastao_cascadura';
   if (n.includes('arranco')) return 'arranco';
+  if (n.includes('aprendizes de lucas')) return 'aprendizes_de_lucas';
+  if (n.includes('capela')) return 'unidos_da_capela';
   if (n.includes('lucas')) return 'unidos_de_lucas';
   if (n.includes('lins')) return 'lins_imperial';
   if (n.includes('cima da hora')) return 'em_cima_da_hora';
@@ -4234,6 +4322,8 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('cartolinhas')) return 'cartolinhas_de_caxias';
   if (n.includes('manguinhos')) return 'unidos_de_manguinhos';
   if (n.includes('jardim')) return 'unidos_do_jardim';
+  if (n.includes('marangá') || n.includes('maranga')) return 'imperio_do_maranga';
+  if (n.includes('santa tereza') || n.includes('santa theresa')) return 'vila_santa_tereza';
   return '';
 }
 

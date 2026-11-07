@@ -4950,7 +4950,7 @@ export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
     runnerUp: 'Império Serrano',
     third: 'Portela',
     relegated: ['União de Jacarepaguá', 'Imperatriz Leopoldinense'],
-    notes: 'Salgueiro campeã com História do Carnaval Carioca no IV Centenário do Rio. 2 rebaixadas.',
+    notes: 'Salgueiro campeã com História do Carnaval Carioca - Eneida de Fernando Pamplona e Arlindo Rodrigues no IV Centenário do Rio. Império Serrano vice-campeã com Cinco bailes tradicionais na história do Rio. Rebaixadas: União de Jacarepaguá e Imperatriz Leopoldinense.',
     standings: [
       { rank: 1, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'campea' },
       { rank: 2, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'vice' },
@@ -4969,7 +4969,7 @@ export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
     runnerUp: 'Estação Primeira de Mangueira',
     third: 'Império Serrano',
     relegated: ['Unidos da Capela', 'Acadêmicos de Santa Cruz'],
-    notes: 'Portela campeã com Memórias de um Sargento de Milícias. Império da Tijuca desfilou como Hors Concours.',
+    notes: 'Portela campeã com Memórias de um sargento de milícias de Nelson de Andrade. Mangueira vice-campeã com Exaltação a Villa-Lobos de Júlio Mattos. Rebaixadas: Unidos da Capela e Acadêmicos de Santa Cruz (Império da Tijuca desfilou como Hors-Concours).',
     standings: [
       { rank: 1, schoolId: 'portela', schoolName: 'Portela', status: 'campea' },
       { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'vice' },

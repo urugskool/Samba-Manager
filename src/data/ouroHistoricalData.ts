@@ -5967,6 +5967,224 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '13ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1966: [
+    {
+      rank: 1,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'Apoteose ao Folclore Brasileiro',
+      promoted: true,
+      statusDescription: '1ª (Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'imperatriz',
+      schoolName: 'Imperatriz Leopoldinense',
+      enredo: 'Monarquia e esplendor da história',
+      promoted: true,
+      statusDescription: '2ª (Vice-Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Unidos de São Carlos (Estácio de Sá)',
+      enredo: 'História da Escola Nacional de Belas Artes',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'aprendizes_da_gavea',
+      schoolName: 'Aprendizes da Gávea',
+      enredo: 'A Vida em Flor de Dona Beja',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes do Leblon (Independentes de Cordovil)',
+      enredo: 'D. Beja, a feiticeira de Araxá',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Galeria de vultos imperiais',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'Conquista de Araci',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Chiquinha Gonzaga e sua época',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'Exaltação à Bahia',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Apoteose ao trabalho',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'tijuca',
+      schoolName: 'Unidos da Tijuca',
+      enredo: 'O Império em Três Atos',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'Vida e obra de D. João VI',
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'unidos_do_jardim',
+      schoolName: 'Unidos do Jardim',
+      enredo: 'Os Três Acontecimentos Históricos',
+      statusDescription: '13º Lugar'
+    },
+    {
+      rank: 14,
+      schoolId: 'uniao_do_centenario',
+      schoolName: 'União do Centenário',
+      enredo: 'Sua Majestade, o Carnaval',
+      relegated: true,
+      statusDescription: '14ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 15,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Sonho de uma Noite de Carnaval',
+      relegated: true,
+      statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
+    }
+  ],
+  1965: [
+    {
+      rank: 1,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Rio, quatro séculos de glórias',
+      promoted: true,
+      statusDescription: '1ª (Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'vila_isabel',
+      schoolName: 'Unidos de Vila Isabel',
+      enredo: 'Epopéia do Teatro Municipal',
+      promoted: true,
+      statusDescription: '2ª (Vice-Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'sao_clemente',
+      schoolName: 'São Clemente',
+      enredo: 'Relíquias e Memórias do Rio',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes do Leblon (Independentes de Cordovil)',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'tijuca',
+      schoolName: 'Unidos da Tijuca',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Rio através da história',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'aprendizes_da_gavea',
+      schoolName: 'Aprendizes da Gávea',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Quatro séculos de glória',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'Outros carnavais',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Rio de 400 janeiros',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'O IV centenário do Rio de Janeiro',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'Viagem através do Rio',
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'uniao_do_centenario',
+      schoolName: 'União do Centenário',
+      statusDescription: '13º Lugar'
+    },
+    {
+      rank: 14,
+      schoolId: 'imperio_do_maranga',
+      schoolName: 'Império do Marangá',
+      enredo: 'Exaltação ao IV centenário do Rio de Janeiro',
+      relegated: true,
+      statusDescription: '14ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 15,
+      schoolId: 'vila_santa_tereza',
+      schoolName: 'Unidos da Vila Santa Tereza',
+      enredo: 'Rio Antigo',
+      relegated: true,
+      statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -6033,7 +6251,9 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1970: 'Carnaval de 1970: Império da Tijuca (Campeã) e Unidos de Padre Miguel (Vice-Campeã) promovidas ao Grupo Especial. Quatro agremiações foram rebaixadas para a Série Prata: Aprendizes da Gávea, União do Centenário, Independentes do Leblon (não desfilou) e União de Vaz Lobo (não desfilou).',
   1969: 'Carnaval de 1969: (Não houve rebaixamento) • Acadêmicos de Santa Cruz (Campeã) e Unidos do Jacarezinho (Vice-Campeã) promovidas ao Grupo Especial. Quatro agremiações (Império da Tijuca, Independentes do Leblon, São Clemente e Tupy de Brás de Pina) não conseguiram desfilar devido a problemas técnicos no sistema de som da avenida e não participaram da apuração.',
   1968: 'Carnaval de 1968: Em Cima da Hora (Campeã) e Imperatriz Leopoldinense (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: Caprichosos de Pilares e Unidos do Cabuçu.',
-  1967: 'Carnaval de 1967: Unidos de São Carlos (Campeã) e Independentes do Leblon (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: Unidos de Manguinhos e Unidos do Jardim.'
+  1967: 'Carnaval de 1967: Unidos de São Carlos (Campeã) e Independentes do Leblon (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: Unidos de Manguinhos e Unidos do Jardim.',
+  1966: 'Carnaval de 1966: São Clemente (Campeã) e Imperatriz Leopoldinense (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: União do Centenário e Paraíso do Tuiuti.',
+  1965: 'Carnaval de 1965 (IV Centenário do Rio de Janeiro): Acadêmicos de Santa Cruz (Campeã) e Unidos de Vila Isabel (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: Império do Marangá e Unidos da Vila Santa Tereza.'
 };
 
 /**

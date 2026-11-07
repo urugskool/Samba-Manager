@@ -297,6 +297,9 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('casa de malandro')) return 'casa_de_malandro';
   if (raw.includes('curicica')) return 'curicica';
   if (raw.includes('engenho da rainha')) return 'engenho_da_rainha';
+  if (raw.includes('aprendizes de lucas') || raw.includes('aprendizes_de_lucas')) return 'aprendizes_de_lucas';
+  if (raw.includes('capela')) return 'unidos_da_capela';
+  if (raw.includes('centenário') || raw.includes('centenario')) return 'uniao_do_centenario';
   if (raw.includes('unidos de lucas') || raw.includes('lucas')) return 'unidos_de_lucas';
   if (raw.includes('olaria')) return 'independentes_olaria';
   if (raw.includes('arrastão') || raw.includes('arrastao')) return 'arrastao_cascadura';
@@ -309,6 +312,8 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('aprendizes da gávea') || raw.includes('aprendizes da gavea') || raw.includes('gavea') || raw.includes('gávea')) return 'aprendizes_da_gavea';
   if (raw.includes('manguinhos')) return 'unidos_de_manguinhos';
   if (raw.includes('jardim')) return 'unidos_do_jardim';
+  if (raw.includes('marangá') || raw.includes('maranga')) return 'imperio_do_maranga';
+  if (raw.includes('santa tereza') || raw.includes('santa theresa')) return 'vila_santa_tereza';
   return (schoolId || '').toLowerCase().trim();
 }
 
