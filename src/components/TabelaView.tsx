@@ -635,7 +635,17 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                           </div>
                           <div className={school.mascot ? "sm:col-span-2" : "sm:col-span-4"}>
                             <span className="text-slate-500 text-[10px] block uppercase">Símbolo Oficial</span>
-                            <span className="font-semibold text-white">{school.symbol}</span>
+                            <div className="flex items-center gap-1.5 font-semibold text-white">
+                              {school.customSymbolPhoto && (
+                                <img
+                                  src={school.customSymbolPhoto}
+                                  alt={school.symbol}
+                                  className="w-4 h-4 rounded-full object-cover border border-amber-400/80 inline-block shadow-sm"
+                                  title="Foto oficial registrada via câmera"
+                                />
+                              )}
+                              <span>{school.symbol}</span>
+                            </div>
                           </div>
                           {school.mascot && (
                             <div className="sm:col-span-2">

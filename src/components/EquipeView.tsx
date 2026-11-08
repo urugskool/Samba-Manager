@@ -35,11 +35,14 @@ import {
   UserMinus,
   CheckCircle2,
   X,
-  Crown
+  Crown,
+  Camera,
+  Image as ImageIcon
 } from 'lucide-react';
 import { soundService } from '../services/soundService';
 import { cleanSchoolName } from '../utils/schoolNameUtils';
 import { getUnifiedTransferHistory, HistoricalTransferItem } from '../data/historicalTransfersData';
+import { CameraSymbolModal } from './CameraSymbolModal';
 
 interface EquipeViewProps {
   school: School;
@@ -70,6 +73,7 @@ export const EquipeView: React.FC<EquipeViewProps> = ({
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isSimulatingMarket, setIsSimulatingMarket] = useState<boolean>(false);
   const [selectedProfForModal, setSelectedProfForModal] = useState<CarnavalProfessional | null>(null);
+  const [isCameraModalOpen, setIsCameraModalOpen] = useState<boolean>(false);
 
   // Status da Janela de Transferências
   const windowStatus = useMemo(() => {
@@ -358,6 +362,46 @@ export const EquipeView: React.FC<EquipeViewProps> = ({
     }, 600);
   };
 
+  // Salvar foto capturada pela câmera como símbolo oficial da agremiação
+  const handleSaveSymbolPhoto = (photoDataUrl: string) => {
+    const updatedSchool: School = {
+      ...school,
+      customSymbolPhoto: photoDataUrl,
+      customSymbolDate: new Date().toLocaleDateString('pt-BR')
+    };
+
+    onUpdateSchool(updatedSchool);
+    if (onUpdateAllSchools && allSchools.length > 0) {
+      const updatedAll = allSchools.map((s) => (s.id === school.id ? updatedSchool : s));
+      onUpdateAllSchools(updatedAll);
+    }
+    soundService.playLevelUp();
+    onShowMessage(
+      `Foto registrada com sucesso! O novo símbolo oficial da ${cleanSchoolName(school)} foi definido no pavilhão.`,
+      'success'
+    );
+  };
+
+  // Restaurar símbolo estatutário original da agremiação
+  const handleRemoveSymbolPhoto = () => {
+    const updatedSchool: School = {
+      ...school,
+      customSymbolPhoto: undefined,
+      customSymbolDate: undefined
+    };
+
+    onUpdateSchool(updatedSchool);
+    if (onUpdateAllSchools && allSchools.length > 0) {
+      const updatedAll = allSchools.map((s) => (s.id === school.id ? updatedSchool : s));
+      onUpdateAllSchools(updatedAll);
+    }
+    soundService.playLevelUp();
+    onShowMessage(
+      `Símbolo oficial restaurado para o padrão original do estatuto da agremiação.`,
+      'info'
+    );
+  };
+
   const totalPayroll = Object.values(school.staff).reduce((acc, m) => acc + m.salary, 0);
 
   return (
@@ -495,6 +539,116 @@ export const EquipeView: React.FC<EquipeViewProps> = ({
         </div>
       </div>
 
+      {/* SÍMBOLO OFICIAL & IDENTIDADE DO PAVILHÃO (COM CÂMERA) */}
+      <div
+        className="relative overflow-hidden rounded-2xl p-5 border shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-5 transition-all"
+        style={{
+          background: `linear-gradient(135deg, ${school.colors.primary || '#1e293b'}28 0%, #090d16 85%)`,
+          borderColor: school.customSymbolPhoto
+            ? school.colors.secondary || '#f59e0b'
+            : school.colors.border || '#334155'
+        }}
+      >
+        <div className="flex items-center gap-4">
+          {/* Avatar / Brasão do Símbolo */}
+          <div className="relative shrink-0">
+            {school.customSymbolPhoto ? (
+              <div className="relative group cursor-pointer" onClick={() => setIsCameraModalOpen(true)} title="Clique para atualizar a foto com a câmera">
+                <img
+                  src={school.customSymbolPhoto}
+                  alt={`Símbolo Oficial de ${cleanSchoolName(school)}`}
+                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover border-2 shadow-2xl transition group-hover:scale-105"
+                  style={{
+                    borderColor: school.colors.secondary || school.colors.border || '#f59e0b',
+                    boxShadow: `0 0 20px ${school.colors.primary || '#3b82f6'}40`
+                  }}
+                />
+                <div className="absolute -bottom-1 -right-1 p-1 bg-amber-500 text-slate-950 rounded-full border-2 border-slate-900 shadow-md">
+                  <Camera className="w-3.5 h-3.5" />
+                </div>
+              </div>
+            ) : (
+              <div
+                onClick={() => setIsCameraModalOpen(true)}
+                className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex flex-col items-center justify-center border-2 border-dashed shadow-xl text-2xl sm:text-3xl cursor-pointer hover:border-amber-400 transition group relative overflow-hidden"
+                style={{
+                  backgroundColor: `${school.colors.primary || '#3b82f6'}20`,
+                  borderColor: school.colors.border || '#475569'
+                }}
+                title="Clique para tirar uma foto do símbolo com a câmera"
+              >
+                <span>{school.symbol.slice(0, 2) || '🦅'}</span>
+                <span className="text-[8px] font-black tracking-widest text-slate-400 uppercase mt-0.5 group-hover:text-amber-400">
+                  OFICIAL
+                </span>
+                <div className="absolute inset-0 bg-amber-500/10 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                  <Camera className="w-5 h-5 text-amber-300 drop-shadow" />
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Dados do Símbolo e Pavilhão */}
+          <div className="space-y-1">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-[10px] uppercase font-black px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center gap-1">
+                <Sparkles className="w-3 h-3 text-amber-400" />
+                Símbolo Oficial da Agremiação
+              </span>
+              {school.customSymbolPhoto ? (
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
+                  <Check className="w-3 h-3" /> Foto Registrada via Câmera
+                </span>
+              ) : (
+                <span className="text-[10px] font-medium px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">
+                  Padrão Estatutário
+                </span>
+              )}
+            </div>
+
+            <h3 className="text-base sm:text-xl font-black text-white flex items-center gap-2">
+              <span>{school.symbol}</span>
+            </h3>
+
+            <p className="text-xs text-slate-300 max-w-xl">
+              {school.customSymbolPhoto
+                ? `Foto do pavilhão gravada com sucesso no registro oficial da agremiação${
+                    school.customSymbolDate ? ` em ${school.customSymbolDate}` : ''
+                  }. A imagem fica salva no estado da escola.`
+                : 'Defina a foto oficial do pavilhão ou brasão da sua escola tirando uma foto com a câmera do seu celular ou computador.'}
+            </p>
+          </div>
+        </div>
+
+        {/* Botões de Ação para o Símbolo */}
+        <div className="flex flex-wrap items-center gap-2.5 self-start md:self-auto shrink-0">
+          <button
+            type="button"
+            onClick={() => setIsCameraModalOpen(true)}
+            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 text-xs font-black transition flex items-center gap-2 cursor-pointer shadow-lg shadow-amber-500/25 active:scale-95"
+            title="Tirar foto com a câmera para definir como símbolo oficial"
+          >
+            <Camera className="w-4 h-4 text-slate-950" />
+            <span>{school.customSymbolPhoto ? 'Alterar Foto com Câmera' : 'Tirar Foto com Câmera'}</span>
+          </button>
+
+          {school.customSymbolPhoto && (
+            <button
+              type="button"
+              onClick={() => {
+                if (confirm('Deseja restaurar o símbolo estatutário original da escola?')) {
+                  handleRemoveSymbolPhoto();
+                }
+              }}
+              className="px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold border border-slate-700 transition cursor-pointer"
+              title="Restaurar símbolo original do estatuto"
+            >
+              Restaurar Padrão
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* Navigation Sub-Tabs */}
       <div className="flex items-center gap-2 border-b border-slate-800 pb-2">
         <button
@@ -547,9 +701,20 @@ export const EquipeView: React.FC<EquipeViewProps> = ({
                 Gerencie os contratos dos seus segmentos estratégicos. Todos os contratos valem por 1 ano de projeto.
               </p>
             </div>
-            <span className="text-xs text-emerald-400 font-bold bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 rounded-lg">
-              {staffRoles.filter((r) => Boolean(r.member)).length} de {staffRoles.length} segmentos preenchidos
-            </span>
+            <div className="flex items-center gap-2 flex-wrap">
+              <button
+                type="button"
+                onClick={() => setIsCameraModalOpen(true)}
+                className="text-xs text-amber-300 font-bold bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 px-3 py-1 rounded-lg transition flex items-center gap-1.5 cursor-pointer shadow-sm"
+                title="Tirar foto com a câmera para definir como símbolo do pavilhão"
+              >
+                <Camera className="w-3.5 h-3.5 text-amber-400" />
+                <span>{school.customSymbolPhoto ? 'Símbolo com Foto Oficial' : 'Tirar Foto do Símbolo'}</span>
+              </button>
+              <span className="text-xs text-emerald-400 font-bold bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 rounded-lg">
+                {staffRoles.filter((r) => Boolean(r.member)).length} de {staffRoles.length} segmentos preenchidos
+              </span>
+            </div>
           </div>
 
           {/* BANNER REGULAMENTAR DE CONTRATOS */}
@@ -1091,6 +1256,15 @@ export const EquipeView: React.FC<EquipeViewProps> = ({
           </div>
         </div>
       )}
+
+      {/* Modal de Captura de Foto para o Símbolo Oficial da Agremiação */}
+      <CameraSymbolModal
+        school={school}
+        isOpen={isCameraModalOpen}
+        onClose={() => setIsCameraModalOpen(false)}
+        onSaveSymbolPhoto={handleSaveSymbolPhoto}
+        onRemoveSymbolPhoto={handleRemoveSymbolPhoto}
+      />
     </div>
   );
 };

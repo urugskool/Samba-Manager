@@ -4945,6 +4945,25 @@ Object.entries(OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL).forEach(([schoolId, rec]) => 
 // RESULTADOS HISTÓRICOS OFICIAIS DE 1980 A 1999 (AESCRJ até 1984 / LIESA desde 1985)
 // ============================================================================
 export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
+  1964: {
+    champion: 'Portela',
+    runnerUp: 'Acadêmicos do Salgueiro',
+    third: 'Estação Primeira de Mangueira',
+    relegated: ['Unidos de Padre Miguel', 'Unidos do Cabuçu'],
+    notes: 'Portela campeã com O segundo casamento de D. Pedro I de Nelson de Andrade. Salgueiro vice-campeã com Chico-Rei de Fernando Pamplona e Arlindo Rodrigues. Rebaixadas: Unidos de Padre Miguel e Unidos do Cabuçu.',
+    standings: [
+      { rank: 1, schoolId: 'portela', schoolName: 'Portela', status: 'campea' },
+      { rank: 2, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'vice' },
+      { rank: 3, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 4, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'participante' },
+      { rank: 5, schoolId: 'unidos_da_capela', schoolName: 'Unidos da Capela', status: 'participante' },
+      { rank: 6, schoolId: 'uniao_de_jacarepagua', schoolName: 'União de Jacarepaguá', status: 'participante' },
+      { rank: 7, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 8, schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas', status: 'participante' },
+      { rank: 9, schoolId: 'unidos_padre_miguel', schoolName: 'Unidos de Padre Miguel', status: 'rebaixada' },
+      { rank: 10, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', status: 'rebaixada' }
+    ]
+  },
   1965: {
     champion: 'Acadêmicos do Salgueiro',
     runnerUp: 'Império Serrano',

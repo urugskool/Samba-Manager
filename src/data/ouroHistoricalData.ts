@@ -6185,6 +6185,100 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1964: [
+    {
+      rank: 1,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'O esplendor do Rio Imperial',
+      promoted: true,
+      statusDescription: '1ª (Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'imperatriz',
+      schoolName: 'Imperatriz Leopoldinense',
+      enredo: 'A Favorita do Imperador, Marquesa de Santos',
+      promoted: true,
+      statusDescription: '2ª (Vice-Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'vila_isabel',
+      schoolName: 'Unidos de Vila Isabel',
+      enredo: 'Exaltação à Bahia',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'tijuca',
+      schoolName: 'Unidos da Tijuca',
+      enredo: 'Homenagem ao Rio Grande do Sul',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'santa_cruz',
+      schoolName: 'Acadêmicos de Santa Cruz',
+      enredo: 'Costumes e Tradições da Bahia',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'uniao_do_centenario',
+      schoolName: 'União do Centenário',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes do Leblon (Independentes de Cordovil)',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'aprendizes_da_gavea',
+      schoolName: 'Aprendizes da Gávea',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'O sonho das esmeraldas',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'O último baile da corte imperial',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'imperio_do_maranga',
+      schoolName: 'Império do Marangá',
+      enredo: 'Aclamação a D. Pedro I',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'beija_flor',
+      schoolName: 'Beija-Flor de Nilópolis',
+      enredo: 'Café, riqueza do Brasil',
+      relegated: true,
+      statusDescription: '12ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 13,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: 'Jóias da poesia',
+      relegated: true,
+      statusDescription: '13ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -6253,7 +6347,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1968: 'Carnaval de 1968: Em Cima da Hora (Campeã) e Imperatriz Leopoldinense (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: Caprichosos de Pilares e Unidos do Cabuçu.',
   1967: 'Carnaval de 1967: Unidos de São Carlos (Campeã) e Independentes do Leblon (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: Unidos de Manguinhos e Unidos do Jardim.',
   1966: 'Carnaval de 1966: São Clemente (Campeã) e Imperatriz Leopoldinense (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: União do Centenário e Paraíso do Tuiuti.',
-  1965: 'Carnaval de 1965 (IV Centenário do Rio de Janeiro): Acadêmicos de Santa Cruz (Campeã) e Unidos de Vila Isabel (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: Império do Marangá e Unidos da Vila Santa Tereza.'
+  1965: 'Carnaval de 1965 (IV Centenário do Rio de Janeiro): Acadêmicos de Santa Cruz (Campeã) e Unidos de Vila Isabel (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: Império do Marangá e Unidos da Vila Santa Tereza.',
+  1964: 'Carnaval de 1964: Império da Tijuca (Campeã) e Imperatriz Leopoldinense (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: Beija-Flor de Nilópolis e Unidos de Bangu.'
 };
 
 /**

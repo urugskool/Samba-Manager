@@ -1115,7 +1115,18 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
                           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-slate-400 mt-0.5">
                             {item.school?.neighborhood && <span>Bairro: {item.school.neighborhood}</span>}
                             {item.school?.foundationYear && <span>Fundação: {item.school.foundationYear}</span>}
-                            {item.school?.symbol && <span className="text-slate-300">{item.school.symbol}</span>}
+                            {item.school?.symbol && (
+                              <span className="text-slate-300 inline-flex items-center gap-1">
+                                {item.school.customSymbolPhoto && (
+                                  <img
+                                    src={item.school.customSymbolPhoto}
+                                    alt={item.school.symbol}
+                                    className="w-3.5 h-3.5 rounded-full object-cover border border-amber-400/80 inline-block"
+                                  />
+                                )}
+                                <span>{item.school.symbol}</span>
+                              </span>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -1217,7 +1228,18 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
                           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-slate-400 mt-0.5">
                             {item.school?.neighborhood && <span>Bairro: {item.school.neighborhood}</span>}
                             {item.school?.foundationYear && <span>Fundação: {item.school.foundationYear}</span>}
-                            {item.school?.symbol && <span className="text-slate-300">{item.school.symbol}</span>}
+                            {item.school?.symbol && (
+                              <span className="text-slate-300 inline-flex items-center gap-1">
+                                {item.school.customSymbolPhoto && (
+                                  <img
+                                    src={item.school.customSymbolPhoto}
+                                    alt={item.school.symbol}
+                                    className="w-3.5 h-3.5 rounded-full object-cover border border-amber-400/80 inline-block"
+                                  />
+                                )}
+                                <span>{item.school.symbol}</span>
+                              </span>
+                            )}
                           </div>
                         </div>
                       </div>

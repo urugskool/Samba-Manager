@@ -645,14 +645,22 @@ export const DesfileCampeãsView: React.FC<DesfileCampeasViewProps> = ({
 
                     {/* School Symbol / Initial Avatar */}
                     <div
-                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center font-black text-sm shadow shrink-0"
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center font-black text-sm shadow shrink-0 overflow-hidden"
                       style={{
                         backgroundColor: school.colors.primary,
                         color: school.colors.text,
                         border: `2px solid ${school.colors.border || '#fff'}`
                       }}
                     >
-                      {school.symbol || cleanName.charAt(0)}
+                      {school.customSymbolPhoto ? (
+                        <img
+                          src={school.customSymbolPhoto}
+                          alt={school.symbol}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        school.symbol || cleanName.charAt(0)
+                      )}
                     </div>
 
                     <div className="min-w-0 space-y-1">

@@ -280,6 +280,8 @@ export interface School {
   };
   colorsDescription?: string;
   symbol: string;
+  customSymbolPhoto?: string; // Foto real ou capturada pela câmera do símbolo oficial da agremiação
+  customSymbolDate?: string; // Data em que o símbolo oficial personalizado foi registrado
   flagPattern?: 'raios_16' | 'raios_8' | 'raios_24' | 'raios_ondulados' | 'faixa_diagonal' | 'faixa_diagonal_dupla' | 'cruz' | 'losango' | 'faixas_horizontais' | 'faixas_verticais' | 'quatro_quadrantes' | 'bicolor_meio' | 'circulos_concentricos' | 'estrelas_espalhadas';
   flagEmblemStyle?: 'circulo' | 'escudo' | 'losango' | 'coroa' | 'estrela' | 'nenhum';
   division: DivisionId;

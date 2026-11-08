@@ -137,8 +137,19 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               <span>{cleanSchoolName(school)}</span>
             </h1>
 
-            <p className="text-sm font-semibold text-amber-200/90 italic flex items-center gap-1.5">
-              <span>"{school.nickname}"</span> • <span>Símbolo: {school.symbol}</span>
+            <p className="text-sm font-semibold text-amber-200/90 italic flex items-center gap-2 flex-wrap">
+              <span>"{school.nickname}"</span> • 
+              <span className="inline-flex items-center gap-1.5">
+                {school.customSymbolPhoto && (
+                  <img
+                    src={school.customSymbolPhoto}
+                    alt={school.symbol}
+                    className="w-5 h-5 rounded-full object-cover border border-amber-400/80 shadow-sm"
+                    title="Foto oficial registrada via câmera"
+                  />
+                )}
+                <span>Símbolo: {school.symbol}</span>
+              </span>
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-2 text-xs text-slate-200">
