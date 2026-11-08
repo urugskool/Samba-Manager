@@ -3363,28 +3363,104 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     bangu: 'Jóias da poesia'
   },
   1963: {
+    // Grupo Especial 1963
     salgueiro: 'Chica da Silva',
+    academicos_do_salgueiro: 'Chica da Silva',
     mangueira: 'Exaltação à Bahia',
-    imperio_serrano: 'Rio de Ontem e de Hoje',
-    portela: 'Barão de Mauá e Suas Realizações',
-    uniao_de_jacarepagua: 'Origem da Moeda Brasileira',
-    mocidade: 'A Chegada de D. João VI',
-    cabucu: 'Homenagem à Cidade do Rio de Janeiro',
-    aprendizes_de_lucas: 'Brasília, Capital da Esperança',
-    unidos_de_bangu: 'Panorama de Brasília',
-    beija_flor: 'Peri e Ceci'
+    estacao_primeira_de_mangueira: 'Exaltação à Bahia',
+    imperio_serrano: 'Rio de ontem e de hoje ou Exaltação a Mem de Sá',
+    portela: 'Barão de Mauá e suas realizações ou Barão de Mauá e sua época',
+    uniao_de_jacarepagua: 'Mestre Valentim e sua época',
+    unidos_de_jacarepagua: 'Mestre Valentim e sua época',
+    jacarepagua: 'Mestre Valentim e sua época',
+    mocidade: 'As Minas Gerais',
+    mocidade_independente: 'As Minas Gerais',
+    mocidade_independente_de_padre_miguel: 'As Minas Gerais',
+    cabucu: 'Os heróis de Vila Rica',
+    unidos_do_cabucu: 'Os heróis de Vila Rica',
+    aprendizes_de_lucas: 'Páginas da história',
+    unidos_de_bangu: 'Brasil, pátria universal',
+    bangu: 'Brasil, pátria universal',
+    beija_flor: 'Ceci e Peri',
+    beija_flor_de_nilopolis: 'Ceci e Peri',
+
+    // Série Ouro (Grupo 2) 1963
+    unidos_padre_miguel: 'Costumes e tradição do Rio Grande do Sul',
+    padre_miguel: 'Costumes e tradição do Rio Grande do Sul',
+    upm: 'Costumes e tradição do Rio Grande do Sul',
+    imperatriz: 'As Três Capitais',
+    imperatriz_leopoldinense: 'As Três Capitais',
+    vila_isabel: 'Três acontecimentos históricos',
+    unidos_de_vila_isabel: 'Três acontecimentos históricos',
+    independentes_cordovil: 'Brasil turístico',
+    independentes_do_leblon: 'Brasil turístico',
+    imperio_da_tijuca: 'Reminiscências da música popular brasileira',
+    uniao_do_centenario: 'Uma página da história do Brasil',
+    centenario: 'Uma página da história do Brasil',
+    tijuca: 'Do Oiapoque ao Chuí',
+    unidos_da_tijuca: 'Do Oiapoque ao Chuí',
+    caprichosos_de_pilares: 'Ilusão de um bandeirante (A lenda da pedra verde)',
+    caprichosos: 'Ilusão de um bandeirante (A lenda da pedra verde)',
+    tupy_bras_de_pina: 'Vinte anos a serviço do carnaval',
+    tupi_de_bras_de_pina: 'Vinte anos a serviço do carnaval',
+    tupy: 'Vinte anos a serviço do carnaval',
+    imperio_do_maranga: 'Exaltação ao Barão do Rio Branco',
+    maranga: 'Exaltação ao Barão do Rio Branco',
+    unidos_de_nilopolis: 'O Último baile imperial da Ilha Fiscal'
   },
   1962: {
-    portela: 'Rugendas - Viagens Pitorescas através do Brasil',
-    imperio_serrano: 'Rio dos Vice-Reis',
+    // Grupo Especial 1962
+    portela: 'Rugendas ou Viagens pitorescas através do Brasil',
+    imperio_serrano: 'Rio dos vice-reis',
     salgueiro: 'O Descobrimento do Brasil',
-    mangueira: 'Casa-Grande e Senzala',
-    mocidade: 'A Presença de Tomé de Souza',
-    aprendizes_de_lucas: 'Homenagem ao Barão de Mauá',
-    cabucu: 'A Deusa de Ébano',
-    uniao_de_jacarepagua: 'Retratos de Gonçalves Dias',
-    unidos_da_capela: 'Três Séculos de Glórias da Igreja da Candelária',
-    tupy_bras_de_pina: 'Seca do Nordeste'
+    academicos_do_salgueiro: 'O Descobrimento do Brasil',
+    mangueira: 'Casa grande e senzala',
+    estacao_primeira_de_mangueira: 'Casa grande e senzala',
+    mocidade: 'Brasil no Campo Cultural',
+    mocidade_independente: 'Brasil no Campo Cultural',
+    mocidade_independente_de_padre_miguel: 'Brasil no Campo Cultural',
+    aprendizes_de_lucas: 'Maravilhas do Brasil',
+    cabucu: 'A glória e os amores de D. Pedro I',
+    unidos_do_cabucu: 'A glória e os amores de D. Pedro I',
+    uniao_de_jacarepagua: 'Tipos populares do Brasil-Colônia',
+    unidos_de_jacarepagua: 'Tipos populares do Brasil-Colônia',
+    jacarepagua: 'Tipos populares do Brasil-Colônia',
+    unidos_da_capela: 'Da expulsão dos franceses à fundação da cidade de São Sebastião',
+    capela: 'Da expulsão dos franceses à fundação da cidade de São Sebastião',
+    tupy_bras_de_pina: 'Gonçalves Dias e suas memórias',
+    tupi_de_bras_de_pina: 'Gonçalves Dias e suas memórias',
+    tupy: 'Gonçalves Dias e suas memórias',
+
+    // Série Ouro (Grupo 2) 1962
+    unidos_de_bangu: 'A fragata de D. Afonso',
+    bangu: 'A fragata de D. Afonso',
+    beija_flor: 'Dia do Fico',
+    beija_flor_de_nilopolis: 'Dia do Fico',
+    imperio_da_tijuca: 'Rapsódia brasileira',
+    caprichosos_de_pilares: 'Galeria dos bravos',
+    caprichosos: 'Galeria dos bravos',
+    imperatriz: 'Rio no século XVIII, Apoteose a Carlos Gomes de Andrade, o Conde de Bobadela',
+    imperatriz_leopoldinense: 'Rio no século XVIII, Apoteose a Carlos Gomes de Andrade, o Conde de Bobadela',
+    academicos_bento_ribeiro: 'Marília de Dirceu',
+    academicos_de_bento_ribeiro: 'Marília de Dirceu',
+    bento_ribeiro: 'Marília de Dirceu',
+    tijuca: 'Rio pitoresco',
+    unidos_da_tijuca: 'Rio pitoresco',
+    vila_isabel: 'Dom João VI',
+    unidos_de_vila_isabel: 'Dom João VI',
+    uniao_do_centenario: 'A cultura a serviço do progresso do Brasil',
+    centenario: 'A cultura a serviço do progresso do Brasil',
+    unidos_padre_miguel: 'Cinco fatos históricos',
+    padre_miguel: 'Cinco fatos históricos',
+    upm: 'Cinco fatos históricos',
+    imperio_do_maranga: 'Cenas do carnaval na Rua do Ouvidor',
+    maranga: 'Cenas do carnaval na Rua do Ouvidor',
+    filhos_do_deserto: 'Jóias da poesia brasileira - Castro Alves',
+    flor_do_lins: 'Exaltação aos vultos republicanos',
+    uniao_da_ilha: 'Homenagem a Catulo da Paixão Cearense',
+    uniao_da_ilha_do_governador: 'Homenagem a Catulo da Paixão Cearense',
+    unidos_da_vila_sao_luis: 'Reminiscências da história do Brasil',
+    vila_sao_luis: 'Reminiscências da história do Brasil'
   },
   1961: {
     mangueira: 'Reminiscências do Rio Antigo',
@@ -4187,6 +4263,7 @@ function normalizeId(rawId?: string, rawName?: string): string {
     if (id === 'folioes_de_botafogo' || id.includes('folioes')) return 'folioes_de_botafogo';
     if (id === 'botafogo_samba_clube' || id.includes('botafogo_samba_clube')) return 'botafogo_samba_clube';
     if (id === 'independentes_do_zumbi' || id.includes('zumbi')) return 'independentes_do_zumbi';
+    if (id === 'unidos_da_vila_sao_luis' || id.includes('vila_sao_luis')) return 'unidos_da_vila_sao_luis';
     if (id.includes('unidos_da_mangueira')) return 'unidos_da_mangueira';
     if (id.includes('uniao_barao_da_gamboa')) return 'uniao_barao_da_gamboa';
     if (id.includes('ultima_hora')) return 'ultima_hora';
@@ -4265,6 +4342,7 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('foliões') || n.includes('folioes')) return 'folioes_de_botafogo';
   if (n.includes('botafogo samba clube') || (n.includes('botafogo') && !n.includes('foliões') && !n.includes('folioes'))) return 'botafogo_samba_clube';
   if (n.includes('zumbi')) return 'independentes_do_zumbi';
+  if (n.includes('vila são luís') || n.includes('vila sao luis') || n.includes('vila_sao_luis')) return 'unidos_da_vila_sao_luis';
   if (n.includes('unidos do tuiuti')) return 'unidos_do_tuiuti';
   if (n.includes('tuiuti')) return 'tuiuti';
   if (n.includes('portela')) return 'portela';

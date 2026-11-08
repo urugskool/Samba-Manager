@@ -4945,6 +4945,44 @@ Object.entries(OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL).forEach(([schoolId, rec]) => 
 // RESULTADOS HISTÓRICOS OFICIAIS DE 1980 A 1999 (AESCRJ até 1984 / LIESA desde 1985)
 // ============================================================================
 export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
+  1962: {
+    champion: 'Portela',
+    runnerUp: 'Império Serrano',
+    third: 'Acadêmicos do Salgueiro',
+    relegated: ['Unidos da Capela', 'Tupy de Brás de Pina'],
+    notes: 'Portela sagrou-se campeã com "Rugendas ou Viagens pitorescas através do Brasil" de Nelson de Andrade. Império Serrano vice-campeã com "Rio dos vice-reis". Rebaixadas: Unidos da Capela e Tupy de Brás de Pina.',
+    standings: [
+      { rank: 1, schoolId: 'portela', schoolName: 'Portela', status: 'campea' },
+      { rank: 2, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'vice' },
+      { rank: 3, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 4, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 5, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 6, schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas', status: 'participante' },
+      { rank: 7, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', status: 'participante' },
+      { rank: 8, schoolId: 'uniao_de_jacarepagua', schoolName: 'União de Jacarepaguá', status: 'participante' },
+      { rank: 9, schoolId: 'unidos_da_capela', schoolName: 'Unidos da Capela', status: 'rebaixada' },
+      { rank: 10, schoolId: 'tupy_bras_de_pina', schoolName: 'Tupy de Brás de Pina', status: 'rebaixada' }
+    ]
+  },
+  1963: {
+    champion: 'Acadêmicos do Salgueiro',
+    runnerUp: 'Estação Primeira de Mangueira',
+    third: 'Império Serrano',
+    relegated: ['Unidos de Bangu', 'Beija-Flor de Nilópolis'],
+    notes: 'Salgueiro campeã com a inesquecível obra-prima "Chica da Silva" de Fernando Pamplona e Arlindo Rodrigues. Mangueira vice-campeã com "Exaltação à Bahia". Rebaixadas: Unidos de Bangu e Beija-Flor de Nilópolis.',
+    standings: [
+      { rank: 1, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'campea' },
+      { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'vice' },
+      { rank: 3, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'participante' },
+      { rank: 4, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 5, schoolId: 'uniao_de_jacarepagua', schoolName: 'União de Jacarepaguá', status: 'participante' },
+      { rank: 6, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 7, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', status: 'participante' },
+      { rank: 8, schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas', status: 'participante' },
+      { rank: 9, schoolId: 'unidos_de_bangu', schoolName: 'Unidos de Bangu', status: 'rebaixada' },
+      { rank: 10, schoolId: 'beija_flor', schoolName: 'Beija-Flor de Nilópolis', status: 'rebaixada' }
+    ]
+  },
   1964: {
     champion: 'Portela',
     runnerUp: 'Acadêmicos do Salgueiro',

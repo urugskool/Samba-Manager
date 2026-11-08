@@ -53,6 +53,7 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('foliões') || name.includes('folioes') || clean.includes('folioes')) return 'folioes_de_botafogo';
   if (name.includes('botafogo')) return 'botafogo_samba_clube';
   if (name.includes('zumbi') || clean.includes('zumbi')) return 'independentes_do_zumbi';
+  if (name.includes('vila são luís') || name.includes('vila sao luis') || clean.includes('vila_sao_luis')) return 'unidos_da_vila_sao_luis';
   if (name.includes('vigário') || name.includes('vigario')) return 'vigario_geral';
   if (name.includes('ponte')) return 'unidos_da_ponte';
   if (name.includes('bangu')) return 'unidos_de_bangu';

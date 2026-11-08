@@ -6279,6 +6279,224 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '13ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1963: [
+    {
+      rank: 1,
+      schoolId: 'unidos_da_capela',
+      schoolName: 'Unidos da Capela',
+      promoted: true,
+      statusDescription: '1ª (Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'Costumes e tradição do Rio Grande do Sul',
+      promoted: true,
+      statusDescription: '2ª (Vice-Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'imperatriz',
+      schoolName: 'Imperatriz Leopoldinense',
+      enredo: 'As Três Capitais',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'vila_isabel',
+      schoolName: 'Unidos de Vila Isabel',
+      enredo: 'Três acontecimentos históricos',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes do Leblon (Independentes de Cordovil)',
+      enredo: 'Brasil turístico',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Reminiscências da música popular brasileira',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'uniao_do_centenario',
+      schoolName: 'União do Centenário',
+      enredo: 'Uma página da história do Brasil',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'tijuca',
+      schoolName: 'Unidos da Tijuca',
+      enredo: 'Do Oiapoque ao Chuí',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'Ilusão de um bandeirante (A lenda da pedra verde)',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'Vinte anos a serviço do carnaval',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'flor_do_lins',
+      schoolName: 'Flor do Lins',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'filhos_do_deserto',
+      schoolName: 'Filhos do Deserto',
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'imperio_do_maranga',
+      schoolName: 'Império do Marangá',
+      enredo: 'Exaltação ao Barão do Rio Branco',
+      statusDescription: '13º Lugar'
+    },
+    {
+      rank: 14,
+      schoolId: 'unidos_de_nilopolis',
+      schoolName: 'Unidos de Nilópolis',
+      enredo: 'O Último baile imperial da Ilha Fiscal',
+      relegated: true,
+      statusDescription: '14ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 15,
+      schoolId: 'academicos_bento_ribeiro',
+      schoolName: 'Acadêmicos de Bento Ribeiro',
+      relegated: true,
+      statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
+    }
+  ],
+  1962: [
+    {
+      rank: 1,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: 'A fragata de D. Afonso',
+      promoted: true,
+      statusDescription: '1ª (Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'beija_flor',
+      schoolName: 'Beija-Flor de Nilópolis',
+      enredo: 'Dia do Fico',
+      promoted: true,
+      statusDescription: '2ª (Vice-Campeã) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Rapsódia brasileira',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'Galeria dos bravos',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'imperatriz',
+      schoolName: 'Imperatriz Leopoldinense',
+      enredo: 'Rio no século XVIII, Apoteose a Carlos Gomes de Andrade, o Conde de Bobadela',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'academicos_bento_ribeiro',
+      schoolName: 'Acadêmicos de Bento Ribeiro',
+      enredo: 'Marília de Dirceu',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'tijuca',
+      schoolName: 'Unidos da Tijuca',
+      enredo: 'Rio pitoresco',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'vila_isabel',
+      schoolName: 'Unidos de Vila Isabel',
+      enredo: 'Dom João VI',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'uniao_do_centenario',
+      schoolName: 'União do Centenário',
+      enredo: 'A cultura a serviço do progresso do Brasil',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'Cinco fatos históricos',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'imperio_do_maranga',
+      schoolName: 'Império do Marangá',
+      enredo: 'Cenas do carnaval na Rua do Ouvidor',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'filhos_do_deserto',
+      schoolName: 'Filhos do Deserto',
+      enredo: 'Jóias da poesia brasileira - Castro Alves',
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'flor_do_lins',
+      schoolName: 'Flor do Lins',
+      enredo: 'Exaltação aos vultos republicanos',
+      statusDescription: '13º Lugar'
+    },
+    {
+      rank: 14,
+      schoolId: 'uniao_da_ilha',
+      schoolName: 'União da Ilha do Governador',
+      enredo: 'Homenagem a Catulo da Paixão Cearense',
+      relegated: true,
+      statusDescription: '14ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 15,
+      schoolId: 'unidos_da_vila_sao_luis',
+      schoolName: 'Unidos da Vila São Luís',
+      enredo: 'Reminiscências da história do Brasil',
+      relegated: true,
+      statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -6348,7 +6566,9 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1967: 'Carnaval de 1967: Unidos de São Carlos (Campeã) e Independentes do Leblon (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: Unidos de Manguinhos e Unidos do Jardim.',
   1966: 'Carnaval de 1966: São Clemente (Campeã) e Imperatriz Leopoldinense (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: União do Centenário e Paraíso do Tuiuti.',
   1965: 'Carnaval de 1965 (IV Centenário do Rio de Janeiro): Acadêmicos de Santa Cruz (Campeã) e Unidos de Vila Isabel (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: Império do Marangá e Unidos da Vila Santa Tereza.',
-  1964: 'Carnaval de 1964: Império da Tijuca (Campeã) e Imperatriz Leopoldinense (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: Beija-Flor de Nilópolis e Unidos de Bangu.'
+  1964: 'Carnaval de 1964: Império da Tijuca (Campeã) e Imperatriz Leopoldinense (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: Beija-Flor de Nilópolis e Unidos de Bangu.',
+  1963: 'Carnaval de 1963: Unidos da Capela (Campeã) e Unidos de Padre Miguel (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: Unidos de Nilópolis e Acadêmicos de Bento Ribeiro.',
+  1962: 'Carnaval de 1962: Unidos de Bangu (Campeã) e Beija-Flor de Nilópolis (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: União da Ilha do Governador e Unidos da Vila São Luís.'
 };
 
 /**

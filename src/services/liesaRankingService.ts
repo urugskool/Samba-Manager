@@ -1471,7 +1471,7 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 7, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', statusDescription: '7º Lugar (+4 pts)' },
     { rank: 8, schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas', statusDescription: '8º Lugar (+3 pts)' },
     { rank: 9, schoolId: 'unidos_de_bangu', schoolName: 'Unidos de Bangu', statusDescription: '9º Lugar (+2 pts • Rebaixada)' },
-    { rank: 10, schoolId: 'beija_flor', schoolName: 'Beija-Flor', statusDescription: '10º Lugar (+1 pt • Rebaixada)' }
+    { rank: 10, schoolId: 'beija_flor', schoolName: 'Beija-Flor de Nilópolis', statusDescription: '10º Lugar (+1 pt • Rebaixada)' }
   ],
   1964: [
     { rank: 1, schoolId: 'portela', schoolName: 'Portela', statusDescription: 'Campeã Oficial (+20 pts)' },

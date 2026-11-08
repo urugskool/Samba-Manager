@@ -280,6 +280,7 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('foliões') || raw.includes('folioes')) return 'folioes_de_botafogo';
   if (raw.includes('botafogo')) return 'botafogo_samba_clube';
   if (raw.includes('zumbi')) return 'independentes_do_zumbi';
+  if (raw.includes('vila são luís') || raw.includes('vila sao luis') || raw.includes('vila_sao_luis')) return 'unidos_da_vila_sao_luis';
   if (raw.includes('acari')) return 'parque_acari';
   if (raw.includes('inocentes') || raw.includes('belford')) return 'inocentes';
   if (raw.includes('santa cruz')) return 'santa_cruz';
