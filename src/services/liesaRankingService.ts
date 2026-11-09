@@ -2707,7 +2707,9 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('morro azul')) return 'unidos_do_morro_azul';
   if (nameNorm.includes('unidos da piedade')) return 'unidos_da_piedade';
   if (nameNorm.includes('piedade')) return 'uniao_da_piedade';
+  if (nameNorm.includes('alunos da penha')) return 'alunos_da_penha_circular';
   if (nameNorm.includes('penha circular')) return 'aprendizes_da_penha_circular';
+  if (nameNorm.includes('império de bonsucesso') || nameNorm.includes('imperio de bonsucesso')) return 'imperio_de_bonsucesso';
   if (nameNorm.includes('independentes de mesquita')) return 'independentes_de_mesquita';
   if (nameNorm.includes('universitária') || nameNorm.includes('universitaria')) return 'universitaria_de_rocha_miranda';
   if (nameNorm.includes('além do horizonte') || nameNorm.includes('alem do horizonte')) return 'alem_do_horizonte';

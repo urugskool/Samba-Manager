@@ -6968,6 +6968,185 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: 'Não desfilou (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1958: [
+    {
+      rank: 1,
+      schoolId: 'mocidade',
+      schoolName: 'Mocidade Independente de Padre Miguel',
+      enredo: 'Apoteose do samba',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Promovida ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'unidos_do_salgueiro',
+      schoolName: 'Unidos do Salgueiro',
+      enredo: 'Ouro Negro',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Promovida ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Homenagem às Forças Armadas',
+      promoted: true,
+      statusDescription: '3ª (subiu) • 3º Lugar • Promovida ao Grupo Especial'
+    },
+    {
+      rank: 4,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Unidos de São Carlos (Estácio de Sá)',
+      enredo: 'Homenagem a Alberto Santos Dumont',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'vila_isabel',
+      schoolName: 'Unidos de Vila Isabel',
+      enredo: 'Riquezas do Brasil',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'unidos_da_vila_sao_luis',
+      schoolName: 'Unidos da Vila São Luís',
+      enredo: 'Como é Grande o Meu Brasil',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'uniao_do_catete',
+      schoolName: 'União do Catete',
+      enredo: 'Homenagem ao Gaúcho',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'unidos_da_piedade',
+      schoolName: 'Unidos da Piedade',
+      enredo: 'Brasília, Novo Horizonte',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'unidos_de_nilopolis',
+      schoolName: 'Unidos de Nilópolis',
+      enredo: 'As Minas de Prata',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes do Leblon (Independentes de Cordovil)',
+      enredo: 'Escravatura',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Amores de D. Pedro I',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'unidos_do_morro_azul',
+      schoolName: 'Unidos do Morro Azul',
+      enredo: 'Homenagem a José Bonifácio',
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'paz_e_amor',
+      schoolName: 'Paz e Amor',
+      enredo: 'Sonho Infantil',
+      statusDescription: '13º Lugar'
+    },
+    {
+      rank: 14,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'Relicário histórico',
+      statusDescription: '14º Lugar'
+    },
+    {
+      rank: 15,
+      schoolId: 'aprendizes_da_gavea',
+      schoolName: 'Aprendizes da Gávea',
+      enredo: 'Anita Garibaldi',
+      statusDescription: '15º Lugar'
+    },
+    {
+      rank: 16,
+      schoolId: 'imperio_de_campo_grande',
+      schoolName: 'Império de Campo Grande',
+      enredo: 'Bandeirante no Século',
+      statusDescription: '16º Lugar'
+    },
+    {
+      rank: 17,
+      schoolId: 'aprendizes_boca_do_mato',
+      schoolName: 'Aprendizes da Boca do Mato',
+      enredo: 'Exaltação à Tamandaré',
+      statusDescription: '17º Lugar'
+    },
+    {
+      rank: 18,
+      schoolId: 'imperio_do_maranga',
+      schoolName: 'Império do Marangá',
+      enredo: 'Proclamação da República ou Três Páginas da História do Brasil',
+      statusDescription: '18º Lugar'
+    },
+    {
+      rank: 19,
+      schoolId: 'alem_do_horizonte',
+      schoolName: 'Além do Horizonte',
+      enredo: 'O Tigre da Abolição',
+      statusDescription: '19º Lugar'
+    },
+    {
+      rank: 20,
+      schoolId: 'uniao_vaz_lobo',
+      schoolName: 'União de Vaz Lobo',
+      enredo: 'Recordar é viver',
+      statusDescription: '20º Lugar'
+    },
+    {
+      rank: 21,
+      schoolId: 'alunos_da_penha_circular',
+      schoolName: 'Alunos da Penha Circular',
+      enredo: 'Trajes regionais',
+      statusDescription: '21º Lugar'
+    },
+    {
+      rank: 22,
+      schoolId: 'universitaria_de_rocha_miranda',
+      schoolName: 'Universitária de Rocha Miranda',
+      enredo: 'A vida no morro',
+      statusDescription: '22º Lugar'
+    },
+    {
+      rank: 23,
+      schoolId: 'unidos_da_congonha',
+      schoolName: 'Unidos da Congonha',
+      enredo: 'Proclamação da República',
+      statusDescription: '23º Lugar'
+    },
+    {
+      rank: 24,
+      schoolId: 'unidos_do_jacare',
+      schoolName: 'Unidos do Jacaré',
+      enredo: 'Fernão Dias Paes Leme',
+      statusDescription: '24º Lugar'
+    },
+    {
+      rank: 25,
+      schoolId: 'imperio_de_bonsucesso',
+      schoolName: 'Império de Bonsucesso',
+      statusDescription: 'Não desfilou'
+    }
   ]
 };
 
@@ -7042,7 +7221,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1962: 'Carnaval de 1962: Unidos de Bangu (Campeã) e Beija-Flor de Nilópolis (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: União da Ilha do Governador e Unidos da Vila São Luís.',
   1961: 'Carnaval de 1961: Unidos do Cabuçu (Campeã) e Tupy de Brás de Pina (Vice-Campeã) promovidas ao Grupo Especial. Cinco agremiações foram rebaixadas para a Série Prata: Aprendizes da Boca do Mato, Paraíso do Tuiuti, União de Vaz Lobo, Unidos de Nilópolis e Cartolinhas de Caxias (não desfilou).',
   1960: 'Carnaval de 1960: Caprichosos de Pilares (Campeã) e Acadêmicos de Bento Ribeiro (Vice-Campeã) promovidas ao Grupo Especial. Seis agremiações foram rebaixadas para a Série Prata: União da Piedade, Unidos do Jacaré, Unidos do Morro Azul, Unidos da Ponte, Unidos do Salgueiro e Unidos de São Carlos (não desfilou).',
-  1959: 'Carnaval de 1959: Unidos de Padre Miguel (Campeã) e Aprendizes da Boca do Mato (Vice-Campeã) promovidas ao Grupo Especial. Primeiro ano em que houve rebaixamento para a Série Prata (criada em 1960): foram rebaixadas da 12ª à 21ª colocada (incluindo Unidos de Vila Isabel e União de Vaz Lobo), além de Filhos do Deserto e Independentes do Leblon (não desfilaram).'
+  1959: 'Carnaval de 1959: Unidos de Padre Miguel (Campeã) e Aprendizes da Boca do Mato (Vice-Campeã) promovidas ao Grupo Especial. Primeiro ano em que houve rebaixamento para a Série Prata (criada em 1960): foram rebaixadas da 12ª à 21ª colocada (incluindo Unidos de Vila Isabel e União de Vaz Lobo), além de Filhos do Deserto e Independentes do Leblon (não desfilaram).',
+  1958: 'Carnaval de 1958: Mocidade Independente de Padre Miguel (Campeã), Unidos do Salgueiro (Vice-Campeã) e Paraíso do Tuiuti (3ª colocada) promovidas ao Grupo Especial. (Não Houve Rebaixamento na Série Ouro). O Império de Bonsucesso não desfilou.'
 };
 
 /**

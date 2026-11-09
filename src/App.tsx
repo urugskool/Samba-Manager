@@ -149,6 +149,8 @@ const INITIAL_INACTIVE_SCHOOL_IDS = new Set([
   'universitaria_de_rocha_miranda',
   'alem_do_horizonte',
   'unidos_da_favela',
+  'alunos_da_penha_circular',
+  'imperio_de_bonsucesso',
   'independentes_de_turiacu',
   'unidos_do_coqueiro',
   'em_cima_da_hora_catumbi',
