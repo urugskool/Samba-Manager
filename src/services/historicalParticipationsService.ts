@@ -95,7 +95,13 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('lins')) return 'lins_imperial';
   if (name.includes('cartolinhas') || clean === 'cartolinhas_de_caxias') return 'cartolinhas_de_caxias';
   if (name.includes('vaz lobo') || clean === 'uniao_vaz_lobo') return 'uniao_vaz_lobo';
+  if (name.includes('unidos da piedade') || clean === 'unidos_da_piedade') return 'unidos_da_piedade';
   if (name.includes('piedade') || clean === 'uniao_da_piedade') return 'uniao_da_piedade';
+  if (name.includes('penha circular') || clean === 'aprendizes_da_penha_circular') return 'aprendizes_da_penha_circular';
+  if (name.includes('independentes de mesquita') || clean === 'independentes_de_mesquita') return 'independentes_de_mesquita';
+  if (name.includes('universitária') || name.includes('universitaria') || clean === 'universitaria_de_rocha_miranda') return 'universitaria_de_rocha_miranda';
+  if (name.includes('além do horizonte') || name.includes('alem do horizonte') || clean === 'alem_do_horizonte') return 'alem_do_horizonte';
+  if (name.includes('unidos da favela') || clean === 'unidos_da_favela') return 'unidos_da_favela';
   if ((name.includes('jacaré') || name.includes('jacare')) && !name.includes('jacarezinho') || clean === 'unidos_do_jacare') return 'unidos_do_jacare';
   if (name.includes('morro azul') || clean === 'unidos_do_morro_azul') return 'unidos_do_morro_azul';
   if (name.includes('unidos do salgueiro') || clean === 'unidos_do_salgueiro') return 'unidos_do_salgueiro';

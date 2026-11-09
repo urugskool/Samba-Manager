@@ -6765,6 +6765,209 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: 'Não desfilou (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1959: [
+    {
+      rank: 1,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'Lampião',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Promovida ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'aprendizes_boca_do_mato',
+      schoolName: 'Aprendizes da Boca do Mato',
+      enredo: 'Machado de Assis',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Promovida ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Homenagem aos bombeiros',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'unidos_bento_ribeiro',
+      schoolName: 'Unidos de Bento Ribeiro',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'unidos_do_morro_azul',
+      schoolName: 'Unidos do Morro Azul',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'unidos_da_piedade',
+      schoolName: 'Unidos da Piedade',
+      enredo: 'Noite de núpcias',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'imperio_do_maranga',
+      schoolName: 'Império do Marangá',
+      enredo: 'Três Páginas da História do Brasil',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'unidos_do_coqueiro',
+      schoolName: 'Unidos do Coqueiro',
+      enredo: 'Exaltação a Barão de Mauá',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'unidos_de_nilopolis',
+      schoolName: 'Unidos de Nilópolis',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'unidos_do_jacare',
+      schoolName: 'Unidos do Jacaré',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Unidos de São Carlos (Estácio de Sá)',
+      enredo: 'Marechal Rondon',
+      statusDescription: '11º Lugar (empatada)'
+    },
+    {
+      rank: 11,
+      schoolId: 'flor_do_lins',
+      schoolName: 'Flor do Lins',
+      statusDescription: '11º Lugar (empatada)'
+    },
+    {
+      rank: 11,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Revista brasileira',
+      statusDescription: '11º Lugar (empatada)'
+    },
+    {
+      rank: 11,
+      schoolId: 'unidos_da_vila_sao_luis',
+      schoolName: 'Unidos da Vila São Luís',
+      statusDescription: '11º Lugar (empatada)'
+    },
+    {
+      rank: 12,
+      schoolId: 'uniao_vaz_lobo',
+      schoolName: 'União de Vaz Lobo',
+      relegated: true,
+      statusDescription: '12ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 12,
+      schoolId: 'vila_isabel',
+      schoolName: 'Unidos de Vila Isabel',
+      enredo: 'Homenagem à Saldanha da Gama',
+      relegated: true,
+      statusDescription: '12ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 13,
+      schoolId: 'uniao_do_catete',
+      schoolName: 'União do Catete',
+      relegated: true,
+      statusDescription: '13ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 14,
+      schoolId: 'aprendizes_da_penha_circular',
+      schoolName: 'Aprendizes da Penha Circular',
+      relegated: true,
+      statusDescription: '14ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 15,
+      schoolId: 'aprendizes_da_gavea',
+      schoolName: 'Aprendizes da Gávea',
+      relegated: true,
+      statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 15,
+      schoolId: 'imperio_de_campo_grande',
+      schoolName: 'Império de Campo Grande',
+      relegated: true,
+      statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 15,
+      schoolId: 'independentes_de_mesquita',
+      schoolName: 'Independentes de Mesquita',
+      relegated: true,
+      statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 16,
+      schoolId: 'capricho_do_centenario',
+      schoolName: 'Capricho do Centenário',
+      relegated: true,
+      statusDescription: '16ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 17,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      relegated: true,
+      statusDescription: '17ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 18,
+      schoolId: 'universitaria_de_rocha_miranda',
+      schoolName: 'Universitária de Rocha Miranda',
+      relegated: true,
+      statusDescription: '18ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 19,
+      schoolId: 'alem_do_horizonte',
+      schoolName: 'Além do Horizonte',
+      relegated: true,
+      statusDescription: '19ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 20,
+      schoolId: 'unidos_da_congonha',
+      schoolName: 'Unidos da Congonha',
+      relegated: true,
+      statusDescription: '20ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 21,
+      schoolId: 'unidos_da_favela',
+      schoolName: 'Unidos da Favela',
+      enredo: 'Quatro vultos da Bahia',
+      relegated: true,
+      statusDescription: '21ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 22,
+      schoolId: 'filhos_do_deserto',
+      schoolName: 'Filhos do Deserto',
+      relegated: true,
+      statusDescription: 'Não desfilou (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 23,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes do Leblon (Independentes de Cordovil)',
+      relegated: true,
+      statusDescription: 'Não desfilou (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -6838,7 +7041,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1963: 'Carnaval de 1963: Unidos da Capela (Campeã) e Unidos de Padre Miguel (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: Unidos de Nilópolis e Acadêmicos de Bento Ribeiro.',
   1962: 'Carnaval de 1962: Unidos de Bangu (Campeã) e Beija-Flor de Nilópolis (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: União da Ilha do Governador e Unidos da Vila São Luís.',
   1961: 'Carnaval de 1961: Unidos do Cabuçu (Campeã) e Tupy de Brás de Pina (Vice-Campeã) promovidas ao Grupo Especial. Cinco agremiações foram rebaixadas para a Série Prata: Aprendizes da Boca do Mato, Paraíso do Tuiuti, União de Vaz Lobo, Unidos de Nilópolis e Cartolinhas de Caxias (não desfilou).',
-  1960: 'Carnaval de 1960: Caprichosos de Pilares (Campeã) e Acadêmicos de Bento Ribeiro (Vice-Campeã) promovidas ao Grupo Especial. Seis agremiações foram rebaixadas para a Série Prata: União da Piedade, Unidos do Jacaré, Unidos do Morro Azul, Unidos da Ponte, Unidos do Salgueiro e Unidos de São Carlos (não desfilou).'
+  1960: 'Carnaval de 1960: Caprichosos de Pilares (Campeã) e Acadêmicos de Bento Ribeiro (Vice-Campeã) promovidas ao Grupo Especial. Seis agremiações foram rebaixadas para a Série Prata: União da Piedade, Unidos do Jacaré, Unidos do Morro Azul, Unidos da Ponte, Unidos do Salgueiro e Unidos de São Carlos (não desfilou).',
+  1959: 'Carnaval de 1959: Unidos de Padre Miguel (Campeã) e Aprendizes da Boca do Mato (Vice-Campeã) promovidas ao Grupo Especial. Primeiro ano em que houve rebaixamento para a Série Prata (criada em 1960): foram rebaixadas da 12ª à 21ª colocada (incluindo Unidos de Vila Isabel e União de Vaz Lobo), além de Filhos do Deserto e Independentes do Leblon (não desfilaram).'
 };
 
 /**

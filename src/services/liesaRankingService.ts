@@ -2705,7 +2705,13 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('campo grande')) return 'unidos_de_campo_grande';
   if (nameNorm.includes('recreio de inhaúma') || nameNorm.includes('recreio de inhauma') || nameNorm.includes('inhaúma') || nameNorm.includes('inhauma')) return 'recreio_de_inhauma';
   if (nameNorm.includes('morro azul')) return 'unidos_do_morro_azul';
+  if (nameNorm.includes('unidos da piedade')) return 'unidos_da_piedade';
   if (nameNorm.includes('piedade')) return 'uniao_da_piedade';
+  if (nameNorm.includes('penha circular')) return 'aprendizes_da_penha_circular';
+  if (nameNorm.includes('independentes de mesquita')) return 'independentes_de_mesquita';
+  if (nameNorm.includes('universitária') || nameNorm.includes('universitaria')) return 'universitaria_de_rocha_miranda';
+  if (nameNorm.includes('além do horizonte') || nameNorm.includes('alem do horizonte')) return 'alem_do_horizonte';
+  if (nameNorm.includes('unidos da favela')) return 'unidos_da_favela';
   if (nameNorm.includes('independentes de turiaçu') || nameNorm.includes('independentes de turiacu')) return 'independentes_de_turiacu';
   if (nameNorm.includes('turiaçu') || nameNorm.includes('turiacu')) return 'unidos_de_turiacu';
   if (nameNorm.includes('coqueiro')) return 'unidos_do_coqueiro';
