@@ -2705,6 +2705,7 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('campo grande')) return 'unidos_de_campo_grande';
   if (nameNorm.includes('recreio de inhaúma') || nameNorm.includes('recreio de inhauma') || nameNorm.includes('inhaúma') || nameNorm.includes('inhauma')) return 'recreio_de_inhauma';
   if (nameNorm.includes('morro azul')) return 'unidos_do_morro_azul';
+  if (nameNorm.includes('piedade')) return 'uniao_da_piedade';
   if (nameNorm.includes('independentes de turiaçu') || nameNorm.includes('independentes de turiacu')) return 'independentes_de_turiacu';
   if (nameNorm.includes('turiaçu') || nameNorm.includes('turiacu')) return 'unidos_de_turiacu';
   if (nameNorm.includes('coqueiro')) return 'unidos_do_coqueiro';

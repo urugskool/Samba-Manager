@@ -91,7 +91,18 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('tradição') || name.includes('tradicao')) return 'tradicao';
   if (name.includes('cubango')) return 'cubango';
   if (name.includes('rocinha')) return 'rocinha';
+  if (name.includes('flor do lins') || clean === 'flor_do_lins') return 'flor_do_lins';
   if (name.includes('lins')) return 'lins_imperial';
+  if (name.includes('cartolinhas') || clean === 'cartolinhas_de_caxias') return 'cartolinhas_de_caxias';
+  if (name.includes('vaz lobo') || clean === 'uniao_vaz_lobo') return 'uniao_vaz_lobo';
+  if (name.includes('piedade') || clean === 'uniao_da_piedade') return 'uniao_da_piedade';
+  if ((name.includes('jacaré') || name.includes('jacare')) && !name.includes('jacarezinho') || clean === 'unidos_do_jacare') return 'unidos_do_jacare';
+  if (name.includes('morro azul') || clean === 'unidos_do_morro_azul') return 'unidos_do_morro_azul';
+  if (name.includes('unidos do salgueiro') || clean === 'unidos_do_salgueiro') return 'unidos_do_salgueiro';
+  if (name.includes('boca do mato') || clean === 'aprendizes_boca_do_mato') return 'aprendizes_boca_do_mato';
+  if (name.includes('filhos do deserto') || clean === 'filhos_do_deserto') return 'filhos_do_deserto';
+  if (name.includes('marangá') || name.includes('maranga') || clean === 'imperio_do_maranga') return 'imperio_do_maranga';
+  if (name.includes('unidos de nilópolis') || name.includes('unidos de nilopolis') || clean === 'unidos_de_nilopolis') return 'unidos_de_nilopolis';
   if (name.includes('sossego')) return 'academicos_do_sossego';
   if (name.includes('renascer de nova iguaçu') || name.includes('renascer de nova iguacu')) return 'renascer_de_nova_iguacu';
   if (name.includes('renascer de vaz lobo')) return 'gres_renascer_de_vaz_lobo';

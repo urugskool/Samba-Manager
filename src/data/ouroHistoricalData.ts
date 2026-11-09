@@ -6497,6 +6497,274 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       relegated: true,
       statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
     }
+  ],
+  1961: [
+    {
+      rank: 1,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Relíquias do Rio Antigo',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Promovida ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'Seca no Nordeste',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Promovida ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: 'Os bandeirantes',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'vila_isabel',
+      schoolName: 'Unidos de Vila Isabel',
+      enredo: 'A Imprensa Através dos Tempos',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'filhos_do_deserto',
+      schoolName: 'Filhos do Deserto',
+      enredo: 'Homenagem a Santos Dumont',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'uniao_do_centenario',
+      schoolName: 'União do Centenário',
+      enredo: 'Anhangüera',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'tijuca',
+      schoolName: 'Unidos da Tijuca',
+      enredo: 'Leilão de Escravos',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'beija_flor',
+      schoolName: 'Beija-Flor de Nilópolis',
+      enredo: 'Homenagem à Brasília',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'flor_do_lins',
+      schoolName: 'Flor do Lins',
+      enredo: 'Um Dia na Primavera',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Brasil em três épocas',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'imperio_do_maranga',
+      schoolName: 'Império do Marangá',
+      enredo: 'Vultos que Engrandeceram a História da Bahia',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'unidos_da_vila_sao_luis',
+      schoolName: 'Unidos da Vila São Luís',
+      enredo: 'Reminiscências do Carnaval',
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'aprendizes_boca_do_mato',
+      schoolName: 'Aprendizes da Boca do Mato',
+      enredo: 'Três vultos da Independência do Brasil',
+      relegated: true,
+      statusDescription: '13ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 14,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Exaltação a Pedro Américo, Castro Alves e Rui Barbosa',
+      relegated: true,
+      statusDescription: '14ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 15,
+      schoolId: 'uniao_vaz_lobo',
+      schoolName: 'União de Vaz Lobo',
+      enredo: 'Chico Rei',
+      relegated: true,
+      statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 16,
+      schoolId: 'unidos_de_nilopolis',
+      schoolName: 'Unidos de Nilópolis',
+      enredo: 'Guanabara em Foco',
+      relegated: true,
+      statusDescription: '16ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 17,
+      schoolId: 'cartolinhas_de_caxias',
+      schoolName: 'Cartolinhas de Caxias',
+      enredo: 'Iracema',
+      relegated: true,
+      statusDescription: 'Não desfilou (rebaixada) • Rebaixada para a Série Prata'
+    }
+  ],
+  1960: [
+    {
+      rank: 1,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'Invasão holandesa na Bahia',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Promovida ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'academicos_bento_ribeiro',
+      schoolName: 'Acadêmicos de Bento Ribeiro',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Promovida ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'imperio_do_maranga',
+      schoolName: 'Império do Marangá',
+      enredo: 'Rio antigo Colonial',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'De Cabral a JK',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'Exaltação à Arte e Pintura de Almeida Jr.',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Brasil universitário',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'filhos_do_deserto',
+      schoolName: 'Filhos do Deserto',
+      enredo: 'Brasil Colonial',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'tijuca',
+      schoolName: 'Unidos da Tijuca',
+      enredo: 'Sonho de Bravos',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'cartolinhas_de_caxias',
+      schoolName: 'Cartolinhas de Caxias',
+      enredo: 'As Três Heroínas',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'flor_do_lins',
+      schoolName: 'Flor do Lins',
+      enredo: 'Glória a Memória de Carlos Gomes',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Exaltação a Villa Lobos',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'unidos_da_vila_sao_luis',
+      schoolName: 'Unidos da Vila São Luís',
+      enredo: 'Entradas e Bandeiras através dos Séculos',
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'unidos_de_nilopolis',
+      schoolName: 'Unidos de Nilópolis',
+      enredo: 'Exaltação a Brasília',
+      statusDescription: '13º Lugar'
+    },
+    {
+      rank: 14,
+      schoolId: 'uniao_da_piedade',
+      schoolName: 'União da Piedade',
+      enredo: 'Academia de Letras',
+      relegated: true,
+      statusDescription: '14ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 15,
+      schoolId: 'unidos_do_jacare',
+      schoolName: 'Unidos do Jacaré',
+      enredo: 'Adeus Cidade Maravilhosa',
+      relegated: true,
+      statusDescription: '15ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 16,
+      schoolId: 'unidos_do_morro_azul',
+      schoolName: 'Unidos do Morro Azul',
+      enredo: 'Três Gigantes do Patriotismo',
+      relegated: true,
+      statusDescription: '16ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 17,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Exaltação ao Estado do Rio de Janeiro',
+      relegated: true,
+      statusDescription: '17ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 18,
+      schoolId: 'unidos_do_salgueiro',
+      schoolName: 'Unidos do Salgueiro',
+      relegated: true,
+      statusDescription: '18ª (rebaixada) • Rebaixada para a Série Prata'
+    },
+    {
+      rank: 19,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Unidos de São Carlos (Estácio de Sá)',
+      relegated: true,
+      statusDescription: 'Não desfilou (rebaixada) • Rebaixada para a Série Prata'
+    }
   ]
 };
 
@@ -6568,7 +6836,9 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1965: 'Carnaval de 1965 (IV Centenário do Rio de Janeiro): Acadêmicos de Santa Cruz (Campeã) e Unidos de Vila Isabel (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: Império do Marangá e Unidos da Vila Santa Tereza.',
   1964: 'Carnaval de 1964: Império da Tijuca (Campeã) e Imperatriz Leopoldinense (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: Beija-Flor de Nilópolis e Unidos de Bangu.',
   1963: 'Carnaval de 1963: Unidos da Capela (Campeã) e Unidos de Padre Miguel (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: Unidos de Nilópolis e Acadêmicos de Bento Ribeiro.',
-  1962: 'Carnaval de 1962: Unidos de Bangu (Campeã) e Beija-Flor de Nilópolis (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: União da Ilha do Governador e Unidos da Vila São Luís.'
+  1962: 'Carnaval de 1962: Unidos de Bangu (Campeã) e Beija-Flor de Nilópolis (Vice-Campeã) promovidas ao Grupo Especial. Duas agremiações foram rebaixadas para a Série Prata: União da Ilha do Governador e Unidos da Vila São Luís.',
+  1961: 'Carnaval de 1961: Unidos do Cabuçu (Campeã) e Tupy de Brás de Pina (Vice-Campeã) promovidas ao Grupo Especial. Cinco agremiações foram rebaixadas para a Série Prata: Aprendizes da Boca do Mato, Paraíso do Tuiuti, União de Vaz Lobo, Unidos de Nilópolis e Cartolinhas de Caxias (não desfilou).',
+  1960: 'Carnaval de 1960: Caprichosos de Pilares (Campeã) e Acadêmicos de Bento Ribeiro (Vice-Campeã) promovidas ao Grupo Especial. Seis agremiações foram rebaixadas para a Série Prata: União da Piedade, Unidos do Jacaré, Unidos do Morro Azul, Unidos da Ponte, Unidos do Salgueiro e Unidos de São Carlos (não desfilou).'
 };
 
 /**

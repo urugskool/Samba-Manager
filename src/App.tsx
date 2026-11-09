@@ -142,6 +142,7 @@ const INITIAL_INACTIVE_SCHOOL_IDS = new Set([
   'unidos_de_campo_grande',
   'recreio_de_inhauma',
   'unidos_do_morro_azul',
+  'uniao_da_piedade',
   'independentes_de_turiacu',
   'unidos_do_coqueiro',
   'em_cima_da_hora_catumbi',

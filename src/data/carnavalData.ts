@@ -1520,6 +1520,24 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     bronzeYears: [],
     bronzeRunnerUpYears: []
   },
+  uniao_da_piedade: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    especialYears: [],
+    especialRunnerUpYears: [],
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    ouroYears: [],
+    ouroRunnerUpYears: [],
+    championshipsPrata: 0,
+    prataYears: [],
+    runnerUpsPrata: 0,
+    prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
+  },
   unidos_do_jacare: {
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
@@ -4945,6 +4963,47 @@ Object.entries(OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL).forEach(([schoolId, rec]) => 
 // RESULTADOS HISTÓRICOS OFICIAIS DE 1980 A 1999 (AESCRJ até 1984 / LIESA desde 1985)
 // ============================================================================
 export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
+  1960: {
+    champion: 'Portela, Mangueira, Salgueiro, Unidos da Capela e Império Serrano (Supercampeãs Empatadas)',
+    runnerUp: 'Aprendizes de Lucas',
+    third: 'Mocidade Independente de Padre Miguel',
+    relegated: ['Beija-Flor de Nilópolis', 'Aprendizes da Boca do Mato', 'Unidos de Bangu'],
+    notes: 'Supercampeonato de 1960: Histórico empate quíntuplo onde cinco agremiações foram proclamadas campeãs oficiais: Portela ("Rio, capital eterna do samba"), Mangueira ("Carnaval de Todos os Tempos ou Glória ao Samba"), Salgueiro ("Quilombo dos Palmares"), Unidos da Capela ("Produtos e Costumes de Nossa Terra") e Império Serrano ("Medalhas e brasões"). Aprendizes de Lucas foi a vice-campeã. Rebaixadas: Beija-Flor de Nilópolis, Aprendizes da Boca do Mato e Unidos de Bangu.',
+    standings: [
+      { rank: 1, schoolId: 'portela', schoolName: 'Portela', status: 'campea' },
+      { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'campea' },
+      { rank: 1, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'campea' },
+      { rank: 1, schoolId: 'unidos_da_capela', schoolName: 'Unidos da Capela', status: 'campea' },
+      { rank: 1, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'campea' },
+      { rank: 2, schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas', status: 'vice' },
+      { rank: 3, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 4, schoolId: 'uniao_de_jacarepagua', schoolName: 'União de Jacarepaguá', status: 'participante' },
+      { rank: 5, schoolId: 'unidos_padre_miguel', schoolName: 'Unidos de Padre Miguel', status: 'participante' },
+      { rank: 6, schoolId: 'beija_flor', schoolName: 'Beija-Flor de Nilópolis', status: 'rebaixada' },
+      { rank: 7, schoolId: 'aprendizes_boca_do_mato', schoolName: 'Aprendizes da Boca do Mato', status: 'rebaixada' },
+      { rank: 8, schoolId: 'unidos_de_bangu', schoolName: 'Unidos de Bangu', status: 'rebaixada' }
+    ]
+  },
+  1961: {
+    champion: 'Estação Primeira de Mangueira',
+    runnerUp: 'Acadêmicos do Salgueiro',
+    third: 'Portela',
+    relegated: ['Caprichosos de Pilares', 'Unidos de Padre Miguel', 'Acadêmicos de Bento Ribeiro'],
+    notes: 'Mangueira sagrou-se campeã com "Reminiscências do Rio Antigo" de Roberto Paulino e Darque Dias Moreira. Salgueiro vice-campeã com "Vida e obra do Aleijadinho". Rebaixadas: Caprichosos de Pilares, Unidos de Padre Miguel e Acadêmicos de Bento Ribeiro.',
+    standings: [
+      { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'campea' },
+      { rank: 2, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'vice' },
+      { rank: 3, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 4, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'participante' },
+      { rank: 5, schoolId: 'unidos_da_capela', schoolName: 'Unidos da Capela', status: 'participante' },
+      { rank: 6, schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas', status: 'participante' },
+      { rank: 7, schoolId: 'mocidade', schoolName: 'Mocidade Independente de Padre Miguel', status: 'participante' },
+      { rank: 8, schoolId: 'uniao_de_jacarepagua', schoolName: 'União de Jacarepaguá', status: 'participante' },
+      { rank: 9, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', status: 'rebaixada' },
+      { rank: 10, schoolId: 'unidos_padre_miguel', schoolName: 'Unidos de Padre Miguel', status: 'rebaixada' },
+      { rank: 11, schoolId: 'academicos_bento_ribeiro', schoolName: 'Acadêmicos de Bento Ribeiro', status: 'rebaixada' }
+    ]
+  },
   1962: {
     champion: 'Portela',
     runnerUp: 'Império Serrano',
