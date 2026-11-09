@@ -5107,6 +5107,33 @@ Object.entries(OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL).forEach(([schoolId, rec]) => 
 // RESULTADOS HISTÓRICOS OFICIAIS DE 1980 A 1999 (AESCRJ até 1984 / LIESA desde 1985)
 // ============================================================================
 export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
+  1957: {
+    champion: 'Portela',
+    runnerUp: 'Império Serrano',
+    third: 'Estação Primeira de Mangueira',
+    relegated: ['Unidos de Vila Isabel', 'Paraíso do Tuiuti', 'Paz e Amor'],
+    notes: 'Portela sagrou-se campeã com "Legados de D. João VI" de Djalma Vogue e Lino Manuel dos Reis. Império Serrano vice-campeã com "D. João VI ou Brasil Império". Rebaixadas para a Série Ouro: Unidos de Vila Isabel, Paraíso do Tuiuti e Paz e Amor.',
+    standings: [
+      { rank: 1, schoolId: 'portela', schoolName: 'Portela', status: 'campea' },
+      { rank: 2, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'vice' },
+      { rank: 3, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 4, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 5, schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas', status: 'participante' },
+      { rank: 6, schoolId: 'uniao_de_jacarepagua', schoolName: 'União de Jacarepaguá', status: 'participante' },
+      { rank: 7, schoolId: 'unidos_da_capela', schoolName: 'Unidos da Capela', status: 'participante' },
+      { rank: 8, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', status: 'participante' },
+      { rank: 9, schoolId: 'uniao_do_centenario', schoolName: 'União do Centenário', status: 'participante' },
+      { rank: 10, schoolId: 'beija_flor', schoolName: 'Beija-Flor de Nilópolis', status: 'participante' },
+      { rank: 11, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 12, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', status: 'participante' },
+      { rank: 13, schoolId: 'unidos_bento_ribeiro', schoolName: 'Unidos de Bento Ribeiro', status: 'participante' },
+      { rank: 14, schoolId: 'filhos_do_deserto', schoolName: 'Filhos do Deserto', status: 'participante' },
+      { rank: 15, schoolId: 'flor_do_lins', schoolName: 'Flor do Lins', status: 'participante' },
+      { rank: 16, schoolId: 'vila_isabel', schoolName: 'Unidos de Vila Isabel', status: 'rebaixada' },
+      { rank: 17, schoolId: 'tuiuti', schoolName: 'Paraíso do Tuiuti', status: 'rebaixada' },
+      { rank: 17, schoolId: 'paz_e_amor', schoolName: 'Paz e Amor', status: 'rebaixada' }
+    ]
+  },
   1958: {
     champion: 'Portela',
     runnerUp: 'Império Serrano',

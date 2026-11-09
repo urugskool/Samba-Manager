@@ -7147,6 +7147,165 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       schoolName: 'Império de Bonsucesso',
       statusDescription: 'Não desfilou'
     }
+  ],
+  1957: [
+    {
+      rank: 1,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: 'Homenagem à aviação brasileira - Santos Dumont',
+      promoted: true,
+      statusDescription: '1ª (subiu) • Campeã • Promovida ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'Ordem e Progresso',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Promovida ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'cartolinhas_de_caxias',
+      schoolName: 'Cartolinhas de Caxias',
+      enredo: 'Jóia de Nossa Poesia',
+      promoted: true,
+      statusDescription: '3ª (subiu) • 3º Lugar • Promovida ao Grupo Especial'
+    },
+    {
+      rank: 4,
+      schoolId: 'imperio_do_maranga',
+      schoolName: 'Império do Marangá',
+      enredo: 'Sucessão de Bandeiras',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'mocidade',
+      schoolName: 'Mocidade Independente de Padre Miguel',
+      enredo: 'O baile das rosas',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'uniao_do_catete',
+      schoolName: 'União do Catete',
+      enredo: 'Cultura Nacional',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'Devaneios de um pescador',
+      statusDescription: '7º Lugar (empatada)'
+    },
+    {
+      rank: 7,
+      schoolId: 'aprendizes_boca_do_mato',
+      schoolName: 'Aprendizes da Boca do Mato',
+      enredo: 'Carlos Gomes',
+      statusDescription: '7º Lugar (empatada)'
+    },
+    {
+      rank: 8,
+      schoolId: 'unidos_da_congonha',
+      schoolName: 'Unidos da Congonha',
+      enredo: 'Riquezas do Brasil',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'recreio_de_inhauma',
+      schoolName: 'Recreio de Inhaúma',
+      enredo: 'Exaltação a Rui Barbosa e Oswaldo Cruz',
+      statusDescription: '9º Lugar (empatada)'
+    },
+    {
+      rank: 9,
+      schoolId: 'unidos_de_nilopolis',
+      schoolName: 'Unidos de Nilópolis',
+      enredo: 'Homenagem a Santos Dumont',
+      statusDescription: '9º Lugar (empatada)'
+    },
+    {
+      rank: 9,
+      schoolId: 'universitaria_de_rocha_miranda',
+      schoolName: 'Universitária de Rocha Miranda',
+      enredo: 'Samba em três tempos',
+      statusDescription: '9º Lugar (empatada)'
+    },
+    {
+      rank: 10,
+      schoolId: 'unidos_do_jacare',
+      schoolName: 'Unidos do Jacaré',
+      enredo: 'Pedro I e Cabral',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'unidos_do_salgueiro',
+      schoolName: 'Unidos do Salgueiro',
+      enredo: 'Marquesa de Santos',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'uniao_vaz_lobo',
+      schoolName: 'União de Vaz Lobo',
+      enredo: 'Santos Dumont',
+      statusDescription: '12º Lugar (empatada)'
+    },
+    {
+      rank: 12,
+      schoolId: 'unidos_da_vila_sao_luis',
+      schoolName: 'Unidos da Vila São Luís',
+      enredo: 'Exaltação ao Samba',
+      statusDescription: '12º Lugar (empatada)'
+    },
+    {
+      rank: 13,
+      schoolId: 'aprendizes_da_gavea',
+      schoolName: 'Aprendizes da Gávea',
+      enredo: 'Ana Néri',
+      statusDescription: '13º Lugar'
+    },
+    {
+      rank: 14,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Festa do samba',
+      statusDescription: '14º Lugar'
+    },
+    {
+      rank: 15,
+      schoolId: 'alem_do_horizonte',
+      schoolName: 'Além do Horizonte',
+      enredo: 'Ana Néri',
+      statusDescription: '15º Lugar'
+    },
+    {
+      rank: 16,
+      schoolId: 'imperio_de_campo_grande',
+      schoolName: 'Império de Campo Grande',
+      enredo: 'Cultura Nacional',
+      statusDescription: '16º Lugar'
+    },
+    {
+      rank: 17,
+      schoolId: 'unidos_do_morro_azul',
+      schoolName: 'Unidos do Morro Azul',
+      enredo: 'Defesa do Brasil na Paz e na Guerra',
+      statusDescription: '17º Lugar'
+    },
+    {
+      rank: 18,
+      schoolId: 'capricho_do_centenario',
+      schoolName: 'Capricho do Centenário',
+      enredo: 'Homenagem a Marinha Nacional',
+      statusDescription: '18º Lugar'
+    }
   ]
 };
 
@@ -7222,7 +7381,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1961: 'Carnaval de 1961: Unidos do Cabuçu (Campeã) e Tupy de Brás de Pina (Vice-Campeã) promovidas ao Grupo Especial. Cinco agremiações foram rebaixadas para a Série Prata: Aprendizes da Boca do Mato, Paraíso do Tuiuti, União de Vaz Lobo, Unidos de Nilópolis e Cartolinhas de Caxias (não desfilou).',
   1960: 'Carnaval de 1960: Caprichosos de Pilares (Campeã) e Acadêmicos de Bento Ribeiro (Vice-Campeã) promovidas ao Grupo Especial. Seis agremiações foram rebaixadas para a Série Prata: União da Piedade, Unidos do Jacaré, Unidos do Morro Azul, Unidos da Ponte, Unidos do Salgueiro e Unidos de São Carlos (não desfilou).',
   1959: 'Carnaval de 1959: Unidos de Padre Miguel (Campeã) e Aprendizes da Boca do Mato (Vice-Campeã) promovidas ao Grupo Especial. Primeiro ano em que houve rebaixamento para a Série Prata (criada em 1960): foram rebaixadas da 12ª à 21ª colocada (incluindo Unidos de Vila Isabel e União de Vaz Lobo), além de Filhos do Deserto e Independentes do Leblon (não desfilaram).',
-  1958: 'Carnaval de 1958: Mocidade Independente de Padre Miguel (Campeã), Unidos do Salgueiro (Vice-Campeã) e Paraíso do Tuiuti (3ª colocada) promovidas ao Grupo Especial. (Não Houve Rebaixamento na Série Ouro). O Império de Bonsucesso não desfilou.'
+  1958: 'Carnaval de 1958: Mocidade Independente de Padre Miguel (Campeã), Unidos do Salgueiro (Vice-Campeã) e Paraíso do Tuiuti (3ª colocada) promovidas ao Grupo Especial. (Não Houve Rebaixamento na Série Ouro). O Império de Bonsucesso não desfilou.',
+  1957: 'Carnaval de 1957: Unidos de Bangu (Campeã), Tupy de Brás de Pina (Vice-Campeã) e Cartolinhas de Caxias (3ª colocada) promovidas ao Grupo Especial. (Não Houve Rebaixamento na Série Ouro).'
 };
 
 /**
