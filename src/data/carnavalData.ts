@@ -5107,6 +5107,34 @@ Object.entries(OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL).forEach(([schoolId, rec]) => 
 // RESULTADOS HISTÓRICOS OFICIAIS DE 1980 A 1999 (AESCRJ até 1984 / LIESA desde 1985)
 // ============================================================================
 export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
+  1956: {
+    champion: 'Império Serrano',
+    runnerUp: 'Portela',
+    third: 'Estação Primeira de Mangueira',
+    relegated: ['Unidos da Congonha', 'Unidos do Indaiá', 'Unidos do Salgueiro'],
+    notes: 'Império Serrano sagrou-se campeã com "Caçador de esmeraldas ou Sonho das esmeraldas". Portela vice-campeã com "Gigante pela própria natureza". Rebaixadas para a Série Ouro: Unidos da Congonha, Unidos do Indaiá e Unidos do Salgueiro.',
+    standings: [
+      { rank: 1, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'campea' },
+      { rank: 2, schoolId: 'portela', schoolName: 'Portela', status: 'vice' },
+      { rank: 3, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 4, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 5, schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas', status: 'participante' },
+      { rank: 6, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 7, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', status: 'participante' },
+      { rank: 8, schoolId: 'paz_e_amor', schoolName: 'Paz e Amor', status: 'participante' },
+      { rank: 9, schoolId: 'filhos_do_deserto', schoolName: 'Filhos do Deserto', status: 'participante' },
+      { rank: 10, schoolId: 'unidos_bento_ribeiro', schoolName: 'Unidos de Bento Ribeiro', status: 'participante' },
+      { rank: 11, schoolId: 'tuiuti', schoolName: 'Paraíso do Tuiuti', status: 'participante' },
+      { rank: 11, schoolId: 'unidos_da_capela', schoolName: 'Unidos da Capela', status: 'participante' },
+      { rank: 12, schoolId: 'beija_flor', schoolName: 'Beija-Flor de Nilópolis', status: 'participante' },
+      { rank: 13, schoolId: 'coracoes_unidos_jacarepagua', schoolName: 'Corações Unidos de Jacarepaguá', status: 'participante' },
+      { rank: 14, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', status: 'participante' },
+      { rank: 14, schoolId: 'vai_se_quiser', schoolName: 'Vai Se Quiser', status: 'participante' },
+      { rank: 15, schoolId: 'unidos_da_congonha', schoolName: 'Unidos da Congonha', status: 'rebaixada' },
+      { rank: 16, schoolId: 'unidos_do_indaia', schoolName: 'Unidos do Indaiá', status: 'rebaixada' },
+      { rank: 16, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', status: 'rebaixada' }
+    ]
+  },
   1957: {
     champion: 'Portela',
     runnerUp: 'Império Serrano',

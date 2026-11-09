@@ -7306,6 +7306,165 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       enredo: 'Homenagem a Marinha Nacional',
       statusDescription: '18º Lugar'
     }
+  ],
+  1956: [
+    {
+      rank: 1,
+      schoolId: 'flor_do_lins',
+      schoolName: 'Flor do Lins',
+      enredo: 'Exaltação a Princesa Isabel, a Redentora da Escravidão',
+      promoted: true,
+      statusDescription: '1ª (subiu • empatada) • Campeã • Promovida ao Grupo Especial'
+    },
+    {
+      rank: 1,
+      schoolId: 'uniao_do_centenario',
+      schoolName: 'União do Centenário',
+      enredo: 'Palheta no Brasil',
+      promoted: true,
+      statusDescription: '1ª (subiu • empatada) • Campeã • Promovida ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'vila_isabel',
+      schoolName: 'Unidos de Vila Isabel',
+      enredo: 'Três Épocas',
+      promoted: true,
+      statusDescription: '2ª (subiu) • Vice-Campeã • Promovida ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'uniao_vaz_lobo',
+      schoolName: 'União de Vaz Lobo',
+      enredo: 'General Rondon, bandeirante do século XX',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'Glória a Carlos Gomes',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Unidos de São Carlos (Estácio de Sá)',
+      enredo: 'Glória aos imortais do samba',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'cartolinhas_de_caxias',
+      schoolName: 'Cartolinhas de Caxias',
+      enredo: 'Sonho e Realidade',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Constituição de uma raça',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'imperio_de_campo_grande',
+      schoolName: 'Império de Campo Grande',
+      statusDescription: '8º Lugar (empatada)'
+    },
+    {
+      rank: 8,
+      schoolId: 'indios_do_acau',
+      schoolName: 'Índios do Acaú',
+      enredo: 'Descoberta do Brasil',
+      statusDescription: '8º Lugar (empatada)'
+    },
+    {
+      rank: 9,
+      schoolId: 'unidos_do_jacare',
+      schoolName: 'Unidos do Jacaré',
+      enredo: 'Saudação aos Jornalistas Brasileiros',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'aprendizes_boca_do_mato',
+      schoolName: 'Aprendizes da Boca do Mato',
+      enredo: 'Principais riquezas do Brasil',
+      statusDescription: '10º Lugar (empatada)'
+    },
+    {
+      rank: 10,
+      schoolId: 'recreio_de_inhauma',
+      schoolName: 'Recreio de Inhaúma',
+      enredo: 'Glória a Santos Dumont',
+      statusDescription: '10º Lugar (empatada)'
+    },
+    {
+      rank: 11,
+      schoolId: 'unidos_do_barao',
+      schoolName: 'Unidos do Barão',
+      enredo: 'Brasil e seu Progresso',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'capricho_do_centenario',
+      schoolName: 'Capricho do Centenário',
+      enredo: 'Lei Áurea',
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'imperio_de_jacarepagua',
+      schoolName: 'Império de Jacarepaguá',
+      enredo: 'Indígenas do Brasil',
+      statusDescription: '13º Lugar'
+    },
+    {
+      rank: 14,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes do Leblon (Independentes de Cordovil)',
+      enredo: 'Urbanização das Favelas',
+      statusDescription: '14º Lugar (empatada)'
+    },
+    {
+      rank: 14,
+      schoolId: 'uniao_do_catete',
+      schoolName: 'União do Catete',
+      enredo: 'Três Páginas da História',
+      statusDescription: '14º Lugar (empatada)'
+    },
+    {
+      rank: 15,
+      schoolId: 'alem_do_horizonte',
+      schoolName: 'Além do Horizonte',
+      enredo: 'Os Três Imortais',
+      statusDescription: '15º Lugar (empatada)'
+    },
+    {
+      rank: 15,
+      schoolId: 'recreio_de_rocha_miranda',
+      schoolName: 'Recreio de Rocha Miranda',
+      enredo: 'Esperança do Brasil',
+      statusDescription: '15º Lugar (empatada)'
+    },
+    {
+      rank: 0,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'Benfeitores da cidade em 1902',
+      isHorsConcours: true,
+      statusDescription: 'Hors concours'
+    },
+    {
+      rank: 0,
+      schoolId: 'unidos_de_nilopolis',
+      schoolName: 'Unidos de Nilópolis',
+      isHorsConcours: true,
+      statusDescription: 'Hors concours'
+    }
   ]
 };
 
@@ -7382,7 +7541,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1960: 'Carnaval de 1960: Caprichosos de Pilares (Campeã) e Acadêmicos de Bento Ribeiro (Vice-Campeã) promovidas ao Grupo Especial. Seis agremiações foram rebaixadas para a Série Prata: União da Piedade, Unidos do Jacaré, Unidos do Morro Azul, Unidos da Ponte, Unidos do Salgueiro e Unidos de São Carlos (não desfilou).',
   1959: 'Carnaval de 1959: Unidos de Padre Miguel (Campeã) e Aprendizes da Boca do Mato (Vice-Campeã) promovidas ao Grupo Especial. Primeiro ano em que houve rebaixamento para a Série Prata (criada em 1960): foram rebaixadas da 12ª à 21ª colocada (incluindo Unidos de Vila Isabel e União de Vaz Lobo), além de Filhos do Deserto e Independentes do Leblon (não desfilaram).',
   1958: 'Carnaval de 1958: Mocidade Independente de Padre Miguel (Campeã), Unidos do Salgueiro (Vice-Campeã) e Paraíso do Tuiuti (3ª colocada) promovidas ao Grupo Especial. (Não Houve Rebaixamento na Série Ouro). O Império de Bonsucesso não desfilou.',
-  1957: 'Carnaval de 1957: Unidos de Bangu (Campeã), Tupy de Brás de Pina (Vice-Campeã) e Cartolinhas de Caxias (3ª colocada) promovidas ao Grupo Especial. (Não Houve Rebaixamento na Série Ouro).'
+  1957: 'Carnaval de 1957: Unidos de Bangu (Campeã), Tupy de Brás de Pina (Vice-Campeã) e Cartolinhas de Caxias (3ª colocada) promovidas ao Grupo Especial. (Não Houve Rebaixamento na Série Ouro).',
+  1956: 'Carnaval de 1956: Flor do Lins e União do Centenário (Campeãs empatadas) e Unidos de Vila Isabel (Vice-Campeã) promovidas ao Grupo Especial. (Não Houve Rebaixamento na Série Ouro). Tupy de Brás de Pina e Unidos de Nilópolis desfilaram como Hors concours.'
 };
 
 /**

@@ -137,6 +137,9 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('canários') || name.includes('canarios') || clean.includes('canarios')) return 'canarios_laranjeiras';
   if (name.includes('campinho') || clean.includes('campinho')) return 'unidos_do_campinho';
   if (name.includes('tupy') || name.includes('bras de pina') || name.includes('brás de pina')) return 'tupy_bras_de_pina';
+  if (name.includes('unidos do barão') || name.includes('unidos do barao') || clean.includes('unidos_do_barao')) return 'unidos_do_barao';
+  if (name.includes('império de jacarepaguá') || name.includes('imperio de jacarepagua') || name.includes('império da jacarepaguá') || name.includes('imperio da jacarepagua') || clean.includes('imperio_de_jacarepagua')) return 'imperio_de_jacarepagua';
+  if (name.includes('recreio de rocha miranda') || clean.includes('recreio_de_rocha_miranda')) return 'recreio_de_rocha_miranda';
 
   return clean || name.replace(/\s+/g, '_');
 }

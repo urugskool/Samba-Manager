@@ -2642,6 +2642,7 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('arranco')) return 'arranco';
   if (nameNorm.includes('unidos do jacaré') || nameNorm.includes('unidos do jacare')) return 'unidos_do_jacare';
   if (nameNorm.includes('jacarezinho')) return 'jacarezinho';
+  if (nameNorm.includes('império de jacarepaguá') || nameNorm.includes('imperio de jacarepagua') || nameNorm.includes('império da jacarepaguá') || nameNorm.includes('imperio da jacarepagua')) return 'imperio_de_jacarepagua';
   if (nameNorm.includes('jacarepaguá') || nameNorm.includes('jacarepagua')) return 'uniao_de_jacarepagua';
   if (nameNorm.includes('capela')) return 'unidos_da_capela';
   if (nameNorm.includes('boca do mato')) return 'aprendizes_boca_do_mato';
@@ -2723,6 +2724,7 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('império do samba') || nameNorm.includes('imperio do samba')) return 'imperio_do_samba';
   if (nameNorm.includes('sem você vivo bem') || nameNorm.includes('sem voce vivo bem')) return 'sem_voce_vivo_bem';
   if (nameNorm.includes('lagoa')) return 'unidos_da_lagoa';
+  if (nameNorm.includes('unidos do barão') || nameNorm.includes('unidos do barao')) return 'unidos_do_barao';
   if (nameNorm.includes('barão de petrópolis') || nameNorm.includes('barao de petropolis') || nameNorm.includes('petrópolis') || nameNorm.includes('petropolis')) return 'unidos_da_barao_de_petropolis';
   if (nameNorm.includes('topázios') || nameNorm.includes('topazios')) return 'uniao_dos_topazios';
   if (nameNorm.includes('de nós ninguém esquece') || nameNorm.includes('de nos ninguem esquece') || nameNorm.includes('ninguém esquece') || nameNorm.includes('ninguem esquece')) return 'de_nos_ninguem_esquece';
@@ -2759,6 +2761,7 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('barão da gamboa') || nameNorm.includes('barao da gamboa') || nameNorm.includes('gamboa')) return 'uniao_barao_da_gamboa';
   if (nameNorm.includes('última hora') || nameNorm.includes('ultima hora')) return 'ultima_hora';
   if (nameNorm.includes('união de madureira') || nameNorm.includes('uniao de madureira')) return 'uniao_de_madureira';
+  if (nameNorm.includes('recreio de rocha miranda')) return 'recreio_de_rocha_miranda';
   if (nameNorm.includes('rocha miranda')) return 'unidos_de_rocha_miranda';
   if (nameNorm.includes('rainha das pretas')) return 'rainha_das_pretas';
   if (nameNorm.includes('entre nós') || nameNorm.includes('entre nos')) return 'uniao_entre_nos';

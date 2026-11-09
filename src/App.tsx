@@ -245,7 +245,10 @@ const INITIAL_INACTIVE_SCHOOL_IDS = new Set([
   'sport_club_guarany',
   'escola_tuiuti',
   'segunda_linha_do_estacio',
-  'unidos_da_vila_sao_luis'
+  'unidos_da_vila_sao_luis',
+  'unidos_do_barao',
+  'imperio_de_jacarepagua',
+  'recreio_de_rocha_miranda'
 ]);
 
 function sanitizeSchoolsData(loadedSchools: School[], activeUserSchoolId?: string | null): School[] {

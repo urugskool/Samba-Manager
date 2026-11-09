@@ -3777,25 +3777,63 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     capricho_do_centenario: 'Homenagem a Marinha Nacional'
   },
   1956: {
-    imperio_serrano: 'O Caçador de Esmeraldas',
-    portela: 'O Tesouro Descoberto por Colombo',
-    mangueira: 'Exaltação a Getúlio Vargas',
-    salgueiro: 'As Minas Gerais',
-    aprendizes_de_lucas: 'Homenagem à Marinha',
-    tijuca: 'A Epopéia dos Bandeirantes',
-    cabucu: 'A Lenda da Princesa Encantada',
-    paz_e_amor: 'Paz, Amor e Carnaval',
-    filhos_do_deserto: 'Lendas e Tradições Indígenas',
-    unidos_bento_ribeiro: 'Vultos Históricos',
-    tuiuti: 'O Circo',
-    unidos_da_capela: 'Homenagem ao Centenário de Santos Dumont',
-    beija_flor: 'O Caçador de Esmeraldas',
-    coracoes_unidos_jacarepagua: 'Brasil Tropical',
-    caprichosos_de_pilares: 'Homenagem aos Heróis da Pátria',
+    // Grupo Especial 1956
+    imperio_serrano: 'Caçador de esmeraldas ou Sonho das esmeraldas',
+    portela: 'Gigante pela própria natureza',
+    mangueira: 'Exaltação a Getúlio Vargas - Emancipação Nacional Brasil',
+    estacao_primeira_de_mangueira: 'Exaltação a Getúlio Vargas - Emancipação Nacional Brasil',
+    salgueiro: 'Brasil, fonte das artes ou A riqueza das artes no Brasil',
+    academicos_do_salgueiro: 'Brasil, fonte das artes ou A riqueza das artes no Brasil',
+    aprendizes_de_lucas: 'Paisagens do Sul',
+    tijuca: 'Inferno verde',
+    unidos_da_tijuca: 'Inferno verde',
+    cabucu: 'O primeiro centenário do Corpo de Bombeiros',
+    unidos_do_cabucu: 'O primeiro centenário do Corpo de Bombeiros',
+    paz_e_amor: 'O Sonho do Caçador de Esmeraldas',
+    filhos_do_deserto: 'Exaltação a Catulo, Luar do Sertão',
+    unidos_bento_ribeiro: 'Exaltação à Princesa Isabel',
+    unidos_de_bento_ribeiro: 'Exaltação à Princesa Isabel',
+    tuiuti: 'O circo, a grande parada',
+    paraiso_do_tuiuti: 'O circo, a grande parada',
+    unidos_da_capela: 'Frases que Simbolizaram uma Pátria',
+    beija_flor: 'O gaúcho',
+    beija_flor_de_nilopolis: 'O gaúcho',
+    coracoes_unidos_jacarepagua: 'Descoberta do Brasil',
+    caprichosos_de_pilares: 'Exaltação à justiça brasileira',
+    caprichosos: 'Exaltação à justiça brasileira',
     vai_se_quiser: 'Quem Quiser Que Venha Ver',
-    unidos_da_congonha: 'História do Rio Antigo',
+    unidos_da_congonha: 'A corte de D. João VI',
+    congonha: 'A corte de D. João VI',
     unidos_do_indaia: 'Homenagem ao Amazonas',
-    unidos_do_salgueiro: 'Noite de São João'
+    unidos_do_salgueiro: 'Meu Brasil',
+
+    // Série Ouro 1956
+    flor_do_lins: 'Exaltação a Princesa Isabel, a Redentora da Escravidão',
+    uniao_do_centenario: 'Palheta no Brasil',
+    vila_isabel: 'Três Épocas',
+    unidos_de_vila_isabel: 'Três Épocas',
+    uniao_vaz_lobo: 'General Rondon, bandeirante do século XX',
+    engenho_da_rainha: 'Glória a Carlos Gomes',
+    academicos_do_engenho_da_rainha: 'Glória a Carlos Gomes',
+    estacio_de_sa: 'Glória aos imortais do samba',
+    unidos_de_sao_carlos: 'Glória aos imortais do samba',
+    cartolinhas_de_caxias: 'Sonho e Realidade',
+    imperio_da_tijuca: 'Constituição de uma raça',
+    indios_do_acau: 'Descoberta do Brasil',
+    unidos_do_jacare: 'Saudação aos Jornalistas Brasileiros',
+    jacare: 'Saudação aos Jornalistas Brasileiros',
+    aprendizes_boca_do_mato: 'Principais riquezas do Brasil',
+    aprendizes_da_boca_do_mato: 'Principais riquezas do Brasil',
+    recreio_de_inhauma: 'Glória a Santos Dumont',
+    unidos_do_barao: 'Brasil e seu Progresso',
+    capricho_do_centenario: 'Lei Áurea',
+    imperio_de_jacarepagua: 'Indígenas do Brasil',
+    independentes_cordovil: 'Urbanização das Favelas',
+    independentes_do_leblon: 'Urbanização das Favelas',
+    uniao_do_catete: 'Três Páginas da História',
+    alem_do_horizonte: 'Os Três Imortais',
+    recreio_de_rocha_miranda: 'Esperança do Brasil',
+    tupy_bras_de_pina: 'Benfeitores da cidade em 1902'
   },
   1955: {
     imperio_serrano: 'Exaltação a Caxias',
@@ -4489,6 +4527,10 @@ function normalizeId(rawId?: string, rawName?: string): string {
     }
     if (id === 'folioes_de_botafogo' || id.includes('folioes')) return 'folioes_de_botafogo';
     if (id === 'botafogo_samba_clube' || id.includes('botafogo_samba_clube')) return 'botafogo_samba_clube';
+    if (id === 'imperio_de_jacarepagua' || id.includes('imperio_de_jacarepagua') || id.includes('imperio_da_jacarepagua')) return 'imperio_de_jacarepagua';
+    if (id === 'coracoes_unidos_jacarepagua' || id.includes('coracoes_unidos_jacarepagua')) return 'coracoes_unidos_jacarepagua';
+    if (id === 'independente_de_jacarepagua' || id.includes('independente_de_jacarepagua')) return 'independente_de_jacarepagua';
+    if (id === 'uniao_de_jacarepagua' || id.includes('uniao_de_jacarepagua')) return 'uniao_de_jacarepagua';
     if (id === 'independentes_do_zumbi' || id.includes('zumbi')) return 'independentes_do_zumbi';
     if (id === 'unidos_da_vila_sao_luis' || id.includes('vila_sao_luis')) return 'unidos_da_vila_sao_luis';
     if (id.includes('unidos_da_mangueira')) return 'unidos_da_mangueira';
@@ -4603,6 +4645,10 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('união de brás de pina') || n.includes('uniao de bras de pina')) return 'uniao_de_bras_de_pina';
   if (n.includes('tupy') || n.includes('brás de pina') || n.includes('bras de pina')) return 'tupy_bras_de_pina';
   if (n.includes('império de campo grande') || n.includes('imperio de campo grande')) return 'imperio_de_campo_grande';
+  if (n.includes('império de jacarepaguá') || n.includes('imperio de jacarepagua') || n.includes('império da jacarepaguá') || n.includes('imperio da jacarepagua')) return 'imperio_de_jacarepagua';
+  if (n.includes('corações unidos') || n.includes('coracoes unidos')) return 'coracoes_unidos_jacarepagua';
+  if (n.includes('independente de jacarepaguá') || n.includes('independente de jacarepagua')) return 'independente_de_jacarepagua';
+  if (n.includes('união de jacarepaguá') || n.includes('uniao de jacarepagua')) return 'uniao_de_jacarepagua';
   if (n.includes('cavalcante')) return 'unidos_de_cavalcante';
   if (n.includes('cachambi')) return 'mocidade_de_cachambi';
   if (n.includes('inimigos da tristeza') || n.includes('tristeza')) return 'inimigos_da_tristeza';
@@ -4677,6 +4723,37 @@ export function getHistoricalEnredo(
 ): string | undefined {
   const key = normalizeId(schoolId, schoolName);
   const canonKey = normalizeCanonicalSchoolId(schoolId, schoolName);
+
+  // Isolamento estrito: Império de Jacarepaguá é uma escola diferente da União de Jacarepaguá
+  const isImperioDeJacarepaguaTarget =
+    key === 'imperio_de_jacarepagua' ||
+    schoolId === 'imperio_de_jacarepagua' ||
+    canonKey === 'imperio_de_jacarepagua' ||
+    (schoolName &&
+      (schoolName.toLowerCase().includes('império de jacarepaguá') ||
+        schoolName.toLowerCase().includes('imperio de jacarepagua') ||
+        schoolName.toLowerCase().includes('império da jacarepaguá') ||
+        schoolName.toLowerCase().includes('imperio da jacarepagua')));
+
+  if (isImperioDeJacarepaguaTarget) {
+    const yrRecs = HISTORICAL_ENREDOS_BY_YEAR[year];
+    if (yrRecs) {
+      const enredo = yrRecs['imperio_de_jacarepagua'] || yrRecs['imperio_da_jacarepagua'];
+      if (enredo) return enredo;
+    }
+    if (inGameHistory && inGameHistory.length > 0) {
+      const histYear = inGameHistory.find((h) => h.year === year);
+      if (histYear?.schoolEnredos) {
+        const match = histYear.schoolEnredos['imperio_de_jacarepagua'] || histYear.schoolEnredos['imperio_da_jacarepagua'];
+        if (match) return match;
+      }
+    }
+    if (schoolObj?.enredoHistory && schoolObj.enredoHistory.length > 0) {
+      const match = schoolObj.enredoHistory.find((h) => h.year === year);
+      if (match?.enredo) return match.enredo;
+    }
+    return undefined;
+  }
 
   // 1. Para todos os carnavais oficiais já catalogados (1932 a 2026),
   // o Catálogo Oficial Canônico é soberano e autoritativo em 100% dos locais
@@ -4854,6 +4931,59 @@ export function getSchoolHistoricalEnredosList(
     });
 
     return folioesEnredos;
+  }
+
+  // Império de Jacarepaguá (fundada na década de 1950, inativa): agremiação histórica independente e sem vínculo com a União de Jacarepaguá.
+  // Seu histórico catalogado compreende estritamente suas próprias participações oficiais (ex: 1956: "Indígenas do Brasil"),
+  // garantindo de forma absoluta que NUNCA herde ou exiba os enredos da União de Jacarepaguá.
+  const isImperioDeJacarepagua =
+    key === 'imperio_de_jacarepagua' ||
+    schoolId === 'imperio_de_jacarepagua' ||
+    canonKey === 'imperio_de_jacarepagua' ||
+    (schoolName &&
+      (schoolName.toLowerCase().includes('império de jacarepaguá') ||
+        schoolName.toLowerCase().includes('imperio de jacarepagua') ||
+        schoolName.toLowerCase().includes('império da jacarepaguá') ||
+        schoolName.toLowerCase().includes('imperio da jacarepagua')));
+
+  if (isImperioDeJacarepagua) {
+    const imperioJacarepaguaEnredos: { year: number; enredo: string }[] = [];
+    const years = Object.keys(HISTORICAL_ENREDOS_BY_YEAR)
+      .map(Number)
+      .sort((a, b) => b - a);
+
+    years.forEach((yr) => {
+      const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[yr];
+      if (yearRecords) {
+        const enredo =
+          yearRecords['imperio_de_jacarepagua'] ||
+          yearRecords['imperio_da_jacarepagua'];
+        if (enredo) {
+          imperioJacarepaguaEnredos.push({ year: yr, enredo });
+        }
+      }
+    });
+
+    if (inGameHistory && inGameHistory.length > 0) {
+      inGameHistory.forEach((h) => {
+        if (h.schoolEnredos && (h.schoolEnredos['imperio_de_jacarepagua'] || h.schoolEnredos['imperio_da_jacarepagua'])) {
+          const match = h.schoolEnredos['imperio_de_jacarepagua'] || h.schoolEnredos['imperio_da_jacarepagua'];
+          if (match && !imperioJacarepaguaEnredos.some((e) => e.year === h.year)) {
+            imperioJacarepaguaEnredos.push({ year: h.year, enredo: match });
+          }
+        }
+      });
+    }
+
+    if (schoolObj?.enredoHistory && schoolObj.enredoHistory.length > 0) {
+      schoolObj.enredoHistory.forEach((item) => {
+        if (item.year && item.enredo && !imperioJacarepaguaEnredos.some((e) => e.year === item.year)) {
+          imperioJacarepaguaEnredos.push({ year: item.year, enredo: item.enredo });
+        }
+      });
+    }
+
+    return imperioJacarepaguaEnredos.sort((a, b) => b.year - a.year);
   }
 
   const enredosMap = new Map<number, string>();

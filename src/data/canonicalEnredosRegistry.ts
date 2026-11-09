@@ -305,8 +305,20 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('olaria')) return 'independentes_olaria';
   if (raw.includes('arrastão') || raw.includes('arrastao')) return 'arrastao_cascadura';
   if (raw.includes('alegria da zona sul') || raw.includes('alegria_da_zona_sul')) return 'alegria_da_zona_sul';
-  if (raw.includes('renascer') && !raw.includes('nova iguaçu') && !raw.includes('nova iguacu') && !raw.includes('vaz lobo')) return 'renascer_jacarepagua';
-  if (raw.includes('união de jacarepaguá') || raw.includes('uniao de jacarepagua') || raw.includes('jacarepaguá') || raw.includes('jacarepagua')) return 'uniao_de_jacarepagua';
+  if (
+    raw.includes('império de jacarepaguá') ||
+    raw.includes('imperio de jacarepagua') ||
+    raw.includes('império da jacarepaguá') ||
+    raw.includes('imperio da jacarepagua') ||
+    raw.includes('imperio_de_jacarepagua') ||
+    raw.includes('imperio_da_jacarepagua')
+  ) {
+    return 'imperio_de_jacarepagua';
+  }
+  if (raw.includes('coracoes unidos') || raw.includes('corações unidos')) return 'coracoes_unidos_jacarepagua';
+  if (raw.includes('independente de jacarepagua') || raw.includes('independente de jacarepaguá')) return 'independente_de_jacarepagua';
+  if (raw.includes('coroado')) return 'coroado_jacarepagua';
+  if (raw.includes('união de jacarepaguá') || raw.includes('uniao de jacarepagua') || raw === 'jacarepagua' || raw === 'jacarepaguá' || raw === 'uniao_jacarepagua' || raw === 'uniao_de_jacarepagua') return 'uniao_de_jacarepagua';
   if (raw.includes('cordovil') || raw.includes('leblon')) return 'independentes_cordovil';
   if (raw.includes('cabuçu') || raw.includes('cabucu')) return 'cabucu';
   if (raw.includes('tupy') || raw.includes('bras de pina') || raw.includes('brás de pina')) return 'tupy_bras_de_pina';
