@@ -2762,6 +2762,7 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('última hora') || nameNorm.includes('ultima hora')) return 'ultima_hora';
   if (nameNorm.includes('união de madureira') || nameNorm.includes('uniao de madureira')) return 'uniao_de_madureira';
   if (nameNorm.includes('recreio de rocha miranda')) return 'recreio_de_rocha_miranda';
+  if (nameNorm.includes('independentes da serra') || nameNorm.includes('independente da serra')) return 'independentes_da_serra';
   if (nameNorm.includes('rocha miranda')) return 'unidos_de_rocha_miranda';
   if (nameNorm.includes('rainha das pretas')) return 'rainha_das_pretas';
   if (nameNorm.includes('entre nós') || nameNorm.includes('entre nos')) return 'uniao_entre_nos';

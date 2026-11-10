@@ -248,7 +248,8 @@ const INITIAL_INACTIVE_SCHOOL_IDS = new Set([
   'unidos_da_vila_sao_luis',
   'unidos_do_barao',
   'imperio_de_jacarepagua',
-  'recreio_de_rocha_miranda'
+  'recreio_de_rocha_miranda',
+  'independentes_da_serra'
 ]);
 
 function sanitizeSchoolsData(loadedSchools: School[], activeUserSchoolId?: string | null): School[] {

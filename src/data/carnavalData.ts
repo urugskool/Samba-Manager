@@ -5107,6 +5107,35 @@ Object.entries(OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL).forEach(([schoolId, rec]) => 
 // RESULTADOS HISTÓRICOS OFICIAIS DE 1980 A 1999 (AESCRJ até 1984 / LIESA desde 1985)
 // ============================================================================
 export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
+  1955: {
+    champion: 'Império Serrano',
+    runnerUp: 'Estação Primeira de Mangueira',
+    third: 'Portela',
+    relegated: ['indios_do_acau', 'imperio_da_tijuca', 'uniao_do_catete'],
+    notes: 'Império Serrano sagrou-se campeã com "Exaltação a Caxias". Mangueira vice-campeã com "As quatro estações do ano ou Cânticos à natureza". Rebaixadas para a Série Ouro: Índios do Acaú, Império da Tijuca e União do Catete. A Floresta do Andaraí não se apresentou.',
+    standings: [
+      { rank: 1, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'campea' },
+      { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'vice' },
+      { rank: 3, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 4, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 5, schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas', status: 'participante' },
+      { rank: 6, schoolId: 'beija_flor', schoolName: 'Beija-Flor de Nilópolis', status: 'participante' },
+      { rank: 7, schoolId: 'vai_se_quiser', schoolName: 'Vai Se Quiser', status: 'participante' },
+      { rank: 8, schoolId: 'unidos_da_congonha', schoolName: 'Unidos da Congonha', status: 'participante' },
+      { rank: 9, schoolId: 'filhos_do_deserto', schoolName: 'Filhos do Deserto', status: 'participante' },
+      { rank: 10, schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', status: 'participante' },
+      { rank: 10, schoolId: 'tuiuti', schoolName: 'Paraíso do Tuiuti', status: 'participante' },
+      { rank: 11, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 12, schoolId: 'unidos_do_indaia', schoolName: 'Unidos do Indaiá', status: 'participante' },
+      { rank: 13, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', status: 'participante' },
+      { rank: 14, schoolId: 'unidos_da_capela', schoolName: 'Unidos da Capela', status: 'participante' },
+      { rank: 15, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', status: 'participante' },
+      { rank: 16, schoolId: 'indios_do_acau', schoolName: 'Índios do Acaú', status: 'rebaixada' },
+      { rank: 17, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', status: 'rebaixada' },
+      { rank: 18, schoolId: 'uniao_do_catete', schoolName: 'União do Catete', status: 'rebaixada' },
+      { rank: 0, schoolId: 'floresta_do_andarai', schoolName: 'Floresta do Andaraí', status: 'participante' }
+    ]
+  },
   1956: {
     champion: 'Império Serrano',
     runnerUp: 'Portela',

@@ -7465,6 +7465,138 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       isHorsConcours: true,
       statusDescription: 'Hors concours'
     }
+  ],
+  1955: [
+    {
+      rank: 1,
+      schoolId: 'coracoes_unidos_jacarepagua',
+      schoolName: 'Corações Unidos de Jacarepaguá',
+      enredo: 'Primavera',
+      promoted: true,
+      statusDescription: 'Campeã (empatada) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 1,
+      schoolId: 'paz_e_amor',
+      schoolName: 'Paz e Amor',
+      enredo: 'O Guarani',
+      promoted: true,
+      statusDescription: 'Campeã (empatada) • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'unidos_bento_ribeiro',
+      schoolName: 'Unidos de Bento Ribeiro',
+      enredo: 'Batalha de Guararapes',
+      promoted: true,
+      statusDescription: 'Vice-Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'flor_do_lins',
+      schoolName: 'Flor do Lins',
+      enredo: 'Cultura do Café',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'uniao_vaz_lobo',
+      schoolName: 'União de Vaz Lobo',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'uniao_do_centenario',
+      schoolName: 'União do Centenário',
+      enredo: 'Brasil Desperta',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'aprendizes_boca_do_mato',
+      schoolName: 'Aprendizes da Boca do Mato',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'imperio_do_maranga',
+      schoolName: 'Unidos do Marangá',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'capricho_do_centenario',
+      schoolName: 'Capricho do Centenário',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'recreio_de_inhauma',
+      schoolName: 'Recreio de Inhaúma',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'vila_isabel',
+      schoolName: 'Unidos de Vila Isabel',
+      enredo: 'Obras da Natureza',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'imperio_de_jacarepagua',
+      schoolName: 'Império de Jacarepaguá',
+      statusDescription: '12º Lugar (empatada)'
+    },
+    {
+      rank: 12,
+      schoolId: 'unidos_do_jacare',
+      schoolName: 'Unidos do Jacaré',
+      statusDescription: '12º Lugar (empatada)'
+    },
+    {
+      rank: 13,
+      schoolId: 'cada_ano_sai_melhor',
+      schoolName: 'Cada Ano Sai Melhor',
+      enredo: 'Viva a Marinha',
+      statusDescription: '13º Lugar'
+    },
+    {
+      rank: 14,
+      schoolId: 'independentes_da_serra',
+      schoolName: 'Independentes da Serra',
+      statusDescription: '14º Lugar (empatada)'
+    },
+    {
+      rank: 14,
+      schoolId: 'unidos_do_morro_azul',
+      schoolName: 'Unidos do Morro Azul',
+      statusDescription: '14º Lugar (empatada)'
+    },
+    {
+      rank: 15,
+      schoolId: 'paraiso_das_morenas',
+      schoolName: 'Paraíso das Morenas',
+      statusDescription: '15º Lugar'
+    },
+    {
+      rank: 16,
+      schoolId: 'recreio_de_rocha_miranda',
+      schoolName: 'Recreio de Rocha Miranda',
+      statusDescription: '16º Lugar'
+    },
+    {
+      rank: 17,
+      schoolId: 'unidos_dos_arcos',
+      schoolName: 'Unidos dos Arcos',
+      statusDescription: '17º Lugar'
+    }
   ]
 };
 
@@ -7542,7 +7674,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1959: 'Carnaval de 1959: Unidos de Padre Miguel (Campeã) e Aprendizes da Boca do Mato (Vice-Campeã) promovidas ao Grupo Especial. Primeiro ano em que houve rebaixamento para a Série Prata (criada em 1960): foram rebaixadas da 12ª à 21ª colocada (incluindo Unidos de Vila Isabel e União de Vaz Lobo), além de Filhos do Deserto e Independentes do Leblon (não desfilaram).',
   1958: 'Carnaval de 1958: Mocidade Independente de Padre Miguel (Campeã), Unidos do Salgueiro (Vice-Campeã) e Paraíso do Tuiuti (3ª colocada) promovidas ao Grupo Especial. (Não Houve Rebaixamento na Série Ouro). O Império de Bonsucesso não desfilou.',
   1957: 'Carnaval de 1957: Unidos de Bangu (Campeã), Tupy de Brás de Pina (Vice-Campeã) e Cartolinhas de Caxias (3ª colocada) promovidas ao Grupo Especial. (Não Houve Rebaixamento na Série Ouro).',
-  1956: 'Carnaval de 1956: Flor do Lins e União do Centenário (Campeãs empatadas) e Unidos de Vila Isabel (Vice-Campeã) promovidas ao Grupo Especial. (Não Houve Rebaixamento na Série Ouro). Tupy de Brás de Pina e Unidos de Nilópolis desfilaram como Hors concours.'
+  1956: 'Carnaval de 1956: Flor do Lins e União do Centenário (Campeãs empatadas) e Unidos de Vila Isabel (Vice-Campeã) promovidas ao Grupo Especial. (Não Houve Rebaixamento na Série Ouro). Tupy de Brás de Pina e Unidos de Nilópolis desfilaram como Hors concours.',
+  1955: 'Carnaval de 1955: Corações Unidos de Jacarepaguá e Paz e Amor (Campeãs empatadas) e Unidos de Bento Ribeiro (Vice-Campeã) promovidas ao Grupo Especial. (Não Houve Rebaixamento na Série Ouro).'
 };
 
 /**
