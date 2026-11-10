@@ -250,7 +250,10 @@ const INITIAL_INACTIVE_SCHOOL_IDS = new Set([
   'imperio_de_jacarepagua',
   'recreio_de_rocha_miranda',
   'independentes_da_serra',
-  'unidos_do_leme'
+  'unidos_do_leme',
+  'verde_e_amarelo',
+  'recreio_da_mocidade',
+  'imperio_do_grotao'
 ]);
 
 function sanitizeSchoolsData(loadedSchools: School[], activeUserSchoolId?: string | null): School[] {

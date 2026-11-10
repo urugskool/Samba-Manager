@@ -144,6 +144,11 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('recreio de rocha miranda') || clean.includes('recreio_de_rocha_miranda')) return 'recreio_de_rocha_miranda';
   if (name.includes('independentes da serra') || name.includes('independente da serra') || clean.includes('independentes_da_serra')) return 'independentes_da_serra';
   if (name.includes('leme') || clean.includes('leme')) return 'unidos_do_leme';
+  if (name.includes('verde e amarelo') || clean.includes('verde_e_amarelo')) return 'verde_e_amarelo';
+  if (name.includes('recreio da mocidade') || clean.includes('recreio_da_mocidade')) return 'recreio_da_mocidade';
+  if (name.includes('imperio do grotao') || name.includes('império do grotão') || clean.includes('imperio_do_grotao')) return 'imperio_do_grotao';
+  if (name.includes('paraiso do grotao') || name.includes('paraíso do grotão') || clean.includes('paraiso_do_grotao')) return 'paraiso_do_grotao';
+  if (name.includes('grotão') || name.includes('grotao') || clean.includes('grotao')) return 'paraiso_do_grotao';
 
   return clean || name.replace(/\s+/g, '_');
 }

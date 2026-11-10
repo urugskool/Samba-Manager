@@ -1286,6 +1286,24 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     bronzeYears: [],
     bronzeRunnerUpYears: []
   },
+  imperio_do_grotao: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    especialYears: [],
+    especialRunnerUpYears: [],
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    ouroYears: [],
+    ouroRunnerUpYears: [],
+    championshipsPrata: 0,
+    prataYears: [],
+    runnerUpsPrata: 0,
+    prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
+  },
   mocidade_de_um_paraiso: {
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
@@ -5107,6 +5125,41 @@ Object.entries(OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL).forEach(([schoolId, rec]) => 
 // RESULTADOS HISTÓRICOS OFICIAIS DE 1980 A 1999 (AESCRJ até 1984 / LIESA desde 1985)
 // ============================================================================
 export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
+  1953: {
+    champion: 'Portela',
+    runnerUp: 'Império Serrano',
+    third: 'Estação Primeira de Mangueira',
+    relegated: ['vai_se_quiser', 'cada_ano_sai_melhor', 'aventureiros_da_matriz', 'azul_e_branco_salgueiro'],
+    notes: 'Portela sagrou-se campeã com "Seis Datas Magnas". Império Serrano vice-campeã com "O último baile da corte imperial". Primeiro ano com rebaixamento na história do Carnaval: quatro agremiações foram rebaixadas para o Grupo 2 (Série Ouro): Vai Se Quiser, Cada Ano Sai Melhor, Aventureiros da Matriz e Azul e Branco do Salgueiro. Império da Tijuca, Combinado do Amor, Corações Unidos de Jacarepaguá, Flor do Lins e Independentes do Leblon (Cordovil) desfilaram sem julgamento.',
+    standings: [
+      { rank: 1, schoolId: 'portela', schoolName: 'Portela', status: 'campea' },
+      { rank: 2, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'vice' },
+      { rank: 3, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 4, schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas', status: 'participante' },
+      { rank: 5, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 6, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', status: 'participante' },
+      { rank: 7, schoolId: 'filhos_do_deserto', schoolName: 'Filhos do Deserto', status: 'participante' },
+      { rank: 8, schoolId: 'unidos_da_capela', schoolName: 'Unidos da Capela', status: 'participante' },
+      { rank: 9, schoolId: 'tres_mosqueteiros', schoolName: 'Três Mosqueteiros', status: 'participante' },
+      { rank: 10, schoolId: 'paz_e_amor', schoolName: 'Paz e Amor', status: 'participante' },
+      { rank: 11, schoolId: 'floresta_do_andarai', schoolName: 'Floresta do Andaraí', status: 'participante' },
+      { rank: 12, schoolId: 'unidos_da_tamarineira', schoolName: 'Unidos da Tamarineira', status: 'participante' },
+      { rank: 13, schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo', status: 'participante' },
+      { rank: 14, schoolId: 'unidos_do_indaia', schoolName: 'Unidos do Indaiá', status: 'participante' },
+      { rank: 15, schoolId: 'uniao_do_catete', schoolName: 'União do Catete', status: 'participante' },
+      { rank: 16, schoolId: 'indios_do_acau', schoolName: 'Índios do Acaú', status: 'participante' },
+      { rank: 17, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', status: 'participante' },
+      { rank: 18, schoolId: 'vai_se_quiser', schoolName: 'Vai Se Quiser', status: 'rebaixada' },
+      { rank: 19, schoolId: 'cada_ano_sai_melhor', schoolName: 'Cada Ano Sai Melhor', status: 'rebaixada' },
+      { rank: 20, schoolId: 'aventureiros_da_matriz', schoolName: 'Aventureiros da Matriz', status: 'rebaixada' },
+      { rank: 21, schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro', status: 'rebaixada' },
+      { rank: 0, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', status: 'participante' },
+      { rank: 0, schoolId: 'combinado_do_amor', schoolName: 'Combinado do Amor', status: 'participante' },
+      { rank: 0, schoolId: 'coracoes_unidos_jacarepagua', schoolName: 'Corações Unidos de Jacarepaguá', status: 'participante' },
+      { rank: 0, schoolId: 'flor_do_lins', schoolName: 'Flor do Lins', status: 'participante' },
+      { rank: 0, schoolId: 'independentes_cordovil', schoolName: 'Independentes do Leblon (Independentes de Cordovil)', status: 'participante' }
+    ]
+  },
   1954: {
     champion: 'Estação Primeira de Mangueira',
     runnerUp: 'Império Serrano',
