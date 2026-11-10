@@ -2621,6 +2621,8 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('mocidade de cachambi') || nameNorm.includes('cachambi')) return 'mocidade_de_cachambi';
   if (nameNorm.includes('união da mocidade') || nameNorm.includes('uniao da mocidade')) return 'uniao_da_mocidade';
   if (nameNorm.includes('modelo unidos do riachuelo') || nameNorm.includes('mocidade unidos do riachuelo')) return 'mocidade_unidos_do_riachuelo';
+  if (nameNorm.includes('recreio da mocidade') || nameNorm.includes('recreio_da_mocidade')) return 'recreio_da_mocidade';
+  if (nameNorm.includes('unidos da mocidade') || nameNorm.includes('unidos_da_mocidade')) return 'unidos_da_mocidade';
   if (nameNorm.includes('cidade de deus')) return 'mocidade_cidade_de_deus';
   if (nameNorm.includes('mocidade') && !nameNorm.includes('cidade de deus') && !nameNorm.includes('porto') && !nameNorm.includes('vicente')) return 'mocidade';
   if (nameNorm.includes('niterói') || nameNorm.includes('niteroi')) return 'niteroi';
@@ -3699,7 +3701,7 @@ export function computeEspecialParticipationsList(
   // 1. Processa todos os anos catalogados oficiais dos Carnavais Passados (1932 a 2026)
   Object.entries(OFFICIAL_LIESA_HISTORICAL_STANDINGS).forEach(([yrStr, standings]) => {
     const yr = Number(yrStr);
-    if (yr === 2021 || yr === 1952 || !standings || standings.length === 0) return;
+    if (yr === 2021 || !standings || standings.length === 0) return;
 
     standings.forEach((st) => {
       const item = getOrCreate(st.schoolId, st.schoolName);

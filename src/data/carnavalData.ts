@@ -1304,6 +1304,24 @@ export const HISTORICAL_CARNAVAL_RECORDS: Record<string, SchoolHistoryRecord> = 
     bronzeYears: [],
     bronzeRunnerUpYears: []
   },
+  unidos_da_mocidade: {
+    championshipsEspecial: 0,
+    runnerUpsEspecial: 0,
+    especialYears: [],
+    especialRunnerUpYears: [],
+    championshipsOuro: 0,
+    runnerUpsOuro: 0,
+    ouroYears: [],
+    ouroRunnerUpYears: [],
+    championshipsPrata: 0,
+    prataYears: [],
+    runnerUpsPrata: 0,
+    prataRunnerUpYears: [],
+    championshipsBronze: 0,
+    runnerUpsBronze: 0,
+    bronzeYears: [],
+    bronzeRunnerUpYears: []
+  },
   mocidade_de_um_paraiso: {
     championshipsEspecial: 0,
     runnerUpsEspecial: 0,
@@ -5125,6 +5143,40 @@ Object.entries(OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL).forEach(([schoolId, rec]) => 
 // RESULTADOS HISTÓRICOS OFICIAIS DE 1980 A 1999 (AESCRJ até 1984 / LIESA desde 1985)
 // ============================================================================
 export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
+  1952: {
+    champion: 'Não houve apuração',
+    runnerUp: 'Não houve apuração',
+    third: 'Não houve apuração',
+    relegated: [],
+    notes: 'Carnaval Histórico de 1952: Não houve apuração oficial das notas em virtude do temporal e das fortes chuvas ocorridas durante os desfiles. Vinte e cinco agremiações participaram do evento oficial, todas sem classificação ou atribuição de notas (não havendo declaração de campeã nem rebaixamento no Grupo Especial).',
+    standings: [
+      { rank: 0, schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas', status: 'participante' },
+      { rank: 0, schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro', status: 'participante' },
+      { rank: 0, schoolId: 'combinado_do_amor', schoolName: 'Combinado do Amor', status: 'participante' },
+      { rank: 0, schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo', status: 'participante' },
+      { rank: 0, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 0, schoolId: 'filhos_do_deserto', schoolName: 'Filhos do Deserto', status: 'participante' },
+      { rank: 0, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', status: 'participante' },
+      { rank: 0, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'participante' },
+      { rank: 0, schoolId: 'independentes_cordovil', schoolName: 'Independentes do Leblon (Independentes de Cordovil)', status: 'participante' },
+      { rank: 0, schoolId: 'paz_e_amor', schoolName: 'Paz e Amor', status: 'participante' },
+      { rank: 0, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 0, schoolId: 'tres_mosqueteiros', schoolName: 'Três Mosqueteiros', status: 'participante' },
+      { rank: 0, schoolId: 'uniao_vaz_lobo', schoolName: 'União de Vaz Lobo', status: 'participante' },
+      { rank: 0, schoolId: 'unidos_da_capela', schoolName: 'Unidos da Capela', status: 'participante' },
+      { rank: 0, schoolId: 'unidos_da_tamarineira', schoolName: 'Unidos da Tamarineira', status: 'participante' },
+      { rank: 0, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 0, schoolId: 'unidos_do_catete', schoolName: 'Unidos do Catete', status: 'participante' },
+      { rank: 0, schoolId: 'unidos_do_grajau', schoolName: 'Unidos do Grajaú', status: 'participante' },
+      { rank: 0, schoolId: 'unidos_do_pecado', schoolName: 'Unidos do Pecado', status: 'participante' },
+      { rank: 0, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', status: 'participante' },
+      { rank: 0, schoolId: 'vai_se_quiser', schoolName: 'Vai Se Quiser', status: 'participante' },
+      { rank: 0, schoolId: 'aventureiros_da_matriz', schoolName: 'Aventureiros da Matriz', status: 'participante' },
+      { rank: 0, schoolId: 'coracoes_unidos_jacarepagua', schoolName: 'Corações Unidos de Jacarepaguá', status: 'participante' },
+      { rank: 0, schoolId: 'floresta_do_andarai', schoolName: 'Floresta do Andaraí', status: 'participante' },
+      { rank: 0, schoolId: 'indios_do_acau', schoolName: 'Índios do Acaú', status: 'participante' }
+    ]
+  },
   1953: {
     champion: 'Portela',
     runnerUp: 'Império Serrano',

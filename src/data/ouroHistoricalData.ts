@@ -7884,6 +7884,187 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       statusDescription: 'Sem classificação oficial',
       isHorsConcours: true
     }
+  ],
+  1952: [
+    {
+      rank: 1,
+      schoolId: 'unidos_do_indaia',
+      schoolName: 'Unidos do Indaiá',
+      enredo: 'Regresso da primavera',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 2,
+      schoolId: 'cada_ano_sai_melhor',
+      schoolName: 'Cada Ano Sai Melhor',
+      enredo: 'O samba nasceu no morro',
+      promoted: true,
+      statusDescription: 'Vice-campeã • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 3,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Encouraçado São Paulo',
+      promoted: true,
+      statusDescription: '3º Lugar • Subiu ao Grupo Especial'
+    },
+    {
+      rank: 4,
+      schoolId: 'unidos_da_piedade',
+      schoolName: 'Unidos da Piedade',
+      enredo: 'Impressa e seus Progressos',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'flor_do_lins',
+      schoolName: 'Flor do Lins',
+      enredo: 'Grito do Ipiranga',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'imperio_do_maranga',
+      schoolName: 'Unidos do Marangá',
+      enredo: 'Isto acima de tudo',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'Homenagem a Benjamin Constant',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'independentes_do_rio',
+      schoolName: 'Independentes do Rio',
+      enredo: 'Santos Dumont',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'coracoes_unidos_da_favela',
+      schoolName: 'Corações Unidos da Favela',
+      enredo: 'Escola de Samba',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'imperio_de_campo_grande',
+      schoolName: 'Império de Campo Grande',
+      enredo: 'Riquezas do Brasil',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'em_cima_da_hora_catumbi',
+      schoolName: 'Em Cima da Hora do Catumbi',
+      statusDescription: '11º Lugar (empatada)'
+    },
+    {
+      rank: 11,
+      schoolId: 'unidos_da_congonha',
+      schoolName: 'Unidos da Congonha',
+      enredo: 'Paraíso das Flores',
+      statusDescription: '11º Lugar (empatada)'
+    },
+    {
+      rank: 12,
+      schoolId: 'unidos_do_barao',
+      schoolName: 'Unidos do Barão',
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'fiquei_firme',
+      schoolName: 'Fiquei Firme',
+      enredo: 'Recordações de um passado',
+      statusDescription: '13º Lugar'
+    },
+    {
+      rank: 14,
+      schoolId: 'independentes_de_turiacu',
+      schoolName: 'Independentes de Turiaçu',
+      enredo: 'Exaltação a Música Popular Brasileira',
+      statusDescription: '14º Lugar'
+    },
+    {
+      rank: 15,
+      schoolId: 'vila_isabel',
+      schoolName: 'Unidos de Vila Isabel',
+      enredo: 'Homenagem a Saldanha da Gama',
+      statusDescription: '15º Lugar'
+    },
+    {
+      rank: 16,
+      schoolId: 'unidos_da_mocidade',
+      schoolName: 'Unidos da Mocidade',
+      enredo: 'Uma homenagem à imprensa',
+      statusDescription: '16º Lugar'
+    },
+    {
+      rank: 17,
+      schoolId: 'cartolinhas_de_caxias',
+      schoolName: 'Cartolinhas de Caxias',
+      statusDescription: '17º Lugar'
+    },
+    {
+      rank: 18,
+      schoolId: 'imperio_do_grotao',
+      schoolName: 'Império do Grotão',
+      enredo: 'A bandeira',
+      statusDescription: '18º Lugar'
+    },
+    {
+      rank: 19,
+      schoolId: 'recreio_de_sao_carlos',
+      schoolName: 'Recreio de São Carlos',
+      enredo: 'Bailado da Colombina',
+      statusDescription: '19º Lugar (empatada)'
+    },
+    {
+      rank: 19,
+      schoolId: 'unidos_do_jacare',
+      schoolName: 'Unidos do Jacaré',
+      statusDescription: '19º Lugar (empatada)'
+    },
+    {
+      rank: 20,
+      schoolId: 'recreio_de_inhauma',
+      schoolName: 'Recreio de Inhaúma',
+      statusDescription: '20º Lugar'
+    },
+    {
+      rank: 22,
+      schoolId: 'paraiso_da_floresta',
+      schoolName: 'Paraíso da Floresta',
+      enredo: 'Melodias brasileiras',
+      statusDescription: '22º Lugar'
+    },
+    {
+      rank: 23,
+      schoolId: 'unidos_do_outeiro',
+      schoolName: 'Unidos do Outeiro',
+      enredo: 'Musa sertaneja',
+      statusDescription: '23º Lugar'
+    },
+    {
+      rank: 24,
+      schoolId: 'unidos_do_morro_azul',
+      schoolName: 'Unidos do Morro Azul',
+      statusDescription: '24º Lugar'
+    },
+    {
+      rank: 25,
+      schoolId: 'unidos_dos_arcos',
+      schoolName: 'Unidos dos Arcos',
+      enredo: 'Glórias imortais',
+      statusDescription: '25º Lugar'
+    }
   ]
 };
 
@@ -7964,7 +8145,8 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   1956: 'Carnaval de 1956: Flor do Lins e União do Centenário (Campeãs empatadas) e Unidos de Vila Isabel (Vice-Campeã) promovidas ao Grupo Especial. (Não Houve Rebaixamento na Série Ouro). Tupy de Brás de Pina e Unidos de Nilópolis desfilaram como Hors concours.',
   1955: 'Carnaval de 1955: Corações Unidos de Jacarepaguá e Paz e Amor (Campeãs empatadas) e Unidos de Bento Ribeiro (Vice-Campeã) promovidas ao Grupo Especial. (Não Houve Rebaixamento na Série Ouro).',
   1954: 'Carnaval de 1954: Beija-Flor de Nilópolis (Campeã), Caprichosos de Pilares (Vice-Campeã) e Unidos da Congonha (3ª colocada) promovidas ao Grupo Especial. (Não Houve Rebaixamento na Série Ouro).',
-  1953: 'Carnaval de 1953: Acadêmicos do Engenho da Rainha (Campeã), Independentes do Rio (Vice-Campeã) e Paraíso das Baianas (3ª colocada) promovidas ao Grupo Especial. (Não Houve Rebaixamento na Série Ouro). Quatro agremiações desfilaram sem classificação oficial: Capricho do Centenário, Império do Grotão, Recreio da Mocidade e Unidos do Marangá.'
+  1953: 'Carnaval de 1953: Acadêmicos do Engenho da Rainha (Campeã), Independentes do Rio (Vice-Campeã) e Paraíso das Baianas (3ª colocada) promovidas ao Grupo Especial. (Não Houve Rebaixamento na Série Ouro). Quatro agremiações desfilaram sem classificação oficial: Capricho do Centenário, Império do Grotão, Recreio da Mocidade e Unidos do Marangá.',
+  1952: 'Carnaval de 1952: Primeiro ano de disputa da Série Ouro (Grupo 2). Unidos do Indaiá (Campeã), Cada Ano Sai Melhor (Vice-Campeã) e Unidos do Cabuçu (3ª colocada) promovidas ao Grupo Especial. (Não Houve Rebaixamento na Série Ouro).'
 };
 
 /**

@@ -146,6 +146,7 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('leme') || clean.includes('leme')) return 'unidos_do_leme';
   if (name.includes('verde e amarelo') || clean.includes('verde_e_amarelo')) return 'verde_e_amarelo';
   if (name.includes('recreio da mocidade') || clean.includes('recreio_da_mocidade')) return 'recreio_da_mocidade';
+  if (name.includes('unidos da mocidade') || clean.includes('unidos_da_mocidade')) return 'unidos_da_mocidade';
   if (name.includes('imperio do grotao') || name.includes('império do grotão') || clean.includes('imperio_do_grotao')) return 'imperio_do_grotao';
   if (name.includes('paraiso do grotao') || name.includes('paraíso do grotão') || clean.includes('paraiso_do_grotao')) return 'paraiso_do_grotao';
   if (name.includes('grotão') || name.includes('grotao') || clean.includes('grotao')) return 'paraiso_do_grotao';
@@ -196,7 +197,7 @@ export function computeDivisionParticipationsList(
     // Processa todos os anos catalogados oficiais (1932 a 2026)
     Object.entries(OFFICIAL_LIESA_HISTORICAL_STANDINGS).forEach(([yrStr, standings]) => {
       const yr = Number(yrStr);
-      if (yr === 2021 || yr === 1952 || !standings || standings.length === 0) return;
+      if (yr === 2021 || !standings || standings.length === 0) return;
 
       standings.forEach((st) => {
         const item = getOrCreate(st.schoolId, st.schoolName);
