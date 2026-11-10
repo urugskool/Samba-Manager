@@ -82,6 +82,8 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
     return 'grande_rio_duque_de_caxias';
   }
   if (name.includes('grande rio')) return 'grande_rio';
+  if (name.includes('unidos do tuiuti') || clean.includes('unidos_do_tuiuti')) return 'unidos_do_tuiuti';
+  if (name.includes('escola tuiuti') || name.includes('escola de samba tuiuti') || clean === 'escola_tuiuti') return 'escola_tuiuti';
   if (name.includes('tuiuti')) return 'tuiuti';
   if (name.includes('cidade de deus') || clean.includes('cidade_de_deus')) return 'mocidade_cidade_de_deus';
   if (name.includes('mocidade') && !name.includes('santa marta')) return 'mocidade';
@@ -141,6 +143,7 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('império de jacarepaguá') || name.includes('imperio de jacarepagua') || name.includes('império da jacarepaguá') || name.includes('imperio da jacarepagua') || clean.includes('imperio_de_jacarepagua')) return 'imperio_de_jacarepagua';
   if (name.includes('recreio de rocha miranda') || clean.includes('recreio_de_rocha_miranda')) return 'recreio_de_rocha_miranda';
   if (name.includes('independentes da serra') || name.includes('independente da serra') || clean.includes('independentes_da_serra')) return 'independentes_da_serra';
+  if (name.includes('leme') || clean.includes('leme')) return 'unidos_do_leme';
 
   return clean || name.replace(/\s+/g, '_');
 }

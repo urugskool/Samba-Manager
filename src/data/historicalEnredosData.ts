@@ -3877,31 +3877,50 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     cada_ano_sai_melhor: 'Viva a Marinha'
   },
   1954: {
-    mangueira: 'O Novo Continente',
-    imperio_serrano: 'O Guarda da Marinha Real',
-    salgueiro: 'Uma Romaria à Bahia',
-    portela: 'São Paulo Quatrocentão (Homenagem ao IV Centenário de São Paulo)',
-    aprendizes_de_lucas: 'Três Páginas da História do Brasil',
-    filhos_do_deserto: 'Homenagem às Forças Armadas',
-    unidos_do_salgueiro: 'Exaltação à Marinha Nacional',
-    indios_do_acau: 'A Dança dos Guerreiros Indígenas',
-    cabucu: 'Glória ao Grande Santos Dumont',
-    uniao_do_catete: 'O Rio através dos Tempos',
-    paraiso_das_baianas: 'Exaltação às Baianas Tradicionais',
-    tijuca: 'Três Vultos Históricos',
-    unidos_da_capela: 'Apoteose ao Samba e às Suas Tradições',
-    vai_se_quiser: 'O Carnaval Carioca',
-    unidos_do_grajau: 'A Epopéia dos Bandeirantes',
-    floresta_do_andarai: 'Tradições da Guanabara',
-    unidos_do_indaia: 'O Descobrimento das Minas de Ouro',
-    imperio_da_tijuca: 'Homenagem a Gonçalves Dias',
-    engenho_da_rainha: 'A Mineração no Brasil Colonial',
-    aventureiros_da_matriz: 'Homenagem à Cidade Maravilhosa',
-    paz_e_amor: 'Bandeirantes e Pioneiros',
-    unidos_da_tamarineira: 'Exaltação ao Folclore Nacional',
-    independentes_do_rio: 'Achegas da História do Brasil',
-    independentes_cordovil: 'O Esplendor da Natureza',
-    uniao_vaz_lobo: 'Vultos Ilustres da Pátria'
+    // Grupo Especial
+    mangueira: 'Rio antigo e moderno',
+    imperio_serrano: 'O Guarani de Carlos Gomes',
+    salgueiro: 'Uma romaria na Bahia',
+    academicos_do_salgueiro: 'Uma romaria na Bahia',
+    portela: 'São Paulo quatrocentão (O despertar do gigante)',
+    aprendizes_de_lucas: 'Exaltação a São Paulo',
+    filhos_do_deserto: 'Brasil primaveril - Floricultura',
+    unidos_do_salgueiro: 'Exaltação aos vultos militares do Brasil',
+    indios_do_acau: 'Guarani de Carlos Gomes',
+    cabucu: 'Relíquias do Rio Antigo',
+    unidos_do_cabucu: 'Relíquias do Rio Antigo',
+    uniao_do_catete: 'Motivos históricos do Brasil',
+    paraiso_das_baianas: 'Do Terço Velho ao Sampaio da FEB',
+    tijuca: '400 anos de lutas e glórias - Homenagem ao 4º Centenário de São Paulo',
+    unidos_da_tijuca: '400 anos de lutas e glórias - Homenagem ao 4º Centenário de São Paulo',
+    unidos_da_capela: 'Brasil antigo e Brasil moderno',
+    vai_se_quiser: 'Glória a Santos Dumont',
+    unidos_do_grajau: 'Glória ao Passado, Homenagem aos Cronistas',
+    floresta_do_andarai: 'Primavera Outra Vez',
+    unidos_do_indaia: 'Brasil colônia',
+    imperio_da_tijuca: 'Como o samba nasceu',
+    engenho_da_rainha: 'Gigante pela própria natureza',
+    academicos_do_engenho_da_rainha: 'Gigante pela própria natureza',
+    aventureiros_da_matriz: 'Homenagem às Forças Armadas',
+    paz_e_amor: 'Honra a três vultos da História - Caxias, Tamandaré e Santos Dumont',
+    unidos_da_tamarineira: 'Coroação de Pedro II',
+    independentes_do_rio: 'Descoberta do Brasil',
+    independentes_cordovil: 'Ordem e Progresso',
+    independentes_do_leblon: 'Ordem e Progresso',
+    uniao_vaz_lobo: 'Descoberta do rio Amazonas',
+    uniao_de_vaz_lobo: 'Descoberta do rio Amazonas',
+    // Série Ouro
+    beija_flor: 'O caçador de esmeraldas',
+    beija_flor_de_nilopolis: 'O caçador de esmeraldas',
+    caprichosos_de_pilares: 'Maria Quitéria',
+    caprichosos: 'Maria Quitéria',
+    imperio_de_jacarepagua: 'Honra ao mérito',
+    uniao_do_centenario: 'Siderurgia Nacional',
+    unidos_bento_ribeiro: 'Homenagem a Tamandaré',
+    unidos_de_bento_ribeiro: 'Homenagem a Tamandaré',
+    bento_ribeiro: 'Homenagem a Tamandaré',
+    independentes_da_serra: 'Homenagem aos esportes brasileiros',
+    recreio_de_rocha_miranda: 'Algodão - Homenagem ao 4º Centenário de São Paulo'
   },
   1953: {
     portela: 'Seis Datas Magnas',
@@ -4259,7 +4278,6 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     tijuca: 'Festa Tradicional',
     unidos_do_salgueiro: 'Vida no Morro',
     unidos_do_tuiuti: 'Tradições do Tuiuti',
-    tuiuti: 'Tradições do Tuiuti',
     vai_se_quiser: 'Vozes da Colina'
   },
   1942: {
@@ -4775,6 +4793,42 @@ export function getHistoricalEnredo(
     return undefined;
   }
 
+  // Isolamento estrito: Unidos do Tuiuti (fundada em 1940, azul e branco, inativa) é distinta da Paraíso do Tuiuti (fundada em 1954, azul e amarelo)
+  const isUnidosDoTuiutiTarget =
+    key === 'unidos_do_tuiuti' ||
+    schoolId === 'unidos_do_tuiuti' ||
+    canonKey === 'unidos_do_tuiuti' ||
+    (schoolName && schoolName.toLowerCase().includes('unidos do tuiuti'));
+
+  if (isUnidosDoTuiutiTarget) {
+    const yrRecs = HISTORICAL_ENREDOS_BY_YEAR[year];
+    if (yrRecs) {
+      const enredo = yrRecs['unidos_do_tuiuti'];
+      if (enredo) return enredo;
+    }
+    if (inGameHistory && inGameHistory.length > 0) {
+      const histYear = inGameHistory.find((h) => h.year === year);
+      if (histYear?.schoolEnredos) {
+        const match = histYear.schoolEnredos['unidos_do_tuiuti'];
+        if (match) return match;
+      }
+    }
+    if (schoolObj?.enredoHistory && schoolObj.enredoHistory.length > 0) {
+      const match = schoolObj.enredoHistory.find((h) => h.year === year);
+      if (match?.enredo) return match.enredo;
+    }
+    return undefined;
+  }
+
+  // Paraíso do Tuiuti só desfilou a partir de 1954/1955 e nunca herda enredos da Unidos do Tuiuti
+  const isParaisoDoTuiutiTarget =
+    (key === 'tuiuti' || key === 'paraiso_do_tuiuti' || schoolId === 'tuiuti' || schoolId === 'paraiso_do_tuiuti' || canonKey === 'tuiuti') &&
+    !isUnidosDoTuiutiTarget;
+
+  if (isParaisoDoTuiutiTarget && year < 1954) {
+    return undefined;
+  }
+
   // 1. Para todos os carnavais oficiais já catalogados (1932 a 2026),
   // o Catálogo Oficial Canônico é soberano e autoritativo em 100% dos locais
   if (year <= 2026) {
@@ -5006,11 +5060,65 @@ export function getSchoolHistoricalEnredosList(
     return imperioJacarepaguaEnredos.sort((a, b) => b.year - a.year);
   }
 
+  // Unidos do Tuiuti (fundada em 1940, azul e branco, inativa): agremiação histórica independente e sem vínculo com a Paraíso do Tuiuti (fundada em 1954).
+  // Seu histórico catalogado compreende estritamente suas próprias participações oficiais históricas (ex: 1941, 1942, 1945, 1946, 1947, 1948, 1954),
+  // garantindo de forma absoluta que NUNCA herde ou exiba os enredos da Paraíso do Tuiuti.
+  const isUnidosDoTuiuti =
+    key === 'unidos_do_tuiuti' ||
+    schoolId === 'unidos_do_tuiuti' ||
+    canonKey === 'unidos_do_tuiuti' ||
+    (schoolName && schoolName.toLowerCase().includes('unidos do tuiuti'));
+
+  if (isUnidosDoTuiuti) {
+    const unidosTuiutiEnredos: { year: number; enredo: string }[] = [];
+    const years = Object.keys(HISTORICAL_ENREDOS_BY_YEAR)
+      .map(Number)
+      .sort((a, b) => b - a);
+
+    years.forEach((yr) => {
+      const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[yr];
+      if (yearRecords) {
+        const enredo = yearRecords['unidos_do_tuiuti'];
+        if (enredo) {
+          unidosTuiutiEnredos.push({ year: yr, enredo });
+        }
+      }
+    });
+
+    if (inGameHistory && inGameHistory.length > 0) {
+      inGameHistory.forEach((h) => {
+        if (h.schoolEnredos && h.schoolEnredos['unidos_do_tuiuti']) {
+          const match = h.schoolEnredos['unidos_do_tuiuti'];
+          if (match && !unidosTuiutiEnredos.some((e) => e.year === h.year)) {
+            unidosTuiutiEnredos.push({ year: h.year, enredo: match });
+          }
+        }
+      });
+    }
+
+    if (schoolObj?.enredoHistory && schoolObj.enredoHistory.length > 0) {
+      schoolObj.enredoHistory.forEach((item) => {
+        if (item.year && item.enredo && !unidosTuiutiEnredos.some((e) => e.year === item.year)) {
+          unidosTuiutiEnredos.push({ year: item.year, enredo: item.enredo });
+        }
+      });
+    }
+
+    return unidosTuiutiEnredos.sort((a, b) => b.year - a.year);
+  }
+
+  const isParaisoDoTuiuti =
+    (key === 'tuiuti' || key === 'paraiso_do_tuiuti' || schoolId === 'tuiuti' || schoolId === 'paraiso_do_tuiuti' || canonKey === 'tuiuti') &&
+    !isUnidosDoTuiuti;
+
   const enredosMap = new Map<number, string>();
 
   // 1. Catálogo histórico oficial (1932 a 2026)
   const years = Object.keys(HISTORICAL_ENREDOS_BY_YEAR).map(Number).sort((a, b) => b - a);
   years.forEach((yr) => {
+    if (isParaisoDoTuiuti && yr < 1954) {
+      return;
+    }
     let enredo = HISTORICAL_ENREDOS_BY_YEAR[yr]?.[key];
     if (!enredo && canonKey) {
       enredo = HISTORICAL_ENREDOS_BY_YEAR[yr]?.[canonKey];

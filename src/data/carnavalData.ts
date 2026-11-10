@@ -5107,6 +5107,42 @@ Object.entries(OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL).forEach(([schoolId, rec]) => 
 // RESULTADOS HISTÓRICOS OFICIAIS DE 1980 A 1999 (AESCRJ até 1984 / LIESA desde 1985)
 // ============================================================================
 export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
+  1954: {
+    champion: 'Estação Primeira de Mangueira',
+    runnerUp: 'Império Serrano',
+    third: 'Acadêmicos do Salgueiro',
+    relegated: ['engenho_da_rainha', 'aventureiros_da_matriz', 'paz_e_amor', 'unidos_da_tamarineira', 'independentes_do_rio', 'independentes_cordovil', 'uniao_vaz_lobo'],
+    notes: 'Mangueira sagrou-se campeã com "Rio antigo e moderno". Império Serrano vice-campeã com "O Guarani de Carlos Gomes". Sete agremiações foram rebaixadas para o Grupo 2 (Série Ouro): Acadêmicos do Engenho da Rainha, Aventureiros da Matriz, Paz e Amor, Unidos da Tamarineira, Independentes do Rio, Independentes do Leblon (Cordovil) e União de Vaz Lobo. Cada Ano Sai Melhor e Corações Unidos de Jacarepaguá desfilaram sem julgamento.',
+    standings: [
+      { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'campea' },
+      { rank: 2, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'vice' },
+      { rank: 3, schoolId: 'salgueiro', schoolName: 'Acadêmicos do Salgueiro', status: 'participante' },
+      { rank: 4, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 5, schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas', status: 'participante' },
+      { rank: 6, schoolId: 'filhos_do_deserto', schoolName: 'Filhos do Deserto', status: 'participante' },
+      { rank: 7, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', status: 'participante' },
+      { rank: 8, schoolId: 'indios_do_acau', schoolName: 'Índios do Acaú', status: 'participante' },
+      { rank: 9, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', status: 'participante' },
+      { rank: 10, schoolId: 'uniao_do_catete', schoolName: 'União do Catete', status: 'participante' },
+      { rank: 11, schoolId: 'paraiso_das_baianas', schoolName: 'Paraíso das Baianas', status: 'participante' },
+      { rank: 11, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 12, schoolId: 'unidos_da_capela', schoolName: 'Unidos da Capela', status: 'participante' },
+      { rank: 13, schoolId: 'vai_se_quiser', schoolName: 'Vai Se Quiser', status: 'participante' },
+      { rank: 14, schoolId: 'unidos_do_grajau', schoolName: 'Unidos do Grajaú', status: 'participante' },
+      { rank: 15, schoolId: 'floresta_do_andarai', schoolName: 'Floresta do Andaraí', status: 'participante' },
+      { rank: 15, schoolId: 'unidos_do_indaia', schoolName: 'Unidos do Indaiá', status: 'participante' },
+      { rank: 16, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', status: 'participante' },
+      { rank: 17, schoolId: 'engenho_da_rainha', schoolName: 'Acadêmicos do Engenho da Rainha', status: 'rebaixada' },
+      { rank: 18, schoolId: 'aventureiros_da_matriz', schoolName: 'Aventureiros da Matriz', status: 'rebaixada' },
+      { rank: 19, schoolId: 'paz_e_amor', schoolName: 'Paz e Amor', status: 'rebaixada' },
+      { rank: 19, schoolId: 'unidos_da_tamarineira', schoolName: 'Unidos da Tamarineira', status: 'rebaixada' },
+      { rank: 20, schoolId: 'independentes_do_rio', schoolName: 'Independentes do Rio', status: 'rebaixada' },
+      { rank: 21, schoolId: 'independentes_cordovil', schoolName: 'Independentes do Leblon (Independentes de Cordovil)', status: 'rebaixada' },
+      { rank: 21, schoolId: 'uniao_vaz_lobo', schoolName: 'União de Vaz Lobo', status: 'rebaixada' },
+      { rank: 0, schoolId: 'cada_ano_sai_melhor', schoolName: 'Cada Ano Sai Melhor', status: 'participante' },
+      { rank: 0, schoolId: 'coracoes_unidos_jacarepagua', schoolName: 'Corações Unidos de Jacarepaguá', status: 'participante' }
+    ]
+  },
   1955: {
     champion: 'Império Serrano',
     runnerUp: 'Estação Primeira de Mangueira',

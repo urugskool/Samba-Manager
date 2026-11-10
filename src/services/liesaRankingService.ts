@@ -1318,7 +1318,9 @@ export const OFFICIAL_LIESA_HISTORICAL_STANDINGS: Record<number, LiesaStandingRe
     { rank: 19, schoolId: 'unidos_da_tamarineira', schoolName: 'Unidos da Tamarineira', statusDescription: '19º Lugar (0 pts • Rebaixada)' },
     { rank: 20, schoolId: 'independentes_do_rio', schoolName: 'Independentes do Rio', statusDescription: '20º Lugar (0 pts • Rebaixada)' },
     { rank: 21, schoolId: 'independentes_cordovil', schoolName: 'Independentes do Leblon (Independentes de Cordovil)', statusDescription: '21º Lugar (0 pts • Rebaixada)' },
-    { rank: 21, schoolId: 'uniao_vaz_lobo', schoolName: 'União de Vaz Lobo', statusDescription: '21º Lugar (0 pts • Rebaixada)' }
+    { rank: 21, schoolId: 'uniao_vaz_lobo', schoolName: 'União de Vaz Lobo', statusDescription: '21º Lugar (0 pts • Rebaixada)' },
+    { rank: 0, schoolId: 'cada_ano_sai_melhor', schoolName: 'Cada Ano Sai Melhor', statusDescription: 'Desfilou sem julgamento', isHorsConcours: true },
+    { rank: 0, schoolId: 'coracoes_unidos_jacarepagua', schoolName: 'Corações Unidos de Jacarepaguá', statusDescription: 'Desfilou sem julgamento', isHorsConcours: true }
   ],
   1955: [
     { rank: 1, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', statusDescription: 'Campeã Oficial (+20 pts)' },
@@ -2763,6 +2765,7 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('união de madureira') || nameNorm.includes('uniao de madureira')) return 'uniao_de_madureira';
   if (nameNorm.includes('recreio de rocha miranda')) return 'recreio_de_rocha_miranda';
   if (nameNorm.includes('independentes da serra') || nameNorm.includes('independente da serra')) return 'independentes_da_serra';
+  if (nameNorm.includes('unidos do leme') || nameNorm.includes('do leme') || nameNorm.includes('unidos_do_leme') || nameNorm === 'leme') return 'unidos_do_leme';
   if (nameNorm.includes('rocha miranda')) return 'unidos_de_rocha_miranda';
   if (nameNorm.includes('rainha das pretas')) return 'rainha_das_pretas';
   if (nameNorm.includes('entre nós') || nameNorm.includes('entre nos')) return 'uniao_entre_nos';
