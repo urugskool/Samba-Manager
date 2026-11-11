@@ -5197,6 +5197,17 @@ Object.entries(OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL).forEach(([schoolId, rec]) => 
 // RESULTADOS HISTÓRICOS OFICIAIS DE 1980 A 1999 (AESCRJ até 1984 / LIESA desde 1985)
 // ============================================================================
 export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
+  1945: {
+    champion: 'Portela',
+    runnerUp: 'Estação Primeira de Mangueira',
+    third: 'Não oficializado',
+    relegated: [],
+    notes: 'Carnaval Histórico de 1945: Oito agremiações desfilaram no Carnaval Carioca. A Portela sagrou-se pentacampeã consecutiva (+20 pts) cantando "Motivos patrióticos", e a Estação Primeira de Mangueira foi vice-campeã (+15 pts) com "A nossa história". Apenas campeã e vice foram oficializadas pelo júri.',
+    standings: [
+      { rank: 1, schoolId: 'portela', schoolName: 'Portela', status: 'campea' },
+      { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'vice' }
+    ]
+  },
   1946: {
     champion: 'Portela',
     runnerUp: 'Estação Primeira de Mangueira',

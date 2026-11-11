@@ -4321,8 +4321,8 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     mocidade_louca_sao_cristovao: 'Alvorada de Paz'
   },
   1945: {
-    portela: 'Motivos Patrióticos (Brasil Terra de Amor)',
-    mangueira: 'A Glória do Samba (Homenagem aos Pracinhas)'
+    portela: 'Motivos patrióticos',
+    mangueira: 'A nossa história'
   },
   1944: {
     portela: 'Motivos Patrióticos',
