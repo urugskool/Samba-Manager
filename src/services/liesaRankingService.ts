@@ -590,7 +590,7 @@ export const CARNAVAL_1947_OFICIAL: LiesaStandingRecord[] = [
   { rank: 13, schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', league: 'FBES', statusDescription: '13º Lugar (0 pts)' },
   { rank: 14, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', league: 'FBES', statusDescription: '14º Lugar (0 pts)' },
   { rank: 15, schoolId: 'recreio_de_inhauma', schoolName: 'Recreio de Inhaúma', league: 'FBES', statusDescription: '15º Lugar (0 pts)' },
-  { rank: 16, schoolId: 'unidos_do_catete', schoolName: 'Unidos do Catete (Catete Velho)', league: 'FBES', statusDescription: '16º Lugar (0 pts)' },
+  { rank: 16, schoolId: 'unidos_do_catete', schoolName: 'Unidos do Catete', league: 'FBES', statusDescription: '16º Lugar (0 pts)' },
   { rank: 17, schoolId: 'recreio_de_sao_carlos', schoolName: 'Recreio de São Carlos', league: 'FBES', statusDescription: '17º Lugar (0 pts)' },
   { rank: 18, schoolId: 'paraiso_do_grotao', schoolName: 'Paraíso do Grotão', league: 'FBES', statusDescription: '18º Lugar (0 pts)' },
   { rank: 19, schoolId: 'escalao_de_tupa', schoolName: 'Escalão de Tupã', league: 'FBES', statusDescription: '19º Lugar (0 pts)' },
@@ -3066,7 +3066,7 @@ export function getHistoricalCarnavalsList(inGameHistory: YearHistory[] = []): H
     } else if (yr === 1947) {
       notes = 'Carnaval Histórico de 1947: Desfile oficial unificado das Escolas de Samba com 26 agremiações participantes. A Portela sagrou-se campeã (+20 pts) e a Estação Primeira de Mangueira foi vice-campeã (+15 pts). Depois Eu Digo ficou com a 3ª colocação (+12 pts), Paz e Amor em 4º (+10 pts), Azul e Branco do Salgueiro em 5º (+8 pts), e Lira do Amor empatada com Prazer da Serrinha em 6º (+6 pts cada). Não houve rebaixamento.';
     } else if (yr === 1946) {
-      notes = 'Carnaval Histórico de 1946: Desfile oficial unificado das Escolas de Samba com 19 agremiações participantes. A Portela sagrou-se campeã (+20 pts) com "Aljezur", e a Estação Primeira de Mangueira foi vice-campeã (+15 pts) com "Carnaval". Depois Eu Digo alcançou a 3ª colocação (+12 pts), Império da Tijuca em 4º (+10 pts), Azul e Branco do Salgueiro em 5º (+8 pts), Paz e Amor em 6º (+6 pts), Lira do Amor em 7º (+4 pts), Unidos da Tijuca em 8º (+3 pts), Unidos da Capela em 9º (+2 pts) e Filhos do Deserto em 10º (+1 pt). Não houve rebaixamento.';
+      notes = 'Carnaval Histórico de 1946: Desfile oficial unificado das Escolas de Samba com 19 agremiações participantes. A Portela sagrou-se campeã (+20 pts) com "Alvorada do novo mundo", e a Estação Primeira de Mangueira foi vice-campeã (+15 pts) com "Carnaval da vitória". Depois Eu Digo alcançou a 3ª colocação (+12 pts) com "Tomada de Monte Castelo", Império da Tijuca em 4º (+10 pts) com "Aos heróis do Monte Castelo", Azul e Branco do Salgueiro em 5º (+8 pts) com "Cruzada da Vitória", Paz e Amor em 6º (+6 pts), Lira do Amor em 7º (+4 pts), Unidos da Tijuca em 8º (+3 pts), Unidos da Capela em 9º (+2 pts) e Filhos do Deserto em 10º (+1 pt). Não houve rebaixamento.';
     } else if (yr === 1945) {
       notes = 'Carnaval Histórico de 1945: Oito agremiações desfilaram no Carnaval Carioca. A Portela sagrou-se pentacampeã consecutiva (+20 pts) cantando "Motivos Patrióticos", e a Estação Primeira de Mangueira foi a vice-campeã (+15 pts) com "A Glória do Samba". Apenas campeã e vice foram oficializadas pelo júri.';
     } else if (yr === 1944) {

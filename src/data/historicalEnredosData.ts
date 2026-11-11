@@ -4230,41 +4230,45 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
   1948: {
     imperio_serrano: 'Homenagem a Antônio Castro Alves',
     tijuca: 'Assinatura da Lei Áurea',
+    unidos_da_tijuca: 'Assinatura da Lei Áurea',
     portela: 'Exaltação à Redentora',
-    mangueira: 'Brasil, Tesouro Incomparável',
-    azul_e_branco_salgueiro: 'Reminiscências do Rio Antigo',
-    paz_e_amor: 'Glórias da Pátria',
-    imperio_da_tijuca: 'Homenagem aos Heróis de Laguna',
-    prazer_da_serrinha: 'Castro Alves, o Poeta dos Escravos',
-    unidos_de_turiacu: 'Primavera em Flor',
-    depois_eu_digo: 'Epopéia da Independência',
-    independentes_cordovil: 'Retalhos da História',
-    recreio_de_inhauma: 'Samba e Tradição',
-    aprendizes_de_lucas: 'Hino à Natureza',
-    paraiso_das_morenas: 'Lendas da Guanabara',
-    unidos_da_capela: 'Noites Cariocas',
-    irmaos_unidos_do_catete: 'Memórias do Catete',
-    vai_se_quiser: 'Vozes da Colina',
-    unidos_de_santo_amaro: 'Glória à Bahia',
-    estrela_de_ouro: 'Brilho Dourado',
-    cada_ano_sai_melhor: 'Festa no Terreiro',
-    unidos_do_salgueiro: 'História do Morro',
-    cabucu: 'Bandeirantes do Brasil',
-    coracoes_unidos_da_favela: 'União e Samba',
-    sem_voce_vivo_bem: 'Alegria de Viver',
-    unidos_de_bras_de_pina: 'Saudação à Leopoldina',
-    unidos_de_cavalcante: 'Tradições de Cavalcante',
-    unidos_de_tomas_coelho: 'Lembranças da Zona Norte',
-    mocidade_de_cachambi: 'Primavera no Cachambi',
-    unidos_do_morro_azul: 'Alvorada no Morro',
-    unidos_do_outeiro: 'Paz no Outeiro',
-    imperio_da_colina: 'Colina em Sol',
-    paraiso_do_grotao: 'Música e Poesia',
-    mocidade_de_um_paraiso: 'Sonho Paradisíaco',
-    inimigos_da_tristeza: 'Adeus Tristeza, Viva a Folia',
-    uniao_vaz_lobo: 'Canto a Vaz Lobo',
-    unidos_do_castelo: 'Memórias do Morro do Castelo',
-    unidos_da_lagoa: 'Águas de Guanabara'
+    mangueira: 'Vale de São Francisco',
+    estacao_primeira_de_mangueira: 'Vale de São Francisco',
+    azul_e_branco_salgueiro: 'Fogo Simbólico',
+    paz_e_amor: 'A lei do ventre livre',
+    imperio_da_tijuca: 'Brasil império e Brasil república',
+    prazer_da_serrinha: 'Glória aos volantes brasileiros',
+    unidos_de_turiacu: 'Sem enredo registrado',
+    depois_eu_digo: 'Um passo para a glória',
+    independentes_cordovil: 'Conferência do Quitandinha',
+    independentes_leblon: 'Conferência do Quitandinha',
+    recreio_de_inhauma: 'Sem enredo registrado',
+    aprendizes_de_lucas: 'Carlos Gomes, o imortal',
+    paraiso_das_morenas: 'Sem enredo registrado',
+    unidos_da_capela: 'Treze de Maio',
+    irmaos_unidos_do_catete: 'Sem enredo registrado',
+    vai_se_quiser: 'Sem enredo registrado',
+    unidos_de_santo_amaro: 'O negro e o samba',
+    estrela_de_ouro: 'Sem enredo registrado',
+    cada_ano_sai_melhor: 'Exaltação à Princesa Isabel',
+    unidos_do_salgueiro: 'Sem enredo registrado',
+    cabucu: 'Brasil, celeiro do mundo',
+    unidos_do_cabucu: 'Brasil, celeiro do mundo',
+    coracoes_unidos_da_favela: 'Sem enredo registrado',
+    sem_voce_vivo_bem: 'Sem enredo registrado',
+    unidos_de_bras_de_pina: 'Sem enredo registrado',
+    unidos_de_cavalcante: 'Sem enredo registrado',
+    unidos_de_tomas_coelho: 'Sem enredo registrado',
+    mocidade_de_cachambi: 'Sem enredo registrado',
+    unidos_do_morro_azul: 'Produção do Brasil',
+    unidos_do_outeiro: 'Sem enredo registrado',
+    imperio_da_colina: 'Sem enredo registrado',
+    paraiso_do_grotao: 'Sem enredo registrado',
+    mocidade_de_um_paraiso: 'Querido Brasil',
+    inimigos_da_tristeza: 'Sem enredo registrado',
+    uniao_vaz_lobo: 'Sem enredo registrado',
+    unidos_do_castelo: 'Sem enredo registrado',
+    unidos_da_lagoa: 'Sem enredo registrado'
   },
   1947: {
     portela: 'Honra ao Mérito (Glória à Justiça Real)',
@@ -4283,7 +4287,7 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     cabucu: 'Bandeirantes Paulistas',
     unidos_do_salgueiro: 'Vida no Morro do Salgueiro',
     recreio_de_inhauma: 'Lembranças do Subúrbio',
-    unidos_do_catete: 'Memórias da Zona Sul (Catete Velho)',
+    unidos_do_catete: 'Catete Velho',
     recreio_de_sao_carlos: 'Canto ao Berço do Samba',
     paraiso_do_grotao: 'Primavera Carioca',
     escalao_de_tupa: 'Tributo ao Deus do Trovão',
@@ -4296,25 +4300,25 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     academicos_da_gavea: 'Pedra da Gávea e Seus Mistérios'
   },
   1946: {
-    portela: 'Aljezur (Voando Para o Passado)',
-    mangueira: 'Carnaval',
-    depois_eu_digo: 'Glórias do Passado',
-    imperio_da_tijuca: 'Homenagem aos Heróis de Laguna',
-    azul_e_branco_salgueiro: 'Reminiscências Cariocas',
-    paz_e_amor: 'Glórias da Pátria',
-    lira_do_amor: 'Amor à Terra',
-    tijuca: 'Anchieta',
-    unidos_da_capela: 'Noites Cariocas',
-    filhos_do_deserto: 'Deserto e Amor',
-    prazer_da_serrinha: 'Castro Alves',
-    unidos_do_salgueiro: 'História do Morro',
-    coracoes_unidos_jacarepagua: 'Brasil de Ontem e de Hoje',
-    nao_e_o_que_dizem: 'A Verdade do Samba',
-    vai_se_quiser: 'Vozes da Colina',
-    cada_ano_sai_melhor: 'Tradições Cariocas',
-    uniao_primeira: 'União e Samba',
-    fiquei_firme: 'Firmeza no Compasso',
-    mocidade_louca_sao_cristovao: 'Loucuras do Samba de São Cristóvão'
+    portela: 'Alvorada do novo mundo',
+    mangueira: 'Carnaval da vitória',
+    depois_eu_digo: 'Tomada de Monte Castelo',
+    imperio_da_tijuca: 'Aos heróis do Monte Castelo',
+    azul_e_branco_salgueiro: 'Cruzada da Vitória',
+    paz_e_amor: 'Mensageiros do samba na Assembléia das Reparações',
+    lira_do_amor: 'A Lira no Salão de 1946',
+    tijuca: 'Anjos da paz',
+    unidos_da_capela: 'Jardim de Alá',
+    filhos_do_deserto: 'O samba na cidade',
+    prazer_da_serrinha: 'Conferência de São Francisco',
+    unidos_do_salgueiro: 'Recordando a história',
+    coracoes_unidos_jacarepagua: 'As armas da vitória',
+    nao_e_o_que_dizem: 'A chegada do herói brasileiro',
+    vai_se_quiser: 'Pela vitória das Armas do Brasil',
+    cada_ano_sai_melhor: 'Uma festa na Bahia',
+    uniao_primeira: 'Homenagem às escolas de samba',
+    fiquei_firme: 'Louros da vitória',
+    mocidade_louca_sao_cristovao: 'Alvorada de Paz'
   },
   1945: {
     portela: 'Motivos Patrióticos (Brasil Terra de Amor)',
@@ -4693,6 +4697,17 @@ function normalizeId(rawId?: string, rawName?: string): string {
     if (id.includes('santo_antonio')) return 'unidos_de_santo_antonio';
     if (id.includes('arapa')) return 'unidos_do_arapa';
     if (id.includes('santa_tereza') || id.includes('santa_theresa')) return 'vila_santa_tereza';
+    if (id === 'azul_e_branco_salgueiro' || id.includes('azul_e_branco_salgueiro')) return 'azul_e_branco_salgueiro';
+    if (id === 'unidos_do_salgueiro' || id.includes('unidos_do_salgueiro')) return 'unidos_do_salgueiro';
+    if (id === 'salgueiro' || id.includes('academicos_do_salgueiro')) return 'salgueiro';
+    if (
+      id === 'em_cima_da_hora_catumbi' ||
+      id.includes('em_cima_da_hora_catumbi') ||
+      (id.includes('cima_da_hora') && id.includes('catumbi'))
+    ) {
+      return 'em_cima_da_hora_catumbi';
+    }
+    if (id === 'em_cima_da_hora' || id.includes('em_cima_da_hora')) return 'em_cima_da_hora';
     return id;
   }
   if (!rawName) return '';
@@ -4760,6 +4775,13 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('capela')) return 'unidos_da_capela';
   if (n.includes('lucas')) return 'unidos_de_lucas';
   if (n.includes('lins')) return 'lins_imperial';
+  // Distinção fundamental: Em Cima da Hora do Catumbi (inativa, Catumbi) vs G.R.E.S. Em Cima da Hora (fundada em 1958, Cavalcanti)
+  if (
+    n.includes('em cima da hora do catumbi') ||
+    (n.includes('cima da hora') && n.includes('catumbi'))
+  ) {
+    return 'em_cima_da_hora_catumbi';
+  }
   if (n.includes('cima da hora')) return 'em_cima_da_hora';
   if (n.includes('flor da infância') || n.includes('flor da infancia')) return 'flor_da_infancia_bras_de_pina';
   if (n.includes('unidos de brás de pina') || n.includes('unidos de bras de pina')) return 'unidos_de_bras_de_pina';
@@ -4934,6 +4956,64 @@ export function getHistoricalEnredo(
     !isUnidosDoTuiutiTarget;
 
   if (isParaisoDoTuiutiTarget && year < 1954) {
+    return undefined;
+  }
+
+  // Isolamento estrito: Azul e Branco do Salgueiro vs Acadêmicos do Salgueiro
+  const isAzulEBrancoSalgueiroTarget =
+    key === 'azul_e_branco_salgueiro' ||
+    schoolId === 'azul_e_branco_salgueiro' ||
+    canonKey === 'azul_e_branco_salgueiro' ||
+    (schoolName &&
+      schoolName.toLowerCase().includes('azul e branco') &&
+      schoolName.toLowerCase().includes('salgueiro'));
+
+  if (isAzulEBrancoSalgueiroTarget) {
+    if (year > 1953) return undefined;
+    const yrRecs = HISTORICAL_ENREDOS_BY_YEAR[year];
+    if (yrRecs) {
+      const enredo = yrRecs['azul_e_branco_salgueiro'];
+      if (enredo) return enredo;
+    }
+    return undefined;
+  }
+
+  // Acadêmicos do Salgueiro (fundada em 1953, primeiro desfile em 1954): nunca herda enredos anteriores a 1954
+  const isSalgueiroTarget =
+    (key === 'salgueiro' || schoolId === 'salgueiro' || canonKey === 'salgueiro' || (schoolName && schoolName.toLowerCase().includes('salgueiro'))) &&
+    !isAzulEBrancoSalgueiroTarget &&
+    key !== 'unidos_do_salgueiro' &&
+    schoolId !== 'unidos_do_salgueiro' &&
+    canonKey !== 'unidos_do_salgueiro' &&
+    !(schoolName && schoolName.toLowerCase().includes('unidos do salgueiro'));
+
+  if (isSalgueiroTarget && year < 1954) {
+    return undefined;
+  }
+
+  // Isolamento estrito: Em Cima da Hora do Catumbi (inativa, Catumbi) vs Em Cima da Hora de Cavalcanti (fundada em 1958)
+  const isCatumbiTarget =
+    key === 'em_cima_da_hora_catumbi' ||
+    schoolId === 'em_cima_da_hora_catumbi' ||
+    canonKey === 'em_cima_da_hora_catumbi' ||
+    (schoolName &&
+      schoolName.toLowerCase().includes('cima da hora') &&
+      schoolName.toLowerCase().includes('catumbi'));
+
+  if (isCatumbiTarget) {
+    const yrRecs = HISTORICAL_ENREDOS_BY_YEAR[year];
+    if (yrRecs) {
+      const enredo = yrRecs['em_cima_da_hora_catumbi'];
+      if (enredo) return enredo;
+    }
+    return undefined;
+  }
+
+  const isEmCimaDaHoraCavalcantiTarget =
+    (key === 'em_cima_da_hora' || schoolId === 'em_cima_da_hora' || canonKey === 'em_cima_da_hora' || (schoolName && schoolName.toLowerCase().includes('cima da hora'))) &&
+    !isCatumbiTarget;
+
+  if (isEmCimaDaHoraCavalcantiTarget && year < 1958) {
     return undefined;
   }
 
@@ -5355,9 +5435,118 @@ export function getSchoolHistoricalEnredosList(
     return recreioMocidadeEnredos.sort((a, b) => b.year - a.year);
   }
 
+  // Azul e Branco do Salgueiro (inativa): agremiação histórica independente do Morro do Salgueiro (desfilou até 1953).
+  // Não herda nem compartilha histórico com a Acadêmicos do Salgueiro (fundada em 1953, primeiro desfile em 1954).
+  const isAzulEBrancoSalgueiro =
+    key === 'azul_e_branco_salgueiro' ||
+    schoolId === 'azul_e_branco_salgueiro' ||
+    canonKey === 'azul_e_branco_salgueiro' ||
+    (schoolName &&
+      schoolName.toLowerCase().includes('azul e branco') &&
+      schoolName.toLowerCase().includes('salgueiro'));
+
+  if (isAzulEBrancoSalgueiro) {
+    const azulEBrancoEnredos: { year: number; enredo: string }[] = [];
+    const years = Object.keys(HISTORICAL_ENREDOS_BY_YEAR)
+      .map(Number)
+      .sort((a, b) => b - a);
+
+    years.forEach((yr) => {
+      if (yr <= 1953) {
+        const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[yr];
+        if (yearRecords) {
+          const enredo = yearRecords['azul_e_branco_salgueiro'];
+          if (enredo) {
+            azulEBrancoEnredos.push({ year: yr, enredo });
+          }
+        }
+      }
+    });
+
+    if (inGameHistory && inGameHistory.length > 0) {
+      inGameHistory.forEach((h) => {
+        if (h.schoolEnredos && h.schoolEnredos['azul_e_branco_salgueiro']) {
+          const match = h.schoolEnredos['azul_e_branco_salgueiro'];
+          if (match && !azulEBrancoEnredos.some((e) => e.year === h.year)) {
+            azulEBrancoEnredos.push({ year: h.year, enredo: match });
+          }
+        }
+      });
+    }
+
+    if (schoolObj?.enredoHistory && schoolObj.enredoHistory.length > 0) {
+      schoolObj.enredoHistory.forEach((item) => {
+        if (item.year && item.enredo && !azulEBrancoEnredos.some((e) => e.year === item.year)) {
+          azulEBrancoEnredos.push({ year: item.year, enredo: item.enredo });
+        }
+      });
+    }
+
+    return azulEBrancoEnredos.sort((a, b) => b.year - a.year);
+  }
+
+  // Em Cima da Hora do Catumbi (inativa): agremiação histórica independente do Catumbi e sem qualquer vínculo com o G.R.E.S. Em Cima da Hora de Cavalcanti (fundada em 1958).
+  const isEmCimaDaHoraDoCatumbi =
+    key === 'em_cima_da_hora_catumbi' ||
+    schoolId === 'em_cima_da_hora_catumbi' ||
+    canonKey === 'em_cima_da_hora_catumbi' ||
+    (schoolName &&
+      schoolName.toLowerCase().includes('cima da hora') &&
+      schoolName.toLowerCase().includes('catumbi'));
+
+  if (isEmCimaDaHoraDoCatumbi) {
+    const catumbiEnredos: { year: number; enredo: string }[] = [];
+    const years = Object.keys(HISTORICAL_ENREDOS_BY_YEAR)
+      .map(Number)
+      .sort((a, b) => b - a);
+
+    years.forEach((yr) => {
+      const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[yr];
+      if (yearRecords) {
+        const enredo = yearRecords['em_cima_da_hora_catumbi'];
+        if (enredo) {
+          catumbiEnredos.push({ year: yr, enredo });
+        }
+      }
+    });
+
+    if (inGameHistory && inGameHistory.length > 0) {
+      inGameHistory.forEach((h) => {
+        if (h.schoolEnredos && h.schoolEnredos['em_cima_da_hora_catumbi']) {
+          const match = h.schoolEnredos['em_cima_da_hora_catumbi'];
+          if (match && !catumbiEnredos.some((e) => e.year === h.year)) {
+            catumbiEnredos.push({ year: h.year, enredo: match });
+          }
+        }
+      });
+    }
+
+    if (schoolObj?.enredoHistory && schoolObj.enredoHistory.length > 0) {
+      schoolObj.enredoHistory.forEach((item) => {
+        if (item.year && item.enredo && !catumbiEnredos.some((e) => e.year === item.year)) {
+          catumbiEnredos.push({ year: item.year, enredo: item.enredo });
+        }
+      });
+    }
+
+    return catumbiEnredos.sort((a, b) => b.year - a.year);
+  }
+
   const isParaisoDoTuiuti =
     (key === 'tuiuti' || key === 'paraiso_do_tuiuti' || schoolId === 'tuiuti' || schoolId === 'paraiso_do_tuiuti' || canonKey === 'tuiuti') &&
     !isUnidosDoTuiuti;
+
+  const isSalgueiro =
+    (key === 'salgueiro' || schoolId === 'salgueiro' || canonKey === 'salgueiro' || (schoolName && schoolName.toLowerCase().includes('salgueiro'))) &&
+    !isAzulEBrancoSalgueiro &&
+    key !== 'unidos_do_salgueiro' &&
+    schoolId !== 'unidos_do_salgueiro' &&
+    canonKey !== 'unidos_do_salgueiro' &&
+    !(schoolName && schoolName.toLowerCase().includes('unidos do salgueiro'));
+
+  const isEmCimaDaHoraCavalcanti =
+    (key === 'em_cima_da_hora' || schoolId === 'em_cima_da_hora' || canonKey === 'em_cima_da_hora' || (schoolName && schoolName.toLowerCase().includes('cima da hora'))) &&
+    !isEmCimaDaHoraDoCatumbi;
 
   const enredosMap = new Map<number, string>();
 
@@ -5365,6 +5554,12 @@ export function getSchoolHistoricalEnredosList(
   const years = Object.keys(HISTORICAL_ENREDOS_BY_YEAR).map(Number).sort((a, b) => b - a);
   years.forEach((yr) => {
     if (isParaisoDoTuiuti && yr < 1954) {
+      return;
+    }
+    if (isSalgueiro && yr < 1954) {
+      return;
+    }
+    if (isEmCimaDaHoraCavalcanti && yr < 1958) {
       return;
     }
     let enredo = HISTORICAL_ENREDOS_BY_YEAR[yr]?.[key];

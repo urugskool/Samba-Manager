@@ -245,6 +245,9 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('viradouro')) return 'viradouro';
   if (raw.includes('beija-flor') || raw.includes('beija flor') || raw.includes('nilopolis')) return 'beija_flor';
   if (raw.includes('vila isabel')) return 'vila_isabel';
+  // Distinção fundamental: Azul e Branco do Salgueiro e Unidos do Salgueiro vs Acadêmicos do Salgueiro
+  if ((raw.includes('azul e branco') && raw.includes('salgueiro')) || raw.includes('azul_e_branco_salgueiro')) return 'azul_e_branco_salgueiro';
+  if (raw.includes('unidos do salgueiro') || raw.includes('unidos_do_salgueiro')) return 'unidos_do_salgueiro';
   if (raw.includes('salgueiro')) return 'salgueiro';
   if (raw.includes('imperatriz')) return 'imperatriz';
   if (raw.includes('mangueira')) return 'mangueira';
@@ -285,6 +288,14 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('porto da pedra') || raw.includes('pedra')) return 'porto_da_pedra';
   if (raw.includes('ilha do governador') || raw.includes('uniao da ilha') || raw.includes('união da ilha')) return 'uniao_da_ilha';
   if (raw.includes('estácio') || raw.includes('estacio') || raw.includes('são carlos')) return 'estacio_de_sa';
+  // Distinção fundamental: Em Cima da Hora do Catumbi (inativa) vs Em Cima da Hora de Cavalcanti (fundada em 1958)
+  if (
+    raw.includes('em cima da hora do catumbi') ||
+    raw.includes('em_cima_da_hora_catumbi') ||
+    (raw.includes('cima da hora') && raw.includes('catumbi'))
+  ) {
+    return 'em_cima_da_hora_catumbi';
+  }
   if (raw.includes('em cima da hora') || raw.includes('cima da hora')) return 'em_cima_da_hora';
   if (raw.includes('unidos da ponte') || raw.includes('ponte')) return 'unidos_da_ponte';
   if (raw.includes('bangu')) return 'unidos_de_bangu';
