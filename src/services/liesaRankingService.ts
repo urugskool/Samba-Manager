@@ -2742,6 +2742,7 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('império do samba') || nameNorm.includes('imperio do samba')) return 'imperio_do_samba';
   if (nameNorm.includes('sem você vivo bem') || nameNorm.includes('sem voce vivo bem')) return 'sem_voce_vivo_bem';
   if (nameNorm.includes('lagoa')) return 'unidos_da_lagoa';
+  if (nameNorm.includes('cosmos')) return 'unidos_de_cosmos';
   if (nameNorm.includes('unidos do barão') || nameNorm.includes('unidos do barao')) return 'unidos_do_barao';
   if (nameNorm.includes('barão de petrópolis') || nameNorm.includes('barao de petropolis') || nameNorm.includes('petrópolis') || nameNorm.includes('petropolis')) return 'unidos_da_barao_de_petropolis';
   if (nameNorm.includes('topázios') || nameNorm.includes('topazios')) return 'uniao_dos_topazios';
