@@ -257,7 +257,19 @@ const INITIAL_INACTIVE_SCHOOL_IDS = new Set([
   'unidos_da_mocidade',
   'uniao_do_cruzeiro',
   'unidos_de_santo_antonio',
-  'unidos_do_arapa'
+  'unidos_do_arapa',
+  'baianinhas_brasileiras',
+  'manda_quem_pode',
+  'paraiso_das_morenas',
+  'uniao_de_bras_de_pina',
+  'azul_e_branco_de_bonsucesso',
+  'uniao_primeira',
+  'boemios_do_andarai',
+  'imperio_do_andarai',
+  'unidos_de_tomas_coelho',
+  'unidos_do_iraja',
+  'imperio_de_campo_grande',
+  'coracao_das_morenas'
 ]);
 
 function sanitizeSchoolsData(loadedSchools: School[], activeUserSchoolId?: string | null): School[] {
