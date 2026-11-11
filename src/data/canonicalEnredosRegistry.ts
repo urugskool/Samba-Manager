@@ -266,6 +266,16 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('tuiuti')) return 'tuiuti';
   if (raw.includes('portela')) return 'portela';
   if (raw.includes('cidade de deus')) return 'mocidade_cidade_de_deus';
+  if (raw.includes('uniao da mocidade') || raw.includes('união da mocidade') || raw.includes('uniao_da_mocidade')) return 'uniao_da_mocidade';
+  if (raw.includes('unidos da mocidade') || raw.includes('unidos_da_mocidade')) return 'unidos_da_mocidade';
+  if (raw.includes('recreio da mocidade') || raw.includes('recreio_da_mocidade')) return 'recreio_da_mocidade';
+  if (raw.includes('prazer da mocidade') || raw.includes('prazer_da_mocidade')) return 'prazer_da_mocidade';
+  if (raw.includes('paraiso da mocidade') || raw.includes('paraíso da mocidade') || raw.includes('paraiso_da_mocidade')) return 'paraiso_da_mocidade';
+  if (raw.includes('mocidade de um paraíso') || raw.includes('mocidade de um paraiso') || raw.includes('mocidade_de_um_paraiso')) return 'mocidade_de_um_paraiso';
+  if (raw.includes('mocidade de cachambi') || raw.includes('mocidade_de_cachambi')) return 'mocidade_de_cachambi';
+  if (raw.includes('mocidade unidos do riachuelo') || raw.includes('mocidade_unidos_do_riachuelo') || raw.includes('modelo unidos do riachuelo')) return 'mocidade_unidos_do_riachuelo';
+  if (raw.includes('mocidade unida da mineira') || raw.includes('mocidade_unida_da_mineira')) return 'grbc_mocidade_unida_da_mineira';
+  if (raw.includes('mocidade louca') || raw.includes('mocidade_louca')) return 'mocidade_louca_sao_cristovao';
   if (raw.includes('mocidade') && !raw.includes('santa marta') && !raw.includes('vicente') && !raw.includes('cidade de deus')) return 'mocidade';
   if (raw.includes('niterói') || raw.includes('niteroi')) return 'niteroi';
   if (raw.includes('maricá') || raw.includes('marica')) return 'marica';
@@ -328,6 +338,9 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('manguinhos')) return 'unidos_de_manguinhos';
   if (raw.includes('jardim')) return 'unidos_do_jardim';
   if (raw.includes('marangá') || raw.includes('maranga')) return 'imperio_do_maranga';
+  if (raw.includes('união do cruzeiro') || raw.includes('uniao do cruzeiro') || raw.includes('uniao_do_cruzeiro')) return 'uniao_do_cruzeiro';
+  if (raw.includes('santo antônio') || raw.includes('santo antonio') || raw.includes('santo_antonio')) return 'unidos_de_santo_antonio';
+  if (raw.includes('arapá') || raw.includes('arapa')) return 'unidos_do_arapa';
   if (raw.includes('santa tereza') || raw.includes('santa theresa')) return 'vila_santa_tereza';
   return (schoolId || '').toLowerCase().trim();
 }

@@ -4016,63 +4016,76 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
   },
   1951: {
     // FBES
-    imperio_serrano: 'Batalha do Riachuelo',
-    aprendizes_de_lucas: 'Três Épocas do Brasil',
-    filhos_do_deserto: 'Homenagem aos Heróis Nacionais',
-    azul_e_branco_salgueiro: 'Martírio de Tiradentes',
-    irmaos_unidos_do_catete: 'Exaltação à Guanabara',
-    imperio_da_tijuca: 'Batalha do Passo da Pátria',
-    indios_do_acau: 'Tupinambás',
-    paz_e_amor: 'Vultos da Nossa História',
-    unidos_do_grajau: 'A Epopéia dos Bandeirantes',
-    vai_se_quiser: 'Tradições do Samba',
-    uniao_vaz_lobo: 'Homenagem a Santos Dumont',
-    depois_eu_digo: 'Episódios Históricos',
-    floresta_do_andarai: 'O Esplendor do Andaraí',
-    coracoes_unidos_da_favela: 'O Morro da Favela',
-    unidos_de_santo_amaro: 'Glória a Santo Amaro',
-    independentes_cordovil: 'O Rio Colonial',
-    engenho_da_rainha: 'Bandeirantes e Pioneiros',
-    unidos_do_pecado: 'Festa no Terreiro',
-    independentes_do_rio: 'Achegas da Guanabara',
-    unidos_do_outeiro: 'Glória a Caxias',
-    estrela_de_ouro: 'O Brilho da Guanabara',
-    unidos_de_cordovil: 'Exaltação à Pátria',
-    unidos_do_itambi: 'Tradições Fluminenses',
-    capricho_do_centenario: 'Centenário da Independência',
-    unidos_dos_arcos: 'Os Arcos da Lapa',
-    paraiso_do_grotao: 'O Grotão em Festa',
-    mocidade_de_um_paraiso: 'Sonho de um Paraíso',
-    vitoria_de_bento_ribeiro: 'As Glórias do Brasil',
-    unidos_dos_telegrafos: 'Mangueira e Seus Telégrafos',
-    trovadores_do_maracana: 'Samba e Poesia',
-    uniao_dos_casados: 'Bodas do Samba',
-    flor_do_lins: 'Primavera no Lins',
-    unidos_de_campo_grande: 'Zona Oeste em Desfile',
+    imperio_serrano: 'Sessenta e um anos de república',
+    aprendizes_de_lucas: 'Festa da Uva - Homenagem ao Rio Grande do Sul',
+    filhos_do_deserto: 'Reino do Mar',
+    azul_e_branco_salgueiro: 'De pé pelo Brasil',
+    irmaos_unidos_do_catete: 'O Grito do Ipiranga',
+    imperio_da_tijuca: 'D. João VI',
+    indios_do_acau: 'Batalha do Tuiuti',
+    paz_e_amor: 'Um só povo, uma só bandeira',
+    unidos_do_grajau: 'Os bandeirantes',
+    vai_se_quiser: 'Sem enredo registrado',
+    uniao_vaz_lobo: 'Homenagem aos soldados do fogo',
+    depois_eu_digo: 'Vitória do trabalhadores do Brasil',
+    floresta_do_andarai: 'Grito do Ipiranga',
+    coracoes_unidos_da_favela: 'Primavera na favela',
+    unidos_de_santo_amaro: 'Três imortais - Machado de Assis, Catulo da Paixão Cearense e Olavo Bilac',
+    independentes_cordovil: 'Retirada da Laguna',
+    engenho_da_rainha: 'O sonho de um pescador',
+    unidos_do_pecado: 'José do Patrocínio',
+    independentes_do_rio: 'Brasil cabloco',
+    unidos_do_outeiro: 'Homens de novembro - Proclamação da República',
+    estrela_de_ouro: 'Benfeitores da cidade em 1902',
+    unidos_de_cordovil: 'Homenagem a Municipalidade',
+    unidos_do_itambi: 'A Independência do Brasil',
+    capricho_do_centenario: 'Reinado das margaridas',
+    unidos_dos_arcos: 'Homenagem à música e à literatura - Rui Barbosa e Carlos Gomes',
+    paraiso_do_grotao: 'Jardim dos Namorados',
+    mocidade_de_um_paraiso: '24 de maio - A Batalha do Tuiuti',
+    vitoria_de_bento_ribeiro: 'Soldado do fogo',
+    unidos_dos_telegrafos: 'Homenagem à marinha brasileira',
+    trovadores_do_maracana: 'A Festa da Uva',
+    uniao_dos_casados: 'Bahia, berço da Águia de Haia - Rui Barbosa',
+    flor_do_lins: 'Sem enredo registrado',
+    unidos_de_campo_grande: 'A corte do samba',
+    // FBES - Desclassificadas por infringir regulamento
+    imperio_do_grotao: 'Santos Dumont',
+    recreio_da_mocidade: 'Cabral descobre o Brasil',
+    recreio_de_sao_carlos: 'O futebol carioca ou Homenagem ao Vasco da Gama',
+    uniao_do_cruzeiro: 'O pobre pescador',
+    unidos_da_piedade: 'O Brasil vanguardeiro na proteção à infância',
+    unidos_de_santo_antonio: 'Evolução do samba',
+    unidos_do_arapa: 'Invasão do samba no universo',
+    unidos_do_barao: 'Desceu do morro para fundar a ABL - Machado de Assis',
+    imperio_do_maranga: 'Relíquias do Império Brasileiro',
+    unidos_do_maranga: 'Relíquias do Império Brasileiro',
     // UGESB
-    portela: 'A Volta do Filho Pródigo',
-    tres_mosqueteiros: 'D. João VI no Brasil',
-    mangueira: 'Amor à Pátria',
-    unidos_da_capela: 'Homenagem a Carlos Gomes',
-    aventureiros_da_matriz: 'O Brasil Republicano',
-    unidos_da_tamarineira: 'Exaltação às Tradições Brasileiras',
-    tijuca: 'Três Épocas da História',
-    coracoes_unidos_jacarepagua: 'Abolição da Escravatura',
-    prazer_da_serrinha: 'A Epopéia da Serrinha',
-    recreio_de_inhauma: 'Guanabara Histórica',
-    cartolinhas_de_caxias: 'Duque de Caxias, O Pacificador',
-    cabucu: 'Glória aos Bandeirantes',
-    unidos_do_morro_azul: 'O Morro Azul Canta a Pátria',
-    independentes_de_turiacu: 'Primavera em Turiaçu',
-    unidos_do_coqueiro: 'O Coqueiro Verdejante',
-    em_cima_da_hora_catumbi: 'Glória ao Catumbi',
-    caprichosos_de_pilares: 'Guanabara Boêmia',
-    embaixadores_sao_joao_meriti: 'História de São João de Meriti',
-    nao_e_o_que_dizem: 'A Verdade do Samba',
-    cada_ano_sai_melhor: 'Achegas Históricas',
-    unidos_do_jacare: 'Verde e Rosa no Jacaré',
-    unidos_do_indaia: 'O Descobrimento do Brasil',
-    guarani_de_realengo: 'O Guarani de Carlos Gomes'
+    portela: 'A volta do filho pródigo',
+    tres_mosqueteiros: 'Feira na Bahia',
+    mangueira: 'Unidade nacional',
+    unidos_da_capela: 'Sem enredo registrado',
+    aventureiros_da_matriz: 'Sem enredo registrado',
+    unidos_da_tamarineira: 'Sem enredo registrado',
+    tijuca: 'Três de Outubro',
+    unidos_da_tijuca: 'Três de Outubro',
+    coracoes_unidos_jacarepagua: 'Sem enredo registrado',
+    prazer_da_serrinha: 'Sem enredo registrado',
+    recreio_de_inhauma: 'Sem enredo registrado',
+    cartolinhas_de_caxias: 'Sem enredo registrado',
+    cabucu: 'Sem enredo registrado',
+    unidos_do_cabucu: 'Sem enredo registrado',
+    unidos_do_morro_azul: 'Sem enredo registrado',
+    independentes_de_turiacu: 'Sem enredo registrado',
+    unidos_do_coqueiro: 'Sem enredo registrado',
+    em_cima_da_hora_catumbi: 'Sem enredo registrado',
+    caprichosos_de_pilares: 'Alavanca do progresso',
+    embaixadores_sao_joao_meriti: 'Sem enredo registrado',
+    nao_e_o_que_dizem: 'Retirada da Laguna',
+    cada_ano_sai_melhor: 'Sem enredo registrado',
+    unidos_do_jacare: 'Sem enredo registrado',
+    unidos_do_indaia: 'Homenagem à Força Expedicionária Brasileira',
+    guarani_de_realengo: 'Sem enredo registrado'
   },
   1950: {
     // FBES
@@ -4618,6 +4631,12 @@ function normalizeId(rawId?: string, rawName?: string): string {
     if (id.includes('unidos_do_tuiuti')) return 'unidos_do_tuiuti';
     if (id.includes('uniao_parada_de_lucas')) return 'uniao_parada_de_lucas';
     if (id.includes('uniao_da_mocidade')) return 'uniao_da_mocidade';
+    if (id.includes('unidos_da_mocidade')) return 'unidos_da_mocidade';
+    if (id.includes('recreio_da_mocidade')) return 'recreio_da_mocidade';
+    if (id.includes('prazer_da_mocidade')) return 'prazer_da_mocidade';
+    if (id.includes('paraiso_da_mocidade')) return 'paraiso_da_mocidade';
+    if (id.includes('mocidade_de_um_paraiso')) return 'mocidade_de_um_paraiso';
+    if (id.includes('mocidade_de_cachambi')) return 'mocidade_de_cachambi';
     if (id.includes('unidos_de_rocha_miranda')) return 'unidos_de_rocha_miranda';
     if (id.includes('rainha_das_pretas')) return 'rainha_das_pretas';
     if (id.includes('uniao_de_madureira')) return 'uniao_de_madureira';
@@ -4659,6 +4678,9 @@ function normalizeId(rawId?: string, rawName?: string): string {
     if (id.includes('capela')) return 'unidos_da_capela';
     if (id.includes('centenario')) return 'uniao_do_centenario';
     if (id.includes('maranga')) return 'imperio_do_maranga';
+    if (id.includes('cruzeiro')) return 'uniao_do_cruzeiro';
+    if (id.includes('santo_antonio')) return 'unidos_de_santo_antonio';
+    if (id.includes('arapa')) return 'unidos_do_arapa';
     if (id.includes('santa_tereza') || id.includes('santa_theresa')) return 'vila_santa_tereza';
     return id;
   }
@@ -4695,6 +4717,15 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('tuiuti')) return 'tuiuti';
   if (n.includes('portela')) return 'portela';
   if (n.includes('cidade de deus')) return 'mocidade_cidade_de_deus';
+  if (n.includes('união da mocidade') || n.includes('uniao da mocidade')) return 'uniao_da_mocidade';
+  if (n.includes('unidos da mocidade')) return 'unidos_da_mocidade';
+  if (n.includes('recreio da mocidade')) return 'recreio_da_mocidade';
+  if (n.includes('prazer da mocidade')) return 'prazer_da_mocidade';
+  if (n.includes('paraíso da mocidade') || n.includes('paraiso da mocidade')) return 'paraiso_da_mocidade';
+  if (n.includes('mocidade de um paraíso') || n.includes('mocidade de um paraiso')) return 'mocidade_de_um_paraiso';
+  if (n.includes('mocidade de cachambi')) return 'mocidade_de_cachambi';
+  if (n.includes('mocidade unidos do riachuelo') || n.includes('modelo unidos do riachuelo')) return 'mocidade_unidos_do_riachuelo';
+  if (n.includes('mocidade louca')) return 'mocidade_louca_sao_cristovao';
   if (n.includes('mocidade') && !n.includes('cidade de deus') && !n.includes('santa marta') && !n.includes('vicente')) return 'mocidade';
   if (n.includes('maricá') || n.includes('marica')) return 'marica';
   if ((n.includes('padre miguel') || n === 'upm') && !n.includes('mocidade')) return 'unidos_padre_miguel';
@@ -4785,6 +4816,9 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('manguinhos')) return 'unidos_de_manguinhos';
   if (n.includes('jardim')) return 'unidos_do_jardim';
   if (n.includes('marangá') || n.includes('maranga')) return 'imperio_do_maranga';
+  if (n.includes('união do cruzeiro') || n.includes('uniao do cruzeiro')) return 'uniao_do_cruzeiro';
+  if (n.includes('santo antônio') || n.includes('santo antonio')) return 'unidos_de_santo_antonio';
+  if (n.includes('arapá') || n.includes('arapa')) return 'unidos_do_arapa';
   if (n.includes('santa tereza') || n.includes('santa theresa')) return 'vila_santa_tereza';
   return '';
 }
@@ -5146,6 +5180,146 @@ export function getSchoolHistoricalEnredosList(
     }
 
     return unidosTuiutiEnredos.sort((a, b) => b.year - a.year);
+  }
+
+  // União da Mocidade (inativa): agremiação histórica independente e sem vínculo com a Mocidade Independente de Padre Miguel.
+  // Seu histórico catalogado compreende estritamente suas próprias participações oficiais históricas (ex: 1950, 1951, etc.),
+  // garantindo de forma absoluta que NUNCA herde ou exiba os enredos da Mocidade Independente nem de outras escolas.
+  const isUniaoDaMocidade =
+    key === 'uniao_da_mocidade' ||
+    schoolId === 'uniao_da_mocidade' ||
+    canonKey === 'uniao_da_mocidade' ||
+    (schoolName &&
+      (schoolName.toLowerCase().includes('união da mocidade') || schoolName.toLowerCase().includes('uniao da mocidade')));
+
+  if (isUniaoDaMocidade) {
+    const uniaoMocidadeEnredos: { year: number; enredo: string }[] = [];
+    const years = Object.keys(HISTORICAL_ENREDOS_BY_YEAR)
+      .map(Number)
+      .sort((a, b) => b - a);
+
+    years.forEach((yr) => {
+      const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[yr];
+      if (yearRecords) {
+        const enredo = yearRecords['uniao_da_mocidade'];
+        if (enredo) {
+          uniaoMocidadeEnredos.push({ year: yr, enredo });
+        }
+      }
+    });
+
+    if (inGameHistory && inGameHistory.length > 0) {
+      inGameHistory.forEach((h) => {
+        if (h.schoolEnredos && h.schoolEnredos['uniao_da_mocidade']) {
+          const match = h.schoolEnredos['uniao_da_mocidade'];
+          if (match && !uniaoMocidadeEnredos.some((e) => e.year === h.year)) {
+            uniaoMocidadeEnredos.push({ year: h.year, enredo: match });
+          }
+        }
+      });
+    }
+
+    if (schoolObj?.enredoHistory && schoolObj.enredoHistory.length > 0) {
+      schoolObj.enredoHistory.forEach((item) => {
+        if (item.year && item.enredo && !uniaoMocidadeEnredos.some((e) => e.year === item.year)) {
+          uniaoMocidadeEnredos.push({ year: item.year, enredo: item.enredo });
+        }
+      });
+    }
+
+    return uniaoMocidadeEnredos.sort((a, b) => b.year - a.year);
+  }
+
+  // Unidos da Mocidade (inativa): agremiação histórica participante da Série Ouro em 1952.
+  // Seu histórico catalogado compreende estritamente suas próprias participações oficiais históricas (ex: 1952: "Uma homenagem à imprensa"),
+  // garantindo de forma absoluta que NUNCA herde ou exiba os enredos da Mocidade Independente nem de outras escolas.
+  const isUnidosDaMocidade =
+    key === 'unidos_da_mocidade' ||
+    schoolId === 'unidos_da_mocidade' ||
+    canonKey === 'unidos_da_mocidade' ||
+    (schoolName && schoolName.toLowerCase().includes('unidos da mocidade'));
+
+  if (isUnidosDaMocidade) {
+    const unidosMocidadeEnredos: { year: number; enredo: string }[] = [];
+    const years = Object.keys(HISTORICAL_ENREDOS_BY_YEAR)
+      .map(Number)
+      .sort((a, b) => b - a);
+
+    years.forEach((yr) => {
+      const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[yr];
+      if (yearRecords) {
+        const enredo = yearRecords['unidos_da_mocidade'];
+        if (enredo) {
+          unidosMocidadeEnredos.push({ year: yr, enredo });
+        }
+      }
+    });
+
+    if (inGameHistory && inGameHistory.length > 0) {
+      inGameHistory.forEach((h) => {
+        if (h.schoolEnredos && h.schoolEnredos['unidos_da_mocidade']) {
+          const match = h.schoolEnredos['unidos_da_mocidade'];
+          if (match && !unidosMocidadeEnredos.some((e) => e.year === h.year)) {
+            unidosMocidadeEnredos.push({ year: h.year, enredo: match });
+          }
+        }
+      });
+    }
+
+    if (schoolObj?.enredoHistory && schoolObj.enredoHistory.length > 0) {
+      schoolObj.enredoHistory.forEach((item) => {
+        if (item.year && item.enredo && !unidosMocidadeEnredos.some((e) => e.year === item.year)) {
+          unidosMocidadeEnredos.push({ year: item.year, enredo: item.enredo });
+        }
+      });
+    }
+
+    return unidosMocidadeEnredos.sort((a, b) => b.year - a.year);
+  }
+
+  // Recreio da Mocidade (inativa): agremiação histórica participante da Série Ouro em 1953.
+  const isRecreioDaMocidade =
+    key === 'recreio_da_mocidade' ||
+    schoolId === 'recreio_da_mocidade' ||
+    canonKey === 'recreio_da_mocidade' ||
+    (schoolName && schoolName.toLowerCase().includes('recreio da mocidade'));
+
+  if (isRecreioDaMocidade) {
+    const recreioMocidadeEnredos: { year: number; enredo: string }[] = [];
+    const years = Object.keys(HISTORICAL_ENREDOS_BY_YEAR)
+      .map(Number)
+      .sort((a, b) => b - a);
+
+    years.forEach((yr) => {
+      const yearRecords = HISTORICAL_ENREDOS_BY_YEAR[yr];
+      if (yearRecords) {
+        const enredo = yearRecords['recreio_da_mocidade'];
+        if (enredo) {
+          recreioMocidadeEnredos.push({ year: yr, enredo });
+        }
+      }
+    });
+
+    if (inGameHistory && inGameHistory.length > 0) {
+      inGameHistory.forEach((h) => {
+        if (h.schoolEnredos && h.schoolEnredos['recreio_da_mocidade']) {
+          const match = h.schoolEnredos['recreio_da_mocidade'];
+          if (match && !recreioMocidadeEnredos.some((e) => e.year === h.year)) {
+            recreioMocidadeEnredos.push({ year: h.year, enredo: match });
+          }
+        }
+      });
+    }
+
+    if (schoolObj?.enredoHistory && schoolObj.enredoHistory.length > 0) {
+      schoolObj.enredoHistory.forEach((item) => {
+        if (item.year && item.enredo && !recreioMocidadeEnredos.some((e) => e.year === item.year)) {
+          recreioMocidadeEnredos.push({ year: item.year, enredo: item.enredo });
+        }
+      });
+    }
+
+    return recreioMocidadeEnredos.sort((a, b) => b.year - a.year);
   }
 
   const isParaisoDoTuiuti =

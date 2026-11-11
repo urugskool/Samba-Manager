@@ -828,7 +828,16 @@ export const CARNAVAL_1951_FBES: LiesaStandingRecord[] = [
   { rank: 28, schoolId: 'trovadores_do_maracana', schoolName: 'Trovadores do Maracanã', subgroup: 'fbes', league: 'FBES', statusDescription: '28º Lugar FBES (0 pts)' },
   { rank: 29, schoolId: 'uniao_dos_casados', schoolName: 'União dos Casados', subgroup: 'fbes', league: 'FBES', statusDescription: '29º Lugar FBES (0 pts)' },
   { rank: 30, schoolId: 'flor_do_lins', schoolName: 'Flor do Lins', subgroup: 'fbes', league: 'FBES', statusDescription: '30º Lugar FBES (0 pts)' },
-  { rank: 30, schoolId: 'unidos_de_campo_grande', schoolName: 'Unidos de Campo Grande', subgroup: 'fbes', league: 'FBES', statusDescription: '30º Lugar FBES (0 pts)' }
+  { rank: 30, schoolId: 'unidos_de_campo_grande', schoolName: 'Unidos de Campo Grande', subgroup: 'fbes', league: 'FBES', statusDescription: '30º Lugar FBES (0 pts)' },
+  { rank: 0, schoolId: 'imperio_do_grotao', schoolName: 'Império do Grotão', subgroup: 'fbes', league: 'FBES', isHorsConcours: true, statusDescription: 'Desclassificada por infringir o regulamento (FBES • 0 pts)' },
+  { rank: 0, schoolId: 'recreio_da_mocidade', schoolName: 'Recreio da Mocidade', subgroup: 'fbes', league: 'FBES', isHorsConcours: true, statusDescription: 'Desclassificada por infringir o regulamento (FBES • 0 pts)' },
+  { rank: 0, schoolId: 'recreio_de_sao_carlos', schoolName: 'Recreio de São Carlos', subgroup: 'fbes', league: 'FBES', isHorsConcours: true, statusDescription: 'Desclassificada por infringir o regulamento (FBES • 0 pts)' },
+  { rank: 0, schoolId: 'uniao_do_cruzeiro', schoolName: 'União do Cruzeiro', subgroup: 'fbes', league: 'FBES', isHorsConcours: true, statusDescription: 'Desclassificada por infringir o regulamento (FBES • 0 pts)' },
+  { rank: 0, schoolId: 'unidos_da_piedade', schoolName: 'Unidos da Piedade', subgroup: 'fbes', league: 'FBES', isHorsConcours: true, statusDescription: 'Desclassificada por infringir o regulamento (FBES • 0 pts)' },
+  { rank: 0, schoolId: 'unidos_de_santo_antonio', schoolName: 'Unidos de Santo Antônio', subgroup: 'fbes', league: 'FBES', isHorsConcours: true, statusDescription: 'Desclassificada por infringir o regulamento (FBES • 0 pts)' },
+  { rank: 0, schoolId: 'unidos_do_arapa', schoolName: 'Unidos do Arapá', subgroup: 'fbes', league: 'FBES', isHorsConcours: true, statusDescription: 'Desclassificada por infringir o regulamento (FBES • 0 pts)' },
+  { rank: 0, schoolId: 'unidos_do_barao', schoolName: 'Unidos do Barão', subgroup: 'fbes', league: 'FBES', isHorsConcours: true, statusDescription: 'Desclassificada por infringir o regulamento (FBES • 0 pts)' },
+  { rank: 0, schoolId: 'imperio_do_maranga', schoolName: 'Unidos do Marangá', subgroup: 'fbes', league: 'FBES', isHorsConcours: true, statusDescription: 'Desclassificada por infringir o regulamento (FBES • 0 pts)' }
 ];
 
 export const CARNAVAL_1951_UGESB: LiesaStandingRecord[] = [
@@ -2800,6 +2809,9 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('príncipes da floresta') || nameNorm.includes('principes da floresta')) return 'principes_da_floresta';
   if (nameNorm.includes('guarany') || nameNorm.includes('sport club') || nameNorm.includes('sport clube')) return 'sport_club_guarany';
   if (nameNorm === 'tuiuti' || nameNorm.includes('escola de samba tuiuti')) return 'escola_tuiuti';
+  if (nameNorm.includes('união do cruzeiro') || nameNorm.includes('uniao do cruzeiro')) return 'uniao_do_cruzeiro';
+  if (nameNorm.includes('santo antônio') || nameNorm.includes('santo antonio')) return 'unidos_de_santo_antonio';
+  if (nameNorm.includes('arapá') || nameNorm.includes('arapa')) return 'unidos_do_arapa';
   if (nameNorm.includes('vai como pode')) return 'portela';
   return nameNorm.replace(/[^a-z0-9]/g, '_');
 }

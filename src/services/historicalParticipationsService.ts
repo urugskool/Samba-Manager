@@ -150,6 +150,9 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('imperio do grotao') || name.includes('império do grotão') || clean.includes('imperio_do_grotao')) return 'imperio_do_grotao';
   if (name.includes('paraiso do grotao') || name.includes('paraíso do grotão') || clean.includes('paraiso_do_grotao')) return 'paraiso_do_grotao';
   if (name.includes('grotão') || name.includes('grotao') || clean.includes('grotao')) return 'paraiso_do_grotao';
+  if (name.includes('união do cruzeiro') || name.includes('uniao do cruzeiro') || clean.includes('uniao_do_cruzeiro')) return 'uniao_do_cruzeiro';
+  if (name.includes('santo antônio') || name.includes('santo antonio') || clean.includes('santo_antonio')) return 'unidos_de_santo_antonio';
+  if (name.includes('arapá') || name.includes('arapa') || clean.includes('arapa')) return 'unidos_do_arapa';
 
   return clean || name.replace(/\s+/g, '_');
 }

@@ -254,7 +254,10 @@ const INITIAL_INACTIVE_SCHOOL_IDS = new Set([
   'verde_e_amarelo',
   'recreio_da_mocidade',
   'imperio_do_grotao',
-  'unidos_da_mocidade'
+  'unidos_da_mocidade',
+  'uniao_do_cruzeiro',
+  'unidos_de_santo_antonio',
+  'unidos_do_arapa'
 ]);
 
 function sanitizeSchoolsData(loadedSchools: School[], activeUserSchoolId?: string | null): School[] {
