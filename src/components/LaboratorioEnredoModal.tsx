@@ -219,6 +219,11 @@ export const LaboratorioEnredoModal: React.FC<LaboratorioEnredoModalProps> = ({
                       );
                     })}
                   </div>
+                  <p className={`text-[11px] font-mono ${selectedTheme === 'Histórico' ? 'text-emerald-400 font-bold' : 'text-slate-400'}`}>
+                    {selectedTheme === 'Histórico'
+                      ? 'Tema Histórico selecionado: +40% de bônus no orçamento de patrocínio cultural na Tesouraria.'
+                      : 'Vertente Histórico concede +40% de bônus no orçamento de patrocínio cultural.'}
+                  </p>
                 </div>
 
                 {/* 2. Complexidade Narrativa */}

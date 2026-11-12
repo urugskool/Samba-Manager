@@ -70,6 +70,38 @@ export interface Enredo {
   proponent?: string; // Quem propôs o enredo (ex: 'Carnavalesco', 'Conselho Deliberativo', 'Patrocinador')
 }
 
+export interface ThematicSponsorOffer {
+  id: string;
+  name: string;
+  sector: string;
+  tagline: string;
+  matchedThemeKey: string;
+  matchedThemeLabel: string;
+  enredoThemeType: string;
+  baseAmount: number;
+  culturalBonusPercent: number;
+  culturalBonusAmount: number;
+  totalAmount: number;
+  hasHistoricalCulturalBonus: boolean;
+  affinityScore: number; // 75 - 99
+  tierLabel: string;
+}
+
+export interface ActiveThematicSponsor {
+  sponsorId: string;
+  sponsorName: string;
+  sector: string;
+  enredoTitle: string;
+  enredoThemeType: string;
+  matchedThemeLabel: string;
+  baseAmount: number;
+  culturalBonusPercent: number;
+  culturalBonusAmount: number;
+  totalAmount: number;
+  hasHistoricalCulturalBonus: boolean;
+  year: number;
+}
+
 export interface CampeasParadeResult {
   schoolId: string;
   rankInCarnaval: number; // 1 a 6
@@ -337,6 +369,8 @@ export interface School {
   lastEnsaioShowMonth?: import('./seasonCycle').SeasonMonthId;
   masterSponsorClaimedYear?: number;
   communitySponsorClaimedYear?: number;
+  thematicSponsorClaimedYear?: number;
+  activeThematicSponsor?: ActiveThematicSponsor;
 }
 
 export type JuradoScores = [number, number, number, number]; // 4 jurados

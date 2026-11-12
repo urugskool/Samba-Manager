@@ -55,6 +55,7 @@ import { TransferMarketService } from './services/transferMarketService';
 import { getCanonical2026Enredo } from './data/canonicalEnredosRegistry';
 import { SaveGameModal } from './components/SaveGameModal';
 import { saveManager } from './services/saveManager';
+import { ThematicSponsorService } from './services/thematicSponsorService';
 
 import { Sparkles, Trophy, CheckCircle, AlertTriangle, Info, Dices, Lock, Calendar, ChevronRight } from 'lucide-react';
 
@@ -1345,7 +1346,10 @@ export default function App() {
       return;
     }
 
-    setSchools((prev) => atribuirEnredosAleatorios(prev, schoolId || undefined) as School[]);
+    setSchools((prev) => {
+      const withEnredos = atribuirEnredosAleatorios(prev, schoolId || undefined) as School[];
+      return ThematicSponsorService.applyThematicSponsorsToAISchools(withEnredos, currentYear, schoolId);
+    });
 
     setUserSchoolId(schoolId);
     setIsSpectatorMode(!schoolId);
@@ -1458,7 +1462,12 @@ export default function App() {
         ano: currentYear
       });
 
-      setSchools(novaTemporadaEstado.escolas);
+      const schoolsWithThematicSponsors = ThematicSponsorService.applyThematicSponsorsToAISchools(
+        novaTemporadaEstado.escolas as School[],
+        nextSeasonData.nextYear,
+        userSchoolId
+      );
+      setSchools(schoolsWithThematicSponsors);
       setCurrentYear(nextSeasonData.nextYear);
       setHistory(nextSeasonData.newHistory);
       setHasParadeResults(false);
@@ -1734,8 +1743,8 @@ export default function App() {
     }
 
     // 2. Prepara todas as escolas ativas com prontidão máxima de fevereiro
-    setSchools((prev) =>
-      prev.map((s) => {
+    setSchools((prev) => {
+      const prepared = prev.map((s) => {
         if (s.isInactive || (s as any).inactive) return s;
         let schoolEnredo = s.currentEnredo;
         if (!schoolEnredo || schoolEnredo.title.includes('SAMPLE') || schoolEnredo.title.trim() === '') {
@@ -1769,8 +1778,10 @@ export default function App() {
           rehearsalLevel: finalRehearsal,
           technicalParadeDone: true
         };
-      })
-    );
+      });
+
+      return ThematicSponsorService.applyThematicSponsorsToAISchools(prepared, currentYear, userSchoolId);
+    });
 
     setCurrentSeasonMonth('fevereiro');
     setActiveTab('desfile');
@@ -1971,6 +1982,7 @@ export default function App() {
             sorteio={sorteio}
             onUpdateSchool={handleUpdateSchool}
             onShowMessage={showToast}
+            onNavigateToBarracao={() => setActiveTab('barracao')}
           />
         )}
 

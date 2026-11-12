@@ -37,6 +37,10 @@ import { EnredoCreatorModal } from './EnredoCreatorModal';
 import { LaboratorioEnredoModal } from './LaboratorioEnredoModal';
 import { ParadeScriptService, ParadeScript } from '../services/paradeScriptService';
 import { GestaoFinanceiraEscola, TipoBarracao } from '../types/financasFM';
+import {
+  HISTORICAL_CULTURAL_BONUS_PERCENT,
+  isHistoricalEnredoTheme
+} from '../services/thematicSponsorService';
 
 interface BarracaoViewProps {
   school: School;
@@ -444,6 +448,21 @@ export const BarracaoView: React.FC<BarracaoViewProps> = ({
               <p className="text-xs text-slate-300 leading-relaxed max-w-4xl">
                 {school.currentEnredo.synopsis}
               </p>
+              {(isHistoricalEnredoTheme(String(school.currentEnredo.themeType)) ||
+                school.activeThematicSponsor?.year === currentYear) && (
+                <div className="pt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-mono tabular-nums">
+                  {isHistoricalEnredoTheme(String(school.currentEnredo.themeType)) && (
+                    <span className="text-emerald-400 font-bold">
+                      Bônus Cultural Histórico: +{HISTORICAL_CULTURAL_BONUS_PERCENT}% no orçamento de patrocínio cultural (Tesouraria)
+                    </span>
+                  )}
+                  {school.activeThematicSponsor?.year === currentYear && (
+                    <span className="text-slate-300">
+                      Patrocínio Temático {currentYear}: <strong className="text-white">{school.activeThematicSponsor.sponsorName}</strong> (R$ {school.activeThematicSponsor.totalAmount.toLocaleString('pt-BR')})
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
 
             <div className="shrink-0 flex sm:flex-col items-center sm:items-end gap-2">

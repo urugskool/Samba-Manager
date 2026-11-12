@@ -5197,6 +5197,38 @@ Object.entries(OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL).forEach(([schoolId, rec]) => 
 // RESULTADOS HISTÓRICOS OFICIAIS DE 1980 A 1999 (AESCRJ até 1984 / LIESA desde 1985)
 // ============================================================================
 export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
+  1940: {
+    champion: 'Estação Primeira de Mangueira',
+    runnerUp: 'Mocidade Louca de São Cristóvão',
+    third: 'Azul e Branco do Salgueiro',
+    relegated: [],
+    notes: 'Carnaval Histórico de 1940: Desfile oficial unificado das Escolas de Samba com 23 agremiações participantes. A Estação Primeira de Mangueira sagrou-se campeã (+20 pts) cantando "Prantos, pretos e poetas", e a agremiação Mocidade Louca de São Cristóvão foi a vice-campeã histórica (+15 pts). Azul e Branco do Salgueiro ficou em 3º (+12 pts), União do Sampaio em 4º (+10 pts), Portela em 5º (+8 pts) com "Homenagem à Justiça", Deixa Malhar em 6º (+6 pts), Cada Ano Sai Melhor, Paz e Amor e Unidos da Tijuca empatadas em 7º (+4 pts cada), Fiquei Firme em 8º (+3 pts), União Barão da Gamboa em 9º (+2 pts) e Depois Eu Digo em 10º (+1 pt). Destaque também para Unidos do Salgueiro ("Terra Amada") e Prazer da Serrinha ("Sonho de fadas"). Não houve rebaixamento.',
+    standings: [
+      { rank: 1, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'campea' },
+      { rank: 2, schoolId: 'mocidade_louca_sao_cristovao', schoolName: 'Mocidade Louca de São Cristóvão', status: 'vice' },
+      { rank: 3, schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro', status: 'participante' },
+      { rank: 4, schoolId: 'uniao_de_sampaio', schoolName: 'União do Sampaio', status: 'participante' },
+      { rank: 5, schoolId: 'portela', schoolName: 'Portela', status: 'participante' },
+      { rank: 6, schoolId: 'deixa_malhar', schoolName: 'Deixa Malhar', status: 'participante' },
+      { rank: 7, schoolId: 'cada_ano_sai_melhor', schoolName: 'Cada Ano Sai Melhor', status: 'participante' },
+      { rank: 7, schoolId: 'paz_e_amor', schoolName: 'Paz e Amor', status: 'participante' },
+      { rank: 7, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 8, schoolId: 'fiquei_firme', schoolName: 'Fiquei Firme', status: 'participante' },
+      { rank: 9, schoolId: 'uniao_barao_da_gamboa', schoolName: 'União Barão da Gamboa', status: 'participante' },
+      { rank: 10, schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo', status: 'participante' },
+      { rank: 11, schoolId: 'unidos_da_mangueira', schoolName: 'Unidos da Mangueira', status: 'participante' },
+      { rank: 12, schoolId: 'ultima_hora', schoolName: 'Última Hora', status: 'participante' },
+      { rank: 13, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', status: 'participante' },
+      { rank: 13, schoolId: 'vai_se_quiser', schoolName: 'Vai Se Quiser', status: 'participante' },
+      { rank: 14, schoolId: 'lira_do_amor', schoolName: 'Lira do Amor', status: 'participante' },
+      { rank: 15, schoolId: 'nao_e_o_que_dizem', schoolName: 'Não é o Que Dizem', status: 'participante' },
+      { rank: 16, schoolId: 'filhos_do_deserto', schoolName: 'Filhos do Deserto', status: 'participante' },
+      { rank: 16, schoolId: 'unidos_do_tuiuti', schoolName: 'Unidos do Tuiuti', status: 'participante' },
+      { rank: 17, schoolId: 'prazer_da_serrinha', schoolName: 'Prazer da Serrinha', status: 'participante' },
+      { rank: 17, schoolId: 'uniao_de_colegio', schoolName: 'União de Colégio', status: 'participante' },
+      { rank: 18, schoolId: 'coracoes_unidos_jacarepagua', schoolName: 'Corações Unidos de Jacarepaguá', status: 'participante' }
+    ]
+  },
   1941: {
     champion: 'Portela',
     runnerUp: 'Estação Primeira de Mangueira',

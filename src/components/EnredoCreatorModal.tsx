@@ -456,6 +456,9 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
                         </button>
                       ))}
                     </div>
+                    <p className="text-[11px] text-emerald-300/90 font-mono">
+                      Dica Financeira: Enredos com vertente <strong className="text-amber-300">Histórico</strong> recebem +40% de bônus no orçamento de patrocínio cultural na aba Finanças.
+                    </p>
                   </div>
 
                   {/* Botão de Disparo */}
@@ -536,6 +539,15 @@ export const EnredoCreatorModal: React.FC<EnredoCreatorModalProps> = ({
                         </button>
                       ))}
                     </div>
+                    {authorGenre === 'Histórico' ? (
+                      <p className="text-[11px] text-emerald-400 font-bold font-mono">
+                        Bônus de Patrocínio Cultural Ativo: +40% no orçamento de patrocínio temático na Tesouraria.
+                      </p>
+                    ) : (
+                      <p className="text-[11px] text-slate-400 font-mono">
+                        Vertente Histórico garante +40% de bônus no orçamento de patrocínio cultural.
+                      </p>
+                    )}
                   </div>
 
                   {/* Sinopse Completa */}

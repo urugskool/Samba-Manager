@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { School, DivisionId, YearHistory } from '../types/carnaval';
+import { School, DivisionId, YearHistory, ThematicSponsorOffer } from '../types/carnaval';
 import { CarnavalSorteio } from '../types/sorteio';
 import { SeasonMonthId } from '../types/seasonCycle';
 import {
@@ -38,7 +38,10 @@ import {
   Percent,
   HelpCircle,
   Trophy,
-  Medal
+  Medal,
+  BookOpen,
+  Palette,
+  ArrowRight
 } from 'lucide-react';
 import { soundService } from '../services/soundService';
 import { cleanSchoolName } from '../utils/schoolNameUtils';
@@ -59,6 +62,11 @@ import {
 } from '../services/repassesFinanceirosService';
 import { ResumoFinanceiroEscola, SaudeFinanceira, ItemDRE, GestaoFinanceiraEscola, TipoBarracao } from '../types/financasFM';
 import { FinancasFMService } from '../services/financasFMService';
+import {
+  ThematicSponsorService,
+  HISTORICAL_CULTURAL_BONUS_PERCENT,
+  isHistoricalEnredoTheme
+} from '../services/thematicSponsorService';
 
 export type RepasseDivisionTab = 'especial' | 'ouro' | 'prata' | 'bronze' | 'avaliacao';
 
@@ -76,6 +84,7 @@ export interface FinancasViewProps {
   sorteio?: CarnavalSorteio;
   onUpdateSchool: (updatedSchool: School) => void;
   onShowMessage: (msg: string, type?: 'info' | 'success' | 'warning' | 'alert') => void;
+  onNavigateToBarracao?: () => void;
 }
 
 const MONTH_NAMES: Record<SeasonMonthId, string> = {
@@ -159,7 +168,8 @@ export const FinancasView: React.FC<FinancasViewProps> = ({
   history = [],
   sorteio,
   onUpdateSchool,
-  onShowMessage
+  onShowMessage,
+  onNavigateToBarracao
 }) => {
   const [showCriteriaDetail, setShowCriteriaDetail] = useState<boolean>(false);
   const [isLogisticsModalOpen, setIsLogisticsModalOpen] = useState<boolean>(false);
@@ -754,6 +764,56 @@ export const FinancasView: React.FC<FinancasViewProps> = ({
       `Parceria Comercial Regional Fechada! R$ ${communityAmount.toLocaleString('pt-BR')} creditados via ${sponsorTerritoryTitle}! Moral da comunidade +4%.`,
       'success'
     );
+  };
+
+  // Patrocínio Temático baseado no Tema do Enredo (com Bônus Cultural para 'Histórico')
+  const currentEnredo = school.currentEnredo;
+  const currentEnredoTheme = currentEnredo?.themeType ? String(currentEnredo.themeType) : '';
+  const isHistoricalThemeActive = isHistoricalEnredoTheme(currentEnredoTheme);
+  const isThematicClaimedThisSeason = school.thematicSponsorClaimedYear === currentYear;
+  const activeThematicSponsor =
+    school.activeThematicSponsor?.year === currentYear ? school.activeThematicSponsor : undefined;
+
+  const thematicOffers = useMemo(
+    () => ThematicSponsorService.generateOffersForSchool(school, currentYear),
+    [school, currentYear]
+  );
+
+  const handleSignThematicSponsor = (offer: ThematicSponsorOffer) => {
+    if (!school.currentEnredo) {
+      soundService.playBuzzer();
+      onShowMessage(
+        'Defina primeiro um Enredo Oficial no Barracão para atrair patrocinadores temáticos compatíveis.',
+        'warning'
+      );
+      return;
+    }
+
+    if (isThematicClaimedThisSeason) {
+      soundService.playBuzzer();
+      onShowMessage(
+        `Limite anual atingido! O patrocínio temático pelo enredo já foi firmado para o Carnaval ${currentYear}.`,
+        'warning'
+      );
+      return;
+    }
+
+    soundService.playGavel();
+
+    const updated = ThematicSponsorService.applyThematicSponsorContract(school, offer, currentYear);
+    onUpdateSchool(updated);
+
+    if (offer.hasHistoricalCulturalBonus) {
+      onShowMessage(
+        `Patrocínio Temático & Cultural homologado com ${offer.name}! Base de R$ ${offer.baseAmount.toLocaleString('pt-BR')} + Bônus de Patrocínio Cultural (+${offer.culturalBonusPercent}% pelo tema Histórico = +R$ ${offer.culturalBonusAmount.toLocaleString('pt-BR')}). Total de R$ ${offer.totalAmount.toLocaleString('pt-BR')} creditado no caixa!`,
+        'success'
+      );
+    } else {
+      onShowMessage(
+        `Patrocínio Temático homologado com ${offer.name} (tema "${offer.enredoThemeType}")! Aporte de R$ ${offer.totalAmount.toLocaleString('pt-BR')} creditado no orçamento da escola!`,
+        'success'
+      );
+    }
   };
 
   return (
@@ -4009,6 +4069,242 @@ export const FinancasView: React.FC<FinancasViewProps> = ({
             </div>
           </div>
         )}
+
+        {/* Patrocinadores Temáticos Baseados no Tema do Enredo */}
+        <div className="p-5 rounded-2xl bg-slate-950/75 border border-slate-800 space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-4 border-b border-slate-800">
+            <div className="flex items-start gap-3">
+              <div className="p-2.5 rounded-xl bg-amber-500/15 text-amber-400 border border-amber-500/30 shrink-0">
+                <Palette className="w-5 h-5" />
+              </div>
+              <div className="space-y-1">
+                <h4 className="text-base font-black text-white">
+                  Patrocinadores Temáticos pelo Enredo
+                </h4>
+                <p className="text-xs text-slate-400">
+                  Instituições e marcas se aproximam da escola de acordo com a vertente do enredo oficial. Temas{' '}
+                  <strong className="text-amber-300">Históricos</strong> desbloqueiam{' '}
+                  <strong className="text-emerald-400 font-mono tabular-nums">
+                    +{HISTORICAL_CULTURAL_BONUS_PERCENT}%
+                  </strong>{' '}
+                  de bônus no orçamento de patrocínio cultural.
+                </p>
+              </div>
+            </div>
+
+            <div className="text-xs font-mono tabular-nums text-slate-400 shrink-0">
+              {isThematicClaimedThisSeason
+                ? `Contrato ${currentYear} vigente · 1x/temporada`
+                : currentEnredo
+                ? `Tema ativo: ${currentEnredoTheme}`
+                : 'Aguardando enredo oficial'}
+            </div>
+          </div>
+
+          {!currentEnredo ? (
+            <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="space-y-1">
+                <div className="text-xs font-bold text-white">
+                  Nenhum enredo oficial definido para {currentYear}
+                </div>
+                <p className="text-xs text-slate-400">
+                  Escolha ou crie um enredo no Barracão para abrir propostas de patrocinadores alinhados ao tema. Se optar pelo tema{' '}
+                  <strong className="text-amber-300">Histórico</strong>, a escola ganha +{HISTORICAL_CULTURAL_BONUS_PERCENT}% no orçamento de patrocínio cultural.
+                </p>
+              </div>
+              {onNavigateToBarracao && (
+                <button
+                  type="button"
+                  onClick={onNavigateToBarracao}
+                  className="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs transition flex items-center gap-2 whitespace-nowrap shrink-0 cursor-pointer"
+                >
+                  <BookOpen className="w-4 h-4" />
+                  <span>Ir para o Barracão</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {/* Contexto do Enredo & Bônus Cultural */}
+              <div
+                className={`p-4 rounded-xl border flex flex-col md:flex-row md:items-center justify-between gap-3 ${
+                  isHistoricalThemeActive
+                    ? 'bg-emerald-950/30 border-emerald-500/40'
+                    : 'bg-slate-900/70 border-slate-800'
+                }`}
+              >
+                <div className="space-y-1">
+                  <div className="text-[11px] font-mono text-slate-400">
+                    Enredo {currentYear} · Tema: <strong className="text-white">{currentEnredoTheme}</strong>
+                  </div>
+                  <div className="text-sm font-bold text-white">
+                    "{currentEnredo.title}"
+                  </div>
+                </div>
+
+                <div className="text-left md:text-right shrink-0">
+                  {isHistoricalThemeActive ? (
+                    <>
+                      <div className="text-xs font-black text-emerald-400 font-mono tabular-nums">
+                        Bônus de Patrocínio Cultural Ativo: +{HISTORICAL_CULTURAL_BONUS_PERCENT}%
+                      </div>
+                      <div className="text-[11px] text-emerald-200/80">
+                        Incentivo extra no orçamento cultural garantido pelo tema Histórico
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="text-xs font-bold text-slate-300 font-mono tabular-nums">
+                        Bônus Cultural Histórico: Inativo (0%)
+                      </div>
+                      <div className="text-[11px] text-slate-400">
+                        Enredos com tema Histórico recebem +{HISTORICAL_CULTURAL_BONUS_PERCENT}% no orçamento cultural
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              {/* Contrato Já Firmado na Temporada */}
+              {isThematicClaimedThisSeason && activeThematicSponsor && (
+                <div className="p-4 rounded-xl bg-slate-900/90 border border-emerald-500/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2 text-xs font-black text-emerald-400">
+                      <CheckCircle2 className="w-4 h-4 shrink-0" />
+                      <span>Patrocínio Temático {currentYear} Homologado</span>
+                    </div>
+                    <div className="text-sm font-bold text-white">
+                      {activeThematicSponsor.sponsorName}
+                    </div>
+                    <div className="text-[11px] text-slate-400 font-mono">
+                      {activeThematicSponsor.sector} · Tema: {activeThematicSponsor.enredoThemeType}
+                    </div>
+                  </div>
+
+                  <div className="text-left sm:text-right font-mono tabular-nums space-y-0.5 shrink-0">
+                    <div className="text-[11px] text-slate-400">
+                      Cota Base: R$ {activeThematicSponsor.baseAmount.toLocaleString('pt-BR')}
+                      {activeThematicSponsor.hasHistoricalCulturalBonus && (
+                        <span className="text-emerald-400">
+                          {' '}· Bônus Cultural (+{activeThematicSponsor.culturalBonusPercent}%): +R${' '}
+                          {activeThematicSponsor.culturalBonusAmount.toLocaleString('pt-BR')}
+                        </span>
+                      )}
+                    </div>
+                    <div className="text-base font-black text-emerald-400">
+                      Total Creditado: R$ {activeThematicSponsor.totalAmount.toLocaleString('pt-BR')}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Grade de Propostas de Patrocinadores Temáticos */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                {thematicOffers.map((offer) => {
+                  const isSignedOffer =
+                    isThematicClaimedThisSeason && activeThematicSponsor?.sponsorId === offer.id;
+
+                  return (
+                    <div
+                      key={offer.id}
+                      className={`p-4 rounded-xl border flex flex-col justify-between gap-4 transition ${
+                        isSignedOffer
+                          ? 'bg-emerald-950/20 border-emerald-500/50'
+                          : isThematicClaimedThisSeason
+                          ? 'bg-slate-900/40 border-slate-800/70 opacity-65'
+                          : offer.hasHistoricalCulturalBonus
+                          ? 'bg-slate-900/80 border-amber-500/35 hover:border-amber-400/60'
+                          : 'bg-slate-900/80 border-slate-800 hover:border-slate-700'
+                      }`}
+                    >
+                      <div className="space-y-2.5">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="text-[11px] font-mono text-amber-300 font-bold">
+                            {offer.tierLabel}
+                          </div>
+                          <div className="text-[11px] font-mono tabular-nums text-slate-300 shrink-0">
+                            Afinidade {offer.affinityScore}%
+                          </div>
+                        </div>
+
+                        <div>
+                          <h5 className="text-sm font-black text-white leading-snug">
+                            {offer.name}
+                          </h5>
+                          <div className="text-[11px] text-slate-400 mt-0.5">
+                            {offer.sector}
+                          </div>
+                        </div>
+
+                        <p className="text-xs text-slate-300 leading-relaxed">
+                          {offer.tagline}
+                        </p>
+                      </div>
+
+                      <div className="space-y-3 pt-3 border-t border-slate-800/80">
+                        <div className="space-y-1 text-xs font-mono tabular-nums">
+                          <div className="flex items-center justify-between text-slate-400">
+                            <span>Cota Temática Base:</span>
+                            <span className="text-slate-200">
+                              R$ {offer.baseAmount.toLocaleString('pt-BR')}
+                            </span>
+                          </div>
+                          <div className="flex items-center justify-between text-slate-400">
+                            <span>Bônus Cultural (Histórico):</span>
+                            {offer.hasHistoricalCulturalBonus ? (
+                              <span className="text-emerald-400 font-bold">
+                                +R$ {offer.culturalBonusAmount.toLocaleString('pt-BR')} (+{offer.culturalBonusPercent}%)
+                              </span>
+                            ) : (
+                              <span className="text-slate-500">R$ 0</span>
+                            )}
+                          </div>
+                          <div className="flex items-center justify-between pt-1 border-t border-slate-800/80 font-black">
+                            <span className="text-slate-200 font-sans">Total no Orçamento:</span>
+                            <span className="text-emerald-400 text-sm">
+                              R$ {offer.totalAmount.toLocaleString('pt-BR')}
+                            </span>
+                          </div>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={() => handleSignThematicSponsor(offer)}
+                          disabled={isThematicClaimedThisSeason}
+                          className={`w-full px-3.5 py-2.5 rounded-xl font-black text-xs transition flex items-center justify-center gap-2 whitespace-nowrap ${
+                            isSignedOffer
+                              ? 'bg-emerald-600/20 text-emerald-300 border border-emerald-500/40 cursor-not-allowed'
+                              : isThematicClaimedThisSeason
+                              ? 'bg-slate-800 text-slate-500 border border-slate-700 cursor-not-allowed'
+                              : 'bg-emerald-600 hover:bg-emerald-500 text-white cursor-pointer'
+                          }`}
+                        >
+                          {isSignedOffer ? (
+                            <>
+                              <CheckCircle2 className="w-3.5 h-3.5" />
+                              <span>Contrato Assinado ({currentYear})</span>
+                            </>
+                          ) : isThematicClaimedThisSeason ? (
+                            <>
+                              <Lock className="w-3.5 h-3.5" />
+                              <span>Cota Temática Encerrada</span>
+                            </>
+                          ) : (
+                            <>
+                              <DollarSign className="w-3.5 h-3.5" />
+                              <span>Firmar Patrocínio (R$ {offer.totalAmount.toLocaleString('pt-BR')})</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Modal Interativo de Logística & Geolocalização */}
