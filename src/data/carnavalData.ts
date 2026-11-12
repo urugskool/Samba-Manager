@@ -5197,6 +5197,45 @@ Object.entries(OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL).forEach(([schoolId, rec]) => 
 // RESULTADOS HISTÓRICOS OFICIAIS DE 1980 A 1999 (AESCRJ até 1984 / LIESA desde 1985)
 // ============================================================================
 export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
+  1943: {
+    champion: 'Portela',
+    runnerUp: 'Estação Primeira de Mangueira',
+    third: 'Azul e Branco do Salgueiro',
+    relegated: [],
+    notes: 'Carnaval Histórico de 1943: Dezenove agremiações participaram do desfile oficial no Rio de Janeiro. A Portela conquistou o tricampeonato consecutivo (+20 pts) com "Carnaval de guerra", a Estação Primeira de Mangueira foi vice-campeã (+15 pts) com "Samba no Palácio Itamarati", Azul e Branco do Salgueiro ficou em 3º (+12 pts) com "Alô, Alô, América", Deixa Malhar em 4º (+10 pts) e Corações Unidos de Jacarepaguá em 5º (+8 pts). Catorze agremiações adicionais desfilaram sem classificação final oficial.',
+    standings: [
+      { rank: 1, schoolId: 'portela', schoolName: 'Portela', status: 'campea' },
+      { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'vice' },
+      { rank: 3, schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro', status: 'participante' },
+      { rank: 4, schoolId: 'deixa_malhar', schoolName: 'Deixa Malhar', status: 'participante' },
+      { rank: 5, schoolId: 'coracoes_unidos_jacarepagua', schoolName: 'Corações Unidos de Jacarepaguá', status: 'participante' },
+      { rank: 6, schoolId: 'cada_ano_sai_melhor', schoolName: 'Cada Ano Sai Melhor', status: 'participante' },
+      { rank: 6, schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo', status: 'participante' },
+      { rank: 6, schoolId: 'fiquei_firme', schoolName: 'Fiquei Firme', status: 'participante' },
+      { rank: 6, schoolId: 'imperio_da_tijuca', schoolName: 'Império da Tijuca', status: 'participante' },
+      { rank: 6, schoolId: 'lira_do_amor', schoolName: 'Lira do Amor', status: 'participante' },
+      { rank: 6, schoolId: 'mocidade_louca_sao_cristovao', schoolName: 'Mocidade Louca de São Cristóvão', status: 'participante' },
+      { rank: 6, schoolId: 'nao_e_o_que_dizem', schoolName: 'Não É o Que Dizem', status: 'participante' },
+      { rank: 6, schoolId: 'paz_e_amor', schoolName: 'Paz e Amor', status: 'participante' },
+      { rank: 6, schoolId: 'prazer_da_serrinha', schoolName: 'Prazer da Serrinha', status: 'participante' },
+      { rank: 6, schoolId: 'uniao_de_sampaio', schoolName: 'União do Sampaio', status: 'participante' },
+      { rank: 6, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 6, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', status: 'participante' },
+      { rank: 6, schoolId: 'unidos_do_tuiuti', schoolName: 'Unidos do Tuiuti', status: 'participante' },
+      { rank: 6, schoolId: 'vai_se_quiser', schoolName: 'Vai Se Quiser', status: 'participante' }
+    ]
+  },
+  1944: {
+    champion: 'Portela',
+    runnerUp: 'Estação Primeira de Mangueira',
+    third: 'Não oficializado',
+    relegated: [],
+    notes: 'Carnaval Histórico de 1944: Nove agremiações desfilaram no Carnaval Carioca. A Portela sagrou-se tetracampeã consecutiva (+20 pts) cantando "Brasil glorioso", e a Estação Primeira de Mangueira foi vice-campeã (+15 pts) com "Glória ao samba". Apenas campeã e vice foram oficializadas pelo júri.',
+    standings: [
+      { rank: 1, schoolId: 'portela', schoolName: 'Portela', status: 'campea' },
+      { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'vice' }
+    ]
+  },
   1945: {
     champion: 'Portela',
     runnerUp: 'Estação Primeira de Mangueira',
