@@ -5197,6 +5197,32 @@ Object.entries(OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL).forEach(([schoolId, rec]) => 
 // RESULTADOS HISTÓRICOS OFICIAIS DE 1980 A 1999 (AESCRJ até 1984 / LIESA desde 1985)
 // ============================================================================
 export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
+  1941: {
+    champion: 'Portela',
+    runnerUp: 'Estação Primeira de Mangueira',
+    third: 'Depois Eu Digo',
+    relegated: [],
+    notes: 'Carnaval Histórico de 1941: Desfile oficial unificado das Escolas de Samba com 17 agremiações participantes. A Portela sagrou-se campeã (+20 pts) cantando "Dez anos de glórias", e a Estação Primeira de Mangueira foi vice-campeã (+15 pts) com "Pedro Ernesto". Depois Eu Digo ficou em 3º (+12 pts), Deixa Malhar em 4º (+10 pts) com "Uma Festa na Bahia", Unidos da Tijuca em 5º (+8 pts), Unidos do Salgueiro em 6º (+6 pts), Paz e Amor em 7º (+4 pts) com "Jornada triunfal", Lira do Amor em 8º (+3 pts), Mocidade Louca de São Cristóvão em 9º (+2 pts) e Não É o Que Dizem em 10º (+1 pt). Empatadas em 11º ficaram Fiquei Firme e Prazer da Serrinha (com "A morte da baiana"). Não houve rebaixamento.',
+    standings: [
+      { rank: 1, schoolId: 'portela', schoolName: 'Portela', status: 'campea' },
+      { rank: 2, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'vice' },
+      { rank: 3, schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo', status: 'participante' },
+      { rank: 4, schoolId: 'deixa_malhar', schoolName: 'Deixa Malhar', status: 'participante' },
+      { rank: 5, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 6, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', status: 'participante' },
+      { rank: 7, schoolId: 'paz_e_amor', schoolName: 'Paz e Amor', status: 'participante' },
+      { rank: 8, schoolId: 'lira_do_amor', schoolName: 'Lira do Amor', status: 'participante' },
+      { rank: 9, schoolId: 'mocidade_louca_sao_cristovao', schoolName: 'Mocidade Louca de São Cristóvão', status: 'participante' },
+      { rank: 10, schoolId: 'nao_e_o_que_dizem', schoolName: 'Não É o Que Dizem', status: 'participante' },
+      { rank: 11, schoolId: 'fiquei_firme', schoolName: 'Fiquei Firme', status: 'participante' },
+      { rank: 11, schoolId: 'prazer_da_serrinha', schoolName: 'Prazer da Serrinha', status: 'participante' },
+      { rank: 12, schoolId: 'cada_ano_sai_melhor', schoolName: 'Cada Ano Sai Melhor', status: 'participante' },
+      { rank: 13, schoolId: 'unidos_do_tuiuti', schoolName: 'Unidos do Tuiuti', status: 'participante' },
+      { rank: 14, schoolId: 'uniao_de_sampaio', schoolName: 'União do Sampaio', status: 'participante' },
+      { rank: 15, schoolId: 'vai_se_quiser', schoolName: 'Vai Se Quiser', status: 'participante' },
+      { rank: 16, schoolId: 'filhos_do_deserto', schoolName: 'Filhos do Deserto', status: 'participante' }
+    ]
+  },
   1942: {
     champion: 'Portela',
     runnerUp: 'Depois Eu Digo',
