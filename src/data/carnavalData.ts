@@ -5197,6 +5197,38 @@ Object.entries(OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL).forEach(([schoolId, rec]) => 
 // RESULTADOS HISTÓRICOS OFICIAIS DE 1980 A 1999 (AESCRJ até 1984 / LIESA desde 1985)
 // ============================================================================
 export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
+  1942: {
+    champion: 'Portela',
+    runnerUp: 'Depois Eu Digo',
+    third: 'Estação Primeira de Mangueira',
+    relegated: [],
+    notes: 'Carnaval Histórico de 1942: Desfile oficial unificado das Escolas de Samba com 23 agremiações participantes. A Portela sagrou-se bicampeã consecutiva (+20 pts) cantando "A Vida do Samba", e a agremiação Depois Eu Digo alcançou o vice-campeonato histórico (+15 pts) com "Uma noite feliz". Estação Primeira de Mangueira em 3º (+12 pts) com "A vitória do samba nas Américas", Paz e Amor em 4º (+10 pts) com "Brasil, Joia Fraternal da América", Deixa Malhar em 5º (+8 pts) com "Homenagem aos Jangadeiros", Unidos do Salgueiro em 6º (+6 pts) com "A Rainha e a Baiana", Papagaio Linguarudo em 7º (+4 pts), Cada Ano Sai Melhor em 8º (+3 pts) com "O Homem que Sonhou com o Baile", Azul e Branco do Salgueiro em 9º (+2 pts) e Fiquei Firme em 10º (+1 pt). Não houve rebaixamento.',
+    standings: [
+      { rank: 1, schoolId: 'portela', schoolName: 'Portela', status: 'campea' },
+      { rank: 2, schoolId: 'depois_eu_digo', schoolName: 'Depois Eu Digo', status: 'vice' },
+      { rank: 3, schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira', status: 'participante' },
+      { rank: 4, schoolId: 'paz_e_amor', schoolName: 'Paz e Amor', status: 'participante' },
+      { rank: 5, schoolId: 'deixa_malhar', schoolName: 'Deixa Malhar', status: 'participante' },
+      { rank: 6, schoolId: 'unidos_do_salgueiro', schoolName: 'Unidos do Salgueiro', status: 'participante' },
+      { rank: 7, schoolId: 'papagaio_linguarudo', schoolName: 'Papagaio Linguarudo', status: 'participante' },
+      { rank: 8, schoolId: 'cada_ano_sai_melhor', schoolName: 'Cada Ano Sai Melhor', status: 'participante' },
+      { rank: 9, schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro', status: 'participante' },
+      { rank: 10, schoolId: 'fiquei_firme', schoolName: 'Fiquei Firme', status: 'participante' },
+      { rank: 11, schoolId: 'uniao_de_sampaio', schoolName: 'União do Sampaio', status: 'participante' },
+      { rank: 12, schoolId: 'unidos_do_tuiuti', schoolName: 'Unidos do Tuiuti', status: 'participante' },
+      { rank: 13, schoolId: 'nao_e_o_que_dizem', schoolName: 'Não É o Que Dizem', status: 'participante' },
+      { rank: 14, schoolId: 'mocidade_de_um_paraiso', schoolName: 'Mocidade de Um Paraíso', status: 'participante' },
+      { rank: 15, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'participante' },
+      { rank: 16, schoolId: 'prazer_da_serrinha', schoolName: 'Prazer da Serrinha', status: 'participante' },
+      { rank: 17, schoolId: 'mocidade_louca_sao_cristovao', schoolName: 'Mocidade Louca de São Cristóvão', status: 'participante' },
+      { rank: 18, schoolId: 'unidos_de_riachuelo', schoolName: 'Unidos de Riachuelo', status: 'participante' },
+      { rank: 19, schoolId: 'paraiso_de_anchieta', schoolName: 'Paraíso de Anchieta', status: 'participante' },
+      { rank: 20, schoolId: 'uniao_de_colegio', schoolName: 'União de Colégio', status: 'participante' },
+      { rank: 21, schoolId: 'paraiso_do_grotao', schoolName: 'Paraíso do Grotão', status: 'participante' },
+      { rank: 22, schoolId: 'flor_da_infancia_bras_de_pina', schoolName: 'Flor da Infância de Brás de Pina', status: 'participante' },
+      { rank: 23, schoolId: 'vai_se_quiser', schoolName: 'Vai Se Quiser', status: 'participante' }
+    ]
+  },
   1943: {
     champion: 'Portela',
     runnerUp: 'Estação Primeira de Mangueira',
