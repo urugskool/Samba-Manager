@@ -265,7 +265,14 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   }
   if (raw.includes('grande rio')) return 'grande_rio';
   if (raw.includes('unidos do tuiuti') || raw.includes('unidos_do_tuiuti')) return 'unidos_do_tuiuti';
-  if (raw.includes('escola tuiuti') || raw.includes('escola de samba tuiuti') || raw === 'escola_tuiuti') return 'escola_tuiuti';
+  if (
+    raw.includes('escola_tuiuti') ||
+    raw.includes('escola tuiuti') ||
+    raw.includes('escola de samba tuiuti') ||
+    (schoolName && schoolName.toLowerCase().trim() === 'tuiuti' && schoolId !== 'tuiuti' && schoolId !== 'paraiso_do_tuiuti')
+  ) {
+    return 'escola_tuiuti';
+  }
   if (raw.includes('tuiuti')) return 'tuiuti';
   if (raw.includes('portela')) return 'portela';
   if (raw.includes('cidade de deus')) return 'mocidade_cidade_de_deus';

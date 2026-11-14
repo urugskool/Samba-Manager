@@ -4508,42 +4508,43 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     filhos_do_deserto: 'Sem enredo registrado'
   },
   1936: {
-    tijuca: 'Sonho das Ilusões',
-    mangueira: 'Não Faz Mal, a Mangueira É Maior',
-    portela: 'A Batalha do Riachuelo',
-    depois_eu_digo: 'Samba na Favela',
-    deixa_malhar: 'Deixa Malhar na Tijuca',
-    vizinha_faladeira: 'Pai João',
-    uniao_barao_da_gamboa: 'Saudações da Gamboa',
-    fiquei_firme: 'Samba Firme',
-    ultima_hora: 'Última Hora de Madureira',
-    azul_e_branco_salgueiro: 'Saudações Salgueirenses',
-    lira_do_amor: 'A Lira Canta'
+    tijuca: 'Sonhos delirantes',
+    mangueira: 'Só concorreu o samba',
+    portela: 'Sem enredo registrado',
+    depois_eu_digo: 'Sem enredo registrado',
+    deixa_malhar: 'Sem enredo registrado',
+    vizinha_faladeira: 'Ascensão do samba na alta sociedade',
+    uniao_barao_da_gamboa: 'Sem enredo registrado',
+    fiquei_firme: 'Sem enredo registrado',
+    ultima_hora: 'Sem enredo registrado',
+    azul_e_branco_salgueiro: 'Sem enredo registrado',
+    lira_do_amor: 'Sem enredo registrado'
   },
   1935: {
-    portela: 'O Samba Dominando o Mundo',
-    mangueira: 'O Romance do Samba',
-    prazer_da_serrinha: 'A Serrinha Canta',
-    vizinha_faladeira: 'Malandro Regenerado',
-    tijuca: 'O Pavão no Asfalto',
-    azul_e_branco_salgueiro: 'Salgueiro em Festa',
-    cada_ano_sai_melhor: 'Cada Ano Sai Melhor',
-    coracoes_unidos_da_favela: 'Corações Unidos na Favela',
-    deixa_malhar: 'Deixa Malhar no Samba',
-    depois_eu_digo: 'Depois Eu Digo',
-    depois_te_explico: 'Depois Te Explico no Terreiro',
-    em_cima_da_hora_catumbi: 'Catumbi em Folia',
-    fiquei_firme: 'Samba Firme',
-    lira_do_amor: 'A Lira Canta',
-    na_hora_e_que_se_ve: 'Na Hora É Que Se Vê',
-    paraiso_do_grotao: 'O Grotão em Canto',
-    paz_e_amor: 'Paz e Harmonia',
-    rainha_das_pretas: 'Canto da Rainha',
-    ultima_hora: 'O Apito do Trem',
-    uniao_barao_da_gamboa: 'Saudações da Gamboa',
-    uniao_do_uruguai: 'União da Tijuca na Rua Uruguai',
-    unidos_do_salgueiro: 'O Samba do Salgueiro',
-    unidos_do_tuiuti: 'Tradição do Tuiuti'
+    portela: 'O samba dominando o mundo',
+    mangueira: 'O regresso de uma colheita na primavera',
+    prazer_da_serrinha: 'Sem enredo registrado',
+    vizinha_faladeira: 'Samba na primavera',
+    tijuca: 'Sem enredo registrado',
+    azul_e_branco_salgueiro: 'Sem enredo registrado',
+    cada_ano_sai_melhor: 'Sem enredo registrado',
+    deixa_malhar: 'Sem enredo registrado',
+    depois_eu_digo: 'Sem enredo registrado',
+    fiquei_firme: 'Sem enredo registrado',
+    lira_do_amor: 'Sem enredo registrado',
+    paz_e_amor: 'Sem enredo registrado',
+    rainha_das_pretas: 'Sem enredo registrado',
+    ultima_hora: 'Sem enredo registrado',
+    uniao_barao_da_gamboa: 'Sem enredo registrado',
+    uniao_do_uruguai: 'Sem enredo registrado',
+    unidos_do_salgueiro: 'Sem enredo registrado',
+    unidos_do_tuiuti: 'Sem enredo registrado',
+    uniao_de_madureira: 'Sem enredo registrado',
+    coracoes_unidos_da_favela: 'Sem enredo registrado',
+    depois_te_explico: 'Sem enredo registrado',
+    em_cima_da_hora_catumbi: 'Sem enredo registrado',
+    na_hora_e_que_se_ve: 'Sem enredo registrado',
+    paraiso_do_grotao: 'Sem enredo registrado'
   },
   1934: {
     mangueira: 'República do Samba',
@@ -4574,45 +4575,45 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     uniao_do_sape: 'Raiz do Sapê'
   },
   1933: {
-    mangueira: 'Uma Segunda-Feira na Mangueira',
-    azul_e_branco_salgueiro: 'Salgueiro em Festa',
-    tijuca: 'O Pavão no Asfalto',
-    de_mim_ninguem_se_lembra: 'A Voz da Lembrança',
-    portela: 'Samba e Amor',
-    uniao_do_uruguai: 'União da Tijuca na Rua Uruguai',
-    aventureiros_da_matriz: 'Samba na Matriz',
-    capricho_do_engenho_novo: 'Capricho no Samba',
-    e_assim_que_nos_queremos: 'É Assim que Nós Queremos',
-    e_o_que_se_ve: 'É o Que Se Vê',
-    em_cima_da_hora_catumbi: 'Catumbi em Folia',
-    amizade_do_realengo: 'Amizade no Samba',
-    estrela_da_tijuca: 'Brilho da Tijuca',
-    filhos_de_ninguem: 'Irmãos no Samba',
-    fiquei_firme: 'Samba Firme',
-    inimigos_da_tristeza: 'Alegria no Morro',
-    lira_do_amor: 'A Lira Canta',
-    mocidade_louca_sao_cristovao: 'Mocidade em Desfile',
-    na_hora_e_que_se_ve: 'Na Hora é Que Se Vê',
-    nos_nao_somos_la_essas_coisas: 'Nós Não Somos Lá Essas Coisas',
-    paz_e_amor: 'Paz e Amor na Avenida',
-    podia_ser_pior: 'Podia Ser Pior',
-    prazer_da_serrinha: 'A Serrinha Canta',
-    principes_da_floresta: 'Príncipes da Floresta',
-    recreio_de_ramos: 'Glórias de Ramos',
-    sport_club_guarany: 'Guarany em Folia',
-    escola_tuiuti: 'O Morro do Tuiuti',
-    ultima_hora: 'O Apito do Trem',
-    uniao_barao_da_gamboa: 'Saudações da Gamboa',
-    uniao_do_amor: 'Coração no Terreiro',
-    unidos_do_salgueiro: 'O Samba do Salgueiro',
-    vizinha_faladeira: 'Malandro Regenerado'
+    mangueira: 'Uma segunda-feira do Bonfim, na Ribeira',
+    azul_e_branco_salgueiro: 'Uma Noite na Bahia',
+    tijuca: 'O mundo do samba',
+    de_mim_ninguem_se_lembra: 'Convidados pela fama',
+    portela: 'Voando para a glória ou O carnaval',
+    uniao_do_uruguai: 'Na Bahia',
+    aventureiros_da_matriz: 'Sem enredo registrado',
+    capricho_do_engenho_novo: 'Sem enredo registrado',
+    e_assim_que_nos_queremos: 'Sem enredo registrado',
+    e_o_que_se_ve: 'Sem enredo registrado',
+    em_cima_da_hora_catumbi: 'Sem enredo registrado',
+    amizade_do_realengo: 'Sem enredo registrado',
+    estrela_da_tijuca: 'Sem enredo registrado',
+    filhos_de_ninguem: 'Sem enredo registrado',
+    fiquei_firme: 'Sem enredo registrado',
+    inimigos_da_tristeza: 'Sem enredo registrado',
+    lira_do_amor: 'Sem enredo registrado',
+    mocidade_louca_sao_cristovao: 'Sem enredo registrado',
+    na_hora_e_que_se_ve: 'Sem enredo registrado',
+    nos_nao_somos_la_essas_coisas: 'Sem enredo registrado',
+    paz_e_amor: 'Sem enredo registrado',
+    podia_ser_pior: 'Sem enredo registrado',
+    prazer_da_serrinha: 'Sem enredo registrado',
+    principes_da_floresta: 'Sem enredo registrado',
+    recreio_de_ramos: 'Sem enredo registrado',
+    sport_club_guarany: 'Sem enredo registrado',
+    escola_tuiuti: 'Sem enredo registrado',
+    ultima_hora: 'Sem enredo registrado',
+    uniao_barao_da_gamboa: 'Sem enredo registrado',
+    uniao_do_amor: 'Sem enredo registrado',
+    unidos_do_salgueiro: 'Sem enredo registrado',
+    vizinha_faladeira: 'Sem enredo registrado'
   },
   1932: {
-    mangueira: 'Sorrindo (A Floresta)',
-    segunda_linha_do_estacio: 'O Berço do Samba no Estácio',
-    portela: 'O Carnaval Carioca',
-    para_o_ano_sai_melhor: 'Esperança e Alegria',
-    tijuca: 'O Pavão no Asfalto'
+    mangueira: 'Na Floresta',
+    segunda_linha_do_estacio: 'Sem enredo registrado',
+    portela: 'Carnaval Moderno',
+    para_o_ano_sai_melhor: 'Sem enredo registrado',
+    tijuca: 'Sem enredo registrado'
   }
 };
 
@@ -4950,10 +4951,16 @@ export function getHistoricalEnredo(
     return undefined;
   }
 
-  // Paraíso do Tuiuti só desfilou a partir de 1954/1955 e nunca herda enredos da Unidos do Tuiuti
+  // Paraíso do Tuiuti só desfilou a partir de 1954/1955 e nunca herda enredos da Unidos do Tuiuti ou Escola de Samba Tuiuti
+  const isEscolaTuiutiTarget =
+    key === 'escola_tuiuti' ||
+    schoolId === 'escola_tuiuti' ||
+    canonKey === 'escola_tuiuti';
+
   const isParaisoDoTuiutiTarget =
     (key === 'tuiuti' || key === 'paraiso_do_tuiuti' || schoolId === 'tuiuti' || schoolId === 'paraiso_do_tuiuti' || canonKey === 'tuiuti') &&
-    !isUnidosDoTuiutiTarget;
+    !isUnidosDoTuiutiTarget &&
+    !isEscolaTuiutiTarget;
 
   if (isParaisoDoTuiutiTarget && year < 1954) {
     return undefined;
@@ -5532,9 +5539,15 @@ export function getSchoolHistoricalEnredosList(
     return catumbiEnredos.sort((a, b) => b.year - a.year);
   }
 
+  const isEscolaTuiuti =
+    key === 'escola_tuiuti' ||
+    schoolId === 'escola_tuiuti' ||
+    canonKey === 'escola_tuiuti';
+
   const isParaisoDoTuiuti =
     (key === 'tuiuti' || key === 'paraiso_do_tuiuti' || schoolId === 'tuiuti' || schoolId === 'paraiso_do_tuiuti' || canonKey === 'tuiuti') &&
-    !isUnidosDoTuiuti;
+    !isUnidosDoTuiuti &&
+    !isEscolaTuiuti;
 
   const isSalgueiro =
     (key === 'salgueiro' || schoolId === 'salgueiro' || canonKey === 'salgueiro' || (schoolName && schoolName.toLowerCase().includes('salgueiro'))) &&
