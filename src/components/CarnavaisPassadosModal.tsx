@@ -510,6 +510,15 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                 >
                   <Medal className="w-3.5 h-3.5" />
                   <span>Série Ouro</span>
+                  {selectedPastYear < 1952 && (
+                    <span className={`text-[10px] px-1.5 py-0.5 rounded-md font-semibold ${
+                      pastDivision === 'ouro'
+                        ? 'bg-slate-950/20 text-slate-950'
+                        : 'bg-slate-800 text-slate-400'
+                    }`}>
+                      a partir de 1952
+                    </span>
+                  )}
                 </button>
               </div>
 
@@ -1184,6 +1193,39 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                     </div>
                   </>
                   )
+                ) : selectedPastYear < 1952 ? (
+                  <div className="p-8 rounded-2xl bg-slate-950/60 border border-dashed border-amber-500/30 text-center space-y-3">
+                    <div className="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mx-auto">
+                      <History className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-lg font-black text-white">
+                      A Série Ouro ainda não existia em {selectedPastYear}
+                    </h3>
+                    <p className="text-xs text-slate-400 max-w-lg mx-auto leading-relaxed">
+                      A segunda divisão do Carnaval Carioca (atual Série Ouro, originalmente criada como Grupo 2) foi instituída apenas em <strong className="text-amber-300">1952</strong>. Nos anos anteriores a 1952, todas as escolas de samba competiam exclusivamente na divisão principal (Grupo Especial).
+                    </p>
+                    <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
+                      <button
+                        onClick={() => {
+                          setSelectedPastYear(1952);
+                          setSelectedDecade('1950s');
+                          setExpandedSchoolId(null);
+                        }}
+                        className="px-4 py-2 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-slate-950 text-xs font-black transition cursor-pointer"
+                      >
+                        Ver 1º Ano da Série Ouro (1952)
+                      </button>
+                      <button
+                        onClick={() => {
+                          setPastDivision('especial');
+                          setExpandedSchoolId(null);
+                        }}
+                        className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 transition cursor-pointer"
+                      >
+                        Ver Grupo Especial ({selectedPastYear})
+                      </button>
+                    </div>
+                  </div>
                 ) : (
                   <div className="p-8 rounded-2xl bg-slate-950/60 border border-dashed border-slate-800 text-center space-y-3">
                     <div className="w-12 h-12 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500 mx-auto">
@@ -1194,7 +1236,10 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                       Os resultados da Série Ouro para o Carnaval de {selectedPastYear} ainda não foram inseridos no catálogo histórico. Os registros oficiais estão disponíveis a partir de 1952.
                     </p>
                     <button
-                      onClick={() => setSelectedPastYear(2026)}
+                      onClick={() => {
+                        setSelectedPastYear(2026);
+                        setSelectedDecade('recentes');
+                      }}
                       className="px-4 py-2 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-slate-950 text-xs font-black transition cursor-pointer"
                     >
                       Ver Carnaval 2026 (Série Ouro)
