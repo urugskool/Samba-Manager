@@ -18,6 +18,7 @@ import { SorteioEngine } from './sorteioEngine';
 import { LigaFinancialService } from './ligaFinancialService';
 import { RepassesFinanceirosService } from './repassesFinanceirosService';
 import { calcularTotalComPenalizacao } from './financasFMService';
+import { extractCarnavalescoNamesFromStaff } from './carnavalescosRankingService';
 
 export { calcularTotalComPenalizacao };
 
@@ -1485,9 +1486,17 @@ export class SimulationEngine {
       }
     });
 
+    const espChampStaffCarnavalesco = espRanked[0]?.school?.staff?.carnavalesco;
+    const espChampCarnavalescoNames = extractCarnavalescoNamesFromStaff(espChampStaffCarnavalesco);
+
     const historyRecord: YearHistory = {
       year: currentYear,
       especialChampion: cleanSchoolName(espRanked[0]?.school) || 'Desconhecida',
+      especialChampionCarnavalesco:
+        espChampCarnavalescoNames.length > 0
+          ? espChampCarnavalescoNames.join(', ')
+          : espChampStaffCarnavalesco?.name,
+      especialChampionCarnavalescoNames: espChampCarnavalescoNames,
       especialRelegated: especialRelegated ? [cleanSchoolName(especialRelegated)] : [],
       ouroChampion: ouroChamp ? cleanSchoolName(ouroChamp) : 'Desconhecida',
       ouroRelegated: ouroRelegatedNames.map(n => cleanSchoolName(n)),

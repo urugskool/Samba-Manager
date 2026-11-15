@@ -19,8 +19,13 @@ import {
   Crown,
   ChevronRight,
   Flame,
-  Layers
+  Layers,
+  Palette
 } from 'lucide-react';
+import {
+  getTopDivisionDisplayLabel,
+  getChampionCarnavalescosByYear
+} from '../services/carnavalescosRankingService';
 
 export type GaleriaDivisionTab = 'especial' | 'ouro' | 'prata' | 'bronze' | 'avaliacao' | 'grupoE';
 export type GaleriaResultTab = 'campeas' | 'vices' | 'ano_a_ano';
@@ -634,11 +639,13 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
         divLabel: string
       ) => {
         titleList.forEach((t) => {
+          const resolvedDivLabel =
+            divKey === 'especial' ? getTopDivisionDisplayLabel(t.year) : divLabel;
           if (!yearMap.has(t.year)) {
             yearMap.set(t.year, {
               year: t.year,
               division: divKey,
-              divisionLabel: divLabel,
+              divisionLabel: resolvedDivLabel,
               champions: [],
               runnerUps: []
             });
@@ -653,11 +660,13 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
         });
 
         viceList.forEach((v) => {
+          const resolvedDivLabel =
+            divKey === 'especial' ? getTopDivisionDisplayLabel(v.year) : divLabel;
           if (!yearMap.has(v.year)) {
             yearMap.set(v.year, {
               year: v.year,
               division: divKey,
-              divisionLabel: divLabel,
+              divisionLabel: resolvedDivLabel,
               champions: [],
               runnerUps: []
             });
@@ -695,7 +704,7 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
         if (selectedDivision === 'especial') {
           champStanding = h.especialStandings?.find((s) => s.rank === 1);
           viceStanding = h.especialStandings?.find((s) => s.rank === 2);
-          divLabel = 'Grupo Especial';
+          divLabel = getTopDivisionDisplayLabel(h.year);
         } else if (selectedDivision === 'ouro') {
           champStanding = h.ouroStandings?.find((s) => s.rank === 1);
           viceStanding = h.ouroStandings?.find((s) => s.rank === 2);
@@ -746,7 +755,7 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
         yearMap.set(2021, {
           year: 2021,
           division: 'especial',
-          divisionLabel: 'Grupo Especial',
+          divisionLabel: getTopDivisionDisplayLabel(2021),
           champions: [],
           runnerUps: [],
           note: 'Não houve Carnaval presencial oficial devido à pandemia de COVID-19'
@@ -757,7 +766,7 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
       yearMap.set(1949, {
         year: 1949,
         division: 'especial',
-        divisionLabel: 'Grupo Especial (FBES / UGESB)',
+        divisionLabel: getTopDivisionDisplayLabel(1949),
         champions: [
           { schoolId: 'imperio_serrano', schoolName: 'Império Serrano (Campeã FBES)', school: resolveSchool('imperio_serrano') },
           { schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira (Campeã UGESB)', school: resolveSchool('mangueira') }
@@ -766,14 +775,14 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
           { schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro (Vice FBES)', school: resolveSchool('azul_e_branco_salgueiro') },
           { schoolId: 'portela', schoolName: 'Portela (Vice UGESB)', school: resolveSchool('portela') }
         ],
-        note: 'Carnaval Histórico de 1949: Duas competições oficiais no Grupo Especial (FBES e UGESB)'
+        note: 'Carnaval Histórico de 1949: Desfiles Oficiais e Não-oficiais (FBES e UGESB)'
       });
 
       // Carnaval Histórico de 1950: 3 Ligas Oficiais (FBES, UCES e UGESB) com as 7 vices oficiais
       yearMap.set(1950, {
         year: 1950,
         division: 'especial',
-        divisionLabel: 'Grupo Especial (FBES / UCES / UGESB)',
+        divisionLabel: getTopDivisionDisplayLabel(1950),
         champions: [
           { schoolId: 'imperio_serrano', schoolName: 'Império Serrano (Campeã FBES)', school: resolveSchool('imperio_serrano') },
           { schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira (Campeã UCES)', school: resolveSchool('mangueira') },
@@ -789,14 +798,14 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
           { schoolId: 'unidos_da_congonha', schoolName: 'Unidos da Congonha (Vice UGESB)', school: resolveSchool('unidos_da_congonha') },
           { schoolId: 'unidos_da_tamarineira', schoolName: 'Unidos da Tamarineira (Vice UGESB)', school: resolveSchool('unidos_da_tamarineira') }
         ],
-        note: 'Carnaval Histórico de 1950: Três competições oficiais no Grupo Especial (FBES, UCES e UGESB)'
+        note: 'Carnaval Histórico de 1950: Desfiles Oficiais e Não-oficiais (FBES, UCES e UGESB)'
       });
 
       // Carnaval Histórico de 1951: 2 Ligas Oficiais (FBES e UGESB)
       yearMap.set(1951, {
         year: 1951,
         division: 'especial',
-        divisionLabel: 'Grupo Especial (FBES / UGESB)',
+        divisionLabel: getTopDivisionDisplayLabel(1951),
         champions: [
           { schoolId: 'imperio_serrano', schoolName: 'Império Serrano (Campeã FBES)', school: resolveSchool('imperio_serrano') },
           { schoolId: 'portela', schoolName: 'Portela (Campeã UGESB)', school: resolveSchool('portela') }
@@ -805,14 +814,14 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
           { schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas (Vice FBES)', school: resolveSchool('aprendizes_de_lucas') },
           { schoolId: 'tres_mosqueteiros', schoolName: 'Três Mosqueteiros (Vice UGESB)', school: resolveSchool('tres_mosqueteiros') }
         ],
-        note: 'Carnaval Histórico de 1951: Duas competições oficiais no Grupo Especial (FBES e UGESB)'
+        note: 'Carnaval Histórico de 1951: Desfiles Oficiais e Não-oficiais (FBES e UGESB)'
       });
 
       // Carnaval Histórico de 1984: Inauguração do Sambódromo e Supercampeonato
       yearMap.set(1984, {
         year: 1984,
         division: 'especial',
-        divisionLabel: 'Grupo Especial (Inauguração do Sambódromo)',
+        divisionLabel: getTopDivisionDisplayLabel(1984),
         champions: [
           { schoolId: 'mangueira', schoolName: 'Estação Primeira de Mangueira (Supercampeã)', school: resolveSchool('mangueira') },
           { schoolId: 'portela', schoolName: 'Portela (Campeã de Domingo)', school: resolveSchool('portela') }
@@ -822,7 +831,7 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
           { schoolId: 'mocidade', schoolName: 'Mocidade Independente (Vice Segunda)', school: resolveSchool('mocidade') },
           { schoolId: 'imperio_serrano', schoolName: 'Império Serrano (Vice Domingo)', school: resolveSchool('imperio_serrano') }
         ],
-        note: 'Inauguração da Passarela do Samba (Sambódromo) com desfiles divididos e Supercampeonato'
+        note: 'Grupo 1-A (AESCRJ) • Inauguração da Passarela do Samba com desfiles divididos e Supercampeonato'
       });
     }
 
@@ -1335,6 +1344,28 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
                                 </span>
                               )}
                             </div>
+                            {selectedDivision === 'especial' && (() => {
+                              const yearCarnavalescos = getChampionCarnavalescosByYear(
+                                item.year,
+                                history,
+                                schools
+                              );
+                              if (yearCarnavalescos.length === 0) return null;
+                              const summary =
+                                yearCarnavalescos.length === 1
+                                  ? yearCarnavalescos[0].displayLabel
+                                  : yearCarnavalescos
+                                      .map((c) => `${c.schoolName}: ${c.displayLabel}`)
+                                      .join(' • ');
+                              return (
+                                <div className="flex items-center gap-1 text-[11px] text-purple-200/90 mt-1">
+                                  <Palette className="w-3 h-3 text-purple-400 shrink-0" />
+                                  <span className="truncate" title={summary}>
+                                    {summary}
+                                  </span>
+                                </div>
+                              );
+                            })()}
                           </div>
                         </div>
                       </div>

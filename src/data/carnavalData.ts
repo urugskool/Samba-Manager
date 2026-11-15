@@ -5194,7 +5194,7 @@ Object.entries(OFFICIAL_GRUPO_E_RECORDS_BY_SCHOOL).forEach(([schoolId, rec]) => 
 });
 
 // ============================================================================
-// RESULTADOS HISTÓRICOS OFICIAIS DE 1980 A 1999 (AESCRJ até 1984 / LIESA desde 1985)
+// RESULTADOS HISTÓRICOS OFICIAIS DE 1932 A 1999 (Jornais, UGESB, AESB, AESEG, AESCRJ e LIESA)
 // ============================================================================
 export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
   1940: {
@@ -5406,7 +5406,7 @@ export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
     runnerUp: 'Unidos da Tijuca',
     third: 'Portela',
     relegated: [],
-    notes: 'Carnaval Histórico de 1948: Desfile competitivo oficial unificado organizado pela Federação Brasileira de Escolas de Samba (FBES) com 35 agremiações participantes. O Império Serrano sagrou-se campeão com "Homenagem a Antônio Castro Alves" (+20 pts) e a Unidos da Tijuca foi a vice-campeã com "Assinatura da Lei Áurea" (+15 pts). A Portela alcançou a 3ª colocação (+12 pts) e a Estação Primeira de Mangueira a 4ª colocação (+10 pts). Não houve rebaixamento.',
+    notes: 'Carnaval Histórico de 1948 (Desfile Oficial • Organizado pela UGESB): Desfile competitivo oficial unificado com 35 agremiações participantes. O Império Serrano sagrou-se campeão com "Homenagem a Antônio Castro Alves" (+20 pts) e a Unidos da Tijuca foi a vice-campeã com "Assinatura da Lei Áurea" (+15 pts). A Portela alcançou a 3ª colocação (+12 pts) e a Estação Primeira de Mangueira a 4ª colocação (+10 pts). Não houve rebaixamento.',
     standings: [
       { rank: 1, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'campea' },
       { rank: 2, schoolId: 'tijuca', schoolName: 'Unidos da Tijuca', status: 'vice' },
@@ -5452,7 +5452,7 @@ export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
     runnerUp: 'Azul e Branco do Salgueiro (FBES) / Portela (UGESB)',
     third: 'Unidos do Salgueiro (FBES) / Depois Eu Digo (UGESB)',
     relegated: [],
-    notes: 'Carnaval Histórico de 1949: Houve dois desfiles competitivos oficiais no Grupo Especial: o desfile da Federação Brasileira de Escolas de Samba (FBES), vencido pelo Império Serrano (+20 pts) com Azul e Branco do Salgueiro vice-campeã (+15 pts); e o desfile da União Geral das Escolas de Samba do Brasil (UGESB), vencido pela Estação Primeira de Mangueira (+20 pts) com Portela vice-campeã (+15 pts). Não houve rebaixamento.',
+    notes: 'Carnaval Histórico de 1949 (Desfiles Oficiais e Não-oficiais • FBES e UGESB): Houve dois desfiles competitivos — o desfile da Federação Brasileira de Escolas de Samba (FBES), vencido pelo Império Serrano (+20 pts) com Azul e Branco do Salgueiro vice-campeã (+15 pts); e o desfile da União Geral das Escolas de Samba do Brasil (UGESB), vencido pela Estação Primeira de Mangueira (+20 pts) com Portela vice-campeã (+15 pts). Não houve rebaixamento.',
     standings: [
       // FBES
       { rank: 1, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'campea' },
@@ -5516,7 +5516,7 @@ export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
     runnerUp: 'Aprendizes de Lucas (FBES) / Portela (UCES) / 5 vices empatadas (UGESB)',
     third: 'Irmãos Unidos do Catete (FBES) / Unidos da Tijuca (UCES) / Unidos do Indaiá (UGESB)',
     relegated: [],
-    notes: 'Carnaval Histórico de 1950: Houve três competições oficiais de Escolas de Samba no Grupo Especial: o desfile da Federação Brasileira de Escolas de Samba (FBES), vencido pelo Império Serrano (+20 pts) com Aprendizes de Lucas vice-campeã (+15 pts); o desfile da União Cívica das Escolas de Samba (UCES), vencido pela Estação Primeira de Mangueira (+20 pts) com a Portela vice-campeã (+15 pts); e o desfile da União Geral das Escolas de Samba do Brasil (UGESB), com título dividido entre Prazer da Serrinha e Unidos da Capela (+20 pts cada) e cinco vices empatadas (Depois Eu Digo, Paz e Amor, Três Mosqueteiros, Unidos da Congonha e Unidos da Tamarineira, +15 pts cada). Não houve rebaixamento.',
+    notes: 'Carnaval Histórico de 1950 (Desfiles Oficiais e Não-oficiais • FBES, UCES e UGESB): Houve três competições de Escolas de Samba — o desfile da Federação Brasileira de Escolas de Samba (FBES), vencido pelo Império Serrano (+20 pts) com Aprendizes de Lucas vice-campeã (+15 pts); o desfile da União Cívica das Escolas de Samba (UCES), vencido pela Estação Primeira de Mangueira (+20 pts) com a Portela vice-campeã (+15 pts); e o desfile da União Geral das Escolas de Samba do Brasil (UGESB), com título dividido entre Prazer da Serrinha e Unidos da Capela (+20 pts cada) e cinco vices empatadas (Depois Eu Digo, Paz e Amor, Três Mosqueteiros, Unidos da Congonha e Unidos da Tamarineira, +15 pts cada). Não houve rebaixamento.',
     standings: [
       // FBES
       { rank: 1, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'campea' },
@@ -5596,7 +5596,7 @@ export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
     runnerUp: 'Aprendizes de Lucas (FBES) / Três Mosqueteiros (UGESB)',
     third: 'Filhos do Deserto (FBES) / Estação Primeira de Mangueira (UGESB)',
     relegated: [],
-    notes: 'Carnaval Histórico de 1951: Houve dois desfiles competitivos oficiais no Grupo Especial: o desfile da Federação Brasileira de Escolas de Samba (FBES), vencido pelo Império Serrano (+20 pts) com Aprendizes de Lucas vice-campeã (+15 pts); e o desfile da União Geral das Escolas de Samba do Brasil (UGESB), vencido pela Portela (+20 pts) com Três Mosqueteiros vice-campeã (+15 pts). Não houve rebaixamento.',
+    notes: 'Carnaval Histórico de 1951 (Desfiles Oficiais e Não-oficiais • FBES e UGESB): Houve dois desfiles competitivos — o desfile da Federação Brasileira de Escolas de Samba (FBES), vencido pelo Império Serrano (+20 pts) com Aprendizes de Lucas vice-campeã (+15 pts); e o desfile da União Geral das Escolas de Samba do Brasil (UGESB), vencido pela Portela (+20 pts) com Três Mosqueteiros vice-campeã (+15 pts). Não houve rebaixamento.',
     standings: [
       { rank: 1, schoolId: 'imperio_serrano', schoolName: 'Império Serrano', status: 'campea' },
       { rank: 2, schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas', status: 'vice' },
@@ -5672,7 +5672,7 @@ export const HISTORICAL_CARNAVAL_RESULTS_1985_1999 = {
     runnerUp: 'Não houve apuração',
     third: 'Não houve apuração',
     relegated: [],
-    notes: 'Carnaval Histórico de 1952: Não houve apuração oficial das notas em virtude do temporal e das fortes chuvas ocorridas durante os desfiles. Vinte e cinco agremiações participaram do evento oficial, todas sem classificação ou atribuição de notas (não havendo declaração de campeã nem rebaixamento no Grupo Especial).',
+    notes: 'Carnaval Histórico de 1952 (Supercampeonato • Organizado pela AESB): Não houve apuração oficial das notas em virtude do temporal e das fortes chuvas ocorridas durante os desfiles. Vinte e cinco agremiações participaram do evento oficial, todas sem classificação ou atribuição de notas (não havendo declaração de campeã nem rebaixamento na 1ª divisão).',
     standings: [
       { rank: 0, schoolId: 'aprendizes_de_lucas', schoolName: 'Aprendizes de Lucas', status: 'participante' },
       { rank: 0, schoolId: 'azul_e_branco_salgueiro', schoolName: 'Azul e Branco do Salgueiro', status: 'participante' },

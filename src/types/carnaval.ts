@@ -413,6 +413,8 @@ export interface DivisionResult {
 export interface YearHistory {
   year: number;
   especialChampion: string;
+  especialChampionCarnavalesco?: string;
+  especialChampionCarnavalescoNames?: string[];
   especialRelegated: string[];
   ouroChampion: string;
   ouroRelegated: string[];

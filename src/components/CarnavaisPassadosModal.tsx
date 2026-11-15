@@ -36,12 +36,19 @@ import {
   Sparkles,
   Layers,
   ArrowUpCircle,
-  ArrowDownCircle
+  ArrowDownCircle,
+  Palette,
+  Landmark
 } from 'lucide-react';
 import {
   getHistoricalEnredo,
   getSchoolHistoricalEnredosList
 } from '../data/historicalEnredosData';
+import {
+  getTopDivisionMetadata,
+  getChampionCarnavalescosByYear,
+  HISTORICAL_DIVISION_TIMELINE
+} from '../services/carnavalescosRankingService';
 
 interface CarnavaisPassadosModalProps {
   isOpen: boolean;
@@ -51,7 +58,7 @@ interface CarnavaisPassadosModalProps {
   currentYear: number;
   userSchool?: School | null;
   onSelectSchool?: (schoolId: string) => void;
-  initialTab?: 'carnavais_passados' | 'participacoes';
+  initialTab?: 'carnavais_passados' | 'participacoes' | 'nomenclatura';
 }
 
 const PARTICIPATIONS_GROUP_CONFIGS: { id: DivisionId; label: string; short: string; badge: string }[] = [
@@ -72,7 +79,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
   onSelectSchool,
   initialTab = 'carnavais_passados'
 }) => {
-  const [activeTab, setActiveTab] = useState<'carnavais_passados' | 'participacoes'>(initialTab);
+  const [activeTab, setActiveTab] = useState<'carnavais_passados' | 'participacoes' | 'nomenclatura'>(initialTab);
   const [pastDivision, setPastDivision] = useState<'especial' | 'ouro'>('especial');
   const [participationsGroup, setParticipationsGroup] = useState<DivisionId>('especial');
   const [selectedPastYear, setSelectedPastYear] = useState<number>(2026);
@@ -258,6 +265,15 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
     return [];
   }, [currentPastCarnaval, isNoRelegationYear]);
 
+  const currentDivisionMeta = useMemo(() => {
+    return currentPastCarnaval ? getTopDivisionMetadata(currentPastCarnaval.year) : getTopDivisionMetadata(2026);
+  }, [currentPastCarnaval]);
+
+  const currentYearCarnavalescos = useMemo(() => {
+    if (!currentPastCarnaval) return [];
+    return getChampionCarnavalescosByYear(currentPastCarnaval.year, inGameHistory, schools);
+  }, [currentPastCarnaval, inGameHistory, schools]);
+
   if (!isOpen) return null;
 
   const toggleExpand = (schoolId: string) => {
@@ -367,11 +383,11 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
         </div>
 
         {/* Tab Switcher & Search Bar */}
-        <div className="p-4 sm:p-5 border-b border-slate-800 bg-slate-950 flex flex-col md:flex-row md:items-center justify-between gap-3">
-          <div className="flex items-center gap-1.5 bg-slate-900 p-1 rounded-2xl border border-slate-800 self-start md:self-auto">
+        <div className="p-4 sm:p-5 border-b border-slate-800 bg-slate-950 flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-1.5 bg-slate-900 p-1 rounded-2xl border border-slate-800 self-start lg:self-auto">
             <button
               onClick={() => setActiveTab('carnavais_passados')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap shrink-0 flex items-center gap-2 cursor-pointer ${
                 activeTab === 'carnavais_passados'
                   ? 'bg-amber-500 text-slate-950 font-black shadow-lg shadow-amber-500/20'
                   : 'text-slate-400 hover:text-white'
@@ -382,7 +398,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
             </button>
             <button
               onClick={() => setActiveTab('participacoes')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap shrink-0 flex items-center gap-2 cursor-pointer ${
                 activeTab === 'participacoes'
                   ? 'bg-amber-500 text-slate-950 font-black shadow-lg shadow-amber-500/20'
                   : 'text-slate-400 hover:text-white'
@@ -391,14 +407,31 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
               <Award className="w-3.5 h-3.5" />
               <span>Participações por Grupo</span>
             </button>
+            <button
+              onClick={() => setActiveTab('nomenclatura')}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap shrink-0 flex items-center gap-2 cursor-pointer ${
+                activeTab === 'nomenclatura'
+                  ? 'bg-amber-500 text-slate-950 font-black shadow-lg shadow-amber-500/20'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <Landmark className="w-3.5 h-3.5" />
+              <span>Nomenclatura e Organização</span>
+            </button>
           </div>
 
           {/* Search Input */}
-          <div className="relative w-full md:w-64">
+          <div className="relative w-full lg:w-64 shrink-0">
             <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder={activeTab === 'carnavais_passados' ? 'Buscar no desfile...' : 'Buscar escola...'}
+              placeholder={
+                activeTab === 'carnavais_passados'
+                  ? 'Buscar no desfile...'
+                  : activeTab === 'participacoes'
+                  ? 'Buscar escola...'
+                  : 'Filtrar período, grupo ou liga...'
+              }
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-9 pr-3 py-1.5 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500/60 transition"
@@ -538,20 +571,17 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                   <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-amber-950/30 border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div className="space-y-1.5">
                       <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                          {currentPastCarnaval.year === 1950
-                            ? 'RESULTADO OFICIAL FBES / UCES / UGESB'
-                            : currentPastCarnaval.year === 1951
-                            ? 'RESULTADO OFICIAL FBES / UGESB'
-                            : currentPastCarnaval.year <= 1984
-                            ? 'RESULTADO OFICIAL AESCRJ'
-                            : 'RESULTADO OFICIAL LIESA'}
+                        <span
+                          className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40"
+                          title={currentDivisionMeta.organizerFull}
+                        >
+                          {currentDivisionMeta.badgeText}
                         </span>
-                        <span className="text-xs text-slate-300 font-mono font-bold">
+                        <span className="text-xs text-slate-300 font-mono font-bold tabular-nums">
                           Carnaval {currentPastCarnaval.year}
                         </span>
                         <span className="text-[10px] text-slate-400">
-                          ({currentPastCarnaval.totalSchools} agremiações no Grupo Especial)
+                          ({currentPastCarnaval.totalSchools} agremiações • {currentDivisionMeta.divisionName})
                         </span>
                       </div>
 
@@ -561,6 +591,19 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                           <span className="text-slate-400">Campeã:</span>
                           <span className="text-white font-black">{currentPastCarnaval.championNames.join(' & ')}</span>
                         </div>
+                        {currentYearCarnavalescos.length > 0 && (
+                          <div className="flex items-center gap-1.5">
+                            <Palette className="w-3.5 h-3.5 text-purple-400 shrink-0" />
+                            <span className="text-slate-400">Carnavalesco(s):</span>
+                            <span className="text-purple-200 font-semibold">
+                              {currentYearCarnavalescos.length === 1
+                                ? currentYearCarnavalescos[0].displayLabel
+                                : currentYearCarnavalescos
+                                    .map((c) => `${c.schoolName}: ${c.displayLabel}`)
+                                    .join(' | ')}
+                            </span>
+                          </div>
+                        )}
                         {currentPastCarnaval.viceChampionNames.length > 0 && (
                           <div className="flex items-center gap-1.5">
                             <Medal className="w-3.5 h-3.5 text-slate-300" />
@@ -946,11 +989,28 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                   <tr className="bg-slate-900/80">
                                     <td colSpan={6} className="p-4 border-t border-slate-800 space-y-2">
                                       <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-2">
-                                        <div>
-                                          <span className="text-slate-400">Enredo em {currentPastCarnaval.year}: </span>
-                                          <span className="text-white font-bold italic">
-                                            {historicalEnredo ? `"${historicalEnredo}"` : 'Registro em catálogo'}
-                                          </span>
+                                        <div className="space-y-1">
+                                          <div>
+                                            <span className="text-slate-400">Enredo em {currentPastCarnaval.year}: </span>
+                                            <span className="text-white font-bold italic">
+                                              {historicalEnredo ? `"${historicalEnredo}"` : 'Registro em catálogo'}
+                                            </span>
+                                          </div>
+                                          {st.rank === 1 && !st.isHorsConcours && (() => {
+                                            const carnavalescoMatch = currentYearCarnavalescos.find(
+                                              (c) =>
+                                                c.schoolId === st.schoolId ||
+                                                c.schoolName.toLowerCase() === st.schoolName.toLowerCase()
+                                            );
+                                            if (!carnavalescoMatch) return null;
+                                            return (
+                                              <div className="flex items-center gap-1.5 text-purple-200">
+                                                <Palette className="w-3.5 h-3.5 text-purple-400 shrink-0" />
+                                                <span className="text-slate-400">Carnavalesco(s) Campeão(ões):</span>
+                                                <span className="font-semibold">{carnavalescoMatch.displayLabel}</span>
+                                              </div>
+                                            );
+                                          })()}
                                         </div>
                                         {st.statusDescription && (
                                           <div className="text-[11px] text-amber-300 font-medium">
@@ -1384,6 +1444,61 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                           </React.Fragment>
                         );
                       })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 3: NOMENCLATURA E ORGANIZAÇÃO (1932–PRESENTE) */}
+          {activeTab === 'nomenclatura' && (
+            <div className="space-y-4">
+              <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-xs text-slate-300 leading-relaxed">
+                Ao longo da história dos desfiles das escolas de samba do Rio de Janeiro, a 1ª divisão recebeu sete nomenclaturas diferentes e foi organizada por jornais cariocas, ligas e associações até a consolidação da <strong className="text-amber-300">LIESA</strong> e do <strong className="text-amber-300">Grupo Especial</strong>.
+              </div>
+
+              <div className="rounded-2xl border border-slate-800 bg-slate-950 overflow-hidden shadow-xl">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse text-xs">
+                    <thead>
+                      <tr className="bg-slate-900/90 border-b border-slate-800 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                        <th className="py-3 px-4 w-36">Período</th>
+                        <th className="py-3 px-4 w-56">Nomenclatura do Grupo</th>
+                        <th className="py-3 px-4 w-64">Organização</th>
+                        <th className="py-3 px-4">Contexto Histórico</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-800/60 font-medium">
+                      {HISTORICAL_DIVISION_TIMELINE.filter((period) => {
+                        const q = searchQuery.toLowerCase().trim();
+                        if (!q) return true;
+                        return (
+                          period.periodLabel.toLowerCase().includes(q) ||
+                          period.divisionName.toLowerCase().includes(q) ||
+                          period.organizer.toLowerCase().includes(q) ||
+                          period.organizerFull.toLowerCase().includes(q) ||
+                          period.notes.toLowerCase().includes(q)
+                        );
+                      }).map((period) => (
+                        <tr key={period.periodLabel} className="hover:bg-slate-900/60 transition">
+                          <td className="py-3.5 px-4 font-mono tabular-nums font-black text-amber-300 whitespace-nowrap">
+                            {period.periodLabel}
+                          </td>
+                          <td className="py-3.5 px-4 font-bold text-white">
+                            {period.divisionName}
+                          </td>
+                          <td className="py-3.5 px-4">
+                            <div className="font-bold text-slate-200">{period.organizer}</div>
+                            <div className="text-[11px] text-slate-400 mt-0.5">
+                              {period.organizerFull}
+                            </div>
+                          </td>
+                          <td className="py-3.5 px-4 text-slate-300 leading-relaxed">
+                            {period.notes}
+                          </td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>

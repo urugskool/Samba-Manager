@@ -31,6 +31,11 @@ import { getSchoolHistoricalEnredosList } from '../data/historicalEnredosData';
 import { LiesaRankingModal } from './LiesaRankingModal';
 import { CarnavaisPassadosModal } from './CarnavaisPassadosModal';
 import { GaleriaDosCampeoesModal, GaleriaDivisionTab } from './GaleriaDosCampeoesModal';
+import { CarnavalescosRankingModal } from './CarnavalescosRankingModal';
+import {
+  getTopDivisionDisplayLabel,
+  getChampionCarnavalescosByYear
+} from '../services/carnavalescosRankingService';
 
 interface GloriasViewProps {
   schools: School[];
@@ -58,6 +63,7 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
   const [isCarnavaisPassadosModalOpen, setIsCarnavaisPassadosModalOpen] = useState(false);
   const [isLiesaModalOpen, setIsLiesaModalOpen] = useState(false);
   const [isGaleriaModalOpen, setIsGaleriaModalOpen] = useState(false);
+  const [isCarnavalescosModalOpen, setIsCarnavalescosModalOpen] = useState(false);
   const [galeriaDivision, setGaleriaDivision] = useState<GaleriaDivisionTab>('especial');
 
   const espCount = useMemo(() => schools.filter((s) => s.division === 'especial' && isSchoolActive(s)).length, [schools]);
@@ -360,17 +366,27 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
               setGaleriaDivision('especial');
               setIsGaleriaModalOpen(true);
             }}
-            className="px-4 py-2.5 bg-gradient-to-r from-purple-500/20 to-purple-600/20 hover:from-purple-500/30 hover:to-purple-600/30 text-purple-300 hover:text-white border border-purple-500/40 font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-md cursor-pointer active:scale-95"
+            className="px-4 py-2.5 bg-gradient-to-r from-purple-500/20 to-purple-600/20 hover:from-purple-500/30 hover:to-purple-600/30 text-purple-300 hover:text-white border border-purple-500/40 font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-md cursor-pointer active:scale-95 whitespace-nowrap shrink-0"
             title="Abrir a Galeria de Campeãs (Por Divisões: Especial, Ouro, Prata, Bronze, Avaliação e Grupo E)"
           >
             <Trophy className="w-4 h-4 text-purple-400" />
             <span>Galeria de Campeãs</span>
           </button>
 
+          {/* 4. Ranking de Carnavalescos Campeões */}
+          <button
+            onClick={() => setIsCarnavalescosModalOpen(true)}
+            className="px-4 py-2.5 bg-gradient-to-r from-indigo-500/20 to-purple-600/20 hover:from-indigo-500/30 hover:to-purple-600/30 text-indigo-200 hover:text-white border border-indigo-400/40 font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-md cursor-pointer active:scale-95 whitespace-nowrap shrink-0"
+            title="Abrir Ranking Histórico de Carnavalescos Campeões (1932–Presente) e Nomenclatura das Divisões"
+          >
+            <Palette className="w-4 h-4 text-indigo-300" />
+            <span>Ranking Carnavalescos</span>
+          </button>
+
           {userSchool && (
             <button
               onClick={() => handleSelectSchool(userSchool.id)}
-              className="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-sm cursor-pointer"
+              className="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-sm cursor-pointer whitespace-nowrap shrink-0"
             >
               <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
               <span>Minha Escola ({userSchool.shortName || cleanSchoolName(userSchool)})</span>
@@ -785,18 +801,35 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
                   <span>★ Grupo Especial ({selectedStats.totalEspecialTitles} Título{selectedStats.totalEspecialTitles === 1 ? '' : 's'}):</span>
                 </span>
                 <div className="flex flex-wrap gap-1.5">
-                  {selectedStats.allEspecialYears.map((entry, idx) => (
-                    <span
-                      key={`${entry.year}-${idx}`}
-                      className={`px-2.5 py-0.5 rounded text-xs font-mono font-bold border transition ${
-                        entry.label?.includes('Supercampeã')
-                          ? 'bg-amber-400 text-slate-950 border-amber-300 font-black shadow-sm'
-                          : 'bg-amber-500/15 text-amber-300 border border-amber-500/30'
-                      }`}
-                    >
-                      {entry.label || entry.year}
-                    </span>
-                  ))}
+                  {selectedStats.allEspecialYears.map((entry, idx) => {
+                    const divLabel = getTopDivisionDisplayLabel(entry.year);
+                    const yearChamps = getChampionCarnavalescosByYear(
+                      entry.year,
+                      history || [],
+                      schools
+                    );
+                    const matchCarn = yearChamps.find(
+                      (c) =>
+                        c.schoolId === selectedSchool.id ||
+                        c.schoolName.toLowerCase() === cleanSchoolName(selectedSchool).toLowerCase()
+                    );
+                    const tooltipText = matchCarn
+                      ? `${divLabel} • Carnavalesco(s): ${matchCarn.displayLabel}`
+                      : divLabel;
+                    return (
+                      <span
+                        key={`${entry.year}-${idx}`}
+                        title={tooltipText}
+                        className={`px-2.5 py-0.5 rounded text-xs font-mono font-bold border transition ${
+                          entry.label?.includes('Supercampeã')
+                            ? 'bg-amber-400 text-slate-950 border-amber-300 font-black shadow-sm'
+                            : 'bg-amber-500/15 text-amber-300 border border-amber-500/30'
+                        }`}
+                      >
+                        {entry.label || entry.year}
+                      </span>
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -1401,6 +1434,16 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
         history={history}
         currentYear={currentYear}
         initialDivision={galeriaDivision}
+        onSelectSchool={handleSelectSchool}
+      />
+
+      {/* 4. Modal do Ranking de Carnavalescos Campeões & Nomenclatura Histórica */}
+      <CarnavalescosRankingModal
+        isOpen={isCarnavalescosModalOpen}
+        onClose={() => setIsCarnavalescosModalOpen(false)}
+        schools={schools}
+        inGameHistory={history}
+        currentYear={currentYear}
         onSelectSchool={handleSelectSchool}
       />
     </div>
