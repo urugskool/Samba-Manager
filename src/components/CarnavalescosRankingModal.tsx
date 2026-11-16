@@ -3,7 +3,8 @@ import { School, YearHistory } from '../types/carnaval';
 import { cleanSchoolName } from '../utils/schoolNameUtils';
 import {
   computeCarnavalescosRanking,
-  CarnavalescoRankingEntry
+  CarnavalescoRankingEntry,
+  CarnavalescosRankingScope
 } from '../services/carnavalescosRankingService';
 import { getLatestCompletedCarnavalYear } from '../services/liesaRankingService';
 import {
@@ -39,6 +40,7 @@ export const CarnavalescosRankingModal: React.FC<CarnavalescosRankingModalProps>
   currentYear = 2027,
   onSelectSchool
 }) => {
+  const [divisionScope, setDivisionScope] = useState<CarnavalescosRankingScope>('especial');
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>('individual');
   const [sortMode, setSortMode] = useState<SortMode>('titles');
   const [searchQuery, setSearchQuery] = useState('');
@@ -61,8 +63,8 @@ export const CarnavalescosRankingModal: React.FC<CarnavalescosRankingModalProps>
   );
 
   const rankingSummary = useMemo(
-    () => computeCarnavalescosRanking(schools, inGameHistory),
-    [schools, inGameHistory]
+    () => computeCarnavalescosRanking(schools, inGameHistory, divisionScope),
+    [schools, inGameHistory, divisionScope]
   );
 
   const individualCount = useMemo(
@@ -152,6 +154,14 @@ export const CarnavalescosRankingModal: React.FC<CarnavalescosRankingModalProps>
     setSearchQuery('');
   };
 
+  const handleScopeChange = (nextScope: CarnavalescosRankingScope) => {
+    setDivisionScope(nextScope);
+    setExpandedKey(null);
+    if (nextScope === 'ouro' && categoryFilter === 'institutional') {
+      setCategoryFilter('individual');
+    }
+  };
+
   const handleSchoolNavigate = (schoolId: string, schoolName: string) => {
     if (!onSelectSchool) return;
     const match =
@@ -177,7 +187,13 @@ export const CarnavalescosRankingModal: React.FC<CarnavalescosRankingModalProps>
           <div className="min-w-0">
             <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-purple-300">
               <Palette className="w-3.5 h-3.5 text-purple-400 shrink-0" />
-              <span>Palmarés da 1ª Divisão • 1932–{latestCompletedYear}</span>
+              <span>
+                {divisionScope === 'especial'
+                  ? `Palmarés da 1ª Divisão • 1932–${latestCompletedYear}`
+                  : divisionScope === 'ouro'
+                  ? `Palmarés da 2ª Divisão (Série Ouro) • 1952–${latestCompletedYear}`
+                  : `Palmarés Unificado (1ª e 2ª Divisões) • 1932–${latestCompletedYear}`}
+              </span>
             </div>
             <h2 className="text-lg sm:text-xl font-black text-white mt-0.5 truncate">
               Ranking Histórico de Carnavalescos Campeões
@@ -194,8 +210,51 @@ export const CarnavalescosRankingModal: React.FC<CarnavalescosRankingModalProps>
           </button>
         </div>
 
-        {/* KPI Summary Strip + Section Tabs */}
+        {/* KPI Summary Strip + Division Switcher */}
         <div className="px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 space-y-3 shrink-0">
+          <div className="flex flex-wrap items-center justify-between gap-2.5">
+            <div className="inline-flex items-center gap-1 p-1 rounded-xl bg-slate-950 border border-slate-800">
+              <button
+                type="button"
+                onClick={() => handleScopeChange('especial')}
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap shrink-0 cursor-pointer ${
+                  divisionScope === 'especial'
+                    ? 'bg-amber-500 text-slate-950 font-black'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                1ª Divisão (Especial)
+              </button>
+              <button
+                type="button"
+                onClick={() => handleScopeChange('ouro')}
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap shrink-0 cursor-pointer ${
+                  divisionScope === 'ouro'
+                    ? 'bg-yellow-500 text-slate-950 font-black'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                2ª Divisão (Série Ouro)
+              </button>
+              <button
+                type="button"
+                onClick={() => handleScopeChange('all')}
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap shrink-0 cursor-pointer ${
+                  divisionScope === 'all'
+                    ? 'bg-indigo-500 text-white font-black'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                Ambas (Geral)
+              </button>
+            </div>
+
+            <div className="text-[11px] text-slate-400 flex items-center gap-1.5">
+              <Info className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+              <span>Clique em qualquer linha para ver escolas, enredos e parcerias</span>
+            </div>
+          </div>
+
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
             <div className="p-3 rounded-xl bg-slate-950 border border-slate-800">
               <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
@@ -203,10 +262,10 @@ export const CarnavalescosRankingModal: React.FC<CarnavalescosRankingModalProps>
               </div>
               <div className="mt-1 flex items-baseline justify-between gap-2">
                 <span className="text-sm font-black text-white truncate">
-                  {rankingSummary.leader?.name || 'Joãosinho Trinta'}
+                  {rankingSummary.leader?.name || '—'}
                 </span>
                 <span className="text-sm font-black font-mono tabular-nums text-amber-400 shrink-0">
-                  {rankingSummary.leader?.totalTitles || 9}x
+                  {rankingSummary.leader?.totalTitles || 0}x
                 </span>
               </div>
             </div>
@@ -220,7 +279,9 @@ export const CarnavalescosRankingModal: React.FC<CarnavalescosRankingModalProps>
                   {individualCount}
                 </span>
                 <span className="text-[11px] text-slate-400 font-medium">
-                  + {institutionalCount} entidades/direções
+                  {institutionalCount > 0
+                    ? `+ ${institutionalCount} entidades/direções`
+                    : 'Com autoria registrada'}
                 </span>
               </div>
             </div>
@@ -231,7 +292,7 @@ export const CarnavalescosRankingModal: React.FC<CarnavalescosRankingModalProps>
               </div>
               <div className="mt-1 flex items-baseline justify-between gap-2">
                 <span className="text-sm font-black font-mono tabular-nums text-white">
-                  {rankingSummary.totalCatalogedEditions} anos
+                  {rankingSummary.totalCatalogedEditions} edições
                 </span>
                 <span className="text-[11px] font-mono tabular-nums text-slate-400">
                   {rankingSummary.totalChampionRecords} faixas de campeã
@@ -241,22 +302,25 @@ export const CarnavalescosRankingModal: React.FC<CarnavalescosRankingModalProps>
 
             <div className="p-3 rounded-xl bg-slate-950 border border-slate-800">
               <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                Nomenclatura & Liga Atual
+                Divisão & Liga Atual
               </div>
               <div className="mt-1 flex items-baseline justify-between gap-2">
                 <span className="text-sm font-black text-amber-300 truncate">
-                  Grupo Especial
+                  {divisionScope === 'especial'
+                    ? 'Grupo Especial'
+                    : divisionScope === 'ouro'
+                    ? 'Série Ouro'
+                    : 'Especial & Ouro'}
                 </span>
                 <span className="text-[11px] font-mono text-slate-400 shrink-0">
-                  LIESA (1990–{latestCompletedYear})
+                  {divisionScope === 'especial'
+                    ? `LIESA (1990–${latestCompletedYear})`
+                    : divisionScope === 'ouro'
+                    ? `LIGA RJ (2022–${latestCompletedYear})`
+                    : 'LIESA & LIGA RJ'}
                 </span>
               </div>
             </div>
-          </div>
-
-          <div className="text-[11px] text-slate-400 flex items-center gap-1.5">
-            <Info className="w-3.5 h-3.5 text-slate-500 shrink-0" />
-            <span>Clique em qualquer linha para ver escolas, enredos e parcerias</span>
           </div>
         </div>
 
@@ -280,30 +344,34 @@ export const CarnavalescosRankingModal: React.FC<CarnavalescosRankingModalProps>
                       <User className="w-3.5 h-3.5" />
                       <span>Carnavalescos ({individualCount})</span>
                     </button>
-                    <button
-                      type="button"
-                      onClick={() => setCategoryFilter('institutional')}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap shrink-0 flex items-center gap-1.5 cursor-pointer ${
-                        categoryFilter === 'institutional'
-                          ? 'bg-purple-500/20 text-purple-200 border border-purple-500/40'
-                          : 'text-slate-400 hover:text-white border border-transparent'
-                      }`}
-                    >
-                      <Building2 className="w-3.5 h-3.5" />
-                      <span>Direções / Entidades ({institutionalCount})</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setCategoryFilter('all')}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap shrink-0 flex items-center gap-1.5 cursor-pointer ${
-                        categoryFilter === 'all'
-                          ? 'bg-purple-500/20 text-purple-200 border border-purple-500/40'
-                          : 'text-slate-400 hover:text-white border border-transparent'
-                      }`}
-                    >
-                      <Users className="w-3.5 h-3.5" />
-                      <span>Todos ({rankingSummary.entries.length})</span>
-                    </button>
+                    {institutionalCount > 0 && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => setCategoryFilter('institutional')}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap shrink-0 flex items-center gap-1.5 cursor-pointer ${
+                            categoryFilter === 'institutional'
+                              ? 'bg-purple-500/20 text-purple-200 border border-purple-500/40'
+                              : 'text-slate-400 hover:text-white border border-transparent'
+                          }`}
+                        >
+                          <Building2 className="w-3.5 h-3.5" />
+                          <span>Direções / Entidades ({institutionalCount})</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setCategoryFilter('all')}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap shrink-0 flex items-center gap-1.5 cursor-pointer ${
+                            categoryFilter === 'all'
+                              ? 'bg-purple-500/20 text-purple-200 border border-purple-500/40'
+                              : 'text-slate-400 hover:text-white border border-transparent'
+                          }`}
+                        >
+                          <Users className="w-3.5 h-3.5" />
+                          <span>Todos ({rankingSummary.entries.length})</span>
+                        </button>
+                      </>
+                    )}
                   </div>
 
                   {/* Sort Control */}
@@ -530,6 +598,17 @@ export const CarnavalescosRankingModal: React.FC<CarnavalescosRankingModalProps>
                                                 >
                                                   {title.schoolName}
                                                 </button>
+                                                {divisionScope === 'all' && (
+                                                  <span
+                                                    className={`text-[10px] font-bold px-1.5 py-0.5 rounded border ${
+                                                      title.divisionTier === 'especial'
+                                                        ? 'bg-amber-500/15 text-amber-300 border-amber-500/40'
+                                                        : 'bg-blue-500/15 text-blue-300 border-blue-500/40'
+                                                    }`}
+                                                  >
+                                                    {title.divisionTier === 'especial' ? '1ª Div.' : '2ª Div.'}
+                                                  </span>
+                                                )}
                                                 {title.isInGame && (
                                                   <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
                                                     Simulação
@@ -588,7 +667,7 @@ export const CarnavalescosRankingModal: React.FC<CarnavalescosRankingModalProps>
                   • Em títulos conquistados em dupla ou comissão de carnaval, cada carnavalesco integrante recebe 1 título na soma total, com discriminação clara entre conquistas <strong>Solo</strong> e <strong>Dupla / Comissão</strong>.
                 </p>
                 <p>
-                  • Edições sem julgamento oficial (<strong>1938</strong> e <strong>1952</strong> por chuvas torrenciais) e sem desfile (<strong>2021</strong> pela pandemia de COVID-19) não geram títulos. Em <strong>1984</strong>, a dobradinha da Mangueira (Segunda-Feira e Supercampeonato) conta como 1 conquista da edição para Max Lopes. Os títulos de <strong>1934 (A Hora)</strong> e <strong>1950 (UGESB)</strong> não possuem carnavalescos registrados nos arquivos históricos e não são atribuídos artificialmente.
+                  • Edições sem julgamento oficial (<strong>1938</strong> e <strong>1952</strong> na 1ª divisão) e sem desfile (<strong>2021</strong> pela pandemia de COVID-19) não geram títulos. Na 1ª divisão em <strong>1984</strong>, a dobradinha da Mangueira conta como 1 conquista da edição para Max Lopes. Títulos sem autoria documentada nos arquivos (<strong>1934 A Hora</strong> e <strong>1950 UGESB</strong> na 1ª divisão; registros marcados com <strong>*</strong> entre <strong>1952 e 1963</strong> na 2ª divisão) não são atribuídos artificialmente.
                 </p>
               </div>
           </>

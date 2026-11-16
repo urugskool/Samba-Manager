@@ -1856,7 +1856,7 @@ export const OFFICIAL_OURO_HISTORICAL_STANDINGS: Record<number, OuroStandingReco
       rank: 1,
       schoolId: 'uniao_da_ilha',
       schoolName: 'União da Ilha do Governador',
-      enredo: 'Viajar é Preciso - Extraordinárias Através de Mundos Conhecidos e Desconhecidos',
+      enredo: 'Viajar é Preciso - Viagens Extraordinárias Através de Mundos Conhecidos e Desconhecidos',
       promoted: true,
       statusDescription: '1ª (subiu) • Campeã • Subiu ao Grupo Especial'
     },
@@ -8089,7 +8089,7 @@ export const OFFICIAL_OURO_NOTES_BY_YEAR: Record<number, string> = {
   2012: 'Carnaval de 2012: (Não houve rebaixamento) • Inocentes de Belford Roxo Campeã e promovida ao Grupo Especial com o enredo "Corumbá – Ópera Tupi Guaikuru".',
   2011: 'Carnaval de 2011: Renascer de Jacarepaguá Campeã e promovida ao Grupo Especial com o enredo "Águas de Março". Caprichosos de Pilares e Alegria da Zona Sul rebaixadas para a Série Prata.',
   2010: 'Carnaval de 2010: São Clemente Campeã e promovida ao Grupo Especial com o enredo "Choque de Ordem na folia". Unidos de Padre Miguel e Paraíso do Tuiuti rebaixadas para a Série Prata.',
-  2009: 'Carnaval de 2009: (Não houve rebaixamento) • União da Ilha do Governador Campeã e promovida ao Grupo Especial com o enredo "Viajar é Preciso - Extraordinárias Através de Mundos Conhecidos e Desconhecidos".',
+  2009: 'Carnaval de 2009: (Não houve rebaixamento) • União da Ilha do Governador Campeã e promovida ao Grupo Especial com o enredo "Viajar é Preciso - Viagens Extraordinárias Através de Mundos Conhecidos e Desconhecidos".',
   2008: 'Carnaval de 2008: Império Serrano Campeã e promovida ao Grupo Especial com o enredo "Taí, eu fiz tudo pra você gostar de mim". Acadêmicos do Cubango e Lins Imperial rebaixadas para a Série Prata.',
   2007: 'Carnaval de 2007: São Clemente Campeã e promovida ao Grupo Especial com o enredo "Barrados no Baile". Tradição e Arranco rebaixadas para a Série Prata.',
   2006: 'Carnaval de 2006: Estácio de Sá Campeã e promovida ao Grupo Especial com o enredo "Quem é você?". Vizinha Faladeira e Alegria da Zona Sul rebaixadas para a Série Prata.',

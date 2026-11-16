@@ -417,6 +417,8 @@ export interface YearHistory {
   especialChampionCarnavalescoNames?: string[];
   especialRelegated: string[];
   ouroChampion: string;
+  ouroChampionCarnavalesco?: string;
+  ouroChampionCarnavalescoNames?: string[];
   ouroRelegated: string[];
   prataChampion?: string;
   prataPromoted?: string[];

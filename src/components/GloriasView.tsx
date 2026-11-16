@@ -34,7 +34,9 @@ import { GaleriaDosCampeoesModal, GaleriaDivisionTab } from './GaleriaDosCampeoe
 import { CarnavalescosRankingModal } from './CarnavalescosRankingModal';
 import {
   getTopDivisionDisplayLabel,
-  getChampionCarnavalescosByYear
+  getChampionCarnavalescosByYear,
+  getOuroDivisionDisplayLabel,
+  getOuroChampionCarnavalescosByYear
 } from '../services/carnavalescosRankingService';
 
 interface GloriasViewProps {
@@ -340,11 +342,11 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
 
         {/* 3 Botões Principais: Carnavais Passados, Ranking LIESA e Galeria de Campeãs (+ Minha Escola) */}
         <div className="flex flex-wrap items-center gap-2.5 self-start md:self-auto">
-          {/* 1. Carnavais Passados (com participações no grupo especial dentro) */}
+          {/* 1. Carnavais Passados (com participações no grupo especial e nomenclatura dentro) */}
           <button
             onClick={() => setIsCarnavaisPassadosModalOpen(true)}
             className="px-4 py-2.5 bg-gradient-to-r from-amber-500/20 to-amber-600/20 hover:from-amber-500/30 hover:to-amber-600/30 text-amber-300 hover:text-white border border-amber-500/40 font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-md cursor-pointer active:scale-95"
-            title="Abrir Carnavais Passados (Resultados 1932 a 2026+ & Participações no Grupo Especial)"
+            title="Abrir Carnavais Passados (Resultados 1932 a 2026+, Participações por Grupo e Nomenclatura/Organização)"
           >
             <Calendar className="w-4 h-4 text-amber-400" />
             <span>Carnavais Passados</span>
@@ -377,7 +379,7 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
           <button
             onClick={() => setIsCarnavalescosModalOpen(true)}
             className="px-4 py-2.5 bg-gradient-to-r from-indigo-500/20 to-purple-600/20 hover:from-indigo-500/30 hover:to-purple-600/30 text-indigo-200 hover:text-white border border-indigo-400/40 font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-md cursor-pointer active:scale-95 whitespace-nowrap shrink-0"
-            title="Abrir Ranking Histórico de Carnavalescos Campeões (1932–Presente) e Nomenclatura das Divisões"
+            title="Abrir Ranking Histórico de Carnavalescos Campeões (1ª e 2ª Divisões • 1932–Presente)"
           >
             <Palette className="w-4 h-4 text-indigo-300" />
             <span>Ranking Carnavalescos</span>
@@ -860,14 +862,31 @@ export const GloriasView: React.FC<GloriasViewProps> = ({
                   <span>✦ Série Ouro ({selectedStats.totalOuroTitles}):</span>
                 </span>
                 <div className="flex flex-wrap gap-1.5">
-                  {selectedStats.allOuroYears.map((entry, idx) => (
-                    <span
-                      key={`${entry.year}-${idx}`}
-                      className="px-2.5 py-0.5 rounded text-xs font-mono font-bold bg-blue-500/15 text-blue-300 border border-blue-500/30"
-                    >
-                      {entry.year}
-                    </span>
-                  ))}
+                  {selectedStats.allOuroYears.map((entry, idx) => {
+                    const divLabel = getOuroDivisionDisplayLabel(entry.year);
+                    const yearChamps = getOuroChampionCarnavalescosByYear(
+                      entry.year,
+                      history || [],
+                      schools
+                    );
+                    const matchCarn = yearChamps.find(
+                      (c) =>
+                        c.schoolId === selectedSchool.id ||
+                        c.schoolName.toLowerCase() === cleanSchoolName(selectedSchool).toLowerCase()
+                    );
+                    const tooltipText = matchCarn
+                      ? `${divLabel} • Carnavalesco(s): ${matchCarn.displayLabel}`
+                      : divLabel;
+                    return (
+                      <span
+                        key={`${entry.year}-${idx}`}
+                        title={tooltipText}
+                        className="px-2.5 py-0.5 rounded text-xs font-mono font-bold bg-blue-500/15 text-blue-300 border border-blue-500/30"
+                      >
+                        {entry.year}
+                      </span>
+                    );
+                  })}
                 </div>
               </div>
             )}

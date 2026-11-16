@@ -936,8 +936,8 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     imperio_serrano: 'Lendas das Sereias, Mistérios do Mar',
 
     // Série Ouro 2009
-    uniao_da_ilha: 'Viajar é Preciso - Extraordinárias Através de Mundos Conhecidos e Desconhecidos',
-    ilha: 'Viajar é Preciso - Extraordinárias Através de Mundos Conhecidos e Desconhecidos',
+    uniao_da_ilha: 'Viajar é Preciso - Viagens Extraordinárias Através de Mundos Conhecidos e Desconhecidos',
+    ilha: 'Viajar é Preciso - Viagens Extraordinárias Através de Mundos Conhecidos e Desconhecidos',
     renascer_jacarepagua: 'Como vai, vai bem? Veio a pé ou de trem?',
     renascer_de_jacarepagua: 'Como vai, vai bem? Veio a pé ou de trem?',
     renascer: 'Como vai, vai bem? Veio a pé ou de trem?',

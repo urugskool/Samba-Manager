@@ -24,7 +24,9 @@ import {
 } from 'lucide-react';
 import {
   getTopDivisionDisplayLabel,
-  getChampionCarnavalescosByYear
+  getChampionCarnavalescosByYear,
+  getOuroDivisionDisplayLabel,
+  getOuroChampionCarnavalescosByYear
 } from '../services/carnavalescosRankingService';
 
 export type GaleriaDivisionTab = 'especial' | 'ouro' | 'prata' | 'bronze' | 'avaliacao' | 'grupoE';
@@ -640,7 +642,11 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
       ) => {
         titleList.forEach((t) => {
           const resolvedDivLabel =
-            divKey === 'especial' ? getTopDivisionDisplayLabel(t.year) : divLabel;
+            divKey === 'especial'
+              ? getTopDivisionDisplayLabel(t.year)
+              : divKey === 'ouro'
+              ? getOuroDivisionDisplayLabel(t.year)
+              : divLabel;
           if (!yearMap.has(t.year)) {
             yearMap.set(t.year, {
               year: t.year,
@@ -661,7 +667,11 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
 
         viceList.forEach((v) => {
           const resolvedDivLabel =
-            divKey === 'especial' ? getTopDivisionDisplayLabel(v.year) : divLabel;
+            divKey === 'especial'
+              ? getTopDivisionDisplayLabel(v.year)
+              : divKey === 'ouro'
+              ? getOuroDivisionDisplayLabel(v.year)
+              : divLabel;
           if (!yearMap.has(v.year)) {
             yearMap.set(v.year, {
               year: v.year,
@@ -708,7 +718,7 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
         } else if (selectedDivision === 'ouro') {
           champStanding = h.ouroStandings?.find((s) => s.rank === 1);
           viceStanding = h.ouroStandings?.find((s) => s.rank === 2);
-          divLabel = 'Série Ouro';
+          divLabel = getOuroDivisionDisplayLabel(h.year);
         } else if (selectedDivision === 'prata') {
           champStanding = h.prataStandings?.find((s) => s.rank === 1);
           viceStanding = h.prataStandings?.find((s) => s.rank === 2);
@@ -1344,12 +1354,11 @@ export const GaleriaDosCampeoesModal: React.FC<GaleriaDosCampeoesModalProps> = (
                                 </span>
                               )}
                             </div>
-                            {selectedDivision === 'especial' && (() => {
-                              const yearCarnavalescos = getChampionCarnavalescosByYear(
-                                item.year,
-                                history,
-                                schools
-                              );
+                            {(selectedDivision === 'especial' || selectedDivision === 'ouro') && (() => {
+                              const yearCarnavalescos =
+                                selectedDivision === 'especial'
+                                  ? getChampionCarnavalescosByYear(item.year, history, schools)
+                                  : getOuroChampionCarnavalescosByYear(item.year, history, schools);
                               if (yearCarnavalescos.length === 0) return null;
                               const summary =
                                 yearCarnavalescos.length === 1

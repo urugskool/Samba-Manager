@@ -47,7 +47,10 @@ import {
 import {
   getTopDivisionMetadata,
   getChampionCarnavalescosByYear,
-  HISTORICAL_DIVISION_TIMELINE
+  HISTORICAL_DIVISION_TIMELINE,
+  getOuroDivisionMetadata,
+  getOuroChampionCarnavalescosByYear,
+  HISTORICAL_OURO_DIVISION_TIMELINE
 } from '../services/carnavalescosRankingService';
 
 interface CarnavaisPassadosModalProps {
@@ -81,6 +84,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<'carnavais_passados' | 'participacoes' | 'nomenclatura'>(initialTab);
   const [pastDivision, setPastDivision] = useState<'especial' | 'ouro'>('especial');
+  const [nomenclatureDivision, setNomenclatureDivision] = useState<'especial' | 'ouro'>('especial');
   const [participationsGroup, setParticipationsGroup] = useState<DivisionId>('especial');
   const [selectedPastYear, setSelectedPastYear] = useState<number>(2026);
   const [selectedDecade, setSelectedDecade] = useState<string>('recentes');
@@ -273,6 +277,17 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
     if (!currentPastCarnaval) return [];
     return getChampionCarnavalescosByYear(currentPastCarnaval.year, inGameHistory, schools);
   }, [currentPastCarnaval, inGameHistory, schools]);
+
+  const currentOuroDivisionMeta = useMemo(() => {
+    return currentPastOuroCarnaval
+      ? getOuroDivisionMetadata(currentPastOuroCarnaval.year)
+      : getOuroDivisionMetadata(2026);
+  }, [currentPastOuroCarnaval]);
+
+  const currentOuroYearCarnavalescos = useMemo(() => {
+    if (!currentPastOuroCarnaval) return [];
+    return getOuroChampionCarnavalescosByYear(currentPastOuroCarnaval.year, inGameHistory, schools);
+  }, [currentPastOuroCarnaval, inGameHistory, schools]);
 
   if (!isOpen) return null;
 
@@ -1051,14 +1066,17 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                       <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-yellow-950/30 border border-yellow-500/30 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
                       <div className="space-y-1.5">
                         <div className="flex flex-wrap items-center gap-2">
-                          <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-300 border border-yellow-500/40">
-                            RESULTADO OFICIAL SÉRIE OURO (LIGA-RJ)
+                          <span
+                            className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-300 border border-yellow-500/40"
+                            title={currentOuroDivisionMeta.organizerFull}
+                          >
+                            {currentOuroDivisionMeta.badgeText}
                           </span>
-                          <span className="text-xs text-slate-300 font-mono font-bold">
+                          <span className="text-xs text-slate-300 font-mono font-bold tabular-nums">
                             Carnaval {currentPastOuroCarnaval.year}
                           </span>
                           <span className="text-[10px] text-slate-400">
-                            ({currentPastOuroCarnaval.totalSchools} agremiações na Série Ouro)
+                            ({currentPastOuroCarnaval.totalSchools} agremiações • {currentOuroDivisionMeta.divisionName})
                           </span>
                         </div>
 
@@ -1068,6 +1086,19 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                             <span className="text-slate-400">Campeã:</span>
                             <span className="text-white font-black">{currentPastOuroCarnaval.championNames.join(' & ')}</span>
                           </div>
+                          {currentOuroYearCarnavalescos.length > 0 && (
+                            <div className="flex items-center gap-1.5">
+                              <Palette className="w-3.5 h-3.5 text-purple-400 shrink-0" />
+                              <span className="text-slate-400">Carnavalesco(s):</span>
+                              <span className="text-purple-200 font-semibold">
+                                {currentOuroYearCarnavalescos.length === 1
+                                  ? currentOuroYearCarnavalescos[0].displayLabel
+                                  : currentOuroYearCarnavalescos
+                                      .map((c) => `${c.schoolName}: ${c.displayLabel}`)
+                                      .join(' | ')}
+                              </span>
+                            </div>
+                          )}
                           {currentPastOuroCarnaval.viceChampionNames.length > 0 && (
                             <div className="flex items-center gap-1.5">
                               <Medal className="w-3.5 h-3.5 text-slate-300" />
@@ -1229,11 +1260,28 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                     <tr className="bg-slate-900/80">
                                       <td colSpan={5} className="p-4 border-t border-slate-800 space-y-2">
                                         <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-2">
-                                          <div>
-                                            <span className="text-slate-400">Enredo Oficial de {currentPastOuroCarnaval.year}: </span>
-                                            <span className="text-white font-bold italic">
-                                              {enredoTitle ? `"${enredoTitle}"` : 'Registro em catálogo'}
-                                            </span>
+                                          <div className="space-y-1">
+                                            <div>
+                                              <span className="text-slate-400">Enredo Oficial de {currentPastOuroCarnaval.year}: </span>
+                                              <span className="text-white font-bold italic">
+                                                {enredoTitle ? `"${enredoTitle}"` : 'Registro em catálogo'}
+                                              </span>
+                                            </div>
+                                            {st.rank === 1 && !st.isHorsConcours && (() => {
+                                              const carnavalescoMatch = currentOuroYearCarnavalescos.find(
+                                                (c) =>
+                                                  c.schoolId === st.schoolId ||
+                                                  c.schoolName.toLowerCase() === st.schoolName.toLowerCase()
+                                              );
+                                              if (!carnavalescoMatch) return null;
+                                              return (
+                                                <div className="flex items-center gap-1.5 text-purple-200">
+                                                  <Palette className="w-3.5 h-3.5 text-purple-400 shrink-0" />
+                                                  <span className="text-slate-400">Carnavalesco(s) Campeão(ões):</span>
+                                                  <span className="font-semibold">{carnavalescoMatch.displayLabel}</span>
+                                                </div>
+                                              );
+                                            })()}
                                           </div>
                                           {st.statusDescription && (
                                             <div className="text-[11px] text-yellow-300 font-medium">
@@ -1262,7 +1310,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                       A Série Ouro ainda não existia em {selectedPastYear}
                     </h3>
                     <p className="text-xs text-slate-400 max-w-lg mx-auto leading-relaxed">
-                      A segunda divisão do Carnaval Carioca (atual Série Ouro, originalmente criada como Grupo 2) foi instituída apenas em <strong className="text-amber-300">1952</strong>. Nos anos anteriores a 1952, todas as escolas de samba competiam exclusivamente na divisão principal (Grupo Especial).
+                      A segunda divisão do Carnaval Carioca (atual Série Ouro, originalmente criada como Desfile Intermediário / Campeonato pela AESB) foi instituída apenas em <strong className="text-amber-300">1952</strong>. Nos anos anteriores a 1952, todas as escolas de samba competiam exclusivamente na divisão principal.
                     </p>
                     <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
                       <button
@@ -1451,11 +1499,49 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
             </div>
           )}
 
-          {/* TAB 3: NOMENCLATURA E ORGANIZAÇÃO (1932–PRESENTE) */}
+          {/* TAB 3: NOMENCLATURA E ORGANIZAÇÃO */}
           {activeTab === 'nomenclatura' && (
             <div className="space-y-4">
+              {/* Sub-toggle between 1ª Divisão and 2ª Divisão */}
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="inline-flex items-center gap-1.5 p-1.5 rounded-2xl bg-slate-950 border border-slate-800">
+                  <button
+                    type="button"
+                    onClick={() => setNomenclatureDivision('especial')}
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap shrink-0 flex items-center gap-2 cursor-pointer ${
+                      nomenclatureDivision === 'especial'
+                        ? 'bg-amber-500 text-slate-950 font-black shadow-md shadow-amber-500/20'
+                        : 'text-slate-400 hover:text-white hover:bg-slate-900'
+                    }`}
+                  >
+                    <Crown className="w-3.5 h-3.5" />
+                    <span>1ª Divisão (Grupo Especial • 1932–Presente)</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setNomenclatureDivision('ouro')}
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap shrink-0 flex items-center gap-2 cursor-pointer ${
+                      nomenclatureDivision === 'ouro'
+                        ? 'bg-yellow-500 text-slate-950 font-black shadow-md shadow-yellow-500/20'
+                        : 'text-slate-400 hover:text-white hover:bg-slate-900'
+                    }`}
+                  >
+                    <Medal className="w-3.5 h-3.5" />
+                    <span>2ª Divisão (Série Ouro • 1952–Presente)</span>
+                  </button>
+                </div>
+              </div>
+
               <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-xs text-slate-300 leading-relaxed">
-                Ao longo da história dos desfiles das escolas de samba do Rio de Janeiro, a 1ª divisão recebeu sete nomenclaturas diferentes e foi organizada por jornais cariocas, ligas e associações até a consolidação da <strong className="text-amber-300">LIESA</strong> e do <strong className="text-amber-300">Grupo Especial</strong>.
+                {nomenclatureDivision === 'especial' ? (
+                  <>
+                    Ao longo da história dos desfiles das escolas de samba do Rio de Janeiro, a 1ª divisão recebeu sete nomenclaturas diferentes e foi organizada por jornais cariocas, ligas e associações até a consolidação da <strong className="text-amber-300">LIESA</strong> e do <strong className="text-amber-300">Grupo Especial</strong>.
+                  </>
+                ) : (
+                  <>
+                    Instituída em <strong className="text-yellow-300">1952</strong> como <em>Desfile Intermediário / Campeonato</em>, a 2ª divisão mudou de nome e entidade organizadora diversas vezes — passando por <strong className="text-yellow-300">AESB, AESEG, AESCRJ, LIESGA, LESGA e LIERJ</strong> — até a adoção da marca <strong className="text-yellow-300">Série Ouro</strong> sob comando da <strong className="text-yellow-300">LIGA RJ</strong>.
+                  </>
+                )}
               </div>
 
               <div className="rounded-2xl border border-slate-800 bg-slate-950 overflow-hidden shadow-xl">
@@ -1464,41 +1550,50 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                     <thead>
                       <tr className="bg-slate-900/90 border-b border-slate-800 text-[11px] font-bold uppercase tracking-wider text-slate-400">
                         <th className="py-3 px-4 w-36">Período</th>
-                        <th className="py-3 px-4 w-56">Nomenclatura do Grupo</th>
+                        <th className="py-3 px-4 w-60">Nomenclatura do Grupo</th>
                         <th className="py-3 px-4 w-64">Organização</th>
                         <th className="py-3 px-4">Contexto Histórico</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-800/60 font-medium">
-                      {HISTORICAL_DIVISION_TIMELINE.filter((period) => {
-                        const q = searchQuery.toLowerCase().trim();
-                        if (!q) return true;
-                        return (
-                          period.periodLabel.toLowerCase().includes(q) ||
-                          period.divisionName.toLowerCase().includes(q) ||
-                          period.organizer.toLowerCase().includes(q) ||
-                          period.organizerFull.toLowerCase().includes(q) ||
-                          period.notes.toLowerCase().includes(q)
-                        );
-                      }).map((period) => (
-                        <tr key={period.periodLabel} className="hover:bg-slate-900/60 transition">
-                          <td className="py-3.5 px-4 font-mono tabular-nums font-black text-amber-300 whitespace-nowrap">
-                            {period.periodLabel}
-                          </td>
-                          <td className="py-3.5 px-4 font-bold text-white">
-                            {period.divisionName}
-                          </td>
-                          <td className="py-3.5 px-4">
-                            <div className="font-bold text-slate-200">{period.organizer}</div>
-                            <div className="text-[11px] text-slate-400 mt-0.5">
-                              {period.organizerFull}
-                            </div>
-                          </td>
-                          <td className="py-3.5 px-4 text-slate-300 leading-relaxed">
-                            {period.notes}
-                          </td>
-                        </tr>
-                      ))}
+                      {(nomenclatureDivision === 'especial'
+                        ? HISTORICAL_DIVISION_TIMELINE
+                        : HISTORICAL_OURO_DIVISION_TIMELINE
+                      )
+                        .filter((period) => {
+                          const q = searchQuery.toLowerCase().trim();
+                          if (!q) return true;
+                          return (
+                            period.periodLabel.toLowerCase().includes(q) ||
+                            period.divisionName.toLowerCase().includes(q) ||
+                            period.organizer.toLowerCase().includes(q) ||
+                            period.organizerFull.toLowerCase().includes(q) ||
+                            period.notes.toLowerCase().includes(q)
+                          );
+                        })
+                        .map((period) => (
+                          <tr key={`${nomenclatureDivision}-${period.periodLabel}`} className="hover:bg-slate-900/60 transition">
+                            <td
+                              className={`py-3.5 px-4 font-mono tabular-nums font-black whitespace-nowrap ${
+                                nomenclatureDivision === 'especial' ? 'text-amber-300' : 'text-yellow-300'
+                              }`}
+                            >
+                              {period.periodLabel}
+                            </td>
+                            <td className="py-3.5 px-4 font-bold text-white">
+                              {period.divisionName}
+                            </td>
+                            <td className="py-3.5 px-4">
+                              <div className="font-bold text-slate-200">{period.organizer}</div>
+                              <div className="text-[11px] text-slate-400 mt-0.5">
+                                {period.organizerFull}
+                              </div>
+                            </td>
+                            <td className="py-3.5 px-4 text-slate-300 leading-relaxed">
+                              {period.notes}
+                            </td>
+                          </tr>
+                        ))}
                     </tbody>
                   </table>
                 </div>

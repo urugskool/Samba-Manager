@@ -1489,6 +1489,9 @@ export class SimulationEngine {
     const espChampStaffCarnavalesco = espRanked[0]?.school?.staff?.carnavalesco;
     const espChampCarnavalescoNames = extractCarnavalescoNamesFromStaff(espChampStaffCarnavalesco);
 
+    const ouroChampStaffCarnavalesco = ouroChamp?.staff?.carnavalesco;
+    const ouroChampCarnavalescoNames = extractCarnavalescoNamesFromStaff(ouroChampStaffCarnavalesco);
+
     const historyRecord: YearHistory = {
       year: currentYear,
       especialChampion: cleanSchoolName(espRanked[0]?.school) || 'Desconhecida',
@@ -1499,6 +1502,11 @@ export class SimulationEngine {
       especialChampionCarnavalescoNames: espChampCarnavalescoNames,
       especialRelegated: especialRelegated ? [cleanSchoolName(especialRelegated)] : [],
       ouroChampion: ouroChamp ? cleanSchoolName(ouroChamp) : 'Desconhecida',
+      ouroChampionCarnavalesco:
+        ouroChampCarnavalescoNames.length > 0
+          ? ouroChampCarnavalescoNames.join(', ')
+          : ouroChampStaffCarnavalesco?.name,
+      ouroChampionCarnavalescoNames: ouroChampCarnavalescoNames,
       ouroRelegated: ouroRelegatedNames.map(n => cleanSchoolName(n)),
       prataChampion: prataChamp ? cleanSchoolName(prataChamp) : 'Desconhecida',
       prataPromoted: prataPromotedNames.map(n => cleanSchoolName(n)),
