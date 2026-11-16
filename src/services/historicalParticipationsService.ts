@@ -15,6 +15,7 @@ import { cleanSchoolName } from '../utils/schoolNameUtils';
 import { HISTORICAL_CARNAVAL_RECORDS, INITIAL_SCHOOLS } from '../data/carnavalData';
 import { OFFICIAL_LIESA_HISTORICAL_STANDINGS } from './liesaRankingService';
 import { OFFICIAL_OURO_HISTORICAL_STANDINGS } from '../data/ouroHistoricalData';
+import { OFFICIAL_PRATA_HISTORICAL_STANDINGS } from '../data/prataHistoricalData';
 import { OFFICIAL_AVALIACAO_YEARLY_RESULTS, OFFICIAL_AVALIACAO_RECORDS_BY_SCHOOL } from '../data/avaliacaoChampionsData';
 
 export interface GroupParticipationRecord {
@@ -153,6 +154,18 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('união do cruzeiro') || name.includes('uniao do cruzeiro') || clean.includes('uniao_do_cruzeiro')) return 'uniao_do_cruzeiro';
   if (name.includes('santo antônio') || name.includes('santo antonio') || clean.includes('santo_antonio')) return 'unidos_de_santo_antonio';
   if (name.includes('arapá') || name.includes('arapa') || clean.includes('arapa')) return 'unidos_do_arapa';
+  if (name.includes('flamanguaça') || name.includes('flamanguaca') || name.includes('fla manguaça') || name.includes('fla manguaca') || clean === 'flamanguaca' || clean === 'fla_manguaca') return 'fla_manguaca';
+  if (name.includes('império da uva') || name.includes('imperio da uva') || clean === 'imperio_da_uva') return 'imperio_da_uva';
+  if (name.includes('abolição') || name.includes('abolicao') || clean === 'abolicao') return 'abolicao';
+  if (name.includes('feitiço carioca') || name.includes('feitico carioca') || clean === 'feitico_carioca') return 'feitico_carioca';
+  if (name.includes('tubarão') || name.includes('tubarao') || clean === 'tubarao_mesquita') return 'tubarao_mesquita';
+  if (name.includes('alegria do vilar') || clean === 'alegria_do_vilar') return 'alegria_do_vilar';
+  if (name.includes('santa marta') || clean === 'santa_marta') return 'santa_marta';
+  if (name.includes('olaria') || clean === 'independentes_olaria') return 'independentes_olaria';
+  if (name.includes('império de nova iguaçu') || name.includes('imperio de nova iguacu') || clean === 'imperio_nova_iguacu') return 'imperio_nova_iguacu';
+  if (name.includes('siri de ramos') || clean === 'siri_de_ramos') return 'siri_de_ramos';
+  if (name.includes('praça da bandeira') || name.includes('praca da bandeira') || clean === 'praca_da_bandeira') return 'praca_da_bandeira';
+  if (name.includes('chatuba') || clean === 'chatuba') return 'chatuba';
 
   return clean || name.replace(/\s+/g, '_');
 }
@@ -263,9 +276,10 @@ export function computeDivisionParticipationsList(
       if (h.ouroStandings && h.ouroStandings.length > 0) {
         h.ouroStandings.forEach((st) => {
           const item = getOrCreate(st.schoolId, st.schoolName);
+          const alreadyHadYear = item.years.has(h.year);
           item.years.add(h.year);
-          if (st.rank === 1) item.titlesCount++;
-          else if (st.rank === 2) item.vicesCount++;
+          if (st.rank === 1 && !alreadyHadYear) item.titlesCount++;
+          else if (st.rank === 2 && !alreadyHadYear) item.vicesCount++;
         });
       }
     });
@@ -288,13 +302,26 @@ export function computeDivisionParticipationsList(
       }
     });
 
+    // Resultados oficiais catalogados da Série Prata (ex: 2026 e anteriores)
+    Object.entries(OFFICIAL_PRATA_HISTORICAL_STANDINGS).forEach(([yrStr, standings]) => {
+      const yr = Number(yrStr);
+      standings.forEach((st) => {
+        const item = getOrCreate(st.schoolId, st.schoolName);
+        const alreadyHadYear = item.years.has(yr);
+        item.years.add(yr);
+        if (st.rank === 1 && !alreadyHadYear && !st.isHorsConcours) item.titlesCount++;
+        else if (st.rank === 2 && !alreadyHadYear && !st.isHorsConcours) item.vicesCount++;
+      });
+    });
+
     inGameHistory.forEach((h) => {
       if (h.prataStandings && h.prataStandings.length > 0) {
         h.prataStandings.forEach((st) => {
           const item = getOrCreate(st.schoolId, st.schoolName);
+          const alreadyHadYear = item.years.has(h.year);
           item.years.add(h.year);
-          if (st.rank === 1) item.titlesCount++;
-          else if (st.rank === 2) item.vicesCount++;
+          if (st.rank === 1 && !alreadyHadYear) item.titlesCount++;
+          else if (st.rank === 2 && !alreadyHadYear) item.vicesCount++;
         });
       }
     });

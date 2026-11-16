@@ -14,6 +14,9 @@ import {
   OuroStandingRecord
 } from '../data/ouroHistoricalData';
 import {
+  getHistoricalPrataCarnavalsList
+} from '../data/prataHistoricalData';
+import {
   computeDivisionParticipationsList,
   GroupParticipationRecord
 } from '../services/historicalParticipationsService';
@@ -83,7 +86,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
   initialTab = 'carnavais_passados'
 }) => {
   const [activeTab, setActiveTab] = useState<'carnavais_passados' | 'participacoes' | 'nomenclatura'>(initialTab);
-  const [pastDivision, setPastDivision] = useState<'especial' | 'ouro'>('especial');
+  const [pastDivision, setPastDivision] = useState<'especial' | 'ouro' | 'prata'>('especial');
   const [nomenclatureDivision, setNomenclatureDivision] = useState<'especial' | 'ouro'>('especial');
   const [participationsGroup, setParticipationsGroup] = useState<DivisionId>('especial');
   const [selectedPastYear, setSelectedPastYear] = useState<number>(2026);
@@ -226,6 +229,28 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
         (st.enredo && st.enredo.toLowerCase().includes(q))
     );
   }, [currentPastOuroCarnaval, searchQuery]);
+
+  // Lista dos carnavais catalogados da Série Prata
+  const historicalPrataCarnavals = useMemo(() => {
+    return getHistoricalPrataCarnavalsList(inGameHistory);
+  }, [inGameHistory]);
+
+  const currentPastPrataCarnaval = useMemo(() => {
+    return historicalPrataCarnavals.find((c) => c.year === selectedPastYear);
+  }, [historicalPrataCarnavals, selectedPastYear]);
+
+  // Colocações filtradas da Série Prata do carnaval selecionado
+  const filteredPastPrataStandings = useMemo(() => {
+    if (!currentPastPrataCarnaval) return [];
+    const baseList = currentPastPrataCarnaval.standings || [];
+    const q = searchQuery.toLowerCase().trim();
+    if (!q) return baseList;
+    return baseList.filter(
+      (st) =>
+        st.schoolName.toLowerCase().includes(q) ||
+        (st.enredo && st.enredo.toLowerCase().includes(q))
+    );
+  }, [currentPastPrataCarnaval, searchQuery]);
 
   // Configuração e Lista da Aba de Participações por Grupo
   const currentGroupConfig = useMemo(() => {
@@ -529,8 +554,8 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                 </div>
               </div>
 
-              {/* Division Selector: Grupo Especial / Série Ouro */}
-              <div className="flex items-center gap-2 p-1.5 bg-slate-950 rounded-2xl border border-slate-800 w-fit">
+              {/* Division Selector: Grupo Especial / Série Ouro / Série Prata */}
+              <div className="flex flex-wrap items-center gap-2 p-1.5 bg-slate-950 rounded-2xl border border-slate-800 w-fit">
                 <button
                   onClick={() => {
                     setPastDivision('especial');
@@ -565,6 +590,29 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                         : 'bg-slate-800 text-slate-400'
                     }`}>
                       a partir de 1952
+                    </span>
+                  )}
+                </button>
+                <button
+                  onClick={() => {
+                    setPastDivision('prata');
+                    setExpandedSchoolId(null);
+                  }}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
+                    pastDivision === 'prata'
+                      ? 'bg-slate-200 text-slate-950 font-black shadow-md shadow-slate-300/20'
+                      : 'text-slate-400 hover:text-white hover:bg-slate-900'
+                  }`}
+                >
+                  <Award className="w-3.5 h-3.5" />
+                  <span>Série Prata</span>
+                  {!currentPastPrataCarnaval && (
+                    <span className={`text-[10px] px-1.5 py-0.5 rounded-md font-semibold ${
+                      pastDivision === 'prata'
+                        ? 'bg-slate-950/20 text-slate-950'
+                        : 'bg-slate-800 text-slate-400'
+                    }`}>
+                      em catalogação
                     </span>
                   )}
                 </button>
@@ -1352,6 +1400,278 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                     >
                       Ver Carnaval 2026 (Série Ouro)
                     </button>
+                  </div>
+                )
+              )}
+
+              {/* SÉRIE PRATA VIEW */}
+              {pastDivision === 'prata' && (
+                currentPastPrataCarnaval ? (
+                  currentPastPrataCarnaval.isNoCarnaval ? (
+                    <div className="p-8 rounded-2xl bg-slate-950/60 border border-dashed border-slate-800 text-center space-y-3">
+                      <div className="w-12 h-12 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500 mx-auto">
+                        <AlertTriangle className="w-6 h-6 text-slate-300" />
+                      </div>
+                      <h3 className="text-lg font-black text-white">Não houve desfiles em {currentPastPrataCarnaval.year}</h3>
+                      <p className="text-xs text-slate-400 max-w-lg mx-auto">
+                        {currentPastPrataCarnaval.notes}
+                      </p>
+                    </div>
+                  ) : (
+                    <>
+                      {/* Summary Card Série Prata */}
+                      <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-slate-800/60 border border-slate-400/30 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+                        <div className="space-y-1.5">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-slate-300/20 text-slate-200 border border-slate-400/40">
+                              SÉRIE PRATA • 3ª DIVISÃO
+                            </span>
+                            <span className="text-xs text-slate-300 font-mono font-bold tabular-nums">
+                              Carnaval {currentPastPrataCarnaval.year}
+                            </span>
+                            <span className="text-[10px] text-slate-400">
+                              ({currentPastPrataCarnaval.totalSchools} agremiações)
+                            </span>
+                          </div>
+
+                          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
+                            <div className="flex items-center gap-1.5">
+                              <Crown className="w-3.5 h-3.5 text-amber-400" />
+                              <span className="text-slate-400">Campeã:</span>
+                              <span className="text-white font-black">{currentPastPrataCarnaval.championNames.join(' & ')}</span>
+                            </div>
+                            {currentPastPrataCarnaval.viceChampionNames.length > 0 && (
+                              <div className="flex items-center gap-1.5">
+                                <Medal className="w-3.5 h-3.5 text-slate-300" />
+                                <span className="text-slate-400">Vice:</span>
+                                <span className="text-slate-200 font-bold">{currentPastPrataCarnaval.viceChampionNames.join(' & ')}</span>
+                              </div>
+                            )}
+                            {currentPastPrataCarnaval.promotedNames.length > 0 && (
+                              <div className="flex items-center gap-1.5">
+                                <ArrowUpCircle className="w-3.5 h-3.5 text-emerald-400" />
+                                <span className="text-slate-400">Subiram à Série Ouro:</span>
+                                <span className="text-emerald-300 font-bold">{currentPastPrataCarnaval.promotedNames.join(', ')}</span>
+                              </div>
+                            )}
+                            {currentPastPrataCarnaval.relegatedNames && currentPastPrataCarnaval.relegatedNames.length > 0 && (
+                              <div className="flex items-center gap-1.5">
+                                <ArrowDownCircle className="w-3.5 h-3.5 text-rose-400" />
+                                <span className="text-slate-400">Rebaixada(s) para a Série Bronze:</span>
+                                <span className="text-rose-300 font-bold">{currentPastPrataCarnaval.relegatedNames.join(', ')}</span>
+                              </div>
+                            )}
+                          </div>
+
+                          {currentPastPrataCarnaval.notes && (
+                            <p className="text-[11px] text-slate-300/90 font-medium italic max-w-3xl pt-1">
+                              {currentPastPrataCarnaval.notes}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Standings Table Série Prata */}
+                      <div className="rounded-2xl border border-slate-800 bg-slate-950 overflow-hidden shadow-xl">
+                        <div className="overflow-x-auto">
+                          <table className="w-full text-left border-collapse text-xs">
+                            <thead>
+                              <tr className="bg-slate-900/90 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-800">
+                                <th className="py-3 px-4 w-24">Classificação</th>
+                                <th className="py-3 px-4">Agremiação</th>
+                                <th className="py-3 px-4 hidden md:table-cell">Enredo Oficial</th>
+                                <th className="py-3 px-4 text-center">Movimentação / Status</th>
+                                <th className="py-3 px-3 text-right w-14"></th>
+                              </tr>
+                            </thead>
+                            <tbody className="divide-y divide-slate-800/60 font-medium">
+                              {filteredPastPrataStandings.map((st, idx) => {
+                                const isExpanded = expandedSchoolId === `prata_${st.schoolId}_${idx}`;
+                                const isUser =
+                                  userSchool &&
+                                  (userSchool.id === st.schoolId ||
+                                    userSchool.name.toLowerCase() === st.schoolName.toLowerCase());
+                                const schoolObj = schools.find(
+                                  (s) =>
+                                    s.id === st.schoolId ||
+                                    s.name.toLowerCase() === st.schoolName.toLowerCase()
+                                );
+                                const enredoTitle =
+                                  st.enredo ||
+                                  getHistoricalEnredo(
+                                    currentPastPrataCarnaval.year,
+                                    st.schoolId,
+                                    st.schoolName,
+                                    schoolObj,
+                                    inGameHistory
+                                  );
+
+                                return (
+                                  <React.Fragment key={`prata_${st.schoolId}_${idx}`}>
+                                    <tr
+                                      onClick={() => toggleExpand(`prata_${st.schoolId}_${idx}`)}
+                                      className={`hover:bg-slate-800/40 transition cursor-pointer ${
+                                        isUser ? 'bg-slate-300/10' : ''
+                                      }`}
+                                    >
+                                      <td className="py-3 px-4 whitespace-nowrap">
+                                        <span
+                                          className={`inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-lg text-xs font-black ${
+                                            st.isHorsConcours || st.rank === 0
+                                              ? st.relegated
+                                                ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40 font-bold text-[10px]'
+                                                : st.statusDescription?.toLowerCase().includes('não desfilou')
+                                                ? 'bg-slate-900 text-slate-400 border border-slate-700 font-bold text-[10px]'
+                                                : 'bg-purple-950/80 text-purple-300 border border-purple-700/50 font-bold text-[10px]'
+                                              : st.rank === 1
+                                              ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
+                                              : st.promoted
+                                              ? 'bg-emerald-500/25 text-emerald-200 border border-emerald-400/50 font-black'
+                                              : st.rank === 3
+                                              ? 'bg-amber-700/60 text-amber-200 border border-amber-600/40'
+                                              : st.relegated
+                                              ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40 font-bold'
+                                              : 'bg-slate-900 text-slate-300 border border-slate-800 font-mono'
+                                          }`}
+                                        >
+                                          {st.relegated && <ArrowDownCircle className="w-3.5 h-3.5 text-rose-400" />}
+                                          {st.rank === 1 && <Crown className="w-3.5 h-3.5 text-slate-950 fill-slate-950" />}
+                                          {st.rank > 1 && st.promoted && <ArrowUpCircle className="w-3.5 h-3.5 text-emerald-300" />}
+                                          {st.isHorsConcours || st.rank === 0
+                                            ? st.statusDescription?.toLowerCase().includes('não desfilou')
+                                              ? 'ND'
+                                              : 'HC'
+                                            : `${st.rank}ª`}
+                                        </span>
+                                      </td>
+
+                                      <td className="py-3 px-4 font-bold text-white">
+                                        <div className="flex items-center gap-2">
+                                          {schoolObj?.colors && (
+                                            <div
+                                              className="w-3 h-3 rounded-full shrink-0 border border-white/20"
+                                              style={{ backgroundColor: schoolObj.colors.primary }}
+                                            />
+                                          )}
+                                          <span className={isUser ? 'text-slate-200' : ''}>{st.schoolName}</span>
+                                          {isUser && (
+                                            <span className="text-[10px] px-1.5 py-0.2 rounded bg-slate-300/20 text-slate-200 font-bold border border-slate-400/30">
+                                              Sua Escola
+                                            </span>
+                                          )}
+                                        </div>
+                                        {enredoTitle && (
+                                          <div className="md:hidden text-[11px] font-normal italic text-slate-400 mt-0.5 line-clamp-1">
+                                            "{enredoTitle}"
+                                          </div>
+                                        )}
+                                      </td>
+
+                                      <td className="py-3 px-4 text-slate-300 italic text-[11px] max-w-xs truncate hidden md:table-cell" title={enredoTitle}>
+                                        {enredoTitle ? `"${enredoTitle}"` : '—'}
+                                      </td>
+
+                                      <td className="py-3 px-4 text-center whitespace-nowrap">
+                                        {st.isHorsConcours || st.rank === 0 ? (
+                                          st.relegated ? (
+                                            <span className="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/40 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
+                                              <ArrowDownCircle className="w-3.5 h-3.5 text-rose-400" />
+                                              <span>Não Desfilou (Rebaixada)</span>
+                                            </span>
+                                          ) : st.statusDescription?.toLowerCase().includes('não desfilou') ? (
+                                            <span className="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 border border-slate-700 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
+                                              <span>Não Desfilou</span>
+                                            </span>
+                                          ) : (
+                                            <span className="px-2.5 py-1 rounded-lg bg-purple-500/20 text-purple-300 border border-purple-500/40 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
+                                              <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+                                              <span>Hors concours</span>
+                                            </span>
+                                          )
+                                        ) : st.promoted || st.rank === 1 ? (
+                                          <span className="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
+                                            <ArrowUpCircle className="w-3.5 h-3.5 text-emerald-400" />
+                                            <span>{st.rank === 1 ? 'Campeã • Subiu (Série Ouro)' : 'Subiu (Série Ouro)'}</span>
+                                          </span>
+                                        ) : st.relegated ? (
+                                          <span className="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/40 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
+                                            <ArrowDownCircle className="w-3.5 h-3.5 text-rose-400" />
+                                            <span>Rebaixada (Série Bronze)</span>
+                                          </span>
+                                        ) : (
+                                          <span className="px-2 py-0.5 rounded-md bg-slate-900 text-slate-400 border border-slate-800 text-[10px] font-medium">
+                                            Permanece na Série Prata
+                                          </span>
+                                        )}
+                                      </td>
+
+                                      <td className="py-3 px-3 text-right">
+                                        <ChevronRight
+                                          className={`w-4 h-4 text-slate-500 transition-transform ${
+                                            isExpanded ? 'rotate-90 text-slate-200' : ''
+                                          }`}
+                                        />
+                                      </td>
+                                    </tr>
+
+                                    {isExpanded && (
+                                      <tr className="bg-slate-900/80">
+                                        <td colSpan={5} className="p-4 border-t border-slate-800 space-y-2">
+                                          <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-2">
+                                            <div>
+                                              <span className="text-slate-400">Enredo Oficial de {currentPastPrataCarnaval.year}: </span>
+                                              <span className="text-white font-bold italic">
+                                                {enredoTitle ? `"${enredoTitle}"` : 'Registro em catálogo'}
+                                              </span>
+                                            </div>
+                                            {st.statusDescription && (
+                                              <div className="text-[11px] text-slate-200 font-medium">
+                                                {st.statusDescription}
+                                              </div>
+                                            )}
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    )}
+                                  </React.Fragment>
+                                );
+                              })}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </>
+                  )
+                ) : (
+                  <div className="p-8 rounded-2xl bg-slate-950/60 border border-dashed border-slate-700 text-center space-y-3">
+                    <div className="w-12 h-12 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-300 mx-auto">
+                      <Info className="w-6 h-6 text-slate-300" />
+                    </div>
+                    <h3 className="text-lg font-black text-white">Série Prata em Catalogação</h3>
+                    <p className="text-xs text-slate-400 max-w-md mx-auto leading-relaxed">
+                      Os resultados e enredos da Série Prata (Terceira Divisão) para o Carnaval de {selectedPastYear} ainda estão sendo catalogados. Confira o registro oficial disponível a partir de 2026.
+                    </p>
+                    <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
+                      <button
+                        onClick={() => {
+                          setSelectedPastYear(2026);
+                          setSelectedDecade('recentes');
+                          setExpandedSchoolId(null);
+                        }}
+                        className="px-4 py-2 rounded-xl bg-slate-200 hover:bg-white text-slate-950 text-xs font-black transition cursor-pointer"
+                      >
+                        Ver Carnaval 2026 (Série Prata)
+                      </button>
+                      <button
+                        onClick={() => {
+                          setPastDivision('especial');
+                          setExpandedSchoolId(null);
+                        }}
+                        className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 transition cursor-pointer"
+                      >
+                        Ver Grupo Especial ({selectedPastYear})
+                      </button>
+                    </div>
                   </div>
                 )
               )}

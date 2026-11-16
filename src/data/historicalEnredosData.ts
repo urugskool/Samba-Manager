@@ -73,15 +73,39 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     parque_acari: 'Brasiliana',
     uniao_do_parque_acari: 'Brasiliana',
     inocentes: 'O Sonho de um Tal Pagode Russo nos Frevos do meu Pernambuco',
-    santa_cruz: 'Os Filhos da Noite',
+    santa_cruz: 'Brasil de Mil Faces em Um Só Coração',
     vigario_geral: 'Brasil Incógnito - O Que Os Seus Olhos Não Veem, A Minha Imaginação Reinventa',
     jacarezinho: 'O ar que se respira agora inspira novos tempos',
-    sao_clemente: 'Quem Avisa Amigo É',
+    sao_clemente: 'Na Tamarineira, é pagode, é carioca, é São Clemente',
+    vila_santa_tereza: 'Vila Santa Tereza não marca bobeira e festeja os 65 anos do Cacique de Ramos',
+    cubango: 'O Menino Sonhador do Sertão',
+    imperio_da_uva: 'Nos Caminhos da Fé, o Meu Sonho Anunciou… Salve Nossa Senhora Aparecida, a Mãe Preta do Brasil!',
+    renascer_jacarepagua: 'A Divina Comédia Brasileira',
+    fla_manguaca: 'Ecos de Sortilégios',
+    flamanguaca: 'Ecos de Sortilégios',
+    unidos_de_lucas: 'O povo escreve sua história em um sublime pergaminho',
+    abolicao: 'Chão é Gente. Cultivar, Cultuar e Colher Ancestralidade',
+    feitico_carioca: 'Meu Malvado do Fundo do Coração',
+    imperio_da_tijuca: 'O Intrépido Santo Guerreiro',
+    tubarao_mesquita: 'Berta Ribeiro: Da Praça Onze ao Coração da Floresta',
+    tradicao: 'A Menina do Sertão que virou Estrela de TV - Gardênia Cavalcanti',
+    alegria_do_vilar: 'Regido e guiado pelas Lâminas do Rei da Justiça',
+    santa_marta: 'Samba é minha Cachaça',
+    independentes_olaria: 'O balanço do cabra que embolou o som e no compasso da mistura fez um Brasil pandeiro',
+    rocinha: 'Alafiou! Caminhos Abertos para a Vitória!',
+    lins_imperial: 'Macacu - No caminho das águas cristalinas, reflete a alma da criação',
+    curicica: 'As Viagens de Arlindo - Minha Loucura é Ser Artista',
+    engenho_da_rainha: 'Santa Rosa - Negro, Moderno, Plural',
+    arrastao_cascadura: 'Cascadura se diverte nas culturas populares do Nordeste',
+    imperio_nova_iguacu: 'Kupapa Unsaba - Morada Ancestral',
+    uniao_de_jacarepagua: 'Quingombô - Entre Dois Mundos',
+    siri_de_ramos: 'Jóias do Axé',
+    academicos_do_dende: 'No Carnaval dos 7 Mares, vai dar Zebra!',
+    praca_da_bandeira: 'Grande Sertão Negro',
+    chatuba: 'BenEdita do povo',
+    vizinha_faladeira: 'A Voz que vem do Mar é Ancestral',
+    leao_de_nova_iguacu: 'Maria Felipa',
     caprichosos_de_pilares: 'Caprichando no Samba',
-    tradicao: 'Tradição É Tradição',
-    cubango: 'No Rastro da Onça',
-    rocinha: 'A Rocinha É Nossa Casa',
-    lins_imperial: 'Mazzaropi, o Poeta Caipira',
     sereno_campo_grande: 'O Sertão de Suassuna',
     leao_zona_oeste: 'A Dança dos Quatro Cantos',
     casa_de_malandro: 'No Compasso da Boêmia'
@@ -4709,6 +4733,18 @@ function normalizeId(rawId?: string, rawName?: string): string {
       return 'em_cima_da_hora_catumbi';
     }
     if (id === 'em_cima_da_hora' || id.includes('em_cima_da_hora')) return 'em_cima_da_hora';
+    if (id.includes('flamanguaca') || id.includes('fla_manguaca')) return 'fla_manguaca';
+    if (id.includes('imperio_da_uva')) return 'imperio_da_uva';
+    if (id.includes('abolicao')) return 'abolicao';
+    if (id.includes('feitico_carioca')) return 'feitico_carioca';
+    if (id.includes('tubarao')) return 'tubarao_mesquita';
+    if (id.includes('alegria_do_vilar')) return 'alegria_do_vilar';
+    if (id.includes('santa_marta')) return 'santa_marta';
+    if (id.includes('imperio_nova_iguacu')) return 'imperio_nova_iguacu';
+    if (id.includes('siri_de_ramos')) return 'siri_de_ramos';
+    if (id.includes('praca_da_bandeira')) return 'praca_da_bandeira';
+    if (id.includes('chatuba')) return 'chatuba';
+    if (id.includes('leao_de_nova_iguacu')) return 'leao_de_nova_iguacu';
     return id;
   }
   if (!rawName) return '';
@@ -4876,6 +4912,24 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('coração das morenas') || n.includes('coracao das morenas')) return 'coracao_das_morenas';
   if (n.includes('baianinhas')) return 'baianinhas_brasileiras';
   if (n.includes('santa tereza') || n.includes('santa theresa')) return 'vila_santa_tereza';
+  if (n.includes('flamanguaça') || n.includes('flamanguaca') || n.includes('fla manguaça') || n.includes('fla manguaca')) return 'fla_manguaca';
+  if (n.includes('império da uva') || n.includes('imperio da uva')) return 'imperio_da_uva';
+  if (n.includes('abolição') || n.includes('abolicao')) return 'abolicao';
+  if (n.includes('feitiço carioca') || n.includes('feitico carioca')) return 'feitico_carioca';
+  if (n.includes('tubarão') || n.includes('tubarao')) return 'tubarao_mesquita';
+  if (n.includes('alegria do vilar')) return 'alegria_do_vilar';
+  if (n.includes('santa marta')) return 'santa_marta';
+  if (n.includes('olaria')) return 'independentes_olaria';
+  if (n.includes('rocinha')) return 'rocinha';
+  if (n.includes('cubango')) return 'cubango';
+  if (n.includes('curicica')) return 'curicica';
+  if (n.includes('engenho da rainha')) return 'engenho_da_rainha';
+  if (n.includes('renascer')) return 'renascer_jacarepagua';
+  if (n.includes('império de nova iguaçu') || n.includes('imperio de nova iguacu')) return 'imperio_nova_iguacu';
+  if (n.includes('siri de ramos')) return 'siri_de_ramos';
+  if (n.includes('praça da bandeira') || n.includes('praca da bandeira')) return 'praca_da_bandeira';
+  if (n.includes('chatuba')) return 'chatuba';
+  if (n.includes('leão de nova iguaçu') || n.includes('leao de nova iguacu')) return 'leao_de_nova_iguacu';
   return '';
 }
 

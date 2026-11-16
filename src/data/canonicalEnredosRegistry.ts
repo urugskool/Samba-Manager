@@ -181,9 +181,179 @@ export const CANONICAL_2026_ENREDOS: Record<string, CanonicalEnredoInfo> = {
   },
   sao_clemente: {
     schoolId: 'sao_clemente',
-    title: 'Quem Avisa Amigo É',
-    themeType: 'Crítica Social',
-    synopsis: 'A marca registrada da irreverência clementiana em sátira refinada às loucuras do cotidiano brasileiro.'
+    title: 'Na Tamarineira, é pagode, é carioca, é São Clemente',
+    themeType: 'Samba & Pagode Carioca',
+    synopsis: 'A celebração das rodas de pagode sob a Tamarineira do Cacique de Ramos e a alma popular carioca da São Clemente.'
+  },
+
+  // SÉRIE PRATA (2026)
+  santa_cruz: {
+    schoolId: 'santa_cruz',
+    title: 'Brasil de Mil Faces em Um Só Coração',
+    themeType: 'Cultural & Identidade',
+    synopsis: 'A diversidade cultural dos povos e regiões que formam o retrato plural e apaixonado do povo brasileiro.'
+  },
+  vila_santa_tereza: {
+    schoolId: 'vila_santa_tereza',
+    title: 'Vila Santa Tereza não marca bobeira e festeja os 65 anos do Cacique de Ramos',
+    themeType: 'Homenagem & Samba',
+    synopsis: 'Os 65 anos do histórico bloco e reduto do samba Cacique de Ramos celebrados na passarela.'
+  },
+  cubango: {
+    schoolId: 'cubango',
+    title: 'O Menino Sonhador do Sertão',
+    themeType: 'Cultural & Nordestino',
+    synopsis: 'Os sonhos, a imaginação e a resistência poética de um menino criado sob o sol do sertão brasileiro.'
+  },
+  imperio_da_uva: {
+    schoolId: 'imperio_da_uva',
+    title: 'Nos Caminhos da Fé, o Meu Sonho Anunciou… Salve Nossa Senhora Aparecida, a Mãe Preta do Brasil!',
+    themeType: 'Religioso & Afro-Brasileiro',
+    synopsis: 'A devoção popular e a história de fé em torno de Nossa Senhora Aparecida, padroeira e Mãe Preta do Brasil.'
+  },
+  renascer_jacarepagua: {
+    schoolId: 'renascer_jacarepagua',
+    title: 'A Divina Comédia Brasileira',
+    themeType: 'Literário & Satírico',
+    synopsis: 'Uma releitura carnavalesca e brasileira da clássica jornada alegórica de Dante Alighieri.'
+  },
+  fla_manguaca: {
+    schoolId: 'fla_manguaca',
+    title: 'Ecos de Sortilégios',
+    themeType: 'Místico & Cultural',
+    synopsis: 'Os encantamentos, rituais e sortilégios que ecoam pelas tradições místicas da cultura popular.'
+  },
+  unidos_de_lucas: {
+    schoolId: 'unidos_de_lucas',
+    title: 'O povo escreve sua história em um sublime pergaminho',
+    themeType: 'Histórico & Popular',
+    synopsis: 'O protagonismo do povo brasileiro registrando sua própria trajetória de lutas, cultura e memória.'
+  },
+  abolicao: {
+    schoolId: 'abolicao',
+    title: 'Chão é Gente. Cultivar, Cultuar e Colher Ancestralidade',
+    themeType: 'Ancestralidade & Cultural',
+    synopsis: 'A conexão sagrada entre terra, cultivo, memória ancestral e comunidades tradicionais.'
+  },
+  feitico_carioca: {
+    schoolId: 'feitico_carioca',
+    title: 'Meu Malvado do Fundo do Coração',
+    themeType: 'Cultural & Carioca',
+    synopsis: 'Um mergulho bem-humorado e apaixonado nos personagens e histórias que conquistam o imaginário popular.'
+  },
+  imperio_da_tijuca: {
+    schoolId: 'imperio_da_tijuca',
+    title: 'O Intrépido Santo Guerreiro',
+    themeType: 'Religioso & Fé',
+    synopsis: 'A devoção fervorosa e as batalhas simbólicas de São Jorge, o Santo Guerreiro celebrado pelo samba.'
+  },
+  tubarao_mesquita: {
+    schoolId: 'tubarao_mesquita',
+    title: 'Berta Ribeiro: Da Praça Onze ao Coração da Floresta',
+    themeType: 'Homenagem & Cultural',
+    synopsis: 'A trajetória da antropóloga e pesquisadora Berta Ribeiro, da memória da Praça Onze aos povos da floresta.'
+  },
+  tradicao: {
+    schoolId: 'tradicao',
+    title: 'A Menina do Sertão que virou Estrela de TV - Gardênia Cavalcanti',
+    themeType: 'Homenagem',
+    synopsis: 'A história de superação e sucesso da apresentadora Gardênia Cavalcanti, do sertão às telas da televisão.'
+  },
+  alegria_do_vilar: {
+    schoolId: 'alegria_do_vilar',
+    title: 'Regido e guiado pelas Lâminas do Rei da Justiça',
+    themeType: 'Afro-Brasileiro & Religioso',
+    synopsis: 'A força espiritual de Xangô, o Rei da Justiça, guiando caminhos com seus machados e balança.'
+  },
+  santa_marta: {
+    schoolId: 'santa_marta',
+    title: 'Samba é minha Cachaça',
+    themeType: 'Boêmio & Cultural',
+    synopsis: 'A paixão visceral pelo samba, pelas rodas de morro e pela boemia que embala a alma carioca.'
+  },
+  independentes_olaria: {
+    schoolId: 'independentes_olaria',
+    title: 'O balanço do cabra que embolou o som e no compasso da mistura fez um Brasil pandeiro',
+    themeType: 'Musical & Cultural',
+    synopsis: 'A genialidade rítmica que misturou embolada, coco e samba no compasso do pandeiro brasileiro.'
+  },
+  rocinha: {
+    schoolId: 'rocinha',
+    title: 'Alafiou! Caminhos Abertos para a Vitória!',
+    themeType: 'Afro-Brasileiro',
+    synopsis: 'Os oráculos, a paz e a proteção espiritual abrindo os caminhos para a celebração e a vitória.'
+  },
+  lins_imperial: {
+    schoolId: 'lins_imperial',
+    title: 'Macacu - No caminho das águas cristalinas, reflete a alma da criação',
+    themeType: 'Ecológico & Cultural',
+    synopsis: 'As águas do Rio Macacu como espelho da criação, da natureza fluminense e da preservação ambiental.'
+  },
+  curicica: {
+    schoolId: 'curicica',
+    title: 'As Viagens de Arlindo - Minha Loucura é Ser Artista',
+    themeType: 'Homenagem & Artístico',
+    synopsis: 'Uma celebração às viagens criativas, à imaginação e à arte de viver como artista.'
+  },
+  engenho_da_rainha: {
+    schoolId: 'engenho_da_rainha',
+    title: 'Santa Rosa - Negro, Moderno, Plural',
+    themeType: 'Homenagem & Artes Plásticas',
+    synopsis: 'A obra modernista e plural do pintor, cenógrafo e intelectual negro Tomás Santa Rosa.'
+  },
+  arrastao_cascadura: {
+    schoolId: 'arrastao_cascadura',
+    title: 'Cascadura se diverte nas culturas populares do Nordeste',
+    themeType: 'Folclórico & Cultural',
+    synopsis: 'A festa das tradições, danças, folguedos e manifestações populares nordestinas em Cascadura.'
+  },
+  imperio_nova_iguacu: {
+    schoolId: 'imperio_nova_iguacu',
+    title: 'Kupapa Unsaba - Morada Ancestral',
+    themeType: 'Afro-Brasileiro',
+    synopsis: 'As raízes bantas, os saberes sagrados e a morada espiritual ancestral celebrados na Baixada.'
+  },
+  uniao_de_jacarepagua: {
+    schoolId: 'uniao_de_jacarepagua',
+    title: 'Quingombô - Entre Dois Mundos',
+    themeType: 'Afro-Brasileiro & Cultural',
+    synopsis: 'O elo cultural e espiritual entre África e Brasil simbolizado pelo sagrado quingombô.'
+  },
+  siri_de_ramos: {
+    schoolId: 'siri_de_ramos',
+    title: 'Jóias do Axé',
+    themeType: 'Afro-Brasileiro',
+    synopsis: 'As riquezas espirituais, cantos e expressões que formam as verdadeiras joias do axé.'
+  },
+  academicos_do_dende: {
+    schoolId: 'academicos_do_dende',
+    title: 'No Carnaval dos 7 Mares, vai dar Zebra!',
+    themeType: 'Lúdico & Fantástico',
+    synopsis: 'Uma travessia fantástica pelos sete mares repleta de surpresas, irreverência e alegria.'
+  },
+  praca_da_bandeira: {
+    schoolId: 'praca_da_bandeira',
+    title: 'Grande Sertão Negro',
+    themeType: 'Afro-Brasileiro & Literário',
+    synopsis: 'Os sertões recontados pela ótica da negritude, da resistência quilombola e da força ancestral.'
+  },
+  chatuba: {
+    schoolId: 'chatuba',
+    title: 'BenEdita do povo',
+    themeType: 'Homenagem & Social',
+    synopsis: 'Homenagem à trajetória popular, luta política e representatividade de Benedita da Silva.'
+  },
+  vizinha_faladeira: {
+    schoolId: 'vizinha_faladeira',
+    title: 'A Voz que vem do Mar é Ancestral',
+    themeType: 'Afro-Brasileiro & Cultural',
+    synopsis: 'O canto que ecoa das águas e traz a memória sagrada dos ancestrais que atravessaram o oceano.'
+  },
+  leao_de_nova_iguacu: {
+    schoolId: 'leao_de_nova_iguacu',
+    title: 'Maria Felipa',
+    themeType: 'Histórico & Homenagem',
+    synopsis: 'A bravura da heroína negra Maria Felipa de Oliveira na luta pela Independência na Bahia.'
   },
 
   // DEMAIS AGREMIAÇÕES TRADICIONAIS
@@ -192,30 +362,6 @@ export const CANONICAL_2026_ENREDOS: Record<string, CanonicalEnredoInfo> = {
     title: 'Caprichando no Samba',
     themeType: 'Tradicional',
     synopsis: 'A irreverência histórica do bairro de Pilares, o trem da Central e a garra caprichosa no Carnaval.'
-  },
-  tradicao: {
-    schoolId: 'tradicao',
-    title: 'Tradição É Tradição',
-    themeType: 'Tradicional',
-    synopsis: 'O legado do Condor de Campinho na evolução do samba carioca.'
-  },
-  cubango: {
-    schoolId: 'cubango',
-    title: 'No Rastro da Onça',
-    themeType: 'Ambiental & Folclórico',
-    synopsis: 'A defesa do bioma pantaneiro e a força sagrada do maior felino das Américas.'
-  },
-  rocinha: {
-    schoolId: 'rocinha',
-    title: 'A Rocinha É Nossa Casa',
-    themeType: 'Comunitário',
-    synopsis: 'A potência artística, comunitária e cultural da maior favela da América Latina.'
-  },
-  lins_imperial: {
-    schoolId: 'lins_imperial',
-    title: 'Mazzaropi, o Poeta Caipira',
-    themeType: 'Homenagem',
-    synopsis: 'A simplicidade e sabedoria cômica do ícone do cinema nacional Amácio Mazzaropi.'
   },
   sereno_campo_grande: {
     schoolId: 'sereno_campo_grande',
@@ -359,7 +505,23 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('união do cruzeiro') || raw.includes('uniao do cruzeiro') || raw.includes('uniao_do_cruzeiro')) return 'uniao_do_cruzeiro';
   if (raw.includes('santo antônio') || raw.includes('santo antonio') || raw.includes('santo_antonio')) return 'unidos_de_santo_antonio';
   if (raw.includes('arapá') || raw.includes('arapa')) return 'unidos_do_arapa';
-  if (raw.includes('santa tereza') || raw.includes('santa theresa')) return 'vila_santa_tereza';
+  if (raw.includes('santa tereza') || raw.includes('santa theresa') || raw.includes('santa_tereza')) return 'vila_santa_tereza';
+  if (raw.includes('império da uva') || raw.includes('imperio da uva') || raw.includes('imperio_da_uva')) return 'imperio_da_uva';
+  if (raw.includes('renascer de nova iguaçu') || raw.includes('renascer de nova iguacu') || raw.includes('renascer_de_nova_iguacu')) return 'renascer_de_nova_iguacu';
+  if (raw.includes('renascer')) return 'renascer_jacarepagua';
+  if (raw.includes('flamanguaça') || raw.includes('flamanguaca') || raw.includes('fla manguaça') || raw.includes('fla manguaca') || raw.includes('fla_manguaca')) return 'fla_manguaca';
+  if (raw.includes('abolição') || raw.includes('abolicao')) return 'abolicao';
+  if (raw.includes('feitiço carioca') || raw.includes('feitico carioca') || raw.includes('feitico_carioca')) return 'feitico_carioca';
+  if (raw.includes('tubarão') || raw.includes('tubarao')) return 'tubarao_mesquita';
+  if (raw.includes('alegria do vilar') || raw.includes('alegria_do_vilar')) return 'alegria_do_vilar';
+  if (raw.includes('santa marta') || raw.includes('santa_marta')) return 'santa_marta';
+  if (raw.includes('império de nova iguaçu') || raw.includes('imperio de nova iguacu') || raw.includes('imperio_nova_iguacu')) return 'imperio_nova_iguacu';
+  if (raw.includes('siri de ramos') || raw.includes('siri_de_ramos')) return 'siri_de_ramos';
+  if (raw.includes('dendê') || raw.includes('dende')) return 'academicos_do_dende';
+  if (raw.includes('praça da bandeira') || raw.includes('praca da bandeira') || raw.includes('praca_da_bandeira')) return 'praca_da_bandeira';
+  if (raw.includes('chatuba')) return 'chatuba';
+  if (raw.includes('vizinha')) return 'vizinha_faladeira';
+  if (raw.includes('leão de nova iguaçu') || raw.includes('leao de nova iguacu') || raw.includes('leao_de_nova_iguacu')) return 'leao_de_nova_iguacu';
   return (schoolId || '').toLowerCase().trim();
 }
 
