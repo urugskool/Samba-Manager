@@ -107,7 +107,7 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('universitária') || name.includes('universitaria') || clean === 'universitaria_de_rocha_miranda') return 'universitaria_de_rocha_miranda';
   if (name.includes('além do horizonte') || name.includes('alem do horizonte') || clean === 'alem_do_horizonte') return 'alem_do_horizonte';
   if (name.includes('unidos da favela') || clean === 'unidos_da_favela') return 'unidos_da_favela';
-  if ((name.includes('jacaré') || name.includes('jacare')) && !name.includes('jacarezinho') || clean === 'unidos_do_jacare') return 'unidos_do_jacare';
+  if (((name.includes('jacaré') || name.includes('jacare')) && !name.includes('jacarezinho') && !name.includes('jacarepagua') && !name.includes('jacarepaguá')) || clean === 'unidos_do_jacare') return 'unidos_do_jacare';
   if (name.includes('morro azul') || clean === 'unidos_do_morro_azul') return 'unidos_do_morro_azul';
   if (name.includes('unidos do salgueiro') || clean === 'unidos_do_salgueiro') return 'unidos_do_salgueiro';
   if (name.includes('boca do mato') || clean === 'aprendizes_boca_do_mato') return 'aprendizes_boca_do_mato';
@@ -166,6 +166,13 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('siri de ramos') || clean === 'siri_de_ramos') return 'siri_de_ramos';
   if (name.includes('praça da bandeira') || name.includes('praca da bandeira') || clean === 'praca_da_bandeira') return 'praca_da_bandeira';
   if (name.includes('chatuba') || clean === 'chatuba') return 'chatuba';
+  if (name.includes('concentra imperial') || clean === 'concentra_imperial') return 'concentra_imperial';
+  if (name.includes('unidos da barra da tijuca') || clean === 'unidos_da_barra_da_tijuca') return 'unidos_da_barra_da_tijuca';
+  if (name.includes('flor da mina') || clean === 'flor_da_mina') return 'flor_da_mina';
+  if (name.includes('alegria de copacabana') || clean === 'alegria_de_copacabana') return 'alegria_de_copacabana';
+  if (name.includes('acadêmicos de jacarepaguá') || name.includes('academicos de jacarepagua') || clean === 'academicos_de_jacarepagua') return 'academicos_de_jacarepagua';
+  if (name.includes('arame de ricardo') || clean === 'arame_de_ricardo') return 'arame_de_ricardo';
+  if (name.includes('força jovem') || name.includes('forca jovem') || name.includes('cruzmaltina') || clean === 'forca_jovem' || clean === 'uniao_cruzmaltina') return 'uniao_cruzmaltina';
 
   return clean || name.replace(/\s+/g, '_');
 }

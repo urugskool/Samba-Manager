@@ -101,6 +101,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
   const [subgroup1950Tab, setSubgroup1950Tab] = useState<'geral' | 'fbes' | 'uces' | 'ugesb'>('geral');
   const [subgroup1949Tab, setSubgroup1949Tab] = useState<'geral' | 'fbes' | 'ugesb'>('geral');
   const [subgroup1934Tab, setSubgroup1934Tab] = useState<'geral' | 'o_pais' | 'a_hora'>('geral');
+  const [subgroupPrataTab, setSubgroupPrataTab] = useState<'geral' | 'noite1' | 'noite2'>('geral');
 
   // Atualiza tab quando o modal é aberto
   useEffect(() => {
@@ -242,7 +243,14 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
   // Colocações filtradas da Série Prata do carnaval selecionado
   const filteredPastPrataStandings = useMemo(() => {
     if (!currentPastPrataCarnaval) return [];
-    const baseList = currentPastPrataCarnaval.standings || [];
+    let baseList = currentPastPrataCarnaval.standings || [];
+    if (currentPastPrataCarnaval.subgroups) {
+      if (subgroupPrataTab === 'noite1' && currentPastPrataCarnaval.subgroups.noite1) {
+        baseList = currentPastPrataCarnaval.subgroups.noite1;
+      } else if (subgroupPrataTab === 'noite2' && currentPastPrataCarnaval.subgroups.noite2) {
+        baseList = currentPastPrataCarnaval.subgroups.noite2;
+      }
+    }
     const q = searchQuery.toLowerCase().trim();
     if (!q) return baseList;
     return baseList.filter(
@@ -250,7 +258,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
         st.schoolName.toLowerCase().includes(q) ||
         (st.enredo && st.enredo.toLowerCase().includes(q))
     );
-  }, [currentPastPrataCarnaval, searchQuery]);
+  }, [currentPastPrataCarnaval, searchQuery, subgroupPrataTab]);
 
   // Configuração e Lista da Aba de Participações por Grupo
   const currentGroupConfig = useMemo(() => {
@@ -539,6 +547,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                         onClick={() => {
                           setSelectedPastYear(c.year);
                           setExpandedSchoolId(null);
+                          setSubgroupPrataTab('geral');
                         }}
                         className={`px-3 py-1.5 rounded-xl font-bold transition flex items-center justify-center cursor-pointer text-xs active:scale-95 min-w-[3.75rem] ${
                           isSelected
@@ -1471,6 +1480,74 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                         </div>
                       </div>
 
+                      {/* Multi-night selector for Série Prata when applicable (ex: 2024) */}
+                      {currentPastPrataCarnaval.subgroups && (
+                        <div className="p-3.5 rounded-2xl bg-slate-950 border border-slate-700/60 space-y-2">
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="font-bold text-slate-200">Noites de Desfile ({currentPastPrataCarnaval.year}):</span>
+                            <span className="text-slate-400 text-[11px]">2 Noites Competitivas</span>
+                          </div>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            <button
+                              onClick={() => {
+                                setSubgroupPrataTab('geral');
+                                setExpandedSchoolId(null);
+                              }}
+                              className={`p-2 rounded-xl text-left border transition cursor-pointer text-xs ${
+                                subgroupPrataTab === 'geral'
+                                  ? 'bg-slate-200/15 border-slate-300 text-white'
+                                  : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
+                              }`}
+                            >
+                              <div className="font-bold text-slate-100 text-[11px]">Geral ({currentPastPrataCarnaval.totalSchools} Escolas)</div>
+                              <div className="text-[10px] text-slate-300">
+                                Campeã: {currentPastPrataCarnaval.championNames.join(' & ')}
+                              </div>
+                            </button>
+                            {currentPastPrataCarnaval.subgroups.noite1 && (
+                              <button
+                                onClick={() => {
+                                  setSubgroupPrataTab('noite1');
+                                  setExpandedSchoolId(null);
+                                }}
+                                className={`p-2 rounded-xl text-left border transition cursor-pointer text-xs ${
+                                  subgroupPrataTab === 'noite1'
+                                    ? 'bg-emerald-500/20 border-emerald-400 text-white'
+                                    : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
+                                }`}
+                              >
+                                <div className="font-bold text-emerald-400 text-[11px]">
+                                  1ª Noite ({currentPastPrataCarnaval.subgroups.noite1.length} Escolas)
+                                </div>
+                                <div className="text-[10px] text-slate-300">
+                                  1ª: {currentPastPrataCarnaval.subgroups.noite1.find((s) => s.rank === 1)?.schoolName || '—'}
+                                </div>
+                              </button>
+                            )}
+                            {currentPastPrataCarnaval.subgroups.noite2 && (
+                              <button
+                                onClick={() => {
+                                  setSubgroupPrataTab('noite2');
+                                  setExpandedSchoolId(null);
+                                }}
+                                className={`p-2 rounded-xl text-left border transition cursor-pointer text-xs ${
+                                  subgroupPrataTab === 'noite2'
+                                    ? 'bg-blue-500/20 border-blue-400 text-white'
+                                    : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
+                                }`}
+                              >
+                                <div className="font-bold text-blue-400 text-[11px]">
+                                  2ª Noite ({currentPastPrataCarnaval.subgroups.noite2.length} Escolas)
+                                </div>
+                                <div className="text-[10px] text-slate-300">
+                                  1ª: {currentPastPrataCarnaval.subgroups.noite2.find((s) => s.rank === 1)?.schoolName || '—'}
+                                </div>
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      )}
+
                       {/* Standings Table Série Prata */}
                       <div className="rounded-2xl border border-slate-800 bg-slate-950 overflow-hidden shadow-xl">
                         <div className="overflow-x-auto">
@@ -1486,7 +1563,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                             </thead>
                             <tbody className="divide-y divide-slate-800/60 font-medium">
                               {filteredPastPrataStandings.map((st, idx) => {
-                                const isExpanded = expandedSchoolId === `prata_${st.schoolId}_${idx}`;
+                                const isExpanded = expandedSchoolId === `prata_${subgroupPrataTab}_${st.schoolId}_${idx}`;
                                 const isUser =
                                   userSchool &&
                                   (userSchool.id === st.schoolId ||
@@ -1505,11 +1582,17 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                     schoolObj,
                                     inGameHistory
                                   );
+                                const displayRank = st.rank > 0 ? st.rank : st.nightRank ?? 0;
+                                const isNightOnlyRank = st.rank === 0 && !st.isHorsConcours && st.nightRank !== undefined;
+                                const isOverallChamp = st.rank === 1 && !st.isHorsConcours && (
+                                  !currentPastPrataCarnaval.subgroups ||
+                                  currentPastPrataCarnaval.championNames.includes(st.schoolName)
+                                );
 
                                 return (
-                                  <React.Fragment key={`prata_${st.schoolId}_${idx}`}>
+                                  <React.Fragment key={`prata_${subgroupPrataTab}_${st.schoolId}_${idx}`}>
                                     <tr
-                                      onClick={() => toggleExpand(`prata_${st.schoolId}_${idx}`)}
+                                      onClick={() => toggleExpand(`prata_${subgroupPrataTab}_${st.schoolId}_${idx}`)}
                                       className={`hover:bg-slate-800/40 transition cursor-pointer ${
                                         isUser ? 'bg-slate-300/10' : ''
                                       }`}
@@ -1517,17 +1600,17 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                       <td className="py-3 px-4 whitespace-nowrap">
                                         <span
                                           className={`inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-lg text-xs font-black ${
-                                            st.isHorsConcours || st.rank === 0
+                                            st.isHorsConcours || displayRank === 0
                                               ? st.relegated
                                                 ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40 font-bold text-[10px]'
                                                 : st.statusDescription?.toLowerCase().includes('não desfilou')
                                                 ? 'bg-slate-900 text-slate-400 border border-slate-700 font-bold text-[10px]'
                                                 : 'bg-purple-950/80 text-purple-300 border border-purple-700/50 font-bold text-[10px]'
-                                              : st.rank === 1
+                                              : isOverallChamp
                                               ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
                                               : st.promoted
                                               ? 'bg-emerald-500/25 text-emerald-200 border border-emerald-400/50 font-black'
-                                              : st.rank === 3
+                                              : displayRank === 3
                                               ? 'bg-amber-700/60 text-amber-200 border border-amber-600/40'
                                               : st.relegated
                                               ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40 font-bold'
@@ -1535,18 +1618,20 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                           }`}
                                         >
                                           {st.relegated && <ArrowDownCircle className="w-3.5 h-3.5 text-rose-400" />}
-                                          {st.rank === 1 && <Crown className="w-3.5 h-3.5 text-slate-950 fill-slate-950" />}
-                                          {st.rank > 1 && st.promoted && <ArrowUpCircle className="w-3.5 h-3.5 text-emerald-300" />}
-                                          {st.isHorsConcours || st.rank === 0
+                                          {isOverallChamp && <Crown className="w-3.5 h-3.5 text-slate-950 fill-slate-950" />}
+                                          {!isOverallChamp && st.promoted && <ArrowUpCircle className="w-3.5 h-3.5 text-emerald-300" />}
+                                          {st.isHorsConcours || displayRank === 0
                                             ? st.statusDescription?.toLowerCase().includes('não desfilou')
                                               ? 'ND'
                                               : 'HC'
-                                            : `${st.rank}ª`}
+                                            : isNightOnlyRank
+                                            ? `${displayRank}ª`
+                                            : `${displayRank}ª`}
                                         </span>
                                       </td>
 
                                       <td className="py-3 px-4 font-bold text-white">
-                                        <div className="flex items-center gap-2">
+                                        <div className="flex flex-wrap items-center gap-2">
                                           {schoolObj?.colors && (
                                             <div
                                               className="w-3 h-3 rounded-full shrink-0 border border-white/20"
@@ -1554,6 +1639,11 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                             />
                                           )}
                                           <span className={isUser ? 'text-slate-200' : ''}>{st.schoolName}</span>
+                                          {st.night && subgroupPrataTab === 'geral' && (
+                                            <span className="text-[10px] px-1.5 py-0.2 rounded bg-slate-800 text-slate-300 border border-slate-700 font-semibold">
+                                              {st.night}
+                                            </span>
+                                          )}
                                           {isUser && (
                                             <span className="text-[10px] px-1.5 py-0.2 rounded bg-slate-300/20 text-slate-200 font-bold border border-slate-400/30">
                                               Sua Escola
@@ -1572,7 +1662,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                       </td>
 
                                       <td className="py-3 px-4 text-center whitespace-nowrap">
-                                        {st.isHorsConcours || st.rank === 0 ? (
+                                        {st.isHorsConcours || (displayRank === 0 && !isNightOnlyRank) ? (
                                           st.relegated ? (
                                             <span className="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/40 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
                                               <ArrowDownCircle className="w-3.5 h-3.5 text-rose-400" />
@@ -1585,13 +1675,19 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                           ) : (
                                             <span className="px-2.5 py-1 rounded-lg bg-purple-500/20 text-purple-300 border border-purple-500/40 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
                                               <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-                                              <span>Hors concours</span>
+                                              <span>Hors concours (Não julgada)</span>
                                             </span>
                                           )
-                                        ) : st.promoted || st.rank === 1 ? (
+                                        ) : st.promoted || isOverallChamp ? (
                                           <span className="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
                                             <ArrowUpCircle className="w-3.5 h-3.5 text-emerald-400" />
-                                            <span>{st.rank === 1 ? 'Campeã • Subiu (Série Ouro)' : 'Subiu (Série Ouro)'}</span>
+                                            <span>
+                                              {isOverallChamp
+                                                ? 'Campeã • Subiu (Série Ouro)'
+                                                : currentPastPrataCarnaval.viceChampionNames.includes(st.schoolName)
+                                                ? 'Vice • Subiu (Série Ouro)'
+                                                : 'Subiu (Série Ouro)'}
+                                            </span>
                                           </span>
                                         ) : st.relegated ? (
                                           <span className="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/40 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
@@ -1649,7 +1745,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                     </div>
                     <h3 className="text-lg font-black text-white">Série Prata em Catalogação</h3>
                     <p className="text-xs text-slate-400 max-w-md mx-auto leading-relaxed">
-                      Os resultados e enredos da Série Prata (Terceira Divisão) para o Carnaval de {selectedPastYear} ainda estão sendo catalogados. Confira o registro oficial disponível a partir de 2026.
+                      Os resultados e enredos da Série Prata (Terceira Divisão) para o Carnaval de {selectedPastYear} ainda estão sendo catalogados. Confira os registros oficiais já disponíveis no catálogo ({historicalPrataCarnavals[historicalPrataCarnavals.length - 1]?.year ?? 2025}–{historicalPrataCarnavals[0]?.year ?? 2026}).
                     </p>
                     <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
                       <button

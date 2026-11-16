@@ -150,12 +150,44 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     botafogo: 'Uma Gloriosa História em Preto e Branco',
     sao_clemente: 'A São Clemente dá Voz a quem não tem',
     tradicao: 'Reza',
-    // Hors concours 2025
+    // Hors concours 2025 (Série Ouro)
     imperio_serrano: 'O que Espanta Miséria é Festa',
     unidos_da_ponte: 'Antropoceno',
     ponte: 'Antropoceno',
     unidos_de_bangu: "Maraka' Anandê: Resistência Ancestral",
-    bangu: "Maraka' Anandê: Resistência Ancestral"
+    bangu: "Maraka' Anandê: Resistência Ancestral",
+    // Série Prata 2025
+    jacarezinho: 'Eureka! E Fez-se a Luz!',
+    imperio_da_uva: 'Abayomis. Boneca Preta do Brasil… Da Ancestral Referência à Resistência Atual!',
+    abolicao: 'Os Reis da Rua',
+    renascer_jacarepagua: 'Aqualtune, a Inspiração Forjada em Pele Preta',
+    santa_cruz: 'Os Sagrados Altares Tupiniquins',
+    unidos_de_lucas: 'As Lambanças de Dois Cabras da Peste, o Testamento, Alguns Tostões e o Livramento da Compadecida',
+    uniao_de_jacarepagua: 'Asas: Sonho de Muitos, Privilégio de Poucos, Tecnologia de Todos',
+    cubango: 'Àyàn, o Espírito dos Tambores',
+    feitico_carioca: 'Griot: Memórias da Carne',
+    imperio_da_tijuca: 'Ebó, Oferendas Para os Deuses',
+    chatuba: 'Funk-se Quem Quiser',
+    alegria_do_vilar: 'Zé Lourenço: do Caldeirão da Fé à Semeadura da Vida',
+    fla_manguaca: 'Coletivo Gazela Negra – O Quilombo Contra o Racismo',
+    flamanguaca: 'Coletivo Gazela Negra – O Quilombo Contra o Racismo',
+    santa_marta: 'Ajeum - Alimento de Corpo e Alma',
+    tubarao_mesquita: 'Repense, Reflita, Recicle. Vem na Onda da Sustentabilidade com a Tubarão de Mesquita',
+    vila_santa_tereza: 'Salve Vovó Maria Joanna Rezadeira! Salve o Jongo da Serrinha! Saravá, Saravá, Saravá!',
+    independentes_olaria: 'Vagalume',
+    imperio_nova_iguacu: 'O Paraíso Noçokem',
+    arrastao_cascadura: 'Teatro Experimental do Negro - Arte, Cultura e Resistência',
+    vizinha_faladeira: 'Carnaval para Gringo Ver',
+    concentra_imperial: 'Quem Me Guia!',
+    praca_da_bandeira: 'Sinfonia Poética Daqueles que Não Se Deixaram Calar',
+    boi_da_ilha: 'Arrepia Boi da Ilha',
+    unidos_da_barra_da_tijuca: 'Sapucaí - Uma Viagem em Quatro Tempos',
+    sereno_campo_grande: 'No Sertão, Se Onde Tem Sereno, Têm Corujas... Onde Existem Profetas... Têm Chuvas!!!',
+    engenho_da_rainha: 'Ijexá',
+    leao_de_nova_iguacu: 'O Grande Obá',
+    flor_da_mina: 'Vento que Venta Lá, Venta Cá. Salve o Caboclo Ventania',
+    alegria_de_copacabana: 'Carnaval, a Alegria de Copacabana',
+    rocinha: 'O Menor Espetáculo da Terra'
   },
   2024: {
     viradouro: 'Arroboboi, Dangbé',
@@ -210,7 +242,42 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     arranco_do_engenho_de_dentro: 'Nise - Reimaginação da Loucura',
     imperio_da_tijuca: 'Sou Lia de Itamaracá cirandando a vida na beira do mar',
     sereno_campo_grande: '4 de dezembro',
-    sereno: '4 de dezembro'
+    sereno: '4 de dezembro',
+    // Série Prata 2024
+    botafogo_samba_clube: 'Taina-Kan: A Estrela Solitária',
+    fla_manguaca: 'Quer Apostar?',
+    flamanguaca: 'Quer Apostar?',
+    uniao_de_jacarepagua: 'A Criação Vodun e o Candomblé Jeje',
+    unidos_de_lucas: 'A Floresta do Amazonas',
+    arrastao_cascadura: 'Icamiabas',
+    unidos_da_barra_da_tijuca: 'Encontro das Águas',
+    feitico_carioca: 'Vai Dizer que Tá Com Medo do Meu Feitiço!?',
+    santa_marta: 'Sextou #É Só Sucesso',
+    santa_cruz: 'As Bruxas Estão Soltas!',
+    vizinha_faladeira: 'Cais da Resistência',
+    rocinha: 'Pra Não Dizer Que Não Falei das Flores',
+    praca_da_bandeira: 'Da Brisa do Mar à Luz do Luar de Maricá',
+    imperio_da_uva: 'Dos Trilhos do Passado a um Novo Tempo: Japeri!',
+    caprichosos_de_pilares: 'A Cobra Vai Fumar!',
+    academicos_de_jacarepagua: 'Quem Tem Sua Capa, Escapa!',
+    arame_de_ricardo: 'Quando Crescer, Quero Ser Criança. O Arame Te Ensina Brincando!!!',
+    tradicao: 'Trono Negro',
+    renascer_jacarepagua: 'Ubuntu - Do Berço Ancestral, um Ideal Pra Mudar o Mundo',
+    tubarao_mesquita: 'A Água de Nossos Rios Deságua Num Rio Maior!',
+    vila_santa_tereza: 'Solange - Da minha, da sua e da nossa Morada do Samba',
+    jacarezinho: 'Na Fé dos Padroeiros, o Rio Pede Paz!',
+    independentes_olaria: 'Ao Som do Chorinho Vou Sorrir... Serei Feliz, Bem Feliz!',
+    cubango: 'Os Pássaros da Noite e o Segredo das Criações',
+    engenho_da_rainha: 'Rudá, a Criação do Mundo em um Conto de Amor',
+    abolicao: 'Axé Ngoma! A Festa do Batuque Ancestral!',
+    flor_da_mina: 'Renascença Clube - Quilombo Urbano da Resistência Negra',
+    alegria_da_zona_sul: 'Festa no Quilombo',
+    leao_de_nova_iguacu: 'Festa de Preto',
+    concentra_imperial: 'Recreio... Sol, Mar e Folia',
+    academicos_do_dende: 'Na Beleza das Flores e no Brilho das Cores, Mulheres Guerreiras do Nosso Brasil',
+    lins_imperial: 'Jovelina, A Pérola Negra do Samba!',
+    uniao_cruzmaltina: 'São Januário, a Força de um povo',
+    forca_jovem: 'São Januário, a Força de um povo'
   },
   2023: {
     // Grupo Especial 2023
@@ -4745,6 +4812,13 @@ function normalizeId(rawId?: string, rawName?: string): string {
     if (id.includes('praca_da_bandeira')) return 'praca_da_bandeira';
     if (id.includes('chatuba')) return 'chatuba';
     if (id.includes('leao_de_nova_iguacu')) return 'leao_de_nova_iguacu';
+    if (id.includes('concentra_imperial')) return 'concentra_imperial';
+    if (id.includes('unidos_da_barra_da_tijuca')) return 'unidos_da_barra_da_tijuca';
+    if (id.includes('flor_da_mina')) return 'flor_da_mina';
+    if (id.includes('alegria_de_copacabana')) return 'alegria_de_copacabana';
+    if (id.includes('academicos_de_jacarepagua')) return 'academicos_de_jacarepagua';
+    if (id.includes('arame_de_ricardo')) return 'arame_de_ricardo';
+    if (id.includes('forca_jovem') || id.includes('uniao_cruzmaltina')) return 'uniao_cruzmaltina';
     return id;
   }
   if (!rawName) return '';
@@ -4930,6 +5004,14 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('praça da bandeira') || n.includes('praca da bandeira')) return 'praca_da_bandeira';
   if (n.includes('chatuba')) return 'chatuba';
   if (n.includes('leão de nova iguaçu') || n.includes('leao de nova iguacu')) return 'leao_de_nova_iguacu';
+  if (n.includes('concentra imperial')) return 'concentra_imperial';
+  if (n.includes('unidos da barra da tijuca')) return 'unidos_da_barra_da_tijuca';
+  if (n.includes('flor da mina')) return 'flor_da_mina';
+  if (n.includes('alegria de copacabana')) return 'alegria_de_copacabana';
+  if (n.includes('boi da ilha')) return 'boi_da_ilha';
+  if (n.includes('acadêmicos de jacarepaguá') || n.includes('academicos de jacarepagua')) return 'academicos_de_jacarepagua';
+  if (n.includes('arame de ricardo')) return 'arame_de_ricardo';
+  if (n.includes('força jovem') || n.includes('forca jovem') || n.includes('cruzmaltina')) return 'uniao_cruzmaltina';
   return '';
 }
 
