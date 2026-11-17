@@ -1810,6 +1810,86 @@ export const OFFICIAL_PRATA_HISTORICAL_STANDINGS: Record<number, PrataStandingRe
       relegated: true,
       statusDescription: '20º Lugar (LIESB) • Rebaixada para a Série Bronze'
     }
+  ],
+  2019: [
+    {
+      rank: 1,
+      schoolId: 'vigario_geral',
+      schoolName: 'Acadêmicos de Vigário Geral',
+      enredo: 'Mwene Kongo: O Reino Europeu na África que se Tornou Folclore no Brasil',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'curicica',
+      schoolName: 'União do Parque Curicica',
+      enredo: 'Eu Vi Deus, Ela É Negra!',
+      statusDescription: 'Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'tradicao',
+      schoolName: 'Tradição',
+      enredo: 'Gira, Baiana. Salve as Mães do Samba!',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'marica',
+      schoolName: 'União de Maricá',
+      enredo: 'Nelson Gonçalves - O Autorretrato do Rei do Rádio',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Orlando Baptista: o Menino e a Bola',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Malandro É Malandro, Bezerra É da Silva',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'Matamba, o Sonho de Uma Rainha',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Do Galo de Barcelos ao Galo de Ouro, Lucas Conta Uma História de Fé e Justiça',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'siri_de_ramos',
+      schoolName: 'Siri de Ramos',
+      enredo: 'A Soberana Ordem dos Barões. Os Caminhos Te Conduzem à Leopoldina',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'arame_de_ricardo',
+      schoolName: 'Arame de Ricardo',
+      enredo: 'O Primeiro Bailarino do Carnaval',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'vizinha_faladeira',
+      schoolName: 'Vizinha Faladeira',
+      enredo: 'De Catulo à Lampião, Bem-Vindos à Terra do Cão!',
+      statusDescription: '11º Lugar'
+    }
   ]
 };
 
@@ -1992,7 +2072,8 @@ export const OFFICIAL_PRATA_NOTES_BY_YEAR: Record<number, string> = {
   2023: 'Carnaval de 2023: Houve dois desfiles competitivos — Superliga (em duas noites, com acesso à Série Ouro para União de Maricá como Campeã Geral, Sereno de Campo Grande como Vice-Campeã Geral e União do Parque Acari como melhor colocada geral, além do rebaixamento das três últimas de cada noite: Acadêmicos do Peixe, Rosa de Ouro, Raça Rubro-Negra, Acadêmicos da Diversidade, União do Parque Curicica e Unidos de São Cristóvão) e LIVRES (Grupo B, com título da Vizinha Faladeira e vice-campeonato da Tradição).',
   2022: 'Carnaval de 2022: Houve dois desfiles — Superliga (dividido em duas noites, com acesso à Série Ouro para União de Jacarepaguá como Campeã Geral e Arranco do Engenho de Dentro como Vice-Campeã Geral, além do rebaixamento de Difícil é o Nome, Unidos da Villa Rica e Unidos da Vila Kennedy para a Série Bronze) e LIVRES (Grupo B, com título da Acadêmicos do Engenho da Rainha e vice-campeonato da Vizinha Faladeira).',
   2021: 'Carnaval de 2021: Não houve desfiles da Série Prata na Estrada Intendente Magalhães em virtude da pandemia de COVID-19.',
-  2020: 'Carnaval de 2020: Ocorreram dois desfiles — o primeiro organizado pela LIESB (com acesso à Série Ouro para a campeã Lins Imperial e a vice-campeã Em Cima da Hora, e rebaixamento da 20ª colocada Acadêmicos do Jardim Bangu para a Série Bronze) e o desfile da LIVRES denominado Série B (com título da Tradição e vice-campeonato da Alegria da Zona Sul).'
+  2020: 'Carnaval de 2020: Ocorreram dois desfiles — o primeiro organizado pela LIESB (com acesso à Série Ouro para a campeã Lins Imperial e a vice-campeã Em Cima da Hora, e rebaixamento da 20ª colocada Acadêmicos do Jardim Bangu para a Série Bronze) e o desfile da LIVRES denominado Série B (com título da Tradição e vice-campeonato da Alegria da Zona Sul).',
+  2019: 'Carnaval de 2019: Acadêmicos de Vigário Geral foi a campeã e garantiu o acesso à Série Ouro (Série A), com União do Parque Curicica como vice-campeã. Não houve rebaixamento neste ano.'
 };
 
 /**

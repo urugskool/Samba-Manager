@@ -630,7 +630,23 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     academicos_do_sossego: 'Não se meta com minha fé, acredito em quem quiser',
     sossego: 'Não se meta com minha fé, acredito em quem quiser',
     alegria_da_zona_sul: 'Saravá, Umbanda!',
-    alegria: 'Saravá, Umbanda!'
+    alegria: 'Saravá, Umbanda!',
+
+    // Série Prata 2019
+    vigario_geral: 'Mwene Kongo: O Reino Europeu na África que se Tornou Folclore no Brasil',
+    academicos_de_vigario_geral: 'Mwene Kongo: O Reino Europeu na África que se Tornou Folclore no Brasil',
+    curicica: 'Eu Vi Deus, Ela É Negra!',
+    uniao_do_parque_curicica: 'Eu Vi Deus, Ela É Negra!',
+    tradicao: 'Gira, Baiana. Salve as Mães do Samba!',
+    marica: 'Nelson Gonçalves - O Autorretrato do Rei do Rádio',
+    uniao_de_marica: 'Nelson Gonçalves - O Autorretrato do Rei do Rádio',
+    em_cima_da_hora: 'Orlando Baptista: o Menino e a Bola',
+    lins_imperial: 'Malandro É Malandro, Bezerra É da Silva',
+    engenho_da_rainha: 'Matamba, o Sonho de Uma Rainha',
+    unidos_de_lucas: 'Do Galo de Barcelos ao Galo de Ouro, Lucas Conta Uma História de Fé e Justiça',
+    siri_de_ramos: 'A Soberana Ordem dos Barões. Os Caminhos Te Conduzem à Leopoldina',
+    arame_de_ricardo: 'O Primeiro Bailarino do Carnaval',
+    vizinha_faladeira: 'De Catulo à Lampião, Bem-Vindos à Terra do Cão!'
   },
   2018: {
     // Grupo Especial 2018

@@ -1471,13 +1471,18 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                 <span className="text-emerald-300 font-bold">{currentPastPrataCarnaval.promotedNames.join(', ')}</span>
                               </div>
                             )}
-                            {currentPastPrataCarnaval.relegatedNames && currentPastPrataCarnaval.relegatedNames.length > 0 && (
+                            {currentPastPrataCarnaval.relegatedNames && currentPastPrataCarnaval.relegatedNames.length > 0 ? (
                               <div className="flex items-center gap-1.5">
                                 <ArrowDownCircle className="w-3.5 h-3.5 text-rose-400" />
                                 <span className="text-slate-400">Rebaixada(s) para a Série Bronze:</span>
                                 <span className="text-rose-300 font-bold">{currentPastPrataCarnaval.relegatedNames.join(', ')}</span>
                               </div>
-                            )}
+                            ) : currentPastPrataCarnaval.year === 2019 ? (
+                              <div className="flex items-center gap-1.5 text-slate-400 italic">
+                                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                                <span>(Não houve rebaixamento neste ano)</span>
+                              </div>
+                            ) : null}
                           </div>
 
                           {currentPastPrataCarnaval.notes && (
@@ -1781,14 +1786,14 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                             <ArrowDownCircle className="w-3.5 h-3.5 text-rose-400" />
                                             <span>Rebaixada (Série Bronze)</span>
                                           </span>
-                                        ) : st.league === 'LIVRES' && displayRank === 2 ? (
+                                        ) : isOverallVice && !st.promoted ? (
                                           <span className="px-2.5 py-1 rounded-lg bg-slate-300/15 text-slate-200 border border-slate-400/40 text-[10px] font-bold uppercase tracking-wider inline-flex items-center gap-1.5">
                                             <Medal className="w-3.5 h-3.5 text-slate-300" />
-                                            <span>Vice-Campeã (LIVRES)</span>
+                                            <span>{st.league === 'LIVRES' ? 'Vice-Campeã (LIVRES)' : 'Vice-Campeã'}</span>
                                           </span>
                                         ) : st.league === 'LIVRES' ? (
                                           <span className="px-2 py-0.5 rounded-md bg-slate-900 text-amber-200/80 border border-amber-500/30 text-[10px] font-medium">
-                                            LIVRES (Grupo B)
+                                            {currentPastPrataCarnaval.year === 2020 ? 'LIVRES (Série B)' : 'LIVRES (Grupo B)'}
                                           </span>
                                         ) : (
                                           <span className="px-2 py-0.5 rounded-md bg-slate-900 text-slate-400 border border-slate-800 text-[10px] font-medium">
