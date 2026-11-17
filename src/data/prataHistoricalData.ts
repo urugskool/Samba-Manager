@@ -1186,6 +1186,363 @@ export const OFFICIAL_PRATA_HISTORICAL_STANDINGS: Record<number, PrataStandingRe
       relegated: true,
       statusDescription: '16º Lugar (2ª Noite • Superliga) • Rebaixada para a Série Bronze'
     }
+  ],
+  2022: [
+    {
+      rank: 1,
+      nightRank: 1,
+      night: '2ª Noite',
+      league: 'Superliga',
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'De Ventres Africanos, os Sonhos por Liberdade!',
+      promoted: true,
+      statusDescription: 'Campeã Geral (Superliga • 1ª da 2ª Noite) • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      nightRank: 1,
+      night: '1ª Noite',
+      league: 'Superliga',
+      schoolId: 'arranco',
+      schoolName: 'Arranco do Engenho de Dentro',
+      enredo: 'Arranco anuncia Alceu Valença - O Rei do Frevo e do Maracatu',
+      promoted: true,
+      statusDescription: 'Vice-Campeã Geral (Superliga • 1ª da 1ª Noite) • Subiu para a Série Ouro'
+    },
+    {
+      rank: 1,
+      nightRank: 1,
+      night: 'Grupo B',
+      league: 'LIVRES',
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'Punga, Crioula!',
+      statusDescription: 'Campeã LIVRES (Grupo B)'
+    },
+    {
+      rank: 0,
+      nightRank: 2,
+      night: '1ª Noite',
+      league: 'Superliga',
+      schoolId: 'renascer_jacarepagua',
+      schoolName: 'Renascer de Jacarepaguá',
+      enredo: 'Jacarepaguá - Fábrica dos Sonhos',
+      statusDescription: '2º Lugar • 1ª Noite (Superliga)'
+    },
+    {
+      rank: 0,
+      nightRank: 2,
+      night: '2ª Noite',
+      league: 'Superliga',
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: 'Eu sou o Samba, a Voz do Morro sou eu mesmo sim senhor: Carnaval e Samba, a mais bela Expressão Cultural de uma Raça',
+      statusDescription: '2º Lugar • 2ª Noite (Superliga)'
+    },
+    {
+      rank: 2,
+      nightRank: 2,
+      night: 'Grupo B',
+      league: 'LIVRES',
+      schoolId: 'vizinha_faladeira',
+      schoolName: 'Vizinha Faladeira',
+      enredo: 'A Fórmula da Água',
+      statusDescription: 'Vice-Campeã LIVRES (Grupo B)'
+    },
+    {
+      rank: 0,
+      nightRank: 3,
+      night: '1ª Noite',
+      league: 'Superliga',
+      schoolId: 'independentes_olaria',
+      schoolName: 'Independentes de Olaria',
+      enredo: 'Batuque pra Penha',
+      statusDescription: '3º Lugar • 1ª Noite (Superliga)'
+    },
+    {
+      rank: 0,
+      nightRank: 3,
+      night: '2ª Noite',
+      league: 'Superliga',
+      schoolId: 'marica',
+      schoolName: 'União de Maricá',
+      enredo: 'A Revolução pela Alegria... uma Ópera Popular',
+      statusDescription: '3º Lugar • 2ª Noite (Superliga)'
+    },
+    {
+      rank: 0,
+      nightRank: 3,
+      night: 'Grupo B',
+      league: 'LIVRES',
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Deu a Louca na História! E agora Stanislaw, como é que fica?',
+      statusDescription: '3º Lugar • LIVRES (Grupo B)'
+    },
+    {
+      rank: 0,
+      nightRank: 4,
+      night: '1ª Noite',
+      league: 'Superliga',
+      schoolId: 'imperio_da_uva',
+      schoolName: 'Império da Uva',
+      enredo: 'Andar com Fé eu Vou',
+      statusDescription: '4º Lugar • 1ª Noite (Superliga)'
+    },
+    {
+      rank: 0,
+      nightRank: 4,
+      night: '2ª Noite',
+      league: 'Superliga',
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Ave, Ave Rainha Senhora da Berlinda',
+      statusDescription: '4º Lugar • 2ª Noite (Superliga)'
+    },
+    {
+      rank: 0,
+      nightRank: 4,
+      night: 'Grupo B',
+      league: 'LIVRES',
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Festejando, eu mando a tristeza embora. A Unidos de Lucas é só alegria',
+      statusDescription: '4º Lugar • LIVRES (Grupo B)'
+    },
+    {
+      rank: 0,
+      nightRank: 5,
+      night: '1ª Noite',
+      league: 'Superliga',
+      schoolId: 'sereno_campo_grande',
+      schoolName: 'Sereno de Campo Grande',
+      enredo: 'Se o Samba tem Mandinga, vem da África a nossa Ginga',
+      statusDescription: '5º Lugar • 1ª Noite (Superliga)'
+    },
+    {
+      rank: 0,
+      nightRank: 5,
+      night: '2ª Noite',
+      league: 'Superliga',
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'Circo Brazuca',
+      statusDescription: '5º Lugar • 2ª Noite (Superliga)'
+    },
+    {
+      rank: 0,
+      nightRank: 5,
+      night: 'Grupo B',
+      league: 'LIVRES',
+      schoolId: 'sao_cristovao',
+      schoolName: 'Unidos de São Cristóvão',
+      enredo: 'Menino Silas',
+      statusDescription: '5º Lugar • LIVRES (Grupo B)'
+    },
+    {
+      rank: 0,
+      nightRank: 6,
+      night: '1ª Noite',
+      league: 'Superliga',
+      schoolId: 'praca_da_bandeira',
+      schoolName: 'Independente da Praça da Bandeira',
+      enredo: 'Dos Encantos do Capibaribe a Frevança Atual… Pernambuco Respira Diversidade Cultural',
+      statusDescription: '6º Lugar • 1ª Noite (Superliga)'
+    },
+    {
+      rank: 0,
+      nightRank: 6,
+      night: '2ª Noite',
+      league: 'Superliga',
+      schoolId: 'curicica',
+      schoolName: 'União do Parque Curicica',
+      enredo: 'Abayomis - O Encontro Precioso das Yas',
+      statusDescription: '6º Lugar • 2ª Noite (Superliga)'
+    },
+    {
+      rank: 0,
+      nightRank: 6,
+      night: 'Grupo B',
+      league: 'LIVRES',
+      schoolId: 'flor_da_mina',
+      schoolName: 'Flor da Mina do Andaraí',
+      enredo: 'Em Romaria a Juazeiro do Norte, a Flor da Mina do Andaraí vem pedir a benção a meu Padim Pade Ciço',
+      statusDescription: '6º Lugar • LIVRES (Grupo B)'
+    },
+    {
+      rank: 0,
+      nightRank: 7,
+      night: '1ª Noite',
+      league: 'Superliga',
+      schoolId: 'arame_de_ricardo',
+      schoolName: 'Arame de Ricardo',
+      enredo: 'Amor de Carnaval - O que passou, passou!',
+      statusDescription: '7º Lugar • 1ª Noite (Superliga)'
+    },
+    {
+      rank: 0,
+      nightRank: 7,
+      night: '2ª Noite',
+      league: 'Superliga',
+      schoolId: 'vila_santa_tereza',
+      schoolName: 'Unidos da Vila Santa Tereza',
+      enredo: 'Obinrin Agbara, a Saga das Guerreiras',
+      statusDescription: '7º Lugar • 2ª Noite (Superliga)'
+    },
+    {
+      rank: 0,
+      nightRank: 7,
+      night: 'Grupo B',
+      league: 'LIVRES',
+      schoolId: 'imperadores_rubro_negros',
+      schoolName: 'Imperadores Rubro-Negros',
+      enredo: 'Olelé, Olelé: uma Herança do Continente Africano',
+      statusDescription: '7º Lugar • LIVRES (Grupo B)'
+    },
+    {
+      rank: 0,
+      nightRank: 8,
+      night: '1ª Noite',
+      league: 'Superliga',
+      schoolId: 'botafogo_samba_clube',
+      schoolName: 'Botafogo Samba Clube',
+      enredo: 'João Saldanha - Um apaixonado pela verdade caminhando em tempos de ilusão',
+      statusDescription: '8º Lugar • 1ª Noite (Superliga)'
+    },
+    {
+      rank: 0,
+      nightRank: 8,
+      night: '2ª Noite',
+      league: 'Superliga',
+      schoolId: 'rosa_de_ouro',
+      schoolName: 'Rosa de Ouro',
+      enredo: 'Coroaci, a Terra do Sol',
+      statusDescription: '8º Lugar • 2ª Noite (Superliga)'
+    },
+    {
+      rank: 0,
+      nightRank: 8,
+      night: 'Grupo B',
+      league: 'LIVRES',
+      schoolId: 'chatuba',
+      schoolName: 'Chatuba de Mesquita',
+      enredo: 'Cortejo aos Reis do Congo',
+      statusDescription: '8º Lugar • LIVRES (Grupo B)'
+    },
+    {
+      rank: 0,
+      nightRank: 9,
+      night: '1ª Noite',
+      league: 'Superliga',
+      schoolId: 'raca_rubro_negra',
+      schoolName: 'Raça Rubro-Negra',
+      enredo: 'Aquarela Brasileira',
+      statusDescription: '9º Lugar • 1ª Noite (Superliga)'
+    },
+    {
+      rank: 0,
+      nightRank: 9,
+      night: '2ª Noite',
+      league: 'Superliga',
+      schoolId: 'leao_de_nova_iguacu',
+      schoolName: 'Leão de Nova Iguaçu',
+      enredo: 'Dedé da Portela - Fez da Vida Poesia e Cantou sua Alegria em Tempo de Carnaval',
+      statusDescription: '9º Lugar • 2ª Noite (Superliga)'
+    },
+    {
+      rank: 0,
+      nightRank: 9,
+      night: 'Grupo B',
+      league: 'LIVRES',
+      schoolId: 'siri_de_ramos',
+      schoolName: 'Siri de Ramos',
+      enredo: 'Entre percussão, coração e a coroa que te rege, mestre Beto é nota 10!',
+      statusDescription: '9º Lugar • LIVRES (Grupo B)'
+    },
+    {
+      rank: 0,
+      nightRank: 10,
+      night: '1ª Noite',
+      league: 'Superliga',
+      schoolId: 'academicos_da_diversidade',
+      schoolName: 'Acadêmicos da Diversidade',
+      enredo: 'Os Guardiões Indígenas da Floresta Natural, Salve Oxóssi e a Preservação Ambiental',
+      statusDescription: '10º Lugar • 1ª Noite (Superliga)'
+    },
+    {
+      rank: 0,
+      nightRank: 10,
+      night: '2ª Noite',
+      league: 'Superliga',
+      schoolId: 'parque_acari',
+      schoolName: 'União do Parque Acari',
+      enredo: 'A Coroa Imperiana nos Braços da Nação Acariense',
+      statusDescription: '10º Lugar • 2ª Noite (Superliga)'
+    },
+    {
+      rank: 0,
+      nightRank: 10,
+      night: 'Grupo B',
+      league: 'LIVRES',
+      schoolId: 'feitico_carioca',
+      schoolName: 'Feitiço Carioca',
+      enredo: 'O Circo do Zé Povão: o Picadeiro Brasileiro',
+      statusDescription: '10º Lugar • LIVRES (Grupo B)'
+    },
+    {
+      rank: 0,
+      nightRank: 11,
+      night: '1ª Noite',
+      league: 'Superliga',
+      schoolId: 'dificil_e_o_nome',
+      schoolName: 'Difícil é o Nome',
+      enredo: 'Nobreza na Cor, Soberanas na Raça... Rainhas do Ventre da Humanidade',
+      relegated: true,
+      statusDescription: '11º Lugar (1ª Noite • Superliga) • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 0,
+      nightRank: 11,
+      night: '2ª Noite',
+      league: 'Superliga',
+      schoolId: 'alegria_da_zona_sul',
+      schoolName: 'Alegria da Zona Sul',
+      enredo: 'Até que Enfim... Aroldo Santos',
+      statusDescription: '11º Lugar • 2ª Noite (Superliga)'
+    },
+    {
+      rank: 0,
+      nightRank: 12,
+      night: '2ª Noite',
+      league: 'Superliga',
+      schoolId: 'abolicao',
+      schoolName: 'Acadêmicos da Abolição',
+      enredo: 'É Samba, é Popular. É Alex Escobar',
+      statusDescription: '12º Lugar • 2ª Noite (Superliga)'
+    },
+    {
+      rank: 0,
+      nightRank: 13,
+      night: '2ª Noite',
+      league: 'Superliga',
+      schoolId: 'villa_rica',
+      schoolName: 'Unidos da Villa Rica',
+      enredo: 'Caboclo - Bradou na Mata. Hoje é dia de festa. Traz o Axé dos seus irmãos. Viva o Povo da Floresta',
+      relegated: true,
+      statusDescription: '13º Lugar (2ª Noite • Superliga) • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 0,
+      nightRank: 14,
+      night: '2ª Noite',
+      league: 'Superliga',
+      schoolId: 'unidos_da_vila_kennedy',
+      schoolName: 'Unidos da Vila Kennedy',
+      enredo: 'I Have a Dream... e os Sonhos de Liberdade',
+      relegated: true,
+      statusDescription: '14º Lugar (2ª Noite • Superliga) • Rebaixada para a Série Bronze'
+    }
   ]
 };
 
@@ -1278,6 +1635,49 @@ export const OFFICIAL_PRATA_HISTORICAL_SUBGROUPS: Record<
       { rank: 7, night: 'Grupo B', league: 'LIVRES', schoolId: 'garras_do_tigre', schoolName: 'Garras do Tigre', enredo: 'Belém do Pará - Um show de brasilidade', statusDescription: '7º Lugar • LIVRES (Grupo B)' },
       { rank: 8, night: 'Grupo B', league: 'LIVRES', schoolId: 'academia_niteroi_de_samba', schoolName: 'Academia Niterói de Samba', enredo: 'A alegria que renasce das cinzas', statusDescription: '8º Lugar • LIVRES (Grupo B)' }
     ]
+  },
+  2022: {
+    noite1: [
+      { rank: 1, night: '1ª Noite', league: 'Superliga', schoolId: 'arranco', schoolName: 'Arranco do Engenho de Dentro', enredo: 'Arranco anuncia Alceu Valença - O Rei do Frevo e do Maracatu', promoted: true, statusDescription: 'Vice-Campeã Geral (1ª da 1ª Noite) • Subiu para a Série Ouro' },
+      { rank: 2, night: '1ª Noite', league: 'Superliga', schoolId: 'renascer_jacarepagua', schoolName: 'Renascer de Jacarepaguá', enredo: 'Jacarepaguá - Fábrica dos Sonhos', statusDescription: '2º Lugar • 1ª Noite (Superliga)' },
+      { rank: 3, night: '1ª Noite', league: 'Superliga', schoolId: 'independentes_olaria', schoolName: 'Independentes de Olaria', enredo: 'Batuque pra Penha', statusDescription: '3º Lugar • 1ª Noite (Superliga)' },
+      { rank: 4, night: '1ª Noite', league: 'Superliga', schoolId: 'imperio_da_uva', schoolName: 'Império da Uva', enredo: 'Andar com Fé eu Vou', statusDescription: '4º Lugar • 1ª Noite (Superliga)' },
+      { rank: 5, night: '1ª Noite', league: 'Superliga', schoolId: 'sereno_campo_grande', schoolName: 'Sereno de Campo Grande', enredo: 'Se o Samba tem Mandinga, vem da África a nossa Ginga', statusDescription: '5º Lugar • 1ª Noite (Superliga)' },
+      { rank: 6, night: '1ª Noite', league: 'Superliga', schoolId: 'praca_da_bandeira', schoolName: 'Independente da Praça da Bandeira', enredo: 'Dos Encantos do Capibaribe a Frevança Atual… Pernambuco Respira Diversidade Cultural', statusDescription: '6º Lugar • 1ª Noite (Superliga)' },
+      { rank: 7, night: '1ª Noite', league: 'Superliga', schoolId: 'arame_de_ricardo', schoolName: 'Arame de Ricardo', enredo: 'Amor de Carnaval - O que passou, passou!', statusDescription: '7º Lugar • 1ª Noite (Superliga)' },
+      { rank: 8, night: '1ª Noite', league: 'Superliga', schoolId: 'botafogo_samba_clube', schoolName: 'Botafogo Samba Clube', enredo: 'João Saldanha - Um apaixonado pela verdade caminhando em tempos de ilusão', statusDescription: '8º Lugar • 1ª Noite (Superliga)' },
+      { rank: 9, night: '1ª Noite', league: 'Superliga', schoolId: 'raca_rubro_negra', schoolName: 'Raça Rubro-Negra', enredo: 'Aquarela Brasileira', statusDescription: '9º Lugar • 1ª Noite (Superliga)' },
+      { rank: 10, night: '1ª Noite', league: 'Superliga', schoolId: 'academicos_da_diversidade', schoolName: 'Acadêmicos da Diversidade', enredo: 'Os Guardiões Indígenas da Floresta Natural, Salve Oxóssi e a Preservação Ambiental', statusDescription: '10º Lugar • 1ª Noite (Superliga)' },
+      { rank: 11, night: '1ª Noite', league: 'Superliga', schoolId: 'dificil_e_o_nome', schoolName: 'Difícil é o Nome', enredo: 'Nobreza na Cor, Soberanas na Raça... Rainhas do Ventre da Humanidade', relegated: true, statusDescription: '11º Lugar (1ª Noite • Superliga) • Rebaixada para a Série Bronze' }
+    ],
+    noite2: [
+      { rank: 1, night: '2ª Noite', league: 'Superliga', schoolId: 'uniao_de_jacarepagua', schoolName: 'União de Jacarepaguá', enredo: 'De Ventres Africanos, os Sonhos por Liberdade!', promoted: true, statusDescription: 'Campeã Geral (1ª da 2ª Noite) • Subiu para a Série Ouro' },
+      { rank: 2, night: '2ª Noite', league: 'Superliga', schoolId: 'rocinha', schoolName: 'Acadêmicos da Rocinha', enredo: 'Eu sou o Samba, a Voz do Morro sou eu mesmo sim senhor: Carnaval e Samba, a mais bela Expressão Cultural de uma Raça', statusDescription: '2º Lugar • 2ª Noite (Superliga)' },
+      { rank: 3, night: '2ª Noite', league: 'Superliga', schoolId: 'marica', schoolName: 'União de Maricá', enredo: 'A Revolução pela Alegria... uma Ópera Popular', statusDescription: '3º Lugar • 2ª Noite (Superliga)' },
+      { rank: 4, night: '2ª Noite', league: 'Superliga', schoolId: 'jacarezinho', schoolName: 'Unidos do Jacarezinho', enredo: 'Ave, Ave Rainha Senhora da Berlinda', statusDescription: '4º Lugar • 2ª Noite (Superliga)' },
+      { rank: 5, night: '2ª Noite', league: 'Superliga', schoolId: 'caprichosos_de_pilares', schoolName: 'Caprichosos de Pilares', enredo: 'Circo Brazuca', statusDescription: '5º Lugar • 2ª Noite (Superliga)' },
+      { rank: 6, night: '2ª Noite', league: 'Superliga', schoolId: 'curicica', schoolName: 'União do Parque Curicica', enredo: 'Abayomis - O Encontro Precioso das Yas', statusDescription: '6º Lugar • 2ª Noite (Superliga)' },
+      { rank: 7, night: '2ª Noite', league: 'Superliga', schoolId: 'vila_santa_tereza', schoolName: 'Unidos da Vila Santa Tereza', enredo: 'Obinrin Agbara, a Saga das Guerreiras', statusDescription: '7º Lugar • 2ª Noite (Superliga)' },
+      { rank: 8, night: '2ª Noite', league: 'Superliga', schoolId: 'rosa_de_ouro', schoolName: 'Rosa de Ouro', enredo: 'Coroaci, a Terra do Sol', statusDescription: '8º Lugar • 2ª Noite (Superliga)' },
+      { rank: 9, night: '2ª Noite', league: 'Superliga', schoolId: 'leao_de_nova_iguacu', schoolName: 'Leão de Nova Iguaçu', enredo: 'Dedé da Portela - Fez da Vida Poesia e Cantou sua Alegria em Tempo de Carnaval', statusDescription: '9º Lugar • 2ª Noite (Superliga)' },
+      { rank: 10, night: '2ª Noite', league: 'Superliga', schoolId: 'parque_acari', schoolName: 'União do Parque Acari', enredo: 'A Coroa Imperiana nos Braços da Nação Acariense', statusDescription: '10º Lugar • 2ª Noite (Superliga)' },
+      { rank: 11, night: '2ª Noite', league: 'Superliga', schoolId: 'alegria_da_zona_sul', schoolName: 'Alegria da Zona Sul', enredo: 'Até que Enfim... Aroldo Santos', statusDescription: '11º Lugar • 2ª Noite (Superliga)' },
+      { rank: 12, night: '2ª Noite', league: 'Superliga', schoolId: 'abolicao', schoolName: 'Acadêmicos da Abolição', enredo: 'É Samba, é Popular. É Alex Escobar', statusDescription: '12º Lugar • 2ª Noite (Superliga)' },
+      { rank: 13, night: '2ª Noite', league: 'Superliga', schoolId: 'villa_rica', schoolName: 'Unidos da Villa Rica', enredo: 'Caboclo - Bradou na Mata. Hoje é dia de festa. Traz o Axé dos seus irmãos. Viva o Povo da Floresta', relegated: true, statusDescription: '13º Lugar (2ª Noite • Superliga) • Rebaixada para a Série Bronze' },
+      { rank: 14, night: '2ª Noite', league: 'Superliga', schoolId: 'unidos_da_vila_kennedy', schoolName: 'Unidos da Vila Kennedy', enredo: 'I Have a Dream... e os Sonhos de Liberdade', relegated: true, statusDescription: '14º Lugar (2ª Noite • Superliga) • Rebaixada para a Série Bronze' }
+    ],
+    livres: [
+      { rank: 1, night: 'Grupo B', league: 'LIVRES', schoolId: 'engenho_da_rainha', schoolName: 'Acadêmicos do Engenho da Rainha', enredo: 'Punga, Crioula!', statusDescription: 'Campeã LIVRES (Grupo B)' },
+      { rank: 2, night: 'Grupo B', league: 'LIVRES', schoolId: 'vizinha_faladeira', schoolName: 'Vizinha Faladeira', enredo: 'A Fórmula da Água', statusDescription: 'Vice-Campeã LIVRES (Grupo B)' },
+      { rank: 3, night: 'Grupo B', league: 'LIVRES', schoolId: 'cabucu', schoolName: 'Unidos do Cabuçu', enredo: 'Deu a Louca na História! E agora Stanislaw, como é que fica?', statusDescription: '3º Lugar • LIVRES (Grupo B)' },
+      { rank: 4, night: 'Grupo B', league: 'LIVRES', schoolId: 'unidos_de_lucas', schoolName: 'Unidos de Lucas', enredo: 'Festejando, eu mando a tristeza embora. A Unidos de Lucas é só alegria', statusDescription: '4º Lugar • LIVRES (Grupo B)' },
+      { rank: 5, night: 'Grupo B', league: 'LIVRES', schoolId: 'sao_cristovao', schoolName: 'Unidos de São Cristóvão', enredo: 'Menino Silas', statusDescription: '5º Lugar • LIVRES (Grupo B)' },
+      { rank: 6, night: 'Grupo B', league: 'LIVRES', schoolId: 'flor_da_mina', schoolName: 'Flor da Mina do Andaraí', enredo: 'Em Romaria a Juazeiro do Norte, a Flor da Mina do Andaraí vem pedir a benção a meu Padim Pade Ciço', statusDescription: '6º Lugar • LIVRES (Grupo B)' },
+      { rank: 7, night: 'Grupo B', league: 'LIVRES', schoolId: 'imperadores_rubro_negros', schoolName: 'Imperadores Rubro-Negros', enredo: 'Olelé, Olelé: uma Herança do Continente Africano', statusDescription: '7º Lugar • LIVRES (Grupo B)' },
+      { rank: 8, night: 'Grupo B', league: 'LIVRES', schoolId: 'chatuba', schoolName: 'Chatuba de Mesquita', enredo: 'Cortejo aos Reis do Congo', statusDescription: '8º Lugar • LIVRES (Grupo B)' },
+      { rank: 9, night: 'Grupo B', league: 'LIVRES', schoolId: 'siri_de_ramos', schoolName: 'Siri de Ramos', enredo: 'Entre percussão, coração e a coroa que te rege, mestre Beto é nota 10!', statusDescription: '9º Lugar • LIVRES (Grupo B)' },
+      { rank: 10, night: 'Grupo B', league: 'LIVRES', schoolId: 'feitico_carioca', schoolName: 'Feitiço Carioca', enredo: 'O Circo do Zé Povão: o Picadeiro Brasileiro', statusDescription: '10º Lugar • LIVRES (Grupo B)' }
+    ]
   }
 };
 
@@ -1285,7 +1685,8 @@ export const OFFICIAL_PRATA_NOTES_BY_YEAR: Record<number, string> = {
   2026: 'Carnaval de 2026: Acadêmicos de Santa Cruz (Campeã) e São Clemente (Vice-Campeã) garantiram o acesso à Série Ouro. Império de Nova Iguaçu, União de Jacarepaguá, Siri de Ramos, Acadêmicos do Dendê, Independente da Praça da Bandeira, Chatuba de Mesquita, Vizinha Faladeira e Leão de Nova Iguaçu foram rebaixadas para a Série Bronze.',
   2025: 'Carnaval de 2025: O desfile foi realizado em três noites, com rebaixamento das duas últimas colocadas de cada noite (Concentra Imperial, Boi da Ilha do Governador, Unidos da Barra da Tijuca, Sereno de Campo Grande, Flor da Mina do Andaraí e Alegria de Copacabana). Unidos do Jacarezinho (Campeã) subiu à Série Ouro, e Acadêmicos da Rocinha desfilou como Hors concours.',
   2024: 'Carnaval de 2024: Desfile em duas noites (16 escolas por noite). Tradição (1ª da 2ª Noite • Campeã Geral) e Botafogo Samba Clube (1ª da 1ª Noite • Vice-Campeã Geral) conquistaram o acesso à Série Ouro. As três últimas de cada noite foram rebaixadas para a Série Bronze: Caprichosos de Pilares, Acadêmicos de Jacarepaguá e Arame de Ricardo (1ª Noite); Acadêmicos do Dendê, Lins Imperial e Força Jovem / União Cruzmaltina (2ª Noite).',
-  2023: 'Carnaval de 2023: Houve dois desfiles competitivos — Superliga (em duas noites, com acesso à Série Ouro para União de Maricá como Campeã Geral, Sereno de Campo Grande como Vice-Campeã Geral e União do Parque Acari como melhor colocada geral, além do rebaixamento das três últimas de cada noite: Acadêmicos do Peixe, Rosa de Ouro, Raça Rubro-Negra, Acadêmicos da Diversidade, União do Parque Curicica e Unidos de São Cristóvão) e LIVRES (Grupo B, com título da Vizinha Faladeira e vice-campeonato da Tradição).'
+  2023: 'Carnaval de 2023: Houve dois desfiles competitivos — Superliga (em duas noites, com acesso à Série Ouro para União de Maricá como Campeã Geral, Sereno de Campo Grande como Vice-Campeã Geral e União do Parque Acari como melhor colocada geral, além do rebaixamento das três últimas de cada noite: Acadêmicos do Peixe, Rosa de Ouro, Raça Rubro-Negra, Acadêmicos da Diversidade, União do Parque Curicica e Unidos de São Cristóvão) e LIVRES (Grupo B, com título da Vizinha Faladeira e vice-campeonato da Tradição).',
+  2022: 'Carnaval de 2022: Houve dois desfiles — Superliga (dividido em duas noites, com acesso à Série Ouro para União de Jacarepaguá como Campeã Geral e Arranco do Engenho de Dentro como Vice-Campeã Geral, além do rebaixamento de Difícil é o Nome, Unidos da Villa Rica e Unidos da Vila Kennedy para a Série Bronze) e LIVRES (Grupo B, com título da Acadêmicos do Engenho da Rainha e vice-campeonato da Vizinha Faladeira).'
 };
 
 /**

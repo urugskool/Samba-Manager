@@ -434,7 +434,54 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     santa_cruz: 'Axé! Milton Gonçalves no Catupé da Santa Cruz',
     academicos_de_santa_cruz: 'Axé! Milton Gonçalves no Catupé da Santa Cruz',
     cubango: 'O Amor Preto Cura: Chica Xavier, a Mãe Baiana do Brasil',
-    academicos_do_cubango: 'O Amor Preto Cura: Chica Xavier, a Mãe Baiana do Brasil'
+    academicos_do_cubango: 'O Amor Preto Cura: Chica Xavier, a Mãe Baiana do Brasil',
+
+    // Série Prata 2022 — Superliga (1ª Noite)
+    arranco: 'Arranco anuncia Alceu Valença - O Rei do Frevo e do Maracatu',
+    arranco_do_engenho_de_dentro: 'Arranco anuncia Alceu Valença - O Rei do Frevo e do Maracatu',
+    renascer_jacarepagua: 'Jacarepaguá - Fábrica dos Sonhos',
+    renascer_de_jacarepagua: 'Jacarepaguá - Fábrica dos Sonhos',
+    independentes_olaria: 'Batuque pra Penha',
+    imperio_da_uva: 'Andar com Fé eu Vou',
+    sereno_campo_grande: 'Se o Samba tem Mandinga, vem da África a nossa Ginga',
+    praca_da_bandeira: 'Dos Encantos do Capibaribe a Frevança Atual… Pernambuco Respira Diversidade Cultural',
+    arame_de_ricardo: 'Amor de Carnaval - O que passou, passou!',
+    botafogo_samba_clube: 'João Saldanha - Um apaixonado pela verdade caminhando em tempos de ilusão',
+    raca_rubro_negra: 'Aquarela Brasileira',
+    academicos_da_diversidade: 'Os Guardiões Indígenas da Floresta Natural, Salve Oxóssi e a Preservação Ambiental',
+    dificil_e_o_nome: 'Nobreza na Cor, Soberanas na Raça... Rainhas do Ventre da Humanidade',
+
+    // Série Prata 2022 — Superliga (2ª Noite)
+    uniao_de_jacarepagua: 'De Ventres Africanos, os Sonhos por Liberdade!',
+    rocinha: 'Eu sou o Samba, a Voz do Morro sou eu mesmo sim senhor: Carnaval e Samba, a mais bela Expressão Cultural de uma Raça',
+    marica: 'A Revolução pela Alegria... uma Ópera Popular',
+    uniao_de_marica: 'A Revolução pela Alegria... uma Ópera Popular',
+    jacarezinho: 'Ave, Ave Rainha Senhora da Berlinda',
+    caprichosos_de_pilares: 'Circo Brazuca',
+    curicica: 'Abayomis - O Encontro Precioso das Yas',
+    vila_santa_tereza: 'Obinrin Agbara, a Saga das Guerreiras',
+    rosa_de_ouro: 'Coroaci, a Terra do Sol',
+    leao_de_nova_iguacu: 'Dedé da Portela - Fez da Vida Poesia e Cantou sua Alegria em Tempo de Carnaval',
+    parque_acari: 'A Coroa Imperiana nos Braços da Nação Acariense',
+    uniao_do_parque_acari: 'A Coroa Imperiana nos Braços da Nação Acariense',
+    alegria_da_zona_sul: 'Até que Enfim... Aroldo Santos',
+    abolicao: 'É Samba, é Popular. É Alex Escobar',
+    villa_rica: 'Caboclo - Bradou na Mata. Hoje é dia de festa. Traz o Axé dos seus irmãos. Viva o Povo da Floresta',
+    unidos_da_villa_rica: 'Caboclo - Bradou na Mata. Hoje é dia de festa. Traz o Axé dos seus irmãos. Viva o Povo da Floresta',
+    unidos_da_vila_kennedy: 'I Have a Dream... e os Sonhos de Liberdade',
+
+    // Série Prata 2022 — LIVRES (Grupo B)
+    engenho_da_rainha: 'Punga, Crioula!',
+    vizinha_faladeira: 'A Fórmula da Água',
+    cabucu: 'Deu a Louca na História! E agora Stanislaw, como é que fica?',
+    unidos_de_lucas: 'Festejando, eu mando a tristeza embora. A Unidos de Lucas é só alegria',
+    sao_cristovao: 'Menino Silas',
+    unidos_de_sao_cristovao: 'Menino Silas',
+    flor_da_mina: 'Em Romaria a Juazeiro do Norte, a Flor da Mina do Andaraí vem pedir a benção a meu Padim Pade Ciço',
+    imperadores_rubro_negros: 'Olelé, Olelé: uma Herança do Continente Africano',
+    chatuba: 'Cortejo aos Reis do Congo',
+    siri_de_ramos: 'Entre percussão, coração e a coroa que te rege, mestre Beto é nota 10!',
+    feitico_carioca: 'O Circo do Zé Povão: o Picadeiro Brasileiro'
   },
   2020: {
     // Grupo Especial 2020
@@ -4877,6 +4924,11 @@ function normalizeId(rawId?: string, rawName?: string): string {
     if (id.includes('garras_do_tigre')) return 'garras_do_tigre';
     if (id.includes('academia_niteroi')) return 'academia_niteroi_de_samba';
     if (id.includes('parque_acari')) return 'parque_acari';
+    if (id.includes('arranco')) return 'arranco';
+    if (id.includes('dificil')) return 'dificil_e_o_nome';
+    if (id.includes('villa_rica') || id.includes('vila_rica')) return 'villa_rica';
+    if (id.includes('vila_kennedy')) return 'unidos_da_vila_kennedy';
+    if (id.includes('imperadores_rubro')) return 'imperadores_rubro_negros';
     return id;
   }
   if (!rawName) return '';
@@ -5081,6 +5133,10 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('pedra branca')) return 'academicos_da_pedra_branca';
   if (n.includes('mensageiros da paz')) return 'mensageiros_da_paz';
   if (n.includes('garras do tigre')) return 'garras_do_tigre';
+  if (n.includes('difícil é o nome') || n.includes('dificil e o nome')) return 'dificil_e_o_nome';
+  if (n.includes('villa rica') || n.includes('vila rica')) return 'villa_rica';
+  if (n.includes('vila kennedy')) return 'unidos_da_vila_kennedy';
+  if (n.includes('imperadores rubro')) return 'imperadores_rubro_negros';
   return '';
 }
 

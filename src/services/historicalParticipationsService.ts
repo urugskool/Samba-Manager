@@ -183,6 +183,8 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('pedra branca') || clean === 'academicos_da_pedra_branca') return 'academicos_da_pedra_branca';
   if (name.includes('mensageiros da paz') || clean === 'mensageiros_da_paz') return 'mensageiros_da_paz';
   if (name.includes('garras do tigre') || clean === 'garras_do_tigre') return 'garras_do_tigre';
+  if (name.includes('vila kennedy') || clean === 'unidos_da_vila_kennedy' || clean === 'vila_kennedy') return 'unidos_da_vila_kennedy';
+  if (name.includes('imperadores rubro') || clean === 'imperadores_rubro_negros') return 'imperadores_rubro_negros';
 
   return clean || name.replace(/\s+/g, '_');
 }
