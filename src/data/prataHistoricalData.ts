@@ -28,6 +28,7 @@ export interface PrataHistoricalCarnaval {
   subgroups?: {
     noite1?: PrataStandingRecord[];
     noite2?: PrataStandingRecord[];
+    liesb?: PrataStandingRecord[];
     livres?: PrataStandingRecord[];
   };
   notes?: string;
@@ -1543,12 +1544,283 @@ export const OFFICIAL_PRATA_HISTORICAL_STANDINGS: Record<number, PrataStandingRe
       relegated: true,
       statusDescription: '14º Lugar (2ª Noite • Superliga) • Rebaixada para a Série Bronze'
     }
+  ],
+  2021: [],
+  2020: [
+    {
+      rank: 1,
+      nightRank: 1,
+      night: 'LIESB',
+      league: 'LIESB',
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Pinah, a Soberana',
+      promoted: true,
+      statusDescription: 'Campeã (LIESB) • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      nightRank: 2,
+      night: 'LIESB',
+      league: 'LIESB',
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Malandro - O Rei da Boêmia e o Barão da Ralé',
+      promoted: true,
+      statusDescription: 'Vice-Campeã (LIESB) • Subiu para a Série Ouro'
+    },
+    {
+      rank: 1,
+      nightRank: 1,
+      night: 'Série B',
+      league: 'LIVRES',
+      schoolId: 'tradicao',
+      schoolName: 'Tradição',
+      enredo: 'Mãe Gentil, Seus Filhos Clamam Por Ti!',
+      statusDescription: 'Campeã LIVRES (Série B)'
+    },
+    {
+      rank: 2,
+      nightRank: 2,
+      night: 'Série B',
+      league: 'LIVRES',
+      schoolId: 'alegria_da_zona_sul',
+      schoolName: 'Alegria da Zona Sul',
+      enredo: 'Ypanema',
+      statusDescription: 'Vice-Campeã LIVRES (Série B)'
+    },
+    {
+      rank: 0,
+      nightRank: 3,
+      night: 'LIESB',
+      league: 'LIESB',
+      schoolId: 'curicica',
+      schoolName: 'União do Parque Curicica',
+      enredo: 'Fulô de Maria',
+      statusDescription: '3º Lugar • LIESB'
+    },
+    {
+      rank: 0,
+      nightRank: 3,
+      night: 'Série B',
+      league: 'LIVRES',
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'O Big Bang Tupiniquim Explode na Intendente!',
+      statusDescription: '3º Lugar • LIVRES (Série B)'
+    },
+    {
+      rank: 0,
+      nightRank: 4,
+      night: 'LIESB',
+      league: 'LIESB',
+      schoolId: 'imperio_da_uva',
+      schoolName: 'Império da Uva',
+      enredo: 'Darcy Ribeiro - O Homem Muito Além do Seu Tempo',
+      statusDescription: '4º Lugar • LIESB'
+    },
+    {
+      rank: 0,
+      nightRank: 4,
+      night: 'Série B',
+      league: 'LIVRES',
+      schoolId: 'siri_de_ramos',
+      schoolName: 'Siri de Ramos',
+      enredo: 'Ganga Zumba - A Dinastia de um Guerreiro',
+      statusDescription: '4º Lugar • LIVRES (Série B)'
+    },
+    {
+      rank: 0,
+      nightRank: 5,
+      night: 'LIESB',
+      league: 'LIESB',
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'De Roliúde ao Sertão - Luz, Câmera, Ação!',
+      statusDescription: '5º Lugar • LIESB'
+    },
+    {
+      rank: 0,
+      nightRank: 5,
+      night: 'Série B',
+      league: 'LIVRES',
+      schoolId: 'vizinha_faladeira',
+      schoolName: 'Vizinha Faladeira',
+      enredo: 'Aqui ou Acolá, Este É o Meu Lugar',
+      statusDescription: '5º Lugar • LIVRES (Série B)'
+    },
+    {
+      rank: 0,
+      nightRank: 6,
+      night: 'LIESB',
+      league: 'LIESB',
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'A Brasilidade Feita à Mão',
+      statusDescription: '6º Lugar • LIESB'
+    },
+    {
+      rank: 0,
+      nightRank: 6,
+      night: 'Série B',
+      league: 'LIVRES',
+      schoolId: 'arame_de_ricardo',
+      schoolName: 'Arame de Ricardo',
+      enredo: 'Sou Eu Quem Faz Você Sambar',
+      statusDescription: '6º Lugar • LIVRES (Série B)'
+    },
+    {
+      rank: 0,
+      nightRank: 7,
+      night: 'LIESB',
+      league: 'LIESB',
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Gueledés - O Retrato da Alma',
+      statusDescription: '7º Lugar • LIESB'
+    },
+    {
+      rank: 0,
+      nightRank: 8,
+      night: 'LIESB',
+      league: 'LIESB',
+      schoolId: 'vila_santa_tereza',
+      schoolName: 'Unidos da Vila Santa Tereza',
+      enredo: 'No Saçarico da Intendente, a Vila Canta Rosa',
+      statusDescription: '8º Lugar • LIESB'
+    },
+    {
+      rank: 0,
+      nightRank: 9,
+      night: 'LIESB',
+      league: 'LIESB',
+      schoolId: 'parque_acari',
+      schoolName: 'União do Parque Acari',
+      enredo: 'No Início a Criação, o Céu, a Terra e o Mar, com Isso a Junção Cada Um com o Seu Par. Viva o Amor!',
+      statusDescription: '9º Lugar • LIESB'
+    },
+    {
+      rank: 0,
+      nightRank: 10,
+      night: 'LIESB',
+      league: 'LIESB',
+      schoolId: 'botafogo_samba_clube',
+      schoolName: 'Botafogo Samba Clube',
+      enredo: 'Seria Injusto não Falar de Você, Beth Carvalho. Esse É o Botafogo Que Eu Gosto!',
+      statusDescription: '10º Lugar • LIESB'
+    },
+    {
+      rank: 0,
+      nightRank: 11,
+      night: 'LIESB',
+      league: 'LIESB',
+      schoolId: 'unidos_da_vila_kennedy',
+      schoolName: 'Unidos da Vila Kennedy',
+      enredo: 'Um Rei à Bangu',
+      statusDescription: '11º Lugar • LIESB'
+    },
+    {
+      rank: 0,
+      nightRank: 12,
+      night: 'LIESB',
+      league: 'LIESB',
+      schoolId: 'dificil_e_o_nome',
+      schoolName: 'Difícil é o Nome',
+      enredo: 'As Vozes das Divindades na Proteção dos Ogãns',
+      statusDescription: '12º Lugar • LIESB'
+    },
+    {
+      rank: 0,
+      nightRank: 13,
+      night: 'LIESB',
+      league: 'LIESB',
+      schoolId: 'marica',
+      schoolName: 'União de Maricá',
+      enredo: 'Nos Tempos Idos',
+      statusDescription: '13º Lugar • LIESB'
+    },
+    {
+      rank: 0,
+      nightRank: 14,
+      night: 'LIESB',
+      league: 'LIESB',
+      schoolId: 'independentes_olaria',
+      schoolName: 'Independentes de Olaria',
+      enredo: 'O Acólito do Rei - As Memórias do Padre Perereca',
+      statusDescription: '14º Lugar • LIESB'
+    },
+    {
+      rank: 0,
+      nightRank: 15,
+      night: 'LIESB',
+      league: 'LIESB',
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Do Professor ao Sucessor - Brilha o Passado e o Presente Azul e Branco',
+      statusDescription: '15º Lugar • LIESB'
+    },
+    {
+      rank: 0,
+      nightRank: 16,
+      night: 'LIESB',
+      league: 'LIESB',
+      schoolId: 'flor_da_mina',
+      schoolName: 'Flor da Mina do Andaraí',
+      enredo: 'O Clamor de Mandela',
+      statusDescription: '16º Lugar • LIESB'
+    },
+    {
+      rank: 0,
+      nightRank: 17,
+      night: 'LIESB',
+      league: 'LIESB',
+      schoolId: 'villa_rica',
+      schoolName: 'Unidos da Villa Rica',
+      enredo: 'Muito Prazer, Eu Sou o Samba',
+      statusDescription: '17º Lugar • LIESB'
+    },
+    {
+      rank: 0,
+      nightRank: 18,
+      night: 'LIESB',
+      league: 'LIESB',
+      schoolId: 'sereno_campo_grande',
+      schoolName: 'Sereno de Campo Grande',
+      enredo: 'Essa Noite Eu Vou Te Deixar no... Sereno',
+      statusDescription: '18º Lugar • LIESB'
+    },
+    {
+      rank: 0,
+      nightRank: 19,
+      night: 'LIESB',
+      league: 'LIESB',
+      schoolId: 'passa_regua',
+      schoolName: 'Passa Régua',
+      enredo: 'Porque Sou Homem das Ruas, Filho da Noite Estrelada',
+      statusDescription: '19º Lugar • LIESB'
+    },
+    {
+      rank: 0,
+      nightRank: 20,
+      night: 'LIESB',
+      league: 'LIESB',
+      schoolId: 'academicos_do_jardim_bangu',
+      schoolName: 'Acadêmicos do Jardim Bangu',
+      enredo: 'Da Mãe África aos Filhos do Brasil, a Força Ancestral que Atravessa Gerações',
+      relegated: true,
+      statusDescription: '20º Lugar (LIESB) • Rebaixada para a Série Bronze'
+    }
   ]
 };
 
 export const OFFICIAL_PRATA_HISTORICAL_SUBGROUPS: Record<
   number,
-  { noite1?: PrataStandingRecord[]; noite2?: PrataStandingRecord[]; livres?: PrataStandingRecord[] }
+  {
+    noite1?: PrataStandingRecord[];
+    noite2?: PrataStandingRecord[];
+    liesb?: PrataStandingRecord[];
+    livres?: PrataStandingRecord[];
+  }
 > = {
   2024: {
     noite1: [
@@ -1678,6 +1950,38 @@ export const OFFICIAL_PRATA_HISTORICAL_SUBGROUPS: Record<
       { rank: 9, night: 'Grupo B', league: 'LIVRES', schoolId: 'siri_de_ramos', schoolName: 'Siri de Ramos', enredo: 'Entre percussão, coração e a coroa que te rege, mestre Beto é nota 10!', statusDescription: '9º Lugar • LIVRES (Grupo B)' },
       { rank: 10, night: 'Grupo B', league: 'LIVRES', schoolId: 'feitico_carioca', schoolName: 'Feitiço Carioca', enredo: 'O Circo do Zé Povão: o Picadeiro Brasileiro', statusDescription: '10º Lugar • LIVRES (Grupo B)' }
     ]
+  },
+  2020: {
+    liesb: [
+      { rank: 1, night: 'LIESB', league: 'LIESB', schoolId: 'lins_imperial', schoolName: 'Lins Imperial', enredo: 'Pinah, a Soberana', promoted: true, statusDescription: 'Campeã (LIESB) • Subiu para a Série Ouro' },
+      { rank: 2, night: 'LIESB', league: 'LIESB', schoolId: 'em_cima_da_hora', schoolName: 'Em Cima da Hora', enredo: 'Malandro - O Rei da Boêmia e o Barão da Ralé', promoted: true, statusDescription: 'Vice-Campeã (LIESB) • Subiu para a Série Ouro' },
+      { rank: 3, night: 'LIESB', league: 'LIESB', schoolId: 'curicica', schoolName: 'União do Parque Curicica', enredo: 'Fulô de Maria', statusDescription: '3º Lugar • LIESB' },
+      { rank: 4, night: 'LIESB', league: 'LIESB', schoolId: 'imperio_da_uva', schoolName: 'Império da Uva', enredo: 'Darcy Ribeiro - O Homem Muito Além do Seu Tempo', statusDescription: '4º Lugar • LIESB' },
+      { rank: 5, night: 'LIESB', league: 'LIESB', schoolId: 'engenho_da_rainha', schoolName: 'Acadêmicos do Engenho da Rainha', enredo: 'De Roliúde ao Sertão - Luz, Câmera, Ação!', statusDescription: '5º Lugar • LIESB' },
+      { rank: 6, night: 'LIESB', league: 'LIESB', schoolId: 'uniao_de_jacarepagua', schoolName: 'União de Jacarepaguá', enredo: 'A Brasilidade Feita à Mão', statusDescription: '6º Lugar • LIESB' },
+      { rank: 7, night: 'LIESB', league: 'LIESB', schoolId: 'arranco', schoolName: 'Arranco', enredo: 'Gueledés - O Retrato da Alma', statusDescription: '7º Lugar • LIESB' },
+      { rank: 8, night: 'LIESB', league: 'LIESB', schoolId: 'vila_santa_tereza', schoolName: 'Unidos da Vila Santa Tereza', enredo: 'No Saçarico da Intendente, a Vila Canta Rosa', statusDescription: '8º Lugar • LIESB' },
+      { rank: 9, night: 'LIESB', league: 'LIESB', schoolId: 'parque_acari', schoolName: 'União do Parque Acari', enredo: 'No Início a Criação, o Céu, a Terra e o Mar, com Isso a Junção Cada Um com o Seu Par. Viva o Amor!', statusDescription: '9º Lugar • LIESB' },
+      { rank: 10, night: 'LIESB', league: 'LIESB', schoolId: 'botafogo_samba_clube', schoolName: 'Botafogo Samba Clube', enredo: 'Seria Injusto não Falar de Você, Beth Carvalho. Esse É o Botafogo Que Eu Gosto!', statusDescription: '10º Lugar • LIESB' },
+      { rank: 11, night: 'LIESB', league: 'LIESB', schoolId: 'unidos_da_vila_kennedy', schoolName: 'Unidos da Vila Kennedy', enredo: 'Um Rei à Bangu', statusDescription: '11º Lugar • LIESB' },
+      { rank: 12, night: 'LIESB', league: 'LIESB', schoolId: 'dificil_e_o_nome', schoolName: 'Difícil é o Nome', enredo: 'As Vozes das Divindades na Proteção dos Ogãns', statusDescription: '12º Lugar • LIESB' },
+      { rank: 13, night: 'LIESB', league: 'LIESB', schoolId: 'marica', schoolName: 'União de Maricá', enredo: 'Nos Tempos Idos', statusDescription: '13º Lugar • LIESB' },
+      { rank: 14, night: 'LIESB', league: 'LIESB', schoolId: 'independentes_olaria', schoolName: 'Independentes de Olaria', enredo: 'O Acólito do Rei - As Memórias do Padre Perereca', statusDescription: '14º Lugar • LIESB' },
+      { rank: 15, night: 'LIESB', league: 'LIESB', schoolId: 'jacarezinho', schoolName: 'Unidos do Jacarezinho', enredo: 'Do Professor ao Sucessor - Brilha o Passado e o Presente Azul e Branco', statusDescription: '15º Lugar • LIESB' },
+      { rank: 16, night: 'LIESB', league: 'LIESB', schoolId: 'flor_da_mina', schoolName: 'Flor da Mina do Andaraí', enredo: 'O Clamor de Mandela', statusDescription: '16º Lugar • LIESB' },
+      { rank: 17, night: 'LIESB', league: 'LIESB', schoolId: 'villa_rica', schoolName: 'Unidos da Villa Rica', enredo: 'Muito Prazer, Eu Sou o Samba', statusDescription: '17º Lugar • LIESB' },
+      { rank: 18, night: 'LIESB', league: 'LIESB', schoolId: 'sereno_campo_grande', schoolName: 'Sereno de Campo Grande', enredo: 'Essa Noite Eu Vou Te Deixar no... Sereno', statusDescription: '18º Lugar • LIESB' },
+      { rank: 19, night: 'LIESB', league: 'LIESB', schoolId: 'passa_regua', schoolName: 'Passa Régua', enredo: 'Porque Sou Homem das Ruas, Filho da Noite Estrelada', statusDescription: '19º Lugar • LIESB' },
+      { rank: 20, night: 'LIESB', league: 'LIESB', schoolId: 'academicos_do_jardim_bangu', schoolName: 'Acadêmicos do Jardim Bangu', enredo: 'Da Mãe África aos Filhos do Brasil, a Força Ancestral que Atravessa Gerações', relegated: true, statusDescription: '20º Lugar (LIESB) • Rebaixada para a Série Bronze' }
+    ],
+    livres: [
+      { rank: 1, night: 'Série B', league: 'LIVRES', schoolId: 'tradicao', schoolName: 'Tradição', enredo: 'Mãe Gentil, Seus Filhos Clamam Por Ti!', statusDescription: 'Campeã LIVRES (Série B)' },
+      { rank: 2, night: 'Série B', league: 'LIVRES', schoolId: 'alegria_da_zona_sul', schoolName: 'Alegria da Zona Sul', enredo: 'Ypanema', statusDescription: 'Vice-Campeã LIVRES (Série B)' },
+      { rank: 3, night: 'Série B', league: 'LIVRES', schoolId: 'unidos_de_lucas', schoolName: 'Unidos de Lucas', enredo: 'O Big Bang Tupiniquim Explode na Intendente!', statusDescription: '3º Lugar • LIVRES (Série B)' },
+      { rank: 4, night: 'Série B', league: 'LIVRES', schoolId: 'siri_de_ramos', schoolName: 'Siri de Ramos', enredo: 'Ganga Zumba - A Dinastia de um Guerreiro', statusDescription: '4º Lugar • LIVRES (Série B)' },
+      { rank: 5, night: 'Série B', league: 'LIVRES', schoolId: 'vizinha_faladeira', schoolName: 'Vizinha Faladeira', enredo: 'Aqui ou Acolá, Este É o Meu Lugar', statusDescription: '5º Lugar • LIVRES (Série B)' },
+      { rank: 6, night: 'Série B', league: 'LIVRES', schoolId: 'arame_de_ricardo', schoolName: 'Arame de Ricardo', enredo: 'Sou Eu Quem Faz Você Sambar', statusDescription: '6º Lugar • LIVRES (Série B)' }
+    ]
   }
 };
 
@@ -1686,7 +1990,9 @@ export const OFFICIAL_PRATA_NOTES_BY_YEAR: Record<number, string> = {
   2025: 'Carnaval de 2025: O desfile foi realizado em três noites, com rebaixamento das duas últimas colocadas de cada noite (Concentra Imperial, Boi da Ilha do Governador, Unidos da Barra da Tijuca, Sereno de Campo Grande, Flor da Mina do Andaraí e Alegria de Copacabana). Unidos do Jacarezinho (Campeã) subiu à Série Ouro, e Acadêmicos da Rocinha desfilou como Hors concours.',
   2024: 'Carnaval de 2024: Desfile em duas noites (16 escolas por noite). Tradição (1ª da 2ª Noite • Campeã Geral) e Botafogo Samba Clube (1ª da 1ª Noite • Vice-Campeã Geral) conquistaram o acesso à Série Ouro. As três últimas de cada noite foram rebaixadas para a Série Bronze: Caprichosos de Pilares, Acadêmicos de Jacarepaguá e Arame de Ricardo (1ª Noite); Acadêmicos do Dendê, Lins Imperial e Força Jovem / União Cruzmaltina (2ª Noite).',
   2023: 'Carnaval de 2023: Houve dois desfiles competitivos — Superliga (em duas noites, com acesso à Série Ouro para União de Maricá como Campeã Geral, Sereno de Campo Grande como Vice-Campeã Geral e União do Parque Acari como melhor colocada geral, além do rebaixamento das três últimas de cada noite: Acadêmicos do Peixe, Rosa de Ouro, Raça Rubro-Negra, Acadêmicos da Diversidade, União do Parque Curicica e Unidos de São Cristóvão) e LIVRES (Grupo B, com título da Vizinha Faladeira e vice-campeonato da Tradição).',
-  2022: 'Carnaval de 2022: Houve dois desfiles — Superliga (dividido em duas noites, com acesso à Série Ouro para União de Jacarepaguá como Campeã Geral e Arranco do Engenho de Dentro como Vice-Campeã Geral, além do rebaixamento de Difícil é o Nome, Unidos da Villa Rica e Unidos da Vila Kennedy para a Série Bronze) e LIVRES (Grupo B, com título da Acadêmicos do Engenho da Rainha e vice-campeonato da Vizinha Faladeira).'
+  2022: 'Carnaval de 2022: Houve dois desfiles — Superliga (dividido em duas noites, com acesso à Série Ouro para União de Jacarepaguá como Campeã Geral e Arranco do Engenho de Dentro como Vice-Campeã Geral, além do rebaixamento de Difícil é o Nome, Unidos da Villa Rica e Unidos da Vila Kennedy para a Série Bronze) e LIVRES (Grupo B, com título da Acadêmicos do Engenho da Rainha e vice-campeonato da Vizinha Faladeira).',
+  2021: 'Carnaval de 2021: Não houve desfiles da Série Prata na Estrada Intendente Magalhães em virtude da pandemia de COVID-19.',
+  2020: 'Carnaval de 2020: Ocorreram dois desfiles — o primeiro organizado pela LIESB (com acesso à Série Ouro para a campeã Lins Imperial e a vice-campeã Em Cima da Hora, e rebaixamento da 20ª colocada Acadêmicos do Jardim Bangu para a Série Bronze) e o desfile da LIVRES denominado Série B (com título da Tradição e vice-campeonato da Alegria da Zona Sul).'
 };
 
 /**

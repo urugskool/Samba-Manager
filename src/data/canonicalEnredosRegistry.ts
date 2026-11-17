@@ -451,6 +451,8 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   }
   if (raw.includes('em cima da hora') || raw.includes('cima da hora')) return 'em_cima_da_hora';
   if (raw.includes('unidos da ponte') || raw.includes('ponte')) return 'unidos_da_ponte';
+  if (raw.includes('jardim bangu') || raw.includes('jardim_bangu')) return 'academicos_do_jardim_bangu';
+  if (raw.includes('passa régua') || raw.includes('passa regua') || raw.includes('passa_regua')) return 'passa_regua';
   if (raw.includes('bangu')) return 'unidos_de_bangu';
   if (raw.includes('arranco')) return 'arranco';
   if (raw.includes('foliões') || raw.includes('folioes')) return 'folioes_de_botafogo';

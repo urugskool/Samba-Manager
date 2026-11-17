@@ -57,6 +57,8 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('vila são luís') || name.includes('vila sao luis') || clean.includes('vila_sao_luis')) return 'unidos_da_vila_sao_luis';
   if (name.includes('vigário') || name.includes('vigario')) return 'vigario_geral';
   if (name.includes('ponte')) return 'unidos_da_ponte';
+  if (name.includes('jardim bangu') || clean.includes('jardim_bangu')) return 'academicos_do_jardim_bangu';
+  if (name.includes('passa régua') || name.includes('passa regua') || clean === 'passa_regua') return 'passa_regua';
   if (name.includes('bangu')) return 'unidos_de_bangu';
   if (name.includes('arranco')) return 'arranco';
   if (name.includes('inocentes')) return 'inocentes';

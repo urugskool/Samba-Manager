@@ -538,7 +538,42 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     renascer_de_jacarepagua: 'Eu que te Benzo, Deus que te Cura',
     renascer: 'Eu que te Benzo, Deus que te Cura',
     rocinha: 'A Guerreira Negra que Dominou Dois Mundos',
-    academicos_da_rocinha: 'A Guerreira Negra que Dominou Dois Mundos'
+    academicos_da_rocinha: 'A Guerreira Negra que Dominou Dois Mundos',
+
+    // Série Prata 2020 — LIESB
+    lins_imperial: 'Pinah, a Soberana',
+    em_cima_da_hora: 'Malandro - O Rei da Boêmia e o Barão da Ralé',
+    curicica: 'Fulô de Maria',
+    uniao_do_parque_curicica: 'Fulô de Maria',
+    imperio_da_uva: 'Darcy Ribeiro - O Homem Muito Além do Seu Tempo',
+    engenho_da_rainha: 'De Roliúde ao Sertão - Luz, Câmera, Ação!',
+    uniao_de_jacarepagua: 'A Brasilidade Feita à Mão',
+    arranco: 'Gueledés - O Retrato da Alma',
+    arranco_do_engenho_de_dentro: 'Gueledés - O Retrato da Alma',
+    vila_santa_tereza: 'No Saçarico da Intendente, a Vila Canta Rosa',
+    parque_acari: 'No Início a Criação, o Céu, a Terra e o Mar, com Isso a Junção Cada Um com o Seu Par. Viva o Amor!',
+    uniao_do_parque_acari: 'No Início a Criação, o Céu, a Terra e o Mar, com Isso a Junção Cada Um com o Seu Par. Viva o Amor!',
+    botafogo_samba_clube: 'Seria Injusto não Falar de Você, Beth Carvalho. Esse É o Botafogo Que Eu Gosto!',
+    unidos_da_vila_kennedy: 'Um Rei à Bangu',
+    dificil_e_o_nome: 'As Vozes das Divindades na Proteção dos Ogãns',
+    marica: 'Nos Tempos Idos',
+    uniao_de_marica: 'Nos Tempos Idos',
+    independentes_olaria: 'O Acólito do Rei - As Memórias do Padre Perereca',
+    jacarezinho: 'Do Professor ao Sucessor - Brilha o Passado e o Presente Azul e Branco',
+    flor_da_mina: 'O Clamor de Mandela',
+    villa_rica: 'Muito Prazer, Eu Sou o Samba',
+    unidos_da_villa_rica: 'Muito Prazer, Eu Sou o Samba',
+    sereno_campo_grande: 'Essa Noite Eu Vou Te Deixar no... Sereno',
+    passa_regua: 'Porque Sou Homem das Ruas, Filho da Noite Estrelada',
+    academicos_do_jardim_bangu: 'Da Mãe África aos Filhos do Brasil, a Força Ancestral que Atravessa Gerações',
+
+    // Série Prata 2020 — LIVRES (Série B)
+    tradicao: 'Mãe Gentil, Seus Filhos Clamam Por Ti!',
+    alegria_da_zona_sul: 'Ypanema',
+    unidos_de_lucas: 'O Big Bang Tupiniquim Explode na Intendente!',
+    siri_de_ramos: 'Ganga Zumba - A Dinastia de um Guerreiro',
+    vizinha_faladeira: 'Aqui ou Acolá, Este É o Meu Lugar',
+    arame_de_ricardo: 'Sou Eu Quem Faz Você Sambar'
   },
   2019: {
     // Grupo Especial 2019
@@ -4874,6 +4909,8 @@ function normalizeId(rawId?: string, rawName?: string): string {
     if (id.includes('cordovil') || id.includes('leblon')) return 'independentes_cordovil';
     if (id.includes('cartolinhas')) return 'cartolinhas_de_caxias';
     if (id.includes('manguinhos')) return 'unidos_de_manguinhos';
+    if (id.includes('jardim_bangu')) return 'academicos_do_jardim_bangu';
+    if (id.includes('passa_regua')) return 'passa_regua';
     if (id.includes('jardim')) return 'unidos_do_jardim';
     if (id.includes('aprendizes_de_lucas')) return 'aprendizes_de_lucas';
     if (id.includes('capela')) return 'unidos_da_capela';
@@ -5069,6 +5106,8 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('cordovil') || n.includes('leblon')) return 'independentes_cordovil';
   if (n.includes('cartolinhas')) return 'cartolinhas_de_caxias';
   if (n.includes('manguinhos')) return 'unidos_de_manguinhos';
+  if (n.includes('jardim bangu')) return 'academicos_do_jardim_bangu';
+  if (n.includes('passa régua') || n.includes('passa regua')) return 'passa_regua';
   if (n.includes('jardim')) return 'unidos_do_jardim';
   if (n.includes('marangá') || n.includes('maranga')) return 'imperio_do_maranga';
   if (n.includes('união do cruzeiro') || n.includes('uniao do cruzeiro')) return 'uniao_do_cruzeiro';

@@ -101,7 +101,11 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
   const [subgroup1950Tab, setSubgroup1950Tab] = useState<'geral' | 'fbes' | 'uces' | 'ugesb'>('geral');
   const [subgroup1949Tab, setSubgroup1949Tab] = useState<'geral' | 'fbes' | 'ugesb'>('geral');
   const [subgroup1934Tab, setSubgroup1934Tab] = useState<'geral' | 'o_pais' | 'a_hora'>('geral');
-  const [subgroupPrataTab, setSubgroupPrataTab] = useState<'geral' | 'noite1' | 'noite2' | 'livres'>('geral');
+  const [subgroupPrataTab, setSubgroupPrataTab] = useState<'geral' | 'noite1' | 'noite2' | 'liesb' | 'livres'>('geral');
+
+  useEffect(() => {
+    setSubgroupPrataTab('geral');
+  }, [selectedPastYear]);
 
   // Atualiza tab quando o modal é aberto
   useEffect(() => {
@@ -249,6 +253,8 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
         baseList = currentPastPrataCarnaval.subgroups.noite1;
       } else if (subgroupPrataTab === 'noite2' && currentPastPrataCarnaval.subgroups.noite2) {
         baseList = currentPastPrataCarnaval.subgroups.noite2;
+      } else if (subgroupPrataTab === 'liesb' && currentPastPrataCarnaval.subgroups.liesb) {
+        baseList = currentPastPrataCarnaval.subgroups.liesb;
       } else if (subgroupPrataTab === 'livres' && currentPastPrataCarnaval.subgroups.livres) {
         baseList = currentPastPrataCarnaval.subgroups.livres;
       }
@@ -1482,7 +1488,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                         </div>
                       </div>
 
-                      {/* Multi-night / multi-league selector for Série Prata when applicable (ex: 2023, 2024) */}
+                      {/* Multi-night / multi-league selector for Série Prata when applicable (ex: 2020, 2022, 2023, 2024) */}
                       {currentPastPrataCarnaval.subgroups && (
                         <div className="p-3.5 rounded-2xl bg-slate-950 border border-slate-700/60 space-y-2">
                           <div className="flex items-center justify-between text-xs">
@@ -1492,12 +1498,22 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                 : `Noites de Desfile (${currentPastPrataCarnaval.year}):`}
                             </span>
                             <span className="text-slate-400 text-[11px]">
-                              {currentPastPrataCarnaval.subgroups.livres
+                              {currentPastPrataCarnaval.subgroups.liesb
+                                ? 'LIESB + LIVRES (Série B)'
+                                : currentPastPrataCarnaval.subgroups.livres
                                 ? 'Superliga (2 Noites) + LIVRES (Grupo B)'
                                 : '2 Noites Competitivas'}
                             </span>
                           </div>
-                          <div className={`grid grid-cols-1 gap-2 ${currentPastPrataCarnaval.subgroups.livres ? 'sm:grid-cols-2 lg:grid-cols-4' : 'sm:grid-cols-3'}`}>
+                          <div
+                            className={`grid grid-cols-1 gap-2 ${
+                              currentPastPrataCarnaval.subgroups.liesb
+                                ? 'sm:grid-cols-3'
+                                : currentPastPrataCarnaval.subgroups.livres
+                                ? 'sm:grid-cols-2 lg:grid-cols-4'
+                                : 'sm:grid-cols-3'
+                            }`}
+                          >
                             <button
                               onClick={() => {
                                 setSubgroupPrataTab('geral');
@@ -1514,6 +1530,26 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                 Campeã: {currentPastPrataCarnaval.championNames.join(' & ')}
                               </div>
                             </button>
+                            {currentPastPrataCarnaval.subgroups.liesb && (
+                              <button
+                                onClick={() => {
+                                  setSubgroupPrataTab('liesb');
+                                  setExpandedSchoolId(null);
+                                }}
+                                className={`p-2 rounded-xl text-left border transition cursor-pointer text-xs ${
+                                  subgroupPrataTab === 'liesb'
+                                    ? 'bg-emerald-500/20 border-emerald-400 text-white'
+                                    : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
+                                }`}
+                              >
+                                <div className="font-bold text-emerald-400 text-[11px]">
+                                  LIESB ({currentPastPrataCarnaval.subgroups.liesb.length} Escolas)
+                                </div>
+                                <div className="text-[10px] text-slate-300 truncate">
+                                  1ª: {currentPastPrataCarnaval.subgroups.liesb.find((s) => s.rank === 1)?.schoolName || '—'}
+                                </div>
+                              </button>
+                            )}
                             {currentPastPrataCarnaval.subgroups.noite1 && (
                               <button
                                 onClick={() => {
@@ -1567,7 +1603,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                 }`}
                               >
                                 <div className="font-bold text-amber-400 text-[11px]">
-                                  LIVRES • Grupo B ({currentPastPrataCarnaval.subgroups.livres.length} Escolas)
+                                  LIVRES • {currentPastPrataCarnaval.year === 2020 ? 'Série B' : 'Grupo B'} ({currentPastPrataCarnaval.subgroups.livres.length} Escolas)
                                 </div>
                                 <div className="text-[10px] text-slate-300 truncate">
                                   1ª: {currentPastPrataCarnaval.subgroups.livres.find((s) => s.rank === 1)?.schoolName || '—'}
