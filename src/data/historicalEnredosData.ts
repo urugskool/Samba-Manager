@@ -332,7 +332,54 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     lins_imperial: 'Madame Satã: Resistir Para Existir',
     lins: 'Madame Satã: Resistir Para Existir',
     uniao_de_jacarepagua: 'Manoel Congo, Mariana Crioula - Heróis da Liberdade no Vale do Café',
-    jacarepagua: 'Manoel Congo, Mariana Crioula - Heróis da Liberdade no Vale do Café'
+    jacarepagua: 'Manoel Congo, Mariana Crioula - Heróis da Liberdade no Vale do Café',
+
+    // Série Prata 2023 (Superliga)
+    marica: 'Eu sigo nordestino',
+    uniao_de_marica: 'Eu sigo nordestino',
+    parque_acari: 'Uma doce ilusão no mundo da imaginação',
+    uniao_do_parque_acari: 'Uma doce ilusão no mundo da imaginação',
+    rocinha: 'As borboletas encantadas da bela Oyá',
+    leao_de_nova_iguacu: 'Orlando Orfei - O circo que vive em mim',
+    santa_cruz: 'Santa é minha Cruz. É luz da preservação. O meu canto é flecha certeira, para findar o pranto da devastação!',
+    engenho_da_rainha: 'O bem, Amado Jorge',
+    unidos_de_lucas: 'É ela... a maravilhosa Rainha do Samba',
+    jacarezinho: 'Alô alô, algodão doce pra vocês!',
+    vila_santa_tereza: 'Santa Teresa, rogai por nós!',
+    caprichosos_de_pilares: 'Gosto que me enrosco. Caprichosamente vamos reviver',
+    praca_da_bandeira: 'Pindorama, da utopia das visões gerais do paraíso ao progresso da Terra Brasilis',
+    abolicao: 'Bato tambor, logo existo". Luiz Antonio Simas - a essência e resistência da rua',
+    academicos_de_jacarepagua: 'De Maria a Marias',
+    academicos_do_peixe: 'Preto de berço, espoliação branca',
+    rosa_de_ouro: 'Inhame, a raiz do fundamento que me faz feliz! Sou popo, sou ouro, sou Costa do Marfim no Carnaval do Rio',
+    raca_rubro_negra: 'Raízes de uma raça',
+    sereno_campo_grande: 'As três princesas turcas no Reino de Pindorama',
+    renascer_jacarepagua: 'O Afro-Brasil reluzente de Nei Lopes',
+    santa_marta: 'Cangaceiras - Mulé di resistência e coragem, nem o cangaço assutou, quando o sertão virou mar, o Morro da Santa sambou',
+    botafogo_samba_clube: 'Pelos trilhos da história: Engenho de Dentro de lutas, batuques e glórias',
+    independentes_olaria: 'Merìndílógún - A fala dos ancestrais',
+    academicos_do_dende: 'Gosto que me enrosco!',
+    imperio_da_uva: 'Laroyê, rainha das Marias',
+    uniao_cruzmaltina: 'Rodeia, rodeia... rodeia, meu Pai Santana, rodeia',
+    flor_da_mina: 'Obá Xirê',
+    alegria_da_zona_sul: 'Dorival Caymmi, o mar e o tempo nas areias de Copacabana',
+    arame_de_ricardo: 'Da Baixada para o Brasil, André Ceciliano! Nas estações do progresso pela união de um povo',
+    arrastao_cascadura: 'Sou caipira peregrino pirapora',
+    cubango: 'Fruto da África no Brasil de fé: Candomblé',
+    academicos_da_diversidade: 'Umbanda - Diversidade é paz, amor e caridade!',
+    curicica: 'Pedro Scooby - Amante desse mar de gente da Curicica!',
+    sao_cristovao: 'Águas de Oxalá',
+    unidos_de_sao_cristovao: 'Águas de Oxalá',
+
+    // Série Prata 2023 (LIVRES - Grupo B)
+    vizinha_faladeira: 'Um passeio na Pequena África - A herança do meu Rio de Janeiro',
+    tradicao: 'Filho da Águia, pai do Condor. Nésio Nascimento, o eterno gato mestre da Passarela',
+    novo_imperio: 'Cais do Valongo - De mar a mar, batalhas e glórias',
+    academicos_da_pedra_branca: "Aldeia Maraka'Ná: a universidade que existe e resiste",
+    siri_de_ramos: 'Personalidade mulher',
+    mensageiros_da_paz: 'Contos e resistência de um povo',
+    garras_do_tigre: 'Belém do Pará - Um show de brasilidade',
+    academia_niteroi_de_samba: 'A alegria que renasce das cinzas'
   },
   2022: {
     // Grupo Especial 2022
@@ -4819,6 +4866,17 @@ function normalizeId(rawId?: string, rawName?: string): string {
     if (id.includes('academicos_de_jacarepagua')) return 'academicos_de_jacarepagua';
     if (id.includes('arame_de_ricardo')) return 'arame_de_ricardo';
     if (id.includes('forca_jovem') || id.includes('uniao_cruzmaltina')) return 'uniao_cruzmaltina';
+    if (id.includes('academicos_do_peixe')) return 'academicos_do_peixe';
+    if (id.includes('rosa_de_ouro')) return 'rosa_de_ouro';
+    if (id.includes('raca_rubro_negra')) return 'raca_rubro_negra';
+    if (id.includes('academicos_da_diversidade')) return 'academicos_da_diversidade';
+    if (id === 'sao_cristovao' || id.includes('unidos_de_sao_cristovao')) return 'sao_cristovao';
+    if (id.includes('novo_imperio')) return 'novo_imperio';
+    if (id.includes('pedra_branca')) return 'academicos_da_pedra_branca';
+    if (id.includes('mensageiros_da_paz')) return 'mensageiros_da_paz';
+    if (id.includes('garras_do_tigre')) return 'garras_do_tigre';
+    if (id.includes('academia_niteroi')) return 'academia_niteroi_de_samba';
+    if (id.includes('parque_acari')) return 'parque_acari';
     return id;
   }
   if (!rawName) return '';
@@ -4879,6 +4937,7 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('santa cruz')) return 'santa_cruz';
   if (n.includes('cabuçu') || n.includes('cabucu')) return 'cabucu';
   if (n.includes('dendê') || n.includes('dende')) return 'academicos_do_dende';
+  if (n.includes('academia niterói') || n.includes('academia niteroi')) return 'academia_niteroi_de_samba';
   if (n.includes('niterói') || n.includes('niteroi')) return 'niteroi';
   if (n.includes('arrastão') || n.includes('arrastao')) return 'arrastao_cascadura';
   if (n.includes('arranco')) return 'arranco';
@@ -5012,6 +5071,16 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('acadêmicos de jacarepaguá') || n.includes('academicos de jacarepagua')) return 'academicos_de_jacarepagua';
   if (n.includes('arame de ricardo')) return 'arame_de_ricardo';
   if (n.includes('força jovem') || n.includes('forca jovem') || n.includes('cruzmaltina')) return 'uniao_cruzmaltina';
+  if (n.includes('parque acari')) return 'parque_acari';
+  if (n.includes('acadêmicos do peixe') || n.includes('academicos do peixe')) return 'academicos_do_peixe';
+  if (n.includes('rosa de ouro')) return 'rosa_de_ouro';
+  if (n.includes('raça rubro') || n.includes('raca rubro')) return 'raca_rubro_negra';
+  if (n.includes('diversidade')) return 'academicos_da_diversidade';
+  if (n.includes('unidos de são cristóvão') || n.includes('unidos de sao cristovao')) return 'sao_cristovao';
+  if (n.includes('novo império') || n.includes('novo imperio')) return 'novo_imperio';
+  if (n.includes('pedra branca')) return 'academicos_da_pedra_branca';
+  if (n.includes('mensageiros da paz')) return 'mensageiros_da_paz';
+  if (n.includes('garras do tigre')) return 'garras_do_tigre';
   return '';
 }
 

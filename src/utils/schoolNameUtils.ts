@@ -40,6 +40,9 @@ export function cleanSchoolName(nameOrSchool?: string | School | null): string {
     .replace(/^CCES\s+/i, '')
     .replace(/^S\.?R\.?E\.?S\.?\s+/i, '')
     .replace(/^SRES\s+/i, '')
+    .replace(/^Sociedade Recreativa Cultural Escola\s+/i, '')
+    .replace(/^S\.?R\.?C\.?E\.?\s+/i, '')
+    .replace(/^SRCE\s+/i, '')
     .replace(/^A\.?C\.?E\.?S\.?\s+/i, '')
     .replace(/^ACES\s+/i, '')
     .replace(/^G\.?R\.?B\.?C\.?C\.?\s+/i, '')
@@ -99,6 +102,9 @@ export function getSchoolDenominationExtenso(school: School): string {
   }
   if (denom === 'SERES' || denom === 'S.E.R.E.S.') {
     return 'Sociedade Esportiva Recreativa Escola de Samba';
+  }
+  if (denom === 'S.R.C.E.' || denom === 'SRCE') {
+    return 'Sociedade Recreativa Cultural Escola';
   }
   if (denom === 'G.R.B.C.' || denom === 'GRBC') {
     return 'Grêmio Recreativo Bloco Carnavalesco';

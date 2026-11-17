@@ -88,6 +88,7 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('tuiuti')) return 'tuiuti';
   if (name.includes('cidade de deus') || clean.includes('cidade_de_deus')) return 'mocidade_cidade_de_deus';
   if (name.includes('mocidade') && !name.includes('santa marta')) return 'mocidade';
+  if (name.includes('academia niterói') || name.includes('academia niteroi') || clean === 'academia_niteroi_de_samba') return 'academia_niteroi_de_samba';
   if (name.includes('niterói') || name.includes('niteroi')) return 'niteroi';
   if (name.includes('santa cruz')) return 'santa_cruz';
   if (name.includes('são clemente') || name.includes('sao clemente')) return 'sao_clemente';
@@ -173,6 +174,15 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('acadêmicos de jacarepaguá') || name.includes('academicos de jacarepagua') || clean === 'academicos_de_jacarepagua') return 'academicos_de_jacarepagua';
   if (name.includes('arame de ricardo') || clean === 'arame_de_ricardo') return 'arame_de_ricardo';
   if (name.includes('força jovem') || name.includes('forca jovem') || name.includes('cruzmaltina') || clean === 'forca_jovem' || clean === 'uniao_cruzmaltina') return 'uniao_cruzmaltina';
+  if (name.includes('acadêmicos do peixe') || name.includes('academicos do peixe') || clean === 'academicos_do_peixe') return 'academicos_do_peixe';
+  if (name.includes('rosa de ouro') || clean === 'rosa_de_ouro') return 'rosa_de_ouro';
+  if (name.includes('raça rubro') || name.includes('raca rubro') || clean === 'raca_rubro_negra') return 'raca_rubro_negra';
+  if (name.includes('diversidade') || clean === 'academicos_da_diversidade') return 'academicos_da_diversidade';
+  if (name.includes('unidos de são cristóvão') || name.includes('unidos de sao cristovao') || clean === 'sao_cristovao') return 'sao_cristovao';
+  if (name.includes('novo império') || name.includes('novo imperio') || clean === 'novo_imperio') return 'novo_imperio';
+  if (name.includes('pedra branca') || clean === 'academicos_da_pedra_branca') return 'academicos_da_pedra_branca';
+  if (name.includes('mensageiros da paz') || clean === 'mensageiros_da_paz') return 'mensageiros_da_paz';
+  if (name.includes('garras do tigre') || clean === 'garras_do_tigre') return 'garras_do_tigre';
 
   return clean || name.replace(/\s+/g, '_');
 }
