@@ -188,6 +188,7 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('vila kennedy') || clean === 'unidos_da_vila_kennedy' || clean === 'vila_kennedy') return 'unidos_da_vila_kennedy';
   if (name.includes('imperadores rubro') || clean === 'imperadores_rubro_negros') return 'imperadores_rubro_negros';
   if (name.includes('vargens') || clean.includes('vargens')) return 'unidos_das_vargens';
+  if (name.includes('favo') || clean.includes('favo')) return 'favo_de_acari';
 
   return clean || name.replace(/\s+/g, '_');
 }

@@ -777,7 +777,29 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     alegria: 'Vou festejar com Beth Carvalho, a Madrinha do Samba',
     curicica: 'O importante é ser feliz e mais nada!',
     parque_curicica: 'O importante é ser feliz e mais nada!',
-    uniao_do_parque_curicica: 'O importante é ser feliz e mais nada!'
+    uniao_do_parque_curicica: 'O importante é ser feliz e mais nada!',
+
+    // Série Prata 2017
+    unidos_de_bangu: 'Onde Há Fumaça, Há Fogo!',
+    bangu: 'Onde Há Fumaça, Há Fogo!',
+    cabucu: 'Domingo Menino Dominguinhos',
+    unidos_do_cabucu: 'Domingo Menino Dominguinhos',
+    tradicao: 'O Lago dos Cisnes',
+    arame_de_ricardo: 'Ora, Pois… Hoje o Banquete É Real',
+    em_cima_da_hora: 'Maria, Nossa Mãe Aparecida: 300 Anos de Bençãos!',
+    engenho_da_rainha: 'Zé Keti... A Voz do Morro Sou Eu Mesmo sim Senhor',
+    academicos_do_engenho_da_rainha: 'Zé Keti... A Voz do Morro Sou Eu Mesmo sim Senhor',
+    vizinha_faladeira: 'A Última do Português a Que nem Camões Contaria...',
+    unidos_da_ponte: 'Roberto Ribeiro, o Menino Rei',
+    ponte: 'Roberto Ribeiro, o Menino Rei',
+    jacarezinho: 'O Dia em Que o Jacaré Comeu a Noite',
+    unidos_do_jacarezinho: 'O Dia em Que o Jacaré Comeu a Noite',
+    leao_de_nova_iguacu: 'llê Axé Opô Afonjá - O Rei Está na Terra',
+    caprichosos_de_pilares: 'Não Deu pra Mudar o Começo, mas Vamos Mudar o Final',
+    caprichosos: 'Não Deu pra Mudar o Começo, mas Vamos Mudar o Final',
+    favo_de_acari: 'O Samba não Tem Fronteiras, o Favo de Acari Conta a História dos Bambas da Mangueira',
+    santa_marta: 'Bip Bip, Um Bar a Serviço da Alegria. Lá Onde o Samba Está em Casa!',
+    mocidade_unida_do_santa_marta: 'Bip Bip, Um Bar a Serviço da Alegria. Lá Onde o Samba Está em Casa!'
   },
   2016: {
     // Grupo Especial 2016
@@ -833,7 +855,32 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     rocinha: 'Nova Roma é Brasil, Brasil é Rocinha!',
     academicos_da_rocinha: 'Nova Roma é Brasil, Brasil é Rocinha!',
     caprichosos_de_pilares: 'Tem gringo no samba!',
-    caprichosos: 'Tem gringo no samba!'
+    caprichosos: 'Tem gringo no samba!',
+
+    // Série Prata 2016
+    academicos_do_sossego: 'O Circo do Menino Passarinho',
+    sossego: 'O Circo do Menino Passarinho',
+    tradicao: 'Clementina, cade você?',
+    leao_de_nova_iguacu: 'Pas de Dance. Hoje tem festa no arraia!',
+    em_cima_da_hora: 'Na rota das especiarias: O leva e traz de cheiros, as surpresas da nova terra!',
+    arame_de_ricardo: 'No sassarico das vedetes, do brotinho e da madame; Sassaricando no meu Rio, levo a vida no Arame!',
+    unidos_de_bangu: '60 anos de glórias. A Estrela Guia Bangu rumo à vitória!',
+    bangu: '60 anos de glórias. A Estrela Guia Bangu rumo à vitória!',
+    santa_marta: 'Santa Marta conta historia encantada dos brinquedos!',
+    mocidade_unida_do_santa_marta: 'Santa Marta conta historia encantada dos brinquedos!',
+    jacarezinho: 'Aha, Uhu! É festa do Jacarezinho: 50 anos de cultura, arte e alegria de uma comunidade!',
+    unidos_do_jacarezinho: 'Aha, Uhu! É festa do Jacarezinho: 50 anos de cultura, arte e alegria de uma comunidade!',
+    unidos_da_ponte: 'Africanidades - Do continente negro à pequena África... Nossa identidade cultural!',
+    ponte: 'Africanidades - Do continente negro à pequena África... Nossa identidade cultural!',
+    favo_de_acari: 'Os Deuses do Olimpo rasgam o céu do Rio de Janeiro na festa do esporte para brincar no Carnaval',
+    cabucu: 'A festa é nossa e ninguém tasca! São 70 anos de Xou da Cabuçu no mundo mágico do carnaval!',
+    unidos_do_cabucu: 'A festa é nossa e ninguém tasca! São 70 anos de Xou da Cabuçu no mundo mágico do carnaval!',
+    engenho_da_rainha: 'Salve, Rainha!',
+    academicos_do_engenho_da_rainha: 'Salve, Rainha!',
+    uniao_de_jacarepagua: 'De grão em grão a galinha enche o papo!',
+    unidos_de_lucas: 'Unidos de Lucas, 50 anos de glórias... Parabéns aos bambas e a força do samba!',
+    arranco: 'Pelo Engenho de Dentro, de amores eu me Arranco!',
+    unidos_das_vargens: 'A fala da favela para o mundo'
   },
   2015: {
     // Grupo Especial 2015
@@ -890,7 +937,34 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     alegria: 'Kari’Oka',
     unidos_de_bangu: 'Imperium',
     bangu: 'Imperium',
-    em_cima_da_hora: 'No coração da cidade, uma história das Mil e Uma Noites: O Rio das Arábias'
+    em_cima_da_hora: 'No coração da cidade, uma história das Mil e Uma Noites: O Rio das Arábias',
+
+    // Série Prata 2015
+    rocinha: 'Borboleteando nos destinos da vida! O que te desafia te transforma!',
+    academicos_da_rocinha: 'Borboleteando nos destinos da vida! O que te desafia te transforma!',
+    jacarezinho: 'Pirilampos – Uma lenda Curumim!',
+    unidos_do_jacarezinho: 'Pirilampos – Uma lenda Curumim!',
+    uniao_de_jacarepagua: 'Da Corte de Obatalá à terra dos Tupinambas!',
+    tradicao: 'Nhá Chica: a beata negra e guerreira do Brasil!',
+    santa_marta: 'O dia que o povo tomar a rua será carnaval!',
+    mocidade_unida_do_santa_marta: 'O dia que o povo tomar a rua será carnaval!',
+    arranco: 'Oh! Que saudades que eu tenho!',
+    unidos_de_lucas: 'Em busca do destino!',
+    arame_de_ricardo: 'Tá de brincadeira?',
+    academicos_do_sossego: 'Banananás - O encontro da Rainha Mariola Banana Pacova do Congo e d’Angola com o Rei Amazônico Ananás Ibá-Cachi, da Corte dos Abacaxis de Serpa',
+    sossego: 'Banananás - O encontro da Rainha Mariola Banana Pacova do Congo e d’Angola com o Rei Amazônico Ananás Ibá-Cachi, da Corte dos Abacaxis de Serpa',
+    engenho_da_rainha: 'Ojuobá: O vencedor se ergue além da dor!',
+    academicos_do_engenho_da_rainha: 'Ojuobá: O vencedor se ergue além da dor!',
+    unidos_da_ponte: 'O rei da mata pede passagem - São Sebastião, nosso padroeiro. Da Ponte e do Rio de Janeiro',
+    ponte: 'O rei da mata pede passagem - São Sebastião, nosso padroeiro. Da Ponte e do Rio de Janeiro',
+    cabucu: 'Nossa senhora Aparecida – O Milagre!',
+    unidos_do_cabucu: 'Nossa senhora Aparecida – O Milagre!',
+    favo_de_acari: 'Favo de Acari apresenta: Ceasa, 40 anos de história a serviço do povo!',
+    sereno_campo_grande: 'De azul e branco a Coruja pinta o sete na Avenida!',
+    vila_santa_tereza: 'Aquarela negra de Debret',
+    rosa_de_ouro: 'Maquiagem: A arte da transformação!',
+    unidos_da_vila_kennedy: 'Saçaricando por aí a Vedete escolheu seu paraíso: Piraí',
+    abolicao: 'E assim se descobriu o Rio de Janeiro do Brasil!'
   },
   2014: {
     // Grupo Especial 2014
@@ -5003,6 +5077,7 @@ function normalizeId(rawId?: string, rawName?: string): string {
     if (id.includes('vila_kennedy')) return 'unidos_da_vila_kennedy';
     if (id.includes('imperadores_rubro')) return 'imperadores_rubro_negros';
     if (id.includes('vargens')) return 'unidos_das_vargens';
+    if (id.includes('favo')) return 'favo_de_acari';
     return id;
   }
   if (!rawName) return '';
@@ -5214,6 +5289,7 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('vila kennedy')) return 'unidos_da_vila_kennedy';
   if (n.includes('imperadores rubro')) return 'imperadores_rubro_negros';
   if (n.includes('vargens')) return 'unidos_das_vargens';
+  if (n.includes('favo')) return 'favo_de_acari';
   return '';
 }
 

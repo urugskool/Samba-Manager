@@ -1980,6 +1980,357 @@ export const OFFICIAL_PRATA_HISTORICAL_STANDINGS: Record<number, PrataStandingRe
       relegated: true,
       statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
     }
+  ],
+  2017: [
+    {
+      rank: 1,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: 'Onde Há Fumaça, Há Fogo!',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Domingo Menino Dominguinhos',
+      statusDescription: 'Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'tradicao',
+      schoolName: 'Tradição',
+      enredo: 'O Lago dos Cisnes',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'arame_de_ricardo',
+      schoolName: 'Arame de Ricardo',
+      enredo: 'Ora, Pois… Hoje o Banquete É Real',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Maria, Nossa Mãe Aparecida: 300 Anos de Bençãos!',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'Zé Keti... A Voz do Morro Sou Eu Mesmo sim Senhor',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'vizinha_faladeira',
+      schoolName: 'Vizinha Faladeira',
+      enredo: 'A Última do Português a Que nem Camões Contaria...',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Roberto Ribeiro, o Menino Rei',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'O Dia em Que o Jacaré Comeu a Noite',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'leao_de_nova_iguacu',
+      schoolName: 'Leão de Nova Iguaçu',
+      enredo: 'llê Axé Opô Afonjá - O Rei Está na Terra',
+      relegated: true,
+      statusDescription: '10º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 11,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'Não Deu pra Mudar o Começo, mas Vamos Mudar o Final',
+      relegated: true,
+      statusDescription: '11º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 12,
+      schoolId: 'favo_de_acari',
+      schoolName: 'Favo de Acari',
+      enredo: 'O Samba não Tem Fronteiras, o Favo de Acari Conta a História dos Bambas da Mangueira',
+      relegated: true,
+      statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 13,
+      schoolId: 'santa_marta',
+      schoolName: 'Mocidade Unida do Santa Marta',
+      enredo: 'Bip Bip, Um Bar a Serviço da Alegria. Lá Onde o Samba Está em Casa!',
+      relegated: true,
+      statusDescription: '13º Lugar • Rebaixada para a Série Bronze'
+    }
+  ],
+  2016: [
+    {
+      rank: 1,
+      schoolId: 'academicos_do_sossego',
+      schoolName: 'Acadêmicos do Sossego',
+      enredo: 'O Circo do Menino Passarinho',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'tradicao',
+      schoolName: 'Tradição',
+      enredo: 'Clementina, cade você?',
+      statusDescription: 'Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'leao_de_nova_iguacu',
+      schoolName: 'Leão de Nova Iguaçu',
+      enredo: 'Pas de Dance. Hoje tem festa no arraia!',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Na rota das especiarias: O leva e traz de cheiros, as surpresas da nova terra!',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'arame_de_ricardo',
+      schoolName: 'Arame de Ricardo',
+      enredo: 'No sassarico das vedetes, do brotinho e da madame; Sassaricando no meu Rio, levo a vida no Arame!',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: '60 anos de glórias. A Estrela Guia Bangu rumo à vitória!',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'santa_marta',
+      schoolName: 'Mocidade Unida do Santa Marta',
+      enredo: 'Santa Marta conta historia encantada dos brinquedos!',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Aha, Uhu! É festa do Jacarezinho: 50 anos de cultura, arte e alegria de uma comunidade!',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Africanidades - Do continente negro à pequena África... Nossa identidade cultural!',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'favo_de_acari',
+      schoolName: 'Favo de Acari',
+      enredo: 'Os Deuses do Olimpo rasgam o céu do Rio de Janeiro na festa do esporte para brincar no Carnaval',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'A festa é nossa e ninguém tasca! São 70 anos de Xou da Cabuçu no mundo mágico do carnaval!',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'Salve, Rainha!',
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'De grão em grão a galinha enche o papo!',
+      relegated: true,
+      statusDescription: '13º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 14,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Unidos de Lucas, 50 anos de glórias... Parabéns aos bambas e a força do samba!',
+      relegated: true,
+      statusDescription: '14º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 15,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Pelo Engenho de Dentro, de amores eu me Arranco!',
+      relegated: true,
+      statusDescription: '15º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 16,
+      schoolId: 'unidos_das_vargens',
+      schoolName: 'Unidos das Vargens',
+      enredo: 'A fala da favela para o mundo',
+      relegated: true,
+      statusDescription: '16º Lugar • Rebaixada para a Série Bronze'
+    }
+  ],
+  2015: [
+    {
+      rank: 1,
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: 'Borboleteando nos destinos da vida! O que te desafia te transforma!',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Pirilampos – Uma lenda Curumim!',
+      statusDescription: 'Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Da Corte de Obatalá à terra dos Tupinambas!',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'tradicao',
+      schoolName: 'Tradição',
+      enredo: 'Nhá Chica: a beata negra e guerreira do Brasil!',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'santa_marta',
+      schoolName: 'Mocidade Unida do Santa Marta',
+      enredo: 'O dia que o povo tomar a rua será carnaval!',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Oh! Que saudades que eu tenho!',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Em busca do destino!',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'arame_de_ricardo',
+      schoolName: 'Arame de Ricardo',
+      enredo: 'Tá de brincadeira?',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'academicos_do_sossego',
+      schoolName: 'Acadêmicos do Sossego',
+      enredo: 'Banananás - O encontro da Rainha Mariola Banana Pacova do Congo e d’Angola com o Rei Amazônico Ananás Ibá-Cachi, da Corte dos Abacaxis de Serpa',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'Ojuobá: O vencedor se ergue além da dor!',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'O rei da mata pede passagem - São Sebastião, nosso padroeiro. Da Ponte e do Rio de Janeiro',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Nossa senhora Aparecida – O Milagre!',
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'favo_de_acari',
+      schoolName: 'Favo de Acari',
+      enredo: 'Favo de Acari apresenta: Ceasa, 40 anos de história a serviço do povo!',
+      statusDescription: '13º Lugar'
+    },
+    {
+      rank: 14,
+      schoolId: 'sereno_campo_grande',
+      schoolName: 'Sereno de Campo Grande',
+      enredo: 'De azul e branco a Coruja pinta o sete na Avenida!',
+      relegated: true,
+      statusDescription: '14º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 15,
+      schoolId: 'vila_santa_tereza',
+      schoolName: 'Unidos da Vila Santa Tereza',
+      enredo: 'Aquarela negra de Debret',
+      relegated: true,
+      statusDescription: '15º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 16,
+      schoolId: 'rosa_de_ouro',
+      schoolName: 'Rosa de Ouro',
+      enredo: 'Maquiagem: A arte da transformação!',
+      relegated: true,
+      statusDescription: '16º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 17,
+      schoolId: 'unidos_da_vila_kennedy',
+      schoolName: 'Unidos da Vila Kennedy',
+      enredo: 'Saçaricando por aí a Vedete escolheu seu paraíso: Piraí',
+      relegated: true,
+      statusDescription: '17º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 18,
+      schoolId: 'abolicao',
+      schoolName: 'Acadêmicos da Abolição',
+      enredo: 'E assim se descobriu o Rio de Janeiro do Brasil!',
+      relegated: true,
+      statusDescription: '18º Lugar • Rebaixada para a Série Bronze'
+    }
   ]
 };
 
@@ -2164,7 +2515,10 @@ export const OFFICIAL_PRATA_NOTES_BY_YEAR: Record<number, string> = {
   2021: 'Carnaval de 2021: Não houve desfiles da Série Prata na Estrada Intendente Magalhães em virtude da pandemia de COVID-19.',
   2020: 'Carnaval de 2020: Ocorreram dois desfiles — o primeiro organizado pela LIESB (com acesso à Série Ouro para a campeã Lins Imperial e a vice-campeã Em Cima da Hora, e rebaixamento da 20ª colocada Acadêmicos do Jardim Bangu para a Série Bronze) e o desfile da LIVRES denominado Série B (com título da Tradição e vice-campeonato da Alegria da Zona Sul).',
   2019: 'Carnaval de 2019: Acadêmicos de Vigário Geral foi a campeã e garantiu o acesso à Série Ouro (Série A), com União do Parque Curicica como vice-campeã. Não houve rebaixamento neste ano.',
-  2018: 'Carnaval de 2018: Unidos da Ponte foi a campeã e garantiu o acesso à Série Ouro (Série A), com União do Parque Curicica como vice-campeã. Unidos do Cabuçu, Unidos das Vargens e Unidos do Jacarezinho foram rebaixadas para a Série Bronze.'
+  2018: 'Carnaval de 2018: Unidos da Ponte foi a campeã e garantiu o acesso à Série Ouro (Série A), com União do Parque Curicica como vice-campeã. Unidos do Cabuçu, Unidos das Vargens e Unidos do Jacarezinho foram rebaixadas para a Série Bronze.',
+  2017: 'Carnaval de 2017: Unidos de Bangu foi a campeã e garantiu o acesso à Série Ouro (Série A), com Unidos do Cabuçu como vice-campeã. Leão de Nova Iguaçu, Caprichosos de Pilares, Favo de Acari e Mocidade Unida do Santa Marta foram rebaixadas para a Série Bronze.',
+  2016: 'Carnaval de 2016: Acadêmicos do Sossego foi a campeã e garantiu o acesso à Série Ouro (Série A), com Tradição como vice-campeã. União de Jacarepaguá, Unidos de Lucas, Arranco e Unidos das Vargens foram rebaixadas para a Série Bronze.',
+  2015: 'Carnaval de 2015: Acadêmicos da Rocinha foi a campeã e garantiu o acesso à Série Ouro (Série A), com Unidos do Jacarezinho como vice-campeã. Sereno de Campo Grande, Unidos da Vila Santa Tereza, Rosa de Ouro, Unidos da Vila Kennedy e Acadêmicos da Abolição foram rebaixadas para a Série Bronze.'
 };
 
 /**
