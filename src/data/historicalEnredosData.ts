@@ -701,7 +701,27 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     unidos_de_bangu: 'A Travessia da Calunga Grande e a Nobreza Negra no Brasil',
     bangu: 'A Travessia da Calunga Grande e a Nobreza Negra no Brasil',
     academicos_do_sossego: 'Ritualis',
-    sossego: 'Ritualis'
+    sossego: 'Ritualis',
+
+    // Série Prata 2018
+    unidos_da_ponte: 'Romance de Xangô: A Dança do Fogo',
+    ponte: 'Romance de Xangô: A Dança do Fogo',
+    curicica: 'O Reino Está Nú!',
+    uniao_do_parque_curicica: 'O Reino Está Nú!',
+    tradicao: 'Sabá - Soberana da Etiópia, Sedutora de Jerusalém',
+    vizinha_faladeira: 'O Marquês Numa Viagem Pioneira, Vê Nascer Um Rei na Vizinha Faladeira - Paulo Barros, o DNA do Carnaval',
+    engenho_da_rainha: 'Deixa Falar: O Que É Que Há? Academia do Samba, Hoje Sou Estácio de Sá',
+    academicos_do_engenho_da_rainha: 'Deixa Falar: O Que É Que Há? Academia do Samba, Hoje Sou Estácio de Sá',
+    lins_imperial: 'Zicartola',
+    em_cima_da_hora: 'Uma Fantástica Viagem por Uma Cidade em Aquarela',
+    arame_de_ricardo: 'Agbayê - Dos Orixás Renasce a Vida',
+    vigario_geral: 'Dos Tambores Africanos ao Bandoneón - Tango, Um Sentimento Que Se Dança',
+    academicos_de_vigario_geral: 'Dos Tambores Africanos ao Bandoneón - Tango, Um Sentimento Que Se Dança',
+    cabucu: 'Um Reinado Preto Brasileiro',
+    unidos_do_cabucu: 'Um Reinado Preto Brasileiro',
+    unidos_das_vargens: 'Na Semente de Oxum e Odè… O Equilíbrio, a Paz e a Beleza do Amor',
+    jacarezinho: 'O Cântico do Poeta pelo Amor de Euzébia',
+    unidos_do_jacarezinho: 'O Cântico do Poeta pelo Amor de Euzébia'
   },
   2017: {
     // Grupo Especial 2017
@@ -4982,6 +5002,7 @@ function normalizeId(rawId?: string, rawName?: string): string {
     if (id.includes('villa_rica') || id.includes('vila_rica')) return 'villa_rica';
     if (id.includes('vila_kennedy')) return 'unidos_da_vila_kennedy';
     if (id.includes('imperadores_rubro')) return 'imperadores_rubro_negros';
+    if (id.includes('vargens')) return 'unidos_das_vargens';
     return id;
   }
   if (!rawName) return '';
@@ -5192,6 +5213,7 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('villa rica') || n.includes('vila rica')) return 'villa_rica';
   if (n.includes('vila kennedy')) return 'unidos_da_vila_kennedy';
   if (n.includes('imperadores rubro')) return 'imperadores_rubro_negros';
+  if (n.includes('vargens')) return 'unidos_das_vargens';
   return '';
 }
 

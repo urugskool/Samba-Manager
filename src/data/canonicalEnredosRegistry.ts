@@ -524,6 +524,7 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('chatuba')) return 'chatuba';
   if (raw.includes('vizinha')) return 'vizinha_faladeira';
   if (raw.includes('leão de nova iguaçu') || raw.includes('leao de nova iguacu') || raw.includes('leao_de_nova_iguacu')) return 'leao_de_nova_iguacu';
+  if (raw.includes('vargens')) return 'unidos_das_vargens';
   return (schoolId || '').toLowerCase().trim();
 }
 

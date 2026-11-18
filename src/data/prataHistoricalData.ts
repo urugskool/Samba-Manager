@@ -1890,6 +1890,96 @@ export const OFFICIAL_PRATA_HISTORICAL_STANDINGS: Record<number, PrataStandingRe
       enredo: 'De Catulo à Lampião, Bem-Vindos à Terra do Cão!',
       statusDescription: '11º Lugar'
     }
+  ],
+  2018: [
+    {
+      rank: 1,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Romance de Xangô: A Dança do Fogo',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'curicica',
+      schoolName: 'União do Parque Curicica',
+      enredo: 'O Reino Está Nú!',
+      statusDescription: 'Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'tradicao',
+      schoolName: 'Tradição',
+      enredo: 'Sabá - Soberana da Etiópia, Sedutora de Jerusalém',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'vizinha_faladeira',
+      schoolName: 'Vizinha Faladeira',
+      enredo: 'O Marquês Numa Viagem Pioneira, Vê Nascer Um Rei na Vizinha Faladeira - Paulo Barros, o DNA do Carnaval',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'Deixa Falar: O Que É Que Há? Academia do Samba, Hoje Sou Estácio de Sá',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Zicartola',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Uma Fantástica Viagem por Uma Cidade em Aquarela',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'arame_de_ricardo',
+      schoolName: 'Arame de Ricardo',
+      enredo: 'Agbayê - Dos Orixás Renasce a Vida',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'vigario_geral',
+      schoolName: 'Acadêmicos de Vigário Geral',
+      enredo: 'Dos Tambores Africanos ao Bandoneón - Tango, Um Sentimento Que Se Dança',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Um Reinado Preto Brasileiro',
+      relegated: true,
+      statusDescription: '10º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 11,
+      schoolId: 'unidos_das_vargens',
+      schoolName: 'Unidos das Vargens',
+      enredo: 'Na Semente de Oxum e Odè… O Equilíbrio, a Paz e a Beleza do Amor',
+      relegated: true,
+      statusDescription: '11º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 12,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'O Cântico do Poeta pelo Amor de Euzébia',
+      relegated: true,
+      statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
+    }
   ]
 };
 
@@ -2073,7 +2163,8 @@ export const OFFICIAL_PRATA_NOTES_BY_YEAR: Record<number, string> = {
   2022: 'Carnaval de 2022: Houve dois desfiles — Superliga (dividido em duas noites, com acesso à Série Ouro para União de Jacarepaguá como Campeã Geral e Arranco do Engenho de Dentro como Vice-Campeã Geral, além do rebaixamento de Difícil é o Nome, Unidos da Villa Rica e Unidos da Vila Kennedy para a Série Bronze) e LIVRES (Grupo B, com título da Acadêmicos do Engenho da Rainha e vice-campeonato da Vizinha Faladeira).',
   2021: 'Carnaval de 2021: Não houve desfiles da Série Prata na Estrada Intendente Magalhães em virtude da pandemia de COVID-19.',
   2020: 'Carnaval de 2020: Ocorreram dois desfiles — o primeiro organizado pela LIESB (com acesso à Série Ouro para a campeã Lins Imperial e a vice-campeã Em Cima da Hora, e rebaixamento da 20ª colocada Acadêmicos do Jardim Bangu para a Série Bronze) e o desfile da LIVRES denominado Série B (com título da Tradição e vice-campeonato da Alegria da Zona Sul).',
-  2019: 'Carnaval de 2019: Acadêmicos de Vigário Geral foi a campeã e garantiu o acesso à Série Ouro (Série A), com União do Parque Curicica como vice-campeã. Não houve rebaixamento neste ano.'
+  2019: 'Carnaval de 2019: Acadêmicos de Vigário Geral foi a campeã e garantiu o acesso à Série Ouro (Série A), com União do Parque Curicica como vice-campeã. Não houve rebaixamento neste ano.',
+  2018: 'Carnaval de 2018: Unidos da Ponte foi a campeã e garantiu o acesso à Série Ouro (Série A), com União do Parque Curicica como vice-campeã. Unidos do Cabuçu, Unidos das Vargens e Unidos do Jacarezinho foram rebaixadas para a Série Bronze.'
 };
 
 /**
