@@ -1332,7 +1332,33 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     unidos_padre_miguel: 'Aço – Universo presente na riqueza da Terra – O futuro a ti pertence!',
     padre_miguel: 'Aço – Universo presente na riqueza da Terra – O futuro a ti pertence!',
     tuiuti: 'Eneida, o pierrôt está de volta!',
-    paraiso_do_tuiuti: 'Eneida, o pierrôt está de volta!'
+    paraiso_do_tuiuti: 'Eneida, o pierrôt está de volta!',
+
+    // Série Prata 2010
+    alegria_da_zona_sul: 'No mundo da fantasia... vejo as cores da Alegria',
+    alegria: 'No mundo da fantasia... vejo as cores da Alegria',
+    arranco: 'Bendita baderna numa rua chamada felicidade',
+    arranco_do_engenho_de_dentro: 'Bendita baderna numa rua chamada felicidade',
+    sereno_campo_grande: 'Abracadabra... o circo Sereno chegou!',
+    sereno_de_campo_grande: 'Abracadabra... o circo Sereno chegou!',
+    sereno: 'Abracadabra... o circo Sereno chegou!',
+    curicica: 'Lendas, mistérios e magias. Não creio, mas... sei lá, né?',
+    parque_curicica: 'Lendas, mistérios e magias. Não creio, mas... sei lá, né?',
+    uniao_do_parque_curicica: 'Lendas, mistérios e magias. Não creio, mas... sei lá, né?',
+    uniao_de_jacarepagua: 'Da morada da esperança ao grande palco do sambista, somos todos iguais nesta noite, somos todos artistas',
+    jacarepagua: 'Da morada da esperança ao grande palco do sambista, somos todos iguais nesta noite, somos todos artistas',
+    academicos_do_sossego: 'Made in Nictheroy',
+    sossego: 'Made in Nictheroy',
+    tradicao: 'Rei Senhor, Rei Zumbi, Rei Nagô! Eu tô aí, tô aí sim Senhor!',
+    lins_imperial: 'Folia de Reis',
+    vicente_de_carvalho: 'Bonecas. Impossível não se apaixonar por elas...',
+    mocidade_de_vicente_de_carvalho: 'Bonecas. Impossível não se apaixonar por elas...',
+    jacarezinho: 'Jacarezinho.com.br',
+    unidos_do_jacarezinho: 'Jacarezinho.com.br',
+    boi_da_ilha: 'Do sagrado ao profano... E o Boi, quem diria, foi parar na Freguesia',
+    boi_da_ilha_do_governador: 'Do sagrado ao profano... E o Boi, quem diria, foi parar na Freguesia',
+    flor_da_mina: 'Vela',
+    flor_da_mina_do_andarai: 'Vela'
   },
   2009: {
     // Grupo Especial 2009
@@ -1379,7 +1405,37 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     inocentes: 'Do Rio Grande do Sul ao Rio de Janeiro, a Inocentes canta Brizola, a voz do povo brasileiro',
     inocentes_de_belford_roxo: 'Do Rio Grande do Sul ao Rio de Janeiro, a Inocentes canta Brizola, a voz do povo brasileiro',
     caprichosos_de_pilares: 'No transporte da alegria... Me leva Caprichosos a caminho da folia',
-    caprichosos: 'No transporte da alegria... Me leva Caprichosos a caminho da folia'
+    caprichosos: 'No transporte da alegria... Me leva Caprichosos a caminho da folia',
+
+    // Série Prata 2009
+    cubango: 'Afoxé É Cortejo, É Ritual, É Festa. Afoxé É Carnaval!',
+    academicos_do_cubango: 'Afoxé É Cortejo, É Ritual, É Festa. Afoxé É Carnaval!',
+    unidos_padre_miguel: 'Vinho, Néctar dos Deuses - A Celebração da Vida',
+    padre_miguel: 'Vinho, Néctar dos Deuses - A Celebração da Vida',
+    curicica: 'O Carioca É Aquele: Espírito, Paixão e Fé',
+    parque_curicica: 'O Carioca É Aquele: Espírito, Paixão e Fé',
+    uniao_do_parque_curicica: 'O Carioca É Aquele: Espírito, Paixão e Fé',
+    jacarezinho: 'Ora, Pois, Pois... Tem Patimcum Bum à Vista!',
+    unidos_do_jacarezinho: 'Ora, Pois, Pois... Tem Patimcum Bum à Vista!',
+    arranco: 'O Arranco é Todo Amor...',
+    arranco_do_engenho_de_dentro: 'O Arranco é Todo Amor...',
+    sereno_campo_grande: "Eu Fiz Tudo pra Você não Esquecer de Mim. 'Ta-hí' – Cem Anos de Carmen Miranda",
+    sereno_de_campo_grande: "Eu Fiz Tudo pra Você não Esquecer de Mim. 'Ta-hí' – Cem Anos de Carmen Miranda",
+    sereno: "Eu Fiz Tudo pra Você não Esquecer de Mim. 'Ta-hí' – Cem Anos de Carmen Miranda",
+    uniao_de_jacarepagua: 'A Toda Hora Rola Uma História, com Samba e Chorinho de Paulinho da Viola',
+    jacarepagua: 'A Toda Hora Rola Uma História, com Samba e Chorinho de Paulinho da Viola',
+    boi_da_ilha: 'Abram-se as Cortinas! Bravo! 100 anos do Theatro Municipal em Cena Aberta na Sapucaí',
+    boi_da_ilha_do_governador: 'Abram-se as Cortinas! Bravo! 100 anos do Theatro Municipal em Cena Aberta na Sapucaí',
+    lins_imperial: 'Lapa: Estrela da Vida Inteira',
+    tradicao: 'Saquarema, Princesinha da Costa do Sol. De Capital do Surfe à Casa do Vôlei',
+    alegria_da_zona_sul: 'Heitor dos Prazeres, Carioca da Gema, Um Artista de Corpo e Alma',
+    alegria: 'Heitor dos Prazeres, Carioca da Gema, Um Artista de Corpo e Alma',
+    praca_da_bandeira: 'Redescobrindo a História e a Cultura do Rio de Janeiro',
+    independente_da_praca_da_bandeira: 'Redescobrindo a História e a Cultura do Rio de Janeiro',
+    arrastao_cascadura: 'E Foram Felizes para Sempre... A Química Perfeita das Duplas',
+    arrastao_de_cascadura: 'E Foram Felizes para Sempre... A Química Perfeita das Duplas',
+    amarelinho: 'O Grito de Amor e Rebeldia de Uma Pátria Livre',
+    coracoes_unidos_do_amarelinho: 'O Grito de Amor e Rebeldia de Uma Pátria Livre'
   },
   2008: {
     // Grupo Especial 2008
