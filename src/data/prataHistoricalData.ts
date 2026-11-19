@@ -2897,6 +2897,214 @@ export const OFFICIAL_PRATA_HISTORICAL_STANDINGS: Record<number, PrataStandingRe
       relegated: true,
       statusDescription: '14º Lugar • Rebaixada para a Série Bronze'
     }
+  ],
+  2008: [
+    {
+      rank: 1,
+      schoolId: 'inocentes',
+      schoolName: 'Inocentes de Belford Roxo',
+      enredo: 'Ewe, a Cura Vem da Floresta',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Cartola, Teu Cenário É Uma Beleza',
+      promoted: true,
+      statusDescription: 'Vice-Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 3,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'No Reino das Águas de Olocun',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Andanças e Folias',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'alegria_da_zona_sul',
+      schoolName: 'Alegria da Zona Sul',
+      enredo: 'Chegou o General da Banda! Albino Pinheiro, Alegria do Rio',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'praca_da_bandeira',
+      schoolName: 'Independente da Praça da Bandeira',
+      enredo: 'Viagem Fantástica ao Mundo do Circo: Seja de Lona ou Social',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'tradicao',
+      schoolName: 'Tradição',
+      enredo: 'Isto Sim É a Tradição!',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'sereno_campo_grande',
+      schoolName: 'Sereno de Campo Grande',
+      enredo: 'O Gigante Chamado Brasil',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'boi_da_ilha',
+      schoolName: 'Boi da Ilha do Governador',
+      enredo: 'Gaia, a Reação da Mãe Terra - Uma História que Deve Ser Contada de Outra Maneira',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: "Miquié - 'Maca ê', Sou a Princesinha do Atlântico, Capital Macaé",
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'curicica',
+      schoolName: 'União do Parque Curicica',
+      enredo: 'O Mundo Místico das Águas em Berço Esplêndido, Derrama ao Planeta o Seu Clamor!',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'vicente_de_carvalho',
+      schoolName: 'Mocidade de Vicente de Carvalho',
+      enredo: 'Brasil, País Mulato',
+      relegated: true,
+      statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 13,
+      schoolId: 'vizinha_faladeira',
+      schoolName: 'Vizinha Faladeira',
+      enredo: 'Vizinha Faladeira no Brasil das Maravilhas',
+      relegated: true,
+      statusDescription: '13º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 14,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Piauí, Filho do Sol do Equador - Teresina, Terra do Sonho e do Amor',
+      relegated: true,
+      statusDescription: '14º Lugar • Rebaixada para a Série Bronze'
+    }
+  ],
+  2007: [
+    {
+      rank: 1,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Chico Mendes, o Arauto da Natureza',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'inocentes',
+      schoolName: 'Inocentes de Belford Roxo',
+      enredo: 'Chatô - A fanfarra do homem mais sério e engraçado do Brasil',
+      statusDescription: 'Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Vamos Falar de Amor',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Circo, Samba e Futebol: a expressão de um povo',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'vizinha_faladeira',
+      schoolName: 'Vizinha Faladeira',
+      enredo: 'Oduduya - a volta ao templo da criação',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'Unidos pelos caminhos da fé, desbravando os carnavais',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'alegria_da_zona_sul',
+      schoolName: 'Alegria da Zona Sul',
+      enredo: 'Negro não humilha e nem se humilha a ninguém, todas as raças já foram escravas também',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'curicica',
+      schoolName: 'União do Parque Curicica',
+      enredo: 'Brazil S/A... é a pátria que nos pariu!',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Chá: elixir da vida, herança milenar de aroma, arte e cultura',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'sereno_campo_grande',
+      schoolName: 'Sereno de Campo Grande',
+      enredo: 'É carnaval! A Coruja manda avisar.... Deu Águia, viva a Portela!',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'boi_da_ilha',
+      schoolName: 'Boi da Ilha do Governador',
+      enredo: 'Alô, Alô, Se Liga! Tem Boi na Linha',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'praca_da_bandeira',
+      schoolName: 'Independente da Praça da Bandeira',
+      enredo: 'Ecoa um grito de liberdade nos Quilombos da Baixada',
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'dificil_e_o_nome',
+      schoolName: 'Difícil é o Nome',
+      enredo: 'Rio das Ostras, a pérola brasileira',
+      relegated: true,
+      statusDescription: '13º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 14,
+      schoolId: 'flor_da_mina',
+      schoolName: 'Flor da Mina do Andaraí',
+      enredo: 'O grande estadista do Brasil - João Maria José Francisco Xavier de Paula Luis Antônio Domingos Rafael de Bragança',
+      relegated: true,
+      statusDescription: '14º Lugar • Rebaixada para a Série Bronze'
+    }
   ]
 };
 
@@ -3090,7 +3298,9 @@ export const OFFICIAL_PRATA_NOTES_BY_YEAR: Record<number, string> = {
   2012: 'Carnaval de 2012: Caprichosos de Pilares foi a campeã e Alegria da Zona Sul a vice-campeã. Não houve rebaixamento e as oito primeiras colocadas (Caprichosos de Pilares, Alegria da Zona Sul, Unidos de Padre Miguel, Sereno de Campo Grande, Tradição, União do Parque Curicica, Unidos da Vila Santa Tereza e União de Jacarepaguá) subiram para a Série Ouro junto com a campeã da Série Bronze de 2012, devido à reorganização da pirâmide do carnaval carioca com a adoção de duas noites de desfile na Série Ouro em 2013.',
   2011: 'Carnaval de 2011: Paraíso do Tuiuti foi a campeã e garantiu o acesso à Série Ouro (Grupo A), com União do Parque Curicica como vice-campeã. Acadêmicos do Sossego, Independente de São João de Meriti (Independente da Praça da Bandeira) e Lins Imperial foram rebaixadas para a Série Bronze.',
   2010: 'Carnaval de 2010: Alegria da Zona Sul foi a campeã e garantiu o acesso à Série Ouro (Grupo A), com Arranco como vice-campeã e empate em 3º lugar entre Sereno de Campo Grande e União do Parque Curicica. Unidos do Jacarezinho, Boi da Ilha do Governador e Flor da Mina do Andaraí foram rebaixadas para a Série Bronze.',
-  2009: 'Carnaval de 2009: Acadêmicos do Cubango e Unidos de Padre Miguel empataram no 1º lugar, sagrando-se campeãs e garantindo acesso à Série Ouro (Grupo A), com União do Parque Curicica em 3º lugar. Independente da Praça da Bandeira, Arrastão de Cascadura e Corações Unidos do Amarelinho foram rebaixadas para a Série Bronze.'
+  2009: 'Carnaval de 2009: Acadêmicos do Cubango e Unidos de Padre Miguel empataram no 1º lugar, sagrando-se campeãs e garantindo acesso à Série Ouro (Grupo A), com União do Parque Curicica em 3º lugar. Independente da Praça da Bandeira, Arrastão de Cascadura e Corações Unidos do Amarelinho foram rebaixadas para a Série Bronze.',
+  2008: 'Carnaval de 2008: Inocentes de Belford Roxo foi a campeã e Paraíso do Tuiuti a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Mocidade de Vicente de Carvalho, Vizinha Faladeira e Unidos de Lucas foram rebaixadas para a Série Bronze.',
+  2007: 'Carnaval de 2007: Lins Imperial foi a campeã e garantiu o acesso à Série Ouro (Grupo A), com Inocentes de Belford Roxo como vice-campeã. Difícil é o Nome e Flor da Mina do Andaraí foram rebaixadas para a Série Bronze.'
 };
 
 /**
