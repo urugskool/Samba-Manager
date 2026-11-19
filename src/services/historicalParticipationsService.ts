@@ -169,7 +169,7 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('olaria') || clean === 'independentes_olaria') return 'independentes_olaria';
   if (name.includes('império de nova iguaçu') || name.includes('imperio de nova iguacu') || clean === 'imperio_nova_iguacu') return 'imperio_nova_iguacu';
   if (name.includes('siri de ramos') || clean === 'siri_de_ramos') return 'siri_de_ramos';
-  if (name.includes('praça da bandeira') || name.includes('praca da bandeira') || clean === 'praca_da_bandeira') return 'praca_da_bandeira';
+  if (name.includes('praça da bandeira') || name.includes('praca da bandeira') || name.includes('independente de são joão de meriti') || name.includes('independente de sao joao de meriti') || clean === 'praca_da_bandeira' || clean === 'independente_de_sao_joao_de_meriti') return 'praca_da_bandeira';
   if (name.includes('chatuba') || clean === 'chatuba') return 'chatuba';
   if (name.includes('concentra imperial') || clean === 'concentra_imperial') return 'concentra_imperial';
   if (name.includes('unidos da barra da tijuca') || clean === 'unidos_da_barra_da_tijuca') return 'unidos_da_barra_da_tijuca';

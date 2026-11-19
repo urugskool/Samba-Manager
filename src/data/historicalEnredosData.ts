@@ -1255,7 +1255,33 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     caprichosos_de_pilares: 'Gente Humilde',
     caprichosos: 'Gente Humilde',
     alegria_da_zona_sul: 'Os Doze Obás de Xangô',
-    alegria: 'Os Doze Obás de Xangô'
+    alegria: 'Os Doze Obás de Xangô',
+
+    // Série Prata 2011
+    tuiuti: 'O Mais Doce Bárbaro - Caetano Veloso',
+    paraiso_do_tuiuti: 'O Mais Doce Bárbaro - Caetano Veloso',
+    curicica: 'Eu Sou o Samba, a Voz de Um Povo Brasileiro!',
+    parque_curicica: 'Eu Sou o Samba, a Voz de Um Povo Brasileiro!',
+    uniao_do_parque_curicica: 'Eu Sou o Samba, a Voz de Um Povo Brasileiro!',
+    unidos_padre_miguel: 'Hilária Batista de Almeida',
+    padre_miguel: 'Hilária Batista de Almeida',
+    arranco: 'Arranco Aplausos para Exaltar a Mulher Brasileira em Primeiro Lugar',
+    arranco_do_engenho_de_dentro: 'Arranco Aplausos para Exaltar a Mulher Brasileira em Primeiro Lugar',
+    sereno_campo_grande: 'Sereno... A Essência do Carnaval',
+    sereno_de_campo_grande: 'Sereno... A Essência do Carnaval',
+    sereno: 'Sereno... A Essência do Carnaval',
+    uniao_de_jacarepagua: 'Feijoada - Mistura e Tempero, da Cor do Samba, Sabor Brasileiro',
+    jacarepagua: 'Feijoada - Mistura e Tempero, da Cor do Samba, Sabor Brasileiro',
+    tradicao: 'Juazeiro do Norte, Terra de Oração e Trabalho. Cem Anos de Fé, Poder e Tradição',
+    dificil_e_o_nome: 'Aniversarius! Dies Sollemnis Natalis',
+    vicente_de_carvalho: 'Uma Viagem ao Universo dos Cabelos',
+    mocidade_de_vicente_de_carvalho: 'Uma Viagem ao Universo dos Cabelos',
+    academicos_do_sossego: 'Sua Majestade, o Rei Sol',
+    sossego: 'Sua Majestade, o Rei Sol',
+    praca_da_bandeira: 'Refavela',
+    independente_da_praca_da_bandeira: 'Refavela',
+    independente_de_sao_joao_de_meriti: 'Refavela',
+    lins_imperial: 'Um Lugar Chamado Favela'
   },
   2010: {
     // Grupo Especial 2010
@@ -5119,7 +5145,7 @@ function normalizeId(rawId?: string, rawName?: string): string {
     if (id.includes('santa_marta')) return 'santa_marta';
     if (id.includes('imperio_nova_iguacu')) return 'imperio_nova_iguacu';
     if (id.includes('siri_de_ramos')) return 'siri_de_ramos';
-    if (id.includes('praca_da_bandeira')) return 'praca_da_bandeira';
+    if (id.includes('praca_da_bandeira') || id.includes('independente_de_sao_joao_de_meriti')) return 'praca_da_bandeira';
     if (id.includes('chatuba')) return 'chatuba';
     if (id.includes('leao_de_nova_iguacu')) return 'leao_de_nova_iguacu';
     if (id.includes('concentra_imperial')) return 'concentra_imperial';
@@ -5337,7 +5363,7 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('renascer')) return 'renascer_jacarepagua';
   if (n.includes('império de nova iguaçu') || n.includes('imperio de nova iguacu')) return 'imperio_nova_iguacu';
   if (n.includes('siri de ramos')) return 'siri_de_ramos';
-  if (n.includes('praça da bandeira') || n.includes('praca da bandeira')) return 'praca_da_bandeira';
+  if (n.includes('praça da bandeira') || n.includes('praca da bandeira') || n.includes('independente de são joão de meriti') || n.includes('independente de sao joao de meriti')) return 'praca_da_bandeira';
   if (n.includes('chatuba')) return 'chatuba';
   if (n.includes('leão de nova iguaçu') || n.includes('leao de nova iguacu')) return 'leao_de_nova_iguacu';
   if (n.includes('concentra imperial')) return 'concentra_imperial';

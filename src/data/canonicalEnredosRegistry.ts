@@ -524,7 +524,7 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('império de nova iguaçu') || raw.includes('imperio de nova iguacu') || raw.includes('imperio_nova_iguacu')) return 'imperio_nova_iguacu';
   if (raw.includes('siri de ramos') || raw.includes('siri_de_ramos')) return 'siri_de_ramos';
   if (raw.includes('dendê') || raw.includes('dende')) return 'academicos_do_dende';
-  if (raw.includes('praça da bandeira') || raw.includes('praca da bandeira') || raw.includes('praca_da_bandeira')) return 'praca_da_bandeira';
+  if (raw.includes('praça da bandeira') || raw.includes('praca da bandeira') || raw.includes('praca_da_bandeira') || raw.includes('independente de são joão de meriti') || raw.includes('independente de sao joao de meriti') || raw.includes('independente_de_sao_joao_de_meriti')) return 'praca_da_bandeira';
   if (raw.includes('chatuba')) return 'chatuba';
   if (raw.includes('vizinha')) return 'vizinha_faladeira';
   if (raw.includes('leão de nova iguaçu') || raw.includes('leao de nova iguacu') || raw.includes('leao_de_nova_iguacu')) return 'leao_de_nova_iguacu';

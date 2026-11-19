@@ -2612,6 +2612,96 @@ export const OFFICIAL_PRATA_HISTORICAL_STANDINGS: Record<number, PrataStandingRe
       enredo: 'Nasceu, Balançou, Dançou!',
       statusDescription: '11º Lugar'
     }
+  ],
+  2011: [
+    {
+      rank: 1,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'O Mais Doce Bárbaro - Caetano Veloso',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'curicica',
+      schoolName: 'União do Parque Curicica',
+      enredo: 'Eu Sou o Samba, a Voz de Um Povo Brasileiro!',
+      statusDescription: 'Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'Hilária Batista de Almeida',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Arranco Aplausos para Exaltar a Mulher Brasileira em Primeiro Lugar',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'sereno_campo_grande',
+      schoolName: 'Sereno de Campo Grande',
+      enredo: 'Sereno... A Essência do Carnaval',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Feijoada - Mistura e Tempero, da Cor do Samba, Sabor Brasileiro',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'tradicao',
+      schoolName: 'Tradição',
+      enredo: 'Juazeiro do Norte, Terra de Oração e Trabalho. Cem Anos de Fé, Poder e Tradição',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'dificil_e_o_nome',
+      schoolName: 'Difícil é o Nome',
+      enredo: 'Aniversarius! Dies Sollemnis Natalis',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'vicente_de_carvalho',
+      schoolName: 'Mocidade de Vicente de Carvalho',
+      enredo: 'Uma Viagem ao Universo dos Cabelos',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'academicos_do_sossego',
+      schoolName: 'Acadêmicos do Sossego',
+      enredo: 'Sua Majestade, o Rei Sol',
+      relegated: true,
+      statusDescription: '10º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 11,
+      schoolId: 'praca_da_bandeira',
+      schoolName: 'Independente de São João de Meriti (Independente da Praça da Bandeira)',
+      enredo: 'Refavela',
+      relegated: true,
+      statusDescription: '11º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 12,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Um Lugar Chamado Favela',
+      relegated: true,
+      statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
+    }
   ]
 };
 
@@ -2802,7 +2892,8 @@ export const OFFICIAL_PRATA_NOTES_BY_YEAR: Record<number, string> = {
   2015: 'Carnaval de 2015: Acadêmicos da Rocinha foi a campeã e garantiu o acesso à Série Ouro (Série A), com Unidos do Jacarezinho como vice-campeã. Sereno de Campo Grande, Unidos da Vila Santa Tereza, Rosa de Ouro, Unidos da Vila Kennedy e Acadêmicos da Abolição foram rebaixadas para a Série Bronze.',
   2014: 'Carnaval de 2014: Unidos de Bangu foi a campeã e garantiu o acesso à Série Ouro (Série A), com Unidos do Cabuçu como vice-campeã. Império Rubro-Negro foi rebaixada para a Série Bronze.',
   2013: 'Carnaval de 2013: Em Cima da Hora foi a campeã e garantiu o acesso à Série Ouro (Série A), com Arranco como vice-campeã. Unidos da Villa Rica, Difícil é o Nome, Rosa de Ouro, Boi da Ilha do Governador e Mocidade de Vicente de Carvalho foram rebaixadas para a Série Bronze.',
-  2012: 'Carnaval de 2012: Caprichosos de Pilares foi a campeã e Alegria da Zona Sul a vice-campeã. Não houve rebaixamento e as oito primeiras colocadas (Caprichosos de Pilares, Alegria da Zona Sul, Unidos de Padre Miguel, Sereno de Campo Grande, Tradição, União do Parque Curicica, Unidos da Vila Santa Tereza e União de Jacarepaguá) subiram para a Série Ouro junto com a campeã da Série Bronze de 2012, devido à reorganização da pirâmide do carnaval carioca com a adoção de duas noites de desfile na Série Ouro em 2013.'
+  2012: 'Carnaval de 2012: Caprichosos de Pilares foi a campeã e Alegria da Zona Sul a vice-campeã. Não houve rebaixamento e as oito primeiras colocadas (Caprichosos de Pilares, Alegria da Zona Sul, Unidos de Padre Miguel, Sereno de Campo Grande, Tradição, União do Parque Curicica, Unidos da Vila Santa Tereza e União de Jacarepaguá) subiram para a Série Ouro junto com a campeã da Série Bronze de 2012, devido à reorganização da pirâmide do carnaval carioca com a adoção de duas noites de desfile na Série Ouro em 2013.',
+  2011: 'Carnaval de 2011: Paraíso do Tuiuti foi a campeã e garantiu o acesso à Série Ouro (Grupo A), com União do Parque Curicica como vice-campeã. Acadêmicos do Sossego, Independente de São João de Meriti (Independente da Praça da Bandeira) e Lins Imperial foram rebaixadas para a Série Bronze.'
 };
 
 /**
