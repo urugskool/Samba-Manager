@@ -78,3 +78,61 @@ export interface ItemDRE {
   realizado: number;
   tipo: 'RECEITA' | 'DESPESA';
 }
+
+export type ComiteLigaId = 'LIESA' | 'LIGA-RJ' | 'SUPERLIGA';
+
+export type StatusComiteEconomico =
+  | 'regular'
+  | 'alerta_orcamento'
+  | 'emprestimo_ativo'
+  | 'sancao_administrativa'
+  | 'perda_pontos'
+  | 'impedida_desfilar';
+
+export interface EmprestimoComiteEconomico {
+  id: string;
+  liga: ComiteLigaId;
+  anoContratacao: number;
+  valorPrincipal: number;
+  jurosPercentual: number;
+  valorTotalDevido: number;
+  saldoDevedor: number;
+  parcelasRestantes: number;
+  valorParcelaAnual: number;
+  motivo: string;
+}
+
+export interface SancaoComiteEconomico {
+  id: string;
+  liga: ComiteLigaId;
+  anoAplicacao: number;
+  tipo: 'retencao_repasse' | 'restricao_administrativa' | 'perda_pontos' | 'impedimento_avaliacao';
+  titulo: string;
+  descricao: string;
+  percentualRetencao?: number;
+  pontosDeduzidos?: number;
+  anosAfastamento?: number;
+  ativa: boolean;
+}
+
+export interface EstadoComiteEconomicoEscola {
+  temporadaAtual: number;
+  receitasIniciaisCreditadasAno?: number;
+  orcamentoMinimoDesfile: number;
+  orcamentoRecomendadoDesfile: number;
+  valorDesembolsadoDesfile: number;
+  desfileQuitadoTemporada: boolean;
+  descontoEmprestimoAplicadoAno?: number;
+  valorDescontadoEmprestimosAno?: number;
+  retencaoAplicadaAno?: number;
+  premiosPosCarnavalRecebidosAno?: number;
+  ultimoPremioPosCarnavalValor?: number;
+  emprestimosAtivos: EmprestimoComiteEconomico[];
+  sancoesAtivas: SancaoComiteEconomico[];
+  pontosPenalizacaoProximoCarnaval: number;
+  percentualRetencaoProximoRepasse: number;
+  bloqueioContratacaoElite: boolean;
+  impedidaDeDesfilar: boolean;
+  motivoImpedimento?: string;
+}
+

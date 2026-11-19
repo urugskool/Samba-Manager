@@ -371,6 +371,8 @@ export interface School {
   communitySponsorClaimedYear?: number;
   thematicSponsorClaimedYear?: number;
   activeThematicSponsor?: ActiveThematicSponsor;
+  comiteEconomico?: import('./financasFM').EstadoComiteEconomicoEscola;
+  financas?: import('./financasFM').GestaoFinanceiraEscola;
 }
 
 export type JuradoScores = [number, number, number, number]; // 4 jurados

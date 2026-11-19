@@ -19,6 +19,7 @@ import { LigaFinancialService } from './ligaFinancialService';
 import { RepassesFinanceirosService } from './repassesFinanceirosService';
 import { calcularTotalComPenalizacao } from './financasFMService';
 import { extractCarnavalescoNamesFromStaff } from './carnavalescosRankingService';
+import { DemonstrativoFinanceiroService } from './demonstrativoFinanceiroService';
 
 export { calcularTotalComPenalizacao };
 
@@ -303,10 +304,15 @@ export class SimulationEngine {
       // Technical obrigatoriedades evaluation based on official regulations
       const techEval = evaluateSchoolParadeObrigatoriedades(school);
 
-      // Penalizações financeiras da Liga / Prestação de contas
+      // Penalizações financeiras da Liga / Prestação de contas / Comitê Econômico
       const prestacao = (school as any).financas?.prestacaoContasUltimoAno || (school as any).prestacaoContas;
       const calcPenalidade = calcularTotalComPenalizacao(sum, prestacao);
-      const financialPenalty = calcPenalidade.penalidadeAplicada;
+      const comitePenalty = school.comiteEconomico?.pontosPenalizacaoProximoCarnaval || 0;
+      const financialPenalty = Math.max(calcPenalidade.penalidadeAplicada, comitePenalty);
+      const financialPenaltyJustificativa =
+        comitePenalty > 0 && comitePenalty >= calcPenalidade.penalidadeAplicada
+          ? `Comitê Econômico (${DemonstrativoFinanceiroService.getRegraDivisao(school.division).liga}): perda de ${comitePenalty.toFixed(1)} pt por descumprimento do orçamento mínimo / déficit na temporada anterior.`
+          : calcPenalidade.justificativa;
 
       const totalPenalties = Math.round((timeSim.timePenalty + techEval.technicalPenalty + financialPenalty) * 10) / 10;
       const finalScore = Math.max(0, Math.round((sum - totalPenalties) * 10) / 10);
@@ -327,7 +333,7 @@ export class SimulationEngine {
         timeDifferenceMinutes: timeSim.diffMinutes,
         technicalPenalty: techEval.technicalPenalty,
         financialPenalty: financialPenalty > 0 ? financialPenalty : undefined,
-        financialPenaltyJustificativa: calcPenalidade.justificativa,
+        financialPenaltyJustificativa,
         infractions: techEval.infractions,
         paradeComposition: techEval.composition,
         logisticsReport
@@ -715,7 +721,8 @@ export class SimulationEngine {
     currentYear: number,
     history: YearHistory[],
     avaliacaoResult?: DivisionResult,
-    quesitoOrders?: Partial<Record<DivisionId, QuesitoId[]>>
+    quesitoOrders?: Partial<Record<DivisionId, QuesitoId[]>>,
+    userSchoolId?: string | null
   ): {
     nextSchools: School[];
     nextYear: number;
@@ -742,6 +749,12 @@ export class SimulationEngine {
       avaliacaoCountNextSeason: number;
     };
   } {
+    // Registra a divisão e status ativo de cada escola NA TEMPORADA ENCERRADA antes de acessos/rebaixamentos
+    const previousDivisionById = new Map<string, DivisionId>(allSchools.map((s) => [s.id, s.division]));
+    const wasActiveInEndedSeason = new Set<string>(
+      allSchools.filter((s) => !s.isInactive && !s.inactive).map((s) => s.id)
+    );
+
     const schoolMap = new Map(allSchools.map(s => [s.id, {
       ...s,
       honors: {
@@ -935,7 +948,6 @@ export class SimulationEngine {
 
       if (item.rank === 1) {
         sch.championshipsPrata = (sch.championshipsPrata || 0) + 1;
-        sch.budget += 500000;
         sch.fanBaseMorale = Math.min(100, sch.fanBaseMorale + 15);
         sch.honors.inGameAchievements.push({
           year: currentYear,
@@ -948,7 +960,6 @@ export class SimulationEngine {
       } else if (item.rank === 2) {
         sch.runnerUpsPrata = (sch.runnerUpsPrata || 0) + 1;
         if (!ouroNeedsReduction) {
-          sch.budget += 400000;
           sch.fanBaseMorale = Math.min(100, sch.fanBaseMorale + 10);
         }
         sch.honors.inGameAchievements.push({
@@ -990,7 +1001,6 @@ export class SimulationEngine {
 
       if (item.rank === 1) {
         sch.championshipsBronze = (sch.championshipsBronze || 0) + 1;
-        sch.budget += 350000;
         sch.fanBaseMorale = Math.min(100, sch.fanBaseMorale + 15);
         sch.honors.inGameAchievements.push({
           year: currentYear,
@@ -1003,7 +1013,6 @@ export class SimulationEngine {
       } else if (item.rank === 2) {
         sch.runnerUpsBronze = (sch.runnerUpsBronze || 0) + 1;
         if (bronzePromotedCount >= 2) {
-          sch.budget += 250000;
           sch.fanBaseMorale = Math.min(100, sch.fanBaseMorale + 10);
         }
         sch.honors.inGameAchievements.push({
@@ -1018,7 +1027,6 @@ export class SimulationEngine {
         });
       } else if (item.rank === 3) {
         if (bronzePromotedCount >= 3) {
-          sch.budget += 200000;
           sch.fanBaseMorale = Math.min(100, sch.fanBaseMorale + 8);
           sch.honors.inGameAchievements.push({
             year: currentYear,
@@ -1071,7 +1079,6 @@ export class SimulationEngine {
 
       if (item.rank === 1) {
         sch.championshipsAvaliacao = (sch.championshipsAvaliacao || 0) + 1;
-        sch.budget += 220000;
         sch.fanBaseMorale = Math.min(100, sch.fanBaseMorale + 15);
         sch.honors.inGameAchievements.push({
           year: currentYear,
@@ -1083,7 +1090,6 @@ export class SimulationEngine {
         });
       } else if (item.rank === 2) {
         sch.runnerUpsAvaliacao = (sch.runnerUpsAvaliacao || 0) + 1;
-        sch.budget += 160000;
         sch.fanBaseMorale = Math.min(100, sch.fanBaseMorale + 10);
         sch.honors.inGameAchievements.push({
           year: currentYear,
@@ -1095,7 +1101,6 @@ export class SimulationEngine {
         });
       } else if (item.rank === 3) {
         if (avaliacaoPromotedCount >= 3) {
-          sch.budget += 130000;
           sch.fanBaseMorale = Math.min(100, sch.fanBaseMorale + 8);
           sch.honors.inGameAchievements.push({
             year: currentYear,
@@ -1141,7 +1146,6 @@ export class SimulationEngine {
     const especialRelegated = schoolMap.get(especialRelegatedId);
     if (especialRelegated) {
       especialRelegated.division = 'ouro';
-      especialRelegated.budget = Math.max(800000, especialRelegated.budget - 400000);
       especialRelegated.fanBaseMorale = Math.max(50, especialRelegated.fanBaseMorale - 15);
     }
 
@@ -1149,7 +1153,6 @@ export class SimulationEngine {
     const ouroChamp = schoolMap.get(ouroResult.championId) || ouroRanked[0]?.school;
     if (ouroChamp) {
       ouroChamp.division = 'especial';
-      ouroChamp.budget += 1000000; // Additional TV rights for Grupo Especial
     }
 
     // 3. Relegate bottom 2 schools from Série Ouro to Série Prata
@@ -1159,7 +1162,6 @@ export class SimulationEngine {
       const sch = schoolMap.get(item.school.id);
       if (sch) {
         sch.division = 'prata';
-        sch.budget = Math.max(600000, sch.budget - 350000);
         sch.fanBaseMorale = Math.max(50, sch.fanBaseMorale - 15);
         ouroRelegatedNames.push(sch.name);
       }
@@ -1172,7 +1174,6 @@ export class SimulationEngine {
       const sch = schoolMap.get(item.school.id);
       if (sch) {
         sch.division = 'ouro';
-        sch.budget += 600000; // Increase budget for Série Ouro
         sch.fanBaseMorale = Math.min(100, sch.fanBaseMorale + 15);
         prataPromotedNames.push(sch.name);
       }
@@ -1185,7 +1186,6 @@ export class SimulationEngine {
       const sch = schoolMap.get(item.school.id);
       if (sch) {
         sch.division = 'bronze';
-        sch.budget = Math.max(400000, sch.budget - 250000);
         sch.fanBaseMorale = Math.max(50, sch.fanBaseMorale - 12);
         prataRelegatedNames.push(sch.name);
       }
@@ -1198,7 +1198,6 @@ export class SimulationEngine {
       const sch = schoolMap.get(item.school.id);
       if (sch) {
         sch.division = 'prata';
-        sch.budget += 350000; // Increase budget for Série Prata
         sch.fanBaseMorale = Math.min(100, sch.fanBaseMorale + 15);
         bronzePromotedNames.push(sch.name);
       }
@@ -1213,7 +1212,6 @@ export class SimulationEngine {
         sch.division = 'avaliacao';
         sch.isInactive = false;
         sch.inactive = false;
-        sch.budget = Math.max(200000, sch.budget - 100000);
         sch.fanBaseMorale = Math.max(50, sch.fanBaseMorale - 12);
         bronzeRelegatedNames.push(sch.name);
       }
@@ -1228,7 +1226,6 @@ export class SimulationEngine {
         sch.division = 'bronze';
         sch.isInactive = false;
         sch.inactive = false;
-        sch.budget += 200000;
         sch.fanBaseMorale = Math.min(100, sch.fanBaseMorale + 15);
         avaliacaoPromotedNames.push(sch.name);
       }
@@ -1244,7 +1241,6 @@ export class SimulationEngine {
         sch.inactive = true;
         sch.inactiveYearsCount = 0;
         sch.suspensionReason = 'Afastada pelo regulamento da LIGA para reestruturação financeira e institucional (mínimo 1 ano fora)';
-        sch.budget = Math.max(120000, sch.budget - 50000);
         sch.fanBaseMorale = Math.max(45, sch.fanBaseMorale - 15);
         avaliacaoAfastadasNames.push(sch.name);
       }
@@ -1281,7 +1277,7 @@ export class SimulationEngine {
         chosen.inactiveYearsCount = 0;
         chosen.suspensionReason = undefined;
         chosen.division = 'avaliacao';
-        chosen.budget = 250000; // Revitalizada financeiramente pela comunidade
+        chosen.budget = 0; // Início igualitário do Grupo de Avaliação (sem repasse fixo da Superliga)
         chosen.fanBaseMorale = 80;
         chosen.rehearsalLevel = 72;
         chosen.barracaoProgress = 70;
@@ -1289,6 +1285,7 @@ export class SimulationEngine {
       } else {
         // Sem inativas elegíveis disponíveis: funda uma nova escola aleatória
         const newSchool = generateRandomCarnavalSchool(currentYear + 1, Array.from(schoolMap.keys()));
+        newSchool.budget = 0; // Início igualitário no Grupo de Avaliação
         schoolMap.set(newSchool.id, newSchool);
         newSchoolNames.push(newSchool.name);
       }
@@ -1363,13 +1360,13 @@ export class SimulationEngine {
       avaliacaoStandings.map((s) => ({ escolaId: s.schoolId, nomeEscola: s.schoolName, posicao: s.rank }))
     );
 
-    // Reset parade flags, update attributes, sync consolidated stats and assign 100% unique, diverse enredos
+    // Reset parade flags, process Economic Committee close + next-season equalitarian opening, and assign unique enredos
     const usedEnredoTitlesThisSeason = new Set<string>();
     const updatedSchools: School[] = Array.from(schoolMap.values()).map((s) => {
-      const isInactive = Boolean(s.isInactive || s.inactive);
+      let isInactive = Boolean(s.isInactive || s.inactive);
+      let suspensionReason = s.suspensionReason;
+      let inactiveYearsCount = s.inactiveYearsCount;
 
-      // Annual revenue from Liga + TV cotas + Premiações
-      let tvRevenue = 0;
       const ligaPayout = LigaFinancialService.getSchoolPayout(espLigaReport, s.id);
       const ouroPayout = ouroExtratos.find(
         (ext) => ext.escolaId === s.id || ext.nomeEscola.toLowerCase() === s.name.toLowerCase()
@@ -1384,37 +1381,70 @@ export class SimulationEngine {
         (ext) => ext.escolaId === s.id || ext.nomeEscola.toLowerCase() === s.name.toLowerCase()
       );
 
-      if (isInactive) {
-        tvRevenue = 0;
-      } else if (ligaPayout) {
-        // Valor total apurado e homologado pela LIGA para as 12 escolas do Grupo Especial (R$ 18.3M a R$ 28.12M)
-        tvRevenue = ligaPayout.totalPayout;
+      // Premiações decorrentes de classificação e Desfile das Campeãs (entregues estritamente pós-Carnaval)
+      let premioPosCarnaval = 0;
+      if (ligaPayout) {
+        premioPosCarnaval = ligaPayout.classificationPrize + ligaPayout.totalBonusCampeas;
       } else if (ouroPayout) {
-        // Valor total apurado e homologado para as escolas da Série Ouro (Base fixa R$ 1.8M + Premiação de Classificação)
-        tvRevenue = ouroPayout.totalRecebido;
+        premioPosCarnaval = ouroPayout.premiacaoClassificacao;
       } else if (prataPayout) {
-        // Valor total apurado para Série Prata (R$ 1.5M/N + R$ 80k TV + Premiações Top 3)
-        tvRevenue = prataPayout.totalRecebido;
+        premioPosCarnaval = prataPayout.premiacaoClassificacao;
       } else if (bronzePayout) {
-        // Valor total apurado para Série Bronze (R$ 80k + Premiações Top 3)
-        tvRevenue = bronzePayout.totalRecebido;
+        premioPosCarnaval = bronzePayout.premiacaoClassificacao;
       } else if (avaliacaoPayout) {
-        // Valor total apurado para Grupo de Avaliação (R$ 0 repasse fixo + Premiações Top 3)
-        tvRevenue = avaliacaoPayout.totalRecebido;
-      } else if (s.division === 'especial') {
-        tvRevenue = 18300000;
-      } else if (s.division === 'ouro') {
-        tvRevenue = 1800000;
-      } else if (s.division === 'prata') {
-        tvRevenue = Math.round(1500000 / Math.max(1, prataStandings.length)) + 80000;
-      } else if (s.division === 'bronze') {
-        tvRevenue = 80000;
-      } else if (s.division === 'avaliacao') {
-        tvRevenue = 0;
+        premioPosCarnaval = avaliacaoPayout.premiacaoClassificacao;
       }
 
       // Staff expenses
       const staffTotalSalary = isInactive ? 0 : Object.values(s.staff).reduce((acc, member) => acc + member.salary, 0);
+
+      let nextBudget = s.budget;
+      let nextComiteEconomico = s.comiteEconomico;
+      let nextFinancas = s.financas;
+
+      if (!isInactive) {
+        if (wasActiveInEndedSeason.has(s.id)) {
+          const divisaoTemporadaEncerrada = previousDivisionById.get(s.id) || s.division;
+          const fechamento = DemonstrativoFinanceiroService.processarFechamentoEAberturaTemporada({
+            school: s,
+            divisaoTemporadaEncerrada,
+            divisaoProximaTemporada: s.division,
+            anoEncerrado: currentYear,
+            premioPosCarnaval,
+            folhaEquipeAnual: staffTotalSalary,
+            totalEscolasPrataProximaTemporada: Math.max(1, nextPrataCount),
+            isPlayerSchool: Boolean(userSchoolId && s.id === userSchoolId)
+          });
+
+          nextBudget = fechamento.budgetFinal;
+          nextComiteEconomico = fechamento.comiteEconomico;
+          nextFinancas = s.financas
+            ? {
+                ...s.financas,
+                saldoCaixa: fechamento.budgetFinal,
+                prestacaoContasUltimoAno: fechamento.prestacaoContas
+              }
+            : undefined;
+
+          if (fechamento.impedidaAvaliacao) {
+            isInactive = true;
+            inactiveYearsCount = 0;
+            suspensionReason = fechamento.suspensionReason;
+            if (!avaliacaoAfastadasNames.includes(s.name)) {
+              avaliacaoAfastadasNames.push(s.name);
+            }
+          }
+        } else {
+          // Escola recém-reativada ou fundada para a nova temporada: inicia com valores igualitários da divisão
+          const abertura = DemonstrativoFinanceiroService.calcularReceitasIgualitariasAbertura(
+            s.division,
+            Math.max(1, nextPrataCount)
+          );
+          nextBudget = abertura.totalIgualitarioBruto;
+          nextComiteEconomico = DemonstrativoFinanceiroService.getOrInitEstadoComite(s, currentYear + 1);
+          nextComiteEconomico.receitasIniciaisCreditadasAno = currentYear + 1;
+        }
+      }
 
       // Slight natural attribute evolution (+/- 1-2 points)
       const evolveAttr = (val: number) => {
@@ -1447,6 +1477,8 @@ export class SimulationEngine {
         ...s,
         isInactive,
         inactive: isInactive,
+        inactiveYearsCount,
+        suspensionReason,
         championshipsEspecial: cons.totalEspecialTitles,
         runnerUpsEspecial: cons.totalEspecialVices,
         championshipsOuro: cons.totalOuroTitles,
@@ -1457,7 +1489,9 @@ export class SimulationEngine {
         runnerUpsBronze: cons.totalBronzeVices,
         championshipsAvaliacao: cons.totalAvaliacaoTitles,
         runnerUpsAvaliacao: cons.totalAvaliacaoVices,
-        budget: s.isInactive ? s.budget : Math.max(200000, s.budget + tvRevenue - staffTotalSalary),
+        budget: nextBudget,
+        comiteEconomico: nextComiteEconomico,
+        ...(nextFinancas ? { financas: nextFinancas } : {}),
         rehearsalLevel: 70,
         barracaoProgress: 70,
         technicalParadeDone: false,

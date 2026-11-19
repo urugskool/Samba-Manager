@@ -56,6 +56,7 @@ import { getCanonical2026Enredo } from './data/canonicalEnredosRegistry';
 import { SaveGameModal } from './components/SaveGameModal';
 import { saveManager } from './services/saveManager';
 import { ThematicSponsorService } from './services/thematicSponsorService';
+import { DemonstrativoFinanceiroService } from './services/demonstrativoFinanceiroService';
 
 import { Sparkles, Trophy, CheckCircle, AlertTriangle, Info, Dices, Lock, Calendar, ChevronRight } from 'lucide-react';
 
@@ -1327,7 +1328,12 @@ export default function App() {
   // Start from Title Screen
   const handleStartGame = (schoolId: string | null, name: string, customSchool?: School) => {
     if (customSchool) {
-      const updatedSchools = [customSchool, ...schools.filter((s) => s.id !== customSchool.id)];
+      const customWithComite: School = {
+        ...customSchool,
+        budget: 0,
+        comiteEconomico: DemonstrativoFinanceiroService.getOrInitEstadoComite(customSchool, currentYear)
+      };
+      const updatedSchools = [customWithComite, ...schools.filter((s) => s.id !== customSchool.id)];
       setSchools(updatedSchools);
       setUserSchoolId(customSchool.id);
       setIsSpectatorMode(false);
@@ -1348,7 +1354,10 @@ export default function App() {
 
     setSchools((prev) => {
       const withEnredos = atribuirEnredosAleatorios(prev, schoolId || undefined) as School[];
-      return ThematicSponsorService.applyThematicSponsorsToAISchools(withEnredos, currentYear, schoolId);
+      const withEqualitarianIfNeeded = withEnredos.some((s) => !s.isInactive && !s.inactive && !s.comiteEconomico?.receitasIniciaisCreditadasAno)
+        ? DemonstrativoFinanceiroService.inicializarOrcamentosIgualitarios(withEnredos, currentYear)
+        : withEnredos;
+      return ThematicSponsorService.applyThematicSponsorsToAISchools(withEqualitarianIfNeeded, currentYear, schoolId);
     });
 
     setUserSchoolId(schoolId);
@@ -1451,7 +1460,8 @@ export default function App() {
         currentYear,
         history,
         avaResult,
-        quesitoOrders
+        quesitoOrders,
+        userSchoolId
       );
 
       // Inicia a nova temporada distribuindo novos enredos para as IAs

@@ -1,5 +1,7 @@
 import { atribuirEnredosAleatorios } from './enredoService';
 import { ESCOLAS_INICIAIS } from '../data/carnavalData';
+import { DemonstrativoFinanceiroService } from './demonstrativoFinanceiroService';
+import { School } from '../types/carnaval';
 
 // Ao inicializar o novo jogo:
 export function criarNovoJogo(escolaEscolhidaId: string) {
@@ -7,11 +9,16 @@ export function criarNovoJogo(escolaEscolhidaId: string) {
   const escolasComEnredoAleatorio = atribuirEnredosAleatorios(
     ESCOLAS_INICIAIS,
     escolaEscolhidaId // Apenas a escola do jogador pode iniciar vazia para ele escolher, ou remova para sortear todas
+  ) as School[];
+
+  const escolasComOrcamentoIgualitario = DemonstrativoFinanceiroService.inicializarOrcamentosIgualitarios(
+    escolasComEnredoAleatorio,
+    2027
   );
 
   return {
-    ano: 2026,
-    escolas: escolasComEnredoAleatorio,
+    ano: 2027,
+    escolas: escolasComOrcamentoIgualitario,
   };
 }
 

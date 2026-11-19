@@ -60,13 +60,14 @@ import {
   RateioFundo800kLinha,
   DivisaoCarnaval
 } from '../services/repassesFinanceirosService';
-import { ResumoFinanceiroEscola, SaudeFinanceira, ItemDRE, GestaoFinanceiraEscola, TipoBarracao } from '../types/financasFM';
+import { ResumoFinanceiroEscola, SaudeFinanceira, ItemDRE } from '../types/financasFM';
 import { FinancasFMService } from '../services/financasFMService';
 import {
   ThematicSponsorService,
   HISTORICAL_CULTURAL_BONUS_PERCENT,
   isHistoricalEnredoTheme
 } from '../services/thematicSponsorService';
+import { DemonstrativoFinanceiro } from './DemonstrativoFinanceiro';
 
 export type RepasseDivisionTab = 'especial' | 'ouro' | 'prata' | 'bronze' | 'avaliacao';
 
@@ -225,28 +226,6 @@ export const FinancasView: React.FC<FinancasViewProps> = ({
       LigaFinancialService.getSchoolPayout(ligaReport, school.name)
     );
   }, [ligaReport, school.id, school.name]);
-
-  const financas: GestaoFinanceiraEscola = useMemo(() => {
-    return (school as any).financas || {
-      escolaId: school.id,
-      saldoCaixa: school.budget,
-      dividaConsolidada: 0,
-      limiteCreditoDisponivel: 10_000_000,
-      tipoBarracao: (school.division === 'especial'
-        ? 'cidade_do_samba_1'
-        : school.division === 'ouro'
-        ? 'cidade_do_samba_2'
-        : 'galpao_campinho') as TipoBarracao,
-      custosInstitucionaisAnuais: {
-        folhaSedeQuadra: 600_000,
-        manutencaoEspacos: 300_000,
-        impostosJuridicoContabilidade: 150_000,
-        projetosSociaisEventos: 150_000
-      },
-      departamentosCarnaval: {} as any,
-      prestacaoContasUltimoAno: (school as any).prestacaoContasUltimoAno
-    };
-  }, [school]);
 
   // Série Ouro standings ou lista de escolas
   const ouroSchoolsList = useMemo(() => {
@@ -837,43 +816,33 @@ export const FinancasView: React.FC<FinancasViewProps> = ({
           </div>
         </div>
 
-        <div className="bg-slate-950/60 px-5 py-3 rounded-xl border border-slate-800 text-right">
-          <div className="text-[10px] text-slate-400 uppercase font-semibold">Saldo Disponível em Caixa</div>
-          <div className="text-2xl font-black text-emerald-400 font-mono">
-            R$ {school.budget.toLocaleString('pt-BR')}
+        <div className={`px-5 py-3 rounded-xl border text-right ${
+          school.budget < 0
+            ? 'bg-rose-950/40 border-rose-500/40'
+            : 'bg-slate-950/60 border-slate-800'
+        }`}>
+          <div className="text-[10px] text-slate-400 uppercase font-semibold">
+            {school.budget < 0 ? 'Saldo em Caixa (Negativo)' : 'Saldo Disponível em Caixa'}
+          </div>
+          <div
+            className={`text-2xl font-black font-mono tabular-nums ${
+              school.budget < 0 ? 'text-rose-400' : 'text-emerald-400'
+            }`}
+          >
+            {school.budget < 0 ? '-' : ''}R$ {Math.abs(Math.round(school.budget)).toLocaleString('pt-BR')}
           </div>
         </div>
       </div>
 
-      {/* Indicador de Saúde Fiscal e Barracão */}
-      <div className={`p-4 rounded-lg border ${
-        financas.saldoCaixa < 0 
-          ? 'bg-red-950/40 border-red-500 text-red-200' 
-          : 'bg-emerald-950/30 border-emerald-500 text-emerald-200'
-      }`}>
-        <div className="flex justify-between items-center mb-2">
-          <h3 className="font-bold text-lg">Saúde Financeira & Auditoria da Liga</h3>
-          <span className="text-xs uppercase px-2 py-1 bg-black/40 rounded font-semibold">
-            {financas.tipoBarracao.replace(/_/g, ' ')}
-          </span>
-        </div>
-        
-        <p className="text-sm">
-          Saldo Atual: <strong>R$ {(financas.saldoCaixa / 1_000_000).toFixed(2)} mi</strong>
-        </p>
-
-        {financas.saldoCaixa < 0 && (
-          <div className="mt-2 text-xs text-red-300">
-            ⚠️ <strong>Atenção:</strong> O caixa está no vermelho. Se o exercício fechar em défice superior a 10% da receita anual, a escola sofrerá retenção de verbas e perda de pontos no próximo Carnaval.
-          </div>
-        )}
-
-        {financas.prestacaoContasUltimoAno && financas.prestacaoContasUltimoAno.penalizacaoPontosApuracao > 0 && (
-          <div className="mt-2 p-2 bg-red-900/60 rounded text-xs font-semibold">
-            Punição Ativa: -{financas.prestacaoContasUltimoAno.penalizacaoPontosApuracao} pontos na Apuração deste ano!
-          </div>
-        )}
-      </div>
+      {/* Demonstrativo Financeiro Oficial, Orçamento Mínimo & Comitê Econômico */}
+      <DemonstrativoFinanceiro
+        school={school}
+        allSchools={allSchools}
+        currentYear={currentYear}
+        history={history}
+        onUpdateSchool={onUpdateSchool}
+        onShowMessage={onShowMessage}
+      />
 
       {/* Extrato de Receitas & Despesas da Agremiação */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
