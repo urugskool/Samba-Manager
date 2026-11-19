@@ -2331,6 +2331,287 @@ export const OFFICIAL_PRATA_HISTORICAL_STANDINGS: Record<number, PrataStandingRe
       relegated: true,
       statusDescription: '18º Lugar • Rebaixada para a Série Bronze'
     }
+  ],
+  2014: [
+    {
+      rank: 1,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: 'Eternamente Bangu',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Tire Sua Mordaça do Caminho... Que Eu Quero Gritar a Minha Cor...',
+      statusDescription: 'Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'favo_de_acari',
+      schoolName: 'Favo de Acari',
+      enredo: 'Amebras, 15 Anos Transformando Vidas Através da Qualificação no Carnaval',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'Do Velho Brejo, a Cidade do Amor... Belford Roxo, Rumo a Um Futuro Promissor!',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'academicos_do_sossego',
+      schoolName: 'Acadêmicos do Sossego',
+      enredo: 'Pernambucando',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'sereno_campo_grande',
+      schoolName: 'Sereno de Campo Grande',
+      enredo: 'Bahia - Negra Alquimia do Brasil',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Aqua Vitae, Ignis Dei! Água da Vida, Fogo de Deus....São Lourenço Nosso Guia!',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Africanidades',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'vila_santa_tereza',
+      schoolName: 'Unidos da Vila Santa Tereza',
+      enredo: 'Ururaí',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Minha História É Você, Nossa Paixão É Por Ti: São João de Meriti',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Missicofe, Missicofe, Dari, Dari...',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'unidos_da_vila_kennedy',
+      schoolName: 'Unidos da Vila Kennedy',
+      enredo: 'Sob a Luz de Tupã, o Raiar da Criação',
+      statusDescription: '12º Lugar'
+    },
+    {
+      rank: 13,
+      schoolId: 'imperio_rubro_negro',
+      schoolName: 'Império Rubro-Negro',
+      enredo: 'As Vozes da Nação',
+      relegated: true,
+      statusDescription: '13º Lugar • Rebaixada para a Série Bronze'
+    }
+  ],
+  2013: [
+    {
+      rank: 1,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Além do Espelho, João Nogueira de Todos os Sambas',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Boca de Cena',
+      statusDescription: 'Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'imperio_da_praca_seca',
+      schoolName: 'Império da Praça Seca',
+      enredo: 'Valei-me Jorge!',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'favo_de_acari',
+      schoolName: 'Favo de Acari',
+      enredo: 'Muito Prazer! Sou Acari em Verde, Rosa e Ouro. E a Favo Faz a Festa na Intendente!',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'academicos_do_sossego',
+      schoolName: 'Acadêmicos do Sossego',
+      enredo: 'De Luiza D’Oyá a Carmem Miranda. O que é que a Baiana Tem?',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Livros de História Infantil - Páginas Recheadas de Fantasias, Sonhos e Imaginações. Uma Viagem na Intendente Magalhães',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'unidos_da_vila_kennedy',
+      schoolName: 'Unidos da Vila Kennedy',
+      enredo: 'Brincadeiras de Criança',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'É Carnaval!',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'villa_rica',
+      schoolName: 'Unidos da Villa Rica',
+      enredo: 'Em Busca da Felicidade',
+      relegated: true,
+      statusDescription: '9º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 10,
+      schoolId: 'dificil_e_o_nome',
+      schoolName: 'Difícil é o Nome',
+      enredo: 'Rio de Janeiro, o Filme',
+      relegated: true,
+      statusDescription: '10º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 11,
+      schoolId: 'rosa_de_ouro',
+      schoolName: 'Rosa de Ouro',
+      enredo: 'Sou Rosa, Sou de Ouro!',
+      relegated: true,
+      statusDescription: '11º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 12,
+      schoolId: 'boi_da_ilha',
+      schoolName: 'Boi da Ilha do Governador',
+      enredo: 'África, o Esplendor das Máscaras. Magia, Encanto e Sedução na Festa da Folia!',
+      relegated: true,
+      statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 13,
+      schoolId: 'vicente_de_carvalho',
+      schoolName: 'Mocidade de Vicente de Carvalho',
+      enredo: 'Cora, Coração, Coralina',
+      relegated: true,
+      statusDescription: '13º Lugar • Rebaixada para a Série Bronze'
+    }
+  ],
+  2012: [
+    {
+      rank: 1,
+      schoolId: 'caprichosos_de_pilares',
+      schoolName: 'Caprichosos de Pilares',
+      enredo: 'A Caprichosos Faz o Seu Papel... Levanta, Sacode a Poeira e Dá a Volta por Cima!',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'alegria_da_zona_sul',
+      schoolName: 'Alegria da Zona Sul',
+      enredo: 'Os Saltimbancos',
+      promoted: true,
+      statusDescription: 'Vice-Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 3,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'Arte - Um Universo Fascinante',
+      promoted: true,
+      statusDescription: '3º Lugar • Subiu para a Série Ouro'
+    },
+    {
+      rank: 4,
+      schoolId: 'sereno_campo_grande',
+      schoolName: 'Sereno de Campo Grande',
+      enredo: 'Mistérios e Magia no Sereno da Noite',
+      promoted: true,
+      statusDescription: '4º Lugar • Subiu para a Série Ouro'
+    },
+    {
+      rank: 5,
+      schoolId: 'tradicao',
+      schoolName: 'Tradição',
+      enredo: 'Ziraldo: Páginas da Vida de Um Maluco Genial!',
+      promoted: true,
+      statusDescription: '5º Lugar • Subiu para a Série Ouro'
+    },
+    {
+      rank: 6,
+      schoolId: 'curicica',
+      schoolName: 'União do Parque Curicica',
+      enredo: 'As Cartas não Mentem Jamais!',
+      promoted: true,
+      statusDescription: '6º Lugar • Subiu para a Série Ouro'
+    },
+    {
+      rank: 7,
+      schoolId: 'vila_santa_tereza',
+      schoolName: 'Unidos da Vila Santa Tereza',
+      enredo: 'A Vila na Magia dos Brinquedos',
+      promoted: true,
+      statusDescription: '7º Lugar • Subiu para a Série Ouro'
+    },
+    {
+      rank: 8,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'O Pequeno Grande Rei',
+      promoted: true,
+      statusDescription: '8º Lugar • Subiu para a Série Ouro'
+    },
+    {
+      rank: 9,
+      schoolId: 'vicente_de_carvalho',
+      schoolName: 'Mocidade de Vicente de Carvalho',
+      enredo: 'Caruarú, a Princesinha do Nordeste!',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'dificil_e_o_nome',
+      schoolName: 'Difícil é o Nome',
+      enredo: 'Flor de Lis - Símbolo Universal! Hoje se Faz Presente no Nosso Carnaval!',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Nasceu, Balançou, Dançou!',
+      statusDescription: '11º Lugar'
+    }
   ]
 };
 
@@ -2518,7 +2799,10 @@ export const OFFICIAL_PRATA_NOTES_BY_YEAR: Record<number, string> = {
   2018: 'Carnaval de 2018: Unidos da Ponte foi a campeã e garantiu o acesso à Série Ouro (Série A), com União do Parque Curicica como vice-campeã. Unidos do Cabuçu, Unidos das Vargens e Unidos do Jacarezinho foram rebaixadas para a Série Bronze.',
   2017: 'Carnaval de 2017: Unidos de Bangu foi a campeã e garantiu o acesso à Série Ouro (Série A), com Unidos do Cabuçu como vice-campeã. Leão de Nova Iguaçu, Caprichosos de Pilares, Favo de Acari e Mocidade Unida do Santa Marta foram rebaixadas para a Série Bronze.',
   2016: 'Carnaval de 2016: Acadêmicos do Sossego foi a campeã e garantiu o acesso à Série Ouro (Série A), com Tradição como vice-campeã. União de Jacarepaguá, Unidos de Lucas, Arranco e Unidos das Vargens foram rebaixadas para a Série Bronze.',
-  2015: 'Carnaval de 2015: Acadêmicos da Rocinha foi a campeã e garantiu o acesso à Série Ouro (Série A), com Unidos do Jacarezinho como vice-campeã. Sereno de Campo Grande, Unidos da Vila Santa Tereza, Rosa de Ouro, Unidos da Vila Kennedy e Acadêmicos da Abolição foram rebaixadas para a Série Bronze.'
+  2015: 'Carnaval de 2015: Acadêmicos da Rocinha foi a campeã e garantiu o acesso à Série Ouro (Série A), com Unidos do Jacarezinho como vice-campeã. Sereno de Campo Grande, Unidos da Vila Santa Tereza, Rosa de Ouro, Unidos da Vila Kennedy e Acadêmicos da Abolição foram rebaixadas para a Série Bronze.',
+  2014: 'Carnaval de 2014: Unidos de Bangu foi a campeã e garantiu o acesso à Série Ouro (Série A), com Unidos do Cabuçu como vice-campeã. Império Rubro-Negro foi rebaixada para a Série Bronze.',
+  2013: 'Carnaval de 2013: Em Cima da Hora foi a campeã e garantiu o acesso à Série Ouro (Série A), com Arranco como vice-campeã. Unidos da Villa Rica, Difícil é o Nome, Rosa de Ouro, Boi da Ilha do Governador e Mocidade de Vicente de Carvalho foram rebaixadas para a Série Bronze.',
+  2012: 'Carnaval de 2012: Caprichosos de Pilares foi a campeã e Alegria da Zona Sul a vice-campeã. Não houve rebaixamento e as oito primeiras colocadas (Caprichosos de Pilares, Alegria da Zona Sul, Unidos de Padre Miguel, Sereno de Campo Grande, Tradição, União do Parque Curicica, Unidos da Vila Santa Tereza e União de Jacarepaguá) subiram para a Série Ouro junto com a campeã da Série Bronze de 2012, devido à reorganização da pirâmide do carnaval carioca com a adoção de duas noites de desfile na Série Ouro em 2013.'
 };
 
 /**

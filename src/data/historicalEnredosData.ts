@@ -1024,7 +1024,28 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     jacarepagua: 'Os Iorubás - A história do povo nagô',
     rocinha: 'Do paraíso sonhado um sonho realizado...',
     academicos_da_rocinha: 'Do paraíso sonhado um sonho realizado...',
-    tradicao: 'Sonhar com Rei dá Leão!'
+    tradicao: 'Sonhar com Rei dá Leão!',
+
+    // Série Prata 2014
+    unidos_de_bangu: 'Eternamente Bangu',
+    bangu: 'Eternamente Bangu',
+    cabucu: 'Tire Sua Mordaça do Caminho... Que Eu Quero Gritar a Minha Cor...',
+    unidos_do_cabucu: 'Tire Sua Mordaça do Caminho... Que Eu Quero Gritar a Minha Cor...',
+    favo_de_acari: 'Amebras, 15 Anos Transformando Vidas Através da Qualificação no Carnaval',
+    engenho_da_rainha: 'Do Velho Brejo, a Cidade do Amor... Belford Roxo, Rumo a Um Futuro Promissor!',
+    academicos_do_engenho_da_rainha: 'Do Velho Brejo, a Cidade do Amor... Belford Roxo, Rumo a Um Futuro Promissor!',
+    academicos_do_sossego: 'Pernambucando',
+    sossego: 'Pernambucando',
+    sereno_campo_grande: 'Bahia - Negra Alquimia do Brasil',
+    arranco: 'Aqua Vitae, Ignis Dei! Água da Vida, Fogo de Deus....São Lourenço Nosso Guia!',
+    jacarezinho: 'Africanidades',
+    unidos_do_jacarezinho: 'Africanidades',
+    vila_santa_tereza: 'Ururaí',
+    unidos_da_ponte: 'Minha História É Você, Nossa Paixão É Por Ti: São João de Meriti',
+    ponte: 'Minha História É Você, Nossa Paixão É Por Ti: São João de Meriti',
+    unidos_de_lucas: 'Missicofe, Missicofe, Dari, Dari...',
+    unidos_da_vila_kennedy: 'Sob a Luz de Tupã, o Raiar da Criação',
+    imperio_rubro_negro: 'As Vozes da Nação'
   },
   2013: {
     // Grupo Especial 2013
@@ -1090,7 +1111,31 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     jacarezinho: 'Puxador, não. Intérprete! Por Mestre Jamelão!',
     unidos_do_jacarezinho: 'Puxador, não. Intérprete! Por Mestre Jamelão!',
     vila_santa_tereza: 'Axé - No caminho das águas sagradas',
-    unidos_da_vila_santa_tereza: 'Axé - No caminho das águas sagradas'
+    unidos_da_vila_santa_tereza: 'Axé - No caminho das águas sagradas',
+
+    // Série Prata 2013
+    em_cima_da_hora: 'Além do Espelho, João Nogueira de Todos os Sambas',
+    arranco: 'Boca de Cena',
+    arranco_do_engenho_de_dentro: 'Boca de Cena',
+    imperio_da_praca_seca: 'Valei-me Jorge!',
+    praca_seca: 'Valei-me Jorge!',
+    favo_de_acari: 'Muito Prazer! Sou Acari em Verde, Rosa e Ouro. E a Favo Faz a Festa na Intendente!',
+    coracoes_unidos_do_favo_de_acari: 'Muito Prazer! Sou Acari em Verde, Rosa e Ouro. E a Favo Faz a Festa na Intendente!',
+    academicos_do_sossego: 'De Luiza D’Oyá a Carmem Miranda. O que é que a Baiana Tem?',
+    sossego: 'De Luiza D’Oyá a Carmem Miranda. O que é que a Baiana Tem?',
+    unidos_de_lucas: 'Livros de História Infantil - Páginas Recheadas de Fantasias, Sonhos e Imaginações. Uma Viagem na Intendente Magalhães',
+    unidos_da_vila_kennedy: 'Brincadeiras de Criança',
+    vila_kennedy: 'Brincadeiras de Criança',
+    unidos_da_ponte: 'É Carnaval!',
+    ponte: 'É Carnaval!',
+    villa_rica: 'Em Busca da Felicidade',
+    unidos_da_villa_rica: 'Em Busca da Felicidade',
+    dificil_e_o_nome: 'Rio de Janeiro, o Filme',
+    rosa_de_ouro: 'Sou Rosa, Sou de Ouro!',
+    boi_da_ilha: 'África, o Esplendor das Máscaras. Magia, Encanto e Sedução na Festa da Folia!',
+    boi_da_ilha_do_governador: 'África, o Esplendor das Máscaras. Magia, Encanto e Sedução na Festa da Folia!',
+    vicente_de_carvalho: 'Cora, Coração, Coralina',
+    mocidade_de_vicente_de_carvalho: 'Cora, Coração, Coralina'
   },
   2012: {
     // Grupo Especial 2012
@@ -1137,7 +1182,31 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     rocinha: 'Vou colocar teu nome na praça',
     academicos_da_rocinha: 'Vou colocar teu nome na praça',
     tuiuti: 'Clara Nunes - A tal mineira',
-    paraiso_do_tuiuti: 'Clara Nunes - A tal mineira'
+    paraiso_do_tuiuti: 'Clara Nunes - A tal mineira',
+
+    // Série Prata 2012
+    caprichosos_de_pilares: 'A Caprichosos Faz o Seu Papel... Levanta, Sacode a Poeira e Dá a Volta por Cima!',
+    caprichosos: 'A Caprichosos Faz o Seu Papel... Levanta, Sacode a Poeira e Dá a Volta por Cima!',
+    alegria_da_zona_sul: 'Os Saltimbancos',
+    alegria: 'Os Saltimbancos',
+    unidos_padre_miguel: 'Arte - Um Universo Fascinante',
+    padre_miguel: 'Arte - Um Universo Fascinante',
+    sereno_campo_grande: 'Mistérios e Magia no Sereno da Noite',
+    sereno_de_campo_grande: 'Mistérios e Magia no Sereno da Noite',
+    sereno: 'Mistérios e Magia no Sereno da Noite',
+    tradicao: 'Ziraldo: Páginas da Vida de Um Maluco Genial!',
+    curicica: 'As Cartas não Mentem Jamais!',
+    parque_curicica: 'As Cartas não Mentem Jamais!',
+    uniao_do_parque_curicica: 'As Cartas não Mentem Jamais!',
+    vila_santa_tereza: 'A Vila na Magia dos Brinquedos',
+    unidos_da_vila_santa_tereza: 'A Vila na Magia dos Brinquedos',
+    uniao_de_jacarepagua: 'O Pequeno Grande Rei',
+    jacarepagua: 'O Pequeno Grande Rei',
+    vicente_de_carvalho: 'Caruarú, a Princesinha do Nordeste!',
+    mocidade_de_vicente_de_carvalho: 'Caruarú, a Princesinha do Nordeste!',
+    dificil_e_o_nome: 'Flor de Lis - Símbolo Universal! Hoje se Faz Presente no Nosso Carnaval!',
+    arranco: 'Nasceu, Balançou, Dançou!',
+    arranco_do_engenho_de_dentro: 'Nasceu, Balançou, Dançou!'
   },
   2011: {
     // Grupo Especial 2011
@@ -5076,8 +5145,11 @@ function normalizeId(rawId?: string, rawName?: string): string {
     if (id.includes('villa_rica') || id.includes('vila_rica')) return 'villa_rica';
     if (id.includes('vila_kennedy')) return 'unidos_da_vila_kennedy';
     if (id.includes('imperadores_rubro')) return 'imperadores_rubro_negros';
+    if (id.includes('imperio_rubro')) return 'imperio_rubro_negro';
     if (id.includes('vargens')) return 'unidos_das_vargens';
     if (id.includes('favo')) return 'favo_de_acari';
+    if (id.includes('praca_seca')) return 'imperio_da_praca_seca';
+    if (id.includes('vicente_de_carvalho')) return 'vicente_de_carvalho';
     return id;
   }
   if (!rawName) return '';
@@ -5122,6 +5194,8 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('mocidade de cachambi')) return 'mocidade_de_cachambi';
   if (n.includes('mocidade unidos do riachuelo') || n.includes('modelo unidos do riachuelo')) return 'mocidade_unidos_do_riachuelo';
   if (n.includes('mocidade louca')) return 'mocidade_louca_sao_cristovao';
+  if (n.includes('vicente de carvalho')) return 'vicente_de_carvalho';
+  if (n.includes('praça seca') || n.includes('praca seca')) return 'imperio_da_praca_seca';
   if (n.includes('mocidade') && !n.includes('cidade de deus') && !n.includes('santa marta') && !n.includes('vicente')) return 'mocidade';
   if (n.includes('maricá') || n.includes('marica')) return 'marica';
   if ((n.includes('padre miguel') || n === 'upm') && !n.includes('mocidade')) return 'unidos_padre_miguel';
@@ -5288,6 +5362,7 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('villa rica') || n.includes('vila rica')) return 'villa_rica';
   if (n.includes('vila kennedy')) return 'unidos_da_vila_kennedy';
   if (n.includes('imperadores rubro')) return 'imperadores_rubro_negros';
+  if (n.includes('império rubro') || n.includes('imperio rubro')) return 'imperio_rubro_negro';
   if (n.includes('vargens')) return 'unidos_das_vargens';
   if (n.includes('favo')) return 'favo_de_acari';
   return '';

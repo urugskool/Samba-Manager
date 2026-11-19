@@ -89,7 +89,9 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('escola tuiuti') || name.includes('escola de samba tuiuti') || clean === 'escola_tuiuti') return 'escola_tuiuti';
   if (name.includes('tuiuti')) return 'tuiuti';
   if (name.includes('cidade de deus') || clean.includes('cidade_de_deus')) return 'mocidade_cidade_de_deus';
-  if (name.includes('mocidade') && !name.includes('santa marta')) return 'mocidade';
+  if (name.includes('vicente de carvalho') || clean.includes('vicente_de_carvalho')) return 'vicente_de_carvalho';
+  if (name.includes('praça seca') || name.includes('praca seca') || clean.includes('praca_seca')) return 'imperio_da_praca_seca';
+  if (name.includes('mocidade') && !name.includes('santa marta') && !name.includes('vicente')) return 'mocidade';
   if (name.includes('academia niterói') || name.includes('academia niteroi') || clean === 'academia_niteroi_de_samba') return 'academia_niteroi_de_samba';
   if (name.includes('niterói') || name.includes('niteroi')) return 'niteroi';
   if (name.includes('santa cruz')) return 'santa_cruz';
@@ -187,6 +189,7 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('garras do tigre') || clean === 'garras_do_tigre') return 'garras_do_tigre';
   if (name.includes('vila kennedy') || clean === 'unidos_da_vila_kennedy' || clean === 'vila_kennedy') return 'unidos_da_vila_kennedy';
   if (name.includes('imperadores rubro') || clean === 'imperadores_rubro_negros') return 'imperadores_rubro_negros';
+  if (name.includes('império rubro') || name.includes('imperio rubro') || clean === 'imperio_rubro_negro') return 'imperio_rubro_negro';
   if (name.includes('vargens') || clean.includes('vargens')) return 'unidos_das_vargens';
   if (name.includes('favo') || clean.includes('favo')) return 'favo_de_acari';
 

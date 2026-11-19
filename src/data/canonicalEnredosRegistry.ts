@@ -432,7 +432,10 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('mocidade unidos do riachuelo') || raw.includes('mocidade_unidos_do_riachuelo') || raw.includes('modelo unidos do riachuelo')) return 'mocidade_unidos_do_riachuelo';
   if (raw.includes('mocidade unida da mineira') || raw.includes('mocidade_unida_da_mineira')) return 'grbc_mocidade_unida_da_mineira';
   if (raw.includes('mocidade louca') || raw.includes('mocidade_louca')) return 'mocidade_louca_sao_cristovao';
+  if (raw.includes('vicente de carvalho') || raw.includes('vicente_de_carvalho')) return 'vicente_de_carvalho';
+  if (raw.includes('praça seca') || raw.includes('praca seca') || raw.includes('praca_seca')) return 'imperio_da_praca_seca';
   if (raw.includes('mocidade') && !raw.includes('santa marta') && !raw.includes('vicente') && !raw.includes('cidade de deus')) return 'mocidade';
+  if (raw.includes('academia niterói') || raw.includes('academia niteroi') || raw.includes('academia_niteroi')) return 'academia_niteroi_de_samba';
   if (raw.includes('niterói') || raw.includes('niteroi')) return 'niteroi';
   if (raw.includes('maricá') || raw.includes('marica')) return 'marica';
   if (raw.includes('imperio serrano') || raw.includes('império serrano') || raw.includes('serrano')) return 'imperio_serrano';
@@ -526,6 +529,8 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('vizinha')) return 'vizinha_faladeira';
   if (raw.includes('leão de nova iguaçu') || raw.includes('leao de nova iguacu') || raw.includes('leao_de_nova_iguacu')) return 'leao_de_nova_iguacu';
   if (raw.includes('vargens')) return 'unidos_das_vargens';
+  if (raw.includes('imperadores rubro') || raw.includes('imperadores_rubro')) return 'imperadores_rubro_negros';
+  if (raw.includes('império rubro') || raw.includes('imperio rubro') || raw.includes('imperio_rubro')) return 'imperio_rubro_negro';
   return (schoolId || '').toLowerCase().trim();
 }
 
