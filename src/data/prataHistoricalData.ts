@@ -3105,6 +3105,94 @@ export const OFFICIAL_PRATA_HISTORICAL_STANDINGS: Record<number, PrataStandingRe
       relegated: true,
       statusDescription: '14º Lugar • Rebaixada para a Série Bronze'
     }
+  ],
+  2006: [
+    {
+      rank: 1,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Tijuca, Cantos, Recantos e Encantos',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'O Imperador Morava Ali, do Outro Lado do Tuiuti',
+      statusDescription: 'Vice-Campeã'
+    },
+    {
+      rank: 3,
+      schoolId: 'inocentes',
+      schoolName: 'Inocentes de Belford Roxo',
+      enredo: 'A Lenda das Sereias, Rainha do Mar',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'curicica',
+      schoolName: 'União do Parque Curicica',
+      enredo: 'GLS Com a Bandeira da Alegria; o Babado da Curicica no Carnaval É Só Alegria!',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Lua Viajante',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'dificil_e_o_nome',
+      schoolName: 'Difícil é o Nome',
+      enredo: 'Olubajé, a Festa da Libertação',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Arraial do Pavulagem',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'flor_da_mina',
+      schoolName: 'Flor da Mina do Andaraí',
+      enredo: 'O Direito de Ir e Vir. Da Aldeia do Andira-Y, da Cadeirinha ao Metrô, Eu Também Vou...',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'praca_da_bandeira',
+      schoolName: 'Independente da Praça da Bandeira',
+      enredo: 'O Sertão Vai Virar Mar, o Velho Chico Quem Vem Avisar',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'boi_da_ilha',
+      schoolName: 'Boi da Ilha do Governador',
+      enredo: 'O Amanhã',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Alô, Alô, Intendente! Aquele Abraço!',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Da Cor do Pecado',
+      relegated: true,
+      statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
+    }
   ]
 };
 
@@ -3300,7 +3388,8 @@ export const OFFICIAL_PRATA_NOTES_BY_YEAR: Record<number, string> = {
   2010: 'Carnaval de 2010: Alegria da Zona Sul foi a campeã e garantiu o acesso à Série Ouro (Grupo A), com Arranco como vice-campeã e empate em 3º lugar entre Sereno de Campo Grande e União do Parque Curicica. Unidos do Jacarezinho, Boi da Ilha do Governador e Flor da Mina do Andaraí foram rebaixadas para a Série Bronze.',
   2009: 'Carnaval de 2009: Acadêmicos do Cubango e Unidos de Padre Miguel empataram no 1º lugar, sagrando-se campeãs e garantindo acesso à Série Ouro (Grupo A), com União do Parque Curicica em 3º lugar. Independente da Praça da Bandeira, Arrastão de Cascadura e Corações Unidos do Amarelinho foram rebaixadas para a Série Bronze.',
   2008: 'Carnaval de 2008: Inocentes de Belford Roxo foi a campeã e Paraíso do Tuiuti a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Mocidade de Vicente de Carvalho, Vizinha Faladeira e Unidos de Lucas foram rebaixadas para a Série Bronze.',
-  2007: 'Carnaval de 2007: Lins Imperial foi a campeã e garantiu o acesso à Série Ouro (Grupo A), com Inocentes de Belford Roxo como vice-campeã. Difícil é o Nome e Flor da Mina do Andaraí foram rebaixadas para a Série Bronze.'
+  2007: 'Carnaval de 2007: Lins Imperial foi a campeã e garantiu o acesso à Série Ouro (Grupo A), com Inocentes de Belford Roxo como vice-campeã. Difícil é o Nome e Flor da Mina do Andaraí foram rebaixadas para a Série Bronze.',
+  2006: 'Carnaval de 2006: Império da Tijuca foi a campeã e garantiu o acesso à Série Ouro (Grupo A), com Paraíso do Tuiuti como vice-campeã. Unidos da Ponte foi rebaixada para a Série Bronze.'
 };
 
 /**

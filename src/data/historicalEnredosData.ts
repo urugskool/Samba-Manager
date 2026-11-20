@@ -1633,7 +1633,31 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     academicos_do_cubango: 'Na magia da escrita, a viagem do saber',
     vizinha_faladeira: 'Adorável loucura na cidade do encantamento',
     alegria_da_zona_sul: 'A Alegria é show de bola',
-    alegria: 'A Alegria é show de bola'
+    alegria: 'A Alegria é show de bola',
+
+    // Série Prata 2006
+    imperio_da_tijuca: 'Tijuca, Cantos, Recantos e Encantos',
+    tuiuti: 'O Imperador Morava Ali, do Outro Lado do Tuiuti',
+    paraiso_do_tuiuti: 'O Imperador Morava Ali, do Outro Lado do Tuiuti',
+    inocentes: 'A Lenda das Sereias, Rainha do Mar',
+    inocentes_de_belford_roxo: 'A Lenda das Sereias, Rainha do Mar',
+    curicica: 'GLS Com a Bandeira da Alegria; o Babado da Curicica no Carnaval É Só Alegria!',
+    parque_curicica: 'GLS Com a Bandeira da Alegria; o Babado da Curicica no Carnaval É Só Alegria!',
+    uniao_do_parque_curicica: 'GLS Com a Bandeira da Alegria; o Babado da Curicica no Carnaval É Só Alegria!',
+    unidos_de_lucas: 'Lua Viajante',
+    lucas: 'Lua Viajante',
+    dificil_e_o_nome: 'Olubajé, a Festa da Libertação',
+    lins_imperial: 'Arraial do Pavulagem',
+    flor_da_mina: 'O Direito de Ir e Vir. Da Aldeia do Andira-Y, da Cadeirinha ao Metrô, Eu Também Vou...',
+    flor_da_mina_do_andarai: 'O Direito de Ir e Vir. Da Aldeia do Andira-Y, da Cadeirinha ao Metrô, Eu Também Vou...',
+    praca_da_bandeira: 'O Sertão Vai Virar Mar, o Velho Chico Quem Vem Avisar',
+    independente_da_praca_da_bandeira: 'O Sertão Vai Virar Mar, o Velho Chico Quem Vem Avisar',
+    boi_da_ilha: 'O Amanhã',
+    boi_da_ilha_do_governador: 'O Amanhã',
+    uniao_de_jacarepagua: 'Alô, Alô, Intendente! Aquele Abraço!',
+    jacarepagua: 'Alô, Alô, Intendente! Aquele Abraço!',
+    unidos_da_ponte: 'Da Cor do Pecado',
+    ponte: 'Da Cor do Pecado'
   },
   2005: {
     beija_flor: 'O Vento Corta as Terras dos Pampas. Em Nome do Pai, do Filho e do Espírito Guarani, Sete Povos na Fé e na Dor... Sete Missões de Amor',
