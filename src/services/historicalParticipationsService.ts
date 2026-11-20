@@ -70,7 +70,9 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('salgueiro')) return 'salgueiro';
   if (name.includes('vila isabel')) return 'vila_isabel';
   if (name.includes('imperatriz')) return 'imperatriz';
-  if (name.includes('tijuca') && !name.includes('império')) return 'tijuca';
+  if (name.includes('acadêmicos da barra da tijuca') || name.includes('academicos da barra da tijuca') || clean === 'academicos_da_barra_da_tijuca') return 'academicos_da_barra_da_tijuca';
+  if (name.includes('unidos da barra da tijuca') || clean === 'unidos_da_barra_da_tijuca') return 'unidos_da_barra_da_tijuca';
+  if (name.includes('tijuca') && !name.includes('império') && !name.includes('imperio') && !name.includes('barra')) return 'tijuca';
   if (
     clean === 'grande_rio_duque_de_caxias' ||
     clean.includes('grande_rio_duque_de_caxias') ||

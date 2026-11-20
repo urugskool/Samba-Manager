@@ -1779,7 +1779,26 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     leao_de_nova_iguacu: 'Insone Planeta Insano',
     leao_nova_iguacu: 'Insone Planeta Insano',
     lins_imperial: '75 Anos da Mangueira. É Bom Se Segurar que a Poeira Vai Subir!',
-    lins: '75 Anos da Mangueira. É Bom Se Segurar que a Poeira Vai Subir!'
+    lins: '75 Anos da Mangueira. É Bom Se Segurar que a Poeira Vai Subir!',
+    // Série Prata (Grupo B) 2004
+    vizinha_faladeira: 'A Bela Adormecida',
+    renascer_jacarepagua: 'A Riqueza da Criação em Cada Canto Desse Chão',
+    renascer_de_jacarepagua: 'A Riqueza da Criação em Cada Canto Desse Chão',
+    imperio_da_tijuca: 'A Império da Tijuca É Doce, mas não É Mole não!',
+    jacarezinho: 'Unisuam no Mundo Jacaré, Coruja É Rei',
+    unidos_do_jacarezinho: 'Unisuam no Mundo Jacaré, Coruja É Rei',
+    unidos_da_ponte: 'Hei de Torcer, Torcer, Torcer... América, 100 Anos de Paixão',
+    unidos_de_lucas: 'Da Pedra Bonita ao Resgate Social, Itaboraí Uma História sem Igual',
+    boi_da_ilha: 'Uni-duni-tê, Brincando, Construí Um Mundo Novo pra Você',
+    boi_da_ilha_do_governador: 'Uni-duni-tê, Brincando, Construí Um Mundo Novo pra Você',
+    arranco: 'Maria Augusta, o Sonho nas Estrelas',
+    academicos_da_barra_da_tijuca: 'Luz, Câmera e Ação, Cacá Diegues na Barra da Tijuca, é Pura Emoção!',
+    curicica: 'Verdade pra Quem Viveu, Miragem pra Quem não Viu, Invasão de Amor e Paz nas Terras do Meu Brasil',
+    uniao_do_parque_curicica: 'Verdade pra Quem Viveu, Miragem pra Quem não Viu, Invasão de Amor e Paz nas Terras do Meu Brasil',
+    cabucu: 'Therezinha Monte - A Guerreira do Samba e Seus 20 Anos de Folia na Cabuçu',
+    unidos_do_cabucu: 'Therezinha Monte - A Guerreira do Samba e Seus 20 Anos de Folia na Cabuçu',
+    villa_rica: 'Odoiá, a Poderosa Força das Águas, o Símbolo Gerador da Vida',
+    unidos_da_villa_rica: 'Odoiá, a Poderosa Força das Águas, o Símbolo Gerador da Vida'
   },
   2003: {
     beija_flor: 'O Povo conta a sua história: saco vazio não para em pé, a mão que faz a guerra, faz a paz',
@@ -5316,6 +5335,7 @@ function normalizeId(rawId?: string, rawName?: string): string {
     if (id.includes('chatuba')) return 'chatuba';
     if (id.includes('leao_de_nova_iguacu')) return 'leao_de_nova_iguacu';
     if (id.includes('concentra_imperial')) return 'concentra_imperial';
+    if (id.includes('academicos_da_barra_da_tijuca')) return 'academicos_da_barra_da_tijuca';
     if (id.includes('unidos_da_barra_da_tijuca')) return 'unidos_da_barra_da_tijuca';
     if (id.includes('flor_da_mina')) return 'flor_da_mina';
     if (id.includes('alegria_de_copacabana')) return 'alegria_de_copacabana';
@@ -5359,7 +5379,9 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('salgueiro')) return 'salgueiro';
   if (n.includes('imperatriz')) return 'imperatriz';
   if (n.includes('mangueira')) return 'mangueira';
-  if (n.includes('tijuca') && !n.includes('império')) return 'tijuca';
+  if (n.includes('acadêmicos da barra da tijuca') || n.includes('academicos da barra da tijuca')) return 'academicos_da_barra_da_tijuca';
+  if (n.includes('unidos da barra da tijuca')) return 'unidos_da_barra_da_tijuca';
+  if (n.includes('tijuca') && !n.includes('império') && !n.includes('imperio') && !n.includes('barra')) return 'tijuca';
   if (
     n.includes('grande_rio_duque_de_caxias') ||
     n.includes('grande rio (antiga)') ||

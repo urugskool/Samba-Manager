@@ -3284,6 +3284,98 @@ export const OFFICIAL_PRATA_HISTORICAL_STANDINGS: Record<number, PrataStandingRe
       relegated: true,
       statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
     }
+  ],
+  2004: [
+    {
+      rank: 1,
+      schoolId: 'vizinha_faladeira',
+      schoolName: 'Vizinha Faladeira',
+      enredo: 'A Bela Adormecida',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'renascer_jacarepagua',
+      schoolName: 'Renascer de Jacarepaguá',
+      enredo: 'A Riqueza da Criação em Cada Canto Desse Chão',
+      promoted: true,
+      statusDescription: 'Vice-Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 3,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'A Império da Tijuca É Doce, mas não É Mole não!',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Unisuam no Mundo Jacaré, Coruja É Rei',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'Hei de Torcer, Torcer, Torcer... América, 100 Anos de Paixão',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Da Pedra Bonita ao Resgate Social, Itaboraí Uma História sem Igual',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'boi_da_ilha',
+      schoolName: 'Boi da Ilha do Governador',
+      enredo: 'Uni-duni-tê, Brincando, Construí Um Mundo Novo pra Você',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Maria Augusta, o Sonho nas Estrelas',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'academicos_da_barra_da_tijuca',
+      schoolName: 'Acadêmicos da Barra da Tijuca',
+      enredo: 'Luz, Câmera e Ação, Cacá Diegues na Barra da Tijuca, é Pura Emoção!',
+      relegated: true,
+      statusDescription: '9º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 10,
+      schoolId: 'curicica',
+      schoolName: 'União do Parque Curicica',
+      enredo: 'Verdade pra Quem Viveu, Miragem pra Quem não Viu, Invasão de Amor e Paz nas Terras do Meu Brasil',
+      relegated: true,
+      statusDescription: '10º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 11,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Therezinha Monte - A Guerreira do Samba e Seus 20 Anos de Folia na Cabuçu',
+      relegated: true,
+      statusDescription: '11º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 12,
+      schoolId: 'villa_rica',
+      schoolName: 'Unidos da Villa Rica',
+      enredo: 'Odoiá, a Poderosa Força das Águas, o Símbolo Gerador da Vida',
+      relegated: true,
+      statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
+    }
   ]
 };
 
@@ -3481,7 +3573,8 @@ export const OFFICIAL_PRATA_NOTES_BY_YEAR: Record<number, string> = {
   2008: 'Carnaval de 2008: Inocentes de Belford Roxo foi a campeã e Paraíso do Tuiuti a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Mocidade de Vicente de Carvalho, Vizinha Faladeira e Unidos de Lucas foram rebaixadas para a Série Bronze.',
   2007: 'Carnaval de 2007: Lins Imperial foi a campeã e garantiu o acesso à Série Ouro (Grupo A), com Inocentes de Belford Roxo como vice-campeã. Difícil é o Nome e Flor da Mina do Andaraí foram rebaixadas para a Série Bronze.',
   2006: 'Carnaval de 2006: Império da Tijuca foi a campeã e garantiu o acesso à Série Ouro (Grupo A), com Paraíso do Tuiuti como vice-campeã. Unidos da Ponte foi rebaixada para a Série Bronze.',
-  2005: 'Carnaval de 2005: Estácio de Sá foi a campeã e Arranco a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Unidos do Jacarezinho, Leão de Nova Iguaçu e Mocidade de Vicente de Carvalho foram rebaixadas para a Série Bronze.'
+  2005: 'Carnaval de 2005: Estácio de Sá foi a campeã e Arranco a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Unidos do Jacarezinho, Leão de Nova Iguaçu e Mocidade de Vicente de Carvalho foram rebaixadas para a Série Bronze.',
+  2004: 'Carnaval de 2004: Vizinha Faladeira foi a campeã e Renascer de Jacarepaguá a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Acadêmicos da Barra da Tijuca, União do Parque Curicica, Unidos do Cabuçu e Unidos da Villa Rica foram rebaixadas para a Série Bronze.'
 };
 
 /**
