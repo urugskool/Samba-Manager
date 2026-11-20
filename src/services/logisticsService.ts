@@ -308,7 +308,11 @@ export class LogisticsService {
     if (lower.includes('madureira') || lower.includes('serrinha') || lower.includes('portela') || lower.includes('império serrano')) {
       return NEIGHBORHOOD_GEODATA['Madureira'];
     }
-    if (lower.includes('padre miguel') || lower.includes('vintém') || lower.includes('mocidade')) {
+    if (
+      lower.includes('padre miguel') ||
+      lower.includes('vintém') ||
+      (lower.includes('mocidade') && lower.includes('independente') && !lower.includes('inhaúma') && !lower.includes('inhauma'))
+    ) {
       return NEIGHBORHOOD_GEODATA['Padre Miguel'];
     }
     if (lower.includes('tijuca') || lower.includes('salgueiro') || lower.includes('andaraí') || lower.includes('borel')) {

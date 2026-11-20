@@ -2624,6 +2624,13 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('tijuca') && !nameNorm.includes('barra')) return 'tijuca';
   if (nameNorm.includes('unidos do tuiuti') || nameNorm.includes('unidos_do_tuiuti')) return 'unidos_do_tuiuti';
   if (nameNorm.includes('tuiuti')) return 'tuiuti';
+  if (nameNorm.includes('manguariba')) return 'manguariba';
+  if (nameNorm.includes('vasconcelos')) return 'mocidade_de_vasconcelos';
+  if (nameNorm.includes('inhaúma') || nameNorm.includes('inhauma')) return 'mocidade_de_inhauma';
+  if (nameNorm.includes('santa marta')) return 'santa_marta';
+  if (nameNorm.includes('vicente de carvalho')) return 'vicente_de_carvalho';
+  if (nameNorm.includes('mocidade unida da mineira')) return 'grbc_mocidade_unida_da_mineira';
+  if (nameNorm.includes('mocidade louca')) return 'mocidade_louca_sao_cristovao';
   if (nameNorm.includes('paraiso da mocidade') || nameNorm.includes('paraíso da mocidade')) return 'paraiso_da_mocidade';
   if (nameNorm.includes('prazer da mocidade')) return 'prazer_da_mocidade';
   if (nameNorm.includes('mocidade de um paraíso') || nameNorm.includes('mocidade de um paraiso')) return 'mocidade_de_um_paraiso';
@@ -2634,7 +2641,18 @@ function resolveSchoolId(rawId?: string, rawName?: string, schoolsMap?: Map<stri
   if (nameNorm.includes('recreio da mocidade') || nameNorm.includes('recreio_da_mocidade')) return 'recreio_da_mocidade';
   if (nameNorm.includes('unidos da mocidade') || nameNorm.includes('unidos_da_mocidade')) return 'unidos_da_mocidade';
   if (nameNorm.includes('cidade de deus')) return 'mocidade_cidade_de_deus';
-  if (nameNorm.includes('mocidade') && !nameNorm.includes('cidade de deus') && !nameNorm.includes('porto') && !nameNorm.includes('vicente')) return 'mocidade';
+  const nameTrim = nameNorm.trim();
+  if (
+    nameTrim === 'mocidade' ||
+    nameTrim === 'mocidade independente' ||
+    nameTrim === 'g.r.e.s. mocidade independente' ||
+    nameTrim === 'gres mocidade independente' ||
+    (nameNorm.includes('mocidade') &&
+      (nameNorm.includes('padre miguel') ||
+        (nameNorm.includes('independente') && !nameNorm.includes('inhaúma') && !nameNorm.includes('inhauma'))))
+  ) {
+    return 'mocidade';
+  }
   if (nameNorm.includes('niterói') || nameNorm.includes('niteroi')) return 'niteroi';
   if (nameNorm.includes('porto da pedra')) return 'porto_da_pedra';
   if (nameNorm.includes('padre miguel') && nameNorm.includes('unidos de')) return 'unidos_padre_miguel';

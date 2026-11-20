@@ -53,10 +53,13 @@ export function cleanSchoolName(nameOrSchool?: string | School | null): string {
     .replace(/^CCBC\s+/i, '')
     .replace(/^B\.?C\.?C\.?R\.?\s+/i, '')
     .replace(/^BCCR\s+/i, '')
+    .replace(/^B\.?C\.?\s+/i, '')
+    .replace(/^BC\s+/i, '')
     .replace(/^Grêmio Recreativo Bloco Carnavalesco e Cultural\s+/i, '')
     .replace(/^Grêmio Recreativo Bloco Carnavalesco\s+/i, '')
     .replace(/^Centro Cultural Bloco Carnavalesco\s+/i, '')
     .replace(/^Bloco Carnavalesco Cultural e Recreativo\s+/i, '')
+    .replace(/^Bloco Carnavalesco\s+/i, '')
     .trim();
 }
 
@@ -117,6 +120,9 @@ export function getSchoolDenominationExtenso(school: School): string {
   }
   if (denom === 'G.R.B.C.C.' || denom === 'GRBCC') {
     return 'Grêmio Recreativo Bloco Carnavalesco e Cultural';
+  }
+  if (denom === 'B.C.' || denom === 'BC') {
+    return 'Bloco Carnavalesco';
   }
   return 'Grêmio Recreativo Escola de Samba';
 }

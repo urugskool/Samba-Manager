@@ -421,7 +421,11 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   }
   if (raw.includes('tuiuti')) return 'tuiuti';
   if (raw.includes('portela')) return 'portela';
-  if (raw.includes('cidade de deus')) return 'mocidade_cidade_de_deus';
+  if (raw.includes('manguariba')) return 'manguariba';
+  if (raw.includes('vasconcelos')) return 'mocidade_de_vasconcelos';
+  if (raw.includes('inhaúma') || raw.includes('inhauma')) return 'mocidade_de_inhauma';
+  if (raw.includes('santa marta') || raw.includes('santa_marta')) return 'santa_marta';
+  if (raw.includes('cidade de deus') || raw.includes('cidade_de_deus')) return 'mocidade_cidade_de_deus';
   if (raw.includes('uniao da mocidade') || raw.includes('união da mocidade') || raw.includes('uniao_da_mocidade')) return 'uniao_da_mocidade';
   if (raw.includes('unidos da mocidade') || raw.includes('unidos_da_mocidade')) return 'unidos_da_mocidade';
   if (raw.includes('recreio da mocidade') || raw.includes('recreio_da_mocidade')) return 'recreio_da_mocidade';
@@ -434,7 +438,23 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('mocidade louca') || raw.includes('mocidade_louca')) return 'mocidade_louca_sao_cristovao';
   if (raw.includes('vicente de carvalho') || raw.includes('vicente_de_carvalho')) return 'vicente_de_carvalho';
   if (raw.includes('praça seca') || raw.includes('praca seca') || raw.includes('praca_seca')) return 'imperio_da_praca_seca';
-  if (raw.includes('mocidade') && !raw.includes('santa marta') && !raw.includes('vicente') && !raw.includes('cidade de deus')) return 'mocidade';
+  const idClean = (schoolId || '').toLowerCase().trim();
+  const nameClean = (schoolName || '').toLowerCase().trim();
+  if (
+    idClean === 'mocidade' ||
+    idClean === 'mocidade_independente' ||
+    idClean === 'mocidade_independente_de_padre_miguel' ||
+    nameClean === 'mocidade' ||
+    nameClean === 'mocidade independente' ||
+    nameClean === 'g.r.e.s. mocidade independente' ||
+    nameClean === 'gres mocidade independente' ||
+    (raw.includes('mocidade') &&
+      (raw.includes('padre miguel') ||
+        raw.includes('padre_miguel') ||
+        (raw.includes('independente') && !raw.includes('inhaúma') && !raw.includes('inhauma'))))
+  ) {
+    return 'mocidade';
+  }
   if (raw.includes('academia niterói') || raw.includes('academia niteroi') || raw.includes('academia_niteroi')) return 'academia_niteroi_de_samba';
   if (raw.includes('niterói') || raw.includes('niteroi')) return 'niteroi';
   if (raw.includes('maricá') || raw.includes('marica')) return 'marica';
@@ -462,6 +482,7 @@ export function normalizeCanonicalSchoolId(schoolId?: string, schoolName?: strin
   if (raw.includes('botafogo')) return 'botafogo_samba_clube';
   if (raw.includes('zumbi')) return 'independentes_do_zumbi';
   if (raw.includes('vila são luís') || raw.includes('vila sao luis') || raw.includes('vila_sao_luis')) return 'unidos_da_vila_sao_luis';
+  if (raw.includes('raízes do favo') || raw.includes('raizes do favo') || raw.includes('raizes_do_favo')) return 'grbc_raizes_do_favo_de_acari';
   if (raw.includes('favo de acari') || raw.includes('favo_de_acari') || raw.includes('favo')) return 'favo_de_acari';
   if (raw.includes('acari')) return 'parque_acari';
   if (raw.includes('inocentes') || raw.includes('belford')) return 'inocentes';

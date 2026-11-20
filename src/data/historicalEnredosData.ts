@@ -1704,7 +1704,30 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     tuiuti: 'Cravo de Ouro, Eu Também Sou da Lira e Não Quero Negar',
     paraiso_do_tuiuti: 'Cravo de Ouro, Eu Também Sou da Lira e Não Quero Negar',
     uniao_de_jacarepagua: 'Iriruama-arara-o-ama por Toda Eternidade',
-    uniao_jacarepagua: 'Iriruama-arara-o-ama por Toda Eternidade'
+    uniao_jacarepagua: 'Iriruama-arara-o-ama por Toda Eternidade',
+
+    // Série Prata 2005
+    estacio_de_sa: 'Arte Negra na Legendária Bahia',
+    estacio: 'Arte Negra na Legendária Bahia',
+    arranco: 'Quem vai Querer?',
+    arranco_do_engenho_de_dentro: 'Quem vai Querer?',
+    boi_da_ilha: 'As Águas de Oxalá',
+    boi_da_ilha_do_governador: 'As Águas de Oxalá',
+    lins_imperial: 'O Bêbado e a Equilibrista. O Show tem que Continuar...',
+    inocentes: 'O Ouro do Lixo - De onde vai, para onde vem. Reciclando com o Pé no Futuro',
+    inocentes_de_belford_roxo: 'O Ouro do Lixo - De onde vai, para onde vem. Reciclando com o Pé no Futuro',
+    unidos_da_ponte: 'E Eles Verão a Deus',
+    ponte: 'E Eles Verão a Deus',
+    imperio_da_tijuca: 'Sargentelli Carioca do Brasil. É Samba, é Alegria, é Mulata nota mil',
+    unidos_de_lucas: 'Mar Baiano em Noite de Gala',
+    lucas: 'Mar Baiano em Noite de Gala',
+    praca_da_bandeira: 'Josué de Castro: Ecoa um Grito contra a Fome, pela Cidadania e pela Paz na Terra',
+    independente_da_praca_da_bandeira: 'Josué de Castro: Ecoa um Grito contra a Fome, pela Cidadania e pela Paz na Terra',
+    jacarezinho: 'Monarco, Voz e Memória do Samba, um Passado de Glória',
+    unidos_do_jacarezinho: 'Monarco, Voz e Memória do Samba, um Passado de Glória',
+    leao_de_nova_iguacu: 'Na Magia do Palco da Vida. Emilinha Borba, a Rainha do Brasil!',
+    vicente_de_carvalho: 'Da Lenda à História de Itaguaí',
+    mocidade_de_vicente_de_carvalho: 'Da Lenda à História de Itaguaí'
   },
   2004: {
     beija_flor: 'Manõa, Manaus, Amazônia, Terra Santa: Alimenta o Corpo, Equilibra a Alma e Transmite a Paz',
@@ -5210,6 +5233,11 @@ function normalizeId(rawId?: string, rawName?: string): string {
     if (id.includes('ultima_hora')) return 'ultima_hora';
     if (id.includes('unidos_do_tuiuti')) return 'unidos_do_tuiuti';
     if (id.includes('uniao_parada_de_lucas')) return 'uniao_parada_de_lucas';
+    if (id === 'manguariba' || id.includes('manguariba')) return 'manguariba';
+    if (id === 'mocidade_de_vasconcelos' || id.includes('vasconcelos')) return 'mocidade_de_vasconcelos';
+    if (id === 'mocidade_de_inhauma' || id.includes('inhauma')) return 'mocidade_de_inhauma';
+    if (id === 'grbc_mocidade_unida_da_mineira' || id.includes('mocidade_unida_da_mineira')) return 'grbc_mocidade_unida_da_mineira';
+    if (id === 'mocidade_louca_sao_cristovao' || id.includes('mocidade_louca')) return 'mocidade_louca_sao_cristovao';
     if (id.includes('uniao_da_mocidade')) return 'uniao_da_mocidade';
     if (id.includes('unidos_da_mocidade')) return 'unidos_da_mocidade';
     if (id.includes('recreio_da_mocidade')) return 'recreio_da_mocidade';
@@ -5312,6 +5340,7 @@ function normalizeId(rawId?: string, rawName?: string): string {
     if (id.includes('imperadores_rubro')) return 'imperadores_rubro_negros';
     if (id.includes('imperio_rubro')) return 'imperio_rubro_negro';
     if (id.includes('vargens')) return 'unidos_das_vargens';
+    if (id === 'grbc_raizes_do_favo_de_acari' || id.includes('raizes_do_favo')) return 'grbc_raizes_do_favo_de_acari';
     if (id.includes('favo')) return 'favo_de_acari';
     if (id.includes('praca_seca')) return 'imperio_da_praca_seca';
     if (id.includes('vicente_de_carvalho')) return 'vicente_de_carvalho';
@@ -5349,7 +5378,12 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('unidos do tuiuti')) return 'unidos_do_tuiuti';
   if (n.includes('tuiuti')) return 'tuiuti';
   if (n.includes('portela')) return 'portela';
+  if (n.includes('manguariba')) return 'manguariba';
+  if (n.includes('vasconcelos')) return 'mocidade_de_vasconcelos';
+  if (n.includes('inhaúma') || n.includes('inhauma')) return 'mocidade_de_inhauma';
+  if (n.includes('santa marta')) return 'santa_marta';
   if (n.includes('cidade de deus')) return 'mocidade_cidade_de_deus';
+  if (n.includes('mocidade unida da mineira')) return 'grbc_mocidade_unida_da_mineira';
   if (n.includes('união da mocidade') || n.includes('uniao da mocidade')) return 'uniao_da_mocidade';
   if (n.includes('unidos da mocidade')) return 'unidos_da_mocidade';
   if (n.includes('recreio da mocidade')) return 'recreio_da_mocidade';
@@ -5361,7 +5395,18 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('mocidade louca')) return 'mocidade_louca_sao_cristovao';
   if (n.includes('vicente de carvalho')) return 'vicente_de_carvalho';
   if (n.includes('praça seca') || n.includes('praca seca')) return 'imperio_da_praca_seca';
-  if (n.includes('mocidade') && !n.includes('cidade de deus') && !n.includes('santa marta') && !n.includes('vicente')) return 'mocidade';
+  const nTrim = n.trim();
+  if (
+    nTrim === 'mocidade' ||
+    nTrim === 'mocidade independente' ||
+    nTrim === 'g.r.e.s. mocidade independente' ||
+    nTrim === 'gres mocidade independente' ||
+    (n.includes('mocidade') &&
+      (n.includes('padre miguel') ||
+        (n.includes('independente') && !n.includes('inhaúma') && !n.includes('inhauma'))))
+  ) {
+    return 'mocidade';
+  }
   if (n.includes('maricá') || n.includes('marica')) return 'marica';
   if ((n.includes('padre miguel') || n === 'upm') && !n.includes('mocidade')) return 'unidos_padre_miguel';
   if (n.includes('serrano')) return 'imperio_serrano';
@@ -5529,6 +5574,7 @@ function normalizeId(rawId?: string, rawName?: string): string {
   if (n.includes('imperadores rubro')) return 'imperadores_rubro_negros';
   if (n.includes('império rubro') || n.includes('imperio rubro')) return 'imperio_rubro_negro';
   if (n.includes('vargens')) return 'unidos_das_vargens';
+  if (n.includes('raízes do favo') || n.includes('raizes do favo')) return 'grbc_raizes_do_favo_de_acari';
   if (n.includes('favo')) return 'favo_de_acari';
   return '';
 }

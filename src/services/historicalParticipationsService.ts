@@ -88,10 +88,37 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('unidos do tuiuti') || clean.includes('unidos_do_tuiuti')) return 'unidos_do_tuiuti';
   if (name.includes('escola tuiuti') || name.includes('escola de samba tuiuti') || clean === 'escola_tuiuti') return 'escola_tuiuti';
   if (name.includes('tuiuti')) return 'tuiuti';
+  if (name.includes('manguariba') || clean.includes('manguariba')) return 'manguariba';
+  if (name.includes('vasconcelos') || clean.includes('vasconcelos')) return 'mocidade_de_vasconcelos';
+  if (name.includes('inhaúma') || name.includes('inhauma') || clean.includes('inhauma')) return 'mocidade_de_inhauma';
+  if (name.includes('santa marta') || clean.includes('santa_marta')) return 'santa_marta';
   if (name.includes('cidade de deus') || clean.includes('cidade_de_deus')) return 'mocidade_cidade_de_deus';
   if (name.includes('vicente de carvalho') || clean.includes('vicente_de_carvalho')) return 'vicente_de_carvalho';
+  if (name.includes('mocidade unida da mineira') || clean.includes('mocidade_unida_da_mineira')) return 'grbc_mocidade_unida_da_mineira';
+  if (name.includes('mocidade louca') || clean.includes('mocidade_louca')) return 'mocidade_louca_sao_cristovao';
+  if (name.includes('mocidade de um paraíso') || name.includes('mocidade de um paraiso') || clean.includes('mocidade_de_um_paraiso')) return 'mocidade_de_um_paraiso';
+  if (name.includes('mocidade de cachambi') || clean.includes('mocidade_de_cachambi')) return 'mocidade_de_cachambi';
+  if (name.includes('mocidade unidos do riachuelo') || name.includes('modelo unidos do riachuelo') || clean.includes('mocidade_unidos_do_riachuelo')) return 'mocidade_unidos_do_riachuelo';
+  if (name.includes('união da mocidade') || name.includes('uniao da mocidade') || clean.includes('uniao_da_mocidade')) return 'uniao_da_mocidade';
+  if (name.includes('unidos da mocidade') || clean.includes('unidos_da_mocidade')) return 'unidos_da_mocidade';
+  if (name.includes('recreio da mocidade') || clean.includes('recreio_da_mocidade')) return 'recreio_da_mocidade';
+  if (name.includes('prazer da mocidade') || clean.includes('prazer_da_mocidade')) return 'prazer_da_mocidade';
+  if (name.includes('paraíso da mocidade') || name.includes('paraiso da mocidade') || clean.includes('paraiso_da_mocidade')) return 'paraiso_da_mocidade';
   if (name.includes('praça seca') || name.includes('praca seca') || clean.includes('praca_seca')) return 'imperio_da_praca_seca';
-  if (name.includes('mocidade') && !name.includes('santa marta') && !name.includes('vicente')) return 'mocidade';
+  if (
+    clean === 'mocidade' ||
+    clean === 'mocidade_independente' ||
+    clean === 'mocidade_independente_de_padre_miguel' ||
+    name === 'mocidade' ||
+    name === 'mocidade independente' ||
+    name === 'g.r.e.s. mocidade independente' ||
+    name === 'gres mocidade independente' ||
+    (name.includes('mocidade') &&
+      (name.includes('padre miguel') ||
+        (name.includes('independente') && !name.includes('inhaúma') && !name.includes('inhauma'))))
+  ) {
+    return 'mocidade';
+  }
   if (name.includes('academia niterói') || name.includes('academia niteroi') || clean === 'academia_niteroi_de_samba') return 'academia_niteroi_de_samba';
   if (name.includes('niterói') || name.includes('niteroi')) return 'niteroi';
   if (name.includes('santa cruz')) return 'santa_cruz';
@@ -191,6 +218,7 @@ function resolveSchoolId(rawId: string, rawName?: string, schoolsMap?: Map<strin
   if (name.includes('imperadores rubro') || clean === 'imperadores_rubro_negros') return 'imperadores_rubro_negros';
   if (name.includes('império rubro') || name.includes('imperio rubro') || clean === 'imperio_rubro_negro') return 'imperio_rubro_negro';
   if (name.includes('vargens') || clean.includes('vargens')) return 'unidos_das_vargens';
+  if (name.includes('raízes do favo') || name.includes('raizes do favo') || clean.includes('raizes_do_favo')) return 'grbc_raizes_do_favo_de_acari';
   if (name.includes('favo') || clean.includes('favo')) return 'favo_de_acari';
 
   return clean || name.replace(/\s+/g, '_');

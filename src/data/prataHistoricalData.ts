@@ -3193,6 +3193,97 @@ export const OFFICIAL_PRATA_HISTORICAL_STANDINGS: Record<number, PrataStandingRe
       relegated: true,
       statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
     }
+  ],
+  2005: [
+    {
+      rank: 1,
+      schoolId: 'estacio_de_sa',
+      schoolName: 'Estácio de Sá',
+      enredo: 'Arte Negra na Legendária Bahia',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Quem vai Querer?',
+      promoted: true,
+      statusDescription: 'Vice-Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 3,
+      schoolId: 'boi_da_ilha',
+      schoolName: 'Boi da Ilha do Governador',
+      enredo: 'As Águas de Oxalá',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'O Bêbado e a Equilibrista. O Show tem que Continuar...',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'inocentes',
+      schoolName: 'Inocentes de Belford Roxo',
+      enredo: 'O Ouro do Lixo - De onde vai, para onde vem. Reciclando com o Pé no Futuro',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'E Eles Verão a Deus',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Sargentelli Carioca do Brasil. É Samba, é Alegria, é Mulata nota mil',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Mar Baiano em Noite de Gala',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'praca_da_bandeira',
+      schoolName: 'Independente da Praça da Bandeira',
+      enredo: 'Josué de Castro: Ecoa um Grito contra a Fome, pela Cidadania e pela Paz na Terra',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Monarco, Voz e Memória do Samba, um Passado de Glória',
+      relegated: true,
+      statusDescription: '10º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 11,
+      schoolId: 'leao_de_nova_iguacu',
+      schoolName: 'Leão de Nova Iguaçu',
+      enredo: 'Na Magia do Palco da Vida. Emilinha Borba, a Rainha do Brasil!',
+      relegated: true,
+      statusDescription: '11º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 12,
+      schoolId: 'vicente_de_carvalho',
+      schoolName: 'Mocidade de Vicente de Carvalho',
+      enredo: 'Da Lenda à História de Itaguaí',
+      relegated: true,
+      statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
+    }
   ]
 };
 
@@ -3389,7 +3480,8 @@ export const OFFICIAL_PRATA_NOTES_BY_YEAR: Record<number, string> = {
   2009: 'Carnaval de 2009: Acadêmicos do Cubango e Unidos de Padre Miguel empataram no 1º lugar, sagrando-se campeãs e garantindo acesso à Série Ouro (Grupo A), com União do Parque Curicica em 3º lugar. Independente da Praça da Bandeira, Arrastão de Cascadura e Corações Unidos do Amarelinho foram rebaixadas para a Série Bronze.',
   2008: 'Carnaval de 2008: Inocentes de Belford Roxo foi a campeã e Paraíso do Tuiuti a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Mocidade de Vicente de Carvalho, Vizinha Faladeira e Unidos de Lucas foram rebaixadas para a Série Bronze.',
   2007: 'Carnaval de 2007: Lins Imperial foi a campeã e garantiu o acesso à Série Ouro (Grupo A), com Inocentes de Belford Roxo como vice-campeã. Difícil é o Nome e Flor da Mina do Andaraí foram rebaixadas para a Série Bronze.',
-  2006: 'Carnaval de 2006: Império da Tijuca foi a campeã e garantiu o acesso à Série Ouro (Grupo A), com Paraíso do Tuiuti como vice-campeã. Unidos da Ponte foi rebaixada para a Série Bronze.'
+  2006: 'Carnaval de 2006: Império da Tijuca foi a campeã e garantiu o acesso à Série Ouro (Grupo A), com Paraíso do Tuiuti como vice-campeã. Unidos da Ponte foi rebaixada para a Série Bronze.',
+  2005: 'Carnaval de 2005: Estácio de Sá foi a campeã e Arranco a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Unidos do Jacarezinho, Leão de Nova Iguaçu e Mocidade de Vicente de Carvalho foram rebaixadas para a Série Bronze.'
 };
 
 /**
