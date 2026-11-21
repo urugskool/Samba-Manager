@@ -34,6 +34,13 @@ export function cleanSchoolName(nameOrSchool?: string | School | null): string {
     .replace(/^SERES\s+/i, '')
     .replace(/^G\.?R\.?E\.?A\.?\s+/i, '')
     .replace(/^GREA\s+/i, '')
+    .replace(/^Grêmio Recreativo Cultural Escola de Samba Mirim\s+/i, '')
+    .replace(/^Grêmio Recreativo Escola de Samba Mirim\s+/i, '')
+    .replace(/^Escola de Samba Mirim\s+/i, '')
+    .replace(/^G\.?R\.?C\.?E\.?S\.?M\.?\s+/i, '')
+    .replace(/^GRCESM\s+/i, '')
+    .replace(/^G\.?R\.?E\.?S\.?M\.?\s+/i, '')
+    .replace(/^GRESM\s+/i, '')
     .replace(/^G\.?R\.?C\.?E\.?S\.?\s+/i, '')
     .replace(/^GRCES\s+/i, '')
     .replace(/^C\.?C\.?E\.?S\.?\s+/i, '')
@@ -120,6 +127,12 @@ export function getSchoolDenominationExtenso(school: School): string {
   }
   if (denom === 'G.R.B.C.C.' || denom === 'GRBCC') {
     return 'Grêmio Recreativo Bloco Carnavalesco e Cultural';
+  }
+  if (denom === 'G.R.C.E.S.M.' || denom === 'GRCESM') {
+    return 'Grêmio Recreativo Cultural Escola de Samba Mirim';
+  }
+  if (denom === 'G.R.E.S.M.' || denom === 'GRESM') {
+    return 'Grêmio Recreativo Escola de Samba Mirim';
   }
   if (denom === 'B.C.' || denom === 'BC') {
     return 'Bloco Carnavalesco';

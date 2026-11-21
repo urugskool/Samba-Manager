@@ -24,10 +24,15 @@ import {
 } from 'lucide-react';
 import { soundService } from '../services/soundService';
 import { SchoolFlag, FlagPatternId, FlagEmblemStyle } from './SchoolFlag';
+import { CreateMirimSchoolParams, MirimDenomination, MirimSchool } from '../types/mirim';
+import { cleanSchoolName } from '../utils/schoolNameUtils';
 
 interface SchoolCreationEditorProps {
   currentYear: number;
+  allSchools?: School[];
+  existingMirimSchools?: MirimSchool[];
   onConfirmCreation: (newSchool: School, managerName: string) => void;
+  onConfirmMirimCreation?: (params: CreateMirimSchoolParams, managerName: string) => void;
   onCancel?: () => void;
 }
 
@@ -310,11 +315,25 @@ const DENOMINATIONS = [
   { id: 'G.R.B.C.', label: 'G.R.B.C.', full: 'Grêmio Recreativo Bloco Carnavalesco' }
 ];
 
+const MIRIM_DENOMINATIONS: Array<{ id: MirimDenomination; label: string; full: string }> = [
+  { id: 'G.R.C.E.S.M.', label: 'G.R.C.E.S.M.', full: 'Grêmio Recreativo Cultural Escola de Samba Mirim' },
+  { id: 'G.R.E.S.M.', label: 'G.R.E.S.M.', full: 'Grêmio Recreativo Escola de Samba Mirim' }
+];
+
 export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
   currentYear,
+  allSchools = [],
+  existingMirimSchools = [],
   onConfirmCreation,
+  onConfirmMirimCreation,
   onCancel
 }) => {
+  // Categoria da agremiação criada: Adulta (Grupo de Avaliação) ou Escola Mirim (LIESA)
+  const [creationCategory, setCreationCategory] = useState<'adulta' | 'mirim'>('adulta');
+  const [mirimIsSocialProject, setMirimIsSocialProject] = useState<boolean>(true);
+  const [mirimMotherSchoolId, setMirimMotherSchoolId] = useState<string>('');
+  const [formValidationError, setFormValidationError] = useState<string | null>(null);
+
   // Identidade básica
   const [denomination, setDenomination] = useState<string>('G.R.E.S.');
   const [name, setName] = useState<string>('Estrela do Amanhã');
@@ -323,6 +342,15 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
   const [nickname, setNickname] = useState<string>('A Queridinha da Comunidade');
   const [motto, setMotto] = useState<string>('Comunidade, Raça e Coração');
   const [managerName, setManagerName] = useState<string>('Diretor Presidente');
+
+  const availableMotherSchools = React.useMemo(() => {
+    const linkedIds = new Set(existingMirimSchools.map((m) => m.motherSchoolId).filter(Boolean));
+    return allSchools
+      .filter((s) => !linkedIds.has(s.id))
+      .sort((a, b) => cleanSchoolName(a.name).localeCompare(cleanSchoolName(b.name), 'pt-BR'));
+  }, [allSchools, existingMirimSchools]);
+
+  const activeDenominations = creationCategory === 'mirim' ? MIRIM_DENOMINATIONS : DENOMINATIONS;
 
   // Origem Territorial
   const [originType, setOriginType] = useState<'rio_bairro' | 'outra_cidade'>('rio_bairro');
@@ -435,13 +463,19 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setFormValidationError(null);
 
     if (!name.trim()) {
-      alert('Por favor, informe o nome oficial da sua Escola de Samba.');
+      setFormValidationError('Por favor, informe o nome oficial da sua Escola de Samba.');
       return;
     }
 
     const cleanBaseName = name
+      .replace(/^Grêmio Recreativo Cultural Escola de Samba Mirim\s+/i, '')
+      .replace(/^Grêmio Recreativo Escola de Samba Mirim\s+/i, '')
+      .replace(/^Escola de Samba Mirim\s+/i, '')
+      .replace(/^G\.?R\.?C\.?E\.?S\.?M\.?\s+/i, '')
+      .replace(/^G\.?R\.?E\.?S\.?M\.?\s+/i, '')
       .replace(/^Escola de Samba\s+/i, '')
       .replace(/^Grêmio Recreativo Escola de Samba\s+/i, '')
       .replace(/^G\.?R\.?E\.?S\.?\s+/i, '')
@@ -451,6 +485,60 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
       .replace(/^A\.?R\.?E\.?S\.?\s+/i, '')
       .replace(/^SERES\s+/i, '')
       .trim();
+
+    // Fluxo dedicado para fundação de Escola de Samba Mirim (Categoria de Base • LIESA)
+    if (creationCategory === 'mirim' && onConfirmMirimCreation) {
+      if (!mirimIsSocialProject && !mirimMotherSchoolId) {
+        setFormValidationError('Selecione uma Escola-Mãe ou marque a opção Projeto Social (Verba LIESA).');
+        return;
+      }
+
+      const mother = !mirimIsSocialProject
+        ? allSchools.find((s) => s.id === mirimMotherSchoolId)
+        : undefined;
+
+      const mirimDenom: MirimDenomination =
+        denomination === 'G.R.E.S.M.' ? 'G.R.E.S.M.' : 'G.R.C.E.S.M.';
+
+      const mirimParams: CreateMirimSchoolParams = {
+        denomination: mirimDenom,
+        name: cleanBaseName,
+        calledName: shortName.trim() || cleanBaseName,
+        abbreviation: abbreviation.trim().toUpperCase() || cleanBaseName.substring(0, 10),
+        motherSchoolId: mother?.id,
+        motherSchoolName: mother ? cleanSchoolName(mother.name) : undefined,
+        isSocialProject: mirimIsSocialProject || !mother,
+        neighborhood: originType === 'rio_bairro' ? rioNeighborhood : customCityState,
+        city: originType === 'outra_cidade' ? customCityState : 'Rio de Janeiro',
+        foundationYear,
+        foundationDate,
+        colors: accentColor ? [primaryColor, secondaryColor, accentColor] : [primaryColor, secondaryColor],
+        colorsDescription,
+        symbol: effectiveSymbol,
+        symbolEmoji: effectiveEmoji,
+        flagConfig: {
+          primaryColor,
+          secondaryColor,
+          accentColor,
+          pattern: flagPattern,
+          emblemStyle: flagEmblemStyle,
+          symbolEmoji: effectiveEmoji,
+          abbreviation: abbreviation.trim().toUpperCase() || cleanBaseName.substring(0, 8).toUpperCase(),
+          foundationYear,
+          schoolName: shortName.trim() || cleanBaseName,
+          denomination: mirimDenom,
+          showBanner: true,
+          patternOpacity
+        },
+        initialEnredoTitle: customEnredo?.title || '',
+        initialEnredoSynopsis: customEnredo?.synopsis || '',
+        initialEnredoThemeType: customEnredo?.themeType || 'Lúdico'
+      };
+
+      soundService.playLevelUp();
+      onConfirmMirimCreation(mirimParams, managerName.trim() || 'Diretor Presidente');
+      return;
+    }
 
     const corporateName = `${denomination} ${cleanBaseName}`;
     const schoolId = `custom_${cleanBaseName.toLowerCase().replace(/[^\w]/g, '_')}_${Date.now()}`;
@@ -616,29 +704,64 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
           </div>
 
           <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
-            Crie sua Própria Escola de Samba
+            {creationCategory === 'mirim'
+              ? 'Crie uma Escola de Samba Mirim'
+              : 'Crie sua Própria Escola de Samba'}
           </h2>
 
           <p className="text-sm text-slate-200 leading-relaxed">
-            Dê asas à sua imaginação e funde sua própria agremiação com pavilhão estilizado, traçados geométricos, símbolos variados e sede sob medida!
-            Como manda o estatuto carnavalesco, sua escola inicia <strong>obrigatoriamente no Grupo de Avaliação</strong> da Superliga na Intendente Magalhães.
-            Contrate profissionais, vá atrás de patrocínio, reforme sua quadra, dispute a pré-temporada e conduza sua comunidade rumo ao <strong>Grupo Especial na Marquês de Sapucaí</strong>!
+            {creationCategory === 'mirim'
+              ? 'Funde uma categoria de base para revelar novos talentos na Marquês de Sapucaí sob gestão da LIESA (desfiles festivos sem julgamento). Vincule sua escola mirim a uma escola-mãe ou atue como Projeto Social financiado pela LIESA.'
+              : 'Dê asas à sua imaginação e funde sua própria agremiação com pavilhão estilizado, traçados geométricos, símbolos variados e sede sob medida! Sua escola inicia no Grupo de Avaliação da Superliga na Intendente Magalhães rumo ao Grupo Especial na Marquês de Sapucaí.'}
           </p>
 
-          <div className="flex flex-wrap items-center gap-3 pt-2 text-xs text-amber-300 font-bold">
-            <span className="flex items-center gap-1.5">
-              <Check className="w-4 h-4 text-emerald-400" /> Início no Grupo de Avaliação
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Check className="w-4 h-4 text-emerald-400" /> Pavilhão com 14 Padrões de Traço & Molduras
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Check className="w-4 h-4 text-emerald-400" /> Denominações G.R.E.S. e E.S. (Escola de Samba)
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Check className="w-4 h-4 text-emerald-400" /> Orçamento Inicial de R$ 220.000
-            </span>
-          </div>
+          {/* Seletor de Categoria: Escola Adulta vs Escola Mirim */}
+          {onConfirmMirimCreation && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setCreationCategory('adulta');
+                  setDenomination('G.R.E.S.');
+                  setFormValidationError(null);
+                }}
+                className={`p-3.5 rounded-xl border text-left transition cursor-pointer ${
+                  creationCategory === 'adulta'
+                    ? 'bg-amber-500/20 border-amber-400 text-white'
+                    : 'bg-slate-950/70 border-slate-800 text-slate-400 hover:border-slate-700'
+                }`}
+              >
+                <div className="text-sm font-black">Escola de Samba (Grupo de Avaliação)</div>
+                <div className="text-xs text-slate-300 mt-0.5">
+                  Carreira competitiva completa · Intendente Magalhães rumo à Sapucaí
+                </div>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setCreationCategory('mirim');
+                  setDenomination('G.R.C.E.S.M.');
+                  setFormValidationError(null);
+                }}
+                className={`p-3.5 rounded-xl border text-left transition cursor-pointer ${
+                  creationCategory === 'mirim'
+                    ? 'bg-emerald-500/20 border-emerald-400 text-white'
+                    : 'bg-slate-950/70 border-slate-800 text-slate-400 hover:border-slate-700'
+                }`}
+              >
+                <div className="text-sm font-black">Escola de Samba Mirim (Base · LIESA)</div>
+                <div className="text-xs text-slate-300 mt-0.5">
+                  Formação de jovens talentos · Desfile na Sapucaí sem julgamento
+                </div>
+              </button>
+            </div>
+          )}
+
+          {formValidationError && (
+            <div className="p-3 rounded-xl bg-rose-950/70 border border-rose-500/50 text-xs text-rose-200 font-semibold">
+              {formValidationError}
+            </div>
+          )}
         </div>
       </div>
 
@@ -673,12 +796,12 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
                     Denominação Estatutária / Prefixo:
                   </label>
                   <span className="text-[11px] text-amber-400 font-semibold">
-                    {DENOMINATIONS.find((d) => d.id === denomination)?.full}
+                    {activeDenominations.find((d) => d.id === denomination)?.full}
                   </span>
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                  {DENOMINATIONS.map((denom) => {
+                  {activeDenominations.map((denom) => {
                     const isSelected = denomination === denom.id;
                     return (
                       <button
@@ -705,6 +828,68 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
                     );
                   })}
                 </div>
+
+                {/* Vínculo exclusivo do modo Escola Mirim */}
+                {creationCategory === 'mirim' && (
+                  <div className="mt-4 p-4 rounded-xl bg-slate-950/80 border border-emerald-500/40 space-y-3">
+                    <div className="text-xs font-bold text-emerald-300">
+                      Vínculo Institucional & Financiamento da Escola Mirim
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setMirimIsSocialProject(true)}
+                        className={`p-2.5 rounded-lg border text-left text-xs cursor-pointer transition ${
+                          mirimIsSocialProject
+                            ? 'bg-emerald-500/20 border-emerald-400 text-white font-bold'
+                            : 'bg-slate-900 border-slate-800 text-slate-400'
+                        }`}
+                      >
+                        Projeto Social Independente (Verba LIESA)
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setMirimIsSocialProject(false)}
+                        className={`p-2.5 rounded-lg border text-left text-xs cursor-pointer transition ${
+                          !mirimIsSocialProject
+                            ? 'bg-amber-500/20 border-amber-400 text-white font-bold'
+                            : 'bg-slate-900 border-slate-800 text-slate-400'
+                        }`}
+                      >
+                        Departamento Mirim de Escola-Mãe
+                      </button>
+                    </div>
+
+                    {!mirimIsSocialProject && (
+                      <div>
+                        <label className="text-xs text-slate-300 font-semibold block mb-1">
+                          Selecione a Escola-Mãe (apenas escolas sem mirim vinculada):
+                        </label>
+                        <select
+                          value={mirimMotherSchoolId}
+                          onChange={(e) => {
+                            const id = e.target.value;
+                            setMirimMotherSchoolId(id);
+                            const found = allSchools.find((s) => s.id === id);
+                            if (found) {
+                              setPrimaryColor(found.colors?.primary || primaryColor);
+                              setSecondaryColor(found.colors?.secondary || secondaryColor);
+                              if (found.neighborhood) setRioNeighborhood(found.neighborhood);
+                            }
+                          }}
+                          className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white"
+                        >
+                          <option value="">Escolha a escola-mãe...</option>
+                          {availableMotherSchools.map((s) => (
+                            <option key={s.id} value={s.id}>
+                              {cleanSchoolName(s.name)} ({s.division.toUpperCase()})
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -1590,7 +1775,11 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
                 className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-sm sm:text-base transition shadow-xl shadow-amber-500/25 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider"
               >
                 <Sparkles className="w-5 h-5 text-slate-950" />
-                <span>Fundar Escola e Iniciar Carnaval {currentYear}</span>
+                <span>
+                  {creationCategory === 'mirim'
+                    ? `Oficializar Escola Mirim na LIESA (${currentYear})`
+                    : `Fundar Escola e Iniciar Carnaval ${currentYear}`}
+                </span>
                 <ChevronRight className="w-5 h-5 text-slate-950" />
               </button>
 

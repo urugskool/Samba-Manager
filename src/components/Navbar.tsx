@@ -29,7 +29,8 @@ import {
   Radio,
   Newspaper,
   ArrowLeftRight,
-  HardDrive
+  HardDrive,
+  GraduationCap
 } from 'lucide-react';
 import { SeasonCycleService } from '../services/seasonCycleService';
 import { SeasonMonthId } from '../types/seasonCycle';
@@ -108,6 +109,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const tabs: NavbarTabItem[] = [
     { id: 'dashboard', label: 'Painel', icon: LayoutDashboard, badge: null, locked: false, lockReason: '' },
     { id: 'tabela', label: 'Escolas', icon: Table, badge: null, locked: false, lockReason: '' },
+    { id: 'mirins', label: 'Escolas Mirins', icon: GraduationCap, badge: 'Base', locked: false, lockReason: '' },
     { id: 'glorias', label: 'Glórias & Títulos', icon: Trophy, badge: 'Honras', locked: false, lockReason: '' },
     { id: 'barracao', label: 'Barracão', icon: Hammer, badge: userSchool?.barracaoProgress ? `${userSchool.barracaoProgress}%` : null, hideIfSpectator: true, locked: false, lockReason: '' },
     { id: 'ensaios', label: 'Ensaios', icon: Music, badge: userSchool?.rehearsalLevel ? `${userSchool.rehearsalLevel}%` : null, hideIfSpectator: true, locked: false, lockReason: '' },

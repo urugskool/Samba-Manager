@@ -41,7 +41,8 @@ import { ParadeScriptService } from '../services/paradeScriptService';
 import { LogisticsService } from '../services/logisticsService';
 import { CarnavalSorteio, SorteioSlot, ParadeDay, PARADE_DAYS_ORDER } from '../types/sorteio';
 import { SorteioEngine } from '../services/sorteioEngine';
-import { Truck } from 'lucide-react';
+import { Truck, GraduationCap } from 'lucide-react';
+import { MirimSchool } from '../types/mirim';
 
 interface DesfileSimulatorProps {
   currentYear: number;
@@ -59,6 +60,11 @@ interface DesfileSimulatorProps {
   avaliacaoScores?: SchoolParadeScores[];
   completedSchoolIds: string[];
   sorteio?: CarnavalSorteio;
+  mirimSchools?: MirimSchool[];
+  isAllMirimParadesCompleted?: boolean;
+  completedMirimParadesCount?: number;
+  onNavigateToMirimDesfile?: () => void;
+  onSimulateAllMirimParades?: () => void;
   onNavigateToSorteio?: () => void;
   onCompleteDayParades?: (day: ParadeDay) => void;
   onCompleteParade: (
@@ -105,6 +111,11 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
   avaliacaoScores = [],
   completedSchoolIds,
   sorteio,
+  mirimSchools = [],
+  isAllMirimParadesCompleted = true,
+  completedMirimParadesCount = 0,
+  onNavigateToMirimDesfile,
+  onSimulateAllMirimParades,
   onNavigateToSorteio,
   onCompleteDayParades,
   onCompleteParade,
@@ -674,6 +685,80 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Pré-requisito oficial do Carnaval: os Desfiles das Escolas Mirins (LIESA) abrem a Sapucaí
+  // e precisam ser assistidos/simulados antes dos desfiles das escolas adultas (Especial, Ouro, Prata, Bronze e Avaliação).
+  if (!isAllMirimParadesCompleted) {
+    const totalMirims = mirimSchools.length;
+    const pendingMirims = Math.max(0, totalMirims - completedMirimParadesCount);
+
+    return (
+      <div className="space-y-6 pb-20 animate-fadeIn">
+        <div className="bg-slate-900 border border-amber-500/40 rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div className="space-y-3 max-w-2xl">
+              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-amber-400">
+                <Lock className="w-4 h-4" />
+                <span>Abertura Obrigatória do Carnaval {currentYear} · Escolas Mirins</span>
+              </div>
+
+              <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                Realize os Desfiles das Escolas Mirins Primeiro
+              </h1>
+
+              <p className="text-sm text-slate-300 leading-relaxed">
+                No calendário oficial do Carnaval, as <strong className="text-white">{totalMirims} Escolas de Samba Mirins</strong> abrem
+                a Marquês de Sapucaí (desfiles festivos administrados pela LIESA, sem julgamento) antes das escolas adultas.
+                Para assistir ou simular o Grupo Especial, Série Ouro, Série Prata, Série Bronze e Grupo de Avaliação, conclua primeiro
+                as apresentações mirins ({completedMirimParadesCount}/{totalMirims} concluídas · {pendingMirims} pendente{pendingMirims !== 1 ? 's' : ''}).
+              </p>
+            </div>
+
+            <div className="shrink-0 flex flex-col sm:flex-row lg:flex-col gap-3">
+              {onNavigateToMirimDesfile && (
+                <button
+                  onClick={onNavigateToMirimDesfile}
+                  className="px-5 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold text-sm flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                >
+                  <GraduationCap className="w-4 h-4" />
+                  <span>Assistir / Simular Desfiles Mirins</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              )}
+
+              {onSimulateAllMirimParades && (
+                <button
+                  onClick={onSimulateAllMirimParades}
+                  className="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-100 font-medium text-sm flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                >
+                  <FastForward className="w-4 h-4 text-amber-400" />
+                  <span>Simular Todos os Desfiles Mirins Agora</span>
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Barra de progresso das Mirins */}
+          <div className="border-t border-slate-800 pt-4 space-y-2">
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-slate-400">
+                Ordem Oficial: <strong className="text-amber-300">1º Escolas Mirins (Sapucaí)</strong> → 2º Escolas Adultas (5 Divisões) → 3º Apuração
+              </span>
+              <span className="font-mono text-slate-200 tabular-nums">
+                {completedMirimParadesCount}/{totalMirims} mirins
+              </span>
+            </div>
+            <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-amber-400 transition-all duration-300"
+                style={{ width: `${totalMirims > 0 ? Math.round((completedMirimParadesCount / totalMirims) * 100) : 0}%` }}
+              />
+            </div>
           </div>
         </div>
       </div>

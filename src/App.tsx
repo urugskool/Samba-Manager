@@ -57,6 +57,9 @@ import { SaveGameModal } from './components/SaveGameModal';
 import { saveManager } from './services/saveManager';
 import { ThematicSponsorService } from './services/thematicSponsorService';
 import { DemonstrativoFinanceiroService } from './services/demonstrativoFinanceiroService';
+import { EscolasMirinsView, MirimSubTab } from './components/EscolasMirinsView';
+import { MirimService } from './services/mirimService';
+import { CreateMirimSchoolParams, MirimParadeSlotId, MirimSchool } from './types/mirim';
 
 import { Sparkles, Trophy, CheckCircle, AlertTriangle, Info, Dices, Lock, Calendar, ChevronRight } from 'lucide-react';
 
@@ -778,6 +781,49 @@ export default function App() {
     return SorteioEngine.createInitialSorteio(currentYear);
   });
 
+  // Escolas de Samba Mirins (categoria de base • gestão LIESA • não julgadas)
+  const [mirimSchools, setMirimSchools] = useState<MirimSchool[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          const yr = parsed.currentYear || 2027;
+          return MirimService.sanitizeMirimSchools(parsed.mirimSchools, schools, yr);
+        } catch {}
+      }
+    }
+    return MirimService.sanitizeMirimSchools(undefined, schools, currentYear);
+  });
+
+  // Rastreador de temporadas no Grupo Especial sem escola mirim (regra obrigatória de até 2 anos)
+  const [especialWithoutMirimTracker, setEspecialWithoutMirimTracker] = useState<Record<string, number>>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (parsed.especialWithoutMirimTracker && typeof parsed.especialWithoutMirimTracker === 'object') {
+            return parsed.especialWithoutMirimTracker;
+          }
+        } catch {}
+      }
+    }
+    return {};
+  });
+
+  // Sub-aba inicial ao abrir Escolas Mirins (ex: ir direto para a programação de desfiles na Sapucaí)
+  const [mirinsInitialSubTab, setMirinsInitialSubTab] = useState<MirimSubTab>('catalogo');
+
+  const completedMirimParadesCount = useMemo(
+    () => mirimSchools.filter((m) => m.paradeSchedule?.completed).length,
+    [mirimSchools]
+  );
+  const isAllMirimParadesCompleted = useMemo(
+    () => mirimSchools.length > 0 && completedMirimParadesCount >= mirimSchools.length,
+    [mirimSchools.length, completedMirimParadesCount]
+  );
+
   // Ensure sorteio matches currentYear
   useEffect(() => {
     if (!sorteio || sorteio.year !== currentYear) {
@@ -915,7 +961,9 @@ export default function App() {
     campeasParadeResults,
     sorteio,
     quesitosDraw,
-    currentSeasonMonth
+    currentSeasonMonth,
+    mirimSchools,
+    especialWithoutMirimTracker
   }), [
     schools,
     currentYear,
@@ -934,7 +982,9 @@ export default function App() {
     campeasParadeResults,
     sorteio,
     quesitosDraw,
-    currentSeasonMonth
+    currentSeasonMonth,
+    mirimSchools,
+    especialWithoutMirimTracker
   ]);
 
   // Metadados enriquecidos para identificação nos slots de save do Dexie.js
@@ -1021,6 +1071,17 @@ export default function App() {
       if (loadedState.quesitosDraw) setQuesitosDraw(loadedState.quesitosDraw);
       if (loadedState.currentSeasonMonth) setCurrentSeasonMonth(loadedState.currentSeasonMonth);
 
+      const loadedSchools = Array.isArray(loadedState.schools) && loadedState.schools.length > 0
+        ? sanitizeSchoolsData(loadedState.schools, loadedState.userSchoolId)
+        : schools;
+      const loadedYear = typeof loadedState.currentYear === 'number' ? loadedState.currentYear : currentYear;
+      setMirimSchools(MirimService.sanitizeMirimSchools(loadedState.mirimSchools, loadedSchools, loadedYear));
+      setEspecialWithoutMirimTracker(
+        loadedState.especialWithoutMirimTracker && typeof loadedState.especialWithoutMirimTracker === 'object'
+          ? loadedState.especialWithoutMirimTracker
+          : {}
+      );
+
       setIsGameStarted(true);
       showToast('Save carregado com sucesso via IndexedDB!', 'success');
       soundService.playLevelUp();
@@ -1105,6 +1166,16 @@ export default function App() {
         diffMinutes: number;
       }
     ) => {
+      if (currentSeasonMonth !== 'fevereiro') {
+        soundService.playBuzzer();
+        showToast('Os desfiles oficiais só podem ser realizados em Fevereiro (mês do Carnaval).', 'warning');
+        return;
+      }
+      if (!isAllMirimParadesCompleted) {
+        soundService.playBuzzer();
+        showToast('Antes de assistir ou simular os desfiles das escolas adultas, conclua primeiro os Desfiles das Escolas Mirins!', 'warning');
+        return;
+      }
       setCompletedParadeSchoolIds((prev) => (prev.includes(schoolId) ? prev : [...prev, schoolId]));
       if (simulatedData) {
         handleRecordParadeTime(
@@ -1121,11 +1192,21 @@ export default function App() {
         'success'
       );
     },
-    [schools, showToast, handleRecordParadeTime]
+    [schools, showToast, handleRecordParadeTime, currentSeasonMonth, isAllMirimParadesCompleted]
   );
 
   const handleCompleteParadesForDivision = useCallback(
     (division: DivisionId) => {
+      if (currentSeasonMonth !== 'fevereiro') {
+        soundService.playBuzzer();
+        showToast('Os desfiles oficiais só podem ser realizados em Fevereiro (mês do Carnaval).', 'warning');
+        return;
+      }
+      if (!isAllMirimParadesCompleted) {
+        soundService.playBuzzer();
+        showToast('Conclua primeiro os Desfiles das Escolas Mirins antes de simular os grupos adultos!', 'warning');
+        return;
+      }
       const divSchools = schools.filter((s) => s.division === division && isSchoolActive(s));
       const divSchoolIds = divSchools.map((s) => s.id);
       const divSlots = sorteio?.divisions?.[division]?.slots || [];
@@ -1162,11 +1243,21 @@ export default function App() {
           : 'Grupo de Avaliação';
       showToast(`Todos os desfiles da ${divName} foram realizados na ordem oficial e avaliados pelos jurados!`, 'success');
     },
-    [schools, completedParadeSchoolIds, showToast, isSchoolActive, handleRecordParadeTime, sorteio]
+    [schools, completedParadeSchoolIds, showToast, isSchoolActive, handleRecordParadeTime, sorteio, currentSeasonMonth, isAllMirimParadesCompleted]
   );
 
   const handleCompleteDayParades = useCallback(
     (day: ParadeDay) => {
+      if (currentSeasonMonth !== 'fevereiro') {
+        soundService.playBuzzer();
+        showToast('Os desfiles oficiais só podem ser realizados em Fevereiro (mês do Carnaval).', 'warning');
+        return;
+      }
+      if (!isAllMirimParadesCompleted) {
+        soundService.playBuzzer();
+        showToast('Conclua primeiro os Desfiles das Escolas Mirins antes de simular os desfiles das escolas adultas!', 'warning');
+        return;
+      }
       const daySlots = sorteio.divisions
         ? Object.values(sorteio.divisions).flatMap((d) => d.slots).filter((s) => s.day === day)
         : [];
@@ -1194,7 +1285,7 @@ export default function App() {
       const dayInfo = PARADE_DAYS_ORDER.find((d) => d.id === day);
       showToast(`Desfiles de ${dayInfo?.label || day} concluídos na ordem oficial!`, 'success');
     },
-    [sorteio, schools, completedParadeSchoolIds, showToast, handleRecordParadeTime]
+    [sorteio, schools, completedParadeSchoolIds, showToast, handleRecordParadeTime, currentSeasonMonth, isAllMirimParadesCompleted]
   );
 
   const activeSchools = useMemo(() => sortSchools(schools.filter(isSchoolActive), history), [schools, isSchoolActive, history]);
@@ -1300,6 +1391,18 @@ export default function App() {
   );
 
   const handleCompleteAllParades = useCallback(() => {
+    if (currentSeasonMonth !== 'fevereiro') {
+      soundService.playBuzzer();
+      showToast('Os desfiles só podem ser realizados quando chegar o mês oficial do Carnaval (Fevereiro).', 'warning');
+      return;
+    }
+    if (!isAllMirimParadesCompleted) {
+      soundService.playBuzzer();
+      showToast('Antes de simular os desfiles das escolas adultas, realize primeiro os Desfiles das Escolas Mirins!', 'warning');
+      setMirinsInitialSubTab('desfile');
+      setActiveTab('mirins');
+      return;
+    }
     const chronologicalList = sorteio?.isCompleted
       ? SorteioEngine.getChronologicalParadeOrder(sorteio, schools)
       : [];
@@ -1320,7 +1423,7 @@ export default function App() {
     const allIds = activeSchools.map((s: School) => s.id);
     setCompletedParadeSchoolIds(allIds);
     showToast('Todos os desfiles do Carnaval foram realizados na ordem cronológica oficial! A apuração oficial das notas está liberada!', 'success');
-  }, [sorteio, schools, activeSchools, completedParadeSchoolIds, showToast, handleRecordParadeTime]);
+  }, [sorteio, schools, activeSchools, completedParadeSchoolIds, showToast, handleRecordParadeTime, currentSeasonMonth, isAllMirimParadesCompleted]);
 
   // Find user school & division lists
   const userSchool = schools.find((s) => s.id === userSchoolId) || null;
@@ -1396,7 +1499,8 @@ export default function App() {
       localStorage.removeItem('sambamanager_save_v3');
     }
     const novoJogo = criarNovoJogo(schoolId || '');
-    setSchools(sanitizeSchoolsData(novoJogo.escolas as School[]));
+    const sanitizedFreshSchools = sanitizeSchoolsData(novoJogo.escolas as School[]);
+    setSchools(sanitizedFreshSchools);
     setCurrentYear(2027);
     setUserSchoolId(schoolId);
     setIsSpectatorMode(!schoolId);
@@ -1416,6 +1520,8 @@ export default function App() {
     const freshQuesitosDraw = SorteioEngine.createInitialQuesitosDraw(2027);
     setQuesitosDraw(freshQuesitosDraw);
     setCurrentSeasonMonth('marco');
+    setMirimSchools(MirimService.sanitizeMirimSchools(undefined, sanitizedFreshSchools, 2027));
+    setEspecialWithoutMirimTracker({});
     setIsNewGameModalOpen(false);
     setIsGameStarted(schoolId !== null);
     setActiveTab('dashboard');
@@ -1482,7 +1588,18 @@ export default function App() {
         nextSeasonData.nextYear,
         userSchoolId
       );
-      setSchools(schoolsWithThematicSponsors);
+
+      // Virada anual das Escolas Mirins: verbas (Escola-Mãe / LIESA), novos enredos, talentos e regra dos 2 anos no Especial
+      const mirimTransition = MirimService.processSeasonTransition(
+        mirimSchools,
+        schoolsWithThematicSponsors,
+        nextSeasonData.nextYear,
+        especialWithoutMirimTracker
+      );
+
+      setSchools(mirimTransition.nextAdultSchools);
+      setMirimSchools(mirimTransition.nextMirims);
+      setEspecialWithoutMirimTracker(mirimTransition.nextEspecialWithoutMirimTracker);
       setCurrentYear(nextSeasonData.nextYear);
       setHistory(nextSeasonData.newHistory);
       setHasParadeResults(false);
@@ -1506,6 +1623,15 @@ export default function App() {
         ? ` No Grupo de Avaliação, ${ingressantesCount} agremiações foram reativadas/fundadas para a disputa deste ano.`
         : '';
 
+      const mirimNewsItems: NewsItem[] = mirimTransition.events.map((ev, idx) => ({
+        id: `news_mirim_${nextSeasonData.nextYear}_${idx}`,
+        year: nextSeasonData.nextYear,
+        title: ev.title,
+        body: ev.description,
+        type: 'info',
+        date: 'Agora'
+      }));
+
       const newsHeadline: NewsItem = {
         id: `news_${nextSeasonData.nextYear}`,
         year: nextSeasonData.nextYear,
@@ -1514,7 +1640,7 @@ export default function App() {
         type: 'success',
         date: 'Agora'
       };
-      setNews((prev) => [newsHeadline, ...prev]);
+      setNews((prev) => [newsHeadline, ...mirimNewsItems, ...prev]);
 
       setActiveTab('dashboard');
       showToast(
@@ -1817,6 +1943,148 @@ export default function App() {
     );
   }, [schools, history, currentYear, sorteio, showToast]);
 
+  // Manipuladores do sistema de Escolas Mirins
+  const handleCreateMirimSchool = useCallback(
+    (params: CreateMirimSchoolParams) => {
+      const created = MirimService.createCustomMirimSchool(params, currentYear, schools);
+      setMirimSchools((prev) => {
+        const withNew = [...prev, created];
+        return MirimService.assignSapucaiSchedule(withNew, currentYear, schools);
+      });
+      if (created.motherSchoolId) {
+        setEspecialWithoutMirimTracker((prev) => ({ ...prev, [created.motherSchoolId!]: 0 }));
+      }
+      soundService.playLevelUp();
+      showToast(
+        created.isSocialProject
+          ? `Escola Mirim "${created.calledName}" oficializada como Projeto Social (Verba LIESA)!`
+          : `Escola Mirim "${created.calledName}" vinculada à ${created.motherSchoolName}!`,
+        'success'
+      );
+    },
+    [currentYear, schools, showToast]
+  );
+
+  const handleCreateMirimFromStart = useCallback(
+    (params: CreateMirimSchoolParams, mgrName: string) => {
+      handleCreateMirimSchool(params);
+      setManagerName(mgrName);
+      if (params.motherSchoolId) {
+        setUserSchoolId(params.motherSchoolId);
+        setIsSpectatorMode(false);
+      } else if (!userSchoolId) {
+        setIsSpectatorMode(true);
+      }
+      setIsGameStarted(true);
+      setActiveTab('mirins');
+    },
+    [handleCreateMirimSchool, userSchoolId]
+  );
+
+  const handlePromoteMirimTalent = useCallback(
+    (mirimId: string, talentId: string, targetAdultSchoolId: string) => {
+      const result = MirimService.promoteTalentToAdultSchool(
+        mirimSchools,
+        mirimId,
+        talentId,
+        targetAdultSchoolId,
+        schools,
+        currentYear
+      );
+      if (result.promotedTalent) {
+        setMirimSchools(result.nextMirims);
+        setSchools(result.nextAdultSchools);
+        soundService.playLevelUp();
+        showToast(
+          `${result.promotedTalent.name} promovido para ${result.targetSchoolName} (+${result.boostAmount} no quesito técnico e +2% moral)!`,
+          'success'
+        );
+      }
+    },
+    [mirimSchools, schools, currentYear, showToast]
+  );
+
+  const handleInvestMirimAcademy = useCallback(
+    (mirimId: string, motherSchoolId: string) => {
+      const result = MirimService.investInMirimAcademy(mirimSchools, mirimId, motherSchoolId, schools);
+      if (!result.success) {
+        showToast(result.errorMessage || 'Não foi possível investir na base mirim.', 'warning');
+        return;
+      }
+      setMirimSchools(result.nextMirims);
+      setSchools(result.nextAdultSchools);
+      soundService.playLevelUp();
+      showToast(
+        `Investimento de R$ ${result.cost.toLocaleString('pt-BR')} aplicado na categoria de base mirim!`,
+        'success'
+      );
+    },
+    [mirimSchools, schools, showToast]
+  );
+
+  const handleCompleteSingleMirimParade = useCallback(
+    (mirimId: string) => {
+      if (currentSeasonMonth !== 'fevereiro') {
+        soundService.playBuzzer();
+        showToast('O desfile mirim só pode ser assistido ou simulado em Fevereiro (mês oficial do Carnaval).', 'warning');
+        return;
+      }
+      const { nextMirims, completedSchool } = MirimService.simulateSingleMirimParade(mirimSchools, mirimId);
+      if (completedSchool) {
+        setMirimSchools(nextMirims);
+        soundService.playSurdoBeat(false);
+        const allDoneNow = nextMirims.every((m) => m.paradeSchedule.completed);
+        showToast(
+          allDoneNow
+            ? `${completedSchool.calledName} encerrou os desfiles mirins! A passarela das escolas adultas está liberada!`
+            : `${completedSchool.calledName} brilhou na Marquês de Sapucaí (sem julgamento)!`,
+          'success'
+        );
+      }
+    },
+    [mirimSchools, currentSeasonMonth, showToast]
+  );
+
+  const handleSimulateMirimParadeDay = useCallback(
+    (slotId: MirimParadeSlotId) => {
+      if (currentSeasonMonth !== 'fevereiro') {
+        soundService.playBuzzer();
+        showToast('O desfile mirim só pode ser assistido ou simulado em Fevereiro (mês oficial do Carnaval).', 'warning');
+        return;
+      }
+      const { nextMirims, paradedCount } = MirimService.simulateMirimParadeDay(mirimSchools, slotId);
+      if (paradedCount > 0) {
+        setMirimSchools(nextMirims);
+        soundService.playSurdoBeat(false);
+        const allDoneNow = nextMirims.every((m) => m.paradeSchedule.completed);
+        showToast(
+          allDoneNow
+            ? `Todas as escolas mirins concluíram seus desfiles! A passarela das escolas adultas está liberada!`
+            : `${paradedCount} escola(s) mirim(ns) brilharam na Marquês de Sapucaí (desfile festivo sem julgamento)!`,
+          'success'
+        );
+      }
+    },
+    [mirimSchools, currentSeasonMonth, showToast]
+  );
+
+  const handleSimulateAllMirimParades = useCallback(() => {
+    if (currentSeasonMonth !== 'fevereiro') {
+      soundService.playBuzzer();
+      showToast('O desfile mirim só pode ser assistido ou simulado em Fevereiro (mês oficial do Carnaval).', 'warning');
+      return;
+    }
+    const { nextMirims, paradedCount } = MirimService.simulateAllMirimParades(mirimSchools);
+    if (paradedCount > 0) {
+      setMirimSchools(nextMirims);
+      soundService.playLevelUp();
+      showToast(
+        `Todas as ${paradedCount} apresentações mirins na Marquês de Sapucaí foram concluídas! Os desfiles das escolas adultas estão liberados!`,
+        'success'
+      );
+    }
+  }, [mirimSchools, currentSeasonMonth, showToast]);
+
   // START SCREEN: Displayed first to choose which school to command or spectator mode
   if (!isGameStarted) {
     return (
@@ -1829,7 +2097,9 @@ export default function App() {
           bronzeSchools={bronzeSchools}
           avaliacaoSchools={avaliacaoSchools}
           allSchools={schools}
+          mirimSchools={mirimSchools}
           onStartGame={handleStartGame}
+          onCreateMirimFromStart={handleCreateMirimFromStart}
           onResetSave={() => handleRestartNewSave(null, managerName)}
           initialSchoolId={userSchoolId}
           initialSpectator={isSpectatorMode}
@@ -1945,6 +2215,27 @@ export default function App() {
               onSimulateAllMonthsToCarnaval={handleSimulateAllMonthsToCarnaval}
             />
           )
+        )}
+
+        {activeTab === 'mirins' && (
+          <EscolasMirinsView
+            mirimSchools={mirimSchools}
+            adultSchools={schools}
+            currentYear={currentYear}
+            currentSeasonMonth={currentSeasonMonth}
+            initialSubTab={mirinsInitialSubTab}
+            playerSchoolId={userSchoolId || ''}
+            isSpectatorMode={isSpectatorMode}
+            especialWithoutMirimTracker={especialWithoutMirimTracker}
+            onPromoteTalent={handlePromoteMirimTalent}
+            onInvestAcademy={handleInvestMirimAcademy}
+            onCompleteSingleMirimParade={handleCompleteSingleMirimParade}
+            onSimulateParadeDay={handleSimulateMirimParadeDay}
+            onSimulateAllParades={handleSimulateAllMirimParades}
+            onCreateMirimSchool={handleCreateMirimSchool}
+            onOpenSeasonCycleModal={() => setIsSeasonCycleModalOpen(true)}
+            onNavigateToAdultDesfile={() => setActiveTab('desfile')}
+          />
         )}
 
         {activeTab === 'glorias' && (
@@ -2112,6 +2403,14 @@ export default function App() {
             avaliacaoScores={avaliacaoScores}
             completedSchoolIds={completedParadeSchoolIds}
             sorteio={sorteio}
+            mirimSchools={mirimSchools}
+            isAllMirimParadesCompleted={isAllMirimParadesCompleted}
+            completedMirimParadesCount={completedMirimParadesCount}
+            onNavigateToMirimDesfile={() => {
+              setMirinsInitialSubTab('desfile');
+              setActiveTab('mirins');
+            }}
+            onSimulateAllMirimParades={handleSimulateAllMirimParades}
             onNavigateToSorteio={() => setActiveTab('sorteio')}
             onCompleteDayParades={handleCompleteDayParades}
             onCompleteParade={handleCompleteParade}

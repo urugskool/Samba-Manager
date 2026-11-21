@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { soundService } from '../services/soundService';
 import { SchoolCreationEditor } from './SchoolCreationEditor';
+import { CreateMirimSchoolParams, MirimSchool } from '../types/mirim';
 
 interface StartScreenViewProps {
   currentYear: number;
@@ -36,7 +37,9 @@ interface StartScreenViewProps {
   bronzeSchools: School[];
   avaliacaoSchools?: School[];
   allSchools: School[];
+  mirimSchools?: MirimSchool[];
   onStartGame: (selectedSchoolId: string | null, managerName: string, customSchool?: School) => void;
+  onCreateMirimFromStart?: (params: CreateMirimSchoolParams, managerName: string) => void;
   onResetSave?: () => void;
   initialSchoolId?: string | null;
   initialSpectator?: boolean;
@@ -51,7 +54,9 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
   bronzeSchools,
   avaliacaoSchools = [],
   allSchools,
+  mirimSchools = [],
   onStartGame,
+  onCreateMirimFromStart,
   onResetSave,
   initialSchoolId = null,
   initialSpectator = false,
@@ -276,9 +281,12 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
         {mode === 'create' ? (
           <SchoolCreationEditor
             currentYear={currentYear}
+            allSchools={allSchools}
+            existingMirimSchools={mirimSchools}
             onConfirmCreation={(customSchool, mgrName) => {
               onStartGame(customSchool.id, mgrName, customSchool);
             }}
+            onConfirmMirimCreation={onCreateMirimFromStart}
             onCancel={() => setMode('manage')}
           />
         ) : mode === 'manage' ? (
