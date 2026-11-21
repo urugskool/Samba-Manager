@@ -3646,6 +3646,100 @@ export const OFFICIAL_PRATA_HISTORICAL_STANDINGS: Record<number, PrataStandingRe
       relegated: true,
       statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
     }
+  ],
+  2000: [
+    {
+      rank: 1,
+      schoolId: 'leao_de_nova_iguacu',
+      schoolName: 'Leão de Nova Iguaçu',
+      enredo: 'O Leão no Caminho do Ouro',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'unidos_da_ponte',
+      schoolName: 'Unidos da Ponte',
+      enredo: 'As Damas do Samba - D. Zica e D. Neuma',
+      promoted: true,
+      statusDescription: 'Vice-Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 3,
+      schoolId: 'villa_rica',
+      schoolName: 'Unidos da Villa Rica',
+      enredo: 'Coração de Três Raças',
+      promoted: true,
+      statusDescription: '3º Lugar • Subiu para a Série Ouro'
+    },
+    {
+      rank: 4,
+      schoolId: 'boi_da_ilha',
+      schoolName: 'Boi da Ilha do Governador',
+      enredo: 'Paranapuan - Governador na História de uma Ilha, Memórias de uma Nação',
+      promoted: true,
+      statusDescription: '4º Lugar • Subiu para a Série Ouro'
+    },
+    {
+      rank: 5,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'O vento que venta lá, venta cá',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'No ano 2000, o Rei Conga é cultura nos 500 anos do Brasil',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Brasil, 500 Anos em três raças',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'folioes_de_botafogo',
+      schoolName: 'Foliões de Botafogo',
+      enredo: 'Palmares em Festa',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'academicos_do_sossego',
+      schoolName: 'Acadêmicos do Sossego',
+      enredo: 'Bahia em Quatro Tempos : de Caymmi ao Axé, Música Baiana leva Fé',
+      relegated: true,
+      statusDescription: '9º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 10,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Se eu não cumprir promessa, me processa',
+      relegated: true,
+      statusDescription: '10º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 11,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'Nos 500 anos, o Engenho engrossa o caldo e mostra a cana',
+      relegated: true,
+      statusDescription: '11º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 12,
+      schoolId: 'arrastao_cascadura',
+      schoolName: 'Arrastão de Cascadura',
+      enredo: 'Caxambu, da hidrópolis teal a corte no carnaval',
+      relegated: true,
+      statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
+    }
   ]
 };
 
@@ -3847,7 +3941,8 @@ export const OFFICIAL_PRATA_NOTES_BY_YEAR: Record<number, string> = {
   2004: 'Carnaval de 2004: Vizinha Faladeira foi a campeã e Renascer de Jacarepaguá a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Acadêmicos da Barra da Tijuca, União do Parque Curicica, Unidos do Cabuçu e Unidos da Villa Rica foram rebaixadas para a Série Bronze.',
   2003: 'Carnaval de 2003: Lins Imperial foi a campeã e Alegria da Zona Sul a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Em Cima da Hora e Acadêmicos do Sossego foram rebaixadas para a Série Bronze.',
   2002: 'Carnaval de 2002: Acadêmicos do Cubango foi a campeã e Inocentes da Baixada (Inocentes de Belford Roxo) a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Unidos do Cabuçu e Foliões de Botafogo foram rebaixadas para a Série Bronze.',
-  2001: 'Carnaval de 2001: Acadêmicos da Rocinha foi a campeã e União de Jacarepaguá a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Unidos da Vila Kennedy e Difícil é o Nome foram rebaixadas para a Série Bronze.'
+  2001: 'Carnaval de 2001: Acadêmicos da Rocinha foi a campeã e União de Jacarepaguá a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Unidos da Vila Kennedy e Difícil é o Nome foram rebaixadas para a Série Bronze.',
+  2000: 'Carnaval de 2000: Leão de Nova Iguaçu foi a campeã e Unidos da Ponte a vice-campeã; também conquistaram acesso à Série Ouro (Grupo A) Unidos da Villa Rica (3ª) e Boi da Ilha do Governador (4ª). Acadêmicos do Sossego, Unidos de Lucas, Acadêmicos do Engenho da Rainha e Arrastão de Cascadura foram rebaixadas para a Série Bronze.'
 };
 
 /**
