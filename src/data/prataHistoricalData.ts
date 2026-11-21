@@ -3376,6 +3376,186 @@ export const OFFICIAL_PRATA_HISTORICAL_STANDINGS: Record<number, PrataStandingRe
       relegated: true,
       statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
     }
+  ],
+  2003: [
+    {
+      rank: 1,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Segura Marimba, Aroldo Melodia vem aí!',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'alegria_da_zona_sul',
+      schoolName: 'Alegria da Zona Sul',
+      enredo: 'Festa do quilombo na coroação de um rei negro',
+      promoted: true,
+      statusDescription: 'Vice-Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 3,
+      schoolId: 'renascer_jacarepagua',
+      schoolName: 'Renascer de Jacarepaguá',
+      enredo: 'Arré égua! Hoje nós vamos pras comédias!',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'academicos_da_barra_da_tijuca',
+      schoolName: 'Acadêmicos da Barra da Tijuca',
+      enredo: 'É arte e carnaval! A Barra da Tijuca apresenta o Teatro do Oprimido na vida real',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'curicica',
+      schoolName: 'União do Parque Curicica',
+      enredo: 'Da Criação a Reconstrução - 90 anos do Mercadão de Madureira',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Saravá! Negritude, Saravá!',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'vizinha_faladeira',
+      schoolName: 'Vizinha Faladeira',
+      enredo: 'Todo mundo tem família – A história é a mesma, só muda o endereço',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Jacarezinho roda, roda, roda e avisa: que saudades do Velho Guerreiro - Chacrinha!',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'A magia imperial põe a mão na massa e encanta a massa na Sapucaí',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'villa_rica',
+      schoolName: 'Unidos da Villa Rica',
+      enredo: 'Do Trigo da Terra... Arte do Pão',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'XVª Região - Nossa vida, nosso progresso, nossa paixão...',
+      relegated: true,
+      statusDescription: '11º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 12,
+      schoolId: 'academicos_do_sossego',
+      schoolName: 'Acadêmicos do Sossego',
+      enredo: 'Sossego atravessa a baía na Barca da Folia',
+      relegated: true,
+      statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
+    }
+  ],
+  2002: [
+    {
+      rank: 1,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'África, o exuberante paraíso negro',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'inocentes',
+      schoolName: 'Inocentes da Baixada (Inocentes de Belford Roxo)',
+      enredo: 'É carnaval, é tititi, é São João, é Meriti',
+      promoted: true,
+      statusDescription: 'Vice-Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 3,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Jacarezinho brincando com Daniel Azulay nos 25 anos da Turma do Lambe-lambe',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Feira de São Cristóvão, o Nordeste também é Aqui',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'vizinha_faladeira',
+      schoolName: 'Vizinha Faladeira',
+      enredo: 'Nem tudo que reluz é ouro',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'alegria_da_zona_sul',
+      schoolName: 'Alegria da Zona Sul',
+      enredo: 'O Sonho Dourado de Percy',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Os Cucumbis: a trajetória do samba',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'renascer_jacarepagua',
+      schoolName: 'Renascer de Jacarepaguá',
+      enredo: 'Dos dias de reis aos contos históricos nos 500 anos de Angra',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'academicos_do_sossego',
+      schoolName: 'Acadêmicos do Sossego',
+      enredo: 'Andar com Fé eu Vou... Brasil, Tua Alma é Barroca',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'A poesia anda de bonde e a Em Cima da Hora conta essa linda história',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Se reciclar não vai faltar',
+      relegated: true,
+      statusDescription: '11º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 12,
+      schoolId: 'folioes_de_botafogo',
+      schoolName: 'Foliões de Botafogo',
+      enredo: 'Deus ajuda a quem cedo madruga?',
+      relegated: true,
+      statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
+    }
   ]
 };
 
@@ -3574,7 +3754,9 @@ export const OFFICIAL_PRATA_NOTES_BY_YEAR: Record<number, string> = {
   2007: 'Carnaval de 2007: Lins Imperial foi a campeã e garantiu o acesso à Série Ouro (Grupo A), com Inocentes de Belford Roxo como vice-campeã. Difícil é o Nome e Flor da Mina do Andaraí foram rebaixadas para a Série Bronze.',
   2006: 'Carnaval de 2006: Império da Tijuca foi a campeã e garantiu o acesso à Série Ouro (Grupo A), com Paraíso do Tuiuti como vice-campeã. Unidos da Ponte foi rebaixada para a Série Bronze.',
   2005: 'Carnaval de 2005: Estácio de Sá foi a campeã e Arranco a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Unidos do Jacarezinho, Leão de Nova Iguaçu e Mocidade de Vicente de Carvalho foram rebaixadas para a Série Bronze.',
-  2004: 'Carnaval de 2004: Vizinha Faladeira foi a campeã e Renascer de Jacarepaguá a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Acadêmicos da Barra da Tijuca, União do Parque Curicica, Unidos do Cabuçu e Unidos da Villa Rica foram rebaixadas para a Série Bronze.'
+  2004: 'Carnaval de 2004: Vizinha Faladeira foi a campeã e Renascer de Jacarepaguá a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Acadêmicos da Barra da Tijuca, União do Parque Curicica, Unidos do Cabuçu e Unidos da Villa Rica foram rebaixadas para a Série Bronze.',
+  2003: 'Carnaval de 2003: Lins Imperial foi a campeã e Alegria da Zona Sul a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Em Cima da Hora e Acadêmicos do Sossego foram rebaixadas para a Série Bronze.',
+  2002: 'Carnaval de 2002: Acadêmicos do Cubango foi a campeã e Inocentes da Baixada (Inocentes de Belford Roxo) a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Unidos do Cabuçu e Foliões de Botafogo foram rebaixadas para a Série Bronze.'
 };
 
 /**
