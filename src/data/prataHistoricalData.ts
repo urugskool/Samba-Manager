@@ -3556,6 +3556,96 @@ export const OFFICIAL_PRATA_HISTORICAL_STANDINGS: Record<number, PrataStandingRe
       relegated: true,
       statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
     }
+  ],
+  2001: [
+    {
+      rank: 1,
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: 'E Deus criou a mulher',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'A magia da dança',
+      promoted: true,
+      statusDescription: 'Vice-Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 3,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Maracanã, 50 anos de emoções',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Oh, Que Saudades que Eu Tenho !',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'O Canto da Guerreira - Homenagem a Clara Nunes',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'A Cubango mostra tua raça, Niterói é teu berço, a cidade te abraça',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'renascer_jacarepagua',
+      schoolName: 'Renascer de Jacarepaguá',
+      enredo: 'Ousadia de um Homem a Frente do Seu Tempo - Nelson Carneiro',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Cabuçu canta e encanta com o canto das sereias',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'folioes_de_botafogo',
+      schoolName: 'Foliões de Botafogo',
+      enredo: 'Quando 3001 chegar',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'vizinha_faladeira',
+      schoolName: 'Vizinha Faladeira',
+      enredo: 'Uarará, o fruto da vida',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'unidos_da_vila_kennedy',
+      schoolName: 'Unidos da Vila Kennedy',
+      enredo: 'Paraíba, o Portal das Américas',
+      relegated: true,
+      statusDescription: '11º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 12,
+      schoolId: 'dificil_e_o_nome',
+      schoolName: 'Difícil é o Nome',
+      enredo: 'O Gigante Suburbano - Norte Shopping',
+      relegated: true,
+      statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
+    }
   ]
 };
 
@@ -3756,7 +3846,8 @@ export const OFFICIAL_PRATA_NOTES_BY_YEAR: Record<number, string> = {
   2005: 'Carnaval de 2005: Estácio de Sá foi a campeã e Arranco a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Unidos do Jacarezinho, Leão de Nova Iguaçu e Mocidade de Vicente de Carvalho foram rebaixadas para a Série Bronze.',
   2004: 'Carnaval de 2004: Vizinha Faladeira foi a campeã e Renascer de Jacarepaguá a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Acadêmicos da Barra da Tijuca, União do Parque Curicica, Unidos do Cabuçu e Unidos da Villa Rica foram rebaixadas para a Série Bronze.',
   2003: 'Carnaval de 2003: Lins Imperial foi a campeã e Alegria da Zona Sul a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Em Cima da Hora e Acadêmicos do Sossego foram rebaixadas para a Série Bronze.',
-  2002: 'Carnaval de 2002: Acadêmicos do Cubango foi a campeã e Inocentes da Baixada (Inocentes de Belford Roxo) a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Unidos do Cabuçu e Foliões de Botafogo foram rebaixadas para a Série Bronze.'
+  2002: 'Carnaval de 2002: Acadêmicos do Cubango foi a campeã e Inocentes da Baixada (Inocentes de Belford Roxo) a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Unidos do Cabuçu e Foliões de Botafogo foram rebaixadas para a Série Bronze.',
+  2001: 'Carnaval de 2001: Acadêmicos da Rocinha foi a campeã e União de Jacarepaguá a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Unidos da Vila Kennedy e Difícil é o Nome foram rebaixadas para a Série Bronze.'
 };
 
 /**
