@@ -4227,6 +4227,186 @@ export const OFFICIAL_PRATA_HISTORICAL_STANDINGS: Record<number, PrataStandingRe
       isHorsConcours: true,
       statusDescription: 'Não desfilou • Rebaixada para o Grupo de Avaliação'
     }
+  ],
+  1994: [
+    {
+      rank: 1,
+      schoolId: 'dificil_e_o_nome',
+      schoolName: 'Difícil é o Nome',
+      enredo: 'Olubajé, a Festa da Libertação',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'vizinha_faladeira',
+      schoolName: 'Vizinha Faladeira',
+      enredo: 'Sou Rei, Sou Rainha, na Corte da Vizinha',
+      promoted: true,
+      statusDescription: 'Vice-Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 3,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'De Frequência em Frequência na Cadência do Samba',
+      promoted: true,
+      statusDescription: '3º Lugar • Subiu para a Série Ouro'
+    },
+    {
+      rank: 4,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'Sargentelli, Hoje o Show É na Avenida',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'boi_da_ilha',
+      schoolName: 'Boi da Ilha do Governador',
+      enredo: 'Das Terras do Congo ao Reinado da Luz',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Tropicália, Aquele Abraço',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'unidos_do_campinho',
+      schoolName: 'Unidos do Campinho',
+      enredo: 'Anastácia, Um Grito de Liberdade na Sapucaí',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'mocidade_cidade_de_deus',
+      schoolName: 'Mocidade Unida da Cidade de Deus',
+      enredo: 'Me Engana que Eu Gosto',
+      promoted: true,
+      statusDescription: '8º Lugar • Convidada para a Série Ouro (1995)'
+    },
+    {
+      rank: 9,
+      schoolId: 'boemios_de_inhauma',
+      schoolName: 'Boêmios de Inhaúma',
+      enredo: 'Segura o Andor Boêmio que Vai Passar na Avenida Um Samba Popular',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Nas Asas do Tuiuti',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'unidos_de_manguinhos',
+      schoolName: 'Unidos de Manguinhos',
+      enredo: 'Quatzacoat, Uma Chocante Tentação',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'vigario_geral',
+      schoolName: 'Acadêmicos de Vigário Geral',
+      enredo: 'Ah! Que Saudades que Eu Tenho',
+      statusDescription: '12º Lugar'
+    }
+  ],
+  1993: [
+    {
+      rank: 1,
+      schoolId: 'villa_rica',
+      schoolName: 'Unidos da Villa Rica',
+      enredo: 'Quem não arrisca não petisca, façam o jogo',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'canarios_laranjeiras',
+      schoolName: 'Canários das Laranjeiras',
+      enredo: 'Kaleidoscópio',
+      promoted: true,
+      statusDescription: 'Vice-Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 3,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes de Cordovil',
+      enredo: 'Ogum, o que veio da África',
+      promoted: true,
+      statusDescription: '3º Lugar • Subiu para a Série Ouro'
+    },
+    {
+      rank: 4,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'Armando Campos, uma vida que dá samba',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'unidos_de_manguinhos',
+      schoolName: 'Unidos de Manguinhos',
+      enredo: 'E tá danado de bom',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Arte negra em noite de gala',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'ECA 8069',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'unidos_do_campinho',
+      schoolName: 'Unidos do Campinho',
+      enredo: 'Entre confetes e serpentinas, o sonho do carnaval',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'dificil_e_o_nome',
+      schoolName: 'Difícil é o Nome',
+      enredo: 'Ela Merece, Paula do Salgueiro',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'vizinha_faladeira',
+      schoolName: 'Vizinha Faladeira',
+      enredo: 'Um ser criança',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Os anjos',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'vila_santa_tereza',
+      schoolName: 'Unidos da Vila Santa Tereza',
+      enredo: 'O que é que o negro tem?',
+      relegated: true,
+      statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
+    }
   ]
 };
 
@@ -4434,7 +4614,9 @@ export const OFFICIAL_PRATA_NOTES_BY_YEAR: Record<number, string> = {
   1998: 'Carnaval de 1998: Unidos do Jacarezinho foi a campeã, Unidos da Villa Rica a vice-campeã e Unidos do Cabuçu a 3ª colocada, todas garantindo acesso à Série Ouro (Grupo A). Acadêmicos do Dendê e Mocidade Unida do Santa Marta foram rebaixadas para a Série Bronze.',
   1997: 'Carnaval de 1997: Lins Imperial foi a campeã e Acadêmicos do Cubango a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Boi da Ilha do Governador, Difícil é o Nome, Mocidade de Vicente de Carvalho e Unidos de Lucas foram rebaixadas para a Série Bronze.',
   1996: 'Carnaval de 1996: Arranco foi a campeã e Acadêmicos do Dendê a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Leão de Nova Iguaçu, Acadêmicos da Abolição, Independentes de Cordovil e Mocidade Unida da Cidade de Deus foram rebaixadas para a Série Bronze.',
-  1995: 'Carnaval de 1995: Não houve acesso para a Série Ouro em 1996 devido à reorganização dos grupos de acesso. As três primeiras colocadas — Acadêmicos do Dendê (Campeã), Acadêmicos de Vigário Geral (Vice-Campeã) e Acadêmicos da Abolição (3ª) — foram mantidas na Série Prata (Grupo B). Do 4º ao 8º lugar (Unidos da Vila Kennedy, Paraíso do Tuiuti, Boi da Ilha do Governador, Foliões de Botafogo e Mocidade Unida do Santa Marta) foram rebaixadas para a Série Bronze (Grupo C em 1996). Do 9º ao 14º lugar (Unidos do Campinho, Renascer de Jacarepaguá, União de Jacarepaguá, Império do Marangá, União de Rocha Miranda e Unidos de Manguinhos) e a Inocentes de Belford Roxo (que não desfilou) foram rebaixadas para o Grupo de Avaliação (Grupo D em 1996).'
+  1995: 'Carnaval de 1995: Não houve acesso para a Série Ouro em 1996 devido à reorganização dos grupos de acesso. As três primeiras colocadas — Acadêmicos do Dendê (Campeã), Acadêmicos de Vigário Geral (Vice-Campeã) e Acadêmicos da Abolição (3ª) — foram mantidas na Série Prata (Grupo B). Do 4º ao 8º lugar (Unidos da Vila Kennedy, Paraíso do Tuiuti, Boi da Ilha do Governador, Foliões de Botafogo e Mocidade Unida do Santa Marta) foram rebaixadas para a Série Bronze (Grupo C em 1996). Do 9º ao 14º lugar (Unidos do Campinho, Renascer de Jacarepaguá, União de Jacarepaguá, Império do Marangá, União de Rocha Miranda e Unidos de Manguinhos) e a Inocentes de Belford Roxo (que não desfilou) foram rebaixadas para o Grupo de Avaliação (Grupo D em 1996).',
+  1994: 'Carnaval de 1994: Difícil é o Nome foi a campeã, Vizinha Faladeira a vice-campeã e Em Cima da Hora a 3ª colocada, todas garantindo acesso à Série Ouro (segunda divisão) em 1995. Além das três primeiras colocadas, a 8ª colocada Mocidade Unida da Cidade de Deus foi convidada para integrar a Série Ouro no ano seguinte. Não houve rebaixamento neste ano devido à reformulação dos grupos do carnaval a partir de 1995.',
+  1993: 'Carnaval de 1993: Unidos da Villa Rica foi a campeã, Canários das Laranjeiras a vice-campeã e Independentes de Cordovil a 3ª colocada, todas garantindo acesso à Série Ouro (segunda divisão). Unidos da Vila Santa Tereza foi rebaixada para a Série Bronze.'
 };
 
 /**

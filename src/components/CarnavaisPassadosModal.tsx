@@ -1782,6 +1782,8 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                                                 ? 'Campeã • Subiu (Série Ouro)'
                                                 : isOverallVice
                                                 ? 'Vice • Subiu (Série Ouro)'
+                                                : st.statusDescription?.toLowerCase().includes('convidada')
+                                                ? 'Convidada (Série Ouro)'
                                                 : 'Subiu (Série Ouro)'}
                                             </span>
                                           </span>
