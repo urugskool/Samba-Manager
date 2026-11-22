@@ -4107,6 +4107,126 @@ export const OFFICIAL_PRATA_HISTORICAL_STANDINGS: Record<number, PrataStandingRe
       relegated: true,
       statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
     }
+  ],
+  1995: [
+    {
+      rank: 1,
+      schoolId: 'academicos_do_dende',
+      schoolName: 'Acadêmicos do Dendê',
+      enredo: 'Essa Água É Fogo',
+      statusDescription: 'Campeã • Mantida na Série Prata (reorganização dos grupos de acesso)'
+    },
+    {
+      rank: 2,
+      schoolId: 'vigario_geral',
+      schoolName: 'Acadêmicos de Vigário Geral',
+      enredo: 'Ontem, Hoje e Sempre Mestre Marçal',
+      statusDescription: 'Vice-Campeã • Mantida na Série Prata (reorganização dos grupos de acesso)'
+    },
+    {
+      rank: 3,
+      schoolId: 'abolicao',
+      schoolName: 'Acadêmicos da Abolição',
+      enredo: 'Crescendo e Aprendendo',
+      statusDescription: '3º Lugar • Mantida na Série Prata'
+    },
+    {
+      rank: 4,
+      schoolId: 'unidos_da_vila_kennedy',
+      schoolName: 'Unidos da Vila Kennedy',
+      enredo: 'História e Herança de Uma Raça',
+      relegated: true,
+      statusDescription: '4º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 5,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Recicla Brasil, o Lixo É Um Luxo',
+      relegated: true,
+      statusDescription: '5º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 6,
+      schoolId: 'boi_da_ilha',
+      schoolName: 'Boi da Ilha do Governador',
+      enredo: 'Zero Dá Sorte',
+      relegated: true,
+      statusDescription: '6º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 7,
+      schoolId: 'folioes_de_botafogo',
+      schoolName: 'Foliões de Botafogo',
+      enredo: 'Marlene Paiva, das Passarelas de Luxo à Passarela do Samba',
+      relegated: true,
+      statusDescription: '7º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 8,
+      schoolId: 'santa_marta',
+      schoolName: 'Mocidade Unida do Santa Marta',
+      enredo: 'Faça Amor, não Faça Guerra',
+      relegated: true,
+      statusDescription: '8º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 9,
+      schoolId: 'unidos_do_campinho',
+      schoolName: 'Unidos do Campinho',
+      enredo: 'Do Milho ao Milhão',
+      relegated: true,
+      statusDescription: '9º Lugar • Rebaixada para o Grupo de Avaliação'
+    },
+    {
+      rank: 10,
+      schoolId: 'renascer_jacarepagua',
+      schoolName: 'Renascer de Jacarepaguá',
+      enredo: 'Minha Terra Tem Lagoas Onde Vivem os Jacarés',
+      relegated: true,
+      statusDescription: '10º Lugar • Rebaixada para o Grupo de Avaliação'
+    },
+    {
+      rank: 11,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'De Geração em Geração quem É Discriminado É o Negão',
+      relegated: true,
+      statusDescription: '11º Lugar • Rebaixada para o Grupo de Avaliação'
+    },
+    {
+      rank: 12,
+      schoolId: 'imperio_do_maranga',
+      schoolName: 'Império do Marangá',
+      enredo: 'No Balanço das Ondas do Mar',
+      relegated: true,
+      statusDescription: '12º Lugar • Rebaixada para o Grupo de Avaliação'
+    },
+    {
+      rank: 13,
+      schoolId: 'uniao_de_rocha_miranda',
+      schoolName: 'União de Rocha Miranda',
+      enredo: 'O Grito da Flor',
+      relegated: true,
+      statusDescription: '13º Lugar • Rebaixada para o Grupo de Avaliação'
+    },
+    {
+      rank: 14,
+      schoolId: 'unidos_de_manguinhos',
+      schoolName: 'Unidos de Manguinhos',
+      enredo: 'Manguinhos, Ouro, Saúde e Folia',
+      relegated: true,
+      statusDescription: '14º Lugar • Rebaixada para o Grupo de Avaliação'
+    },
+    {
+      rank: 0,
+      schoolId: 'inocentes',
+      schoolName: 'Inocentes de Belford Roxo',
+      enredo: 'Grande Otelo, uma vida que se acaba na ribalta',
+      relegated: true,
+      isHorsConcours: true,
+      statusDescription: 'Não desfilou • Rebaixada para o Grupo de Avaliação'
+    }
   ]
 };
 
@@ -4313,7 +4433,8 @@ export const OFFICIAL_PRATA_NOTES_BY_YEAR: Record<number, string> = {
   1999: 'Carnaval de 1999: Acadêmicos da Rocinha foi a campeã, Inocentes de Belford Roxo a vice-campeã e Paraíso do Tuiuti a 3ª colocada, todas garantindo acesso à Série Ouro (Grupo A). Vizinha Faladeira, Acadêmicos de Vigário Geral e Canários das Laranjeiras foram rebaixadas para a Série Bronze.',
   1998: 'Carnaval de 1998: Unidos do Jacarezinho foi a campeã, Unidos da Villa Rica a vice-campeã e Unidos do Cabuçu a 3ª colocada, todas garantindo acesso à Série Ouro (Grupo A). Acadêmicos do Dendê e Mocidade Unida do Santa Marta foram rebaixadas para a Série Bronze.',
   1997: 'Carnaval de 1997: Lins Imperial foi a campeã e Acadêmicos do Cubango a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Boi da Ilha do Governador, Difícil é o Nome, Mocidade de Vicente de Carvalho e Unidos de Lucas foram rebaixadas para a Série Bronze.',
-  1996: 'Carnaval de 1996: Arranco foi a campeã e Acadêmicos do Dendê a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Leão de Nova Iguaçu, Acadêmicos da Abolição, Independentes de Cordovil e Mocidade Unida da Cidade de Deus foram rebaixadas para a Série Bronze.'
+  1996: 'Carnaval de 1996: Arranco foi a campeã e Acadêmicos do Dendê a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Leão de Nova Iguaçu, Acadêmicos da Abolição, Independentes de Cordovil e Mocidade Unida da Cidade de Deus foram rebaixadas para a Série Bronze.',
+  1995: 'Carnaval de 1995: Não houve acesso para a Série Ouro em 1996 devido à reorganização dos grupos de acesso. As três primeiras colocadas — Acadêmicos do Dendê (Campeã), Acadêmicos de Vigário Geral (Vice-Campeã) e Acadêmicos da Abolição (3ª) — foram mantidas na Série Prata (Grupo B). Do 4º ao 8º lugar (Unidos da Vila Kennedy, Paraíso do Tuiuti, Boi da Ilha do Governador, Foliões de Botafogo e Mocidade Unida do Santa Marta) foram rebaixadas para a Série Bronze (Grupo C em 1996). Do 9º ao 14º lugar (Unidos do Campinho, Renascer de Jacarepaguá, União de Jacarepaguá, Império do Marangá, União de Rocha Miranda e Unidos de Manguinhos) e a Inocentes de Belford Roxo (que não desfilou) foram rebaixadas para o Grupo de Avaliação (Grupo D em 1996).'
 };
 
 /**
