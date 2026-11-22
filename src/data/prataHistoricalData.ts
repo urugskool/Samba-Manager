@@ -3740,6 +3740,373 @@ export const OFFICIAL_PRATA_HISTORICAL_STANDINGS: Record<number, PrataStandingRe
       relegated: true,
       statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
     }
+  ],
+  1999: [
+    {
+      rank: 1,
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: '1999, Fim de Século. Recordar É Viver',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'inocentes',
+      schoolName: 'Inocentes de Belford Roxo',
+      enredo: 'Viva a Baixada, Longos Passos do Progresso Rumo ao Terceiro Milênio',
+      promoted: true,
+      statusDescription: 'Vice-Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 3,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Uma Delícia Glacial no País do Carnaval',
+      promoted: true,
+      statusDescription: '3º Lugar • Subiu para a Série Ouro'
+    },
+    {
+      rank: 4,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Numa Fuga Alucinada entre Piolhos e Galinhas, Veio até Uma Rainha',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'As Quatro Damas Negras',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'boi_da_ilha',
+      schoolName: 'Boi da Ilha do Governador',
+      enredo: 'A Saga de Kananciuê na Aurora do Mundo Carajá',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'arrastao_cascadura',
+      schoolName: 'Arrastão de Cascadura',
+      enredo: 'No Palco da Alegria, Sou o Rei Nesta Folia',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'academicos_do_sossego',
+      schoolName: 'Acadêmicos do Sossego',
+      enredo: '500 Anos de Brasil, o que Caminha Viu e não Viu',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'De Cabral a Zito, Salve Caxias',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'vizinha_faladeira',
+      schoolName: 'Vizinha Faladeira',
+      enredo: 'Sou Vizinha Delirando a Passarela, É Paulínia na Sapucaí',
+      relegated: true,
+      statusDescription: '10º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 11,
+      schoolId: 'vigario_geral',
+      schoolName: 'Acadêmicos de Vigário Geral',
+      enredo: 'Vigário, Um Sonho de Liberdade',
+      relegated: true,
+      statusDescription: '11º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 12,
+      schoolId: 'canarios_laranjeiras',
+      schoolName: 'Canários das Laranjeiras',
+      enredo: 'Bar Luiz, 112 Anos de Boemia Feliz',
+      relegated: true,
+      statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
+    }
+  ],
+  1998: [
+    {
+      rank: 1,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Jacarezinho é ... Etnias na Sapucaí',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'villa_rica',
+      schoolName: 'Unidos da Villa Rica',
+      enredo: 'Ferrogun',
+      promoted: true,
+      statusDescription: 'Vice-Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 3,
+      schoolId: 'cabucu',
+      schoolName: 'Unidos do Cabuçu',
+      enredo: 'Toda a Sorte do Mundo',
+      promoted: true,
+      statusDescription: '3º Lugar • Subiu para a Série Ouro'
+    },
+    {
+      rank: 4,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Oui Oui, a França Esteve Aqui!',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'Memórias de um Brasil Holandês',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'A Lenda do Aguapé na Tribo de Yacaré',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'vizinha_faladeira',
+      schoolName: 'Vizinha Faladeira',
+      enredo: 'Cem Anos de Existência, Tome Providência',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'canarios_laranjeiras',
+      schoolName: 'Canários das Laranjeiras',
+      enredo: 'Livre Como um Passarinho',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'arrastao_cascadura',
+      schoolName: 'Arrastão de Cascadura',
+      enredo: 'Florindo o Rio de Alegria',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'vigario_geral',
+      schoolName: 'Acadêmicos de Vigário Geral',
+      enredo: 'Conto Dourado de um Povo Sonhador',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'academicos_do_dende',
+      schoolName: 'Acadêmicos do Dendê',
+      enredo: 'Africano ou Baiano? Sou Natural dos Orixás, Sou o Tempero do meu Rio de Janeiro, Sou Carnaval',
+      relegated: true,
+      statusDescription: '11º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 12,
+      schoolId: 'santa_marta',
+      schoolName: 'Mocidade Unida do Santa Marta',
+      enredo: 'Zumbi, a Tróia Negra',
+      relegated: true,
+      statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
+    }
+  ],
+  1997: [
+    {
+      rank: 1,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Tudo isso é Brasil',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'Os pontos de nossos contos',
+      promoted: true,
+      statusDescription: 'Vice-Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 3,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Sonhando com a infância, oh! Como é doce ser criança',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'villa_rica',
+      schoolName: 'Unidos da Villa Rica',
+      enredo: "Cores d'África",
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'engenho_da_rainha',
+      schoolName: 'Acadêmicos do Engenho da Rainha',
+      enredo: 'De Bufalo Bill ao cowboy brasileiro, viva o peão boiadeiro',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'vigario_geral',
+      schoolName: 'Acadêmicos de Vigário Geral',
+      enredo: 'Rio de Janeiro a Janeiro, uma sinfonia apoteótica',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'canarios_laranjeiras',
+      schoolName: 'Canários das Laranjeiras',
+      enredo: 'Do mundo da emoção à nova era da comunicação',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'arrastao_cascadura',
+      schoolName: 'Arrastão de Cascadura',
+      enredo: 'Oju-Obá, os olhos do rei',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'boi_da_ilha',
+      schoolName: 'Boi da Ilha do Governador',
+      enredo: 'Galanga no Congo, Chico em terras de Vila Rica',
+      relegated: true,
+      statusDescription: '9º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 10,
+      schoolId: 'dificil_e_o_nome',
+      schoolName: 'Difícil é o Nome',
+      enredo: 'O samba que virou suco',
+      relegated: true,
+      statusDescription: '10º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 11,
+      schoolId: 'vicente_de_carvalho',
+      schoolName: 'Mocidade de Vicente de Carvalho',
+      enredo: 'Da caminhada de glórias ao jubileu de ouro',
+      relegated: true,
+      statusDescription: '11º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 12,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Capela e Aprendizes, o Galo conta a sua história',
+      relegated: true,
+      statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
+    }
+  ],
+  1996: [
+    {
+      rank: 1,
+      schoolId: 'arranco',
+      schoolName: 'Arranco',
+      enredo: 'Ser Brasil, Ser Brasileiro',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'academicos_do_dende',
+      schoolName: 'Acadêmicos do Dendê',
+      enredo: 'Prédio Roubado, Ponha-se na Rua... Ora pois, pois!',
+      promoted: true,
+      statusDescription: 'Vice-Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 3,
+      schoolId: 'jacarezinho',
+      schoolName: 'Unidos do Jacarezinho',
+      enredo: 'Vapt Vupt - 44 Anos de Cultura, Humor e Fantasia',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'dificil_e_o_nome',
+      schoolName: 'Difícil é o Nome',
+      enredo: 'João Nosso João',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'canarios_laranjeiras',
+      schoolName: 'Canários das Laranjeiras',
+      enredo: 'Aruanda, Um Sonho de Zumbi',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'unidos_de_lucas',
+      schoolName: 'Unidos de Lucas',
+      enredo: 'Rua da Carioca a Mais Carioca do Rio',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'lins_imperial',
+      schoolName: 'Lins Imperial',
+      enredo: 'Méier, Ponto de Encontro de Cantos e Encantos',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'vigario_geral',
+      schoolName: 'Acadêmicos de Vigário Geral',
+      enredo: 'Fica o Dito pelo não Dito',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'leao_de_nova_iguacu',
+      schoolName: 'Leão de Nova Iguaçu',
+      enredo: 'Tudo Isto Quer Dizer Brasil',
+      relegated: true,
+      statusDescription: '9º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 10,
+      schoolId: 'abolicao',
+      schoolName: 'Acadêmicos da Abolição',
+      enredo: 'Quem É que Faz a Alegria do Povo?',
+      relegated: true,
+      statusDescription: '10º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 11,
+      schoolId: 'independentes_cordovil',
+      schoolName: 'Independentes de Cordovil',
+      enredo: 'Que Rei Sou Eu?',
+      relegated: true,
+      statusDescription: '11º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 12,
+      schoolId: 'mocidade_cidade_de_deus',
+      schoolName: 'Mocidade Unida da Cidade de Deus',
+      enredo: 'Quilombo dos Palmares, Um Paraíso Negro',
+      relegated: true,
+      statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
+    }
   ]
 };
 
@@ -3942,7 +4309,11 @@ export const OFFICIAL_PRATA_NOTES_BY_YEAR: Record<number, string> = {
   2003: 'Carnaval de 2003: Lins Imperial foi a campeã e Alegria da Zona Sul a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Em Cima da Hora e Acadêmicos do Sossego foram rebaixadas para a Série Bronze.',
   2002: 'Carnaval de 2002: Acadêmicos do Cubango foi a campeã e Inocentes da Baixada (Inocentes de Belford Roxo) a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Unidos do Cabuçu e Foliões de Botafogo foram rebaixadas para a Série Bronze.',
   2001: 'Carnaval de 2001: Acadêmicos da Rocinha foi a campeã e União de Jacarepaguá a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Unidos da Vila Kennedy e Difícil é o Nome foram rebaixadas para a Série Bronze.',
-  2000: 'Carnaval de 2000: Leão de Nova Iguaçu foi a campeã e Unidos da Ponte a vice-campeã; também conquistaram acesso à Série Ouro (Grupo A) Unidos da Villa Rica (3ª) e Boi da Ilha do Governador (4ª). Acadêmicos do Sossego, Unidos de Lucas, Acadêmicos do Engenho da Rainha e Arrastão de Cascadura foram rebaixadas para a Série Bronze.'
+  2000: 'Carnaval de 2000: Leão de Nova Iguaçu foi a campeã e Unidos da Ponte a vice-campeã; também conquistaram acesso à Série Ouro (Grupo A) Unidos da Villa Rica (3ª) e Boi da Ilha do Governador (4ª). Acadêmicos do Sossego, Unidos de Lucas, Acadêmicos do Engenho da Rainha e Arrastão de Cascadura foram rebaixadas para a Série Bronze.',
+  1999: 'Carnaval de 1999: Acadêmicos da Rocinha foi a campeã, Inocentes de Belford Roxo a vice-campeã e Paraíso do Tuiuti a 3ª colocada, todas garantindo acesso à Série Ouro (Grupo A). Vizinha Faladeira, Acadêmicos de Vigário Geral e Canários das Laranjeiras foram rebaixadas para a Série Bronze.',
+  1998: 'Carnaval de 1998: Unidos do Jacarezinho foi a campeã, Unidos da Villa Rica a vice-campeã e Unidos do Cabuçu a 3ª colocada, todas garantindo acesso à Série Ouro (Grupo A). Acadêmicos do Dendê e Mocidade Unida do Santa Marta foram rebaixadas para a Série Bronze.',
+  1997: 'Carnaval de 1997: Lins Imperial foi a campeã e Acadêmicos do Cubango a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Boi da Ilha do Governador, Difícil é o Nome, Mocidade de Vicente de Carvalho e Unidos de Lucas foram rebaixadas para a Série Bronze.',
+  1996: 'Carnaval de 1996: Arranco foi a campeã e Acadêmicos do Dendê a vice-campeã, ambas garantindo acesso à Série Ouro (Grupo A). Leão de Nova Iguaçu, Acadêmicos da Abolição, Independentes de Cordovil e Mocidade Unida da Cidade de Deus foram rebaixadas para a Série Bronze.'
 };
 
 /**
