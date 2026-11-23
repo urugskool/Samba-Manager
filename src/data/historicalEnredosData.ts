@@ -2894,7 +2894,32 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     paraiso_do_tuiuti: 'Eneida, o pierrô está de volta',
     independentes_cordovil: 'Cantares ao meu povo, Solano Trindade',
     independentes_de_cordovil: 'Cantares ao meu povo, Solano Trindade',
-    cordovil: 'Cantares ao meu povo, Solano Trindade'
+    cordovil: 'Cantares ao meu povo, Solano Trindade',
+    // Série Prata (Grupo B) 1990
+    leao_de_nova_iguacu: 'O Leão Falou, Abre o Jogo, Doutor',
+    leao_nova_iguacu: 'O Leão Falou, Abre o Jogo, Doutor',
+    imperio_da_tijuca: 'Na Terra do Pau-Brasil, Só Mico Dourado Deu',
+    arrastao_cascadura: 'Ecologiando do Oiapoque ao Chuí',
+    arrastao: 'Ecologiando do Oiapoque ao Chuí',
+    arrastao_de_cascadura: 'Ecologiando do Oiapoque ao Chuí',
+    cubango: 'O Místico José Ferreira',
+    academicos_do_cubango: 'O Místico José Ferreira',
+    em_cima_da_hora: 'Saudades do Rio',
+    mocidade_cidade_de_deus: 'Refavela',
+    mocidade_unida_da_cidade_de_deus: 'Refavela',
+    cidade_de_deus: 'Refavela',
+    tupy_bras_de_pina: 'Saudade, Hoje Vou Batucar',
+    tupy_de_bras_de_pina: 'Saudade, Hoje Vou Batucar',
+    tupy: 'Saudade, Hoje Vou Batucar',
+    vila_santa_tereza: 'A Beleza da Vila, com Paulinho da Viola, a Poesia',
+    unidos_da_vila_santa_tereza: 'A Beleza da Vila, com Paulinho da Viola, a Poesia',
+    uniao_de_rocha_miranda: 'Mamãe, Eu Quero Fernando Pinto, Ziriguidum e Carnaval',
+    uniao_vaz_lobo: 'Guaraná, Guarani',
+    uniao_de_vaz_lobo: 'Guaraná, Guarani',
+    vaz_lobo: 'Guaraná, Guarani',
+    unidos_de_manguinhos: 'Minha Terra Tem Palmeiras Onde Cantava o Sabiá',
+    uniao_de_jacarepagua: 'Dai a Chico o que É de Chico',
+    uniao_jacarepagua: 'Dai a Chico o que É de Chico'
   },
   1989: {
     // Grupo Especial 1989

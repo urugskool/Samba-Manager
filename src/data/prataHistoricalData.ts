@@ -4587,6 +4587,94 @@ export const OFFICIAL_PRATA_HISTORICAL_STANDINGS: Record<number, PrataStandingRe
       relegated: true,
       statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
     }
+  ],
+  1990: [
+    {
+      rank: 1,
+      schoolId: 'leao_de_nova_iguacu',
+      schoolName: 'Leão de Nova Iguaçu',
+      enredo: 'O Leão Falou, Abre o Jogo, Doutor',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'imperio_da_tijuca',
+      schoolName: 'Império da Tijuca',
+      enredo: 'Na Terra do Pau-Brasil, Só Mico Dourado Deu',
+      promoted: true,
+      statusDescription: 'Vice-Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 3,
+      schoolId: 'arrastao_cascadura',
+      schoolName: 'Arrastão de Cascadura',
+      enredo: 'Ecologiando do Oiapoque ao Chuí',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'O Místico José Ferreira',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Saudades do Rio',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'mocidade_cidade_de_deus',
+      schoolName: 'Mocidade Unida da Cidade de Deus',
+      enredo: 'Refavela',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'Saudade, Hoje Vou Batucar',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'vila_santa_tereza',
+      schoolName: 'Unidos da Vila Santa Tereza',
+      enredo: 'A Beleza da Vila, com Paulinho da Viola, a Poesia',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'uniao_de_rocha_miranda',
+      schoolName: 'União de Rocha Miranda',
+      enredo: 'Mamãe, Eu Quero Fernando Pinto, Ziriguidum e Carnaval',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'uniao_vaz_lobo',
+      schoolName: 'União de Vaz Lobo',
+      enredo: 'Guaraná, Guarani',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'unidos_de_manguinhos',
+      schoolName: 'Unidos de Manguinhos',
+      enredo: 'Minha Terra Tem Palmeiras Onde Cantava o Sabiá',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Dai a Chico o que É de Chico',
+      statusDescription: '12º Lugar'
+    }
   ]
 };
 
@@ -4798,7 +4886,8 @@ export const OFFICIAL_PRATA_NOTES_BY_YEAR: Record<number, string> = {
   1994: 'Carnaval de 1994: Difícil é o Nome foi a campeã, Vizinha Faladeira a vice-campeã e Em Cima da Hora a 3ª colocada, todas garantindo acesso à Série Ouro (segunda divisão) em 1995. Além das três primeiras colocadas, a 8ª colocada Mocidade Unida da Cidade de Deus foi convidada para integrar a Série Ouro no ano seguinte. Não houve rebaixamento neste ano devido à reformulação dos grupos do carnaval a partir de 1995.',
   1993: 'Carnaval de 1993: Unidos da Villa Rica foi a campeã, Canários das Laranjeiras a vice-campeã e Independentes de Cordovil a 3ª colocada, todas garantindo acesso à Série Ouro (segunda divisão). Unidos da Vila Santa Tereza foi rebaixada para a Série Bronze.',
   1992: 'Carnaval de 1992: Arrastão de Cascadura foi a campeã, Acadêmicos do Cubango a vice-campeã e Mocidade Unida da Cidade de Deus a 3ª colocada, todas garantindo acesso à Série Ouro (segunda divisão). Unidos da Vila Kennedy e União de Vaz Lobo foram rebaixadas para a Série Bronze.',
-  1991: 'Carnaval de 1991: Acadêmicos da Rocinha foi a campeã e Unidos do Campinho a vice-campeã, ambas garantindo acesso à Série Ouro (segunda divisão). União de Rocha Miranda foi rebaixada para a Série Bronze.'
+  1991: 'Carnaval de 1991: Acadêmicos da Rocinha foi a campeã e Unidos do Campinho a vice-campeã, ambas garantindo acesso à Série Ouro (segunda divisão). União de Rocha Miranda foi rebaixada para a Série Bronze.',
+  1990: 'Carnaval de 1990: Leão de Nova Iguaçu foi a campeã e Império da Tijuca a vice-campeã, ambas garantindo acesso à Série Ouro (segunda divisão). Não houve rebaixamento neste ano.'
 };
 
 /**
