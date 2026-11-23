@@ -4841,6 +4841,96 @@ export const OFFICIAL_PRATA_HISTORICAL_STANDINGS: Record<number, PrataStandingRe
       enredo: 'Valongo',
       statusDescription: '11º Lugar'
     }
+  ],
+  1987: [
+    {
+      rank: 1,
+      schoolId: 'tuiuti',
+      schoolName: 'Paraíso do Tuiuti',
+      enredo: 'Força Viva do Samba, Pagode',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'Marlene, a Estrela Maior',
+      promoted: true,
+      statusDescription: 'Vice-Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 3,
+      schoolId: 'imperio_do_maranga',
+      schoolName: 'Império do Marangá',
+      enredo: 'Salve a Bahia de Carybé',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'uniao_vaz_lobo',
+      schoolName: 'União de Vaz Lobo',
+      enredo: 'E Assim Surgiu a Terra',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'arrastao_cascadura',
+      schoolName: 'Arrastão de Cascadura',
+      enredo: 'Dos Reinados ao Folclore, do Político às Artes: Quem Sou Eu?',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'A Beleza e a Graça da Raça',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'grande_rio_duque_de_caxias',
+      schoolName: 'G.R.E.S. Grande Rio (Duque de Caxias)',
+      enredo: 'Flicts, Uma Cor à Procura de Sua Identidade',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: 'Tem que Dar Certo',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'unidos_de_nilopolis',
+      schoolName: 'Unidos de Nilópolis',
+      enredo: 'Rio, Natureza e Boêmia',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'Meu Irmão de Cor, Meu Irmão de Fé',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'vila_santa_tereza',
+      schoolName: 'Unidos da Vila Santa Tereza',
+      enredo: 'Reminiscências Carnavalescas',
+      relegated: true,
+      statusDescription: '11º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 12,
+      schoolId: 'unidos_de_cosmos',
+      schoolName: 'Unidos de Cosmos',
+      enredo: 'Isso que é Viver',
+      relegated: true,
+      statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
+    }
   ]
 };
 
@@ -5055,7 +5145,8 @@ export const OFFICIAL_PRATA_NOTES_BY_YEAR: Record<number, string> = {
   1991: 'Carnaval de 1991: Acadêmicos da Rocinha foi a campeã e Unidos do Campinho a vice-campeã, ambas garantindo acesso à Série Ouro (segunda divisão). União de Rocha Miranda foi rebaixada para a Série Bronze.',
   1990: 'Carnaval de 1990: Leão de Nova Iguaçu foi a campeã e Império da Tijuca a vice-campeã, ambas garantindo acesso à Série Ouro (segunda divisão). Não houve rebaixamento neste ano.',
   1989: 'Carnaval de 1989: Unidos do Viradouro foi a campeã e Acadêmicos do Grande Rio a vice-campeã, ambas garantindo acesso à Série Ouro (segunda divisão). Império do Marangá, Unidos de Bangu, Unidos de Padre Miguel e Unidos de Nilópolis foram rebaixadas para a Série Bronze.',
-  1988: 'Carnaval de 1988: Arrastão de Cascadura foi a campeã e Em Cima da Hora a vice-campeã, ambas garantindo acesso à Série Ouro (segunda divisão). Nenhuma escola foi rebaixada neste ano. Participação da antiga G.R.E.S. Grande Rio de Duque de Caxias (distinta da atual Acadêmicos do Grande Rio).'
+  1988: 'Carnaval de 1988: Arrastão de Cascadura foi a campeã e Em Cima da Hora a vice-campeã, ambas garantindo acesso à Série Ouro (segunda divisão). Nenhuma escola foi rebaixada neste ano. Participação da antiga G.R.E.S. Grande Rio de Duque de Caxias (distinta da atual Acadêmicos do Grande Rio).',
+  1987: 'Carnaval de 1987: Paraíso do Tuiuti foi a campeã e Tupy de Brás de Pina a vice-campeã, ambas garantindo acesso à Série Ouro (segunda divisão). Unidos da Vila Santa Tereza e Unidos de Cosmos foram rebaixadas para a Série Bronze.'
 };
 
 /**
