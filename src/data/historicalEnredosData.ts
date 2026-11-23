@@ -2978,7 +2978,30 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     em_cima_da_hora: 'Num passe de mágica',
     tupy_bras_de_pina: 'Rio Boa Praça',
     tupy_de_bras_de_pina: 'Rio Boa Praça',
-    tupy: 'Rio Boa Praça'
+    tupy: 'Rio Boa Praça',
+    // Série Prata (Grupo B) 1989
+    viradouro: 'Mercadores e Mascates',
+    unidos_do_viradouro: 'Mercadores e Mascates',
+    grande_rio: 'O Mito Sagrado de Ifé',
+    academicos_do_grande_rio: 'O Mito Sagrado de Ifé',
+    leao_de_nova_iguacu: 'Alafim-Yo-Yó',
+    leao_nova_iguacu: 'Alafim-Yo-Yó',
+    cubango: 'Dançadas',
+    academicos_do_cubango: 'Dançadas',
+    uniao_vaz_lobo: 'Raça Brasileira',
+    uniao_de_vaz_lobo: 'Raça Brasileira',
+    vaz_lobo: 'Raça Brasileira',
+    uniao_de_jacarepagua: 'Brasil, Acorda que a Hora É Essa',
+    uniao_jacarepagua: 'Brasil, Acorda que a Hora É Essa',
+    mocidade_cidade_de_deus: 'Do Congo à Congada',
+    mocidade_unida_da_cidade_de_deus: 'Do Congo à Congada',
+    cidade_de_deus: 'Do Congo à Congada',
+    imperio_do_maranga: 'Nação Maracatu',
+    unidos_de_bangu: 'As Águas Vão Rolar',
+    bangu: 'As Águas Vão Rolar',
+    unidos_padre_miguel: 'O Grito e o Eco',
+    unidos_de_padre_miguel: 'O Grito e o Eco',
+    unidos_de_nilopolis: 'Acima da Coroa de Um Rei, Só Deus'
   },
   1988: {
     // Grupo Especial 1988

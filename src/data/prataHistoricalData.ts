@@ -4675,6 +4675,91 @@ export const OFFICIAL_PRATA_HISTORICAL_STANDINGS: Record<number, PrataStandingRe
       enredo: 'Dai a Chico o que É de Chico',
       statusDescription: '12º Lugar'
     }
+  ],
+  1989: [
+    {
+      rank: 1,
+      schoolId: 'viradouro',
+      schoolName: 'Unidos do Viradouro',
+      enredo: 'Mercadores e Mascates',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'grande_rio',
+      schoolName: 'Acadêmicos do Grande Rio',
+      enredo: 'O Mito Sagrado de Ifé',
+      promoted: true,
+      statusDescription: 'Vice-Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 3,
+      schoolId: 'leao_de_nova_iguacu',
+      schoolName: 'Leão de Nova Iguaçu',
+      enredo: 'Alafim-Yo-Yó',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'Dançadas',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'uniao_vaz_lobo',
+      schoolName: 'União de Vaz Lobo',
+      enredo: 'Raça Brasileira',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Brasil, Acorda que a Hora É Essa',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'mocidade_cidade_de_deus',
+      schoolName: 'Mocidade Unida da Cidade de Deus',
+      enredo: 'Do Congo à Congada',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'imperio_do_maranga',
+      schoolName: 'Império do Marangá',
+      enredo: 'Nação Maracatu',
+      relegated: true,
+      statusDescription: '8º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 9,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: 'As Águas Vão Rolar',
+      relegated: true,
+      statusDescription: '9º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 10,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'O Grito e o Eco',
+      relegated: true,
+      statusDescription: '10º Lugar • Rebaixada para a Série Bronze'
+    },
+    {
+      rank: 11,
+      schoolId: 'unidos_de_nilopolis',
+      schoolName: 'Unidos de Nilópolis',
+      enredo: 'Acima da Coroa de Um Rei, Só Deus',
+      relegated: true,
+      statusDescription: '11º Lugar • Rebaixada para a Série Bronze'
+    }
   ]
 };
 
@@ -4887,7 +4972,8 @@ export const OFFICIAL_PRATA_NOTES_BY_YEAR: Record<number, string> = {
   1993: 'Carnaval de 1993: Unidos da Villa Rica foi a campeã, Canários das Laranjeiras a vice-campeã e Independentes de Cordovil a 3ª colocada, todas garantindo acesso à Série Ouro (segunda divisão). Unidos da Vila Santa Tereza foi rebaixada para a Série Bronze.',
   1992: 'Carnaval de 1992: Arrastão de Cascadura foi a campeã, Acadêmicos do Cubango a vice-campeã e Mocidade Unida da Cidade de Deus a 3ª colocada, todas garantindo acesso à Série Ouro (segunda divisão). Unidos da Vila Kennedy e União de Vaz Lobo foram rebaixadas para a Série Bronze.',
   1991: 'Carnaval de 1991: Acadêmicos da Rocinha foi a campeã e Unidos do Campinho a vice-campeã, ambas garantindo acesso à Série Ouro (segunda divisão). União de Rocha Miranda foi rebaixada para a Série Bronze.',
-  1990: 'Carnaval de 1990: Leão de Nova Iguaçu foi a campeã e Império da Tijuca a vice-campeã, ambas garantindo acesso à Série Ouro (segunda divisão). Não houve rebaixamento neste ano.'
+  1990: 'Carnaval de 1990: Leão de Nova Iguaçu foi a campeã e Império da Tijuca a vice-campeã, ambas garantindo acesso à Série Ouro (segunda divisão). Não houve rebaixamento neste ano.',
+  1989: 'Carnaval de 1989: Unidos do Viradouro foi a campeã e Acadêmicos do Grande Rio a vice-campeã, ambas garantindo acesso à Série Ouro (segunda divisão). Império do Marangá, Unidos de Bangu, Unidos de Padre Miguel e Unidos de Nilópolis foram rebaixadas para a Série Bronze.'
 };
 
 /**
