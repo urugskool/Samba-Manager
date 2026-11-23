@@ -3056,7 +3056,31 @@ export const HISTORICAL_ENREDOS_BY_YEAR: Record<number, Record<string, string>> 
     cordovil: 'Burle Marx',
     tupy_bras_de_pina: 'E agora, José?',
     tupy_de_bras_de_pina: 'E agora, José?',
-    tupy: 'E agora, José?'
+    tupy: 'E agora, José?',
+    // Série Prata (Grupo B) 1988
+    arrastao_cascadura: 'Festa para Orfeu Negro',
+    arrastao: 'Festa para Orfeu Negro',
+    arrastao_de_cascadura: 'Festa para Orfeu Negro',
+    em_cima_da_hora: 'Samba-ô',
+    uniao_vaz_lobo: 'Brasil, Brasília',
+    uniao_de_vaz_lobo: 'Brasil, Brasília',
+    vaz_lobo: 'Brasil, Brasília',
+    cubango: 'Ave Bahia, Cheia de Graça',
+    academicos_do_cubango: 'Ave Bahia, Cheia de Graça',
+    uniao_de_jacarepagua: 'Vendaval da Liberdade',
+    uniao_jacarepagua: 'Vendaval da Liberdade',
+    unidos_de_bangu: 'Rio que Tem Piranha, Jacaré Nada de Costas',
+    bangu: 'Rio que Tem Piranha, Jacaré Nada de Costas',
+    imperio_do_maranga: 'Da Praia ao Futebol, Tudo Acaba em Carnaval',
+    mocidade_cidade_de_deus: 'Arco-íris Tem de Dar Certo',
+    mocidade_unida_da_cidade_de_deus: 'Arco-íris Tem de Dar Certo',
+    cidade_de_deus: 'Arco-íris Tem de Dar Certo',
+    grande_rio_duque_de_caxias: 'O amigo da Madrugada Contra as Feras Multinacionais',
+    grande_rio_antiga: 'O amigo da Madrugada Contra as Feras Multinacionais',
+    gres_grande_rio: 'O amigo da Madrugada Contra as Feras Multinacionais',
+    unidos_de_nilopolis: 'Cartas Marcadas',
+    unidos_padre_miguel: 'Valongo',
+    unidos_de_padre_miguel: 'Valongo'
   },
   1987: {
     // Grupo Especial 1987

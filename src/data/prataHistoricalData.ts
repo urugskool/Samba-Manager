@@ -4760,6 +4760,87 @@ export const OFFICIAL_PRATA_HISTORICAL_STANDINGS: Record<number, PrataStandingRe
       relegated: true,
       statusDescription: '11º Lugar • Rebaixada para a Série Bronze'
     }
+  ],
+  1988: [
+    {
+      rank: 1,
+      schoolId: 'arrastao_cascadura',
+      schoolName: 'Arrastão de Cascadura',
+      enredo: 'Festa para Orfeu Negro',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Samba-ô',
+      promoted: true,
+      statusDescription: 'Vice-Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 3,
+      schoolId: 'uniao_vaz_lobo',
+      schoolName: 'União de Vaz Lobo',
+      enredo: 'Brasil, Brasília',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'Ave Bahia, Cheia de Graça',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Vendaval da Liberdade',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'unidos_de_bangu',
+      schoolName: 'Unidos de Bangu',
+      enredo: 'Rio que Tem Piranha, Jacaré Nada de Costas',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'imperio_do_maranga',
+      schoolName: 'Império do Marangá',
+      enredo: 'Da Praia ao Futebol, Tudo Acaba em Carnaval',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'mocidade_cidade_de_deus',
+      schoolName: 'Mocidade Unida da Cidade de Deus',
+      enredo: 'Arco-íris Tem de Dar Certo',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'grande_rio_duque_de_caxias',
+      schoolName: 'G.R.E.S. Grande Rio (Duque de Caxias)',
+      enredo: 'O amigo da Madrugada Contra as Feras Multinacionais',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'unidos_de_nilopolis',
+      schoolName: 'Unidos de Nilópolis',
+      enredo: 'Cartas Marcadas',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'unidos_padre_miguel',
+      schoolName: 'Unidos de Padre Miguel',
+      enredo: 'Valongo',
+      statusDescription: '11º Lugar'
+    }
   ]
 };
 
@@ -4973,7 +5054,8 @@ export const OFFICIAL_PRATA_NOTES_BY_YEAR: Record<number, string> = {
   1992: 'Carnaval de 1992: Arrastão de Cascadura foi a campeã, Acadêmicos do Cubango a vice-campeã e Mocidade Unida da Cidade de Deus a 3ª colocada, todas garantindo acesso à Série Ouro (segunda divisão). Unidos da Vila Kennedy e União de Vaz Lobo foram rebaixadas para a Série Bronze.',
   1991: 'Carnaval de 1991: Acadêmicos da Rocinha foi a campeã e Unidos do Campinho a vice-campeã, ambas garantindo acesso à Série Ouro (segunda divisão). União de Rocha Miranda foi rebaixada para a Série Bronze.',
   1990: 'Carnaval de 1990: Leão de Nova Iguaçu foi a campeã e Império da Tijuca a vice-campeã, ambas garantindo acesso à Série Ouro (segunda divisão). Não houve rebaixamento neste ano.',
-  1989: 'Carnaval de 1989: Unidos do Viradouro foi a campeã e Acadêmicos do Grande Rio a vice-campeã, ambas garantindo acesso à Série Ouro (segunda divisão). Império do Marangá, Unidos de Bangu, Unidos de Padre Miguel e Unidos de Nilópolis foram rebaixadas para a Série Bronze.'
+  1989: 'Carnaval de 1989: Unidos do Viradouro foi a campeã e Acadêmicos do Grande Rio a vice-campeã, ambas garantindo acesso à Série Ouro (segunda divisão). Império do Marangá, Unidos de Bangu, Unidos de Padre Miguel e Unidos de Nilópolis foram rebaixadas para a Série Bronze.',
+  1988: 'Carnaval de 1988: Arrastão de Cascadura foi a campeã e Em Cima da Hora a vice-campeã, ambas garantindo acesso à Série Ouro (segunda divisão). Nenhuma escola foi rebaixada neste ano. Participação da antiga G.R.E.S. Grande Rio de Duque de Caxias (distinta da atual Acadêmicos do Grande Rio).'
 };
 
 /**
