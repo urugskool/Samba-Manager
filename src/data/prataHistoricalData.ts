@@ -4498,6 +4498,95 @@ export const OFFICIAL_PRATA_HISTORICAL_STANDINGS: Record<number, PrataStandingRe
       relegated: true,
       statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
     }
+  ],
+  1991: [
+    {
+      rank: 1,
+      schoolId: 'rocinha',
+      schoolName: 'Acadêmicos da Rocinha',
+      enredo: 'Do esplendor da Roma pagã ao despertar da Rocinha',
+      promoted: true,
+      statusDescription: 'Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 2,
+      schoolId: 'unidos_do_campinho',
+      schoolName: 'Unidos do Campinho',
+      enredo: 'Dourados sonhos do Axuí',
+      promoted: true,
+      statusDescription: 'Vice-Campeã • Subiu para a Série Ouro'
+    },
+    {
+      rank: 3,
+      schoolId: 'cubango',
+      schoolName: 'Acadêmicos do Cubango',
+      enredo: 'Terra de Santa Cruz, dos abacaxis e dos filhos da fruta',
+      statusDescription: '3º Lugar'
+    },
+    {
+      rank: 4,
+      schoolId: 'em_cima_da_hora',
+      schoolName: 'Em Cima da Hora',
+      enredo: 'Elymar, um sonho que virou canção',
+      statusDescription: '4º Lugar'
+    },
+    {
+      rank: 5,
+      schoolId: 'tupy_bras_de_pina',
+      schoolName: 'Tupy de Brás de Pina',
+      enredo: 'Acredite se quiser',
+      statusDescription: '5º Lugar'
+    },
+    {
+      rank: 6,
+      schoolId: 'unidos_de_manguinhos',
+      schoolName: 'Unidos de Manguinhos',
+      enredo: 'Do sonho do futebol à estrela do carnaval - Neguinho da Beija-Flor',
+      statusDescription: '6º Lugar'
+    },
+    {
+      rank: 7,
+      schoolId: 'arrastao_cascadura',
+      schoolName: 'Arrastão de Cascadura',
+      enredo: 'A procura da sorte',
+      statusDescription: '7º Lugar'
+    },
+    {
+      rank: 8,
+      schoolId: 'mocidade_cidade_de_deus',
+      schoolName: 'Mocidade Unida da Cidade de Deus',
+      enredo: 'O retrato sincero de um povo',
+      statusDescription: '8º Lugar'
+    },
+    {
+      rank: 9,
+      schoolId: 'uniao_vaz_lobo',
+      schoolName: 'União de Vaz Lobo',
+      enredo: 'Berço de Estrela',
+      statusDescription: '9º Lugar'
+    },
+    {
+      rank: 10,
+      schoolId: 'uniao_de_jacarepagua',
+      schoolName: 'União de Jacarepaguá',
+      enredo: 'Aperta meu pescoço, mas não paro de gritar: sou mais Brasil',
+      statusDescription: '10º Lugar'
+    },
+    {
+      rank: 11,
+      schoolId: 'vila_santa_tereza',
+      schoolName: 'Unidos da Vila Santa Tereza',
+      enredo: 'Palmas para mim que eu mereço',
+      statusDescription: '11º Lugar'
+    },
+    {
+      rank: 12,
+      schoolId: 'uniao_de_rocha_miranda',
+      schoolName: 'União de Rocha Miranda',
+      enredo: 'A coroação de Tia Ciata, mãe da batucada brasileira',
+      relegated: true,
+      statusDescription: '12º Lugar • Rebaixada para a Série Bronze'
+    }
   ]
 };
 
@@ -4708,7 +4797,8 @@ export const OFFICIAL_PRATA_NOTES_BY_YEAR: Record<number, string> = {
   1995: 'Carnaval de 1995: Não houve acesso para a Série Ouro em 1996 devido à reorganização dos grupos de acesso. As três primeiras colocadas — Acadêmicos do Dendê (Campeã), Acadêmicos de Vigário Geral (Vice-Campeã) e Acadêmicos da Abolição (3ª) — foram mantidas na Série Prata (Grupo B). Do 4º ao 8º lugar (Unidos da Vila Kennedy, Paraíso do Tuiuti, Boi da Ilha do Governador, Foliões de Botafogo e Mocidade Unida do Santa Marta) foram rebaixadas para a Série Bronze (Grupo C em 1996). Do 9º ao 14º lugar (Unidos do Campinho, Renascer de Jacarepaguá, União de Jacarepaguá, Império do Marangá, União de Rocha Miranda e Unidos de Manguinhos) e a Inocentes de Belford Roxo (que não desfilou) foram rebaixadas para o Grupo de Avaliação (Grupo D em 1996).',
   1994: 'Carnaval de 1994: Difícil é o Nome foi a campeã, Vizinha Faladeira a vice-campeã e Em Cima da Hora a 3ª colocada, todas garantindo acesso à Série Ouro (segunda divisão) em 1995. Além das três primeiras colocadas, a 8ª colocada Mocidade Unida da Cidade de Deus foi convidada para integrar a Série Ouro no ano seguinte. Não houve rebaixamento neste ano devido à reformulação dos grupos do carnaval a partir de 1995.',
   1993: 'Carnaval de 1993: Unidos da Villa Rica foi a campeã, Canários das Laranjeiras a vice-campeã e Independentes de Cordovil a 3ª colocada, todas garantindo acesso à Série Ouro (segunda divisão). Unidos da Vila Santa Tereza foi rebaixada para a Série Bronze.',
-  1992: 'Carnaval de 1992: Arrastão de Cascadura foi a campeã, Acadêmicos do Cubango a vice-campeã e Mocidade Unida da Cidade de Deus a 3ª colocada, todas garantindo acesso à Série Ouro (segunda divisão). Unidos da Vila Kennedy e União de Vaz Lobo foram rebaixadas para a Série Bronze.'
+  1992: 'Carnaval de 1992: Arrastão de Cascadura foi a campeã, Acadêmicos do Cubango a vice-campeã e Mocidade Unida da Cidade de Deus a 3ª colocada, todas garantindo acesso à Série Ouro (segunda divisão). Unidos da Vila Kennedy e União de Vaz Lobo foram rebaixadas para a Série Bronze.',
+  1991: 'Carnaval de 1991: Acadêmicos da Rocinha foi a campeã e Unidos do Campinho a vice-campeã, ambas garantindo acesso à Série Ouro (segunda divisão). União de Rocha Miranda foi rebaixada para a Série Bronze.'
 };
 
 /**
