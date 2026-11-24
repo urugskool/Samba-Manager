@@ -629,7 +629,11 @@ export const FinancasView: React.FC<FinancasViewProps> = ({
     if (school.division === 'especial' && prevHistory.especialStandings) {
       const match = prevHistory.especialStandings.find((s) => s.schoolId === school.id || s.schoolName === school.name);
       if (match) prevRank = match.rank;
-      if (prevHistory.ouroChampion === school.name || prevHistory.ouroStandings?.[0]?.schoolId === school.id) {
+      if (
+        prevHistory.ouroChampion === school.name ||
+        prevHistory.ouroPromoted?.includes(school.name) ||
+        prevHistory.ouroStandings?.[0]?.schoolId === school.id
+      ) {
         isPromoted = true;
       }
     } else if (school.division === 'ouro' && prevHistory.ouroStandings) {
@@ -955,7 +959,7 @@ export const FinancasView: React.FC<FinancasViewProps> = ({
                 if (userSchoolPayout) {
                   return `${userSchoolPayout.rank}º Lugar apurado (${userSchoolPayout.classificationPercentage.toFixed(1).replace('.', ',')}% do fundo de R$ 20M).`;
                 }
-                return 'Mérito esportivo: 1º R$ 4.4M a 12º R$ 300k (Fundo de R$ 20M).';
+                return 'Mérito esportivo: distribuição decrescente por colocação (Fundo de R$ 20M).';
               }
               if (school.division === 'ouro') {
                 if (userOuroPayout) {
@@ -1720,10 +1724,10 @@ export const FinancasView: React.FC<FinancasViewProps> = ({
                   R$ 14.000.000
                 </div>
                 <div className="text-[10px] font-bold text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/30 inline-block">
-                  Fixo por Escola (12 escolas)
+                  Fixo por Escola ({ligaReport.payouts.length} escolas)
                 </div>
                 <p className="text-[10px] text-slate-400 leading-tight">
-                  Cota corporativa garantida a todas as agremiações. Total: <strong>R$ 168.000.000</strong>.
+                  Cota corporativa garantida a todas as agremiações. Total: <strong>R$ {ligaReport.totalSponsorsDisbursed.toLocaleString('pt-BR')}</strong>.
                 </p>
               </div>
 
@@ -1737,10 +1741,10 @@ export const FinancasView: React.FC<FinancasViewProps> = ({
                   R$ 3.000.000
                 </div>
                 <div className="text-[10px] font-bold text-blue-300 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/30 inline-block">
-                  Fixo por Escola (12 escolas)
+                  Fixo por Escola ({ligaReport.payouts.length} escolas)
                 </div>
                 <p className="text-[10px] text-slate-400 leading-tight">
-                  Transmissão ao vivo das noites oficiais de desfile. Total: <strong>R$ 36.000.000</strong>.
+                  Transmissão ao vivo das noites oficiais de desfile. Total: <strong>R$ {ligaReport.totalTvRegularDisbursed.toLocaleString('pt-BR')}</strong>.
                 </p>
               </div>
 
@@ -1754,10 +1758,10 @@ export const FinancasView: React.FC<FinancasViewProps> = ({
                   R$ 1.000.000
                 </div>
                 <div className="text-[10px] font-bold text-emerald-300 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30 inline-block">
-                  Divisão Igualitária (÷ 12)
+                  Divisão Igualitária ({ligaReport.payouts.length} escolas)
                 </div>
                 <p className="text-[10px] text-slate-400 leading-tight">
-                  15% dos ingressos do Desfile Oficial (R$ 80M arrecadados no Sambódromo = <strong>R$ 12M</strong>).
+                  15% dos ingressos do Desfile Oficial no Sambódromo (Fundo total: <strong>R$ {(ligaReport.officialTicketPool15 / 1_000_000).toFixed(0)}M</strong>).
                 </p>
               </div>
 
@@ -1768,13 +1772,13 @@ export const FinancasView: React.FC<FinancasViewProps> = ({
                   <Trophy className="w-4 h-4 text-amber-400" />
                 </div>
                 <div className="text-xl font-black text-amber-400 font-mono">
-                  R$ 300k a 4,4M
+                  R$ 20.000.000
                 </div>
                 <div className="text-[10px] font-bold text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/30 inline-block">
-                  Total: R$ 20.000.000
+                  1º ao {ligaReport.payouts.length}º Lugar
                 </div>
                 <p className="text-[10px] text-slate-400 leading-tight">
-                  Premiação meritocrática decrescente pela posição na apuração (22% à campeã até 1,5% ao 12º).
+                  Premiação meritocrática decrescente pela posição na apuração ({ligaReport.payouts[0]?.classificationPercentage?.toFixed(1).replace('.', ',') || '22,0'}% à campeã até {ligaReport.payouts[ligaReport.payouts.length - 1]?.classificationPercentage?.toFixed(2).replace('.', ',') || '1,5'}% ao {ligaReport.payouts.length}º).
                 </p>
               </div>
 
@@ -1957,7 +1961,7 @@ export const FinancasView: React.FC<FinancasViewProps> = ({
                 <div>
                   <h4 className="text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
                     <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
-                    <span>Demonstrativo Detalhado de Repasses das 12 Agremiações</span>
+                    <span>Demonstrativo Detalhado de Repasses das {ligaReport.payouts.length} Agremiações</span>
                   </h4>
                   <p className="text-[11px] text-slate-400">
                     Tabela contábil oficial com a discriminação individual dos repasses financeiros ao fechar o Carnaval {selectedLigaYear}.
@@ -1966,7 +1970,7 @@ export const FinancasView: React.FC<FinancasViewProps> = ({
 
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] font-mono text-slate-400">
-                    12 agremiações auditadas
+                    {ligaReport.payouts.length} agremiações auditadas
                   </span>
                 </div>
               </div>
@@ -2018,7 +2022,7 @@ export const FinancasView: React.FC<FinancasViewProps> = ({
                                     ? 'bg-amber-700 text-white'
                                     : row.isTop6
                                     ? 'bg-purple-900/60 text-purple-200 border border-purple-700'
-                                    : row.rank === 12
+                                    : row.rank === ligaReport.payouts.length
                                     ? 'bg-rose-950 text-rose-300 border border-rose-800'
                                     : 'bg-slate-800 text-slate-300'
                                 }`}
@@ -2171,13 +2175,13 @@ export const FinancasView: React.FC<FinancasViewProps> = ({
               </div>
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-1 text-slate-400 list-disc list-inside">
                 <li>
-                  <strong>Patrocinadores Fixos:</strong> Todas as 12 escolas do Grupo Especial recebem R$ 14.000.000 fixos de cota corporativa.
+                  <strong>Patrocinadores Fixos:</strong> Todas as {ligaReport.payouts.length} escolas do Grupo Especial recebem R$ 14.000.000 fixos de cota corporativa (garantia do acordo LIESA + Prefeitura do Rio).
                 </li>
                 <li>
-                  <strong>Direitos de Transmissão de TV:</strong> Todas as 12 escolas recebem R$ 3.000.000 fixos das transmissões da Temporada Regular.
+                  <strong>Direitos de Transmissão de TV:</strong> Todas as {ligaReport.payouts.length} escolas recebem R$ 3.000.000 fixos das transmissões da Temporada Regular.
                 </li>
                 <li>
-                  <strong>Fundo de Bilheteira Geral:</strong> 15% da arrecadação total dos ingressos do Desfile Oficial é dividido igualmente entre as 12 escolas (R$ 1.000.000 para cada agremiação).
+                  <strong>Fundo de Bilheteira Geral:</strong> 15% da arrecadação total dos ingressos do Desfile Oficial é dividido igualmente entre as {ligaReport.payouts.length} escolas (R$ 1.000.000 para cada agremiação).
                 </li>
                 <li>
                   <strong>Fundo de Classificação (R$ 20.000.000):</strong> Distribuído de forma decrescente pela posição final da apuração oficial.

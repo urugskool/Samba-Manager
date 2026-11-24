@@ -5,10 +5,11 @@ import { School } from '../types/carnaval';
 
 // Ao inicializar o novo jogo:
 export function criarNovoJogo(escolaEscolhidaId: string) {
-  // Gera enredos aleatórios para todas as escolas desde o ano 1
+  // Gera enredos aleatórios para todas as escolas ativas desde o ano 1 (2027)
   const escolasComEnredoAleatorio = atribuirEnredosAleatorios(
     ESCOLAS_INICIAIS,
-    escolaEscolhidaId // Apenas a escola do jogador pode iniciar vazia para ele escolher, ou remova para sortear todas
+    escolaEscolhidaId,
+    { ano: 2027, preservarEnredoValido: false }
   ) as School[];
 
   // Aplica valores igualitários de abertura de temporada por divisão (LIESA / LIGA-RJ / Superliga)
@@ -25,15 +26,18 @@ export function criarNovoJogo(escolaEscolhidaId: string) {
 }
 
 export function iniciarNovaTemporada(estadoAtual: any) {
-  // Sorteia novos enredos para as IAs para a temporada seguinte
+  const proximoAno = (estadoAtual.ano || 2027) + 1;
+  // Garante enredos válidos, exclusivos e sincronizados para todas as escolas ativas,
+  // preservando os enredos já atribuídos na virada de temporada (incluindo escolas recém-criadas e reativadas)
   const escolasAtualizadas = atribuirEnredosAleatorios(
     estadoAtual.escolas,
-    estadoAtual.jogadorEscolaId // Mantém a do jogador limpa para ele definir na tela de enredo
+    estadoAtual.jogadorEscolaId,
+    { ano: proximoAno, preservarEnredoValido: true }
   );
 
   return {
     ...estadoAtual,
-    ano: estadoAtual.ano + 1,
+    ano: proximoAno,
     faseTemporada: 'escolha_enredo',
     escolas: escolasAtualizadas
   };

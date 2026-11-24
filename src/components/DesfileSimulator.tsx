@@ -1678,10 +1678,10 @@ export const DesfileSimulator: React.FC<DesfileSimulatorProps> = ({
                             <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 space-y-1">
                               <div className="text-[10px] text-slate-400 uppercase font-semibold">Enredo Oficial</div>
                               <div className="text-xs font-bold text-amber-300 truncate">
-                                "{sch.currentEnredo?.title || 'Enredo Consagrado'}"
+                                "{sch.currentEnredo?.title || (sch as any).enredo || (sch as any).tituloEnredo || 'Enredo Consagrado'}"
                               </div>
                               <div className="text-[10px] text-slate-400 line-clamp-2">
-                                {sch.currentEnredo?.synopsis}
+                                {sch.currentEnredo?.synopsis || (sch as any).sinopseEnredo || ''}
                               </div>
                             </div>
 

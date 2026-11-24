@@ -14706,10 +14706,17 @@ export function generateRandomCarnavalSchool(year: number, existingIds: string[]
     coreografo: { id: `${id}_cf`, name: 'Priscila Dança', role: 'coreografo', roleName: 'Coreógrafo Comissão', rating: 72, salary: 10000, reputation: 'Criatividade' }
   };
 
+  const debutEnredoTitle = `O Despertar de ${locale.name}: Uma Nova Estrela na Passarela da Intendente`;
+  const debutEnredoSynopsis = `A história de fundação da escola, a força comunitária de ${locale.neighborhood} e o amor pelo Carnaval Carioca.`;
+
   return {
     id,
     name: fullName,
     shortName,
+    denomination: 'G.R.E.S.',
+    corporateName: `Grêmio Recreativo Escola de Samba ${fullName}`,
+    federation: 'SUPERLIGA',
+    isBlocoCarnavalesco: false,
     nickname: `A Guerreira de ${locale.name}`,
     foundationYear: year,
     neighborhood: locale.neighborhood,
@@ -14729,15 +14736,20 @@ export function generateRandomCarnavalSchool(year: number, existingIds: string[]
     runnerUpsBronze: 0,
     runnerUpsAvaliacao: 0,
     isInactive: false,
+    inactive: false,
     inactiveYearsCount: 0,
+    suspensionReason: undefined,
+    inactiveReason: undefined,
+    pastEnredoTitles: [],
+    enredoHistory: [],
     honors: {
       historicalEspecialTitles: 0,
       historicalEspecialRunnerUps: 0,
       historicalOuroTitles: 0,
       historicalOuroRunnerUps: 0,
       historicalPrataTitles: 0,
-      historicalPrataRunnerUps: 1,
-      historicalPrataRunnerUpYears: [1987],
+      historicalPrataRunnerUps: 0,
+      historicalPrataRunnerUpYears: [],
       historicalBronzeTitles: 0,
       historicalBronzeRunnerUps: 0,
       historicalAvaliacaoTitles: 0,
@@ -14758,14 +14770,19 @@ export function generateRandomCarnavalSchool(year: number, existingIds: string[]
     staff: initialStaff as unknown as School['staff'],
     currentEnredo: {
       id: `enredo_${id}`,
-      title: `O Despertar de ${locale.name}: Uma Nova Estrela na Passarela da Intendente`,
+      title: debutEnredoTitle,
       themeType: 'Cultural',
-      synopsis: `A história de fundação da escola, a força comunitária e o amor pelo Carnaval Carioca.`,
+      synopsis: debutEnredoSynopsis,
       qualityBoost: 7,
       cost: 45000
     },
+    enredo: debutEnredoTitle,
+    tituloEnredo: debutEnredoTitle,
+    temaEnredo: 'Cultural',
+    sinopseEnredo: debutEnredoSynopsis,
+    complexidadeEnredo: 'Média',
     rehearsalLevel: 72,
     barracaoProgress: 70,
     technicalParadeDone: false
-  };
+  } as School;
 }

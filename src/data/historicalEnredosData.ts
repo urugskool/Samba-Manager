@@ -6207,21 +6207,75 @@ export function getHistoricalEnredo(
     }
   }
 
+  // Helper para buscar enredo em um YearHistory (tanto nos standings quanto em schoolEnredos)
+  // com tolerância a prefixos (G.R.E.S.), acentos, caixa e apelidos/nomes curtos
+  const normKey = (v?: string): string =>
+    (v || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/^(g\.?r\.?e\.?s\.?|g\.?r\.?b\.?c\.?|s\.?r\.?e\.?s\.?)\s+/i, '')
+      .replace(/[^a-z0-9]+/g, '_')
+      .replace(/^_+|_+$/g, '');
+
+  const resolveInGameYearEnredo = (histYear?: YearHistory): string | undefined => {
+    if (!histYear) return undefined;
+    const candidateKeys = new Set<string>(
+      [schoolId, schoolName, schoolObj?.id, schoolObj?.name, schoolObj?.shortName, key, canonKey]
+        .filter((v): v is string => Boolean(v && v.trim()))
+        .map((v) => normKey(v))
+    );
+
+    // 2a. Verifica o campo direto `enredo` nos standings gravados de todas as 5 divisões
+    const allStandings = [
+      ...(histYear.especialStandings || []),
+      ...(histYear.ouroStandings || []),
+      ...(histYear.prataStandings || []),
+      ...(histYear.bronzeStandings || []),
+      ...(histYear.avaliacaoStandings || [])
+    ];
+    for (const st of allStandings) {
+      if (!st.enredo) continue;
+      if (
+        (schoolId && st.schoolId === schoolId) ||
+        (schoolObj?.id && st.schoolId === schoolObj.id) ||
+        (st.schoolId && candidateKeys.has(normKey(st.schoolId))) ||
+        (st.schoolName && candidateKeys.has(normKey(st.schoolName)))
+      ) {
+        return st.enredo;
+      }
+    }
+
+    // 2b. Verifica no mapa schoolEnredos por correspondência exata ou normalizada
+    if (histYear.schoolEnredos) {
+      const directMatch =
+        (schoolId && histYear.schoolEnredos[schoolId]) ||
+        (schoolObj?.id && histYear.schoolEnredos[schoolObj.id]) ||
+        (schoolName && histYear.schoolEnredos[schoolName]) ||
+        (schoolObj?.name && histYear.schoolEnredos[schoolObj.name]) ||
+        (schoolObj?.shortName && histYear.schoolEnredos[schoolObj.shortName]) ||
+        (key && histYear.schoolEnredos[key]) ||
+        (canonKey && histYear.schoolEnredos[canonKey]);
+      if (directMatch) return directMatch;
+
+      for (const [k, v] of Object.entries(histYear.schoolEnredos)) {
+        if (v && candidateKeys.has(normKey(k))) {
+          return v;
+        }
+      }
+    }
+    return undefined;
+  };
+
   // 2. Para temporadas simuladas in-game (anos > 2026), verifica no inGameHistory do save
   if (inGameHistory && inGameHistory.length > 0) {
     const histYear = inGameHistory.find((h) => h.year === year);
-    if (histYear?.schoolEnredos) {
-      const match =
-        (schoolId && histYear.schoolEnredos[schoolId]) ||
-        (schoolName && histYear.schoolEnredos[schoolName]) ||
-        (key && histYear.schoolEnredos[key]) ||
-        (canonKey && histYear.schoolEnredos[canonKey]);
-      if (match) return match;
-    }
+    const match = resolveInGameYearEnredo(histYear);
+    if (match) return match;
   }
 
-  // 3. Temporada atual em andamento no save (se for > 2026 ou se a escola do jogador definiu enredo novo)
-  if (schoolObj?.currentEnredo?.title) {
+  // 3. Temporada atual em andamento no save (apenas se escola estiver ativa)
+  if (schoolObj?.currentEnredo?.title && !schoolObj.isInactive && !(schoolObj as any).inactive) {
     const activeYr = (schoolObj as any).currentYear || 2026;
     if (year === activeYr && year > 2026) {
       return schoolObj.currentEnredo.title;
@@ -6780,17 +6834,69 @@ export function getSchoolHistoricalEnredosList(
 
   // 2. Histórico de enredos gravado no save (inGameHistory para anos > 2026 ou sem registro)
   if (inGameHistory && inGameHistory.length > 0) {
+    const normKey = (v?: string): string =>
+      (v || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/^(g\.?r\.?e\.?s\.?|g\.?r\.?b\.?c\.?|s\.?r\.?e\.?s\.?)\s+/i, '')
+        .replace(/[^a-z0-9]+/g, '_')
+        .replace(/^_+|_+$/g, '');
+
+    const candidateKeys = new Set<string>(
+      [schoolId, schoolName, schoolObj?.id, schoolObj?.name, schoolObj?.shortName, key, canonKey]
+        .filter((v): v is string => Boolean(v && v.trim()))
+        .map((v) => normKey(v))
+    );
+
     inGameHistory.forEach((h) => {
-      if (h.schoolEnredos) {
-        const found =
+      let found: string | undefined;
+
+      // 2a. Busca primeiro nos standings daquela temporada (todas as 5 divisões)
+      const allStandings = [
+        ...(h.especialStandings || []),
+        ...(h.ouroStandings || []),
+        ...(h.prataStandings || []),
+        ...(h.bronzeStandings || []),
+        ...(h.avaliacaoStandings || [])
+      ];
+      for (const st of allStandings) {
+        if (!st.enredo) continue;
+        if (
+          (schoolId && st.schoolId === schoolId) ||
+          (schoolObj?.id && st.schoolId === schoolObj.id) ||
+          (st.schoolId && candidateKeys.has(normKey(st.schoolId))) ||
+          (st.schoolName && candidateKeys.has(normKey(st.schoolName)))
+        ) {
+          found = st.enredo;
+          break;
+        }
+      }
+
+      // 2b. Busca no mapa schoolEnredos por correspondência exata ou normalizada
+      if (!found && h.schoolEnredos) {
+        found =
           (schoolId && h.schoolEnredos[schoolId]) ||
+          (schoolObj?.id && h.schoolEnredos[schoolObj.id]) ||
           (schoolName && h.schoolEnredos[schoolName]) ||
+          (schoolObj?.name && h.schoolEnredos[schoolObj.name]) ||
+          (schoolObj?.shortName && h.schoolEnredos[schoolObj.shortName]) ||
           (key && h.schoolEnredos[key]) ||
           (canonKey && h.schoolEnredos[canonKey]);
-        if (found) {
-          if (h.year > 2026 || !enredosMap.has(h.year)) {
-            enredosMap.set(h.year, found);
+
+        if (!found) {
+          for (const [k, v] of Object.entries(h.schoolEnredos)) {
+            if (v && candidateKeys.has(normKey(k))) {
+              found = v;
+              break;
+            }
           }
+        }
+      }
+
+      if (found) {
+        if (h.year > 2026 || !enredosMap.has(h.year)) {
+          enredosMap.set(h.year, found);
         }
       }
     });
@@ -6807,20 +6913,19 @@ export function getSchoolHistoricalEnredosList(
     });
   }
 
-  // 4. Enredo atual da escola na temporada em andamento (apenas para anos futuros > 2026 ou se não houver enredo oficial catalogado)
-  if (schoolObj?.currentEnredo?.title) {
-    const activeYr = currentYear || (schoolObj as any).currentYear || 2026;
+  // 4. Enredo atual da escola na temporada em andamento (apenas se estiver ativa e para anos > 2026 ou sem registro)
+  if (schoolObj?.currentEnredo?.title && !schoolObj.isInactive && !(schoolObj as any).inactive) {
+    const activeYr = currentYear || (schoolObj as any).currentYear || 2027;
     if (activeYr > 2026 || !enredosMap.has(activeYr)) {
       enredosMap.set(activeYr, schoolObj.currentEnredo.title);
     }
   }
 
   // Se for a G.R.E.S. Grande Rio antiga (1955-1988, anterior à fundação da Acadêmicos do Grande Rio),
-  // seu histórico compreende estritamente anos anteriores à fundação da Acadêmicos do Grande Rio (<= 1988),
-  // garantindo que NUNCA exiba os enredos da atual Acadêmicos do Grande Rio (1989 em diante).
+  // seu catálogo histórico compreende anos <= 1988, preservando também enredos futuros (> 2026) caso seja reativada no save!
   if (key === 'grande_rio_antiga' || schoolId === 'grande_rio_antiga' || canonKey === 'grande_rio_antiga') {
     return Array.from(enredosMap.entries())
-      .filter(([yr]) => yr <= 1988)
+      .filter(([yr]) => yr <= 1988 || yr > 2026)
       .map(([yr, enredo]) => ({ year: yr, enredo }))
       .sort((a, b) => b.year - a.year);
   }

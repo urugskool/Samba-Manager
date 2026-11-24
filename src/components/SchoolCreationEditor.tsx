@@ -679,9 +679,20 @@ export const SchoolCreationEditor: React.FC<SchoolCreationEditorProps> = ({
     const finalEnredo = customEnredo || EnredoService.generateUniqueEnredoForSchool(dummySchool, currentYear);
     const completeCustomSchool: School = {
       ...dummySchool,
+      federation: 'SUPERLIGA',
+      isBlocoCarnavalesco: false,
+      suspensionReason: undefined,
+      inactiveReason: undefined,
+      pastEnredoTitles: [],
+      enredoHistory: [],
       currentEnredo: finalEnredo,
+      enredo: finalEnredo.title,
+      tituloEnredo: finalEnredo.title,
+      temaEnredo: finalEnredo.themeType,
+      sinopseEnredo: finalEnredo.synopsis,
+      complexidadeEnredo: (finalEnredo as any).complexity || 'Média',
       customParadeScript: customParadeScript || undefined
-    };
+    } as School;
 
     if (customParadeScript) {
       ParadeScriptService.registerCustomScript(completeCustomSchool.id, customParadeScript);

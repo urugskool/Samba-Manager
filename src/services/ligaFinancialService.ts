@@ -7,6 +7,13 @@ export interface ClassificationPrizeConfig {
   amount: number; // e.g. 4_400_000
 }
 
+export const CLASSIFICATION_PRIZE_PERCENTAGES_BY_COUNT: Record<number, number[]> = {
+  12: [22.0, 16.0, 13.0, 10.5, 9.0, 7.5, 6.0, 5.0, 4.0, 3.0, 2.5, 1.5],
+  13: [21.0, 15.5, 12.5, 10.0, 8.5, 7.0, 5.5, 4.5, 4.0, 3.5, 3.0, 2.75, 2.25],
+  14: [20.5, 15.0, 12.0, 9.5, 8.0, 6.75, 5.5, 4.75, 4.0, 3.5, 3.0, 2.75, 2.5, 2.25],
+  15: [20.0, 14.5, 11.5, 9.5, 8.0, 6.5, 5.5, 4.75, 4.0, 3.5, 3.0, 2.75, 2.5, 2.25, 1.75]
+};
+
 export const CLASSIFICATION_PRIZE_TABLE: ClassificationPrizeConfig[] = [
   { rank: 1, label: '1.º Lugar (Campeã)', percentage: 22.0, amount: 4_400_000 },
   { rank: 2, label: '2.º Lugar (Vice-campeã)', percentage: 16.0, amount: 3_200_000 },
@@ -23,7 +30,7 @@ export const CLASSIFICATION_PRIZE_TABLE: ClassificationPrizeConfig[] = [
 ];
 
 export const LIGA_FINANCIAL_CONSTANTS = {
-  // Cota Fixa de Patrocinadores da LIGA
+  // Cota Fixa de Patrocinadores da LIGA (garantida por escola pelo acordo LIESA + Prefeitura do Rio)
   SPONSOR_FIXED_PER_SCHOOL: 14_000_000,
   TOTAL_SPONSORS_12_SCHOOLS: 168_000_000,
 
@@ -32,12 +39,13 @@ export const LIGA_FINANCIAL_CONSTANTS = {
   TOTAL_TV_REGULAR_12_SCHOOLS: 36_000_000,
 
   // Fundo Geral de Bilheteria (Desfile Oficial - Marquês de Sapucaí)
-  // Arrecadação total estimada: R$ 80.000.000 (144.000 ingressos pagantes nas noites oficiais)
+  // Base 12 escolas: R$ 80.000.000 (15% = R$ 12M -> R$ 1M por escola).
+  // Na ampliação até 15 escolas (noites de até 5 desfiles), a cota mínima igualitária de R$ 1M por escola é mantida.
   OFFICIAL_PARADE_TICKETS_TOTAL: 144_000,
   OFFICIAL_PARADE_TICKET_REVENUE: 80_000_000,
   OFFICIAL_PARADE_POOL_PERCENT: 15.0, // 15%
-  OFFICIAL_PARADE_POOL_TOTAL: 12_000_000, // 15% de R$ 80M
-  OFFICIAL_PARADE_SHARE_PER_SCHOOL: 1_000_000, // R$ 12M ÷ 12 escolas
+  OFFICIAL_PARADE_POOL_TOTAL: 12_000_000, // 15% de R$ 80M (base 12 escolas)
+  OFFICIAL_PARADE_SHARE_PER_SCHOOL: 1_000_000, // R$ 1M por escola garantido
 
   // Fundo de Classificação (R$ 20.000.000 pela apuração final)
   CLASSIFICATION_TOTAL_FUND: 20_000_000,
@@ -53,8 +61,7 @@ export const LIGA_FINANCIAL_CONSTANTS = {
   CAMPEAS_PARADE_POOL_TOTAL: 4_320_000, // 15% de R$ 28.8M
   CAMPEAS_PARADE_SHARE_PER_SCHOOL: 720_000, // R$ 4.320.000 ÷ 6 escolas
 
-  // Total Geral Distribuído pela LIGA no Grupo Especial
-  // 168M (Patrocínios) + 36M (TV) + 12M (Bilheteria Oficial) + 20M (Classificação) + 30M (TV Campeãs) + 4.32M (Bilheteria Campeãs)
+  // Total Geral Distribuído pela LIGA no Grupo Especial (referência 12 escolas)
   GRAND_TOTAL_DISBURSED: 270_320_000
 };
 
@@ -69,9 +76,9 @@ export interface SchoolLigaPayout {
   totalScore?: number;
   sponsorFixed: number; // R$ 14.000.000
   tvRegular: number; // R$ 3.000.000
-  generalTicketShare: number; // R$ 1.000.000 (15% da bilheteria oficial ÷ 12)
-  classificationPrize: number; // De R$ 4.4M a R$ 300k
-  classificationPercentage: number; // De 22% a 1.5%
+  generalTicketShare: number; // R$ 1.000.000 por escola
+  classificationPrize: number; // Fração decrescente do Fundo de R$ 20M
+  classificationPercentage: number; // % do Fundo de R$ 20M
   isTop6: boolean;
   campeasTvBonus: number; // R$ 5.000.000 se Top 6, 0 caso contrário
   campeasTicketShare: number; // R$ 720.000 se Top 6, 0 caso contrário
@@ -84,6 +91,7 @@ export interface LigaSeasonFinancialReport {
   year: number;
   isProjected: boolean; // Se ainda não ocorreu a apuração da temporada atual
   sourceSeasonTitle: string;
+  schoolCount: number; // 12 (2027), 13 (2028), 14 (2029), 15 (2030+)
   officialTicketTotalRevenue: number;
   officialTicketPool15: number;
   officialTicketSharePerSchool: number;
@@ -101,12 +109,42 @@ export interface LigaSeasonFinancialReport {
 
 export class LigaFinancialService {
   /**
-   * Obtém a cota de classificação para uma determinada colocação (1 a 12).
+   * Retorna a tabela completa de premiação de classificação para o total de escolas do Grupo Especial (12 a 15).
    */
-  public static getClassificationPrizeConfig(rank: number): ClassificationPrizeConfig {
-    const clampedRank = Math.max(1, Math.min(12, rank));
+  public static getClassificationPrizeTable(totalSchools: number = 12): ClassificationPrizeConfig[] {
+    const clampedCount = Math.max(12, Math.min(15, Math.round(totalSchools)));
+    const percentages =
+      CLASSIFICATION_PRIZE_PERCENTAGES_BY_COUNT[clampedCount] ||
+      CLASSIFICATION_PRIZE_PERCENTAGES_BY_COUNT[12];
+
+    return percentages.map((percentage, idx) => {
+      const rank = idx + 1;
+      const label =
+        rank === 1
+          ? '1.º Lugar (Campeã)'
+          : rank === 2
+          ? '2.º Lugar (Vice-campeã)'
+          : `${rank}.º Lugar`;
+      return {
+        rank,
+        label,
+        percentage,
+        amount: Math.round((LIGA_FINANCIAL_CONSTANTS.CLASSIFICATION_TOTAL_FUND * percentage) / 100)
+      };
+    });
+  }
+
+  /**
+   * Obtém a cota de classificação para uma determinada colocação (1 a totalSchools, suportando 12 a 15 escolas).
+   */
+  public static getClassificationPrizeConfig(
+    rank: number,
+    totalSchools: number = 12
+  ): ClassificationPrizeConfig {
+    const table = this.getClassificationPrizeTable(totalSchools);
+    const clampedRank = Math.max(1, Math.min(table.length, rank));
     return (
-      CLASSIFICATION_PRIZE_TABLE.find((c) => c.rank === clampedRank) || {
+      table.find((c) => c.rank === clampedRank) || {
         rank: clampedRank,
         label: `${clampedRank}.º Lugar`,
         percentage: 0,
@@ -116,7 +154,7 @@ export class LigaFinancialService {
   }
 
   /**
-   * Calcula o relatório financeiro completo de repasses da LIGA para os 12 integrantes do Grupo Especial.
+   * Calcula o relatório financeiro completo de repasses da LIGA para todos os integrantes do Grupo Especial (12 a 15 escolas).
    */
   public static calculateSeasonFinancials(
     year: number,
@@ -133,11 +171,11 @@ export class LigaFinancialService {
       });
     }
 
-    // Se temos standings fornecidos, usamos. Caso contrário, pegamos as 12 escolas do Grupo Especial ativas.
+    // Se temos standings fornecidos, usamos todos (12 a 15 escolas). Caso contrário, pegamos todas as ativas do Grupo Especial.
     let list: Array<{ rank: number; schoolName: string; schoolId: string; totalScore?: number }> = [];
 
     if (standings && standings.length > 0) {
-      list = standings.slice(0, 12).map((item, idx) => {
+      list = standings.map((item, idx) => {
         const rank = item.rank || idx + 1;
         const matchedSchool =
           (item.schoolId ? schoolsMap.get(item.schoolId) : undefined) ||
@@ -152,9 +190,9 @@ export class LigaFinancialService {
         };
       });
     } else if (allSchools) {
-      const especialSchools = allSchools
-        .filter((s) => s.division === 'especial' && !s.isInactive && !s.inactive)
-        .slice(0, 12);
+      const especialSchools = allSchools.filter(
+        (s) => s.division === 'especial' && !s.isInactive && !s.inactive
+      );
 
       list = especialSchools.map((s, idx) => ({
         rank: idx + 1,
@@ -175,10 +213,12 @@ export class LigaFinancialService {
       });
     }
 
-    // Calcula os repasses linha por linha
+    const totalSchoolsCount = list.length;
+
+    // Calcula os repasses linha por linha com suporte integral para 12, 13, 14 ou 15 agremiações
     const payouts: SchoolLigaPayout[] = list.map((item) => {
       const rank = item.rank;
-      const classifConfig = this.getClassificationPrizeConfig(rank);
+      const classifConfig = this.getClassificationPrizeConfig(rank, totalSchoolsCount);
       const isTop6 = rank <= 6;
 
       const sponsorFixed = LIGA_FINANCIAL_CONSTANTS.SPONSOR_FIXED_PER_SCHOOL;
@@ -205,7 +245,7 @@ export class LigaFinancialService {
       if (rank === 1) statusLabel = 'Campeã do Carnaval';
       else if (rank === 2) statusLabel = 'Vice-Campeã (Desfile das Campeãs)';
       else if (rank <= 6) statusLabel = 'Desfile das Campeãs (G6)';
-      else if (rank === 12) statusLabel = 'Rebaixada para a Série Ouro';
+      else if (rank === totalSchoolsCount) statusLabel = 'Rebaixada para a Série Ouro';
 
       return {
         rank,
@@ -229,24 +269,36 @@ export class LigaFinancialService {
       };
     });
 
+    const totalSponsorsDisbursed = payouts.reduce((acc, p) => acc + p.sponsorFixed, 0);
+    const totalTvRegularDisbursed = payouts.reduce((acc, p) => acc + p.tvRegular, 0);
+    const officialTicketPool15 = payouts.reduce((acc, p) => acc + p.generalTicketShare, 0);
+    const officialTicketTotalRevenue = Math.round(
+      (officialTicketPool15 * 100) / LIGA_FINANCIAL_CONSTANTS.OFFICIAL_PARADE_POOL_PERCENT
+    );
+    const totalClassificationDisbursed = payouts.reduce((acc, p) => acc + p.classificationPrize, 0);
+    const totalCampeasTvDisbursed = payouts.reduce((acc, p) => acc + p.campeasTvBonus, 0);
+    const totalCampeasTicketDisbursed = payouts.reduce((acc, p) => acc + p.campeasTicketShare, 0);
+    const grandTotalDisbursed = payouts.reduce((acc, p) => acc + p.totalPayout, 0);
+
     return {
       year,
       isProjected,
       sourceSeasonTitle: isProjected
-        ? `Projeção Oficial de Repasses • Temporada ${year}`
-        : `Demonstrativo Contábil Homologado • Carnaval ${year}`,
-      officialTicketTotalRevenue: LIGA_FINANCIAL_CONSTANTS.OFFICIAL_PARADE_TICKET_REVENUE,
-      officialTicketPool15: LIGA_FINANCIAL_CONSTANTS.OFFICIAL_PARADE_POOL_TOTAL,
+        ? `Projeção Oficial de Repasses • Temporada ${year} (${totalSchoolsCount} escolas)`
+        : `Demonstrativo Contábil Homologado • Carnaval ${year} (${totalSchoolsCount} escolas)`,
+      schoolCount: totalSchoolsCount,
+      officialTicketTotalRevenue,
+      officialTicketPool15,
       officialTicketSharePerSchool: LIGA_FINANCIAL_CONSTANTS.OFFICIAL_PARADE_SHARE_PER_SCHOOL,
       campeasTicketTotalRevenue: LIGA_FINANCIAL_CONSTANTS.CAMPEAS_PARADE_TICKET_REVENUE,
       campeasTicketPool15: LIGA_FINANCIAL_CONSTANTS.CAMPEAS_PARADE_POOL_TOTAL,
       campeasTicketSharePerSchool: LIGA_FINANCIAL_CONSTANTS.CAMPEAS_PARADE_SHARE_PER_SCHOOL,
-      totalSponsorsDisbursed: LIGA_FINANCIAL_CONSTANTS.TOTAL_SPONSORS_12_SCHOOLS,
-      totalTvRegularDisbursed: LIGA_FINANCIAL_CONSTANTS.TOTAL_TV_REGULAR_12_SCHOOLS,
-      totalClassificationDisbursed: LIGA_FINANCIAL_CONSTANTS.CLASSIFICATION_TOTAL_FUND,
-      totalCampeasTvDisbursed: LIGA_FINANCIAL_CONSTANTS.TOTAL_CAMPEAS_TV_BONUS,
-      totalCampeasTicketDisbursed: LIGA_FINANCIAL_CONSTANTS.CAMPEAS_PARADE_POOL_TOTAL,
-      grandTotalDisbursed: LIGA_FINANCIAL_CONSTANTS.GRAND_TOTAL_DISBURSED,
+      totalSponsorsDisbursed,
+      totalTvRegularDisbursed,
+      totalClassificationDisbursed,
+      totalCampeasTvDisbursed,
+      totalCampeasTicketDisbursed,
+      grandTotalDisbursed,
       payouts
     };
   }

@@ -419,6 +419,7 @@ export interface YearHistory {
   especialChampionCarnavalescoNames?: string[];
   especialRelegated: string[];
   ouroChampion: string;
+  ouroPromoted?: string[];
   ouroChampionCarnavalesco?: string;
   ouroChampionCarnavalescoNames?: string[];
   ouroRelegated: string[];
@@ -433,11 +434,11 @@ export interface YearHistory {
   avaliacaoPromoted?: string[];
   avaliacaoRelegated?: string[];
   avaliacaoSuspended?: string[];
-  especialStandings: { rank: number; schoolName: string; schoolId?: string; totalScore: number }[];
-  ouroStandings: { rank: number; schoolName: string; schoolId?: string; totalScore: number }[];
-  prataStandings?: { rank: number; schoolName: string; schoolId?: string; totalScore: number }[];
-  bronzeStandings?: { rank: number; schoolName: string; schoolId?: string; totalScore: number }[];
-  avaliacaoStandings?: { rank: number; schoolName: string; schoolId?: string; totalScore: number }[];
+  especialStandings: { rank: number; schoolName: string; schoolId?: string; totalScore: number; enredo?: string }[];
+  ouroStandings: { rank: number; schoolName: string; schoolId?: string; totalScore: number; enredo?: string }[];
+  prataStandings?: { rank: number; schoolName: string; schoolId?: string; totalScore: number; enredo?: string }[];
+  bronzeStandings?: { rank: number; schoolName: string; schoolId?: string; totalScore: number; enredo?: string }[];
+  avaliacaoStandings?: { rank: number; schoolName: string; schoolId?: string; totalScore: number; enredo?: string }[];
   schoolEnredos?: Record<string, string>; // schoolId ou schoolName -> enredo title
   reactivatedSchools?: string[];
   newSchoolsCreated?: string[];

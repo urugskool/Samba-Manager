@@ -159,6 +159,57 @@ export const RegulamentoObrigatoriedadesModal: React.FC<RegulamentoObrigatorieda
           {/* Division Detailed Rules */}
           {selectedDiv === 'especial' && (
             <div className="space-y-4">
+              {/* Acordo LIESA + Prefeitura do Rio: Ampliação Gradativa 2027–2030 */}
+              <div className="bg-amber-950/20 border border-amber-500/35 rounded-2xl p-5 space-y-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 text-amber-300 font-bold text-sm">
+                    <ShieldCheck className="w-4 h-4 text-amber-400" />
+                    <span>Ampliação Gradativa do Grupo Especial (Acordo LIESA + Prefeitura • Abril/2026)</span>
+                  </div>
+                  <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                    12 → 15 Escolas até 2030
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                  <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-center">
+                    <div className="text-[10px] font-bold text-slate-400 uppercase">Carnaval 2027</div>
+                    <div className="text-base font-black text-white font-mono">12 Escolas</div>
+                    <div className="text-[10px] text-amber-300">4 por noite</div>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-center">
+                    <div className="text-[10px] font-bold text-slate-400 uppercase">Carnaval 2028</div>
+                    <div className="text-base font-black text-white font-mono">13 Escolas</div>
+                    <div className="text-[10px] text-amber-300">2 sobem • 1 cai</div>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-center">
+                    <div className="text-[10px] font-bold text-slate-400 uppercase">Carnaval 2029</div>
+                    <div className="text-base font-black text-white font-mono">14 Escolas</div>
+                    <div className="text-[10px] text-amber-300">2 sobem • 1 cai</div>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-slate-900/90 border border-amber-500/40 text-center">
+                    <div className="text-[10px] font-bold text-amber-300 uppercase">Carnaval 2030+</div>
+                    <div className="text-base font-black text-amber-300 font-mono">15 Escolas</div>
+                    <div className="text-[10px] text-emerald-300">5 escolas por noite</div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-slate-300">
+                  <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+                    <div className="font-bold text-white">Transição, Acesso e Infraestrutura</div>
+                    <p className="text-[11px] text-slate-300 leading-relaxed">
+                      A partir do fim do ciclo de 2027, <strong>duas escolas sobem da Série Ouro</strong> (Campeã e Vice) e <strong>apenas uma é rebaixada</strong> do Grupo Especial por ano até atingir 15 agremiações em 2030. A Prefeitura do Rio garante suporte financeiro, logístico e de infraestrutura para a ampliação das noites até cinco desfiles por noite.
+                    </p>
+                  </div>
+                  <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+                    <div className="font-bold text-white">Novo Regulamento do Sorteio (Transição)</div>
+                    <p className="text-[11px] text-slate-300 leading-relaxed">
+                      Enquanto o Grupo Especial amplia até 15 escolas (Carnavais 2028, 2029 e 2030), a <strong>Vice-Campeã da Série Ouro abre a 1ª noite (Domingo)</strong>, a <strong>Campeã da Série Ouro abre a 2ª noite (Segunda)</strong> e a <strong>última escola não rebaixada do Especial</strong> (ex.: 11ª em 2027) <strong>abre a 3ª noite (Terça)</strong>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               {/* Composição Mínima */}
               <div className="bg-slate-950/60 border border-slate-800 rounded-2xl p-5 space-y-3">
                 <div className="flex items-center gap-2 text-amber-400 font-bold text-sm">

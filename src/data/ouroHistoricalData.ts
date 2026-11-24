@@ -8164,26 +8164,48 @@ export function getHistoricalOuroCarnavalsList(inGameHistory: YearHistory[] = []
     const stands = h.ouroStandings || [];
     const champs = stands.filter((s) => s.rank === 1).map((s) => s.schoolName);
     const vices = stands.filter((s) => s.rank === 2).map((s) => s.schoolName);
-    const promoted = h.ouroChampion ? [h.ouroChampion] : champs;
+    const promoted =
+      h.ouroPromoted && h.ouroPromoted.length > 0
+        ? h.ouroPromoted
+        : h.ouroChampion
+        ? [h.ouroChampion]
+        : champs;
     const relegated = h.ouroRelegated || [];
 
     result.push({
       year: h.year,
-      standings: stands.map((s) => ({
-        rank: s.rank,
-        schoolId: s.schoolId || '',
-        schoolName: s.schoolName,
-        totalScore: s.totalScore,
-        promoted: s.rank === 1,
-        relegated: relegated.includes(s.schoolName) || (s.schoolId ? relegated.includes(s.schoolId) : false),
-        statusDescription:
-          s.rank === 1
-            ? 'Campeã • Subiu ao Grupo Especial'
-            : relegated.includes(s.schoolName)
-            ? 'Rebaixada para a Série Prata'
-            : undefined
-      })),
-      notes: `Série Ouro simulada durante o save (Ano ${h.year}).`,
+      standings: stands.map((s) => {
+        const isPromoted =
+          s.rank === 1 ||
+          promoted.includes(s.schoolName) ||
+          (s.schoolId ? promoted.includes(s.schoolId) : false);
+        const isRelegated =
+          relegated.includes(s.schoolName) || (s.schoolId ? relegated.includes(s.schoolId) : false);
+        return {
+          rank: s.rank,
+          schoolId: s.schoolId || '',
+          schoolName: s.schoolName,
+          enredo:
+            s.enredo ||
+            (s.schoolId ? h.schoolEnredos?.[s.schoolId] : undefined) ||
+            h.schoolEnredos?.[s.schoolName],
+          totalScore: s.totalScore,
+          promoted: isPromoted,
+          relegated: isRelegated,
+          statusDescription:
+            s.rank === 1
+              ? 'Campeã • Subiu ao Grupo Especial'
+              : isPromoted
+              ? 'Vice-Campeã • Subiu ao Grupo Especial (Ampliação)'
+              : isRelegated
+              ? 'Rebaixada para a Série Prata'
+              : undefined
+        };
+      }),
+      notes:
+        promoted.length >= 2
+          ? `Série Ouro simulada durante o save (Ano ${h.year}) • Ampliação do Especial: 2 escolas promovidas.`
+          : `Série Ouro simulada durante o save (Ano ${h.year}).`,
       championNames: champs,
       viceChampionNames: vices,
       promotedNames: promoted,

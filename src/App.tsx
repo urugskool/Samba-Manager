@@ -13,7 +13,8 @@ import {
   NewsItem,
   DivisionStatesMap,
   CampeasParadeResult,
-  QuesitoId
+  QuesitoId,
+  Enredo
 } from './types/carnaval';
 import { INITIAL_SCHOOLS, INITIAL_HISTORY, RESULTS_2026, HISTORICAL_CARNAVAL_RECORDS, getSchoolConsolidatedStats } from './data/carnavalData';
 import { OFFICIAL_AVALIACAO_RECORDS_BY_SCHOOL } from './data/avaliacaoChampionsData';
@@ -282,7 +283,11 @@ const INITIAL_INACTIVE_SCHOOL_IDS = new Set([
   'coracao_das_morenas'
 ]);
 
-function sanitizeSchoolsData(loadedSchools: School[], activeUserSchoolId?: string | null): School[] {
+function sanitizeSchoolsData(
+  loadedSchools: School[],
+  activeUserSchoolId?: string | null,
+  savedYear: number = 2027
+): School[] {
   const loadedIds = new Set(loadedSchools.map((s) => s.id));
   const missingFromInitial = INITIAL_SCHOOLS.filter((s) => !loadedIds.has(s.id));
   const fullSchoolList = [...loadedSchools, ...missingFromInitial];
@@ -328,6 +333,11 @@ function sanitizeSchoolsData(loadedSchools: School[], activeUserSchoolId?: strin
         : { ...initialStaff }
       : s.staff;
 
+    // Quando uma escola inicialmente inativa ou um Bloco FBCERJ já foi reativada/convertida no save (!isInactive),
+    // preservamos sua nova denominação (G.R.E.S.), razão social, federação (SUPERLIGA) e limpamos suspensionReason/inactiveReason.
+    const wasInitiallyInactive = Boolean(initialSchool?.isInactive || initialSchool?.inactive || INITIAL_INACTIVE_SCHOOL_IDS.has(s.id));
+    const isReactivatedFromInitial = Boolean(initialSchool && wasInitiallyInactive && !isInactive);
+
     const updatedSchool: School = {
       ...s,
       staff: finalStaff,
@@ -337,8 +347,8 @@ function sanitizeSchoolsData(loadedSchools: School[], activeUserSchoolId?: strin
             shortName: initialSchool.shortName,
             calledName: initialSchool.calledName,
             abbreviation: initialSchool.abbreviation,
-            denomination: initialSchool.denomination,
-            corporateName: initialSchool.corporateName,
+            denomination: isReactivatedFromInitial ? (s.denomination || 'G.R.E.S.') : initialSchool.denomination,
+            corporateName: isReactivatedFromInitial ? (s.corporateName || initialSchool.corporateName) : initialSchool.corporateName,
             nickname: initialSchool.nickname,
             motto: initialSchool.motto,
             colors: initialSchool.colors,
@@ -349,13 +359,17 @@ function sanitizeSchoolsData(loadedSchools: School[], activeUserSchoolId?: strin
             mascot: initialSchool.mascot,
             neighborhood: initialSchool.neighborhood,
             city: initialSchool.city,
-            isBlocoCarnavalesco: initialSchool.isBlocoCarnavalesco,
+            isBlocoCarnavalesco: isReactivatedFromInitial ? false : initialSchool.isBlocoCarnavalesco,
             blocoOriginalDenomination: initialSchool.blocoOriginalDenomination,
-            federation: initialSchool.federation,
+            federation: isReactivatedFromInitial ? (s.federation || 'SUPERLIGA') : initialSchool.federation,
             paradeVenue: initialSchool.paradeVenue,
-            suspensionReason: initialSchool.suspensionReason
+            suspensionReason: isInactive ? (s.suspensionReason || initialSchool.suspensionReason) : undefined,
+            inactiveReason: isInactive ? (s.inactiveReason || initialSchool.inactiveReason) : undefined
           }
-        : {}),
+        : {
+            suspensionReason: isInactive ? s.suspensionReason : undefined,
+            inactiveReason: isInactive ? s.inactiveReason : undefined
+          }),
       isInactive,
       inactive: isInactive,
       relegationsEspecial: historicalBaseline.relegationsEspecial || 0,
@@ -427,7 +441,7 @@ function sanitizeSchoolsData(loadedSchools: School[], activeUserSchoolId?: strin
       };
     }
 
-    const targetYear = (school as any).currentYear || 2026;
+    const targetYear = savedYear || (school as any).currentYear || 2027;
     const canonical = getCanonical2026Enredo(school.id, school.name);
 
     // Se for o ano de 2026 e houver enredo canônico oficial catalogado, ele é a autoridade máxima
@@ -435,6 +449,8 @@ function sanitizeSchoolsData(loadedSchools: School[], activeUserSchoolId?: strin
       usedTitlesThisSeason.add(canonical.title);
       return {
         ...school,
+        suspensionReason: undefined,
+        inactiveReason: undefined,
         currentEnredo: {
           id: `enr_${school.id}_2026`,
           title: canonical.title,
@@ -461,15 +477,37 @@ function sanitizeSchoolsData(loadedSchools: School[], activeUserSchoolId?: strin
       currentTitle.includes('Os Mistérios de Tutancâmon') ||
       usedTitlesThisSeason.has(currentTitle);
 
-    if (!isSampleOrDuplicate && currentTitle && school.currentEnredo) {
+    if (!isSampleOrDuplicate && currentTitle) {
       usedTitlesThisSeason.add(currentTitle);
-      return school;
+      const syncedCurrentEnredo = school.currentEnredo
+        ? { ...school.currentEnredo, title: currentTitle }
+        : {
+            id: `enr_${school.id}_${targetYear}`,
+            title: currentTitle,
+            themeType: ((school as any).temaEnredo || 'Cultural') as any,
+            synopsis: (school as any).sinopseEnredo || '',
+            cost: 120000,
+            qualityBoost: 10
+          };
+      return {
+        ...school,
+        suspensionReason: undefined,
+        inactiveReason: undefined,
+        currentEnredo: syncedCurrentEnredo,
+        enredo: syncedCurrentEnredo.title,
+        tituloEnredo: syncedCurrentEnredo.title,
+        temaEnredo: syncedCurrentEnredo.themeType,
+        sinopseEnredo: syncedCurrentEnredo.synopsis,
+        complexidadeEnredo: (syncedCurrentEnredo as any).complexity || 'Média'
+      } as any;
     }
 
     const freshEnredo = EnredoService.generateUniqueEnredoForSchool(school, targetYear, usedTitlesThisSeason);
     usedTitlesThisSeason.add(freshEnredo.title);
     return {
       ...school,
+      suspensionReason: undefined,
+      inactiveReason: undefined,
       currentEnredo: freshEnredo,
       enredo: freshEnredo.title,
       tituloEnredo: freshEnredo.title,
@@ -508,13 +546,13 @@ export default function App() {
         try {
           const parsed = JSON.parse(saved);
           if (parsed.schools && parsed.schools.length > 0) {
-            return sanitizeSchoolsData(parsed.schools, parsed.userSchoolId);
+            return sanitizeSchoolsData(parsed.schools, parsed.userSchoolId, parsed.currentYear || 2027);
           }
         } catch {}
       }
     }
     const novoJogo = criarNovoJogo('');
-    return sanitizeSchoolsData(novoJogo.escolas as School[]);
+    return sanitizeSchoolsData(novoJogo.escolas as School[], null, 2027);
   });
 
   const [currentYear, setCurrentYear] = useState<number>(() => {
@@ -1042,8 +1080,14 @@ export default function App() {
     }
 
     try {
+      const loadedYear = typeof loadedState.currentYear === 'number' ? loadedState.currentYear : currentYear;
+      const sanitizedLoadedSchools =
+        Array.isArray(loadedState.schools) && loadedState.schools.length > 0
+          ? sanitizeSchoolsData(loadedState.schools, loadedState.userSchoolId, loadedYear)
+          : schools;
+
       if (Array.isArray(loadedState.schools) && loadedState.schools.length > 0) {
-        setSchools(sanitizeSchoolsData(loadedState.schools, loadedState.userSchoolId));
+        setSchools(sanitizedLoadedSchools);
       }
       if (typeof loadedState.currentYear === 'number') {
         setCurrentYear(loadedState.currentYear);
@@ -1071,11 +1115,7 @@ export default function App() {
       if (loadedState.quesitosDraw) setQuesitosDraw(loadedState.quesitosDraw);
       if (loadedState.currentSeasonMonth) setCurrentSeasonMonth(loadedState.currentSeasonMonth);
 
-      const loadedSchools = Array.isArray(loadedState.schools) && loadedState.schools.length > 0
-        ? sanitizeSchoolsData(loadedState.schools, loadedState.userSchoolId)
-        : schools;
-      const loadedYear = typeof loadedState.currentYear === 'number' ? loadedState.currentYear : currentYear;
-      setMirimSchools(MirimService.sanitizeMirimSchools(loadedState.mirimSchools, loadedSchools, loadedYear));
+      setMirimSchools(MirimService.sanitizeMirimSchools(loadedState.mirimSchools, sanitizedLoadedSchools, loadedYear));
       setEspecialWithoutMirimTracker(
         loadedState.especialWithoutMirimTracker && typeof loadedState.especialWithoutMirimTracker === 'object'
           ? loadedState.especialWithoutMirimTracker
@@ -1316,69 +1356,128 @@ export default function App() {
   ]);
 
   const handleReactivateSchool = useCallback((schoolId: string) => {
-    let wasBloco = false;
-    let schoolConvertedName = '';
+    const targetSchool = schools.find((s) => s.id === schoolId);
+    if (!targetSchool) return;
 
-    setSchools((prev) =>
-      prev.map((s) => {
-        if (s.id === schoolId) {
-          const novoEnredo = gerarEnredoAleatorio();
-          wasBloco = Boolean(s.isBlocoCarnavalesco || s.federation === 'FBCERJ' || (s.denomination && s.denomination !== 'G.R.E.S.'));
-          schoolConvertedName = s.name;
+    const wasBloco = Boolean(
+      targetSchool.isBlocoCarnavalesco ||
+      targetSchool.federation === 'FBCERJ' ||
+      (targetSchool.denomination && targetSchool.denomination !== 'G.R.E.S.')
+    );
+    const schoolConvertedName = targetSchool.name;
 
-          let newDenomination = s.denomination || 'G.R.E.S.';
-          let newCorporateName = s.corporateName || s.name;
+    setSchools((prev) => {
+      const usedActiveTitles = new Set<string>();
+      prev.forEach((sc) => {
+        if (!sc.isInactive && !sc.inactive && sc.currentEnredo?.title) {
+          usedActiveTitles.add(sc.currentEnredo.title);
+        }
+      });
 
-          // Ao se tornarem escolas de samba, mudam sua denominação para G.R.E.S.
-          // e ajustam a razão social trocando Bloco Carnavalesco por Escola de Samba
-          if (wasBloco) {
-            newDenomination = 'G.R.E.S.';
-            newCorporateName = newCorporateName
-              .replace(/Grêmio Recreativo Bloco Carnavalesco e Cultural/gi, 'Grêmio Recreativo Escola de Samba')
-              .replace(/Grêmio Recreativo Bloco Carnavalesco/gi, 'Grêmio Recreativo Escola de Samba')
-              .replace(/Centro Cultural Bloco Carnavalesco/gi, 'Grêmio Recreativo Escola de Samba')
-              .replace(/Bloco Carnavalesco Cultural e Recreativo/gi, 'Grêmio Recreativo Escola de Samba')
-              .replace(/^GRBCC\s+/gi, 'GRES ')
-              .replace(/^GRBC\s+/gi, 'GRES ')
-              .replace(/^CCBC\s+/gi, 'GRES ')
-              .replace(/^BCCR\s+/gi, 'GRES ');
+      return prev.map((s) => {
+        if (s.id !== schoolId) return s;
 
-            if (!newCorporateName.startsWith('GRES') && !newCorporateName.startsWith('Grêmio Recreativo Escola de Samba')) {
-              newCorporateName = `Grêmio Recreativo Escola de Samba ${s.name}`;
-            }
+        let newDenomination = s.denomination || 'G.R.E.S.';
+        let newCorporateName = s.corporateName || s.name;
+
+        // Ao se tornarem escolas de samba, mudam sua denominação para G.R.E.S.
+        // e ajustam a razão social trocando Bloco Carnavalesco por Escola de Samba
+        if (wasBloco) {
+          newDenomination = 'G.R.E.S.';
+          newCorporateName = newCorporateName
+            .replace(/Grêmio Recreativo Bloco Carnavalesco e Cultural/gi, 'Grêmio Recreativo Escola de Samba')
+            .replace(/Grêmio Recreativo Bloco Carnavalesco/gi, 'Grêmio Recreativo Escola de Samba')
+            .replace(/Centro Cultural Bloco Carnavalesco/gi, 'Grêmio Recreativo Escola de Samba')
+            .replace(/Bloco Carnavalesco Cultural e Recreativo/gi, 'Grêmio Recreativo Escola de Samba')
+            .replace(/^GRBCC\s+/gi, 'GRES ')
+            .replace(/^GRBC\s+/gi, 'GRES ')
+            .replace(/^CCBC\s+/gi, 'GRES ')
+            .replace(/^BCCR\s+/gi, 'GRES ');
+
+          if (!newCorporateName.startsWith('GRES') && !newCorporateName.startsWith('Grêmio Recreativo Escola de Samba')) {
+            newCorporateName = `Grêmio Recreativo Escola de Samba ${s.name}`;
           }
+        }
 
-          return {
-            ...s,
-            denomination: newDenomination,
-            corporateName: newCorporateName,
-            isInactive: false,
-            inactive: false,
-            division: 'avaliacao',
-            inactiveYearsCount: 0,
-            suspensionReason: undefined,
-            inactiveReason: undefined,
-            currentEnredo: {
-              id: novoEnredo.id,
-              title: novoEnredo.titulo,
-              themeType: novoEnredo.tema as any,
-              synopsis: novoEnredo.sinopse,
-              cost: 100000,
-              qualityBoost: Math.round((novoEnredo.potencialNota - 9.0) * 10),
-              complexity: novoEnredo.complexidade
-            }
+        let uniqueEnredo: Enredo;
+        try {
+          uniqueEnredo = EnredoService.generateUniqueEnredoForSchool(
+            { ...s, isInactive: false, inactive: false, division: 'avaliacao' },
+            currentYear,
+            usedActiveTitles
+          );
+        } catch {
+          const fallback = gerarEnredoAleatorio();
+          uniqueEnredo = {
+            id: fallback.id,
+            title: fallback.titulo,
+            themeType: fallback.tema as any,
+            synopsis: fallback.sinopse,
+            cost: 100000,
+            qualityBoost: Math.round((fallback.potencialNota - 9.0) * 10)
           };
         }
-        return s;
-      })
-    );
+
+        return {
+          ...s,
+          denomination: newDenomination,
+          corporateName: newCorporateName,
+          isBlocoCarnavalesco: false,
+          federation: 'SUPERLIGA',
+          isInactive: false,
+          inactive: false,
+          division: 'avaliacao',
+          inactiveYearsCount: 0,
+          suspensionReason: undefined,
+          inactiveReason: undefined,
+          currentEnredo: uniqueEnredo,
+          enredo: uniqueEnredo.title,
+          tituloEnredo: uniqueEnredo.title,
+          temaEnredo: uniqueEnredo.themeType,
+          sinopseEnredo: uniqueEnredo.synopsis,
+          complexidadeEnredo: (uniqueEnredo as any).complexity || 'Média'
+        } as School;
+      });
+    });
+
+    // Se o sorteio do Grupo de Avaliação já foi concluído para esta temporada,
+    // adiciona automaticamente um slot oficial para a escola reativada poder desfilar e ser apurada.
+    setSorteio((prev) => {
+      const avaDiv = prev?.divisions?.avaliacao;
+      if (!avaDiv || !avaDiv.isCompleted) return prev;
+      if (avaDiv.slots.some((sl) => sl.schoolId === schoolId)) return prev;
+
+      const nextOrder = avaDiv.slots.length + 1;
+      const newSlot = {
+        id: `avaliacao_quarta_cinzas_${nextOrder}_${schoolId}`,
+        division: 'avaliacao' as DivisionId,
+        day: 'quarta_cinzas' as const,
+        dayLabel: 'Quarta-Feira de Cinzas',
+        order: nextOrder,
+        schoolId,
+        schoolName: cleanSchoolName(targetSchool),
+        reason: 'Agremiação reativada para a temporada oficial',
+        drawOrder: nextOrder
+      };
+
+      return {
+        ...prev,
+        divisions: {
+          ...prev.divisions,
+          avaliacao: {
+            ...avaDiv,
+            slots: [...avaDiv.slots, newSlot]
+          }
+        }
+      };
+    });
 
     if (wasBloco) {
       showToast(`${schoolConvertedName} agora é oficialmente uma Escola de Samba (G.R.E.S.) e disputa o Grupo de Avaliação pela Superliga!`, 'success');
     } else {
       showToast('Agremiação reativada com sucesso! Agora disputa o Grupo de Avaliação pela Superliga com novo enredo.', 'success');
     }
-  }, [showToast]);
+  }, [schools, currentYear, showToast]);
 
   const totalSchoolsCount = activeSchools.length;
   const isAllParadesCompleted = totalSchoolsCount > 0 && completedParadeSchoolIds.length >= totalSchoolsCount;
@@ -1436,13 +1535,40 @@ export default function App() {
   // Start from Title Screen
   const handleStartGame = (schoolId: string | null, name: string, customSchool?: School) => {
     if (customSchool) {
+      const debutEnredo =
+        customSchool.currentEnredo ||
+        EnredoService.generateUniqueEnredoForSchool(customSchool, currentYear);
       const customWithComite: School = {
         ...customSchool,
+        isInactive: false,
+        inactive: false,
+        suspensionReason: undefined,
+        inactiveReason: undefined,
+        isBlocoCarnavalesco: false,
+        federation: customSchool.federation || 'SUPERLIGA',
+        pastEnredoTitles: customSchool.pastEnredoTitles || [],
+        enredoHistory: customSchool.enredoHistory || [],
+        currentEnredo: debutEnredo,
+        enredo: debutEnredo.title,
+        tituloEnredo: debutEnredo.title,
+        temaEnredo: debutEnredo.themeType,
+        sinopseEnredo: debutEnredo.synopsis,
+        complexidadeEnredo: (debutEnredo as any).complexity || 'Média',
         budget: 0,
         comiteEconomico: DemonstrativoFinanceiroService.getOrInitEstadoComite(customSchool, currentYear)
-      };
-      const updatedSchools = [customWithComite, ...schools.filter((s) => s.id !== customSchool.id)];
-      setSchools(updatedSchools);
+      } as School;
+
+      setSchools((prev) => {
+        const combined = [customWithComite, ...prev.filter((s) => s.id !== customSchool.id)];
+        const withEnredos = atribuirEnredosAleatorios(combined, customSchool.id, {
+          ano: currentYear,
+          preservarEnredoValido: true
+        }) as School[];
+        const withEqualitarianIfNeeded = withEnredos.some((s) => !s.isInactive && !s.inactive && !s.comiteEconomico?.receitasIniciaisCreditadasAno)
+          ? DemonstrativoFinanceiroService.inicializarOrcamentosIgualitarios(withEnredos, currentYear)
+          : withEnredos;
+        return ThematicSponsorService.applyThematicSponsorsToAISchools(withEqualitarianIfNeeded, currentYear, customSchool.id);
+      });
       setUserSchoolId(customSchool.id);
       setIsSpectatorMode(false);
       setManagerName(name);
@@ -1461,7 +1587,10 @@ export default function App() {
     }
 
     setSchools((prev) => {
-      const withEnredos = atribuirEnredosAleatorios(prev, schoolId || undefined) as School[];
+      const withEnredos = atribuirEnredosAleatorios(prev, schoolId || undefined, {
+        ano: currentYear,
+        preservarEnredoValido: true
+      }) as School[];
       const withEqualitarianIfNeeded = withEnredos.some((s) => !s.isInactive && !s.inactive && !s.comiteEconomico?.receitasIniciaisCreditadasAno)
         ? DemonstrativoFinanceiroService.inicializarOrcamentosIgualitarios(withEnredos, currentYear)
         : withEnredos;
@@ -1499,7 +1628,7 @@ export default function App() {
       localStorage.removeItem('sambamanager_save_v3');
     }
     const novoJogo = criarNovoJogo(schoolId || '');
-    const sanitizedFreshSchools = sanitizeSchoolsData(novoJogo.escolas as School[]);
+    const sanitizedFreshSchools = sanitizeSchoolsData(novoJogo.escolas as School[], schoolId, 2027);
     setSchools(sanitizedFreshSchools);
     setCurrentYear(2027);
     setUserSchoolId(schoolId);
@@ -1632,11 +1761,20 @@ export default function App() {
         date: 'Agora'
       }));
 
+      const ouroPromotedList =
+        nextSeasonData.summary.ouroPromotedNames && nextSeasonData.summary.ouroPromotedNames.length > 0
+          ? nextSeasonData.summary.ouroPromotedNames
+          : [nextSeasonData.summary.ouroChampionName];
+      const ouroPromotionNews =
+        ouroPromotedList.length >= 2
+          ? `${ouroPromotedList.join(' e ')} subiram da Série Ouro para a elite (ampliação do Grupo Especial para ${nextSeasonData.summary.especialCountNextSeason} escolas).`
+          : `${ouroPromotedList[0]} subiu para a elite (${nextSeasonData.summary.especialCountNextSeason} escolas no Grupo Especial).`;
+
       const newsHeadline: NewsItem = {
         id: `news_${nextSeasonData.nextYear}`,
         year: nextSeasonData.nextYear,
         title: `Temporada do Carnaval ${nextSeasonData.nextYear} Iniciada!`,
-        body: `${nextSeasonData.summary.especialChampionName} defende o título do Especial! ${nextSeasonData.summary.ouroChampionName} subiu para a elite. Na Série Prata, ${nextSeasonData.summary.prataChampionName} sagrou-se campeã! Na Série Bronze, ${nextSeasonData.summary.bronzeChampionName} subiu de divisão. No Grupo de Avaliação, ${nextSeasonData.summary.avaliacaoChampionName || 'a campeã'} garantiu o acesso!${ingressantesInfo} Demonstrativo contábil e repasses da LIGA (${nextSeasonData.nextYear - 1}) homologados em Finanças!`,
+        body: `${nextSeasonData.summary.especialChampionName} defende o título do Especial! ${ouroPromotionNews} Na Série Prata, ${nextSeasonData.summary.prataChampionName} sagrou-se campeã! Na Série Bronze, ${nextSeasonData.summary.bronzeChampionName} subiu de divisão. No Grupo de Avaliação, ${nextSeasonData.summary.avaliacaoChampionName || 'a campeã'} garantiu o acesso!${ingressantesInfo} Demonstrativo contábil e repasses da LIGA (${nextSeasonData.nextYear - 1}) homologados em Finanças!`,
         type: 'success',
         date: 'Agora'
       };
@@ -1662,7 +1800,8 @@ export default function App() {
       ouroSchools.length,
       prataSchools.length,
       bronzeSchools.length,
-      SorteioEngine.getQuesitosOrderForDivision('especial', quesitosDraw)
+      SorteioEngine.getQuesitosOrderForDivision('especial', quesitosDraw),
+      especialSchools.length
     );
     const ouroResult = SimulationEngine.finalizeSeasonDivision(
       'ouro',
@@ -1672,7 +1811,8 @@ export default function App() {
       ouroSchools.length,
       prataSchools.length,
       bronzeSchools.length,
-      SorteioEngine.getQuesitosOrderForDivision('ouro', quesitosDraw)
+      SorteioEngine.getQuesitosOrderForDivision('ouro', quesitosDraw),
+      especialSchools.length
     );
     const prataResult = SimulationEngine.finalizeSeasonDivision(
       'prata',
@@ -1682,7 +1822,8 @@ export default function App() {
       ouroSchools.length,
       prataSchools.length,
       bronzeSchools.length,
-      SorteioEngine.getQuesitosOrderForDivision('prata', quesitosDraw)
+      SorteioEngine.getQuesitosOrderForDivision('prata', quesitosDraw),
+      especialSchools.length
     );
     const bronzeResult = SimulationEngine.finalizeSeasonDivision(
       'bronze',
@@ -1692,7 +1833,8 @@ export default function App() {
       ouroSchools.length,
       prataSchools.length,
       bronzeSchools.length,
-      SorteioEngine.getQuesitosOrderForDivision('bronze', quesitosDraw)
+      SorteioEngine.getQuesitosOrderForDivision('bronze', quesitosDraw),
+      especialSchools.length
     );
     const avaResult = SimulationEngine.finalizeSeasonDivision(
       'avaliacao',
@@ -1702,7 +1844,8 @@ export default function App() {
       ouroSchools.length,
       prataSchools.length,
       bronzeSchools.length,
-      SorteioEngine.getQuesitosOrderForDivision('avaliacao', quesitosDraw)
+      SorteioEngine.getQuesitosOrderForDivision('avaliacao', quesitosDraw),
+      especialSchools.length
     );
 
     handleAdvanceYear(espResult, ouroResult, prataResult, bronzeResult, avaResult);

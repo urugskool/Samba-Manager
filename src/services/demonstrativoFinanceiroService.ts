@@ -36,7 +36,7 @@ export const REGRAS_ORCAMENTO_POR_DIVISAO: Record<DivisionId, RegraOrcamentoDivi
     regraInadimplenciaResumo:
       'Empréstimo compulsório descontado de repasses futuros da LIESA, retenção de 15% a 35% das cotas, bloqueio de contratações de elite e perda de 0,3 a 0,8 ponto na apuração.',
     premiacaoPosCarnavalResumo:
-      'Fundo de R$ 20M (1º R$ 4,4M a 12º R$ 300k) + Bônus G6 Campeãs (R$ 5,72M) — pagos pós-Carnaval.'
+      'Fundo de R$ 20M (distribuição decrescente por colocação) + Bônus G6 Campeãs (R$ 5,72M) — pagos pós-Carnaval.'
   },
   ouro: {
     division: 'ouro',
@@ -176,7 +176,7 @@ export class DemonstrativoFinanceiroService {
         detalheDireitosTransmissao: 'Cota igualitária de TV da temporada regular (LIESA).',
         detalheRepasseLiga: 'Cota igualitária de patrocínios comerciais da LIESA.',
         detalheSubvencao: 'Subvenção pública igualitária (Governo do Estado + Prefeitura).',
-        detalheBilheteria: 'Rateio igualitário de 15% da bilheteria oficial (12 escolas).'
+        detalheBilheteria: 'Rateio igualitário de 15% da bilheteria oficial do Grupo Especial (acordo LIESA + Prefeitura).'
       };
     }
 

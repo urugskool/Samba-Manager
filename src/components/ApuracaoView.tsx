@@ -1430,121 +1430,154 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
             </h3>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400">
-            <span className="flex items-center gap-1">
-              <span className="w-2.5 h-2.5 rounded-full bg-amber-400" /> Campeã
-            </span>
-            {selectedDivision === 'especial' && (
-              <>
+          {(() => {
+            const flow = SimulationEngine.getDivisionFlowCounts(
+              especialSchools.length,
+              ouroSchools.length,
+              prataSchools.length,
+              bronzeSchools.length,
+              avaliacaoSchools.length
+            );
+            return (
+              <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400">
                 <span className="flex items-center gap-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-blue-400" /> Desfile das Campeãs (G6)
+                  <span className="w-2.5 h-2.5 rounded-full bg-amber-400" /> Campeã
                 </span>
-                <span className="flex items-center gap-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Rebaixamento p/ Série Ouro (12º)
-                </span>
-                <span className="text-[11px] text-amber-300">
-                  • Grupo Especial {currentYear}: {especialSchools.length} escolas
-                </span>
-              </>
-            )}
-            {selectedDivision === 'ouro' && (
-              <>
-                <span className="flex items-center gap-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" /> Acesso ao Grupo Especial (1º)
-                </span>
-                <span className="flex items-center gap-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Rebaixamento p/ Série Prata (Últimos 2)
-                </span>
-                <span className="text-[11px] text-amber-300">
-                  • Série Ouro {currentYear}: {ouroSchools.length} escolas {ouroSchools.length > 14 ? '(ajustando até 14)' : '(estabilizada em 14)'}
-                </span>
-              </>
-            )}
-            {selectedDivision === 'prata' && (
-              <>
-                <span className="flex items-center gap-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" /> Acesso à Série Ouro ({ouroSchools.length <= 14 ? '1º e 2º colocados' : '1º colocado'})
-                </span>
-                <span className="flex items-center gap-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Rebaixamento p/ Série Bronze ({prataSchools.length > 16 ? '4 últimas colocadas' : prataSchools.length === 15 ? '2 últimas colocadas (Ajuste para 16 escolas)' : '3 últimas colocadas'})
-                </span>
-                <span className="text-[11px] text-amber-300">
-                  • Série Prata {currentYear}: {prataSchools.length} escolas {prataSchools.length > 16 ? '(transição até 16 escolas)' : prataSchools.length === 15 ? '(ano de transição para 16 escolas)' : '(estabilizada em 16)'}
-                </span>
-              </>
-            )}
-            {selectedDivision === 'bronze' && (
-              <>
-                <span className="flex items-center gap-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" /> Acesso à Série Prata ({prataSchools.length === 15 ? 'Campeã e Vice (2 sobem)' : prataSchools.length > 16 ? 'Apenas a Campeã' : 'Top 3 sobem'})
-                </span>
-                <span className="flex items-center gap-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Rebaixamento p/ Grupo de Avaliação ({bronzeSchools.length > 18 ? '4 últimas colocadas' : '3 últimas colocadas'})
-                </span>
-                <span className="text-[11px] text-amber-300">
-                  • Série Bronze {currentYear}: {bronzeSchools.length} escolas {bronzeSchools.length > 18 ? '(ajuste até 18 escolas)' : '(estabilizada em 18)'}
-                </span>
-              </>
-            )}
-            {selectedDivision === 'avaliacao' && (
-              <>
-                <span className="flex items-center gap-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" /> Acesso à Série Bronze ({bronzeSchools.length > 18 ? 'Campeã e Vice (2 vagas)' : 'Top 3 sobem (3 vagas)'})
-                </span>
-                <span className="flex items-center gap-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-purple-400" /> Processo de Afastamento (No mínimo as 5 últimas são suspensas por mín. 1 ano)
-                </span>
-                <span className="text-[11px] text-amber-300">
-                  • Grupo de Avaliação {currentYear}: {avaliacaoSchools.length} escolas (máx 20 • 5 ingressantes por ano)
-                </span>
-              </>
-            )}
-          </div>
+                {selectedDivision === 'especial' && (
+                  <>
+                    <span className="flex items-center gap-1">
+                      <span className="w-2.5 h-2.5 rounded-full bg-blue-400" /> Desfile das Campeãs (G6)
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Rebaixamento p/ Série Ouro ({especialSchools.length}º)
+                    </span>
+                    <span className="text-[11px] text-amber-300">
+                      • Grupo Especial {currentYear}: {especialSchools.length} escolas{' '}
+                      {flow.especialIsExpanding
+                        ? `(ampliação gradual até 15 em 2030 • próximo ano: ${flow.nextEspecialCount})`
+                        : '(estabilizado em 15 escolas)'}
+                    </span>
+                  </>
+                )}
+                {selectedDivision === 'ouro' && (
+                  <>
+                    <span className="flex items-center gap-1">
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" /> Acesso ao Grupo Especial (
+                      {flow.ouroPromotedCount >= 2 ? '1º e 2º — Expansão até 15' : '1º colocado'})
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Rebaixamento p/ Série Prata (
+                      {flow.ouroRelegatedCount === 1 ? 'Última colocada' : `Últimos ${flow.ouroRelegatedCount}`})
+                    </span>
+                    <span className="text-[11px] text-amber-300">
+                      • Série Ouro {currentYear}: {ouroSchools.length} escolas{' '}
+                      {ouroSchools.length > 14 ? '(ajustando até 14)' : '(estabilizada em 14)'}
+                    </span>
+                  </>
+                )}
+                {selectedDivision === 'prata' && (
+                  <>
+                    <span className="flex items-center gap-1">
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" /> Acesso à Série Ouro (
+                      {flow.prataPromotedCount >= 2 ? '1º e 2º colocados' : '1º colocado'})
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Rebaixamento p/ Série Bronze (
+                      {flow.prataRelegatedCount === 4
+                        ? '4 últimas colocadas'
+                        : flow.prataRelegatedCount === 2
+                        ? '2 últimas colocadas (Ajuste para 16 escolas)'
+                        : `${flow.prataRelegatedCount} últimas colocadas`})
+                    </span>
+                    <span className="text-[11px] text-amber-300">
+                      • Série Prata {currentYear}: {prataSchools.length} escolas{' '}
+                      {prataSchools.length > 16
+                        ? '(transição até 16 escolas)'
+                        : prataSchools.length === 15
+                        ? '(ano de transição para 16 escolas)'
+                        : '(estabilizada em 16)'}
+                    </span>
+                  </>
+                )}
+                {selectedDivision === 'bronze' && (
+                  <>
+                    <span className="flex items-center gap-1">
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" /> Acesso à Série Prata (
+                      {flow.bronzePromotedCount === 1
+                        ? 'Apenas a Campeã'
+                        : flow.bronzePromotedCount === 2
+                        ? 'Campeã e Vice (2 sobem)'
+                        : 'Top 3 sobem'})
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Rebaixamento p/ Grupo de Avaliação (
+                      {flow.bronzeRelegatedCount} últimas colocadas)
+                    </span>
+                    <span className="text-[11px] text-amber-300">
+                      • Série Bronze {currentYear}: {bronzeSchools.length} escolas{' '}
+                      {bronzeSchools.length > 18 ? '(ajuste até 18 escolas)' : '(estabilizada em 18)'}
+                    </span>
+                  </>
+                )}
+                {selectedDivision === 'avaliacao' && (
+                  <>
+                    <span className="flex items-center gap-1">
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" /> Acesso à Série Bronze (
+                      {flow.avaliacaoPromotedCount === 2 ? 'Campeã e Vice (2 vagas)' : 'Top 3 sobem (3 vagas)'})
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <span className="w-2.5 h-2.5 rounded-full bg-purple-400" /> Processo de Afastamento (No mínimo as 5 últimas são suspensas por mín. 1 ano)
+                    </span>
+                    <span className="text-[11px] text-amber-300">
+                      • Grupo de Avaliação {currentYear}: {avaliacaoSchools.length} escolas (máx 20 • 5 ingressantes por ano)
+                    </span>
+                  </>
+                )}
+              </div>
+            );
+          })()}
         </div>
 
         {/* Table Rows */}
         <div className="space-y-2">
           {standings.rankedList.map((item, idx) => {
+            const flow = SimulationEngine.getDivisionFlowCounts(
+              especialSchools.length,
+              ouroSchools.length,
+              prataSchools.length,
+              bronzeSchools.length,
+              avaliacaoSchools.length
+            );
             const isUser = item.school.id === userSchool?.id;
             const isChampion = hasStarted && item.rank === 1;
             const isG6 = hasStarted && selectedDivision === 'especial' && item.rank <= 6 && item.rank > 1;
             const isRelegatedEspecial = hasStarted && selectedDivision === 'especial' && item.rank === standings.rankedList.length;
-            const isPromotedOuro = hasStarted && selectedDivision === 'ouro' && item.rank === 1;
-            const isRelegatedOuro = hasStarted && selectedDivision === 'ouro' && item.rank > standings.rankedList.length - 2;
+            const isPromotedOuro = hasStarted && selectedDivision === 'ouro' && item.rank <= flow.ouroPromotedCount;
+            const isRelegatedOuro = hasStarted && selectedDivision === 'ouro' && item.rank > standings.rankedList.length - flow.ouroRelegatedCount;
             const isPromotedPrata =
               hasStarted &&
               selectedDivision === 'prata' &&
-              (item.rank === 1 || (ouroSchools.length <= 14 && item.rank === 2));
-            const prataRelegatedCount = prataSchools.length > 16 ? 4 : prataSchools.length === 15 ? 2 : 3;
+              item.rank <= flow.prataPromotedCount;
             const isRelegatedPrata =
               hasStarted &&
               selectedDivision === 'prata' &&
-              item.rank > standings.rankedList.length - prataRelegatedCount;
-            const bronzePromotedCount = prataSchools.length === 15 ? 2 : prataSchools.length > 16 ? 1 : 3;
+              item.rank > standings.rankedList.length - flow.prataRelegatedCount;
             const isPromotedBronze =
               hasStarted &&
               selectedDivision === 'bronze' &&
-              item.rank <= bronzePromotedCount;
-            const netFromPrata = prataRelegatedCount - bronzePromotedCount;
-            const bronzeRelegatedCount =
-              bronzeSchools.length > 18
-                ? netFromPrata + 2 + Math.min(2, bronzeSchools.length - 18)
-                : 3 + netFromPrata;
+              item.rank <= flow.bronzePromotedCount;
             const isRelegatedBronze =
               hasStarted &&
               selectedDivision === 'bronze' &&
-              item.rank > standings.rankedList.length - bronzeRelegatedCount;
-
-            const avaliacaoPromotedCount = bronzeSchools.length > 18 ? 2 : 3;
+              item.rank > standings.rankedList.length - flow.bronzeRelegatedCount;
             const isPromotedAvaliacao =
               hasStarted &&
               selectedDivision === 'avaliacao' &&
-              item.rank <= avaliacaoPromotedCount;
-            const neededAfastadas = Math.max(5, (avaliacaoSchools.length - avaliacaoPromotedCount + bronzeRelegatedCount + 5) - 20);
+              item.rank <= flow.avaliacaoPromotedCount;
             const isSuspendedAvaliacao =
               hasStarted &&
               selectedDivision === 'avaliacao' &&
-              item.rank > standings.rankedList.length - neededAfastadas;
+              item.rank > standings.rankedList.length - flow.avaliacaoAfastadasCount;
 
             // Check if tied with adjacent school to display tiebreaker button
             const prevItem = standings.rankedList[idx - 1];
@@ -1744,7 +1777,7 @@ export const ApuracaoView: React.FC<ApuracaoViewProps> = ({
                     </div>
 
                     <div className="text-[11px] text-slate-400 italic truncate">
-                      "{item.school.nickname}" • Enredo: {item.school.currentEnredo?.title}
+                      "{item.school.nickname}" • Enredo: {item.school.currentEnredo?.title || (item.school as any).enredo || (item.school as any).tituloEnredo || 'Enredo Oficial'}
                     </div>
 
                     {/* Tiebreaker Note & Audit Button */}

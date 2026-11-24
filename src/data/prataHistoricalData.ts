@@ -5185,6 +5185,10 @@ export function getHistoricalPrataCarnavalsList(inGameHistory: YearHistory[] = [
           rank: s.rank,
           schoolId: s.schoolId || '',
           schoolName: s.schoolName,
+          enredo:
+            s.enredo ||
+            (s.schoolId ? h.schoolEnredos?.[s.schoolId] : undefined) ||
+            h.schoolEnredos?.[s.schoolName],
           totalScore: s.totalScore,
           promoted: isPromoted,
           relegated: isRelegated,

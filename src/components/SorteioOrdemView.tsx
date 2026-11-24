@@ -98,14 +98,22 @@ export const SorteioOrdemView: React.FC<SorteioOrdemViewProps> = ({
 
   const prevHistory = SorteioEngine.getPreviousYearHistory(currentYear, history);
 
-  // Verificar se a escola do usuário é a Vice-Campeã da Série Ouro
+  // Verificar se a escola do usuário tem direito de escolha na Série Ouro
+  // (Vice-Campeã da Ouro; ou 3ª colocada quando a Vice também subiu ao Especial durante a ampliação até 15 escolas)
+  const activeOuroIdsSet = new Set(
+    schools.filter((s) => s.division === 'ouro' && !s.isInactive && !s.inactive).map((s) => s.id)
+  );
+  const eligibleOuroChoiceEntry = prevHistory?.ouroStandings
+    ? [...prevHistory.ouroStandings]
+        .sort((a, b) => a.rank - b.rank)
+        .find((entry) => entry.rank >= 2 && entry.schoolId && activeOuroIdsSet.has(entry.schoolId))
+    : undefined;
   const isUserOuroVice = Boolean(
     userSchool &&
-    userSchool.division === 'ouro' &&
-    prevHistory?.ouroStandings &&
-    prevHistory.ouroStandings.length >= 2 &&
-    (prevHistory.ouroStandings[1]?.schoolId === userSchool.id ||
-      prevHistory.ouroStandings[1]?.schoolName === userSchool.name)
+      userSchool.division === 'ouro' &&
+      eligibleOuroChoiceEntry &&
+      (eligibleOuroChoiceEntry.schoolId === userSchool.id ||
+        eligibleOuroChoiceEntry.schoolName === userSchool.name)
   );
 
   // Obter ou gerar a sequência planejada para uma divisão
@@ -701,18 +709,18 @@ export const SorteioOrdemView: React.FC<SorteioOrdemViewProps> = ({
           <div className="p-3 rounded-xl bg-slate-950/70 border border-slate-800/80 space-y-1">
             <span className="text-white font-bold block text-xs">Grupo Especial (LIESA)</span>
             <p className="text-[11px] leading-relaxed">
-              • <strong>Domingo, Segunda e Terça de Carnaval</strong> (4 escolas por noite).
+              • <strong>Domingo, Segunda e Terça de Carnaval</strong> (ampliação gradual 2027–2030: de 12 até 15 escolas, chegando a 5 por noite).
               <br />• <strong>Cores das Bolas:</strong> <span className="text-amber-400 font-bold">🟡 Amarela 1ª noite (Dom)</span>, <span className="text-blue-400 font-bold">🔵 Azul 2ª noite (Seg)</span> e <span className="text-slate-100 font-bold">⚪ Branca 3ª noite (Ter)</span>.
-              <br />• <strong>Aberturas:</strong> Campeã Ouro abre Domingo, 11ª abre Segunda, 10ª abre Terça. Demais retiram bolinha numerada do globo.
+              <br />• <strong>Aberturas na Ampliação (até 15 escolas):</strong> Vice-Campeã da Ouro abre a 1ª noite (Dom), Campeã da Ouro abre a 2ª (Seg) e a última não rebaixada do Especial abre a 3ª (Ter). Em anos de 1 acesso (2027 e 2031+): Campeã Ouro abre Dom, última não rebaixada abre Seg e penúltima abre Ter.
             </p>
           </div>
 
           <div className="p-3 rounded-xl bg-slate-950/70 border border-slate-800/80 space-y-1">
             <span className="text-white font-bold block text-xs">Série Ouro (LIGA RJ)</span>
             <p className="text-[11px] leading-relaxed">
-              • <strong>Sexta e Sábado de Carnaval</strong> (8 escolas por noite).
+              • <strong>Sexta e Sábado de Carnaval</strong> (divisão equilibrada nas 2 noites).
               <br />• <strong>Cores das Bolas:</strong> <span className="text-blue-400 font-bold">🔵 Azul 1ª noite (Sex)</span> e <span className="text-slate-100 font-bold">⚪ Branca 2ª noite (Sáb)</span>.
-              <br />• <strong>Vice da Série Ouro:</strong> Prerrogativa de escolha. Demais retiram bolinha numerada do globo.
+              <br />• <strong>Prerrogativa de Escolha:</strong> Melhor colocada remanescente da Série Ouro (Vice-Campeã, ou 3ª quando 2 sobem ao Especial) escolhe dia e posição.
             </p>
           </div>
 

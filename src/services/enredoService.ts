@@ -1562,23 +1562,45 @@ export function gerarEnredoAleatorio(): EnredoGerado {
 }
 
 /**
- * Distribui enredos aleatórios e exclusivos para todas as escolas informadas.
- * Se apenas a IA deve receber, passe o id da escola do jogador em `jogadorEscolaId`.
+ * Distribui enredos aleatórios e exclusivos para todas as escolas ativas informadas.
+ * Escolas inativas (isInactive / inactive === true) permanecem sem enredo até serem reativadas.
+ * Quando `options.preservarEnredoValido` está ativo, preserva enredos válidos e exclusivos já atribuídos
+ * (ex.: escolas recém-criadas, reativadas ou sorteadas pela virada de temporada) e gera inéditos apenas onde necessário.
  */
 export function atribuirEnredosAleatorios(
   escolas: any[],
-  jogadorEscolaId?: string
+  jogadorEscolaId?: string,
+  options?: { ano?: number; preservarEnredoValido?: boolean }
 ): any[] {
   const titulosUsados = new Set<string>();
+  const preserveValid = Boolean(options?.preservarEnredoValido);
+  const fallbackYear = options?.ano || 2027;
+
+  // Marca primeiro títulos válidos já presentes que serão preservados para evitar duplicidades
+  if (preserveValid) {
+    escolas.forEach((escola) => {
+      const isInactive = Boolean(escola.isInactive || escola.inactive);
+      if (isInactive) return;
+      const existingTitle = escola.currentEnredo?.title || escola.enredo || escola.tituloEnredo;
+      if (
+        existingTitle &&
+        !existingTitle.includes('SAMPLE') &&
+        !existingTitle.includes('O Império do Sol Nascente') &&
+        !existingTitle.includes('Os Mistérios de Tutancâmon') &&
+        !titulosUsados.has(existingTitle)
+      ) {
+        titulosUsados.add(existingTitle);
+      }
+    });
+  }
+
+  const titulosJaAtribuidosNoLoop = new Set<string>();
 
   return escolas.map((escola) => {
-    // Escolas extintas ou inativas NÃO têm enredo (só terão algum tema em caso de serem reativadas)
-    const isInactive = Boolean(
-      escola.isInactive ||
-      escola.inactive ||
-      (escola.inactiveReason && escola.inactiveReason.length > 0) ||
-      (escola.suspensionReason && escola.suspensionReason.length > 0)
-    );
+    // Escolas extintas ou inativas NÃO têm enredo (só recebem tema ao serem reativadas).
+    // Importante: utiliza exclusivamente os sinalizadores canônicos `isInactive` / `inactive`,
+    // evitando que resíduos de `suspensionReason` ou `inactiveReason` apaguem enredos de escolas reativadas.
+    const isInactive = Boolean(escola.isInactive || escola.inactive);
 
     if (isInactive) {
       return {
@@ -1592,17 +1614,64 @@ export function atribuirEnredosAleatorios(
       };
     }
 
+    // Se preservarEnredoValido estiver ativo e a escola já possuir um enredo válido e exclusivo, sincroniza e preserva
+    const existingTitle = escola.currentEnredo?.title || escola.enredo || escola.tituloEnredo;
+    const isExistingValid =
+      Boolean(existingTitle) &&
+      !existingTitle.includes('SAMPLE') &&
+      !existingTitle.includes('O Império do Sol Nascente') &&
+      !existingTitle.includes('Os Mistérios de Tutancâmon') &&
+      !titulosJaAtribuidosNoLoop.has(existingTitle);
+
+    if (preserveValid && isExistingValid) {
+      titulosJaAtribuidosNoLoop.add(existingTitle);
+      titulosUsados.add(existingTitle);
+      const syncedCurrentEnredo = escola.currentEnredo
+        ? {
+            ...escola.currentEnredo,
+            title: existingTitle,
+            themeType: escola.currentEnredo.themeType || escola.temaEnredo || 'Cultural',
+            synopsis: escola.currentEnredo.synopsis || escola.sinopseEnredo || ''
+          }
+        : {
+            id: `enr_${escola.id}_${fallbackYear}`,
+            title: existingTitle,
+            themeType: (escola.temaEnredo || 'Cultural') as any,
+            synopsis: escola.sinopseEnredo || '',
+            cost: 120000,
+            qualityBoost: 10,
+            complexity: escola.complexidadeEnredo || 'Média'
+          };
+
+      return {
+        ...escola,
+        isInactive: false,
+        inactive: false,
+        suspensionReason: undefined,
+        inactiveReason: undefined,
+        enredo: syncedCurrentEnredo.title,
+        tituloEnredo: syncedCurrentEnredo.title,
+        temaEnredo: syncedCurrentEnredo.themeType,
+        sinopseEnredo: syncedCurrentEnredo.synopsis,
+        complexidadeEnredo: syncedCurrentEnredo.complexity || 'Média',
+        currentEnredo: syncedCurrentEnredo
+      };
+    }
+
     // Gera tema verdadeiramente aleatório, autêntico e exclusivo para a agremiação
+    const targetYear = options?.ano || (escola as any).currentYear || fallbackYear;
+    const exclusionSet = new Set<string>([...titulosUsados, ...titulosJaAtribuidosNoLoop]);
+
     let enredoObj: any;
     try {
       enredoObj = EnredoService.generateUniqueEnredoForSchool(
         escola,
-        (escola as any).currentYear || 2026,
-        titulosUsados
+        targetYear,
+        exclusionSet
       );
     } catch {
       let fallback = gerarEnredoAleatorio();
-      while (titulosUsados.has(fallback.titulo)) {
+      while (exclusionSet.has(fallback.titulo)) {
         fallback = gerarEnredoAleatorio();
       }
       enredoObj = {
@@ -1617,9 +1686,17 @@ export function atribuirEnredosAleatorios(
     }
 
     titulosUsados.add(enredoObj.title);
+    titulosJaAtribuidosNoLoop.add(enredoObj.title);
 
-    const updated = {
+    // Mantém referência de jogadorEscolaId para extensibilidade futura sem limpar enredo de forma silenciosa
+    void jogadorEscolaId;
+
+    return {
       ...escola,
+      isInactive: false,
+      inactive: false,
+      suspensionReason: undefined,
+      inactiveReason: undefined,
       enredo: enredoObj.title,
       tituloEnredo: enredoObj.title,
       temaEnredo: enredoObj.themeType,
@@ -1635,8 +1712,6 @@ export function atribuirEnredosAleatorios(
         complexity: enredoObj.complexity || 'Média'
       }
     };
-
-    return updated;
   });
 }
 

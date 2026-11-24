@@ -86,7 +86,7 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
   initialTab = 'carnavais_passados'
 }) => {
   const [activeTab, setActiveTab] = useState<'carnavais_passados' | 'participacoes' | 'nomenclatura'>(initialTab);
-  const [pastDivision, setPastDivision] = useState<'especial' | 'ouro' | 'prata'>('especial');
+  const [pastDivision, setPastDivision] = useState<'especial' | 'ouro' | 'prata' | 'bronze' | 'avaliacao'>('especial');
   const [nomenclatureDivision, setNomenclatureDivision] = useState<'especial' | 'ouro'>('especial');
   const [participationsGroup, setParticipationsGroup] = useState<DivisionId>('especial');
   const [selectedPastYear, setSelectedPastYear] = useState<number>(2026);
@@ -267,6 +267,53 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
         (st.enredo && st.enredo.toLowerCase().includes(q))
     );
   }, [currentPastPrataCarnaval, searchQuery, subgroupPrataTab]);
+
+  // Dados simulados in-game para Série Bronze e Grupo de Avaliação no ano selecionado
+  const currentInGameYearHistory = useMemo(() => {
+    return inGameHistory.find((h) => h.year === selectedPastYear);
+  }, [inGameHistory, selectedPastYear]);
+
+  const filteredPastBronzeStandings = useMemo(() => {
+    const baseList = currentInGameYearHistory?.bronzeStandings || [];
+    const q = searchQuery.toLowerCase().trim();
+    if (!q) return baseList;
+    return baseList.filter((st) => {
+      const enr =
+        st.enredo ||
+        getHistoricalEnredo(
+          selectedPastYear,
+          st.schoolId || '',
+          st.schoolName,
+          schools.find((s) => s.id === st.schoolId),
+          inGameHistory
+        );
+      return (
+        st.schoolName.toLowerCase().includes(q) ||
+        (enr && enr.toLowerCase().includes(q))
+      );
+    });
+  }, [currentInGameYearHistory, searchQuery, selectedPastYear, schools, inGameHistory]);
+
+  const filteredPastAvaliacaoStandings = useMemo(() => {
+    const baseList = currentInGameYearHistory?.avaliacaoStandings || [];
+    const q = searchQuery.toLowerCase().trim();
+    if (!q) return baseList;
+    return baseList.filter((st) => {
+      const enr =
+        st.enredo ||
+        getHistoricalEnredo(
+          selectedPastYear,
+          st.schoolId || '',
+          st.schoolName,
+          schools.find((s) => s.id === st.schoolId),
+          inGameHistory
+        );
+      return (
+        st.schoolName.toLowerCase().includes(q) ||
+        (enr && enr.toLowerCase().includes(q))
+      );
+    });
+  }, [currentInGameYearHistory, searchQuery, selectedPastYear, schools, inGameHistory]);
 
   // Configuração e Lista da Aba de Participações por Grupo
   const currentGroupConfig = useMemo(() => {
@@ -632,6 +679,34 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                       em catalogação
                     </span>
                   )}
+                </button>
+                <button
+                  onClick={() => {
+                    setPastDivision('bronze');
+                    setExpandedSchoolId(null);
+                  }}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
+                    pastDivision === 'bronze'
+                      ? 'bg-amber-700 text-white font-black shadow-md shadow-amber-700/25'
+                      : 'text-slate-400 hover:text-white hover:bg-slate-900'
+                  }`}
+                >
+                  <Medal className="w-3.5 h-3.5" />
+                  <span>Série Bronze</span>
+                </button>
+                <button
+                  onClick={() => {
+                    setPastDivision('avaliacao');
+                    setExpandedSchoolId(null);
+                  }}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
+                    pastDivision === 'avaliacao'
+                      ? 'bg-purple-500 text-white font-black shadow-md shadow-purple-500/25'
+                      : 'text-slate-400 hover:text-white hover:bg-slate-900'
+                  }`}
+                >
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Grupo de Avaliação</span>
                 </button>
               </div>
 
@@ -1879,6 +1954,204 @@ export const CarnavaisPassadosModal: React.FC<CarnavaisPassadosModalProps> = ({
                         Ver Grupo Especial ({selectedPastYear})
                       </button>
                     </div>
+                  </div>
+                )
+              )}
+
+              {/* SÉRIE BRONZE VIEW (Temporadas Simuladas no Save) */}
+              {pastDivision === 'bronze' && (
+                filteredPastBronzeStandings.length > 0 && currentInGameYearHistory ? (
+                  <div className="space-y-4">
+                    <div className="p-4 rounded-2xl bg-slate-950/80 border border-amber-700/40 flex flex-wrap items-center justify-between gap-3">
+                      <div>
+                        <h3 className="text-base font-black text-amber-400">
+                          Série Bronze • Carnaval {selectedPastYear}
+                        </h3>
+                        <p className="text-xs text-slate-400 mt-0.5">
+                          Campeã: <strong className="text-white">{currentInGameYearHistory.bronzeChampion || filteredPastBronzeStandings[0]?.schoolName}</strong>
+                          {' • '}{filteredPastBronzeStandings.length} agremiações julgadas
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="rounded-2xl border border-slate-800 bg-slate-950 overflow-hidden shadow-xl">
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-left border-collapse text-xs">
+                          <thead>
+                            <tr className="bg-slate-900/90 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-800">
+                              <th className="py-3 px-4 w-20">Pos.</th>
+                              <th className="py-3 px-4">Agremiação</th>
+                              <th className="py-3 px-4">Enredo Oficial</th>
+                              <th className="py-3 px-4 text-right w-24">Pontos</th>
+                              <th className="py-3 px-4 text-center">Status</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-slate-800/60 font-medium">
+                            {filteredPastBronzeStandings.map((st, idx) => {
+                              const schoolObj = schools.find(
+                                (s) =>
+                                  (st.schoolId && s.id === st.schoolId) ||
+                                  s.name.toLowerCase() === st.schoolName.toLowerCase()
+                              );
+                              const enredoTitle =
+                                st.enredo ||
+                                getHistoricalEnredo(
+                                  selectedPastYear,
+                                  st.schoolId || '',
+                                  st.schoolName,
+                                  schoolObj,
+                                  inGameHistory
+                                );
+                              const isPromoted = Boolean(
+                                currentInGameYearHistory.bronzePromoted?.includes(st.schoolName) ||
+                                (st.schoolId && currentInGameYearHistory.bronzePromoted?.includes(st.schoolId)) ||
+                                st.rank === 1
+                              );
+                              const isRelegated = Boolean(
+                                currentInGameYearHistory.bronzeRelegated?.includes(st.schoolName) ||
+                                (st.schoolId && currentInGameYearHistory.bronzeRelegated?.includes(st.schoolId))
+                              );
+                              return (
+                                <tr key={`bronze_${st.schoolId || idx}`} className="hover:bg-slate-800/40 transition">
+                                  <td className="py-3 px-4 font-mono font-black text-amber-400">{st.rank}ª</td>
+                                  <td className="py-3 px-4 font-bold text-white">{st.schoolName}</td>
+                                  <td className="py-3 px-4 italic text-slate-300">
+                                    {enredoTitle ? `"${enredoTitle}"` : '—'}
+                                  </td>
+                                  <td className="py-3 px-4 text-right font-mono text-slate-200">
+                                    {typeof st.totalScore === 'number' ? st.totalScore.toFixed(1) : '—'}
+                                  </td>
+                                  <td className="py-3 px-4 text-center whitespace-nowrap">
+                                    {isPromoted ? (
+                                      <span className="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-black uppercase">
+                                        {st.rank === 1 ? 'Campeã • Subiu (Prata)' : 'Subiu (Série Prata)'}
+                                      </span>
+                                    ) : isRelegated ? (
+                                      <span className="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/40 text-[10px] font-black uppercase">
+                                        Rebaixada (Avaliação)
+                                      </span>
+                                    ) : (
+                                      <span className="px-2 py-0.5 rounded-md bg-slate-900 text-slate-400 border border-slate-800 text-[10px]">
+                                        Permanece na Série Bronze
+                                      </span>
+                                    )}
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="p-8 rounded-2xl bg-slate-950/60 border border-dashed border-slate-700 text-center space-y-3">
+                    <div className="w-12 h-12 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-amber-400 mx-auto">
+                      <Info className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-lg font-black text-white">Série Bronze ({selectedPastYear})</h3>
+                    <p className="text-xs text-slate-400 max-w-md mx-auto leading-relaxed">
+                      Os resultados completos com enredos da Série Bronze ficam registrados aqui automaticamente para todas as temporadas concluídas no seu save (a partir de 2027).
+                    </p>
+                  </div>
+                )
+              )}
+
+              {/* GRUPO DE AVALIAÇÃO VIEW (Temporadas Simuladas no Save) */}
+              {pastDivision === 'avaliacao' && (
+                filteredPastAvaliacaoStandings.length > 0 && currentInGameYearHistory ? (
+                  <div className="space-y-4">
+                    <div className="p-4 rounded-2xl bg-slate-950/80 border border-purple-500/40 flex flex-wrap items-center justify-between gap-3">
+                      <div>
+                        <h3 className="text-base font-black text-purple-300">
+                          Grupo de Avaliação • Carnaval {selectedPastYear}
+                        </h3>
+                        <p className="text-xs text-slate-400 mt-0.5">
+                          Campeã: <strong className="text-white">{currentInGameYearHistory.avaliacaoChampion || filteredPastAvaliacaoStandings[0]?.schoolName}</strong>
+                          {' • '}{filteredPastAvaliacaoStandings.length} agremiações julgadas
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="rounded-2xl border border-slate-800 bg-slate-950 overflow-hidden shadow-xl">
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-left border-collapse text-xs">
+                          <thead>
+                            <tr className="bg-slate-900/90 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-800">
+                              <th className="py-3 px-4 w-20">Pos.</th>
+                              <th className="py-3 px-4">Agremiação</th>
+                              <th className="py-3 px-4">Enredo Oficial</th>
+                              <th className="py-3 px-4 text-right w-24">Pontos</th>
+                              <th className="py-3 px-4 text-center">Status</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-slate-800/60 font-medium">
+                            {filteredPastAvaliacaoStandings.map((st, idx) => {
+                              const schoolObj = schools.find(
+                                (s) =>
+                                  (st.schoolId && s.id === st.schoolId) ||
+                                  s.name.toLowerCase() === st.schoolName.toLowerCase()
+                              );
+                              const enredoTitle =
+                                st.enredo ||
+                                getHistoricalEnredo(
+                                  selectedPastYear,
+                                  st.schoolId || '',
+                                  st.schoolName,
+                                  schoolObj,
+                                  inGameHistory
+                                );
+                              const isPromoted = Boolean(
+                                currentInGameYearHistory.avaliacaoPromoted?.includes(st.schoolName) ||
+                                (st.schoolId && currentInGameYearHistory.avaliacaoPromoted?.includes(st.schoolId)) ||
+                                st.rank === 1
+                              );
+                              const isSuspended = Boolean(
+                                currentInGameYearHistory.avaliacaoSuspended?.includes(st.schoolName) ||
+                                (st.schoolId && currentInGameYearHistory.avaliacaoSuspended?.includes(st.schoolId))
+                              );
+                              return (
+                                <tr key={`ava_${st.schoolId || idx}`} className="hover:bg-slate-800/40 transition">
+                                  <td className="py-3 px-4 font-mono font-black text-purple-300">{st.rank}ª</td>
+                                  <td className="py-3 px-4 font-bold text-white">{st.schoolName}</td>
+                                  <td className="py-3 px-4 italic text-slate-300">
+                                    {enredoTitle ? `"${enredoTitle}"` : '—'}
+                                  </td>
+                                  <td className="py-3 px-4 text-right font-mono text-slate-200">
+                                    {typeof st.totalScore === 'number' ? st.totalScore.toFixed(1) : '—'}
+                                  </td>
+                                  <td className="py-3 px-4 text-center whitespace-nowrap">
+                                    {isPromoted ? (
+                                      <span className="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-black uppercase">
+                                        {st.rank === 1 ? 'Campeã • Subiu (Bronze)' : 'Subiu (Série Bronze)'}
+                                      </span>
+                                    ) : isSuspended ? (
+                                      <span className="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/40 text-[10px] font-black uppercase">
+                                        Afastada (Mín. 1 ano fora)
+                                      </span>
+                                    ) : (
+                                      <span className="px-2 py-0.5 rounded-md bg-slate-900 text-slate-400 border border-slate-800 text-[10px]">
+                                        Permanece na Avaliação
+                                      </span>
+                                    )}
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="p-8 rounded-2xl bg-slate-950/60 border border-dashed border-slate-700 text-center space-y-3">
+                    <div className="w-12 h-12 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-purple-400 mx-auto">
+                      <Info className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-lg font-black text-white">Grupo de Avaliação ({selectedPastYear})</h3>
+                    <p className="text-xs text-slate-400 max-w-md mx-auto leading-relaxed">
+                      Os resultados completos com enredos do Grupo de Avaliação (incluindo escolas reativadas e recém-fundadas) ficam registrados aqui automaticamente para todas as temporadas concluídas no seu save (a partir de 2027).
+                    </p>
                   </div>
                 )
               )}

@@ -696,13 +696,19 @@ export const StartScreenView: React.FC<StartScreenViewProps> = ({
                 <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
                   <div className="text-[10px] font-bold text-amber-400 uppercase tracking-wider">LIESA</div>
                   <div className="text-xs font-bold text-white">Grupo Especial</div>
-                  <div className="text-[11px] text-slate-400">{especialSchools.length} agremiações na elite. Desfiles no Domingo e Segunda na Sapucaí.</div>
+                  <div className="text-[11px] text-slate-400">
+                    {especialSchools.length} agremiações na elite (Dom, Seg e Ter na Sapucaí).{' '}
+                    {especialSchools.length < 15 ? 'Ampliação gradual até 15 escolas em 2030!' : '5 escolas por noite!'}
+                  </div>
                 </div>
 
                 <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
                   <div className="text-[10px] font-bold text-blue-400 uppercase tracking-wider">LIGA RJ</div>
                   <div className="text-xs font-bold text-white">Série Ouro</div>
-                  <div className="text-[11px] text-slate-400">{ouroSchools.length} agremiações na Sapucaí (Sexta e Sábado). Campeã sobe ao Especial!</div>
+                  <div className="text-[11px] text-slate-400">
+                    {ouroSchools.length} agremiações na Sapucaí (Sexta e Sábado).{' '}
+                    {especialSchools.length < 15 ? 'Campeã e Vice sobem ao Especial!' : 'Campeã sobe ao Especial!'}
+                  </div>
                 </div>
 
                 <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-1">

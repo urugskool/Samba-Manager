@@ -9,7 +9,7 @@ import {
   getSchoolDenominationExtenso,
   getSchoolCalledName
 } from '../utils/schoolNameUtils';
-import { getSchoolHistoricalEnredosList } from '../data/historicalEnredosData';
+import { getSchoolHistoricalEnredosList, getHistoricalEnredo } from '../data/historicalEnredosData';
 
 interface TabelaViewProps {
   currentYear: number;
@@ -41,6 +41,8 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
   const [selectedDivision, setSelectedDivision] = useState<DivisionId | 'inativas'>('especial');
   const [activeTab, setActiveTab] = useState<'current' | 'history'>('current');
   const [expandedSchoolId, setExpandedSchoolId] = useState<string | null>(null);
+  const [expandedHistoryYear, setExpandedHistoryYear] = useState<number | null>(null);
+  const [expandedHistoryDivision, setExpandedHistoryDivision] = useState<DivisionId>('avaliacao');
   const [inactiveFilter, setInactiveFilter] = useState<'todas' | 'tradicionais' | 'blocos'>('todas');
 
   const fbcerjBlocos = useMemo(() => {
@@ -88,8 +90,13 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
       };
     }
 
+    const cleanedSchoolName = cleanSchoolName(school);
+
     // Check if was reactivated this season
-    if (lastHistory.reactivatedSchools?.includes(school.name)) {
+    if (
+      lastHistory.reactivatedSchools?.includes(school.name) ||
+      lastHistory.reactivatedSchools?.includes(cleanedSchoolName)
+    ) {
       return {
         tier: 5,
         rank: 1,
@@ -99,7 +106,8 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
     }
 
     // Check if is newly founded school
-    if (lastHistory.newSchools?.includes(school.name)) {
+    const newSchoolsList = lastHistory.newSchools || lastHistory.newSchoolsCreated || [];
+    if (newSchoolsList.includes(school.name) || newSchoolsList.includes(cleanedSchoolName)) {
       return {
         tier: 5,
         rank: 1,
@@ -501,8 +509,16 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                   </button>
                 )}
                 <div className="text-[11px] text-slate-400 sm:text-right">
-                  {selectedDivision === 'especial' && '1º ao 6º no Desfile das Campeãs | 12º Rebaixado'}
-                  {selectedDivision === 'ouro' && 'Campeã sobe ao Especial | 2 últimas caem para a Prata'}
+                  {selectedDivision === 'especial' &&
+                    `1º ao 6º no Desfile das Campeãs | ${especialSchools.length}º Rebaixado${
+                      especialSchools.length < 15 ? ` • Expansão gradual até 15 em 2030` : ' • 15 escolas (5 por noite)'
+                    }`}
+                  {selectedDivision === 'ouro' &&
+                    `${
+                      especialSchools.length < 15
+                        ? 'Campeã e Vice sobem ao Especial (expansão até 15)'
+                        : 'Campeã sobe ao Especial'
+                    } | Rebaixamento para a Série Prata`}
                   {selectedDivision === 'prata' && 'Acesso para a Série Ouro | Rebaixamento para Série Bronze'}
                   {selectedDivision === 'bronze' && 'Acesso para a Série Prata | Rebaixamento para Grupo de Avaliação'}
                   {selectedDivision === 'avaliacao' && 'Acesso para a Série Bronze | No mínimo as 5 últimas são afastadas (mín. 5 ingressantes/ano)'}
@@ -938,16 +954,75 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
             </div>
           ) : (
             <div className="space-y-4">
-              {history.map((record) => (
+              {history.map((record) => {
+                const newSchoolsList =
+                  (record.newSchools && record.newSchools.length > 0
+                    ? record.newSchools
+                    : record.newSchoolsCreated) || [];
+                const isHistoryExpanded = expandedHistoryYear === record.year;
+
+                const resolveRecordEnredo = (schoolId?: string, schoolName?: string, directEnredo?: string): string | undefined => {
+                  if (directEnredo) return directEnredo;
+                  const schObj = allSchools.find(
+                    (sc) =>
+                      (schoolId && sc.id === schoolId) ||
+                      (schoolName && cleanSchoolName(sc).toLowerCase() === cleanSchoolName(schoolName).toLowerCase())
+                  );
+                  return (
+                    (schoolId && record.schoolEnredos?.[schoolId]) ||
+                    (schoolName && record.schoolEnredos?.[schoolName]) ||
+                    (schoolName && record.schoolEnredos?.[cleanSchoolName(schoolName)]) ||
+                    getHistoricalEnredo(record.year, schoolId || '', schoolName, schObj, [record])
+                  );
+                };
+
+                const divisionStandingsMap: Record<
+                  DivisionId,
+                  { rank: number; schoolName: string; schoolId?: string; totalScore: number; enredo?: string }[]
+                > = {
+                  especial: record.especialStandings || [],
+                  ouro: record.ouroStandings || [],
+                  prata: record.prataStandings || [],
+                  bronze: record.bronzeStandings || [],
+                  avaliacao: record.avaliacaoStandings || []
+                };
+
+                const hasAnyStandings = Object.values(divisionStandingsMap).some((list) => list.length > 0);
+                const activeStandingsList = divisionStandingsMap[expandedHistoryDivision] || [];
+
+                return (
                 <div
                   key={record.year}
                   className="p-5 rounded-xl bg-slate-950/70 border border-slate-800 space-y-4"
                 >
-                  <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-                    <span className="text-base font-black text-amber-400 font-mono">
-                      CARNAVAL {record.year}
-                    </span>
-                    <span className="text-xs text-slate-400">Resultados Oficiais Homologados</span>
+                  <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-800">
+                    <div className="flex items-center gap-3">
+                      <span className="text-base font-black text-amber-400 font-mono">
+                        CARNAVAL {record.year}
+                      </span>
+                      <span className="text-xs text-slate-400">Resultados Oficiais Homologados</span>
+                    </div>
+                    {hasAnyStandings && (
+                      <button
+                        onClick={() => {
+                          if (isHistoryExpanded) {
+                            setExpandedHistoryYear(null);
+                          } else {
+                            setExpandedHistoryYear(record.year);
+                            if (divisionStandingsMap.avaliacao.length > 0) {
+                              setExpandedHistoryDivision('avaliacao');
+                            } else {
+                              setExpandedHistoryDivision('especial');
+                            }
+                          }
+                        }}
+                        className="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-amber-500/30 text-amber-300 text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
+                      >
+                        <BookOpen className="w-3.5 h-3.5" />
+                        <span>{isHistoryExpanded ? 'Ocultar Classificação e Enredos' : 'Ver Classificação e Enredos (5 Divisões)'}</span>
+                        {isHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                      </button>
+                    )}
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3">
@@ -959,6 +1034,11 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                       </div>
                       <div>
                         Campeã: <strong className="text-white text-sm">{cleanSchoolName(record.especialChampion)}</strong>
+                        {(() => {
+                          const champRow = record.especialStandings?.find((s) => s.rank === 1);
+                          const enr = resolveRecordEnredo(champRow?.schoolId, record.especialChampion, champRow?.enredo);
+                          return enr ? <div className="text-[11px] italic text-amber-200/80 mt-0.5 line-clamp-2">"{enr}"</div> : null;
+                        })()}
                       </div>
                       <div className="text-rose-400">
                         Rebaixada p/ Série Ouro: <strong>{record.especialRelegated.map(s => cleanSchoolName(s)).join(', ') || 'Nenhuma'}</strong>
@@ -972,7 +1052,20 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                         <span>Série Ouro {record.year}</span>
                       </div>
                       <div>
-                        Campeã & Acesso: <strong className="text-emerald-400 text-sm">{cleanSchoolName(record.ouroChampion)}</strong>
+                        Campeã: <strong className="text-white text-sm">{cleanSchoolName(record.ouroChampion)}</strong>
+                        {(() => {
+                          const champRow = record.ouroStandings?.find((s) => s.rank === 1);
+                          const enr = resolveRecordEnredo(champRow?.schoolId, record.ouroChampion, champRow?.enredo);
+                          return enr ? <div className="text-[11px] italic text-blue-200/80 mt-0.5 line-clamp-2">"{enr}"</div> : null;
+                        })()}
+                      </div>
+                      <div className="text-emerald-400">
+                        Acesso ao Especial:{' '}
+                        <strong>
+                          {record.ouroPromoted && record.ouroPromoted.length > 0
+                            ? record.ouroPromoted.map((s) => cleanSchoolName(s)).join(' e ')
+                            : cleanSchoolName(record.ouroChampion)}
+                        </strong>
                       </div>
                       <div className="text-rose-400">
                         Rebaixadas p/ Série Prata: <strong>{record.ouroRelegated.map(s => cleanSchoolName(s)).join(', ') || 'Nenhuma'}</strong>
@@ -987,6 +1080,11 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                       </div>
                       <div>
                         Campeã da Prata: <strong className="text-white text-sm">{cleanSchoolName(record.prataChampion) || 'Desconhecida'}</strong>
+                        {(() => {
+                          const champRow = record.prataStandings?.find((s) => s.rank === 1);
+                          const enr = resolveRecordEnredo(champRow?.schoolId, record.prataChampion, champRow?.enredo);
+                          return enr ? <div className="text-[11px] italic text-slate-300/80 mt-0.5 line-clamp-2">"{enr}"</div> : null;
+                        })()}
                       </div>
                       <div className="text-emerald-400">
                         Promovidas p/ Série Ouro: <strong>{record.prataPromoted?.map(s => cleanSchoolName(s)).join(', ') || cleanSchoolName(record.prataChampion) || 'Nenhuma'}</strong>
@@ -1006,6 +1104,11 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                       </div>
                       <div>
                         Campeã da Bronze: <strong className="text-amber-300 text-sm">{cleanSchoolName(record.bronzeChampion) || 'Desconhecida'}</strong>
+                        {(() => {
+                          const champRow = record.bronzeStandings?.find((s) => s.rank === 1);
+                          const enr = resolveRecordEnredo(champRow?.schoolId, record.bronzeChampion, champRow?.enredo);
+                          return enr ? <div className="text-[11px] italic text-amber-200/80 mt-0.5 line-clamp-2">"{enr}"</div> : null;
+                        })()}
                       </div>
                       <div className="text-emerald-400">
                         Promovidas p/ Prata: <strong>{record.bronzePromoted?.map(s => cleanSchoolName(s)).join(', ') || cleanSchoolName(record.bronzeChampion) || 'Nenhuma'}</strong>
@@ -1025,6 +1128,11 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                       </div>
                       <div>
                         Campeã da Avaliação: <strong className="text-purple-300 text-sm">{cleanSchoolName(record.avaliacaoChampion) || 'Desconhecida'}</strong>
+                        {(() => {
+                          const champRow = record.avaliacaoStandings?.find((s) => s.rank === 1);
+                          const enr = resolveRecordEnredo(champRow?.schoolId, record.avaliacaoChampion, champRow?.enredo);
+                          return enr ? <div className="text-[11px] italic text-purple-200/80 mt-0.5 line-clamp-2">"{enr}"</div> : null;
+                        })()}
                       </div>
                       <div className="text-emerald-400">
                         Promovidas p/ Bronze: <strong>{record.avaliacaoPromoted?.map(s => cleanSchoolName(s)).join(', ') || cleanSchoolName(record.avaliacaoChampion) || 'Nenhuma'}</strong>
@@ -1036,18 +1144,86 @@ export const TabelaView: React.FC<TabelaViewProps> = ({
                       )}
                       {(record.reactivatedSchools && record.reactivatedSchools.length > 0) && (
                         <div className="text-cyan-300 text-[11px]">
-                          Reativadas: <strong>{record.reactivatedSchools.map(s => cleanSchoolName(s)).join(', ')}</strong>
+                          Reativadas p/ {record.year + 1}: <strong>{record.reactivatedSchools.map(s => cleanSchoolName(s)).join(', ')}</strong>
                         </div>
                       )}
-                      {(record.newSchools && record.newSchools.length > 0) && (
+                      {newSchoolsList.length > 0 && (
                         <div className="text-amber-300 text-[11px]">
-                          Novas Fundações: <strong>{record.newSchools.map(s => cleanSchoolName(s)).join(', ')}</strong>
+                          Novas Fundações p/ {record.year + 1}: <strong>{newSchoolsList.map(s => cleanSchoolName(s)).join(', ')}</strong>
                         </div>
                       )}
                     </div>
                   </div>
+
+                  {/* Painel Expandível com Classificação Completa e Enredos de Todas as 5 Divisões */}
+                  {isHistoryExpanded && (
+                    <div className="pt-3 border-t border-slate-800 space-y-3 animate-fadeIn">
+                      <div className="flex flex-wrap items-center gap-1.5">
+                        {([
+                          { id: 'especial', label: 'Grupo Especial' },
+                          { id: 'ouro', label: 'Série Ouro' },
+                          { id: 'prata', label: 'Série Prata' },
+                          { id: 'bronze', label: 'Série Bronze' },
+                          { id: 'avaliacao', label: 'Grupo de Avaliação' }
+                        ] as { id: DivisionId; label: string }[]).map((tab) => {
+                          const count = divisionStandingsMap[tab.id].length;
+                          if (count === 0) return null;
+                          return (
+                            <button
+                              key={tab.id}
+                              onClick={() => setExpandedHistoryDivision(tab.id)}
+                              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
+                                expandedHistoryDivision === tab.id
+                                  ? 'bg-amber-500 text-slate-950 font-black'
+                                  : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800'
+                              }`}
+                            >
+                              {tab.label} ({count})
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      {activeStandingsList.length > 0 ? (
+                        <div className="overflow-x-auto rounded-lg border border-slate-800 bg-slate-900/60">
+                          <table className="w-full text-left text-xs border-collapse">
+                            <thead>
+                              <tr className="bg-slate-900 text-[11px] text-slate-400 uppercase border-b border-slate-800">
+                                <th className="py-2 px-3 w-16">Pos.</th>
+                                <th className="py-2 px-3">Agremiação</th>
+                                <th className="py-2 px-3">Enredo Oficial ({record.year})</th>
+                                <th className="py-2 px-3 text-right w-24">Pontos</th>
+                              </tr>
+                            </thead>
+                            <tbody className="divide-y divide-slate-800/60">
+                              {activeStandingsList.map((st, idx) => {
+                                const enredoTitle = resolveRecordEnredo(st.schoolId, st.schoolName, st.enredo);
+                                return (
+                                  <tr key={`${record.year}_${expandedHistoryDivision}_${st.schoolId || idx}`} className="hover:bg-slate-800/40">
+                                    <td className="py-2 px-3 font-mono font-bold text-amber-400">{st.rank}º</td>
+                                    <td className="py-2 px-3 font-bold text-white">{cleanSchoolName(st.schoolName)}</td>
+                                    <td className="py-2 px-3 italic text-slate-300">
+                                      {enredoTitle ? `"${enredoTitle}"` : '—'}
+                                    </td>
+                                    <td className="py-2 px-3 text-right font-mono font-semibold text-slate-200">
+                                      {typeof st.totalScore === 'number' ? st.totalScore.toFixed(1) : '—'}
+                                    </td>
+                                  </tr>
+                                );
+                              })}
+                            </tbody>
+                          </table>
+                        </div>
+                      ) : (
+                        <div className="text-xs text-slate-500 italic">
+                          Classificação detalhada indisponível para esta divisão em {record.year}.
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>

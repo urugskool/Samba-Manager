@@ -588,6 +588,125 @@ export class SimulationEngine {
   }
 
   /**
+   * Calcula de forma centralizada o fluxo oficial de acessos e rebaixamentos entre as 5 divisões.
+   *
+   * Acordo LIESA + Prefeitura do Rio (Abril/2026) — Ampliação gradual do Grupo Especial:
+   * - 2027: 12 escolas -> ao fim de 2027 sobem 2 da Série Ouro e cai 1 do Especial -> 2028: 13 escolas
+   * - 2028: 13 escolas -> sobem 2 da Série Ouro e cai 1 do Especial -> 2029: 14 escolas
+   * - 2029: 14 escolas -> sobem 2 da Série Ouro e cai 1 do Especial -> 2030: 15 escolas
+   * - 2030 em diante (15 escolas): estabiliza em 1 sobe da Série Ouro e 1 cai do Especial
+   */
+  public static getDivisionFlowCounts(
+    especialCount: number = 12,
+    ouroCount: number = 17,
+    prataCount: number = 24,
+    bronzeCount: number = 22,
+    avaliacaoCount: number = 16
+  ): {
+    especialTargetCount: number;
+    especialIsExpanding: boolean;
+    especialRelegatedCount: number;
+    ouroPromotedCount: number;
+    ouroRelegatedCount: number;
+    prataPromotedCount: number;
+    prataRelegatedCount: number;
+    bronzePromotedCount: number;
+    bronzeRelegatedCount: number;
+    avaliacaoPromotedCount: number;
+    avaliacaoAfastadasCount: number;
+    nextEspecialCount: number;
+    nextOuroCount: number;
+    nextPrataCount: number;
+    nextBronzeCount: number;
+  } {
+    const especialTargetCount = 15;
+    const especialIsExpanding = especialCount < especialTargetCount;
+    const especialRelegatedCount = 1;
+    const ouroPromotedCount = especialIsExpanding ? 2 : 1;
+
+    // Série Ouro tem meta de estabilização em 14 escolas, considerando o saldo vindo do Grupo Especial
+    const ouroAfterEspecial = ouroCount + especialRelegatedCount - ouroPromotedCount;
+    let ouroRelegatedCount = 2;
+    let prataPromotedCount = 2;
+
+    if (ouroAfterEspecial > 14) {
+      // Enquanto acima de 14 escolas, rebaixa 2 da Ouro e sobe apenas 1 (Campeã) da Prata
+      ouroRelegatedCount = 2;
+      prataPromotedCount = 1;
+    } else if (ouroAfterEspecial < 14) {
+      // Na transição em que a Ouro (já em 14) cede 2 escolas ao Especial e recebe 1 (saldo -1),
+      // rebaixa apenas 1 para a Prata enquanto sobem 2 da Prata, mantendo a Ouro estabilizada em 14.
+      ouroRelegatedCount = Math.max(1, 2 - (14 - ouroAfterEspecial));
+      prataPromotedCount = 2;
+    } else {
+      // Estabilizada em 14 escolas: caem 2 da Ouro e sobem 2 da Prata
+      ouroRelegatedCount = 2;
+      prataPromotedCount = 2;
+    }
+
+    // Série Prata (meta de estabilização em 16 escolas)
+    let prataRelegatedCount = 3;
+    let bronzePromotedCount = 3;
+    if (prataCount > 16) {
+      prataRelegatedCount = 4;
+      bronzePromotedCount = 1;
+    } else if (prataCount === 15) {
+      prataRelegatedCount = 2;
+      bronzePromotedCount = 3;
+    } else if (prataCount < 15) {
+      prataRelegatedCount = 1;
+      bronzePromotedCount = 3;
+    } else {
+      prataRelegatedCount = 3;
+      bronzePromotedCount = 3;
+    }
+
+    // Série Bronze (meta de estabilização em 18 escolas) ⇄ Grupo de Avaliação
+    const netFromPrata = prataRelegatedCount - bronzePromotedCount;
+    let avaliacaoPromotedCount: number;
+    let bronzeRelegatedCount: number;
+    if (bronzeCount > 18) {
+      avaliacaoPromotedCount = 2;
+      const targetReduction = Math.min(2, bronzeCount - 18);
+      bronzeRelegatedCount = netFromPrata + avaliacaoPromotedCount + targetReduction;
+    } else {
+      avaliacaoPromotedCount = 3;
+      bronzeRelegatedCount = Math.max(0, 3 + netFromPrata);
+    }
+
+    // Grupo de Avaliação: mínimo de 5 últimas colocadas afastadas (teto de 20 com 5 ingressantes)
+    const avaliacaoAfastadasCount = Math.max(
+      5,
+      (avaliacaoCount - avaliacaoPromotedCount + bronzeRelegatedCount + 5) - 20
+    );
+
+    const nextEspecialCount = especialCount - especialRelegatedCount + ouroPromotedCount;
+    const nextOuroCount = ouroAfterEspecial - ouroRelegatedCount + prataPromotedCount;
+    const nextPrataCount =
+      prataCount + ouroRelegatedCount - prataPromotedCount - prataRelegatedCount + bronzePromotedCount;
+    const nextBronzeCount =
+      bronzeCount + prataRelegatedCount - bronzePromotedCount - bronzeRelegatedCount + avaliacaoPromotedCount;
+
+    return {
+      especialTargetCount,
+      especialIsExpanding,
+      especialRelegatedCount,
+      ouroPromotedCount,
+      ouroRelegatedCount,
+      prataPromotedCount,
+      prataRelegatedCount,
+      bronzePromotedCount,
+      bronzeRelegatedCount,
+      avaliacaoPromotedCount,
+      avaliacaoAfastadasCount,
+      nextEspecialCount,
+      nextOuroCount,
+      nextPrataCount,
+      nextBronzeCount
+    };
+  }
+
+  /**
    * Finalizes division results, determines champion, promotion, and relegation.
    */
   public static finalizeSeasonDivision(
@@ -598,7 +717,8 @@ export class SimulationEngine {
     ouroCountThisSeason: number = 17,
     prataCountThisSeason: number = 24,
     bronzeCountThisSeason: number = 22,
-    quesitoOrder?: QuesitoId[]
+    quesitoOrder?: QuesitoId[],
+    especialCountThisSeason: number = 12
   ): DivisionResult {
     const { rankedList } = this.calculateStandings(schools, paradeScores, 8, 3, undefined, true, quesitoOrder);
     const championId = rankedList[0]?.school.id || '';
@@ -606,6 +726,14 @@ export class SimulationEngine {
     const promotedSchoolIds: string[] = [];
     const relegatedSchoolIds: string[] = [];
     const tiebreakersApplied: { schoolAId: string; schoolBId: string; reason: string }[] = [];
+
+    const flow = this.getDivisionFlowCounts(
+      especialCountThisSeason,
+      ouroCountThisSeason,
+      prataCountThisSeason,
+      bronzeCountThisSeason,
+      division === 'avaliacao' ? rankedList.length : 16
+    );
 
     // Check tiebreakers applied in final table
     for (let i = 0; i < rankedList.length - 1; i++) {
@@ -621,72 +749,40 @@ export class SimulationEngine {
     }
 
     if (division === 'especial') {
-      // Last placed school (12th) is relegated to Série Ouro
+      // Última colocada do Grupo Especial é rebaixada para a Série Ouro (1 escola/ano)
       if (rankedList.length > 0) {
         const relegatedSchool = rankedList[rankedList.length - 1].school;
         relegatedSchoolIds.push(relegatedSchool.id);
       }
     } else if (division === 'ouro') {
-      // Série Ouro champion is promoted to Especial
-      promotedSchoolIds.push(championId);
-      // Bottom 2 schools relegated to Série Prata
-      if (rankedList.length >= 2) {
-        relegatedSchoolIds.push(rankedList[rankedList.length - 1].school.id);
-        relegatedSchoolIds.push(rankedList[rankedList.length - 2].school.id);
+      // Na transição 2027->2030 (enquanto Especial < 15), sobem 2 escolas (Campeã e Vice).
+      // Após atingir 15 escolas no Especial, sobe apenas a Campeã.
+      rankedList.slice(0, flow.ouroPromotedCount).forEach((item) => {
+        promotedSchoolIds.push(item.school.id);
+      });
+      // Rebaixamento para a Série Prata (2 escolas, ou 1 no ano de ajuste fino para preservar 14 escolas na Ouro)
+      if (flow.ouroRelegatedCount > 0) {
+        rankedList.slice(-flow.ouroRelegatedCount).forEach((item) => {
+          relegatedSchoolIds.push(item.school.id);
+        });
       }
     } else if (division === 'prata') {
-      // Série Prata champion is always promoted to Série Ouro
-      promotedSchoolIds.push(championId);
-      // If Série Ouro already reached target of <= 14 schools, 2nd place is also promoted!
-      if (ouroCountThisSeason <= 14 && rankedList.length >= 2) {
-        promotedSchoolIds.push(rankedList[1].school.id);
-      }
-      // Relegation to Bronze:
-      // When Prata > 16: relegate 4
-      // When Prata === 15 (transição 2031): relegate 2 (and promote 3 from Bronze to stabilize at 16)
-      // When Prata === 16 (stabilized): relegate 3
-      const prataRelegatedCount = prataCountThisSeason > 16 ? 4 : prataCountThisSeason === 15 ? 2 : 3;
-      const relegatedSlice = rankedList.slice(-prataRelegatedCount);
+      rankedList.slice(0, flow.prataPromotedCount).forEach((item) => {
+        promotedSchoolIds.push(item.school.id);
+      });
+      const relegatedSlice = rankedList.slice(-flow.prataRelegatedCount);
       relegatedSlice.forEach((item) => relegatedSchoolIds.push(item.school.id));
     } else if (division === 'bronze') {
-      // Promotion to Prata:
-      // When Prata > 16: promote 1 (champion)
-      // When Prata === 15 (transição 2031): promote 3 (Campeã, Vice, 3º lugar) so Prata stabilizes at 16
-      // When Prata === 16 (stabilized): promote 3
-      const bronzePromotedCount = prataCountThisSeason > 16 ? 1 : 3;
-      const promotedSlice = rankedList.slice(0, bronzePromotedCount);
+      const promotedSlice = rankedList.slice(0, flow.bronzePromotedCount);
       promotedSlice.forEach((item) => promotedSchoolIds.push(item.school.id));
 
-      // Relegation to Grupo de Avaliação:
-      // "Suba apenas 2 escolas do Grupo de Avaliação para Série Bronze até a Série Bronze chegar a 18 escolas, após isso rebaixar 3 do Bronze e subir 3 da Avaliação."
-      const prataRelegatedCount = prataCountThisSeason > 16 ? 4 : prataCountThisSeason === 15 ? 2 : 3;
-      const netFromPrata = prataRelegatedCount - bronzePromotedCount;
-      let bronzeRelegatedCount: number;
-      if (bronzeCountThisSeason > 18) {
-        const targetReduction = Math.min(2, bronzeCountThisSeason - 18);
-        bronzeRelegatedCount = netFromPrata + 2 + targetReduction;
-      } else {
-        bronzeRelegatedCount = Math.max(0, 3 + netFromPrata);
-      }
-      const relegatedSlice = bronzeRelegatedCount > 0 ? rankedList.slice(-bronzeRelegatedCount) : [];
+      const relegatedSlice = flow.bronzeRelegatedCount > 0 ? rankedList.slice(-flow.bronzeRelegatedCount) : [];
       relegatedSlice.forEach((item) => relegatedSchoolIds.push(item.school.id));
     } else if (division === 'avaliacao') {
-      // Promotion to Série Bronze:
-      // "Suba apenas 2 escolas do Grupo de Avaliação para Série Bronze até a Série Bronze chegar a 18 escolas, após isso rebaixar 3 do Bronze e subir 3 da Avaliação."
-      const avaliacaoPromotedCount = bronzeCountThisSeason > 18 ? 2 : 3;
-      const promotedSlice = rankedList.slice(0, avaliacaoPromotedCount);
+      const promotedSlice = rankedList.slice(0, flow.avaliacaoPromotedCount);
       promotedSlice.forEach((item) => promotedSchoolIds.push(item.school.id));
 
-      // Afastamento do Carnaval (mínimo 1 ano fora):
-      // Regulamento da Superliga: no mínimo as 5 últimas colocadas são afastadas/suspensas a cada carnaval!
-      // (Se necessário para não estourar o limite de 20 agremiações no próximo ano, afasta mais escolas).
-      const currentCount = rankedList.length;
-      const prataRelegatedCount = prataCountThisSeason > 16 ? 4 : prataCountThisSeason === 15 ? 2 : 3;
-      const bronzePromotedCount = prataCountThisSeason > 16 ? 1 : 3;
-      const netFromPrata = prataRelegatedCount - bronzePromotedCount;
-      const incomingFromBronze = bronzeCountThisSeason > 18 ? (netFromPrata + 2 + Math.min(2, bronzeCountThisSeason - 18)) : Math.max(0, 3 + netFromPrata);
-      const neededAfastadas = Math.max(5, (currentCount - avaliacaoPromotedCount + incomingFromBronze + 5) - 20);
-      const afastadasSlice = neededAfastadas > 0 ? rankedList.slice(-neededAfastadas) : [];
+      const afastadasSlice = flow.avaliacaoAfastadasCount > 0 ? rankedList.slice(-flow.avaliacaoAfastadasCount) : [];
       afastadasSlice.forEach((item) => relegatedSchoolIds.push(item.school.id));
     }
 
@@ -731,6 +827,7 @@ export class SimulationEngine {
       especialChampionName: string;
       especialRelegatedName: string;
       ouroChampionName: string;
+      ouroPromotedNames: string[];
       ouroRelegatedNames: string[];
       prataChampionName: string;
       prataPromotedNames: string[];
@@ -743,6 +840,7 @@ export class SimulationEngine {
       avaliacaoAfastadasNames: string[];
       reactivatedSchoolNames: string[];
       newSchoolNames: string[];
+      especialCountNextSeason: number;
       ouroCountNextSeason: number;
       prataCountNextSeason: number;
       bronzeCountNextSeason: number;
@@ -789,50 +887,32 @@ export class SimulationEngine {
         ouroSchools.length,
         prataSchools.length,
         bronzeSchools.length,
-        quesitoOrders?.avaliacao
+        quesitoOrders?.avaliacao,
+        espSchools.length
       );
     const avaliacaoRanked = this.calculateStandings(avaliacaoSchools, avaResult.schoolResults, 8, 3, undefined, true, quesitoOrders?.avaliacao).rankedList;
 
+    const currentEspecialCount = espSchools.length;
     const currentOuroCount = ouroSchools.length;
-    // Condition specified by user:
-    // If currentOuroCount > 14: rebaixe 2 de Ouro e suba 1 de Prata
-    // Once currentOuroCount <= 14: rebaixe 2 de Ouro e subam 2 de Prata
-    const ouroNeedsReduction = currentOuroCount > 14;
-    const prataPromotedCount = ouroNeedsReduction ? 1 : 2;
-
     const currentPrataCount = prataSchools.length;
-    // Condition specified by user:
-    // If currentPrataCount > 16: rebaixe 4 da Prata e suba 1 da Bronze
-    // If currentPrataCount === 15 (ano 2031): rebaixe 2 da Prata e suba 3 da Bronze (fazendo com que a Série Prata estabilize em 16 escolas)
-    // If currentPrataCount === 16 (estabilizada): rebaixe 3 da Prata e suba 3 da Bronze
-    let prataRelegatedCount = 3;
-    let bronzePromotedCount = 3;
-    if (currentPrataCount > 16) {
-      prataRelegatedCount = 4;
-      bronzePromotedCount = 1;
-    } else if (currentPrataCount === 15) {
-      prataRelegatedCount = 2;
-      bronzePromotedCount = 3;
-    } else {
-      prataRelegatedCount = 3;
-      bronzePromotedCount = 3;
-    }
-
-    // Condition specified by user for Bronze ⇄ Avaliação:
-    // "Suba apenas 2 escolas do Grupo de Avaliação para Série Bronze até a Série Bronze chegar a 18 escolas, após isso rebaixar 3 do Bronze e subir 3 da Avaliação."
     const currentBronzeCount = bronzeSchools.length;
-    let avaliacaoPromotedCount: number;
-    let bronzeRelegatedCount: number;
-    const netFromPrata = prataRelegatedCount - bronzePromotedCount;
+    const currentAvaliacaoCountInitial = avaliacaoSchools.length;
 
-    if (currentBronzeCount > 18) {
-      avaliacaoPromotedCount = 2;
-      const targetReduction = Math.min(2, currentBronzeCount - 18);
-      bronzeRelegatedCount = netFromPrata + avaliacaoPromotedCount + targetReduction;
-    } else {
-      avaliacaoPromotedCount = 3;
-      bronzeRelegatedCount = Math.max(0, 3 + netFromPrata);
-    }
+    const flow = this.getDivisionFlowCounts(
+      currentEspecialCount,
+      currentOuroCount,
+      currentPrataCount,
+      currentBronzeCount,
+      currentAvaliacaoCountInitial
+    );
+
+    const ouroPromotedCount = flow.ouroPromotedCount;
+    const ouroRelegatedCount = flow.ouroRelegatedCount;
+    const prataPromotedCount = flow.prataPromotedCount;
+    const prataRelegatedCount = flow.prataRelegatedCount;
+    const bronzePromotedCount = flow.bronzePromotedCount;
+    const bronzeRelegatedCount = flow.bronzeRelegatedCount;
+    const avaliacaoPromotedCount = flow.avaliacaoPromotedCount;
 
     // Record In-Game achievements for Grupo Especial (2027 onwards)
     espRanked.forEach((item) => {
@@ -892,7 +972,7 @@ export class SimulationEngine {
     });
 
     // Record In-Game achievements for Série Ouro
-    const ouroRelegatedThreshold = ouroRanked.length - 2;
+    const ouroRelegatedThreshold = ouroRanked.length - ouroRelegatedCount;
     ouroRanked.forEach((item) => {
       const sch = schoolMap.get(item.school.id);
       if (!sch) return;
@@ -911,11 +991,16 @@ export class SimulationEngine {
         });
       } else if (item.rank === 2) {
         sch.runnerUpsOuro = (sch.runnerUpsOuro || 0) + 1;
+        if (ouroPromotedCount >= 2) {
+          sch.fanBaseMorale = Math.min(100, sch.fanBaseMorale + 10);
+        }
         sch.honors.inGameAchievements.push({
           year: currentYear,
           division: 'ouro',
           placement: 2,
-          titleName: `Vice-Campeã da Série Ouro ${currentYear}`,
+          titleName: ouroPromotedCount >= 2
+            ? `Vice-Campeã da Série Ouro & Acesso ao Especial ${currentYear}`
+            : `Vice-Campeã da Série Ouro ${currentYear}`,
           badgeType: 'vice_ouro',
           totalScore: item.currentScore
         });
@@ -959,14 +1044,14 @@ export class SimulationEngine {
         });
       } else if (item.rank === 2) {
         sch.runnerUpsPrata = (sch.runnerUpsPrata || 0) + 1;
-        if (!ouroNeedsReduction) {
+        if (prataPromotedCount >= 2) {
           sch.fanBaseMorale = Math.min(100, sch.fanBaseMorale + 10);
         }
         sch.honors.inGameAchievements.push({
           year: currentYear,
           division: 'prata',
           placement: 2,
-          titleName: !ouroNeedsReduction
+          titleName: prataPromotedCount >= 2
             ? `Vice-Campeã da Série Prata & Acesso à Série Ouro ${currentYear}`
             : `Vice-Campeã da Série Prata ${currentYear}`,
           badgeType: 'vice_prata',
@@ -1149,14 +1234,20 @@ export class SimulationEngine {
       especialRelegated.fanBaseMorale = Math.max(50, especialRelegated.fanBaseMorale - 15);
     }
 
-    // 2. Promote Série Ouro champion to Especial
+    // 2. Promote Série Ouro top schools to Grupo Especial (2 while Especial < 15: 2027->2030, then 1)
     const ouroChamp = schoolMap.get(ouroResult.championId) || ouroRanked[0]?.school;
-    if (ouroChamp) {
-      ouroChamp.division = 'especial';
-    }
+    const ouroPromotedItems = ouroRanked.slice(0, ouroPromotedCount);
+    const ouroPromotedNames: string[] = [];
+    ouroPromotedItems.forEach((item) => {
+      const sch = schoolMap.get(item.school.id);
+      if (sch) {
+        sch.division = 'especial';
+        ouroPromotedNames.push(sch.name);
+      }
+    });
 
-    // 3. Relegate bottom 2 schools from Série Ouro to Série Prata
-    const ouroRelegatedItems = ouroRanked.slice(-2);
+    // 3. Relegate bottom schools from Série Ouro to Série Prata (2 normalmente; 1 no ajuste fino de 2029)
+    const ouroRelegatedItems = ouroRelegatedCount > 0 ? ouroRanked.slice(-ouroRelegatedCount) : [];
     const ouroRelegatedNames: string[] = [];
     ouroRelegatedItems.forEach(item => {
       const sch = schoolMap.get(item.school.id);
@@ -1272,10 +1363,35 @@ export class SimulationEngine {
         // Escolhe uma inativa elegível
         const randomIndex = Math.floor(Math.random() * eligibleInactive.length);
         const [chosen] = eligibleInactive.splice(randomIndex, 1);
+        const wasBloco = Boolean(
+          chosen.isBlocoCarnavalesco ||
+          chosen.federation === 'FBCERJ' ||
+          (chosen.denomination && chosen.denomination !== 'G.R.E.S.')
+        );
         chosen.isInactive = false;
         chosen.inactive = false;
         chosen.inactiveYearsCount = 0;
         chosen.suspensionReason = undefined;
+        chosen.inactiveReason = undefined;
+        chosen.isBlocoCarnavalesco = false;
+        chosen.federation = 'SUPERLIGA';
+        if (wasBloco) {
+          chosen.denomination = 'G.R.E.S.';
+          const rawCorp = chosen.corporateName || chosen.name;
+          let updatedCorp = rawCorp
+            .replace(/Grêmio Recreativo Bloco Carnavalesco e Cultural/gi, 'Grêmio Recreativo Escola de Samba')
+            .replace(/Grêmio Recreativo Bloco Carnavalesco/gi, 'Grêmio Recreativo Escola de Samba')
+            .replace(/Centro Cultural Bloco Carnavalesco/gi, 'Grêmio Recreativo Escola de Samba')
+            .replace(/Bloco Carnavalesco Cultural e Recreativo/gi, 'Grêmio Recreativo Escola de Samba')
+            .replace(/^GRBCC\s+/gi, 'GRES ')
+            .replace(/^GRBC\s+/gi, 'GRES ')
+            .replace(/^CCBC\s+/gi, 'GRES ')
+            .replace(/^BCCR\s+/gi, 'GRES ');
+          if (!updatedCorp.startsWith('GRES') && !updatedCorp.startsWith('Grêmio Recreativo Escola de Samba')) {
+            updatedCorp = `Grêmio Recreativo Escola de Samba ${chosen.name}`;
+          }
+          chosen.corporateName = updatedCorp;
+        }
         chosen.division = 'avaliacao';
         chosen.budget = 0; // Início igualitário do Grupo de Avaliação (sem repasse fixo da Superliga)
         chosen.fanBaseMorale = 80;
@@ -1296,45 +1412,73 @@ export class SimulationEngine {
     const avaliacaoChamp = schoolMap.get(avaResult?.championId || '') || avaliacaoRanked[0]?.school;
     const avaliacaoVice = avaliacaoRanked[1]?.school;
 
-    const nextOuroCount = currentOuroCount - 2 + prataPromotedCount;
-    const nextPrataCount = currentPrataCount + 2 - prataPromotedCount - prataRelegatedCount + bronzePromotedCount;
-    const nextBronzeCount = currentBronzeCount + prataRelegatedCount - bronzePromotedCount - bronzeRelegatedCount + avaliacaoPromotedCount;
+    const nextEspecialCount = flow.nextEspecialCount;
+    const nextOuroCount = flow.nextOuroCount;
+    const nextPrataCount = flow.nextPrataCount;
+    const nextBronzeCount = flow.nextBronzeCount;
     const nextAvaliacaoCount = activeAvaliacaoAfterMovements + reactivatedSchoolNames.length + newSchoolNames.length;
 
-    // Compute standings summary for history and Liga financial distribution
+    // Resolve o título oficial do enredo desfilado por cada agremiação na temporada encerrada
+    const endedSeasonEnredoById = new Map<string, string>();
+    allSchools.forEach((s: School) => {
+      if (!wasActiveInEndedSeason.has(s.id)) return;
+      const title =
+        s.currentEnredo?.title ||
+        (s as any).enredo ||
+        (s as any).tituloEnredo;
+      if (title && !title.includes('SAMPLE')) {
+        endedSeasonEnredoById.set(s.id, title);
+      }
+    });
+
+    const getEndedSeasonEnredo = (school: School): string | undefined => {
+      return (
+        endedSeasonEnredoById.get(school.id) ||
+        school.currentEnredo?.title ||
+        (school as any).enredo ||
+        (school as any).tituloEnredo
+      );
+    };
+
+    // Compute standings summary for history and Liga financial distribution (preserving each school's enredo)
     const espStandings = espRanked.map(r => ({
       rank: r.rank,
       schoolId: r.school.id,
       schoolName: cleanSchoolName(r.school),
-      totalScore: r.currentScore
+      totalScore: r.currentScore,
+      enredo: getEndedSeasonEnredo(r.school)
     }));
 
     const ouroStandings = ouroRanked.map(r => ({
       rank: r.rank,
       schoolId: r.school.id,
       schoolName: cleanSchoolName(r.school),
-      totalScore: r.currentScore
+      totalScore: r.currentScore,
+      enredo: getEndedSeasonEnredo(r.school)
     }));
 
     const prataStandings = prataRanked.map(r => ({
       rank: r.rank,
       schoolId: r.school.id,
       schoolName: cleanSchoolName(r.school),
-      totalScore: r.currentScore
+      totalScore: r.currentScore,
+      enredo: getEndedSeasonEnredo(r.school)
     }));
 
     const bronzeStandings = bronzeRanked.map(r => ({
       rank: r.rank,
       schoolId: r.school.id,
       schoolName: cleanSchoolName(r.school),
-      totalScore: r.currentScore
+      totalScore: r.currentScore,
+      enredo: getEndedSeasonEnredo(r.school)
     }));
 
     const avaliacaoStandings = avaliacaoRanked.map(r => ({
       rank: r.rank,
       schoolId: r.school.id,
       schoolName: cleanSchoolName(r.school),
-      totalScore: r.currentScore
+      totalScore: r.currentScore,
+      enredo: getEndedSeasonEnredo(r.school)
     }));
 
     // Calculate official LIGA financial report for Grupo Especial
@@ -1455,11 +1599,14 @@ export class SimulationEngine {
       const cons = getSchoolConsolidatedStats(s);
 
       let nextEnredo = s.currentEnredo;
-      let updatedPastTitles = s.pastEnredoTitles || [];
+      let updatedPastTitles = s.pastEnredoTitles ? [...s.pastEnredoTitles] : [];
       let updatedEnredoHistory = s.enredoHistory ? [...s.enredoHistory] : [];
 
-      if (!isInactive) {
-        const priorTitle = s.currentEnredo?.title;
+      // 1) Arquiva o enredo da temporada encerrada (currentYear) ESTRITAMENTE para agremiações
+      // que realmente desfilaram em `currentYear` — inclusive aquelas que acabaram afastadas/suspensas
+      // ao fim da apuração, e NUNCA para escolas recém-criadas ou reativadas para `currentYear + 1`.
+      if (wasActiveInEndedSeason.has(s.id)) {
+        const priorTitle = endedSeasonEnredoById.get(s.id) || s.currentEnredo?.title;
         if (priorTitle && !priorTitle.includes('SAMPLE')) {
           if (!updatedPastTitles.includes(priorTitle)) {
             updatedPastTitles = [...updatedPastTitles, priorTitle];
@@ -1468,9 +1615,28 @@ export class SimulationEngine {
             updatedEnredoHistory = [...updatedEnredoHistory, { year: currentYear, enredo: priorTitle }];
           }
         }
-        const schoolWithPast = { ...s, pastEnredoTitles: updatedPastTitles, enredoHistory: updatedEnredoHistory };
-        nextEnredo = EnredoService.generateUniqueEnredoForSchool(schoolWithPast, currentYear + 1, usedEnredoTitlesThisSeason);
+      }
+
+      // 2) Define o enredo da próxima temporada (currentYear + 1) apenas para escolas ativas
+      if (!isInactive) {
+        suspensionReason = undefined;
+        const isNewlyFounded = newSchoolNames.includes(s.name);
+        const existingDebutTitle = s.currentEnredo?.title;
+        if (
+          isNewlyFounded &&
+          s.currentEnredo &&
+          existingDebutTitle &&
+          !existingDebutTitle.includes('SAMPLE') &&
+          !usedEnredoTitlesThisSeason.has(existingDebutTitle)
+        ) {
+          nextEnredo = s.currentEnredo;
+        } else {
+          const schoolWithPast = { ...s, pastEnredoTitles: updatedPastTitles, enredoHistory: updatedEnredoHistory };
+          nextEnredo = EnredoService.generateUniqueEnredoForSchool(schoolWithPast, currentYear + 1, usedEnredoTitlesThisSeason);
+        }
         usedEnredoTitlesThisSeason.add(nextEnredo.title);
+      } else {
+        nextEnredo = undefined;
       }
 
       return {
@@ -1479,6 +1645,7 @@ export class SimulationEngine {
         inactive: isInactive,
         inactiveYearsCount,
         suspensionReason,
+        inactiveReason: isInactive ? s.inactiveReason : undefined,
         championshipsEspecial: cons.totalEspecialTitles,
         runnerUpsEspecial: cons.totalEspecialVices,
         championshipsOuro: cons.totalOuroTitles,
@@ -1496,6 +1663,11 @@ export class SimulationEngine {
         barracaoProgress: 70,
         technicalParadeDone: false,
         currentEnredo: nextEnredo,
+        enredo: nextEnredo?.title,
+        tituloEnredo: nextEnredo?.title,
+        temaEnredo: nextEnredo?.themeType,
+        sinopseEnredo: nextEnredo?.synopsis,
+        complexidadeEnredo: nextEnredo ? ((nextEnredo as any).complexity || 'Média') : undefined,
         pastEnredoTitles: updatedPastTitles,
         enredoHistory: updatedEnredoHistory,
         attributes: {
@@ -1512,11 +1684,18 @@ export class SimulationEngine {
       };
     });
 
+    // Registra os enredos da temporada encerrada sob todas as chaves de identificação (id, nome completo, nome limpo e nome curto)
+    // garantindo consulta confiável para escolas originais, reativadas e recém-criadas em todos os históricos e tabelas.
     const schoolEnredosRecord: Record<string, string> = {};
     allSchools.forEach((s: School) => {
-      if (s.currentEnredo?.title) {
-        schoolEnredosRecord[s.id] = s.currentEnredo.title;
-        schoolEnredosRecord[s.name] = s.currentEnredo.title;
+      if (!wasActiveInEndedSeason.has(s.id)) return;
+      const title = endedSeasonEnredoById.get(s.id) || s.currentEnredo?.title || (s as any).enredo || (s as any).tituloEnredo;
+      if (title) {
+        schoolEnredosRecord[s.id] = title;
+        schoolEnredosRecord[s.name] = title;
+        const cleaned = cleanSchoolName(s);
+        if (cleaned) schoolEnredosRecord[cleaned] = title;
+        if (s.shortName) schoolEnredosRecord[s.shortName] = title;
       }
     });
 
@@ -1525,6 +1704,8 @@ export class SimulationEngine {
 
     const ouroChampStaffCarnavalesco = ouroChamp?.staff?.carnavalesco;
     const ouroChampCarnavalescoNames = extractCarnavalescoNamesFromStaff(ouroChampStaffCarnavalesco);
+
+    const cleanedNewSchoolNames = newSchoolNames.map(n => cleanSchoolName(n));
 
     const historyRecord: YearHistory = {
       year: currentYear,
@@ -1536,6 +1717,7 @@ export class SimulationEngine {
       especialChampionCarnavalescoNames: espChampCarnavalescoNames,
       especialRelegated: especialRelegated ? [cleanSchoolName(especialRelegated)] : [],
       ouroChampion: ouroChamp ? cleanSchoolName(ouroChamp) : 'Desconhecida',
+      ouroPromoted: ouroPromotedNames.map(n => cleanSchoolName(n)),
       ouroChampionCarnavalesco:
         ouroChampCarnavalescoNames.length > 0
           ? ouroChampCarnavalescoNames.join(', ')
@@ -1560,7 +1742,8 @@ export class SimulationEngine {
       avaliacaoStandings: avaliacaoStandings,
       schoolEnredos: schoolEnredosRecord,
       reactivatedSchools: reactivatedSchoolNames.map(n => cleanSchoolName(n)),
-      newSchoolsCreated: newSchoolNames.map(n => cleanSchoolName(n)),
+      newSchoolsCreated: cleanedNewSchoolNames,
+      newSchools: cleanedNewSchoolNames,
       ligaFinancialReport: espLigaReport,
       ouroFinancialReport: ouroExtratos,
       prataFinancialReport: prataExtratos,
@@ -1576,6 +1759,7 @@ export class SimulationEngine {
         especialChampionName: cleanSchoolName(espRanked[0]?.school) || '',
         especialRelegatedName: cleanSchoolName(especialRelegated) || '',
         ouroChampionName: cleanSchoolName(ouroChamp) || '',
+        ouroPromotedNames: ouroPromotedNames.map(n => cleanSchoolName(n)),
         ouroRelegatedNames: ouroRelegatedNames.map(n => cleanSchoolName(n)),
         prataChampionName: cleanSchoolName(prataChamp) || '',
         prataPromotedNames: prataPromotedNames.map(n => cleanSchoolName(n)),
@@ -1588,6 +1772,7 @@ export class SimulationEngine {
         avaliacaoAfastadasNames: avaliacaoAfastadasNames.map(n => cleanSchoolName(n)),
         reactivatedSchoolNames,
         newSchoolNames,
+        especialCountNextSeason: nextEspecialCount,
         ouroCountNextSeason: nextOuroCount,
         prataCountNextSeason: nextPrataCount,
         bronzeCountNextSeason: nextBronzeCount,

@@ -37,12 +37,18 @@ export class SorteioEngine {
   }
 
   /**
-   * Sorteio do Grupo Especial (12 escolas em 3 noites: Domingo, Segunda e Terça de Carnaval)
-   * Regras Oficiais LIESA:
-   * - Campeã da Série Ouro (promovida) abre a 1ª noite (Domingo, 1ª a desfilar).
-   * - 11ª colocada no último Carnaval abre a 2ª noite (Segunda-Feira, 1ª a desfilar).
-   * - 10ª colocada no último Carnaval abre a 3ª noite (Terça-Feira, 1ª a desfilar).
-   * - As demais 9 agremiações sorteiam aleatoriamente entre as posições restantes (3 por noite: 2ª, 3ª, 4ª).
+   * Sorteio do Grupo Especial (3 noites: Domingo, Segunda e Terça de Carnaval — 12 a 15 escolas até 2030)
+   *
+   * Regras oficiais do sorteio (Acordo LIESA + Prefeitura do Rio):
+   * - Durante a ampliação gradual até 15 escolas (quando 2 escolas sobem da Série Ouro: 2028, 2029 e 2030):
+   *   1ª Noite (Domingo #1): Vice-Campeã da Série Ouro do ano anterior.
+   *   2ª Noite (Segunda #1): Campeã da Série Ouro do ano anterior.
+   *   3ª Noite (Terça #1): Última escola não rebaixada do Grupo Especial no último Carnaval (ex.: 11ª em 2027 abre a 3ª noite em 2028).
+   * - Quando apenas 1 escola sobe da Série Ouro (2027 com 12 escolas e a partir de 2031 com 15 escolas estabilizadas):
+   *   1ª Noite (Domingo #1): Campeã da Série Ouro do ano anterior.
+   *   2ª Noite (Segunda #1): Última escola não rebaixada do Especial no último Carnaval (11ª em 2026->2027; 14ª em 2030->2031+).
+   *   3ª Noite (Terça #1): Penúltima escola não rebaixada do Especial no último Carnaval (10ª em 2026->2027; 13ª em 2030->2031+).
+   * - As demais agremiações sorteiam aleatoriamente as vagas restantes distribuídas entre Domingo, Segunda e Terça (chegando a 5 escolas por noite em 2030).
    */
   public static generateEspecialSorteio(
     especialSchools: School[],
@@ -52,109 +58,185 @@ export class SorteioEngine {
     const prevHistory = this.getPreviousYearHistory(currentYear, history);
     const slots: SorteioSlot[] = [];
 
+    const findEspecialSchoolByRef = (nameOrId?: string, schoolId?: string): School | undefined => {
+      if (schoolId) {
+        const byId = especialSchools.find((s) => s.id === schoolId);
+        if (byId) return byId;
+      }
+      if (!nameOrId) return undefined;
+      const target = nameOrId.toLowerCase();
+      return especialSchools.find(
+        (s) =>
+          s.id === nameOrId ||
+          s.name.toLowerCase() === target ||
+          s.shortName.toLowerCase() === target
+      );
+    };
+
     // Identificar a Campeã da Série Ouro promovida
-    let promotedFromOuroId: string | undefined;
-    if (prevHistory?.ouroChampion) {
-      const match = especialSchools.find(
-        (s) => s.name === prevHistory.ouroChampion || s.shortName === prevHistory.ouroChampion
+    let promotedChampSchool: School | undefined =
+      findEspecialSchoolByRef(prevHistory?.ouroPromoted?.[0]) ||
+      findEspecialSchoolByRef(prevHistory?.ouroChampion) ||
+      findEspecialSchoolByRef(
+        prevHistory?.ouroStandings?.[0]?.schoolName,
+        prevHistory?.ouroStandings?.[0]?.schoolId
       );
-      if (match) promotedFromOuroId = match.id;
-    }
-    if (!promotedFromOuroId && prevHistory?.ouroStandings && prevHistory.ouroStandings.length > 0) {
-      promotedFromOuroId = prevHistory.ouroStandings[0].schoolId;
-    }
-    // Fallback se não encontrar por nome no histórico
-    if (!promotedFromOuroId || !especialSchools.some((s) => s.id === promotedFromOuroId)) {
-      promotedFromOuroId = especialSchools[especialSchools.length - 1]?.id;
-    }
 
-    // Identificar a 11ª colocada no último Carnaval (abre Segunda)
-    let eleventhPlaceId: string | undefined;
-    if (prevHistory?.especialStandings && prevHistory.especialStandings.length >= 11) {
-      const eleventh = prevHistory.especialStandings.find((s) => s.rank === 11);
-      if (eleventh?.schoolId && especialSchools.some((s) => s.id === eleventh.schoolId)) {
-        eleventhPlaceId = eleventh.schoolId;
+    // Identificar se a Vice-Campeã da Série Ouro também subiu (transição de ampliação até 15 escolas: 2028, 2029, 2030)
+    let promotedViceSchool: School | undefined;
+    if (prevHistory?.ouroPromoted && prevHistory.ouroPromoted.length >= 2) {
+      promotedViceSchool = findEspecialSchoolByRef(prevHistory.ouroPromoted[1]);
+    }
+    if (!promotedViceSchool && prevHistory?.ouroStandings && prevHistory.ouroStandings.length >= 2) {
+      const viceEntry = prevHistory.ouroStandings.find((s) => s.rank === 2) || prevHistory.ouroStandings[1];
+      const matchedVice = findEspecialSchoolByRef(viceEntry?.schoolName, viceEntry?.schoolId);
+      if (matchedVice && matchedVice.id !== promotedChampSchool?.id) {
+        promotedViceSchool = matchedVice;
       }
     }
-    // Fallback se não achar
-    if (!eleventhPlaceId || eleventhPlaceId === promotedFromOuroId) {
-      const candidates = especialSchools.filter((s) => s.id !== promotedFromOuroId);
-      eleventhPlaceId = candidates[candidates.length - 2]?.id || candidates[0]?.id;
+
+    const twoPromotedFromOuro = Boolean(
+      promotedChampSchool && promotedViceSchool && promotedChampSchool.id !== promotedViceSchool.id
+    );
+
+    // Fallback seguro para Campeã da Ouro se histórico não estiver disponível
+    if (!promotedChampSchool) {
+      promotedChampSchool = especialSchools[especialSchools.length - 1];
     }
 
-    // Identificar a 10ª colocada no último Carnaval (abre Terça)
-    let tenthPlaceId: string | undefined;
-    if (prevHistory?.especialStandings && prevHistory.especialStandings.length >= 10) {
-      const tenth = prevHistory.especialStandings.find((s) => s.rank === 10);
-      if (
-        tenth?.schoolId &&
-        tenth.schoolId !== eleventhPlaceId &&
-        tenth.schoolId !== promotedFromOuroId &&
-        especialSchools.some((s) => s.id === tenth.schoolId)
-      ) {
-        tenthPlaceId = tenth.schoolId;
-      }
+    // Construir lista ordenada das escolas do Especial que permaneceram da temporada anterior (não rebaixadas)
+    const promotedIds = new Set<string>(
+      [promotedChampSchool?.id, twoPromotedFromOuro ? promotedViceSchool?.id : undefined].filter(Boolean) as string[]
+    );
+    const relegatedNamesSet = new Set(
+      (prevHistory?.especialRelegated || []).map((n) => n.toLowerCase())
+    );
+
+    const remainingFromPrevEspecial: Array<{ school: School; prevRank: number }> = [];
+    if (prevHistory?.especialStandings && prevHistory.especialStandings.length > 0) {
+      const sortedPrev = [...prevHistory.especialStandings].sort((a, b) => a.rank - b.rank);
+      sortedPrev.forEach((entry) => {
+        if (relegatedNamesSet.has(entry.schoolName.toLowerCase())) return;
+        const matched = findEspecialSchoolByRef(entry.schoolName, entry.schoolId);
+        if (matched && !promotedIds.has(matched.id)) {
+          remainingFromPrevEspecial.push({ school: matched, prevRank: entry.rank });
+        }
+      });
     }
-    // Fallback se não achar
-    if (!tenthPlaceId || tenthPlaceId === promotedFromOuroId || tenthPlaceId === eleventhPlaceId) {
-      const candidates = especialSchools.filter(
-        (s) => s.id !== promotedFromOuroId && s.id !== eleventhPlaceId
+
+    // Última e penúltima não rebaixadas do Grupo Especial no último Carnaval
+    const lastNonRelegated = remainingFromPrevEspecial[remainingFromPrevEspecial.length - 1];
+    const secondLastNonRelegated = remainingFromPrevEspecial[remainingFromPrevEspecial.length - 2];
+
+    let domingoOpener: School;
+    let segundaOpener: School;
+    let tercaOpener: School;
+    let domingoReason: string;
+    let segundaReason: string;
+    let tercaReason: string;
+
+    if (twoPromotedFromOuro && promotedViceSchool && promotedChampSchool) {
+      // REGRA DE TRANSIÇÃO (até atingir 15 escolas no Grupo Especial):
+      // 1ª noite (Domingo): Vice-Campeã da Série Ouro
+      // 2ª noite (Segunda): Campeã da Série Ouro
+      // 3ª noite (Terça): Última escola não rebaixada do Grupo Especial (ex: 11ª em 2027 -> abre 3ª noite em 2028)
+      domingoOpener = promotedViceSchool;
+      domingoReason =
+        'Vice-Campeã da Série Ouro (Acesso na ampliação do Especial) • Abre a 1ª noite (Domingo) por regulamento';
+
+      segundaOpener = promotedChampSchool;
+      segundaReason =
+        'Campeã da Série Ouro (Acesso à Elite) • Abre a 2ª noite (Segunda-Feira) por regulamento';
+
+      const fallbackTerca = especialSchools.find(
+        (s) => s.id !== domingoOpener.id && s.id !== segundaOpener.id
+      )!;
+      tercaOpener = lastNonRelegated?.school || fallbackTerca;
+      const lastRankLabel = lastNonRelegated?.prevRank
+        ? `${lastNonRelegated.prevRank}ª colocada`
+        : 'Última colocada não rebaixada';
+      tercaReason = `${lastRankLabel} no último Carnaval do Especial (última não rebaixada) • Abre a 3ª noite (Terça-Feira) por regulamento`;
+    } else {
+      // REGRA PADRÃO (1 escola promovida da Série Ouro: 2027 com 12 escolas e 2031+ após chegar a 15 escolas):
+      // 1ª noite (Domingo): Campeã da Série Ouro
+      // 2ª noite (Segunda): Última escola não rebaixada do Grupo Especial (11ª em 2026->2027; 14ª em 2030->2031+)
+      // 3ª noite (Terça): Penúltima escola não rebaixada do Grupo Especial (10ª em 2026->2027; 13ª em 2030->2031+)
+      domingoOpener = promotedChampSchool!;
+      domingoReason = 'Campeã da Série Ouro (Acesso à Elite) • Abre a 1ª noite (Domingo) por regulamento';
+
+      const fallbackSegundaCandidates = especialSchools.filter((s) => s.id !== domingoOpener.id);
+      segundaOpener =
+        lastNonRelegated?.school ||
+        fallbackSegundaCandidates[fallbackSegundaCandidates.length - 2] ||
+        fallbackSegundaCandidates[0];
+      const segRankLabel = lastNonRelegated?.prevRank
+        ? `${lastNonRelegated.prevRank}ª colocada`
+        : `${Math.max(1, especialSchools.length - 1)}ª colocada`;
+      segundaReason = `${segRankLabel} no último Carnaval do Especial • Abre a 2ª noite (Segunda-Feira) por regulamento`;
+
+      const fallbackTercaCandidates = especialSchools.filter(
+        (s) => s.id !== domingoOpener.id && s.id !== segundaOpener.id
       );
-      tenthPlaceId = candidates[candidates.length - 1]?.id || candidates[0]?.id;
+      tercaOpener =
+        (secondLastNonRelegated && secondLastNonRelegated.school.id !== segundaOpener.id
+          ? secondLastNonRelegated.school
+          : undefined) ||
+        fallbackTercaCandidates[fallbackTercaCandidates.length - 1] ||
+        fallbackTercaCandidates[0];
+      const terRankLabel = secondLastNonRelegated?.prevRank
+        ? `${secondLastNonRelegated.prevRank}ª colocada`
+        : `${Math.max(1, especialSchools.length - 2)}ª colocada`;
+      tercaReason = `${terRankLabel} no último Carnaval do Especial • Abre a 3ª noite (Terça-Feira) por regulamento`;
     }
 
-    const promotedSchool = especialSchools.find((s) => s.id === promotedFromOuroId)!;
-    const eleventhSchool = especialSchools.find((s) => s.id === eleventhPlaceId)!;
-    const tenthSchool = especialSchools.find((s) => s.id === tenthPlaceId)!;
-
-    // Slot 1 de Domingo: Campeã da Série Ouro
+    // Slot 1 de Domingo
     slots.push({
       id: 'especial_domingo_1',
       division: 'especial',
       day: 'domingo',
       dayLabel: 'Domingo de Carnaval',
       order: 1,
-      schoolId: promotedSchool.id,
-      schoolName: promotedSchool.name,
-      reason: 'Campeã da Série Ouro (Acesso à Elite) • Abre a 1ª noite (Domingo) por regulamento',
+      schoolId: domingoOpener.id,
+      schoolName: domingoOpener.name,
+      reason: domingoReason,
       isFixedRule: true,
       ballLabel: 'Bola Amarela #1 (Abertura Domingo)',
       drawOrder: 1
     });
 
-    // Slot 1 de Segunda: 11ª colocada do último ano
+    // Slot 1 de Segunda
     slots.push({
       id: 'especial_segunda_1',
       division: 'especial',
       day: 'segunda',
       dayLabel: 'Segunda-Feira de Carnaval',
       order: 1,
-      schoolId: eleventhSchool.id,
-      schoolName: eleventhSchool.name,
-      reason: '11ª colocada no último Carnaval do Especial • Abre a 2ª noite (Segunda) por regulamento',
+      schoolId: segundaOpener.id,
+      schoolName: segundaOpener.name,
+      reason: segundaReason,
       isFixedRule: true,
       ballLabel: 'Bola Azul #1 (Abertura Segunda)',
       drawOrder: 2
     });
 
-    // Slot 1 de Terça: 10ª colocada do último ano
+    // Slot 1 de Terça
     slots.push({
       id: 'especial_terca_1',
       division: 'especial',
       day: 'terca',
       dayLabel: 'Terça-Feira de Carnaval',
       order: 1,
-      schoolId: tenthSchool.id,
-      schoolName: tenthSchool.name,
-      reason: '10ª colocada no último Carnaval do Especial • Abre a 3ª noite (Terça-Feira) por regulamento',
+      schoolId: tercaOpener.id,
+      schoolName: tercaOpener.name,
+      reason: tercaReason,
       isFixedRule: true,
       ballLabel: 'Bola Branca #1 (Abertura Terça)',
       drawOrder: 3
     });
 
-    // Demais 9 escolas restantes do Grupo Especial
+    // Demais escolas restantes do Grupo Especial (9 a 12 agremiações, conforme ampliação 12 -> 15)
     const remainingSchools = especialSchools.filter(
-      (s) => s.id !== promotedSchool.id && s.id !== eleventhSchool.id && s.id !== tenthSchool.id
+      (s) => s.id !== domingoOpener.id && s.id !== segundaOpener.id && s.id !== tercaOpener.id
     );
     const shuffled = this.shuffle(remainingSchools);
 
@@ -323,39 +405,59 @@ export class SorteioEngine {
       drawOrder: 2
     });
 
-    // Identificar a Vice-Campeã da Série Ouro no último ano (escolhe sua posição)
-    let ouroViceId: string | undefined;
+    // Identificar a melhor colocada remanescente da Série Ouro no último ano (escolhe sua posição)
+    // Regra normal: Vice-Campeã (2ª colocada). Durante a transição 2027-2029 em que a Vice também sobe ao Especial,
+    // a prerrogativa passa para a 3ª colocada (melhor escola remanescente da Série Ouro).
+    const totalSchools = ouroSchools.length;
+    const sextaCount = Math.floor(totalSchools / 2);
+    const sabadoCount = Math.ceil(totalSchools / 2);
+
+    let ouroChoiceSchoolId: string | undefined;
+    let ouroChoiceRankLabel = 'Vice-Campeã da Série Ouro no ano anterior';
     if (prevHistory?.ouroStandings && prevHistory.ouroStandings.length >= 2) {
-      const viceEntry = prevHistory.ouroStandings.find((s) => s.rank === 2);
-      if (viceEntry?.schoolId && ouroSchools.some((s) => s.id === viceEntry.schoolId)) {
-        ouroViceId = viceEntry.schoolId;
+      const sortedOuroPrev = [...prevHistory.ouroStandings].sort((a, b) => a.rank - b.rank);
+      const bestRemaining = sortedOuroPrev.find(
+        (entry) =>
+          entry.rank >= 2 &&
+          entry.schoolId &&
+          entry.schoolId !== sextaOpenerId &&
+          entry.schoolId !== sabadoOpenerId &&
+          ouroSchools.some((s) => s.id === entry.schoolId)
+      );
+      if (bestRemaining?.schoolId) {
+        ouroChoiceSchoolId = bestRemaining.schoolId;
+        ouroChoiceRankLabel =
+          bestRemaining.rank === 2
+            ? 'Vice-Campeã da Série Ouro no ano anterior'
+            : `${bestRemaining.rank}ª colocada da Série Ouro no ano anterior (melhor remanescente)`;
       }
     }
-    if (!ouroViceId || ouroViceId === sextaOpenerId || ouroViceId === sabadoOpenerId) {
+    if (!ouroChoiceSchoolId || ouroChoiceSchoolId === sextaOpenerId || ouroChoiceSchoolId === sabadoOpenerId) {
       const candidates = ouroSchools.filter(
         (s) => s.id !== sextaOpenerId && s.id !== sabadoOpenerId
       );
-      ouroViceId = candidates[0]?.id;
+      ouroChoiceSchoolId = candidates[0]?.id;
     }
 
-    const ouroViceSchool = ouroSchools.find((s) => s.id === ouroViceId);
+    const ouroChoiceSchool = ouroSchools.find((s) => s.id === ouroChoiceSchoolId);
 
-    // Definir slot da Vice-Campeã da Ouro
+    // Definir slot da escola com prerrogativa de escolha na Ouro
     let viceDay: ParadeDay = 'sabado';
-    let viceOrder = 7; // Posição nobre (penúltima de sábado)
+    let viceOrder = Math.max(2, Math.min(7, sabadoCount - 1)); // Posição nobre (penúltima de sábado)
+    const maxOrderForChoice = userChoice?.day === 'sexta' ? sextaCount : sabadoCount;
     if (
       userChoice &&
-      ouroViceSchool &&
-      userChoice.schoolId === ouroViceSchool.id &&
+      ouroChoiceSchool &&
+      userChoice.schoolId === ouroChoiceSchool.id &&
       (userChoice.day === 'sexta' || userChoice.day === 'sabado') &&
       userChoice.order >= 2 &&
-      userChoice.order <= 8
+      userChoice.order <= maxOrderForChoice
     ) {
       viceDay = userChoice.day;
       viceOrder = userChoice.order;
     }
 
-    if (ouroViceSchool) {
+    if (ouroChoiceSchool) {
       const viceColorName = viceDay === 'sexta' ? 'Azul' : 'Branca';
       slots.push({
         id: `ouro_${viceDay}_${viceOrder}`,
@@ -363,9 +465,9 @@ export class SorteioEngine {
         day: viceDay,
         dayLabel: viceDay === 'sexta' ? 'Sexta-Feira de Carnaval' : 'Sábado de Carnaval',
         order: viceOrder,
-        schoolId: ouroViceSchool.id,
-        schoolName: ouroViceSchool.name,
-        reason: 'Vice-Campeã da Série Ouro no ano anterior • Escolha estatutária de dia e posição',
+        schoolId: ouroChoiceSchool.id,
+        schoolName: ouroChoiceSchool.name,
+        reason: `${ouroChoiceRankLabel} • Escolha estatutária de dia e posição`,
         chosenBySchool: true,
         ballLabel: `Bola ${viceColorName} #${viceOrder} (${viceDay === 'sexta' ? 'Sexta' : 'Sábado'})`,
         drawOrder: 3
@@ -377,10 +479,6 @@ export class SorteioEngine {
     // - Se o total de escolas for ímpar: 1ª noite (Sexta) tem 1 escola a menos, 2ª noite (Sábado) tem 1 a mais.
     //   Exemplo: 17 escolas -> 8 na Sexta, 9 no Sábado.
     // - Se for par: divide por igual nas duas noites (ex: 16 -> 8 e 8, 14 -> 7 e 7).
-    const totalSchools = ouroSchools.length;
-    const sextaCount = Math.floor(totalSchools / 2);
-    const sabadoCount = Math.ceil(totalSchools / 2);
-
     const assignedIds = new Set(slots.map((s) => s.schoolId));
     const assignedSlotKeys = new Set(slots.map((s) => `${s.day}_${s.order}`));
 
